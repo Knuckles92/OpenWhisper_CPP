@@ -6,8 +6,8 @@ namespace fv {
 
 class Button;
 
-// The "New in FioriVoce" note at the top of Settings > Home (settings_home.py _build_intro): an
-// intro tile (kind "intro", tileId "whatsNew") with the current appcore::whats_new() text and a
+// The "New in OpenWhisper_CPP" note at the top of Settings > Home (settings_home.py _build_intro):
+// an intro tile (kind "intro", tileId "whatsNew") with the current appcore::whats_new() text and a
 // "Got it" button. Home shows it until the note's `updated` date is saved as whats_new_seen.
 // Affinity: GUI thread.
 class WhatsNewTile : public InfoTile {

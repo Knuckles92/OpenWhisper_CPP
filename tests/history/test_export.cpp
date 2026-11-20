@@ -330,5 +330,5 @@ TEST_CASE("per-entry files get the permissions of Python's open", "[history_expo
 #endif
 
 TEST_CASE("the default export file is named after the product", "[history_export]") {
-    CHECK(history::default_export_file_stem() == "fiorivoce_history");
+    CHECK(history::default_export_file_stem() == "openwhisper_cpp_history");
 }

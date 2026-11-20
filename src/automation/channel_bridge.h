@@ -12,7 +12,7 @@
 #include "base/env.h"
 #include "base/json.h"
 
-// fiorivoce-cli --channel: a Claude Code channel fed by the running app
+// openwhisper-cpp-cli --channel: a Claude Code channel fed by the running app
 // (services/automation/channel_bridge.py). Claude Code starts it as a stdio MCP server
 // (https://code.claude.com/docs/en/channels-reference). It declares the claude/channel
 // capability, follows the app's channel messages (channel_link.h) and turns each into a

@@ -5,7 +5,7 @@
     resolve_typesafe_voice_command_names(settings)  services/settings.py, as a list
 
 `settings` is a settings mapping. OpenWhisper's defaults include its own wake names; the replay
-passes legacy_identity() as the source of the defaults (FioriVoce's defaults are identity()'s).
+passes legacy_identity() as the source of the defaults (OpenWhisper_CPP's defaults are identity()'s).
 """
 
 _KEY = "typesafe_voice_command_names"

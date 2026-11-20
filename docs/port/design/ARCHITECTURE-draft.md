@@ -1,14 +1,14 @@
-# FioriVoce parity port: architecture (merged draft)
+# OpenWhisper_CPP parity port: architecture (merged draft)
 
 This is the architecture for porting OpenWhisper 2.8.92 (Python 3.12 and PyQt6, at
-`D:\coding\whisper_local`) to FioriVoce (C++20 and Qt 6 Widgets) with full feature parity. Work
+`D:\coding\whisper_local`) to OpenWhisper_CPP (C++20 and Qt 6 Widgets) with full feature parity. Work
 packages are built from it by worker agents who cannot ask questions. Every name it gives is
 therefore binding: when it names a target, a directory, a class or a header, a work package uses
 exactly that name. Section 13 lists every decision that was contested, the options, and the reason
 for the choice.
 
 Inputs: the 34 area maps in `docs/port/map` and `docs/port/map-summaries.json` (about 205k
-estimated C++ lines), `docs/port/areas.json`, the Python source, the FioriVoce tree at `4fbe53d`,
+estimated C++ lines), `docs/port/areas.json`, the Python source, the OpenWhisper_CPP tree at `4fbe53d`,
 the vcpkg ports at baseline `4702e381`, and the owner's decisions and working assumptions. Where a
 working assumption decides the design, the text says so and section 12 lists what a different
 answer would change.
@@ -46,7 +46,7 @@ answer would change.
 8. **One owner thread per scarce resource.** The NeMo runtime, each audio device, the keyboard
    hook and the GUI each have one owning thread; everything else posts to it. *Why:* it satisfies
    CLAUDE.md's one-thread rule by construction and replaces Python's lock webs with explicit order.
-9. **Formats are OpenWhisper's, names are FioriVoce's.** Settings keys, database schema, backup
+9. **Formats are OpenWhisper's, names are OpenWhisper_CPP's.** Settings keys, database schema, backup
    layout and the remote-engine wire stay OpenWhisper's; product name, data folder, credential
    service and environment variables come from one `AppIdentity`. *Why:* import is a mapping, not
    a migration, and no worker ever chooses a name.
@@ -64,9 +64,9 @@ answer would change.
 CMakeLists.txt            frozen after M0; globs src/*/CMakeLists.txt and tests/*/CMakeLists.txt
 CMakePresets.json         frozen after M0
 vcpkg.json                frozen after M0 (every dependency added at once)
-cmake/                    FioriVoceModules.cmake (fv_module, fv_test, fv_feature, fv_embed,
-                          registry generation), FioriVoceDeps.cmake (every find_package),
-                          FioriVoceWarnings.cmake, FioriVoceQt.cmake, pch/{core.h,qt.h}
+cmake/                    OpenWhisper_CPPModules.cmake (fv_module, fv_test, fv_feature, fv_embed,
+                          registry generation), OpenWhisper_CPPDeps.cmake (every find_package),
+                          OpenWhisper_CPPWarnings.cmake, OpenWhisper_CPPQt.cmake, pch/{core.h,qt.h}
 src/<dir>/                one target fv_<dir>; public headers at the top level
 src/<dir>/detail/         private headers and sources; other libraries never include them
 src/<dir>/win/            Windows-only sources (compiled when WIN32)
@@ -74,9 +74,9 @@ src/<dir>/posix/          stubs that throw "not supported on this platform" (com
 src/<dir>/testing/        fakes for the interfaces this directory defines
 src/<dir>/resources/      qrc content (ui_* directories only)
 src/<dir>/data/           JSON tables generated from the Python source, embedded with fv_embed
-src/app/                  fiorivoce.exe: main.cpp only
-src/cli/                  fiorivoce-cli.exe (Qt-free)
-src/updater/              fiorivoce-updater.exe (M10)
+src/app/                  openwhisper-cpp.exe: main.cpp only
+src/cli/                  openwhisper-cpp-cli.exe (Qt-free)
+src/updater/              openwhisper-cpp-updater.exe (M10)
 tests/<dir>/              fv_<dir>_tests (Catch2), CTest label <dir>, PARITY.json
 tests/support/            fv_testkit, fv_golden, fv_screenshot
 tests/golden/<python.module>.json                 committed golden vectors
@@ -190,9 +190,9 @@ Widgets (kind `ui`, or `feature` where marked):
 | `fv_ui_meeting` (feature) | src/ui_meeting | a31 tab, past meetings, dialogs, After End and Fast judgments pages |
 | `fv_ui_remote` (feature) | src/ui_remote | a18 Remote page, pair dialog, Host Mode dashboard |
 
-Executables: `fiorivoce` (src/app, GUI subsystem, links every feature, `--self-test-gui`),
-`fiorivoce-cli` (src/cli, console, Qt-free: `--version`, `--diagnostics`, `--self-test`, `--api`,
-`--channel`, `transcribe`), `fiorivoce-updater` (src/updater, Qt-free, static CRT, M10). Test
+Executables: `openwhisper-cpp` (src/app, GUI subsystem, links every feature, `--self-test-gui`),
+`openwhisper-cpp-cli` (src/cli, console, Qt-free: `--version`, `--diagnostics`, `--self-test`, `--api`,
+`--channel`, `transcribe`), `openwhisper-cpp-updater` (src/updater, Qt-free, static CRT, M10). Test
 support: `fv_testkit` (temporary data root, `FakeClock`, `ManualExecutor`, offscreen
 `QApplication` main for Catch2), `fv_golden` (vector loader and comparators), `fv_screenshot`
 (tree compare, pixel compare, diff image).
@@ -247,23 +247,23 @@ it and may add members, never change these. Each interface ships a fake in `<dir
 
 ```cpp
 namespace fv {
-// Every name that differs between FioriVoce and OpenWhisper. Nothing else in the tree spells
+// Every name that differs between OpenWhisper_CPP and OpenWhisper. Nothing else in the tree spells
 // either product name, except remote/wire.h (protocol constants) and user-visible copy.
 struct AppIdentity {
-    std::string_view product;             // "FioriVoce"
-    std::string_view data_dir_name;       // "FioriVoce"
-    std::string_view env_prefix;          // "FIORIVOCE_"  (FIORIVOCE_DATA_DIR, ..._LOG_LEVEL)
-    std::string_view settings_file;       // "fiorivoce_settings.json"
-    std::string_view database_file;       // "fiorivoce.db"
-    std::string_view log_file;            // "fiorivoce.log"
-    std::string_view lease_file;          // ".fiorivoce-data.lock"
-    std::string_view restore_dir;         // ".fiorivoce-restore"
-    std::string_view credential_service;  // "FioriVoce"
-    std::string_view backup_format;       // "fiorivoce-backup"
+    std::string_view product;             // "OpenWhisper_CPP"
+    std::string_view data_dir_name;       // "OpenWhisper_CPP"
+    std::string_view env_prefix;          // "OPENWHISPER_CPP_"  (OPENWHISPER_CPP_DATA_DIR, ..._LOG_LEVEL)
+    std::string_view settings_file;       // "openwhisper_cpp_settings.json"
+    std::string_view database_file;       // "openwhisper-cpp.db"
+    std::string_view log_file;            // "openwhisper-cpp.log"
+    std::string_view lease_file;          // ".openwhisper-cpp-data.lock"
+    std::string_view restore_dir;         // ".openwhisper-cpp-restore"
+    std::string_view credential_service;  // "OpenWhisper_CPP"
+    std::string_view backup_format;       // "openwhisper-cpp-backup"
     std::string_view backup_extension;    // ".fvbackup"
-    std::string_view instance_key_prefix; // "fiorivoce-ui"
+    std::string_view instance_key_prefix; // "openwhisper-cpp-ui"
 };
-const AppIdentity& identity();            // FioriVoce
+const AppIdentity& identity();            // OpenWhisper_CPP
 const AppIdentity& legacy_identity();     // OpenWhisper: import and .owbackup reading only
 
 class EnvReader { public: virtual ~EnvReader() = default;
@@ -271,8 +271,8 @@ class EnvReader { public: virtual ~EnvReader() = default;
 
 class Paths {
 public:
-    static Paths resolve(const AppIdentity&, const EnvReader&);   // FIORIVOCE_DATA_DIR wins
-    const std::filesystem::path& data_root() const;              // %LOCALAPPDATA%\FioriVoce
+    static Paths resolve(const AppIdentity&, const EnvReader&);   // OPENWHISPER_CPP_DATA_DIR wins
+    const std::filesystem::path& data_root() const;              // %LOCALAPPDATA%\OpenWhisper_CPP
     std::filesystem::path local_app_dir() const;
     std::filesystem::path components_root() const;               // <local_app_dir>/components
     std::filesystem::path speech_models_root() const;
@@ -848,7 +848,7 @@ OpenWhisper uses two different resamplers, and parity needs both:
   through PyAV's `AudioResampler(format="s16", layout="mono", rate=16000)`, which is FFmpeg's
   swresample, then `WindowSplitter` (30 s maximum, cut after the quietest 0.1 s block past 24 s).
   `local_asr/audio.py` says incremental dictation "relies on matching `windows()` bit for bit".
-  FioriVoce uses `audio::Resampler16k` on swresample for this path, never `fft_resample`.
+  OpenWhisper_CPP uses `audio::Resampler16k` on swresample for this path, never `fft_resample`.
 - **Previews, meeting ASR chunks, meeting spool and diarization** go through `fft_resample`
   (numpy's pocketfft, `streaming_transcriber.py`), ported in `fv_dsp` on the vcpkg `pocketfft`
   header.
@@ -919,7 +919,7 @@ all submit to the same `SpeechService`.
   load fixes the runtime for the process.
 - **Switching the runtime** (CPU build to CUDA build, or an update or removal of the loaded
   runtime's component) is saved as `fv_speech_runtime` and applied at the next start, with
-  "Restart FioriVoce to switch to the GPU runtime." The component store refuses to touch the
+  "Restart OpenWhisper_CPP to switch to the GPU runtime." The component store refuses to touch the
   loaded runtime's directory and stages the change; a14's startup recovery settles it before any
   load. The CPU-or-GPU *device* choice inside the CUDA build needs no restart.
 - **Models and devices** within a runtime: the `Recognizer` is destroyed and recreated on
@@ -975,17 +975,17 @@ kissfft, miniaudio.
 
 ## 7. Data and identity
 
-### 7.1 Folder layout (`%LOCALAPPDATA%\FioriVoce`, or `FIORIVOCE_DATA_DIR`)
+### 7.1 Folder layout (`%LOCALAPPDATA%\OpenWhisper_CPP`, or `OPENWHISPER_CPP_DATA_DIR`)
 
 ```
-fiorivoce_settings.json          OpenWhisper's keys and JSON shape (indent 2, insertion order)
-fiorivoce.db (-wal, -shm)        OpenWhisper schema v18, unchanged, plus fv_* tables
+openwhisper_cpp_settings.json          OpenWhisper's keys and JSON shape (indent 2, insertion order)
+openwhisper-cpp.db (-wal, -shm)        OpenWhisper schema v18, unchanged, plus fv_* tables
 recorded_audio.wav  .recorded_audio-recovery\<32hex>\{active.lock,session.json,audio.pcm,discarded}
 recordings\  meetings\<id>\  captures\  remote_records\
 scratchpad.txt  mcp_event_subscriptions.json  backup-preferences.json  .env
-fiorivoce.log(.1-.3)  fiorivoce.crash.log  crashes\*.dmp
+openwhisper-cpp.log(.1-.3)  openwhisper-cpp.crash.log  crashes\*.dmp
 diagnostic-failures.json  diagnostic-metrics.json
-.fiorivoce-data.lock  .fiorivoce-restore\{pending.json, journal.json, stage-*, previous-*}
+.openwhisper-cpp-data.lock  .openwhisper-cpp-restore\{pending.json, journal.json, stage-*, previous-*}
 components\<id>\{manifest.json, .installed, ...}  components\.cache  components\.staging
 speech-models\<key>\{installed.json, *.gguf}
 models\speaker-id\voxceleb_resnet34_LM.onnx
@@ -994,9 +994,9 @@ updates\  tls\
 
 Every name without the product in it is OpenWhisper's, unchanged. Formats inside are
 OpenWhisper's byte for byte where tests or the importer care: journal `session.json`, WAV `LIST`
-and `bext` tags (with `ISFT` and originator "FioriVoce"), component manifests and sentinels,
+and `bext` tags (with `ISFT` and originator "OpenWhisper_CPP"), component manifests and sentinels,
 `installed.json`, walkthrough manifests (Python float `repr`, ISO offsets), meeting spool
-sidecars. Install folder: `%LOCALAPPDATA%\Programs\FioriVoce`.
+sidecars. Install folder: `%LOCALAPPDATA%\Programs\OpenWhisper_CPP`.
 
 ### 7.2 Settings format
 
@@ -1005,7 +1005,7 @@ their exact kinds and fallback rules. Keys that served only dropped engines (`wh
 `custom_whisper_models`, `meeting_whisper_model`, …) stay declared with `dropped = true`: they are
 preserved on rewrite and never read or shown, so an imported file round-trips. `selected_model`
 accepts `parakeet`, `api` and `remote`; any other stored value reads as the default `parakeet`,
-as `ChoiceSetting` already does. FioriVoce-only keys carry the prefix `fv_` so they can never
+as `ChoiceSetting` already does. OpenWhisper_CPP-only keys carry the prefix `fv_` so they can never
 collide with a future OpenWhisper key: `fv_speech_runtime` (cpu, cuda), `fv_runtime_dir` (explicit
 override), `fv_import` (`{source, at, version}`). Today's `QSettings` `engine/*` entries are
 dropped.
@@ -1017,7 +1017,7 @@ tables, `AUTOINCREMENT`, FTS5 external-content tables and triggers, the
 `meeting_segment_delivery` trigger, timestamp string formats, booleans as 0 and 1. Migrations v6
 to v18 are ported so any OpenWhisper database opens; OpenWhisper's v5 and v17 fixture files
 replay them. A golden test compares `sqlite_master` of a fresh C++ database with one OpenWhisper
-made. FioriVoce never alters these tables or bumps `schema_version`. FioriVoce-only data goes in
+made. OpenWhisper_CPP never alters these tables or bumps `schema_version`. OpenWhisper_CPP-only data goes in
 tables prefixed `fv_`, with their own `fv_schema_version` table; import ignores them and backup
 carries them.
 
@@ -1025,9 +1025,9 @@ carries them.
 
 `.fvbackup` has OpenWhisper's layout and validation rules (manifest JSON compact, `data/<owned
 path>` members, Zip64, checksums, `PATH_MARKER = "__OW_BACKUP_DATA__/"` kept as a format
-constant), with format id `fiorivoce-backup` version 1 and members named from `identity()`
-(`data/fiorivoce_settings.json`, `data/fiorivoce.db`). The reader accepts both
-`fiorivoce-backup` and `openwhisper-backup`, mapping member names through `legacy_identity()`.
+constant), with format id `openwhisper-cpp-backup` version 1 and members named from `identity()`
+(`data/openwhisper_cpp_settings.json`, `data/openwhisper-cpp.db`). The reader accepts both
+`openwhisper-cpp-backup` and `openwhisper-backup`, mapping member names through `legacy_identity()`.
 OpenWhisper cannot read a `.fvbackup`: its validator requires `data/openwhisper_settings.json`
 and `data/openwhisper.db`.
 
@@ -1042,16 +1042,16 @@ guided setup and by Settings > Backup:
    whole staging. A running OpenWhisper holds it shared, so failure means it is running, and the
    user is asked to close it. While staging, OpenWhisper cannot start.
 3. **Stage** with `backup::stage_from_data_root(legacy_identity(), source, identity())` straight
-   into `.fiorivoce-restore/stage-*` (no zip): SQLite online backup of `openwhisper.db` as
-   `fiorivoce.db`; settings parsed through the key table and mapped (`selected_model`, unknown
+   into `.openwhisper-cpp-restore/stage-*` (no zip): SQLite online backup of `openwhisper.db` as
+   `openwhisper-cpp.db`; settings parsed through the key table and mapped (`selected_model`, unknown
    keys kept); recordings, meetings, captures, scratchpad and recovery journals hard-linked on the
    same volume, copied otherwise; meeting `spool_dir` and absolute history paths rebased by the
    existing restore code.
 4. **Credentials**, after the user ticks "Copy API keys": every name OpenWhisper's code reads
    (`OPENAI_API_KEY`, `OPENROUTER_API_KEY`, `GROQ_API_KEY`, `OPENCODE_*`, `TYPESAFE_API_KEY`, MCP
    token, event and webhook secrets, remote-engine token) is read from service `OpenWhisper` and
-   written under `FioriVoce`; `OPENWHISPER_*` names become `FIORIVOCE_*`.
-5. **Apply** at restart (exit code 73) under FioriVoce's exclusive lease, with the existing
+   written under `OpenWhisper_CPP`; `OPENWHISPER_*` names become `OPENWHISPER_CPP_*`.
+5. **Apply** at restart (exit code 73) under OpenWhisper_CPP's exclusive lease, with the existing
    journal and rollback. Record `fv_import`. Import is one-way and repeatable.
 
 A `.owbackup` file goes through the normal restore page with the same mapping.
@@ -1060,15 +1060,15 @@ A `.owbackup` file goes through the normal restore page with the same mapping.
 
 Only downloaded speech runtimes and models, and only at adoption. `models::discover_openwhisper`
 lists OpenWhisper's `components\` and `speech-models\`; a tree is accepted when its sentinel,
-manifest and `installed.json` validate and the catalog's SHA-256 matches. On first use FioriVoce
+manifest and `installed.json` validate and the catalog's SHA-256 matches. On first use OpenWhisper_CPP
 hard-links the files into its own folders (copies across volumes), skipping the embedded Python
 files of OpenWhisper's runtime component, and loads from its own path. A loaded hard link does
 not stop OpenWhisper deleting its own link, so OpenWhisper's swap and rollback keep working.
-FioriVoce never writes into OpenWhisper's folders. Settings, database, credentials, logs, locks
+OpenWhisper_CPP never writes into OpenWhisper's folders. Settings, database, credentials, logs, locks
 and mutex names all differ. The remote engine shares nothing on disk; it speaks the OpenWhisper
 wire (`wss://host:47821/openwhisper/v1/engine`, `OWHISPER?1` discovery, SAS strings) from
 `remote/wire.h`, which is deliberately independent of `AppIdentity`. The MCP server name, client
-header, event types and dashboard storage keys become FioriVoce's.
+header, event types and dashboard storage keys become OpenWhisper_CPP's.
 
 ---
 
@@ -1093,7 +1093,7 @@ unresolved, never thrown from a style path. "Match system" follows
 `QStyleHints::colorScheme` and sets it with `setColorScheme`. The base style is `windows11`, set
 after `QApplication` exists, wrapped by `SnappyTooltipStyle`. Painted widgets (progress bars,
 switches, overlays, charts) read a typed `Theme` struct of `QColor`s instead of parsing token
-strings per paint. FioriVoce-only rules go in `src/<dir>/resources/<dir>.qss`, appended in sorted
+strings per paint. OpenWhisper_CPP-only rules go in `src/<dir>/resources/<dir>.qss`, appended in sorted
 directory order; `theme.qss` is never edited.
 
 **Qt floor 6.8 LTS.** `setColorScheme` needs 6.8 and the `windows11` style that the references
@@ -1151,7 +1151,7 @@ Hotkey capture fields live in `fv_ui_hotkeys`.
   no C++ file and is not on `tools/lint/qss_unused.txt` (the allowlist of unported features, which
   shrinks each milestone); `check_style_props.py` fails on a raw `setProperty` or `setStyleSheet`
   in `ui_*` directories or a property name not in `style_props.h`.
-- The top-level-window property `openwhisperHotkeyWindow` becomes `fiorivoceHotkeyWindow`
+- The top-level-window property `openwhisperHotkeyWindow` becomes `openwhisperCppHotkeyWindow`
   (internal).
 
 ### 8.5 Wiring controllers and widgets
@@ -1183,7 +1183,7 @@ catalogs, model and component rows, meeting prompts, keyboard names) is generate
 source into `src/<dir>/data/*.json` and embedded. `tools/lint/check_brand.py` rejects the literal
 "OpenWhisper" outside `base/identity.cpp`, `backup/import*`, `remote/wire.h` and tests. No `tr()`:
 OpenWhisper is English-only. The webui is rebranded in its source (page title, missing-bundle
-notice, `openwhisper.meeting.*` storage keys to `fiorivoce.meeting.*`) and rebuilt with Node at
+notice, `openwhisper.meeting.*` storage keys to `openwhisper-cpp.meeting.*`) and rebuilt with Node at
 development time; `webui/dist` is committed and served from the install folder.
 
 ---
@@ -1194,12 +1194,12 @@ development time; `webui/dist` is committed and served from the install folder.
 
 - `tests/<dir>/` builds `fv_<dir>_tests` (Catch2) linked against `fv_<dir>` and `fv_testkit`,
   discovered with `catch_discover_tests`, labelled `<dir>` plus kind labels: `unit`, `golden`,
-  `widget`, `screenshot`, `decode`, `platform`. `decode` tests need `FIORIVOCE_TEST_RUNTIME_DIR`,
-  `FIORIVOCE_TEST_MODEL` and `FIORIVOCE_TEST_WAV`; `platform` tests touch real hooks or devices
+  `widget`, `screenshot`, `decode`, `platform`. `decode` tests need `OPENWHISPER_CPP_TEST_RUNTIME_DIR`,
+  `OPENWHISPER_CPP_TEST_MODEL` and `OPENWHISPER_CPP_TEST_WAV`; `platform` tests touch real hooks or devices
   and are skipped in CI.
 - Widget tests use `fv_testkit`'s Qt main: an offscreen `QApplication` with pinned fonts, DPI and
   base style. CTest sets the environment (`QT_QPA_PLATFORM=offscreen`, `QT_PLUGIN_PATH`,
-  `QT_QPA_FONTDIR`, `FIORIVOCE_DATA_DIR` per test), so no test puts a dialog on the screen.
+  `QT_QPA_FONTDIR`, `OPENWHISPER_CPP_DATA_DIR` per test), so no test puts a dialog on the screen.
 - Test names keep OpenWhisper's: `TEST_CASE("repeat stop keeps the first deadline",
   "[test_recorder_postroll]")` with `// from tests/test_recorder_postroll.py::test_...`.
   Parametrized tests use `GENERATE` over the same tables.
@@ -1253,7 +1253,7 @@ recorded Qt kit; on another kit they skip with a message, and the tree compariso
 `record_transcripts.py`, `parity_report.py`, `classification.json` and `reference.json` (the
 OpenWhisper commit and Python path). The C++ replay code from `replay/` becomes `fv_golden` and
 `fv_screenshot` in `tests/support/`. Generated data goes to `tests/golden` and `tests/reference`
-when committed, else to `out/parity`. Environment: `FIORIVOCE_OW_ROOT` and `FIORIVOCE_OW_PYTHON`.
+when committed, else to `out/parity`. Environment: `OPENWHISPER_CPP_OW_ROOT` and `OPENWHISPER_CPP_OW_PYTHON`.
 Scripts never write into the OpenWhisper checkout (a33's isolation recipe).
 `tools/parity/README.md` gives the commands.
 
@@ -1261,7 +1261,7 @@ Scripts never write into the OpenWhisper checkout (a33's isolation recipe).
 
 1. From the merge result on the wave's integration branch, `cmake --workflow --preset
    windows-ci` passes: configure, build with warnings as errors on our targets, every test.
-2. `decode` tests run with the `FIORIVOCE_TEST_*` variables when the package touched `src/engine`
+2. `decode` tests run with the `OPENWHISPER_CPP_TEST_*` variables when the package touched `src/engine`
    or `src/speech`.
 3. The core libraries it touched build and pass on `linux-core` (run per wave in WSL Ubuntu).
 4. `clang-format --dry-run -Werror` is clean; `lint.layering`, `lint.ownership` (every changed
@@ -1280,7 +1280,7 @@ Scripts never write into the OpenWhisper checkout (a33's isolation recipe).
 
 ### 10.1 Module discovery
 
-`cmake/FioriVoceModules.cmake` (frozen after M0.1) defines the only functions a package calls.
+`cmake/OpenWhisper_CPPModules.cmake` (frozen after M0.1) defines the only functions a package calls.
 Each `src/<dir>/CMakeLists.txt` is one call, owned by the directory's package:
 
 ```cmake
@@ -1300,7 +1300,7 @@ fv_module(KIND core
   (`cmake_language(DEFER CALL ...)`) fails configure when a `core` module depends on a non-core
   one or links a `Qt6::` target.
 - `fv_feature(ID ... CLASS ...)` appends to a global property; at the end of configure
-  `file(GENERATE)` writes `generated/registry.cpp`, compiled into `fiorivoce`. `fv_embed(...)`
+  `file(GENERATE)` writes `generated/registry.cpp`, compiled into `openwhisper-cpp`. `fv_embed(...)`
   turns `data/*.json` into a constexpr table.
 - `fv_test(DEPS fv_testkit fv_golden)` in `tests/<dir>/CMakeLists.txt` builds `fv_<dir>_tests`,
   labels it and sets the environment.
@@ -1339,11 +1339,11 @@ pre-builds every port once, so a fresh worktree restores FFmpeg, Boost and OpenS
 
 ### 10.4 Presets
 
-Keep `default` (no vcpkg, FetchContent Catch2, builds only `fv_engine`, `fiorivoce-cli`'s engine
+Keep `default` (no vcpkg, FetchContent Catch2, builds only `fv_engine`, `openwhisper-cpp-cli`'s engine
 smoke path and their tests, as CLAUDE.md's commands expect), `windows`, `linux`, `linux-asan` and
 the workflow presets. Add `windows-ci` (RelWithDebInfo, warnings as errors, lints as tests,
-screenshot tests on), `windows-core` (`FIORIVOCE_BUILD_APP=OFF`, cores and their tests only, the
-fastest loop for core packages), `linux-core` (`FIORIVOCE_BUILD_APP=OFF`, every `core` module and
+screenshot tests on), `windows-core` (`OPENWHISPER_CPP_BUILD_APP=OFF`, cores and their tests only, the
+fastest loop for core packages), `linux-core` (`OPENWHISPER_CPP_BUILD_APP=OFF`, every `core` module and
 its tests with GCC), a `parity` test preset (labels `golden` and `screenshot`, pinned environment),
 and matching workflow presets.
 
@@ -1355,17 +1355,17 @@ Every milestone ends in an app that starts, runs and can be demonstrated, with t
 
 | M | Name | Areas | Demo |
 |---|---|---|---|
-| M0 | Foundation | a01 core and shell frame, a02 theme pipeline and leaf widgets, a10 settings and credentials, a33 harness, a34 build | Splash, then the themed frameless main window (title bar, menus, footer, four lazy tabs), tray, close to tray, single instance; settings and logs in `%LOCALAPPDATA%\FioriVoce`; the dev Upload tab still transcribes a WAV through today's `EngineWorker`; `fiorivoce-cli --version` and `--diagnostics`; title bar, footer and EmptyState pass screenshot parity |
+| M0 | Foundation | a01 core and shell frame, a02 theme pipeline and leaf widgets, a10 settings and credentials, a33 harness, a34 build | Splash, then the themed frameless main window (title bar, menus, footer, four lazy tabs), tray, close to tray, single instance; settings and logs in `%LOCALAPPDATA%\OpenWhisper_CPP`; the dev Upload tab still transcribes a WAV through today's `EngineWorker`; `openwhisper-cpp-cli --version` and `--diagnostics`; title bar, footer and EmptyState pass screenshot parity |
 | M1 | Dictation | a03 core and controller, a04 transcription and hotkey runtimes, a05 recorder, devices and WAV, a06 Windows hooks, paste and focus, a07 overlay (Bars, Classic), a08 Quick Record, a09 database, history core and sidebar, a14 catalog, store and speech service | Press `kp *` in Notepad, speak, the Bars overlay reacts, press again: Parakeet text is pasted, appears in Quick Record and the History sidebar and plays back; runtime and model adopted from an OpenWhisper install or picked once |
 | M2 | Everyday | a05 rest (preview, incremental, splitting), a08 rest (Upload, batch, scratchpad, viewer), a09 rest (entry dialog, export, calendar, Stats), a11 (shell and General, Recording, Appearance, Hotkeys, API keys pages), a14 rest (downloads, consent, GPU, cloud backend), a15, a16 guided setup, a06 rest (Hotkeys page, mouse buttons), a07 rest (all looks, moments) | Live preview while dictating; long incremental dictation; batch upload locally and through Groq; calendar, export and Stats; download the CUDA runtime and a model from Downloads; first-run guided setup |
 | M3 | Data safety and release | a10 backup, restore, schedule, OpenWhisper import; a16 update check and setup-exe update; a34 Inno installer, signing, CI | Install with the Inno setup, import an OpenWhisper data folder, back up and restore, update to a newer build |
 | M4 | Text AI and personalization | a12, a13, Command Mode and transforms (a04), a11 remaining pages | AI cleanup with profiles and levels, dictionary, snippets, app styles, Command Mode, transforms, learned rules |
-| M5 | Automation, agents and MCP | a19, a20, a21, installed agents and process ownership, `--api`, `--channel` | "Route by voice" to a webhook; hooks; live API with SSE; Claude Code reads history over MCP and the channel; `fiorivoce-cli --api` |
+| M5 | Automation, agents and MCP | a19, a20, a21, installed agents and process ownership, `--api`, `--channel` | "Route by voice" to a webhook; hooks; live API with SSE; Claude Code reads history over MCP and the channel; `openwhisper-cpp-cli --api` |
 | M6 | Walkthroughs | a22, a23, a04 walkthrough runtime, documents, Auto Mode | Record a walkthrough with Snap and live drawing, review the storyboard, export PDF, Word and Markdown, AI write-up through Claude Code |
 | M7 | Meetings | a24, a25 (mic and WASAPI loopback, ASR, diarization), a28, a30 server and webui, a31, a04 meeting runtime, transcript-only parts of a29 | A meeting with mic and system audio, live captions in the browser dashboard and on a guest's phone, speaker labels, exports, kill and recover, past meetings |
 | M8 | Meeting intelligence | a26, a27 native agent loop, a29 rest (reports, review, live signals, voice commands, knowledge folder), a12 TypeSafe and judge | Live insights and a final report through OpenRouter; a report through an installed agent; voice commands in a meeting |
-| M9 | Remote engine | a17, a18, Host Mode in a01 | FioriVoce dictates through an OpenWhisper host and serves an OpenWhisper client |
-| M10 | Native updater and parity sweep | a16 transactional updater (`fiorivoce-updater`), a34 rest, parity report at 100 % for kept features, performance budgets | A signed release updates itself, rolls back after a forced failure, and passes the health gate |
+| M9 | Remote engine | a17, a18, Host Mode in a01 | OpenWhisper_CPP dictates through an OpenWhisper host and serves an OpenWhisper client |
+| M10 | Native updater and parity sweep | a16 transactional updater (`openwhisper-cpp-updater`), a34 rest, parity report at 100 % for kept features, performance budgets | A signed release updates itself, rolls back after a forced failure, and passes the health gate |
 
 ### 11.1 Work packages for M0
 
@@ -1441,14 +1441,14 @@ packages; the total, about 205k lines, matches the sum of the map estimates.
 
 ### 12.2 Where a different owner answer changes the design
 
-- **Identity**: if FioriVoce shared OpenWhisper's data folder and names, only `identity()`
+- **Identity**: if OpenWhisper_CPP shared OpenWhisper's data folder and names, only `identity()`
   changes, the importer becomes a no-op, and runtime sharing needs a cross-process lock instead of
   adoption.
 - **Remote wire compatibility**: if dropped, only `remote/wire.h` changes.
 - **Native agent loop**: if the Node and Bun sidecars were kept, `meeting_agent` gains an NDJSON
   supervisor over `ProcessLauncher`; Node and Bun join the component catalog and CI; M8 grows by
   the packaging work.
-- **Two-way backups**: if OpenWhisper must read FioriVoce backups, the writer switches to
+- **Two-way backups**: if OpenWhisper must read OpenWhisper_CPP backups, the writer switches to
   `legacy_identity()` member names and format id; nothing else changes.
 - **Identical microphone rows not required**: `make_portaudio_backend()` could become miniaudio
   behind `audio::Backend` without touching the recorder.
@@ -1575,16 +1575,16 @@ against the Python, the vcpkg ports or the machine while merging.
 24. **Database writes.** Options: a writer strand returning futures; one writer connection
     behind a mutex. **Chosen: mutex.** Python's repositories write synchronously from worker
     threads and use the results; futures would change every call site.
-25. **FioriVoce-only database data.** Options: additive migration 19; `fv_*` tables with their
+25. **OpenWhisper_CPP-only database data.** Options: additive migration 19; `fv_*` tables with their
     own version. **Chosen: `fv_*` tables.** `schema_version` stays 18, so OpenWhisper's migration
     tests and backup validation apply unchanged.
 26. **Dropped-engine settings keys.** Options: preserve on disk, undeclared; declare with a
     `dropped` flag; delete on import. **Chosen: declare with `dropped`.** The generator stays
     mechanical, unknown-key preservation is kept, and the file round-trips.
-27. **Prefix for FioriVoce-only keys.** Options: `fiorivoce_`, `fv_`, none. **Chosen: `fv_`.**
+27. **Prefix for OpenWhisper_CPP-only keys.** Options: `openwhisper_cpp_`, `fv_`, none. **Chosen: `fv_`.**
     Short, and an unprefixed name could collide with a future OpenWhisper key.
-28. **Backup format id.** Options: `fiorivoce-backup` with mapped member names; OpenWhisper's
-    format id "so OpenWhisper can read it". **Chosen: `fiorivoce-backup`.** Checked: OpenWhisper's
+28. **Backup format id.** Options: `openwhisper-cpp-backup` with mapped member names; OpenWhisper's
+    format id "so OpenWhisper can read it". **Chosen: `openwhisper-cpp-backup`.** Checked: OpenWhisper's
     validator requires `data/openwhisper_settings.json` and `data/openwhisper.db`, so its format id
     on renamed members would be rejected anyway.
 29. **Import mechanism.** Options: direct copy into the live data root; staged through the restore
@@ -1616,7 +1616,7 @@ against the Python, the vcpkg ports or the machine while merging.
     meetings, automation, remote, release; everyday features and release early, then AI,
     automation, walkthroughs, meetings, remote. **Chosen: the second, with meetings split into M7
     and M8.** Walkthrough write-ups and meeting intelligence need the LLM (M4) and agents (M5)
-    first, and an early installer and import let the owner run FioriVoce on real data.
+    first, and an early installer and import let the owner run OpenWhisper_CPP on real data.
 39. **Widget-local stylesheets.** Options: Python's app-wide event filter re-resolving on
     `StyleChange`; a helper that stores the token source. **Chosen: the helper.** One pass per
     theme change, and a lint enforces it.

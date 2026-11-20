@@ -66,7 +66,7 @@ bool voice_is_cloud(const Json& settings);
 // build chosen with fv_speech_runtime ("CPU runtime", "GPU runtime", or none chosen yet) and
 // whether it is loaded in this process: "Auto · CPU runtime loaded", "Auto · CPU runtime not
 // loaded", "Auto · no runtime yet". OpenWhisper's was the Whisper device and quantization, which
-// FioriVoce does not have.
+// OpenWhisper_CPP does not have.
 std::string runtime_summary(const Json& settings, bool loaded);
 
 // The caption under the engine combo: the engine's default model's purpose and ". Runs locally."

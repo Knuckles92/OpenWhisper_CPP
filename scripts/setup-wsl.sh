@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# One-time Linux/WSL setup for FioriVoce development (Ubuntu/Debian). Safe to re-run.
+# One-time Linux/WSL setup for OpenWhisper_CPP development (Ubuntu/Debian). Safe to re-run.
 #   bash scripts/setup-wsl.sh
 set -euo pipefail
 
@@ -37,7 +37,7 @@ if [ ! -x "$VCPKG_DIR/vcpkg" ]; then
     "$VCPKG_DIR/bootstrap-vcpkg.sh" -disableMetrics
 fi
 if ! grep -q 'VCPKG_ROOT=' "$HOME/.profile" 2>/dev/null; then
-    printf '\n# vcpkg (added by fiorivoce setup-wsl.sh)\nexport VCPKG_ROOT="%s"\n' "$VCPKG_DIR" >> "$HOME/.profile"
+    printf '\n# vcpkg (added by openwhisper-cpp setup-wsl.sh)\nexport VCPKG_ROOT="%s"\n' "$VCPKG_DIR" >> "$HOME/.profile"
 fi
 echo "[ok] vcpkg: $VCPKG_DIR (VCPKG_ROOT exported from ~/.profile)"
 

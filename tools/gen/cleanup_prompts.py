@@ -1,7 +1,7 @@
 """Write src/text/data/cleanup_prompts.json: the text AI cleanup is told, as OpenWhisper has it.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/gen/cleanup_prompts.py [--check]
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/gen/cleanup_prompts.py [--check]
 
 Prompt text is the product: one changed space changes what every model does, so no sentence is
 retyped. The generator imports config, services.cleanup_profiles, services.text_transforms and

@@ -30,7 +30,7 @@ CLEAN = {
     "src/history/manager.cpp": '#include "base/clock.h"\n#include "settings/store.h"\n',
     "src/ui_widgets/CMakeLists.txt": "fv_module(KIND ui DEPS fv_settings)\n",
     "src/ui_widgets/card.h": '#pragma once\n#include <QFrame>\n#include "settings/store.h"\n',
-    "src/app/CMakeLists.txt": "qt_add_executable(fiorivoce main.cpp)\n",
+    "src/app/CMakeLists.txt": "qt_add_executable(openwhisper-cpp main.cpp)\n",
     "src/app/main.cpp": '#include "ui_widgets/card.h"\n',
 }
 

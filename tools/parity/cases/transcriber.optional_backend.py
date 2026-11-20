@@ -12,7 +12,7 @@ Signals, float32:
     ramp      sample i = ((i % 3200) - 1600) * value / 1600, a sawtooth whose peak is value
     burst     zeros, with value in the 0.1 s blocks whose index is a multiple of 7
 
-decode is a real decode, when FIORIVOCE_TEST_RUNTIME_DIR and FIORIVOCE_TEST_MODEL name an
+decode is a real decode, when OPENWHISPER_CPP_TEST_RUNTIME_DIR and OPENWHISPER_CPP_TEST_MODEL name an
 installed NeMo-Speech.cpp runtime and Parakeet model (read-only): LocalSpeechBackend.transcribe
 of a fixture WAV of tests/fixtures/audio, its _recognize doing what the worker does for
 Parakeet on the CPU (NvidiaRecognizer(runtime, model, "cpu").transcribe(samples, language),
@@ -82,8 +82,8 @@ def _decode(module, name):
     from services.local_asr import worker
     from services.local_asr.nvidia import NvidiaRecognizer
 
-    runtime = os.environ["FIORIVOCE_TEST_RUNTIME_DIR"]
-    model = os.environ["FIORIVOCE_TEST_MODEL"]
+    runtime = os.environ["OPENWHISPER_CPP_TEST_RUNTIME_DIR"]
+    model = os.environ["OPENWHISPER_CPP_TEST_MODEL"]
     recognizer = NvidiaRecognizer(runtime, model, "cpu")
     backend = _backend_class(module)("parakeet")
 
@@ -149,6 +149,6 @@ CASES = {
     ],
 }
 
-if os.environ.get("FIORIVOCE_TEST_RUNTIME_DIR") and os.environ.get("FIORIVOCE_TEST_MODEL"):
+if os.environ.get("OPENWHISPER_CPP_TEST_RUNTIME_DIR") and os.environ.get("OPENWHISPER_CPP_TEST_MODEL"):
     CASES["decode"] = [[name] for name in (
         "tone-44k1-mono.wav", "tone-48k-stereo.wav", "tone-16k-mono.wav")]

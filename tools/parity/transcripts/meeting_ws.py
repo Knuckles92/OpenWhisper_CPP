@@ -1,8 +1,8 @@
 """Record OpenWhisper's dashboard WebSocket hub (meeting/web/ws.py) for C++ replay.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
-        $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/transcripts/meeting_ws.py
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
+        $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/transcripts/meeting_ws.py
 
 The hub runs inside OpenWhisper's FastAPI app (create_app) behind Starlette's TestClient (no
 socket), with the lifespan started so every socket shares one event loop, as under uvicorn. The

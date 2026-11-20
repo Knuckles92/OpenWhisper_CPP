@@ -58,9 +58,9 @@ std::optional<update::UpdateCheckResult> resultFor(const std::string& state) {
     }
     const bool applies = state == "available" || state == "downloading" || state == "error";
     update::ReleaseAsset setup;
-    setup.url = "https://example.invalid/releases/download/v" + version + "/FioriVoce-Setup-" +
-                version + ".exe";
-    setup.name = "FioriVoce-Setup-" + version + ".exe";
+    setup.url = "https://example.invalid/releases/download/v" + version +
+                "/OpenWhisper_CPP-Setup-" + version + ".exe";
+    setup.name = "OpenWhisper_CPP-Setup-" + version + ".exe";
     setup.size_bytes = kSetupSize;
     // available-notify: no digest, so the release cannot be applied here.
     if (state != "available-notify") {

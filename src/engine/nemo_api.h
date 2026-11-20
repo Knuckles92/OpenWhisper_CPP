@@ -7,7 +7,7 @@
 
 namespace fv {
 
-// The nemo_speech_asr_* functions FioriVoce calls, without the prefix. Adding
+// The nemo_speech_asr_* functions OpenWhisper_CPP calls, without the prefix. Adding
 // one here binds it at load; a runtime that lacks it then fails to load.
 #define FV_NEMO_ASR_FUNCTIONS(X)                                                                   \
     X(version)                                                                                     \

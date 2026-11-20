@@ -66,14 +66,14 @@ function Get-TreeSize([string]$Path) {
 function Find-Python {
     <#
     .SYNOPSIS
-        The Python 3.12 interpreter the release tools run on: FIORIVOCE_PYTHON, then the
+        The Python 3.12 interpreter the release tools run on: OPENWHISPER_CPP_PYTHON, then the
         py launcher's 3.12, then python on PATH when it is 3.12 or newer.
     #>
-    if ($env:FIORIVOCE_PYTHON) {
-        if (-not (Test-Path -LiteralPath $env:FIORIVOCE_PYTHON)) {
-            throw "FIORIVOCE_PYTHON does not name a file: $env:FIORIVOCE_PYTHON"
+    if ($env:OPENWHISPER_CPP_PYTHON) {
+        if (-not (Test-Path -LiteralPath $env:OPENWHISPER_CPP_PYTHON)) {
+            throw "OPENWHISPER_CPP_PYTHON does not name a file: $env:OPENWHISPER_CPP_PYTHON"
         }
-        return $env:FIORIVOCE_PYTHON
+        return $env:OPENWHISPER_CPP_PYTHON
     }
     $previous = $ErrorActionPreference
     $ErrorActionPreference = 'Continue'
@@ -90,7 +90,7 @@ function Find-Python {
     } finally {
         $ErrorActionPreference = $previous
     }
-    throw 'Python 3.12 not found. Install it, or set FIORIVOCE_PYTHON to its python.exe.'
+    throw 'Python 3.12 not found. Install it, or set OPENWHISPER_CPP_PYTHON to its python.exe.'
 }
 
 function Get-PeImports([string]$Path) {

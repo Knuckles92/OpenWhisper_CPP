@@ -1,8 +1,8 @@
 # webui: the meeting dashboard
 
-The React page that `fiorivoce.exe` serves on 127.0.0.1 during and after a meeting (and to guests
+The React page that `openwhisper-cpp.exe` serves on 127.0.0.1 during and after a meeting (and to guests
 on the local network). It is OpenWhisper's dashboard, vendored; `SOURCE` names the commit and
-what differs. FioriVoce's server (`src/meeting_web`) serves `dist/index.html` and
+what differs. OpenWhisper_CPP's server (`src/meeting_web`) serves `dist/index.html` and
 `dist/assets/*` only.
 
 | Path | What it is |
@@ -19,7 +19,7 @@ what differs. FioriVoce's server (`src/meeting_web`) serves `dist/index.html` an
 
 The built page and the source carry the product name in a few places (page title, header brand,
 three browser storage keys, a help text naming the log file and its folder). They read
-FioriVoce: `tools/webui/rebrand.py` applies a fixed map of exact literals to the source and to
+OpenWhisper_CPP: `tools/webui/rebrand.py` applies a fixed map of exact literals to the source and to
 `dist/`. See `tools/webui/README.md` for the commands.
 
 ## Optional owner steps (they download packages, so no tool or worker runs them)
@@ -32,7 +32,7 @@ npm ci
 node --test tests/*.cjs
 ```
 
-Rebuild the bundle from the source here (the source already says FioriVoce, so the dist rules of
+Rebuild the bundle from the source here (the source already says OpenWhisper_CPP, so the dist rules of
 `tools/webui/rebrand_map.json` no longer apply):
 
 ```powershell

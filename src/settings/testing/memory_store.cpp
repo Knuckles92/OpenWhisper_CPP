@@ -10,7 +10,7 @@ namespace fv {
 using detail::settings_text;
 
 MemorySettingsFile::MemorySettingsFile(std::optional<std::string> bytes)
-    : path_("memory/fiorivoce_settings.json"), bytes_(std::move(bytes)) {}
+    : path_("memory/openwhisper_cpp_settings.json"), bytes_(std::move(bytes)) {}
 
 const std::filesystem::path& MemorySettingsFile::path() const {
     return path_;

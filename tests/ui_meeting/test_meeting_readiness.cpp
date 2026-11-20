@@ -79,8 +79,8 @@ void startFrom(SetupRig& setup, const std::string& seam) {
 }
 
 std::string started(const std::string& seam, const std::string& policy) {
-    // The tab passes its switch and brief; the tray starts with AI insights off, since FioriVoce
-    // asks for them per meeting and remembers no earlier choice.
+    // The tab passes its switch and brief; the tray starts with AI insights off, since
+    // OpenWhisper_CPP asks for them per meeting and remembers no earlier choice.
     return seam == "tab" ? "start_meeting true|" + policy + "|Plan the launch"
                          : "start_meeting false|" + policy + "|";
 }
@@ -192,7 +192,7 @@ TEST_CASE("test_active_tray_end_requires_confirmation", "[widget]") {
             Q_EMIT icon.meetingToggleRequested();
             CHECK(title == QStringLiteral("End meeting?"));
             CHECK(text == QStringLiteral("End this meeting now? Audio capture will stop "
-                                         "immediately. FioriVoce will keep working in the "
+                                         "immediately. OpenWhisper_CPP will keep working in the "
                                          "background to finish the transcript and report."));
             CHECK(setup.rig.controls().named("end").size() == (answer == QMessageBox::Yes ? 1 : 0));
             CHECK(setup.setups.empty());

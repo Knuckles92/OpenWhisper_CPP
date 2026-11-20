@@ -1,10 +1,11 @@
 // The Claude Code channel on real sockets and pipes.
 // from tests/test_automation_channel_e2e.py
 //
-// fiorivoce-cli --channel runs as a child on pipes, as Claude Code starts it, against the live
-// API's own routes (agentapi::LiveApi in an McpApp on a loopback port, with a FakeAppControl) or
-// against FakeApp, the live API in miniature whose answers a test sets. The windowed tests run
-// fiorivoce.exe --channel, which hands the command to fiorivoce-cli before anything opens.
+// openwhisper-cpp-cli --channel runs as a child on pipes, as Claude Code starts it, against the
+// live API's own routes (agentapi::LiveApi in an McpApp on a loopback port, with a FakeAppControl)
+// or against FakeApp, the live API in miniature whose answers a test sets. The windowed tests run
+// openwhisper-cpp.exe --channel, which hands the command to openwhisper-cpp-cli before anything
+// opens.
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/generators/catch_generators.hpp>
 #include <catch2/matchers/catch_matchers_string.hpp>
@@ -393,7 +394,7 @@ TEST_CASE("test_channel_reads_the_saved_port_and_never_loads_qt",
 TEST_CASE("test_windowed_interpreter_speaks_over_inherited_pipes",
           "[platform][test_automation_channel_e2e]") {
     if (app_executable().empty()) {
-        SKIP("this build has no fiorivoce executable");
+        SKIP("this build has no openwhisper-cpp executable");
     }
     FakeApp app;
     app.start();
@@ -430,7 +431,7 @@ TEST_CASE("test_a_windowed_start_without_pipes_exits_quietly",
           "[platform][test_automation_channel_e2e]") {
 #if defined(_WIN32)
     if (app_executable().empty()) {
-        SKIP("this build has no fiorivoce executable");
+        SKIP("this build has no openwhisper-cpp executable");
     }
     // A double-clicked shortcut gives the windowed app no stdio: no error dialog, just exit 2.
     fv::testkit::TempDataRoot data;

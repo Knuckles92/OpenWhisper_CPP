@@ -1,6 +1,6 @@
 # OpenWhisper_CPP
 
-OpenWhisper_CPP (FioriVoce) is an experimental C++ and Qt port of the
+OpenWhisper_CPP is an experimental C++ and Qt port of the
 [OpenWhisper](https://github.com/Knuckles92/OpenWhisper) desktop app. It explores
 the full OpenWhisper workflow, from dictation and file transcription to meetings
 and walkthroughs. The goal is to find out where a native build might improve
@@ -47,7 +47,7 @@ cmake --build --preset release
 ctest --preset release
 ```
 
-That builds the engine, `fiorivoce-cli` and their tests into `build/bin`
+That builds the engine, `openwhisper-cpp-cli` and their tests into `build/bin`
 (`build/bin/RelWithDebInfo` with Visual Studio).
 
 The rest of the tree (every other library, the desktop app and its tests) needs
@@ -77,12 +77,12 @@ they are in `%LOCALAPPDATA%\OpenWhisper\components\asr-nvidia-cuda` (or
 `asr-nvidia-cpu`) and `%LOCALAPPDATA%\OpenWhisper\speech-models\parakeet-v3`.
 
 ```bash
-fiorivoce-cli transcribe recording.wav --runtime <runtime folder> --model <model.gguf>
+openwhisper-cpp-cli transcribe recording.wav --runtime <runtime folder> --model <model.gguf>
 ```
 
 Add `--gpu 0` to decode on the first GPU, `--timestamps` for one timed segment
-per line, and `--language en` to skip language detection. `FIORIVOCE_RUNTIME_DIR`
-and `FIORIVOCE_MODEL` stand in for `--runtime` and `--model`. The transcript goes
+per line, and `--language en` to skip language detection. `OPENWHISPER_CPP_RUNTIME_DIR`
+and `OPENWHISPER_CPP_MODEL` stand in for `--runtime` and `--model`. The transcript goes
 to standard output; timing and the runtime's own log go to standard error.
 
 The input is a WAV file (PCM or float, any sample rate or channel count).
@@ -101,7 +101,7 @@ instructions through the chosen CLI to its signed-in AI provider, including when
 cleanup profile. You can choose one of the models the CLI lists or use the CLI's default.
 Turning off cleanup cancels an active cleanup request. Selecting a model endpoint clears the agent approval.
 If the CLI configuration requires a private provider that the cleanup session cannot preserve,
-FioriVoce keeps the original dictation.
+OpenWhisper_CPP keeps the original dictation.
 
 ## Tests
 
@@ -110,25 +110,25 @@ these are set:
 
 | Variable | Value |
 | --- | --- |
-| `FIORIVOCE_TEST_RUNTIME_DIR` | An unpacked NeMo-Speech.cpp release |
-| `FIORIVOCE_TEST_MODEL` | A Parakeet `.gguf` file |
-| `FIORIVOCE_TEST_WAV` | A recording with speech in it |
+| `OPENWHISPER_CPP_TEST_RUNTIME_DIR` | An unpacked NeMo-Speech.cpp release |
+| `OPENWHISPER_CPP_TEST_MODEL` | A Parakeet `.gguf` file |
+| `OPENWHISPER_CPP_TEST_WAV` | A recording with speech in it |
 
 Three more are optional, each read-only and each enabling a few more tests:
 
 | Variable | Value |
 | --- | --- |
-| `FIORIVOCE_TEST_PDFIUM` | A `pdfium.dll` (pypdfium2's, for example): PDF text and metadata tests |
-| `FIORIVOCE_TEST_ONNXRUNTIME` | An `onnxruntime.dll` of ONNX Runtime 1.29: speaker embedding tests |
-| `FIORIVOCE_TEST_SPEAKER_MODEL` | The WeSpeaker model `voxceleb_resnet34_LM.onnx`: the same tests |
+| `OPENWHISPER_CPP_TEST_PDFIUM` | A `pdfium.dll` (pypdfium2's, for example): PDF text and metadata tests |
+| `OPENWHISPER_CPP_TEST_ONNXRUNTIME` | An `onnxruntime.dll` of ONNX Runtime 1.29: speaker embedding tests |
+| `OPENWHISPER_CPP_TEST_SPEAKER_MODEL` | The WeSpeaker model `voxceleb_resnet34_LM.onnx`: the same tests |
 
 ## Layout
 
 | Path | Contents |
 | --- | --- |
 | `src/engine` | The speech engine. Plain C++, no Qt. |
-| `src/cli` | `fiorivoce-cli`. |
-| `src/app` | `fiorivoce`, the Qt 6 Widgets desktop app. |
+| `src/cli` | `openwhisper-cpp-cli`. |
+| `src/app` | `openwhisper-cpp`, the Qt 6 Widgets desktop app. |
 | `tests` | Catch2 tests for the core modules, desktop features and release tools. CTest selects the offscreen Qt platform. |
 | `third_party/nemo_speech` | The NeMo-Speech.cpp C header (Apache-2.0). |
 | `cmake` | CMake helpers. |

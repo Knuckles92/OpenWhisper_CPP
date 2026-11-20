@@ -43,7 +43,7 @@ inline constexpr std::int64_t kOrukeetBytes = 714'456'704;
 inline const std::string kCpuRuntime = "asr-nvidia-cpu";
 inline const std::string kCudaRuntime = "asr-nvidia-cuda";
 inline const QString kModelsFolder =
-    QStringLiteral("C:/Users/test/AppData/Local/FioriVoce/speech-models");
+    QStringLiteral("C:/Users/test/AppData/Local/OpenWhisper_CPP/speech-models");
 
 inline fv::models::CachedModelInfo cachedModel(const std::string& repo, std::int64_t bytes) {
     fv::models::CachedModelInfo info;

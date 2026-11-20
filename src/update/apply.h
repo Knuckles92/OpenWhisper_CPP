@@ -35,7 +35,7 @@ struct NativeUpdateActions {
     std::function<void(const Handoff&)> discard;
 };
 
-// "/FIORIVOCEUPDATE=1": tells the setup it runs as an update (it relaunches the app after).
+// "/OPENWHISPER_CPPUPDATE=1": tells the setup it runs as an update (it relaunches the app after).
 std::string setup_update_switch();
 
 // The verified setup run silently over the running install: /SP- /SILENT /NORESTART, the update

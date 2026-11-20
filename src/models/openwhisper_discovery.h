@@ -19,7 +19,7 @@
 // Reusing the speech runtimes and models an OpenWhisper install already downloaded (architecture
 // 7.6). OpenWhisper's components\ and speech-models\ (and its models\speaker-id\ speaker model)
 // are only read: a tree is offered when its sentinel, manifest and installed.json validate and
-// its pins match this build's catalog, and adoption hard-links the files into FioriVoce's own
+// its pins match this build's catalog, and adoption hard-links the files into OpenWhisper_CPP's own
 // folders (copying across volumes), so OpenWhisper keeps removing or replacing its own copy
 // freely. The embedded Python of OpenWhisper's Windows runtime is not taken. Blocking: never on
 // the GUI thread.
@@ -48,8 +48,8 @@ struct Discovery {
     std::vector<AdoptableComponent> components;
     std::vector<AdoptableModel> models;
     // <OpenWhisper>/models/speaker-id/voxceleb_resnet34_LM.onnx at the pinned size, when
-    // FioriVoce has no speaker model yet and that very file (path, size, modification time) has
-    // not failed the integrity check before. Not counted by empty(), which is about the engine.
+    // OpenWhisper_CPP has no speaker model yet and that very file (path, size, modification time)
+    // has not failed the integrity check before. Not counted by empty(), which is about the engine.
     std::optional<std::filesystem::path> speaker_model;
     bool empty() const { return components.empty() && models.empty(); }
 };
@@ -71,7 +71,7 @@ struct AdopterOptions {
     std::function<std::uint64_t(const std::filesystem::path&)> free_bytes;
     // The pinned spec of a model; empty: artifacts().
     std::function<Json(std::string_view key)> artifacts;
-    // FioriVoce's speaker-model folder (speaker_model_cache_dir); empty: the speaker model is
+    // OpenWhisper_CPP's speaker-model folder (speaker_model_cache_dir); empty: the speaker model is
     // neither discovered nor adopted.
     std::filesystem::path speaker_model_dir;
     // The speaker model's pinned SHA-256 and size; empty and 0: kSpeakerModelSha256 and
@@ -83,7 +83,7 @@ struct AdopterOptions {
 // Affinity: one thread at a time.
 class OpenWhisperAdopter {
 public:
-    // FioriVoce's components and speech-models roots, and the OpenWhisper data roots whose
+    // OpenWhisper_CPP's components and speech-models roots, and the OpenWhisper data roots whose
     // components\ and speech-models\ are searched, first match winning.
     OpenWhisperAdopter(std::filesystem::path components_root,
                        std::filesystem::path speech_models_root,
@@ -94,8 +94,8 @@ public:
     OpenWhisperAdopter(const OpenWhisperAdopter&) = delete;
     OpenWhisperAdopter& operator=(const OpenWhisperAdopter&) = delete;
 
-    // What can be adopted that FioriVoce does not have yet: runtimes of this build's catalog for
-    // this platform whose OpenWhisper tree is complete (sentinel), has a valid and compatible
+    // What can be adopted that OpenWhisper_CPP does not have yet: runtimes of this build's catalog
+    // for this platform whose OpenWhisper tree is complete (sentinel), has a valid and compatible
     // manifest pinning the same archive SHA-256 as the catalog, and holds the runtime library;
     // models whose installed.json equals the pinned spec with every file at its pinned size.
     Discovery discover() const;
@@ -112,7 +112,7 @@ public:
 
     // Takes a model file the user picked: it must be byte for byte a pinned model file (size,
     // then SHA-256); it is linked or copied into speech-models/<key>/ with installed.json.
-    // Returns the key. Throws AdoptionError "This file isn't a model FioriVoce knows. Pick
+    // Returns the key. Throws AdoptionError "This file isn't a model OpenWhisper_CPP knows. Pick
     // Parakeet TDT 0.6B v3 or Orukeet TDT 0.6B." otherwise.
     std::string import_model_file(const std::filesystem::path& file,
                                   const CancelToken& cancel = {});
@@ -124,8 +124,8 @@ public:
     // not offer it, and hash its 26 MB, again until it changes.
     void adopt_speaker_model(const CancelToken& cancel = {});
 
-    // Adopts what resolve_parakeet would need and FioriVoce lacks: the runtime it would pick if
-    // the discovered ones were installed, and the selected model; and the speaker model.
+    // Adopts what resolve_parakeet would need and OpenWhisper_CPP lacks: the runtime it would pick
+    // if the discovered ones were installed, and the selected model; and the speaker model.
     // Failures are logged and skipped.
     AdoptionReport adopt_missing(const Json& settings, const CancelToken& cancel = {});
 

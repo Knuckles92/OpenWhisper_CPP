@@ -13,7 +13,7 @@ Each builder returns (widget, (width, height), focus widget or None) with fixed 
 A widget is `width` wide and as tall as it asks for there: it is shown once at that width and
 hidden again to learn its height (_fit), and the C++ tests repeat that step before comparing.
 
-OpenWhisper names itself in two places these widgets show; the builders put FioriVoce's in their
+OpenWhisper names itself in two places these widgets show; the builders put OpenWhisper_CPP's in their
 place, as the port draws it: two starting points of the gallery ("…running the OpenWhisper
 channel.", "…listening to OpenWhisper's events.") and the new-folder line of the agent fields
 ("~/OpenWhisper Agent Tasks").
@@ -31,7 +31,7 @@ channel.", "…listening to OpenWhisper's events.") and the new-folder line of t
 
 from dataclasses import replace
 
-PRODUCT = "FioriVoce"
+PRODUCT = "OpenWhisper_CPP"
 LEGACY = "OpenWhisper"
 
 CARD_WIDTH = 340
@@ -109,7 +109,7 @@ def action_gallery_two_columns(variant):
 
 
 def _rebrand_folder_hint(fields):
-    """The new-folder line as FioriVoce words it (its agent-task folder is named after it)."""
+    """The new-folder line as OpenWhisper_CPP words it (its agent-task folder is named after it)."""
     row = fields.new_folder_row
     text = row.detail_label.text().replace(LEGACY, PRODUCT)
     row.detail_label.setText(text)
@@ -190,7 +190,7 @@ def agent_mark_codex_light(variant):
 #
 # The page body is OpenWhisper's own, built by a real SettingsDialog over a throwaway settings
 # file in the isolated data folder (as builders/a31.py builds its page), then taken out of the
-# dialog at PAGE_WIDTH with no object name; label texts that name OpenWhisper name FioriVoce.
+# dialog at PAGE_WIDTH with no object name; label texts that name OpenWhisper name OpenWhisper_CPP.
 
 PAGE_WIDTH = 900
 EDITOR_WIDTH = 640
@@ -246,8 +246,8 @@ def _settings(with_agent):
     return {**SETTINGS, **ROUTE_SETTINGS, "actions": [action.to_dict() for action in actions]}
 
 
-def _fiorivoce(widget):
-    """Label texts as FioriVoce words them (its product name where OpenWhisper's is)."""
+def _openwhisper-cpp(widget):
+    """Label texts as OpenWhisper_CPP words them (its product name where OpenWhisper's is)."""
     from PyQt6.QtWidgets import QLabel
 
     from ui_qt.widgets.wrapped_label import WrappedLabel
@@ -270,7 +270,7 @@ def _patches(stack, scan):
     stack.enter_context(patch("services.actions.agents.available", lambda: dict(scan)))
     stack.enter_context(patch.object(typesafe, "key_present", lambda *_a, **_k: True))
     # The agent fields write their new-folder line again whenever they sync (the page's refresh
-    # on show among them), so FioriVoce's wording goes in after every sync.
+    # on show among them), so OpenWhisper_CPP's wording goes in after every sync.
     sync = action_fields.AgentFields._sync
 
     def _sync(fields):
@@ -328,7 +328,7 @@ def _actions_page(values, scan):
     page.setParent(None)
     page.setObjectName("")
     _keep(page)
-    _fiorivoce(page)
+    _openwhisper-cpp(page)
     return page, (PAGE_WIDTH, _settled_height(page, PAGE_WIDTH)), None
 
 
@@ -371,7 +371,7 @@ def _editor(action, *, is_new, note=""):
     editor = _keep(ActionEditor(manager=_Manager(_settings(with_agent=False)),
                                 try_action=_try_action))
     editor.open(action, is_new=is_new, note=note)
-    _fiorivoce(editor)
+    _openwhisper-cpp(editor)
     return editor
 
 
@@ -403,7 +403,7 @@ def action_agent_card_configured(variant):
     settings = _settings(with_agent=True)
     card = _keep(AgentHotkeyCard(manager=_Manager(settings), try_action=_try_action))
     card.load(settings)
-    _fiorivoce(card)
+    _openwhisper-cpp(card)
     return card, _fit(card, AGENT_CARD_WIDTH), None
 
 
@@ -425,7 +425,7 @@ def action_agent_card_configured(variant):
 #
 # The page body is OpenWhisper's own, built by a real SettingsDialog over a throwaway settings file
 # (as the Actions page's is) and taken out of the dialog; label texts that name OpenWhisper name
-# FioriVoce.
+# OpenWhisper_CPP.
 
 HOOKS_EDITOR_WIDTH = 640
 HOOKS_NOW = 1773586800.0  # 2026-03-15T15:00:00Z
@@ -505,7 +505,7 @@ def _hooks_page(values, *, filled):
     page.setParent(None)
     page.setObjectName("")
     _keep(page)
-    _fiorivoce(page)
+    _openwhisper-cpp(page)
     return page, (PAGE_WIDTH, _settled_height(page, PAGE_WIDTH)), None
 
 
@@ -527,7 +527,7 @@ def _hooks_editor(make, item):
     _KEEP.append(stack)
     editor = _keep(make())
     editor.show_item(item, saved=True)
-    _fiorivoce(editor)
+    _openwhisper-cpp(editor)
     return editor, _fit(editor, HOOKS_EDITOR_WIDTH), None
 
 
@@ -553,7 +553,7 @@ def hooks_filter_editor_program(variant):
 # fv-test-token-0123456789abcdefghijklmnopqrstu while it runs, two plain event-stream listeners and
 # one Claude Code channel session on the event bus, one MCP Events subscription, and "Run actions"
 # allowed. The page and the section are OpenWhisper's own widgets, built over a throwaway settings
-# file and taken at MCP_WIDTH (two columns); label texts that name OpenWhisper name FioriVoce.
+# file and taken at MCP_WIDTH (two columns); label texts that name OpenWhisper name OpenWhisper_CPP.
 #
 #     settings_mcp_page/stopped            MCP off, nothing allowed, 900 px
 #     settings_mcp_page/running            MCP running with the Claude Code setup chosen and its
@@ -603,7 +603,7 @@ def _mcp_store(values):
 
 
 def _mcp_patches(stack):
-    """The page's refresh names FioriVoce after every redraw, MCP Events has one subscription, and
+    """The page's refresh names OpenWhisper_CPP after every redraw, MCP Events has one subscription, and
     the event bus is the builder's own, with the listeners the section counts."""
     from unittest.mock import patch
 
@@ -615,7 +615,7 @@ def _mcp_patches(stack):
 
     def _refresh(page):
         refresh(page)
-        _fiorivoce(page)
+        _openwhisper-cpp(page)
         # The preview's server name is the app's, in lower case.
         text = page.setup_text.toPlainText()
         if LEGACY.lower() in text:
@@ -649,7 +649,7 @@ def settings_mcp_page_stopped(variant):
 
     _mcp_stack()
     page = _keep(settings_mcp.McpSettingsPage(_mcp_store({}), server=_McpServer("stopped")))
-    _fiorivoce(page)
+    _openwhisper-cpp(page)
     return page, (MCP_WIDTH, _settled_height(page, MCP_WIDTH)), None
 
 
@@ -660,7 +660,7 @@ def settings_mcp_page_running(variant):
     page = _keep(settings_mcp.McpSettingsPage(_mcp_store(MCP_SAVED), server=_McpServer("running")))
     page.setup_kind.setCurrentIndex(1)
     page.preview.toggle.setChecked(True)
-    _fiorivoce(page)
+    _openwhisper-cpp(page)
     return page, (MCP_WIDTH, _settled_height(page, MCP_WIDTH)), None
 
 
@@ -675,7 +675,7 @@ def live_automation_section_running(variant):
     section = _keep(settings_mcp.LiveAutomationSection(
         store, SimpleNamespace(server=_McpServer("running"))))
     section.refresh_live()
-    _fiorivoce(section)
+    _openwhisper-cpp(section)
     # The command names the app in lower case; WrappedLabel keeps the text as set.
     command = section.channel_command
     WrappedLabel.setText(command, command.text().replace(LEGACY.lower(), PRODUCT.lower()))

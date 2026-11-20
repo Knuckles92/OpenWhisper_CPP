@@ -1,6 +1,6 @@
 """Curated inputs for services/model_catalog.py (M2.5): every built-in speech model's profile and
 format_download_mb. get_model_details returns the dataclass's fields with download_size and
-compact_tags beside them; FioriVoce describes the Parakeet models only."""
+compact_tags beside them; OpenWhisper_CPP describes the Parakeet models only."""
 
 import dataclasses
 

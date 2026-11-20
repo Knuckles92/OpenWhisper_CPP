@@ -239,9 +239,9 @@ TEST_CASE("TestSafety::test_skips_binary_and_oversized_files", "[test_meeting_co
 
 // from tests/test_meeting_context_folder.py::TestSafety::test_skips_encrypted_and_malformed_pdfs
 TEST_CASE("TestSafety::test_skips_encrypted_and_malformed_pdfs", "[test_meeting_context_folder]") {
-    const auto library = fv::testkit::get_env("FIORIVOCE_TEST_PDFIUM");
+    const auto library = fv::testkit::get_env("OPENWHISPER_CPP_TEST_PDFIUM");
     if (!library || library->empty()) {
-        SKIP("FIORIVOCE_TEST_PDFIUM is not set: PDFs are not read");
+        SKIP("OPENWHISPER_CPP_TEST_PDFIUM is not set: PDFs are not read");
     }
     set_pdfium_path(fv::base_utf8::path_from_utf8(*library));
     CacheReset reset;

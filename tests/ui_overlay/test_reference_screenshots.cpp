@@ -209,7 +209,7 @@ OVERLAY_TREE("canceling-bubbles", [](Overlay& overlay) {
 namespace {
 
 // The builder's WORDS, LOOK_T and PREVIEW_T.
-const QString kWords = QStringLiteral("Hello from FioriVoce, this is the live preview");
+const QString kWords = QStringLiteral("Hello from OpenWhisper_CPP, this is the live preview");
 constexpr double kLookT = 1.2;
 constexpr double kPreviewT = 2.0;
 

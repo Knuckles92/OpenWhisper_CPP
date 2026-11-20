@@ -6,8 +6,8 @@ namespace fv::cli {
 // line over 78 characters, so the text reads in an 80-column terminal.
 std::string usage_text(std::string_view product, std::string_view env_prefix) {
     const std::string prefix(env_prefix);
-    std::string text = "Usage: fiorivoce-cli COMMAND [OPTION]...\n"
-                       "       fiorivoce-cli [OPTION]\n"
+    std::string text = "Usage: openwhisper-cpp-cli COMMAND [OPTION]...\n"
+                       "       openwhisper-cpp-cli [OPTION]\n"
                        "\n"
                        "Command-line tools of ";
     text += product;

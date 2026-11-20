@@ -174,7 +174,7 @@ void expectPackage(const golden::Case& c, const std::filesystem::path& path) {
     for (const Json& entry : expected.at("entries")) {
         entries.push_back(entry.get<std::string>());
     }
-    // python-docx writes the pictures last but for the thumbnail; so does FioriVoce.
+    // python-docx writes the pictures last but for the thumbnail; so does OpenWhisper_CPP.
     CHECK(word.entries == entries);
     CHECK_FALSE(expected.at("zip64").get<bool>());
     for (const RawEntry& entry : rawEntries(path)) {

@@ -1,20 +1,20 @@
 """Write src/settings/keys.inc and src/settings/data/enums.json from OpenWhisper's settings.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/gen/settings_keys.py [--check]
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/gen/settings_keys.py [--check]
 
 OpenWhisper is imported through tools/parity/ow_isolation.py, so nothing it resolves points at
 the owner's data. The declarations are read by walking ``services.settings.ALL_SETTINGS`` (not
 the source text), so a default that reads ``config`` comes out as config evaluated on this
-machine; the script refuses to run anywhere but Windows x64, whose values FioriVoce ships.
+machine; the script refuses to run anywhere but Windows x64, whose values OpenWhisper_CPP ships.
 
 keys.inc holds, inside namespace fv::keys, one ``inline constexpr`` declaration per setting in
-OpenWhisper's declaration order, then the FioriVoce-only keys of tools/gen/fv_settings_keys.json,
+OpenWhisper's declaration order, then the OpenWhisper_CPP-only keys of tools/gen/fv_settings_keys.json,
 the choice and alias tables they point to, ``declared`` (every setting, in that order) and
-``legacy_streaming`` (LEGACY_STREAMING_KEYS). FioriVoce's deliberate differences are applied
+``legacy_streaming`` (LEGACY_STREAMING_KEYS). OpenWhisper_CPP's deliberate differences are applied
 here and nowhere else:
 
-- ``selected_model`` keeps only the backends FioriVoce has (architecture 7.2), in OpenWhisper's
+- ``selected_model`` keeps only the backends OpenWhisper_CPP has (architecture 7.2), in OpenWhisper's
   order; any other stored backend reads as the default, as ChoiceSetting already does.
 - The keys of dropped engines are declared ``dropped``: preserved on rewrite, never read.
 
@@ -44,9 +44,9 @@ KEYS_INC = ROOT / "src" / "settings" / "keys.inc"
 ENUMS_JSON = ROOT / "src" / "settings" / "data" / "enums.json"
 FV_KEYS = ROOT / "tools" / "gen" / "fv_settings_keys.json"
 
-#: The backends FioriVoce has (architecture 7.2): Parakeet in process, the API, a paired host.
+#: The backends OpenWhisper_CPP has (architecture 7.2): Parakeet in process, the API, a paired host.
 FV_BACKENDS = ("parakeet", "api", "remote")
-#: Keys that served only engines FioriVoce dropped (the a10 map's engine-specific list).
+#: Keys that served only engines OpenWhisper_CPP dropped (the a10 map's engine-specific list).
 DROPPED_KEYS = (
     "whisper_model", "custom_whisper_models", "whisper_device", "whisper_compute_type",
     "whisper_gpu_offer_declined", "meeting_whisper_model",
@@ -189,7 +189,7 @@ def declare(setting, settings_module, types, config, *, dropped: bool, fv_note: 
         if key == "selected_model":
             kept = tuple(c for c in choices if c in FV_BACKENDS)
             if set(kept) != set(FV_BACKENDS):
-                raise GeneratorError(f"selected_model lost a FioriVoce backend: {choices}")
+                raise GeneratorError(f"selected_model lost a OpenWhisper_CPP backend: {choices}")
             gone = [c for c in choices if c not in FV_BACKENDS]
             comments.append("OpenWhisper's choices less the dropped engines ("
                             + ", ".join(gone) + "), which read as the default (architecture 7.2).")
@@ -290,7 +290,7 @@ def render_keys(declarations: list[Declaration], legacy: tuple[str, ...], commit
         if d.comment:
             out.append(f"// {d.comment}")
         out.append(f"inline constexpr {d.kind} {d.key}{{{cxx_string(d.key)}, {d.spec}}};")
-    out += ["", "// Every setting, in declaration order (ALL_SETTINGS, then FioriVoce's).",
+    out += ["", "// Every setting, in declaration order (ALL_SETTINGS, then OpenWhisper_CPP's).",
             "inline constexpr const SettingBase* declared[] = {"]
     for d in declarations:
         out.append(f"    &{d.key},")

@@ -1,4 +1,4 @@
-# Build a FioriVoce release candidate: resolve one commit, run the full CI on it, build the
+# Build a OpenWhisper_CPP release candidate: resolve one commit, run the full CI on it, build the
 # Windows setup from that commit, smoke-test install, upgrade and uninstall on the runner, and
 # keep the candidate (setup, native update ZIP, build metadata, checksums and signing report) as
 # workflow artifacts of this run. Nothing is uploaded to a release, pushed or tagged.
@@ -74,7 +74,7 @@ jobs:
         run: |
           $version = $env:REQUESTED_VERSION
           if (-not $version) {
-            $line = Select-String -LiteralPath CMakeLists.txt -Pattern 'set\(FIORIVOCE_VERSION "(\d+\.\d+\.\d+)" CACHE' | Select-Object -First 1
+            $line = Select-String -LiteralPath CMakeLists.txt -Pattern 'set\(OPENWHISPER_CPP_VERSION "(\d+\.\d+\.\d+)" CACHE' | Select-Object -First 1
             if (-not $line) { throw 'No default version in CMakeLists.txt' }
             $version = $line.Matches[0].Groups[1].Value
           }
@@ -120,7 +120,7 @@ jobs:
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           choco install innosetup --version=$env:INNO_SETUP_VERSION --allow-downgrade --yes --no-progress
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
-          "FIORIVOCE_ISCC=${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" >> $env:GITHUB_ENV
+          "OPENWHISPER_CPP_ISCC=${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" >> $env:GITHUB_ENV
       - name: Configure Windows code signing
         # Optional, one method at a time. With either set the executables, the
         # uninstaller and the setup exe are Authenticode signed, timestamped
@@ -150,7 +150,7 @@ jobs:
             throw 'Set either the WINDOWS_CERTIFICATE_* or the AZURE_TRUSTED_SIGNING_* secrets, not both.'
           }
           if ($pfx) {
-            $file = Join-Path $env:RUNNER_TEMP 'fiorivoce-signing.pfx'
+            $file = Join-Path $env:RUNNER_TEMP 'openwhisper-cpp-signing.pfx'
             [IO.File]::WriteAllBytes($file, [Convert]::FromBase64String($env:WINDOWS_CERTIFICATE_PFX))
             try {
               $password = ConvertTo-SecureString $env:WINDOWS_CERTIFICATE_PASSWORD -AsPlainText -Force
@@ -160,7 +160,7 @@ jobs:
             }
             $thumbprint = @($cert | Where-Object HasPrivateKey)[0].Thumbprint
             if (-not $thumbprint) { throw 'The PFX has no certificate with a private key.' }
-            "FIORIVOCE_SIGN_CERT_SHA1=$thumbprint" >> $env:GITHUB_ENV
+            "OPENWHISPER_CPP_SIGN_CERT_SHA1=$thumbprint" >> $env:GITHUB_ENV
             Write-Host "::notice title=Windows signing::Signing with certificate $thumbprint."
           } elseif ($azure) {
             foreach ($name in 'TENANT_ID', 'CLIENT_SECRET', 'ENDPOINT', 'ACCOUNT', 'PROFILE') {
@@ -180,14 +180,14 @@ jobs:
               CodeSigningAccountName = $env:AZURE_TRUSTED_SIGNING_ACCOUNT
               CertificateProfileName = $env:AZURE_TRUSTED_SIGNING_PROFILE
             } | ConvertTo-Json | Set-Content -LiteralPath $metadata -Encoding utf8
-            "FIORIVOCE_SIGN_DLIB=$($dlib.FullName)" >> $env:GITHUB_ENV
-            "FIORIVOCE_SIGN_METADATA=$metadata" >> $env:GITHUB_ENV
+            "OPENWHISPER_CPP_SIGN_DLIB=$($dlib.FullName)" >> $env:GITHUB_ENV
+            "OPENWHISPER_CPP_SIGN_METADATA=$metadata" >> $env:GITHUB_ENV
             Write-Host "::notice title=Windows signing::Signing with Azure Trusted Signing."
           } else {
             Write-Host "::notice title=Windows signing::No Windows signing secrets are set; the executables and installer will be unsigned."
           }
       - name: Build the previous setup for the upgrade smoke test
-        # No earlier FioriVoce release is published, so the upgrade starts from this commit
+        # No earlier OpenWhisper_CPP release is published, so the upgrade starts from this commit
         # built as version 0.0.0; build-installer.ps1 moves it to out\installer-previous when
         # the candidate is built.
         shell: pwsh
@@ -209,9 +209,9 @@ jobs:
           VERSION: ${{ steps.version.outputs.version }}
         run: .\packaging\windows\build-installer.ps1 -Version $env:VERSION -RequireQtLicenses -SourceQualification passed
       - name: Remove signing certificate
-        if: always() && env.FIORIVOCE_SIGN_CERT_SHA1 != ''
+        if: always() && env.OPENWHISPER_CPP_SIGN_CERT_SHA1 != ''
         shell: pwsh
-        run: Remove-Item -LiteralPath "Cert:\CurrentUser\My\$env:FIORIVOCE_SIGN_CERT_SHA1" -DeleteKey -ErrorAction SilentlyContinue
+        run: Remove-Item -LiteralPath "Cert:\CurrentUser\My\$env:OPENWHISPER_CPP_SIGN_CERT_SHA1" -DeleteKey -ErrorAction SilentlyContinue
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
         with:
@@ -225,15 +225,15 @@ jobs:
           VERSION: ${{ steps.version.outputs.version }}
         run: >-
           .\packaging\windows\smoke-setup.ps1
-          -PreviousSetup out\installer-previous\FioriVoce-Setup-0.0.0.exe
-          -NewSetup "out\installer\FioriVoce-Setup-$env:VERSION.exe"
+          -PreviousSetup out\installer-previous\OpenWhisper_CPP-Setup-0.0.0.exe
+          -NewSetup "out\installer\OpenWhisper_CPP-Setup-$env:VERSION.exe"
           -Version $env:VERSION
       - name: Preserve Windows lifecycle logs
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: windows-setup-logs
-          path: ${{ runner.temp }}/fiorivoce-setup-logs
+          path: ${{ runner.temp }}/openwhisper-cpp-setup-logs
           if-no-files-found: ignore
           retention-days: 14
       - name: Qualify the candidate
@@ -249,7 +249,7 @@ jobs:
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: fiorivoce-release-candidate
+          name: openwhisper-cpp-release-candidate
           path: out/installer/
           if-no-files-found: error
           retention-days: 14

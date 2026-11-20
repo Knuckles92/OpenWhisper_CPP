@@ -19,7 +19,7 @@ u::NativeEligibility eligible() {
     u::NativeEligibility facts;
     facts.standard_user = true;
     facts.probe.registered = true;
-    facts.probe.install_dir = "C:/Users/u/AppData/Local/Programs/FioriVoce";
+    facts.probe.install_dir = "C:/Users/u/AppData/Local/Programs/OpenWhisper_CPP";
     facts.probe.running_dir = facts.probe.install_dir;
     facts.default_data_root = true;
     facts.registered_program = true;
@@ -58,7 +58,7 @@ TEST_CASE("only the registered program with its inventory and default data is el
     }
     SECTION("a copy run from another folder") {
         auto facts = eligible();
-        facts.probe.running_dir = "D:/portable/FioriVoce";
+        facts.probe.running_dir = "D:/portable/OpenWhisper_CPP";
         CHECK_FALSE(u::native_update_eligible(facts));
     }
     SECTION("another program of the folder") {
@@ -90,13 +90,13 @@ TEST_CASE("a folder under a Program Files root is found", "[update_native]") {
     const fs::path root = fs::temp_directory_path() / "fv-program-files";
     const std::vector<fs::path> roots{"", root, root / "x86"};
     CHECK(u::under_program_files(root, roots));
-    CHECK(u::under_program_files(root / "FioriVoce", roots));
-    CHECK(u::under_program_files(root / "x86" / "FioriVoce" / ".", roots));
+    CHECK(u::under_program_files(root / "OpenWhisper_CPP", roots));
+    CHECK(u::under_program_files(root / "x86" / "OpenWhisper_CPP" / ".", roots));
     fs::path sibling = root;
     sibling += " Old";
-    CHECK_FALSE(u::under_program_files(sibling / "FioriVoce", roots));
-    CHECK_FALSE(u::under_program_files(root.parent_path() / "Programs" / "FioriVoce", roots));
-    CHECK_FALSE(u::under_program_files(root / "FioriVoce", {}));
+    CHECK_FALSE(u::under_program_files(sibling / "OpenWhisper_CPP", roots));
+    CHECK_FALSE(u::under_program_files(root.parent_path() / "Programs" / "OpenWhisper_CPP", roots));
+    CHECK_FALSE(u::under_program_files(root / "OpenWhisper_CPP", {}));
 }
 
 #ifndef _WIN32

@@ -450,7 +450,7 @@ TEST_CASE("a file the store writes is the bytes Python's json.dump writes") {
     const std::string python = with_os_linesep(lf);
     REQUIRE_FALSE(python.empty());
     TempDir temp;
-    const auto path = temp.path() / "fiorivoce_settings.json";
+    const auto path = temp.path() / "openwhisper_cpp_settings.json";
     write_bytes(path, python);
     fv::SettingsStore store(path);
     store.mutate([](Json&) {});

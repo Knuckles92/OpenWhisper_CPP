@@ -32,12 +32,12 @@ A-G2 (OpenWhisper import: import credentials, `open()` refresh, import messages)
 backup package, M. A-G3 (record tabs: setApiServer focus chain, upload_presenter unbuilt tab) is
 one ui_record package, S-M.
 
-1. `The first-run offer of Claude Code or Codex` | A | ui_personalize, ui_widgets (AgentPicker), docs/port/audit/a13 | M-L. OpenWhisper's cleanup card shows agent tiles with discovery and a model catalog; FioriVoce has a runner combo and a free model-ID field. A worker either hosts `AgentPicker` (already used by the meeting intelligence page) in `CleanupModelSection` with the installed-agent scan and per-agent models, tested in tests/ui_personalize with `agent_picker::scanSeam` stubbed, or writes the difference record if the lead keeps the combo (a worker is writing that record now: recheck).
+1. `The first-run offer of Claude Code or Codex` | A | ui_personalize, ui_widgets (AgentPicker), docs/port/audit/a13 | M-L. OpenWhisper's cleanup card shows agent tiles with discovery and a model catalog; OpenWhisper_CPP has a runner combo and a free model-ID field. A worker either hosts `AgentPicker` (already used by the meeting intelligence page) in `CleanupModelSection` with the installed-agent scan and per-agent models, tested in tests/ui_personalize with `agent_picker::scanSeam` stubbed, or writes the difference record if the lead keeps the combo (a worker is writing that record now: recheck).
 2. `The Downloads usage chip's "Meetings" half is never filled` | A | ui_downloads | S. Set `options.meetingModel` in `downloadsPageOptions` to `resolve_meeting_whisper_model(settings)`, "" when `resolve_meeting_asr_source` is remote; test in tests/ui_downloads that a model used by meetings shows the Meetings usage, and none with remote meeting speech.
 3. `HistoryPanel::refreshPastMeetings refreshes the sidebar when its page` | A (unsure: may already agree) | ui_history, ui_shell | S. Check whether the sidebar's page always follows the Meeting Mode tab; if not, refresh when the main window's current tab is Meeting Mode as main_window.py does; test with the History feature and the Meeting Mode tab in one window, switching tabs and emitting a meeting change.
 4. `MeetingAsrEngine::start_preview previews whenever accepts_files` | A (unsure: depends on whether Slot::Meeting ever holds a RemoteSpeechBackend) | meeting_capture, speech | S-M. Gate preview on the backend's `live_preview` capability or backend id (SpeechService accessor), as Python previews only with local Parakeet; test with a fake remote-like backend in Slot::Meeting that start_preview starts nothing.
 5. `merge_usage reads the usage's JSON object members` | A (decision: the custom report's usage total differs) | meeting_agent, meeting_intel | S. Either reproduce Python's token-less total for custom reports or record a difference; a golden or unit test of the custom report's usage pins whichever is chosen.
-6. `Paths::components_root() and speech_models_root() ignore FIORIVOCE_DATA_DIR` | A (unsure: depends on what OpenWhisper's override moves) + C (test isolation) | base, tests rigs | M. Read OpenWhisper's data-folder override, make `Paths` follow it, give the listed rigs all four variables; test in tests/base that the override moves (or does not move) components and speech models as OpenWhisper's does.
+6. `Paths::components_root() and speech_models_root() ignore OPENWHISPER_CPP_DATA_DIR` | A (unsure: depends on what OpenWhisper's override moves) + C (test isolation) | base, tests rigs | M. Read OpenWhisper's data-folder override, make `Paths` follow it, give the listed rigs all four variables; test in tests/base that the override moves (or does not move) components and speech models as OpenWhisper's does.
 7. `Import credentials (amendment 25): copy the credentials named by api_key_env` | A (A-G2) | backup | S. Add speech endpoints' `api_key_env` and local servers' `<id>_api_key_env` to `legacy_credential_names`; extend tests/backup/test_import_credentials.cpp with both kinds.
 8. `Home's shortcut after a hotkey save or a latch toggle` | A (unsure, A-G1) | ui_settings, ui_hotkeys | S. Save a shortcut and toggle the latch on the Hotkeys page with Home built and check Home's shortcut text updates; if it does not, call `HomePage::refreshShortcut` on the hotkeys change signal. Widget test in tests/ui_settings.
 9. `ui_history/history_entry_dialog.cpp: "Use this version" runs on io` | A (unsure) | ui_history | S. Refresh the list (or apply the result) when the io result arrives after the dialog closed, as Python's signal does; test by closing the dialog before a gated io executor runs.
@@ -118,7 +118,7 @@ Groups: B-G1 (unbounded joins at quit or destruction: `~InstalledAgents`, `waitF
 - `M9.3's transcripts group frames by connection` | C | tests/support/remote_wire | M
 - `setup_deps(), the production wiring of the meeting setup seams` | C | tests/meeting | M
 - `net.a send that races the close leaves the client's queued_bytes` | C | tests/net | S
-- `Never reviewed or run, because they need FIORIVOCE_OW_PYTHON` | C (needs FIORIVOCE_OW_PYTHON at configure) | tests/credentials, remote_host, settings, models, hotkeys | M
+- `Never reviewed or run, because they need OPENWHISPER_CPP_OW_PYTHON` | C (needs OPENWHISPER_CPP_OW_PYTHON at configure) | tests/credentials, remote_host, settings, models, hotkeys | M
 - `tests/ui_controller/test_m2_end_to_end.cpp proves part of M2's acceptance` | C | tests/ui_controller | M
 - `Tests that fail now and then when the machine is loaded` (the long list) | C | many tests | L
 - `Flaky tests, 2026-11-19` | C (a worker is load-proofing some: recheck) | tests/ui_shell, net, meeting, ui_meeting, ui_controller | M
@@ -132,7 +132,7 @@ Groups: B-G1 (unbounded joins at quit or destruction: `~InstalledAgents`, `waitF
 - `The engine-only default preset build of src/cli/main.cpp` | C (a build check) | cli | S
 - `Tests that compose SetupFeature (the Welcome page or the Backup` | C | tests/ui_setup, ui_settings | S
 - `tests/ui_controller/test_m3_end_to_end.cpp part 1 drives` | C | tests/ui_controller, tests/ui_shell | S
-- `Generator checks text.common_words_are_current` | C (needs FIORIVOCE_OW_PYTHON / OW_ROOT; group with the item above) | tests/text, llm, tools/gen | S
+- `Generator checks text.common_words_are_current` | C (needs OPENWHISPER_CPP_OW_PYTHON / OW_ROOT; group with the item above) | tests/text, llm, tools/gen | S
 - `llm/rewrite.cpp: the swallowed-exception branch` | C | llm | S
 - `tests/ui_personalize: no direct test of _follow_saved_hotkey` | C | tests/ui_personalize | S
 - `tests/dictation: test_a_whole_formatted_snippet_gets_its_leading_space` | C (+ A?: 1.2 s readiness wait in run_transform) | tests/dictation | S-M
@@ -238,4 +238,4 @@ Groups: B-G1 (unbounded joins at quit or destruction: `~InstalledAgents`, `waitF
 - Windows halves of B items 14, 16, 20 and A item 34 need the owner's Windows machine to verify (counted under A/B).
 - `documents (M6.7)` Debug run on Windows and `runtime_setup_dialog` real file pickers: Windows/owner parts of C and A items (counted there).
 - `On Linux ...` font failures: no owner action; D.
-- `Generator checks` and `FIORIVOCE_OW_PYTHON` checks: could be E (running OpenWhisper's Python is lead decision 5) — counted as C.
+- `Generator checks` and `OPENWHISPER_CPP_OW_PYTHON` checks: could be E (running OpenWhisper's Python is lead decision 5) — counted as C.

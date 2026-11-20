@@ -1,7 +1,7 @@
 """Write src/focus/data/app_catalog.json: OpenWhisper's app catalogue (known apps and sites).
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/gen/app_catalog.py [--check]
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/gen/app_catalog.py [--check]
 
 The tables are read from services/focus_context/catalog.py by importing it from the read-only
 checkout through tools/parity/ow_isolation.py, so fv_focus names, classifies and matches apps

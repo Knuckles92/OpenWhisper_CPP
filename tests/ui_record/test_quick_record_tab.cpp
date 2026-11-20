@@ -162,17 +162,17 @@ TEST_CASE("model downloads show their name and end independently", "[widget]") {
 
 TEST_CASE("the transcript shows the fixed text and a distinct raw one on a switch", "[widget]") {
     fvtest::ShownTab tab;
-    tab->setTranscript(QStringLiteral("Hello from FioriVoce."),
-                       QStringLiteral("hello from fiorivoce"));
+    tab->setTranscript(QStringLiteral("Hello from OpenWhisper_CPP."),
+                       QStringLiteral("hello from openwhisper-cpp"));
     CHECK_FALSE(tab->versionToggle()->isHidden());
     CHECK(tab->transcriptText()->property("headed").toBool());
-    CHECK(tab->transcriptText()->toPlainText() == QStringLiteral("Hello from FioriVoce."));
+    CHECK(tab->transcriptText()->toPlainText() == QStringLiteral("Hello from OpenWhisper_CPP."));
 
     tab->rawButton()->click();
-    CHECK(tab->transcriptText()->toPlainText() == QStringLiteral("hello from fiorivoce"));
-    CHECK(tab->shownTranscript() == QStringLiteral("hello from fiorivoce"));
+    CHECK(tab->transcriptText()->toPlainText() == QStringLiteral("hello from openwhisper-cpp"));
+    CHECK(tab->shownTranscript() == QStringLiteral("hello from openwhisper-cpp"));
     tab->fixedButton()->click();
-    CHECK(tab->shownTranscript() == QStringLiteral("Hello from FioriVoce."));
+    CHECK(tab->shownTranscript() == QStringLiteral("Hello from OpenWhisper_CPP."));
 
     // A new transcript starts on Fixed again.
     tab->rawButton()->click();

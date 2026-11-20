@@ -11,7 +11,7 @@ tests/db/test_golden.cpp, opens the same files with fv::Database and compares.
 
 The fixtures are made by OpenWhisper's Python as well, by running this file as a script:
 
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/cases/services.database.py --write-fixtures
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/cases/services.database.py --write-fixtures
 
     schema_v5.db   the v5 layout of tests/test_database.py's legacy meeting tables, with a
                         v5-era transcription_history holding two rows

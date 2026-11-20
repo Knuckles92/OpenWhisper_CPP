@@ -228,7 +228,7 @@ TEST_CASE("a build without an update source says so and never schedules", "[upda
     fixture.jobs.run_all();
     fixture.ui.run_all();
     REQUIRE(fixture.checks.size() == 1);
-    CHECK(std::get<1>(fixture.checks[0]) == "This build of FioriVoce has no update source.");
+    CHECK(std::get<1>(fixture.checks[0]) == "This build of OpenWhisper_CPP has no update source.");
     CHECK(fixture.client.requests().empty());
 }
 
@@ -291,13 +291,13 @@ TEST_CASE("leftovers are pruned on the components strand", "[update]") {
     Fixture fixture;
     const auto updates = fixture.root.path() / "updates";
     std::filesystem::create_directories(updates);
-    write_bytes(updates / "FioriVoce-Setup-0.0.9.exe", "old");
+    write_bytes(updates / "OpenWhisper_CPP-Setup-0.0.9.exe", "old");
     // Older than the keep window by the runtime's clock.
     fixture.clock.advance(std::chrono::hours(24 * 365 * 30));
     fixture.runtime.prune_leftovers();
-    CHECK(std::filesystem::exists(updates / "FioriVoce-Setup-0.0.9.exe"));
+    CHECK(std::filesystem::exists(updates / "OpenWhisper_CPP-Setup-0.0.9.exe"));
     fixture.components.run_all();
-    CHECK_FALSE(std::filesystem::exists(updates / "FioriVoce-Setup-0.0.9.exe"));
+    CHECK_FALSE(std::filesystem::exists(updates / "OpenWhisper_CPP-Setup-0.0.9.exe"));
 }
 
 TEST_CASE("results that arrive after the runtime is gone are dropped", "[update]") {

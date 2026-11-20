@@ -154,15 +154,16 @@ TEST_CASE("the asr command exits 2 naming the variable that is missing", "[local
     fv::MapEnv env(false);
     std::ostringstream out;
     std::ostringstream err;
-    fv::MapEnvReader runtime_only{{"FIORIVOCE_TEST_RUNTIME_DIR", "runtime"}};
+    fv::MapEnvReader runtime_only{{"OPENWHISPER_CPP_TEST_RUNTIME_DIR", "runtime"}};
     fv::bench::CommandContext context{out, err, runtime_only, env};
     CHECK(fv::bench::run_command({"asr", "clip.wav"}, context) == 2);
-    CHECK(err.str() == "Set FIORIVOCE_TEST_MODEL (or pass --model) to a Parakeet .gguf model.\n");
+    CHECK(err.str() ==
+          "Set OPENWHISPER_CPP_TEST_MODEL (or pass --model) to a Parakeet .gguf model.\n");
     fv::MapEnvReader none;
     fv::bench::CommandContext bare{out, err, none, env};
     CHECK(fv::bench::run_command({"asr-corpus", "manifest.json"}, bare) == 2);
     CHECK_THAT(err.str(), Catch::Matchers::ContainsSubstring(
-                              "Set FIORIVOCE_TEST_RUNTIME_DIR (or pass --runtime)"));
+                              "Set OPENWHISPER_CPP_TEST_RUNTIME_DIR (or pass --runtime)"));
     CHECK(fv::bench::run_command({"asr"}, bare) == 2);
     CHECK_THAT(err.str(), Catch::Matchers::ContainsSubstring("required: audio"));
     CHECK(fv::bench::run_command({"nonsense"}, bare) == 2);
@@ -170,11 +171,12 @@ TEST_CASE("the asr command exits 2 naming the variable that is missing", "[local
 
 TEST_CASE("the asr command reports first load, p95 and real-time factor on the real engine",
           "[decode]") {
-    const auto runtime = fv::env_utf8("FIORIVOCE_TEST_RUNTIME_DIR");
-    const auto model = fv::env_utf8("FIORIVOCE_TEST_MODEL");
-    const auto wav = fv::env_utf8("FIORIVOCE_TEST_WAV");
+    const auto runtime = fv::env_utf8("OPENWHISPER_CPP_TEST_RUNTIME_DIR");
+    const auto model = fv::env_utf8("OPENWHISPER_CPP_TEST_MODEL");
+    const auto wav = fv::env_utf8("OPENWHISPER_CPP_TEST_WAV");
     if (!runtime || !model || !wav) {
-        SKIP("Set FIORIVOCE_TEST_RUNTIME_DIR, FIORIVOCE_TEST_MODEL and FIORIVOCE_TEST_WAV.");
+        SKIP("Set OPENWHISPER_CPP_TEST_RUNTIME_DIR, OPENWHISPER_CPP_TEST_MODEL and "
+             "OPENWHISPER_CPP_TEST_WAV.");
     }
     fv::testkit::TempDataRoot root;
     const auto output = root.path() / "bench-asr.json";

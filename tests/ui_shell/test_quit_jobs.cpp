@@ -143,7 +143,7 @@ QuitRun quitDuring(const std::function<fv::Executor&(fv::AppContext&)>& strand,
     hooks.processEvents = [] {
         QApplication::processEvents();
     };
-    hooks.arguments = std::vector<std::string>{"fiorivoce"};
+    hooks.arguments = std::vector<std::string>{"openwhisper-cpp"};
     hooks.audioBackend = [] {
         return std::make_shared<fv::audio::testing::FakeBackend>();
     };
@@ -158,7 +158,7 @@ QuitRun quitDuring(const std::function<fv::Executor&(fv::AppContext&)>& strand,
         return 0;
     };
     int argc = 1;
-    char program[10] = "fiorivoce";
+    char program[10] = "openwhisper-cpp";
     char* argv[2] = {program, nullptr};
     {
         fv::Bootstrap bootstrap(std::move(hooks));

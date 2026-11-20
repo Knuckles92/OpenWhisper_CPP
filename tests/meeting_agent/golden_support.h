@@ -26,7 +26,7 @@ template <class Fn> std::string raised(Fn&& fn) {
     return "";
 }
 
-// Every string in `value` with OpenWhisper's names as FioriVoce's.
+// Every string in `value` with OpenWhisper's names as OpenWhisper_CPP's.
 inline Json rebranded(const Json& value) {
     if (value.is_string()) {
         return golden::rebrand(value.get<std::string>());

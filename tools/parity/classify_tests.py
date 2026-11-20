@@ -2,7 +2,7 @@
 
 Reads only. Usage:
     python -I -B tools/parity/classify_tests.py [<openwhisper checkout> [<areas.json> [<out dir>]]]
-The checkout defaults to FIORIVOCE_OW_ROOT, areas.json to docs/port/areas.json and the output
+The checkout defaults to OPENWHISPER_CPP_OW_ROOT, areas.json to docs/port/areas.json and the output
 folder to tools/parity/. Writes classification.json and classification.md there; a rerun on the
 same checkout gives the same bytes.
 
@@ -12,7 +12,7 @@ areas.json. The primary area is the one whose module stem matches the test
 file name, else the area with the most referenced modules.
 
 Kind (first rule that matches wins):
-  dropped-engine  references a local engine FioriVoce will not port
+  dropped-engine  references a local engine OpenWhisper_CPP will not port
   platform        skips/branches on a platform or imports a platform backend
   qt-widget       imports PyQt6 or ui_qt (conftest's own qt rule)
   integration     fakes, sockets, subprocess, threads, HTTP mocks, sqlite db
@@ -191,10 +191,10 @@ def main() -> None:
     args = sys.argv[1:]
     if args:
         root = Path(args[0])
-    elif os.environ.get("FIORIVOCE_OW_ROOT"):
-        root = Path(os.environ["FIORIVOCE_OW_ROOT"])
+    elif os.environ.get("OPENWHISPER_CPP_OW_ROOT"):
+        root = Path(os.environ["OPENWHISPER_CPP_OW_ROOT"])
     else:
-        raise SystemExit("Pass the OpenWhisper checkout or set FIORIVOCE_OW_ROOT.")
+        raise SystemExit("Pass the OpenWhisper checkout or set OPENWHISPER_CPP_OW_ROOT.")
     areas_path = Path(args[1]) if len(args) > 1 else repo / "docs" / "port" / "areas.json"
     out = Path(args[2]) if len(args) > 2 else tools
     rows = classify(root, load_areas(areas_path))

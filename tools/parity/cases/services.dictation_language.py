@@ -1,6 +1,6 @@
 """Curated inputs for services/dictation_language.py (fv_speech dictation_language.h).
 
-Every function over settings dicts whose selected_model is one FioriVoce has ("parakeet",
+Every function over settings dicts whose selected_model is one OpenWhisper_CPP has ("parakeet",
 "api", "remote"), a pre-2.0 API name, junk, or nothing. The paired host's languages are never
 noted (note_remote_runtime(None) before each call: that branch arrives with the remote engine),
 so "remote" reads as a host that has not reported in. Mutators are recorded as the dict they

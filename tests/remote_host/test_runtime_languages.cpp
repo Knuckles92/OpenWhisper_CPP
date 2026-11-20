@@ -16,7 +16,8 @@ using namespace fv::remote_host;
 TEST_CASE("remote choices validate language before persisting", "[test_local_asr_languages]") {
     // from
     // tests/test_local_asr_languages.py::test_remote_choices_validate_language_before_persisting
-    // Parakeet only: the other families of the Python loop are engines FioriVoce does not have.
+    // Parakeet only: the other families of the Python loop are engines OpenWhisper_CPP does not
+    // have.
     const models::Host host{
         .platform = std::string(models::platform::kWinAmd64),
         .is_installed =

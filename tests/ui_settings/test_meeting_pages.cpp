@@ -460,9 +460,9 @@ TEST_CASE("test_rows_and_storage_repeat_what_each_destination_reports (meeting v
     CHECK(std::ranges::find(lines, QStringLiteral("Parakeet TDT 0.6B v3 · French · Me / Others "
                                                   "labels")) != lines.end());
     // settings_home.py: meeting_intelligence_overview's model, then provider and core.
-    CHECK(std::ranges::find(lines, QStringLiteral("openrouter/free · OpenRouter · FioriVoce. Turn "
-                                                  "it on for each meeting when you start it.")) !=
-          lines.end());
+    CHECK(std::ranges::find(
+              lines, QStringLiteral("openrouter/free · OpenRouter · OpenWhisper_CPP. Turn "
+                                    "it on for each meeting when you start it.")) != lines.end());
     REQUIRE(buttonNamed(*meetings, QStringLiteral("Set up AI insights")) != nullptr);
     // What every row title says, in order.
     QStringList titles;

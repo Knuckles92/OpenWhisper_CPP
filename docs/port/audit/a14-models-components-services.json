@@ -13,7 +13,7 @@
     "tests/models/test_component_store.cpp",
     "tests/models/test_golden.cpp"
    ],
-   "note": "Schema 2 with the NeMo runtimes only. Every entry equals OpenWhisper's services/local_asr/nvidia_*_runtime.json (version, component_api, platform, archives with url, sha256, size_bytes, extract, root), except that the two Windows entries drop the python-3.12.10 embed archive and their install_bytes are lower by its 22,501,250 extracted bytes (compared by script this run); versions stay \"0.1.0-py312\" so a tree shared with OpenWhisper is not offered an update. Pinned by test_every_optional_artifact_is_pinned_and_has_integrity_metadata, test_linux_x86_64_offers_only_the_native_runtimes, test_catalog_needs_no_network and test_catalog_entry_mutation_does_not_affect_builtin (copies). tools/gen/speech_catalog.py --check is registered only when FIORIVOCE_OW_PYTHON and FIORIVOCE_OW_ROOT are set, which they are not here."
+   "note": "Schema 2 with the NeMo runtimes only. Every entry equals OpenWhisper's services/local_asr/nvidia_*_runtime.json (version, component_api, platform, archives with url, sha256, size_bytes, extract, root), except that the two Windows entries drop the python-3.12.10 embed archive and their install_bytes are lower by its 22,501,250 extracted bytes (compared by script this run); versions stay \"0.1.0-py312\" so a tree shared with OpenWhisper is not offered an update. Pinned by test_every_optional_artifact_is_pinned_and_has_integrity_metadata, test_linux_x86_64_offers_only_the_native_runtimes, test_catalog_needs_no_network and test_catalog_entry_mutation_does_not_affect_builtin (copies). tools/gen/speech_catalog.py --check is registered only when OPENWHISPER_CPP_OW_PYTHON and OPENWHISPER_CPP_OW_ROOT are set, which they are not here."
   },
   "A14-02": {
    "status": "fixed",
@@ -70,7 +70,7 @@
     "tests/models/test_golden.cpp",
     "tests/models/test_component_store.cpp"
    ],
-   "note": "The API and platform texts are golden (16 vectors, 'OpenWhisper' as identity().product). 'Requires macOS {min} or later' had no test: added 'check_compatibility words a macOS minimum this Mac does not meet' (older, equal, newer and unknown versions, and the order of the checks). python_abi is not ported (no FioriVoce component carries Python, M1 scope)."
+   "note": "The API and platform texts are golden (16 vectors, 'OpenWhisper' as identity().product). 'Requires macOS {min} or later' had no test: added 'check_compatibility words a macOS minimum this Mac does not meet' (older, equal, newer and unknown versions, and the order of the checks). python_abi is not ported (no OpenWhisper_CPP component carries Python, M1 scope)."
   },
   "A14-07": {
    "status": "fixed",
@@ -82,7 +82,7 @@
     "tests/models/test_component_store.cpp",
     "tests/models/test_component_rules.cpp"
    ],
-   "note": "The pipeline (phases, markers last with manifest indent 2, cached runtime archive re-hashed, swap and rollback, cache dropped after commit, compatibility refused before download) was pinned. 'The catalog entry lists no files to download.' had no test: added 'an install refuses an entry without archives before anything else'. FioriVoce adds staging under .pending for a loaded runtime (architecture 5.7)."
+   "note": "The pipeline (phases, markers last with manifest indent 2, cached runtime archive re-hashed, swap and rollback, cache dropped after commit, compatibility refused before download) was pinned. 'The catalog entry lists no files to download.' had no test: added 'an install refuses an entry without archives before anything else'. OpenWhisper_CPP adds staging under .pending for a loaded runtime (architecture 5.7)."
   },
   "A14-08": {
    "status": "verified",
@@ -225,7 +225,7 @@
     "tests/models/test_component_store.cpp",
     "tests/models/test_component_runtime.cpp"
    ],
-   "note": "Exclusive begin_install, cancel_all, the two speech-job refusals, engines closed first, and the finish messages ('Installed and ready to use — no restart needed.', 'Restart {product} to enable this component.', 'Installation canceled.'). FioriVoce adds 'Restart {product} to switch to the GPU runtime.' because a loaded runtime is never unloaded (architecture 5.7)."
+   "note": "Exclusive begin_install, cancel_all, the two speech-job refusals, engines closed first, and the finish messages ('Installed and ready to use — no restart needed.', 'Restart {product} to enable this component.', 'Installation canceled.'). OpenWhisper_CPP adds 'Restart {product} to switch to the GPU runtime.' because a loaded runtime is never unloaded (architecture 5.7)."
   },
   "A14-20": {
    "status": "verified",
@@ -361,7 +361,7 @@
    "tests": [
     "tests/models/test_hf_access.cpp"
    ],
-   "note": "23 describe_model_download_error vectors and the TestDescribeDownloadError cases; the log file is identity().log_file ('fiorivoce.log'), as M2.5's traps decide."
+   "note": "23 describe_model_download_error vectors and the TestDescribeDownloadError cases; the log file is identity().log_file ('openwhisper-cpp.log'), as M2.5's traps decide."
   },
   "A14-34": {
    "status": "verified",
@@ -512,7 +512,7 @@
   },
   "A14-51": {
    "status": "dropped",
-   "reason": "This backend uses faster-whisper. FioriVoce runs the Parakeet family through NeMo-Speech.cpp."
+   "reason": "This backend uses faster-whisper. OpenWhisper_CPP runs the Parakeet family through NeMo-Speech.cpp."
   },
   "A14-52": {
    "status": "dropped",
@@ -677,7 +677,7 @@
     "tests/models/test_model_details.cpp",
     "tests/models/test_runtime_resolver.cpp"
    ],
-   "note": "get_model_details vectors carry the Parakeet and Orukeet copy verbatim (descriptions, languages, Orukeet origin, maintainer, performance and four extra limitations, shared fields, licence and source URLs, hosts, 'Unknown' for size 0); MODEL_SECURITY_NOTICE with identity().product ('the security notices name FioriVoce'). Nemotron is not ported (a14-local-engine)."
+   "note": "get_model_details vectors carry the Parakeet and Orukeet copy verbatim (descriptions, languages, Orukeet origin, maintainer, performance and four extra limitations, shared fields, licence and source URLs, hosts, 'Unknown' for size 0); MODEL_SECURITY_NOTICE with identity().product ('the security notices name OpenWhisper_CPP'). Nemotron is not ported (a14-local-engine)."
   },
   "A14-70": {
    "status": "verified",
@@ -754,7 +754,7 @@
     "SD2-05"
    ],
    "openwhisper": "Offers multiple local speech backends. Its model catalog includes Nemotron alongside Parakeet and Orukeet.",
-   "fiorivoce": "Uses NeMo-Speech.cpp for its one local Parakeet engine. The catalog lists Parakeet TDT and its Orukeet adaptation.",
+   "openwhisper-cpp": "Uses NeMo-Speech.cpp for its one local Parakeet engine. The catalog lists Parakeet TDT and its Orukeet adaptation.",
    "reason": "The project selected this engine family for the C++ rewrite. Runtime selection permits separate CPU and GPU builds.",
    "source": "AGENTS.md and src/models/speech_catalog.cpp"
   },
@@ -764,8 +764,8 @@
     "A14-48"
    ],
    "openwhisper": "The optional backend implements automatic CPU fallback for selected engines, including Qwen and transcribe.cpp.",
-   "fiorivoce": "A Parakeet model on Auto retries on the CPU when GPU initialization fails and reports the reason. An explicitly requested GPU reports its load error.",
-   "reason": "The same device-selection rule applies to the engine shipped with FioriVoce.",
+   "openwhisper-cpp": "A Parakeet model on Auto retries on the CPU when GPU initialization fails and reports the reason. An explicitly requested GPU reports its load error.",
+   "reason": "The same device-selection rule applies to the engine shipped with OpenWhisper_CPP.",
    "source": "transcriber/optional_backend.py, src/speech/parakeet_backend.cpp and tests/speech/test_parakeet_backend.cpp"
   },
   {
@@ -774,9 +774,9 @@
     "A14-68"
    ],
    "openwhisper": "The NVIDIA Speech rows say the runtime is shared by Parakeet and Nemotron, 'Runs in a dedicated process', local format 'Isolated worker process', payload 'portable Python on Windows', add the Python PSF licence and link the Python 3.12.10 download page.",
-   "fiorivoce": "The rows say 'Parakeet models', 'Runs inside FioriVoce', local format 'Native libraries loaded by FioriVoce', payload 'Verified native libraries', and drop the Python licence and link; every other field is OpenWhisper's, with the product named by identity().",
-   "reason": "FioriVoce loads the runtime into its own process without an embedded Python and ships only the Parakeet family, so the upstream wording would describe software it does not install.",
-   "source": "docs/port/packages/M2.md M2.5 'Traps' (map a14 A14-21, A14-68); src/models/component_details.h and tests/models/test_component_details.cpp fiorivoce_row"
+   "openwhisper-cpp": "The rows say 'Parakeet models', 'Runs inside OpenWhisper_CPP', local format 'Native libraries loaded by OpenWhisper_CPP', payload 'Verified native libraries', and drop the Python licence and link; every other field is OpenWhisper's, with the product named by identity().",
+   "reason": "OpenWhisper_CPP loads the runtime into its own process without an embedded Python and ships only the Parakeet family, so the upstream wording would describe software it does not install.",
+   "source": "docs/port/packages/M2.md M2.5 'Traps' (map a14 A14-21, A14-68); src/models/component_details.h and tests/models/test_component_details.cpp openwhisper_cpp_row"
   },
   {
    "id": "a14-staged-component-change",
@@ -785,8 +785,8 @@
     "A14-64"
    ],
    "openwhisper": "A component is installed, updated or removed at once; no component row waits for a restart.",
-   "fiorivoce": "An update or removal of the speech runtime that is loaded is staged and applied at the next start: its Downloads row shows 'Restart needed' and offers nothing more, and describe() gives 'Restart FioriVoce to finish installing the component.' or 'Restart FioriVoce to finish removing the component.'",
-   "reason": "The NeMo-Speech.cpp runtime runs inside FioriVoce's process and cannot be unloaded (FreeLibrary crashes the process), so a change to the loaded runtime waits for the next start.",
+   "openwhisper-cpp": "An update or removal of the speech runtime that is loaded is staged and applied at the next start: its Downloads row shows 'Restart needed' and offers nothing more, and describe() gives 'Restart OpenWhisper_CPP to finish installing the component.' or 'Restart OpenWhisper_CPP to finish removing the component.'",
+   "reason": "The NeMo-Speech.cpp runtime runs inside OpenWhisper_CPP's process and cannot be unloaded (FreeLibrary crashes the process), so a change to the loaded runtime waits for the next start.",
    "source": "The models sweep of 2026-11-19 (open item describe() and is_installed()); src/models/coordinator.cpp describe, src/models/downloads_model.cpp; tests/models/test_component_lifecycle.cpp ('describe() names a change staged for the next start, and the row offers nothing more', 'removing the loaded runtime is staged and done at the next start')"
   },
   {
@@ -795,7 +795,7 @@
     "A14-44"
    ],
    "openwhisper": "OpenWhisper has no setting for a runtime folder of the user's choosing; its runtimes come from its components only.",
-   "fiorivoce": "A runtime folder chosen in fv_runtime_dir is checked for the runtime library and its build. Without the library the engine is a missing runtime with 'No speech runtime in <dir>: <library> was not found.'; a CPU build keeps device Auto on the CPU and refuses an explicit GPU with '<dir> holds a CPU build of NeMo-Speech.cpp, so Parakeet can't use the GPU with it.'",
+   "openwhisper-cpp": "A runtime folder chosen in fv_runtime_dir is checked for the runtime library and its build. Without the library the engine is a missing runtime with 'No speech runtime in <dir>: <library> was not found.'; a CPU build keeps device Auto on the CPU and refuses an explicit GPU with '<dir> holds a CPU build of NeMo-Speech.cpp, so Parakeet can't use the GPU with it.'",
    "reason": "A folder the user picks may hold no runtime or a CPU-only build; saying which before the load fails tells the user what to change.",
    "source": "The models sweep of 2026-11-19 (open item models/engine_resolution.cpp); src/models/engine_resolution.cpp, src/engine/runtime.cpp find_runtime_library; tests/models/test_sweep_runtime_dir.cpp ('runtime_dir_serves needs the library, and a GPU build for a GPU runtime', 'a chosen folder without the runtime library is a missing runtime', 'a chosen CPU build keeps Auto on the CPU and refuses an explicit GPU')"
   }

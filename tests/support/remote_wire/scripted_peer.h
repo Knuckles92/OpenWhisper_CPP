@@ -78,7 +78,7 @@ private:
 struct ReplayOptions {
     std::chrono::milliseconds timeout{10'000}; // for each frame the server should send
     // What the server writes where OpenWhisper wrote its own name; empty: identity().product,
-    // as a FioriVoce host writes.
+    // as a OpenWhisper_CPP host writes.
     std::string product;
 };
 std::vector<std::string> play_client(net::Reactor&, std::uint16_t port, const Transcript&, int conn,

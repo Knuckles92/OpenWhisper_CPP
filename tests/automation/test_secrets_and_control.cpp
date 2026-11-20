@@ -103,7 +103,7 @@ TEST_CASE("the app control is registered once and required with a refusal", "[co
         FAIL("no refusal");
     } catch (const ControlError& error) {
         CHECK(error.code() == UNAVAILABLE);
-        CHECK(error.message() == "FioriVoce isn't ready for this yet.");
+        CHECK(error.message() == "OpenWhisper_CPP isn't ready for this yet.");
     }
     auto fake = std::make_shared<FakeAppControl>();
     set_app_control(fake);

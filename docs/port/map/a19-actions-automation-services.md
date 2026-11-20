@@ -558,7 +558,7 @@ action_names,addressing},"criteria":{span:null,..., "none":PAYLOAD_NONE}}}`. Ans
 None of this area depends on the speech engine. Nothing here is for faster-whisper, Moonshine, Qwen3-ASR, Parakeet MLX
 or the worker-process plumbing. Points of contact with the engine are indirect:
 - `app_control._start` refuses when the engine is not ready only through `runtime.start_recording` returning False and
-  the status text it emitted; FioriVoce's in-process Parakeet `EngineWorker` must emit an equivalent refusal status.
+  the status text it emitted; OpenWhisper_CPP's in-process Parakeet `EngineWorker` must emit an equivalent refusal status.
 - `transcription.preview` events (published by a04) come from live preview; with Parakeet TDT that is windowed
   `Recognizer::transcribe`, so the <= 4/s throttle and `final` flag still apply.
 - The "agent ask" and Route-by-voice judge use the user's text model / cloud judges (a12), not speech engines; they
@@ -696,7 +696,7 @@ Risks:
 - SSE over Qt: `QHttpServer` streaming is only in newer Qt; the listener choice belongs to a20 and blocks routes 9-10.
 - Branding: event names, env vars (`OPENWHISPER_*`), credential names, header `X-OpenWhisper-Client`, MCP server name
   `openwhisper`, `~/OpenWhisper Agent Tasks`, and copy strings all say OpenWhisper. Users' scripts and existing
-  secrets depend on these; renaming to FioriVoce is an owner decision.
+  secrets depend on these; renaming to OpenWhisper_CPP is an owner decision.
 
 Native gains: no import cost for the channel bridge (the Python one hand-wrote MCP to avoid 0.5 s of SDK imports; a
 C++ binary answers in milliseconds and can drop `PipeLineReader`'s polling by using overlapped I/O); routing gate in

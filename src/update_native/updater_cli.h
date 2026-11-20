@@ -9,8 +9,8 @@
 
 #include "update_native/journal.h"
 
-// fiorivoce-updater's command line (scripts/updater_helper.py: main, _run_setup). The program in
-// src/updater is only main(): everything it decides is here, so tests can link it.
+// openwhisper-cpp-updater's command line (scripts/updater_helper.py: main, _run_setup). The program
+// in src/updater is only main(): everything it decides is here, so tests can link it.
 namespace fv::update_native {
 
 // What the installer's temporary helper knows when it runs a setup action.

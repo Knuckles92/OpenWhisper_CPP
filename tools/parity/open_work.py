@@ -3,7 +3,7 @@
     python -I -B tools/parity/open_work.py                  totals, and the files with open work
     python -I -B tools/parity/open_work.py test_x.py ...    the open functions of those files
 
-The parity report counts functions; this names them. FIORIVOCE_OW_ROOT is the OpenWhisper
+The parity report counts functions; this names them. OPENWHISPER_CPP_OW_ROOT is the OpenWhisper
 checkout (read only): a function is "not listed" when pytest would collect it there (a module
 level test function, or a test method of a Test class) and no tests/*/PARITY.json has an entry.
 """
@@ -59,9 +59,9 @@ def open_work(ow: Path) -> list[dict]:
 
 
 def main(argv: list[str]) -> int:
-    ow = Path(os.environ.get("FIORIVOCE_OW_ROOT", ""))
-    if not os.environ.get("FIORIVOCE_OW_ROOT") or not (ow / "tests").is_dir():
-        print("open_work: set FIORIVOCE_OW_ROOT to the OpenWhisper checkout")
+    ow = Path(os.environ.get("OPENWHISPER_CPP_OW_ROOT", ""))
+    if not os.environ.get("OPENWHISPER_CPP_OW_ROOT") or not (ow / "tests").is_dir():
+        print("open_work: set OPENWHISPER_CPP_OW_ROOT to the OpenWhisper checkout")
         return 2
     work = open_work(ow)
     only = set(argv)

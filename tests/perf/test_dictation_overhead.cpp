@@ -1,4 +1,4 @@
-// What FioriVoce itself adds to a dictation, with no speech engine: OpenWhisper's
+// What OpenWhisper_CPP itself adds to a dictation, with no speech engine: OpenWhisper's
 // scripts/bench_dictation_overhead.py, its three parts against the real code.
 //
 // stop    A 30 s recording's stream closed -> 16 kHz audio ready to decode: the recording

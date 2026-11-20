@@ -1,6 +1,6 @@
 # tools/perf: performance budgets (M10.3)
 
-FioriVoce's performance metrics, the budgets they are held to, OpenWhisper's numbers where it
+OpenWhisper_CPP's performance metrics, the budgets they are held to, OpenWhisper's numbers where it
 has them, and the report. The measuring tests are C++ (`tests/perf`, CTest label `perf`, names
 `perf.<case>`); these tools run them, judge them and write the report.
 
@@ -31,13 +31,13 @@ ten times its budget (no ceiling for a ratio budget without OpenWhisper's number
 | `history refresh of 100 unchanged cards` | `history_refresh_100_ms`, `history_first_100_cards_ms` |
 | `meeting state SQL writes on a 739,068-byte document` | `meeting_state_runtime_write_ms`, `meeting_state_summary_patch_ms`, `meeting_state_card_edit_ms` |
 | `key to text with the fake engine` | `key_to_text_p95_ms`, `key_to_text_p50_ms` |
-| `key to text with Parakeet` (`[decode]`, needs `FIORIVOCE_TEST_*`) | `key_to_text_decode_p95_ms` |
+| `key to text with Parakeet` (`[decode]`, needs `OPENWHISPER_CPP_TEST_*`) | `key_to_text_decode_p95_ms` |
 | `dictation overhead: stop to 16 kHz audio` | `dictation_stop_overhead_ms` and its parts |
 | `dictation overhead: remote round trip` | `remote_round_trip_ms`, `remote_request_ms` |
 | `dictation overhead: API upload` | `api_upload_ms`, `api_upload_cold_ms` |
 | `agent loop time to first token and pass overhead` | `agent_ttft_overhead_p95_ms`, `agent_pass_overhead_p95_ms` |
 | `quit while workers are busy` | OpenWhisper's release-health check "Quit while workers are busy: measure process exit time". Real Bootstrap offscreen over fakes; Quit confirmed through the busy question during the stop's decode of a 120 s dictation (`quit_transcribing_ms`, `quit_transcribing_exit_ms`; a modelled 1.5 s window that cannot be interrupted, as Parakeet's cannot) and during the CUDA runtime's download from 127.0.0.1 (`quit_installing_ms`, `quit_installing_exit_ms`); `_ms` to the end of the shutdown plan, `_exit_ms` to `Bootstrap::run` returning; `shutdown_s` (the plan's own metric). All `info`: OpenWhisper sets no shutdown bound |
-| (`fiorivoce-cli --workflow-smoke`, 5 runs) | `stop_to_result_p95_ms`, `stop_to_result_p50_ms`, `cancel_ms`, `restart_ms`, `peak_rss_mb` |
+| (`openwhisper-cpp-cli --workflow-smoke`, 5 runs) | `stop_to_result_p95_ms`, `stop_to_result_p50_ms`, `cancel_ms`, `restart_ms`, `peak_rss_mb` |
 
 No measuring test touches the desktop: the keyboard and mouse hooks, synthetic keys, tray, audio
 devices and clipboard are fakes (the offscreen platform's clipboard is private to the process),
@@ -51,23 +51,23 @@ PowerShell at the checkout root:
 ```powershell
 . .\scripts\vsenv.ps1
 cmake --preset windows                      # once
-$env:FIORIVOCE_TEST_RUNTIME_DIR = "<NeMo-Speech.cpp GPU release folder>"   # optional: [decode]
-$env:FIORIVOCE_TEST_MODEL = "<parakeet .gguf>"
-$env:FIORIVOCE_TEST_WAV = "<a 16 kHz speech WAV>"
+$env:OPENWHISPER_CPP_TEST_RUNTIME_DIR = "<NeMo-Speech.cpp GPU release folder>"   # optional: [decode]
+$env:OPENWHISPER_CPP_TEST_MODEL = "<parakeet .gguf>"
+$env:OPENWHISPER_CPP_TEST_WAV = "<a 16 kHz speech WAV>"
 python tools/perf/run_perf.py --preset windows-release --report-to docs/port/performance-report.md
 python tools/perf/check_budgets.py
 ```
 
-`run_perf.py` builds `fv_perf_tests` and `fiorivoce-cli` with `windows-release`, runs
+`run_perf.py` builds `fv_perf_tests` and `openwhisper-cpp-cli` with `windows-release`, runs
 `ctest --preset windows-release -R "^perf\." -L perf -j1` (plus four more processes for each
 cold-start test), the workflow smoke five times, and writes the report. `check_budgets.py` exits 1
 on a miss and prints the owner package. Once lead decision 5 is approved, add OpenWhisper's
 measured numbers to the same run:
 
 ```powershell
-$env:FIORIVOCE_OW_APPROVED = "1"
-$env:FIORIVOCE_OW_ROOT = "<read-only OpenWhisper checkout at tools/parity/reference.json's commit>"
-$env:FIORIVOCE_OW_PYTHON = "<OpenWhisper's Python 3.12>"
+$env:OPENWHISPER_CPP_OW_APPROVED = "1"
+$env:OPENWHISPER_CPP_OW_ROOT = "<read-only OpenWhisper checkout at tools/parity/reference.json's commit>"
+$env:OPENWHISPER_CPP_OW_PYTHON = "<OpenWhisper's Python 3.12>"
 python tools/perf/run_perf.py --preset windows-release --openwhisper --report-to docs/port/performance-report.md
 ```
 

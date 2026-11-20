@@ -15,7 +15,7 @@
     "tests/settings/test_store.cpp",
     "tests/settings/fixtures/python_settings.json"
    ],
-   "note": "The file is <data_root>/fiorivoce_settings.json (identity(), ARCHITECTURE 'Data on disk'); OpenWhisper's name is read only by import. Bytes equal Python's json.dump(indent=2)+newline ('a file the store writes is the bytes Python's json.dump writes'); temp '.<name>.<12 hex>.tmp' beside it, fsync, replace."
+   "note": "The file is <data_root>/openwhisper_cpp_settings.json (identity(), ARCHITECTURE 'Data on disk'); OpenWhisper's name is read only by import. Bytes equal Python's json.dump(indent=2)+newline ('a file the store writes is the bytes Python's json.dump writes'); temp '.<name>.<12 hex>.tmp' beside it, fsync, replace."
   },
   "A10-02": {
    "status": "verified",
@@ -223,7 +223,7 @@
     "tests/models/test_meeting_speech.cpp",
     "tests/golden/services.settings_meeting.json"
    ],
-   "note": "Everything else in the row replays Python's vectors (resolve_meeting_speech 37, own_meeting_speech 37, meeting_model_label, the fallback note text); only the follow-dictation case with dictation on the paired computer differs, and the golden test asserts FioriVoce's answer for exactly those cases."
+   "note": "Everything else in the row replays Python's vectors (resolve_meeting_speech 37, own_meeting_speech 37, meeting_model_label, the fallback note text); only the follow-dictation case with dictation on the paired computer differs, and the golden test asserts OpenWhisper_CPP's answer for exactly those cases."
   },
   "A10-20": {
    "status": "verified",
@@ -269,7 +269,7 @@
   },
   "A10-24": {
    "status": "other-platform",
-   "reason": "The only rule beyond the typed read is 'no saved theme on an Omarchy (Hyprland) desktop reads omarchy', a Linux desktop FioriVoce does not target (M0.8: Omarchy branch dropped). ui_theme/font_scale.cpp resolveUiTheme reads the saved choice or dark, tested in tests/ui_theme/test_theme.cpp."
+   "reason": "The only rule beyond the typed read is 'no saved theme on an Omarchy (Hyprland) desktop reads omarchy', a Linux desktop OpenWhisper_CPP does not target (M0.8: Omarchy branch dropped). ui_theme/font_scale.cpp resolveUiTheme reads the saved choice or dark, tested in tests/ui_theme/test_theme.cpp."
   },
   "A10-25": {
    "status": "fixed",
@@ -372,7 +372,7 @@
     "tests/credentials/test_dotenv.cpp",
     "tests/golden/services.credentials.json"
    ],
-   "note": "Order, source names and environment_shadowed are as in Python. FioriVoce reads .env directly and never copies it into its own environment (process/process_env.h); what children inherit from .env is the process area's concern, and docs/port/open-items.md still lists ProcessEnv::adopt_dotenv as not called at startup."
+   "note": "Order, source names and environment_shadowed are as in Python. OpenWhisper_CPP reads .env directly and never copies it into its own environment (process/process_env.h); what children inherit from .env is the process area's concern, and docs/port/open-items.md still lists ProcessEnv::adopt_dotenv as not called at startup."
   },
   "A10-35": {
    "status": "verified",
@@ -414,7 +414,7 @@
     "tests/golden/services.backup.json",
     "tests/backup/test_create_inspect.cpp"
    ],
-   "note": "Also removes fv_cleanup_agent_consent, a FioriVoce key (difference a04-agent-cleanup-scope)."
+   "note": "Also removes fv_cleanup_agent_consent, a OpenWhisper_CPP key (difference a04-agent-cleanup-scope)."
   },
   "A10-38": {
    "status": "verified",
@@ -452,7 +452,7 @@
     "tests/backup/test_golden.cpp",
     "tests/golden/services.backup.json"
    ],
-   "note": "Accepts both fiorivoce-backup and openwhisper-backup ('OpenWhisper's own bundle inspects with the counts OpenWhisper reported'); every refusal text is OpenWhisper's ('every rule of a bundle refuses with OpenWhisper's text')."
+   "note": "Accepts both openwhisper-cpp-backup and openwhisper-backup ('OpenWhisper's own bundle inspects with the counts OpenWhisper reported'); every refusal text is OpenWhisper's ('every rule of a bundle refuses with OpenWhisper's text')."
   },
   "A10-41": {
    "status": "verified",
@@ -467,7 +467,7 @@
     "tests/golden/services.backup.json",
     "tests/backup/test_json_file.cpp"
    ],
-   "note": "The stage is <data_root>/.fiorivoce-restore/stage-<32 hex>/data (identity().restore_dir); pending.json, the stage manifest and its staged_* keys are OpenWhisper's."
+   "note": "The stage is <data_root>/.openwhisper-cpp-restore/stage-<32 hex>/data (identity().restore_dir); pending.json, the stage manifest and its staged_* keys are OpenWhisper's."
   },
   "A10-42": {
    "status": "verified",
@@ -513,7 +513,7 @@
     "tests/backup/test_golden_restore.cpp",
     "tests/golden/services.backup_manager.json"
    ],
-   "note": "Automatic archives are named <product>-auto-YYYYMMDDTHHMMSSZ-<12 hex> with the product's extension ('automatic archive names carry FioriVoce's product and extension'); intervals, the 60 s tick, retention of recorded archives only and the 600 s retry are as in Python."
+   "note": "Automatic archives are named <product>-auto-YYYYMMDDTHHMMSSZ-<12 hex> with the product's extension ('automatic archive names carry OpenWhisper_CPP's product and extension'); intervals, the 60 s tick, retention of recorded archives only and the 600 s retry are as in Python."
   },
   "A10-46": {
    "status": "verified",
@@ -538,7 +538,7 @@
     "tests/base/test_data_lease.cpp",
     "tests/backup/test_startup_gate.cpp"
    ],
-   "note": "The lock file and the busy message carry the product (.fiorivoce-data.lock, 'in use by another FioriVoce process'). The flock path runs here; the LockFileEx path (win/lease_file.cpp) is Windows-only code, read and not run."
+   "note": "The lock file and the busy message carry the product (.openwhisper-cpp-data.lock, 'in use by another OpenWhisper_CPP process'). The flock path runs here; the LockFileEx path (win/lease_file.cpp) is Windows-only code, read and not run."
   },
   "A10-48": {
    "status": "verified",
@@ -572,7 +572,7 @@
     "MM-08"
    ],
    "openwhisper": "When meetings follow the dictation engine and dictation runs on the paired computer, resolve_meeting_speech answers source remote, so meeting audio goes to that computer too.",
-   "fiorivoce": "The same settings resolve to this computer's Parakeet model (source local); a meeting uses the paired computer only when the meeting has its own remote source and that host is confirmed for the meeting.",
+   "openwhisper-cpp": "The same settings resolve to this computer's Parakeet model (source local); a meeting uses the paired computer only when the meeting has its own remote source and that host is confirmed for the meeting.",
    "reason": "A dictation preference does not authorize sending meeting audio to another computer; it is the settings half of difference a25-remote-meeting-consent.",
    "source": "src/models/meeting_speech.cpp and tests/models/test_meeting_speech.cpp ('Remote dictation never chooses the paired computer for meeting speech'); docs/port/differences.md a25-remote-meeting-consent"
   },
@@ -583,7 +583,7 @@
     "SMV-01"
    ],
    "openwhisper": "A saved meeting_speaker_id_backend of openai is used until OpenAI retires the model on 2027-02-26 and reads as local from that day.",
-   "fiorivoce": "A saved openai reads as local from the start; the optional OpenAI speaker pass runs only from the Past Meetings action, with a fresh confirmation for one saved meeting.",
+   "openwhisper-cpp": "A saved openai reads as local from the start; the optional OpenAI speaker pass runs only from the Past Meetings action, with a fresh confirmation for one saved meeting.",
    "reason": "End-of-meeting processing, dashboard retries and stored grants must not start an upload of meeting audio on their own.",
    "source": "docs/port/packages/M7.md 'Changes to the cut' item 4 (lead decision 4) and docs/port/open-items.md ('The optional OpenAI speaker pass runs from the desktop Past Meetings action'); src/models/meeting_speech.cpp resolve_meeting_speaker_id_backend, tests/models/test_meeting_speech.cpp"
   },
@@ -596,8 +596,8 @@
     "QA-06"
    ],
    "openwhisper": "A backup is an .owbackup ZIP with format id openwhisper-backup whose core members are data/openwhisper_settings.json and data/openwhisper.db; scheduled ones are named OpenWhisper-auto-*.owbackup.",
-   "fiorivoce": "A backup is an .fvbackup ZIP with format id fiorivoce-backup and members named from identity() (data/fiorivoce_settings.json, data/fiorivoce.db), with OpenWhisper's layout, limits and validation rules otherwise. FioriVoce inspects and restores both kinds; OpenWhisper cannot read an .fvbackup.",
-   "reason": "FioriVoce is a separate product with its own data root and file names; OpenWhisper's names are read only to import its data or restore its backups.",
+   "openwhisper-cpp": "A backup is an .fvbackup ZIP with format id openwhisper-cpp-backup and members named from identity() (data/openwhisper_cpp_settings.json, data/openwhisper-cpp.db), with OpenWhisper's layout, limits and validation rules otherwise. OpenWhisper_CPP inspects and restores both kinds; OpenWhisper cannot read an .fvbackup.",
+   "reason": "OpenWhisper_CPP is a separate product with its own data root and file names; OpenWhisper's names are read only to import its data or restore its backups.",
    "source": "docs/port/ARCHITECTURE.md, the identity names (AppIdentity: settings_file, restore_dir, backup_extension) and the backup format paragraph ('.fvbackup has OpenWhisper's layout and validation rules')"
   },
   {
@@ -606,7 +606,7 @@
     "A10-39"
    ],
    "openwhisper": "OpenWhisper imports no other installation. Its own start runs on default settings when its settings JSON cannot be read and skips the legacy history migration when transcription_history.json cannot be merged; its backup create refuses both.",
-   "fiorivoce": "Importing an OpenWhisper installation whose settings JSON cannot be read brings the default settings with the warning \"OpenWhisper's settings could not be read; the default settings were imported\", and a legacy transcription_history.json that cannot be merged is left out with the warning 'Could not merge transcription_history.json: <reason>'. A folder in place of the settings file still refuses the import. The warnings are logged.",
+   "openwhisper-cpp": "Importing an OpenWhisper installation whose settings JSON cannot be read brings the default settings with the warning \"OpenWhisper's settings could not be read; the default settings were imported\", and a legacy transcription_history.json that cannot be merged is left out with the warning 'Could not merge transcription_history.json: <reason>'. A folder in place of the settings file still refuses the import. The warnings are logged.",
    "reason": "The import brings what OpenWhisper's own next start would run on, rather than refusing data the user can still use.",
    "source": "The import sweep of 2026-11-19 (open item backup/import.cpp (M3.7)); src/backup/import.cpp; tests/backup/test_sweep_import.cpp ('settings OpenWhisper cannot read import as its defaults', \"a folder in place of OpenWhisper's settings still refuses the import\", 'a legacy history OpenWhisper cannot read is left out of the import')"
   }

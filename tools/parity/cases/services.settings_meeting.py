@@ -6,10 +6,10 @@ another package; golden_vectors.py imports the module named by this file's stem,
 registers services.settings under that name and its vectors go to
 tests/golden/services.settings_meeting.json.
 
-Every call runs on a Parakeet platform, as FioriVoce is: the default meeting model is
+Every call runs on a Parakeet platform, as OpenWhisper_CPP is: the default meeting model is
 "parakeet-v3" (config.MEETING_ASR_MODEL, as macOS has "parakeet-v3-mlx") and
 parakeet_default_supported() is True. OpenWhisper's Windows build falls back to Local Whisper
-"auto" instead, an engine FioriVoce does not have. Settings use only engines and models both
+"auto" instead, an engine OpenWhisper_CPP does not have. Settings use only engines and models both
 apps have (Parakeet, Orukeet, the API, the paired computer); the Whisper keys are left out.
 
 resolve_meeting_speech(settings) and own_meeting_speech(settings) give the MeetingSpeech as a

@@ -87,7 +87,7 @@ Loaded startWithApiEngine(fv::MapEnvReader& env) {
     };
     hooks.errorBox = [](const std::string&) {
     };
-    hooks.arguments = std::vector<std::string>{"fiorivoce"};
+    hooks.arguments = std::vector<std::string>{"openwhisper-cpp"};
     hooks.audioBackend = [] {
         return std::make_shared<fv::audio::testing::FakeBackend>();
     };
@@ -115,7 +115,7 @@ Loaded startWithApiEngine(fv::MapEnvReader& env) {
     };
     fv::Bootstrap bootstrap(std::move(hooks));
     int argc = 1;
-    char program[] = "fiorivoce";
+    char program[] = "openwhisper-cpp";
     char* argv[] = {program, nullptr};
     CHECK(bootstrap.run(argc, argv) == 0);
     return loaded;

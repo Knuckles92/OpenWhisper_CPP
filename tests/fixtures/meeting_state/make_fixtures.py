@@ -1,9 +1,9 @@
 """Writes tests/fixtures/meeting_state: a meeting database made by OpenWhisper's own repository and
 store, and everything OpenWhisper's repository reads back from it.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
-        $env:FIORIVOCE_OW_PYTHON -I -B tests/fixtures/meeting_state/make_fixtures.py
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
+        $env:OPENWHISPER_CPP_OW_PYTHON -I -B tests/fixtures/meeting_state/make_fixtures.py
 
 OpenWhisper is imported through tools/parity/ow_isolation.py; the database is built under
 out/parity/ (git-ignored) and only the two files below are written into this folder.

@@ -1,6 +1,6 @@
 // Windows Credential Manager laid out as Python keyring's WinVaultKeyring lays it out. The
 // [platform] cases write to the real Credential Manager, only under a service name of their own
-// ("FioriVoceTest.<process id>"), and delete every target they may have created.
+// ("OpenWhisper_CPPTest.<process id>"), and delete every target they may have created.
 
 #include <catch2/catch_test_macros.hpp>
 
@@ -42,7 +42,7 @@ std::wstring wide(std::string_view text) {
 }
 
 std::string test_service() {
-    return std::format("FioriVoceTest.{}", GetCurrentProcessId());
+    return std::format("OpenWhisper_CPPTest.{}", GetCurrentProcessId());
 }
 
 struct RawCredential {
@@ -218,7 +218,8 @@ TEST_CASE("WinCredBackend reads UTF-8 blobs and moves an entry without a user na
 
 TEST_CASE("CredentialStore over Credential Manager keeps a key under its service", "[platform]") {
     TestService service;
-    const fv::AppIdentity identity{.product = "FioriVoce", .credential_service = service.name()};
+    const fv::AppIdentity identity{.product = "OpenWhisper_CPP",
+                                   .credential_service = service.name()};
     fv::CredentialStore store(fv::make_platform_backend(), identity);
     CHECK(store.status().available);
     CHECK_FALSE(store.get("K").has_value());
@@ -231,9 +232,9 @@ TEST_CASE("CredentialStore over Credential Manager keeps a key under its service
 
 TEST_CASE("keys written by Python keyring read here, and the reverse", "[platform]") {
     // Python keyring 25.7 from OpenWhisper's environment, run with -I -B from a scratch folder.
-    const auto python = fv::testkit::get_env("FIORIVOCE_OW_PYTHON");
+    const auto python = fv::testkit::get_env("OPENWHISPER_CPP_OW_PYTHON");
     if (!python.has_value() || python->empty()) {
-        SKIP("FIORIVOCE_OW_PYTHON is not set");
+        SKIP("OPENWHISPER_CPP_OW_PYTHON is not set");
     }
     TestService service;
     TempDir temp;
@@ -264,8 +265,8 @@ else:
     run("write");
     WinCredBackend backend;
     CHECK(backend.get(service.name(), "PY") == "from-python");
-    backend.set(service.name(), "K", "from-fiorivoce");
-    CHECK(run("read") == "from-python|from-fiorivoce\n");
+    backend.set(service.name(), "K", "from-openwhisper-cpp");
+    CHECK(run("read") == "from-python|from-openwhisper-cpp\n");
 }
 
 #endif

@@ -3,7 +3,7 @@ session that wrote it: lead decision 5 was not approved there, and baseline-open
 holds only the numbers OpenWhisper's committed documents give. The owner runs it through
 `python tools/perf/run_perf.py --openwhisper` once the decision is approved.
 
-    FIORIVOCE_OW_APPROVED=1 FIORIVOCE_OW_ROOT=<checkout> FIORIVOCE_OW_PYTHON=<python 3.12> \\
+    OPENWHISPER_CPP_OW_APPROVED=1 OPENWHISPER_CPP_OW_ROOT=<checkout> OPENWHISPER_CPP_OW_PYTHON=<python 3.12> \\
         python -I -B tools/perf/ow_probes/run_probes.py [--out out/perf]
 
 Each probe runs OpenWhisper's own entry point as a child of tools/parity/check_isolation.py
@@ -71,8 +71,8 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     parser.add_argument("--out", type=Path, default=REPO / "out" / "perf")
     args = parser.parse_args(argv)
-    if os.environ.get("FIORIVOCE_OW_APPROVED") != "1":
-        raise SystemExit("ow_probes: lead decision 5 is not approved (FIORIVOCE_OW_APPROVED=1).")
+    if os.environ.get("OPENWHISPER_CPP_OW_APPROVED") != "1":
+        raise SystemExit("ow_probes: lead decision 5 is not approved (OPENWHISPER_CPP_OW_APPROVED=1).")
     python = os.environ.get(ow_isolation.PYTHON_ENV, "").strip()
     if not python:
         raise SystemExit(f"ow_probes: set {ow_isolation.PYTHON_ENV} to OpenWhisper's Python.")
@@ -85,7 +85,7 @@ def main(argv: list[str] | None = None) -> int:
     for name in list(env):
         if name.lower() in ow_isolation.PROXY_VARIABLES:
             del env[name]
-    env.setdefault("FIORIVOCE_REAL_LOCALAPPDATA", os.environ.get("LOCALAPPDATA", ""))
+    env.setdefault("OPENWHISPER_CPP_REAL_LOCALAPPDATA", os.environ.get("LOCALAPPDATA", ""))
     env.update(ow_isolation.scratch_environment(scratch))
 
     metrics: dict[str, dict] = {}

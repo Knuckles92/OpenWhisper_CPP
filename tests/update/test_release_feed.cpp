@@ -236,7 +236,7 @@ TEST_CASE("the feed variable is honoured only for an exact loopback feed", "[upd
     CHECK_FALSE(feed("http://127.0.0.1:8765/releases/latest?x=1"));
     CHECK_FALSE(feed("http://u@127.0.0.1:8765/releases/latest"));
     CHECK_FALSE(update::feed_config(fv::MapEnvReader{}, {}).override_url);
-    CHECK(update::update_feed_env() == "FIORIVOCE_UPDATE_FEED_URL");
+    CHECK(update::update_feed_env() == "OPENWHISPER_CPP_UPDATE_FEED_URL");
 }
 
 TEST_CASE("without a source or a feed there is no URL to ask", "[update]") {
@@ -246,7 +246,7 @@ TEST_CASE("without a source or a feed there is no URL to ask", "[update]") {
         update::latest_release_url(none, update::ReleaseTrack::Stable);
         FAIL("no exception");
     } catch (const update::AppUpdateError& error) {
-        CHECK(std::string(error.what()) == "This build of FioriVoce has no update source.");
+        CHECK(std::string(error.what()) == "This build of OpenWhisper_CPP has no update source.");
     }
     CHECK(update::latest_release_url(github(), update::ReleaseTrack::Beta) ==
           "https://api.github.com/repos/example/app/releases?per_page=30");

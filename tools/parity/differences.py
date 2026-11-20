@@ -1,4 +1,4 @@
-"""Render the declared differences between OpenWhisper and FioriVoce."""
+"""Render the declared differences between OpenWhisper and OpenWhisper_CPP."""
 import argparse
 from itertools import groupby
 from pathlib import Path
@@ -15,7 +15,7 @@ def render(rows):
         lines += [f"## {area}", ""]
         for entry in group:
             lines += [f"### {entry['id']}", "", f"OpenWhisper. {entry['openwhisper']}", "",
-                      f"FioriVoce. {entry['fiorivoce']}", "", f"{entry['reason']} ({entry['source']})", ""]
+                      f"OpenWhisper_CPP. {entry['openwhisper-cpp']}", "", f"{entry['reason']} ({entry['source']})", ""]
     return "\n".join(lines).rstrip() + "\n"
 
 

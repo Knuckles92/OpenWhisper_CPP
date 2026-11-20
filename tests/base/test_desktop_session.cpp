@@ -55,12 +55,13 @@ TEST_CASE("omarchy theme paths follow the XDG state and config folders") {
 
 TEST_CASE("the UI variable forces Omarchy or classic on any platform") {
     const auto& app = fv::identity();
-    CHECK(fv::use_omarchy_ui("win32", MapEnvReader{{"FIORIVOCE_UI", "Omarchy"}}, app));
+    CHECK(fv::use_omarchy_ui("win32", MapEnvReader{{"OPENWHISPER_CPP_UI", "Omarchy"}}, app));
     CHECK_FALSE(fv::use_omarchy_ui(
-        "linux", MapEnvReader{{"FIORIVOCE_UI", "classic"}, {"OMARCHY_PATH", "/opt/omarchy"}}, app));
+        "linux", MapEnvReader{{"OPENWHISPER_CPP_UI", "classic"}, {"OMARCHY_PATH", "/opt/omarchy"}},
+        app));
     CHECK_FALSE(fv::use_omarchy_ui("win32", MapEnvReader{{"OMARCHY_PATH", "/opt/omarchy"}}, app));
     CHECK(fv::use_omarchy_ui("linux",
-                             MapEnvReader{{"FIORIVOCE_UI", "auto"},
+                             MapEnvReader{{"OPENWHISPER_CPP_UI", "auto"},
                                           {"HOME", "/nonexistent-home"},
                                           {"OMARCHY_PATH", "/opt/omarchy"}},
                              app));

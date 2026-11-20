@@ -179,7 +179,7 @@ ScratchpadWindow::ScratchpadWindow(ScratchpadEnvironment environment, CopyText c
     // Hidden in the tray, closing this must not quit the app.
     setAttribute(Qt::WA_QuitOnClose, false);
     // Dictation and the in-app shortcut fallback treat it as the application's own.
-    ui::setStyleProperty(this, ui::prop::fiorivoceHotkeyWindow, true);
+    ui::setStyleProperty(this, ui::prop::openwhisperCppHotkeyWindow, true);
     applyWindowFlags(environment_.settings->get(keys::scratchpad_always_on_top));
 #ifdef Q_OS_MACOS
     // A Tool window hides whenever another app is frontmost; the Scratchpad sits beside the app

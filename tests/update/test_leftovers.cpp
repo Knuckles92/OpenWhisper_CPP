@@ -47,11 +47,11 @@ std::chrono::system_clock::time_point now() {
 // from tests/test_app_update.py::TestPruneStaleDownloads::test_a_finished_download_is_collected
 TEST_CASE("a finished download is collected", "[test_app_update]") {
     fv::testkit::TempDataRoot root;
-    const auto leftover = root.path() / "FioriVoce-Setup-2.4.2.exe";
+    const auto leftover = root.path() / "OpenWhisper_CPP-Setup-2.4.2.exe";
     write_bytes(leftover, "installer");
     make_old(leftover);
     CHECK(update::prune_stale_downloads(root.path(), now()) ==
-          std::vector<std::string>{"FioriVoce-Setup-2.4.2.exe"});
+          std::vector<std::string>{"OpenWhisper_CPP-Setup-2.4.2.exe"});
     CHECK_FALSE(std::filesystem::exists(leftover));
 }
 
@@ -70,14 +70,14 @@ TEST_CASE("the transaction directory is left to its owner", "[test_app_update]")
 // from tests/test_app_update.py::TestPruneStaleDownloads::test_a_download_in_progress_is_spared
 TEST_CASE("a download in progress is spared", "[test_app_update]") {
     fv::testkit::TempDataRoot root;
-    const auto active = root.path() / "FioriVoce-2.4.3-win64.zip";
+    const auto active = root.path() / "OpenWhisper_CPP-2.4.3-win64.zip";
     write_bytes(active, "partial");
     CHECK(update::prune_stale_downloads(root.path(), now()).empty());
     CHECK(std::filesystem::exists(active));
 
     // Thirty seconds later it is fair game.
     CHECK(update::prune_stale_downloads(root.path(), now() + std::chrono::seconds(31)) ==
-          std::vector<std::string>{"FioriVoce-2.4.3-win64.zip"});
+          std::vector<std::string>{"OpenWhisper_CPP-2.4.3-win64.zip"});
 }
 
 // from
@@ -111,7 +111,7 @@ TEST_CASE("a missing updates folder is created and yields nothing", "[update]") 
 TEST_CASE("a setup still running keeps its file and the next start collects it",
           "[update][platform]") {
     fv::testkit::TempDataRoot root;
-    const auto running = root.path() / "FioriVoce-Setup-0.1.1.exe";
+    const auto running = root.path() / "OpenWhisper_CPP-Setup-0.1.1.exe";
     write_bytes(running, "setup");
     make_old(running);
     write_bytes(root.path() / "setup.log", "log");
@@ -126,6 +126,6 @@ TEST_CASE("a setup still running keeps its file and the next start collects it",
     CHECK(removed == std::vector<std::string>{"setup.log"});
     CHECK(std::filesystem::exists(running));
     CHECK(update::prune_stale_downloads(root.path(), now()) ==
-          std::vector<std::string>{"FioriVoce-Setup-0.1.1.exe"});
+          std::vector<std::string>{"OpenWhisper_CPP-Setup-0.1.1.exe"});
 }
 #endif

@@ -233,7 +233,7 @@ TEST_CASE("_clean_guest_id matches OpenWhisper", "[golden][meeting.web.ws]") {
 
 TEST_CASE("voice_command_guide matches OpenWhisper", "[golden][meeting.voice_help]") {
     // OpenWhisper's defaults are its own wake names: the replay takes the defaults from the
-    // legacy identity; FioriVoce's come from identity() (test_voice_help.cpp).
+    // legacy identity; OpenWhisper_CPP's come from identity() (test_voice_help.cpp).
     fv::golden::for_each("meeting.voice_help", "voice_command_guide", [](const Case& c) {
         const Json guide = mw::voice_command_guide(c.args()[0], fv::legacy_identity());
         CAPTURE(guide.dump());

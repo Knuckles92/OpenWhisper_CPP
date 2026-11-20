@@ -363,7 +363,7 @@ TEST_CASE("golden append origination", "[golden]") {
                 const auto file = fv::audio::open_riff_file(path);
                 fv::audio::append_origination(*file, parse_when(c.arg<std::string>(2)));
             }
-            // The vectors were made with FioriVoce as originator and software.
+            // The vectors were made with OpenWhisper_CPP as originator and software.
             REQUIRE(c.raw()["result"].is_string());
             CHECK(to_hex(read_bytes(path)) == c.result<std::string>());
         });

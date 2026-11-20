@@ -5,10 +5,10 @@
 // press and release to the paste reaching the fake synthetic keys, minus the recorder's
 // post-roll (50 ms in the rig), over 30 dictations; p50 and p95.
 //
-// The fake-engine case measures FioriVoce's own path (journal, WAV, decode job, cleanup off,
+// The fake-engine case measures OpenWhisper_CPP's own path (journal, WAV, decode job, cleanup off,
 // clipboard staging, paste). The [decode] case runs the same path with ParakeetBackend on the
-// runtime and model of FIORIVOCE_TEST_RUNTIME_DIR and FIORIVOCE_TEST_MODEL, speaking
-// FIORIVOCE_TEST_WAV; on a CPU runtime its number is the CPU's, not architecture 12.3's GPU
+// runtime and model of OPENWHISPER_CPP_TEST_RUNTIME_DIR and OPENWHISPER_CPP_TEST_MODEL, speaking
+// OPENWHISPER_CPP_TEST_WAV; on a CPU runtime its number is the CPU's, not architecture 12.3's GPU
 // figure, which stays the owner's check.
 #include <catch2/catch_test_macros.hpp>
 
@@ -128,11 +128,12 @@ TEST_CASE("key to text with the fake engine", "[perf]") {
 }
 
 TEST_CASE("key to text with Parakeet", "[perf][decode]") {
-    const auto runtime = fv::testkit::get_env("FIORIVOCE_TEST_RUNTIME_DIR");
-    const auto model = fv::testkit::get_env("FIORIVOCE_TEST_MODEL");
-    const auto wav = fv::testkit::get_env("FIORIVOCE_TEST_WAV");
+    const auto runtime = fv::testkit::get_env("OPENWHISPER_CPP_TEST_RUNTIME_DIR");
+    const auto model = fv::testkit::get_env("OPENWHISPER_CPP_TEST_MODEL");
+    const auto wav = fv::testkit::get_env("OPENWHISPER_CPP_TEST_WAV");
     if (!runtime || !model || !wav) {
-        SKIP("Set FIORIVOCE_TEST_RUNTIME_DIR, FIORIVOCE_TEST_MODEL and FIORIVOCE_TEST_WAV.");
+        SKIP("Set OPENWHISPER_CPP_TEST_RUNTIME_DIR, OPENWHISPER_CPP_TEST_MODEL and "
+             "OPENWHISPER_CPP_TEST_WAV.");
     }
     const std::filesystem::path runtimeDir = fv::path_from_utf8(*runtime);
     const std::filesystem::path modelPath = fv::path_from_utf8(*model);

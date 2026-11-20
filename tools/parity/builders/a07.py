@@ -160,7 +160,7 @@ def canceling_bubbles(variant):
 
 
 #: The live preview's words in the streaming scenes, at the default 16 pt.
-WORDS = "Hello from FioriVoce, this is the live preview"
+WORDS = "Hello from OpenWhisper_CPP, this is the live preview"
 #: The other looks are drawn LOOK_T seconds into the recording, each frame of the fixed voice
 #: run through the look's own motion as the overlay's frame timer would run it.
 LOOK_T = 1.2

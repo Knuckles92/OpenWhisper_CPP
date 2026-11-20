@@ -125,7 +125,8 @@ TEST_CASE("test_switch_off_hides_the_capability_and_refuses_every_method",
              {"events/unsubscribe", unsubscribe}}) {
         const Json error = error_of(rig.rpc(method, params));
         CHECK(error.at("code") == events_ext::FORBIDDEN);
-        CHECK(error.at("message") == "MCP Events is turned off in FioriVoce Settings > API & MCP.");
+        CHECK(error.at("message") ==
+              "MCP Events is turned off in OpenWhisper_CPP Settings > API & MCP.");
     }
     CHECK(receiver.requests().empty());
     CHECK(rig.events->subscription_count() == 0);
@@ -173,7 +174,7 @@ TEST_CASE("test_events_list_describes_every_public_event", "[test_automation_mcp
     set(rig, "api_live_events", false);
     const Json error = error_of(rig.rpc("events/list"));
     CHECK(error.at("code") == events_ext::FORBIDDEN);
-    CHECK(error.at("message") == "Allow live events in FioriVoce Settings > API & MCP.");
+    CHECK(error.at("message") == "Allow live events in OpenWhisper_CPP Settings > API & MCP.");
 }
 
 TEST_CASE("test_subscribe_verifies_then_delivers_signed_filtered_events",
@@ -1213,7 +1214,7 @@ TEST_CASE("test_other_requests_keep_their_log_lines",
     other.bypass_proxy = true;
     CHECK(client->send(other, fv::CancelToken()));
     fv::log::remove_sink(capture);
-    // FioriVoce's request log line keeps the path and drops the query of every URL.
+    // OpenWhisper_CPP's request log line keeps the path and drops the query of every URL.
     CHECK(capture->text().find("PATH-SECRET") != std::string::npos);
 }
 

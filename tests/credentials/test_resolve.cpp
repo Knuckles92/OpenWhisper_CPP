@@ -27,7 +27,7 @@ using fv::credentials_test::write_bytes;
 
 namespace {
 
-constexpr const char* kName = "FIORIVOCE_TEST_KEY";
+constexpr const char* kName = "OPENWHISPER_CPP_TEST_KEY";
 constexpr const char* kSecret = "sk-test-secret-value-1234abcd";
 
 // The autouse fixture: an in-memory store, an empty environment and a .env in a scratch folder

@@ -1,7 +1,7 @@
 // The shell's chrome against the references OpenWhisper rendered for it
 // (tools/parity/builders/a01.py, tests/reference/<widget>/<theme>-windows11-dpr1-s<scale>):
 // the widget tree first, then the pixels, with the application styled as OpenWhisper styles it.
-// The builders put FioriVoce's name where OpenWhisper paints its own.
+// The builders put OpenWhisper_CPP's name where OpenWhisper paints its own.
 #include <catch2/catch_test_macros.hpp>
 
 #include <functional>

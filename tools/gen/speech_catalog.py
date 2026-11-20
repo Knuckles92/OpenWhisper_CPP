@@ -1,12 +1,12 @@
 """Write src/models/data/speech_catalog.json: the pinned speech models and NeMo-Speech.cpp runtimes.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/gen/speech_catalog.py [--check]
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/gen/speech_catalog.py [--check]
 
 Reads OpenWhisper's pinned catalogs as files (nothing is imported from the checkout):
-services/local_asr/models.json for the Parakeet-family models FioriVoce offers, and the
+services/local_asr/models.json for the Parakeet-family models OpenWhisper_CPP offers, and the
 nvidia_*_runtime.json files that services/local_asr/catalog.py:runtime_catalog merges, keeping
-its order. FioriVoce runs the runtime in process, so the Windows entries lose the Python
+its order. OpenWhisper_CPP runs the runtime in process, so the Windows entries lose the Python
 embeddable zip OpenWhisper's worker needed, and their install_bytes lose what that zip
 extracts. Everything else, version strings included, is copied as it is: an install adopted from
 OpenWhisper then reads as current, not as "Update available". --check compares with the
@@ -26,7 +26,7 @@ import ow_isolation  # noqa: E402
 
 OUTPUT = ROOT / "src" / "models" / "data" / "speech_catalog.json"
 
-# The models of the backends FioriVoce keeps (catalog.py MODELS whose backend is "parakeet").
+# The models of the backends OpenWhisper_CPP keeps (catalog.py MODELS whose backend is "parakeet").
 MODEL_KEYS = ("parakeet-v3", "orukeet-v0.1")
 
 # (component id, platform tag, file), in the order runtime_catalog() adds them.

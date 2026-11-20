@@ -115,10 +115,10 @@ TEST_CASE("test_enable_status_setup_copy_and_stop", kTag) {
           std::string::npos);
     page->setupKind()->setCurrentIndex(2);
     const Json preview = Json::parse(plain(*page));
-    CHECK(preview.at("mcpServers").at("fiorivoce").at("url") == url);
+    CHECK(preview.at("mcpServers").at("openwhisper-cpp").at("url") == url);
     page->copySetup()->click();
     const Json copied = Json::parse(text(rig.clipboard.last()));
-    CHECK(copied.at("mcpServers").at("fiorivoce").at("headers") ==
+    CHECK(copied.at("mcpServers").at("openwhisper-cpp").at("headers") ==
           Json{{"Authorization", "Bearer " + kMcpToken}});
     page->setupKind()->buttons()[3]->click();
     CHECK(plain(*page).find(kMcpToken) == std::string::npos);
@@ -253,7 +253,7 @@ TEST_CASE("test_tailscale_setup_uses_host_url_and_masks_token_on_screen", kTag) 
     CHECK(has(rig.clipboard.last(), remote.c_str()));
     CHECK(has(rig.clipboard.last(), kMcpToken.c_str()));
     page->setupKind()->setCurrentIndex(2);
-    CHECK(Json::parse(plain(*page)).at("mcpServers").at("fiorivoce").at("url") == remote);
+    CHECK(Json::parse(plain(*page)).at("mcpServers").at("openwhisper-cpp").at("url") == remote);
     page->setupKind()->setCurrentIndex(3);
     CHECK(plain(*page) == fv::agentapi::chatgpt_config(remote, kHidden));
     CHECK(plain(*page).find(kMcpToken) == std::string::npos);

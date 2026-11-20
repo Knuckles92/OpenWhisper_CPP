@@ -1,6 +1,6 @@
 ## Meeting dashboard (React, React DOM and fonts)
 
-The meeting dashboard that FioriVoce serves on your computer during and after a meeting is a
+The meeting dashboard that OpenWhisper_CPP serves on your computer during and after a meeting is a
 built web page, installed in `webui/dist`. Its JavaScript bundle (`webui/dist/assets/*.js`)
 contains the following packages, at the versions pinned in the dashboard's `package-lock.json`.
 The minified bundle carries no licence comment, so their notices are given here.

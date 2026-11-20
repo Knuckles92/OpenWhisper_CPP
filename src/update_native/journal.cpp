@@ -19,7 +19,7 @@ namespace {
 namespace fs = std::filesystem;
 constexpr std::uintmax_t kMaxJournalBytes = 4U << 20;
 constexpr std::string_view kRunOnce = "software\\microsoft\\windows\\currentversion\\runonce";
-constexpr std::string_view kTestPrefix = "software\\fiorivocetest\\";
+constexpr std::string_view kTestPrefix = "software\\openwhisper-cpptest\\";
 
 std::string lower_ascii(std::string_view text) {
     std::string out(text);

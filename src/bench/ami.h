@@ -8,7 +8,7 @@
 // benchmarks/meeting_mode/ami.py: the AMI Meeting Corpus meetings the meeting benchmark runs,
 // where their files live, and the manual reference transcripts. Nothing is downloaded: the
 // corpus (ami_public_manual_1.6.2.zip extracted to <data>/annotations and the headset mixes in
-// <data>/audio) is prepared by hand, as fiorivoce-bench contacts no host.
+// <data>/audio) is prepared by hand, as openwhisper-cpp-bench contacts no host.
 namespace fv::bench {
 
 // One public meeting selected for the dogfood suite.

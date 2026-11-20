@@ -20,7 +20,7 @@ using fv::settings_test::untag;
 
 namespace {
 
-// Backends OpenWhisper's selected_model accepts and FioriVoce does not (architecture 7.2).
+// Backends OpenWhisper's selected_model accepts and OpenWhisper_CPP does not (architecture 7.2).
 const std::set<std::string> kDroppedBackends{"local_whisper", "qwen_asr",     "nemotron",
                                              "moonshine",     "parakeet_mlx", "parakeet_unified"};
 
@@ -33,9 +33,9 @@ bool beyond_int64(const Json& value) {
                 static_cast<std::uint64_t>(std::numeric_limits<std::int64_t>::max()));
 }
 
-// What FioriVoce reads where it differs from OpenWhisper on purpose: a dropped engine's name in
-// selected_model reads as the default, and an int Python holds beyond int64 (a huge number
-// with no bound to clamp it to) is not representable and reads as the default too.
+// What OpenWhisper_CPP reads where it differs from OpenWhisper on purpose: a dropped engine's name
+// in selected_model reads as the default, and an int Python holds beyond int64 (a huge number with
+// no bound to clamp it to) is not representable and reads as the default too.
 void apply_deliberate_differences(const fv::SettingBase& setting, Json& read, Json& stored) {
     if (setting.key() == "selected_model" && read.is_string() &&
         kDroppedBackends.contains(read.get<std::string>())) {
@@ -53,7 +53,7 @@ void apply_deliberate_differences(const fv::SettingBase& setting, Json& read, Js
 TEST_CASE("every key is a declared setting with its old name", "[test_typed_settings][golden]") {
     // from tests/test_typed_settings.py::test_every_key_is_a_declared_setting_with_its_old_name
     // The vectors list OpenWhisper's declarations; each is declared here, in the same order,
-    // with the same kind, followed only by FioriVoce's fv_ keys.
+    // with the same kind, followed only by OpenWhisper_CPP's fv_ keys.
     std::vector<std::string> python;
     fv::settings_test::for_each_case(
         "services.setting_types", "unset", [&](const fv::golden::Case& c) {

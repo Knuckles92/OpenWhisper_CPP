@@ -63,7 +63,7 @@
     "tests/update/test_release_feed.cpp",
     "tests/update/test_check.cpp"
    ],
-   "note": "The repository is the release identity's update source (src/update/data/release_identity.json, none by default: M3.md change 3, so a manual check says the build has no update source); the request, Accept, FioriVoce/<version> User-Agent, 30 s timeout and the two error texts match the row."
+   "note": "The repository is the release identity's update source (src/update/data/release_identity.json, none by default: M3.md change 3, so a manual check says the build has no update source); the request, Accept, OpenWhisper_CPP/<version> User-Agent, 30 s timeout and the two error texts match the row."
   },
   "A16-05": {
    "status": "verified",
@@ -98,7 +98,7 @@
     "tests/update/test_release_feed.cpp",
     "tests/update/test_rate_limit.cpp"
    ],
-   "note": "The variable is FIORIVOCE_UPDATE_FEED_URL (identity env prefix)."
+   "note": "The variable is OPENWHISPER_CPP_UPDATE_FEED_URL (identity env prefix)."
   },
   "A16-08": {
    "status": "verified",
@@ -111,7 +111,7 @@
     "tests/update/test_golden.cpp",
     "tests/update/test_rate_limit.cpp"
    ],
-   "note": "Names are FioriVoce-Setup-<ver>.exe and FioriVoce-<ver>-win64.zip (the zip archive is a34-archive); the macOS DMG asset is not recognised (other platform)."
+   "note": "Names are OpenWhisper_CPP-Setup-<ver>.exe and OpenWhisper_CPP-<ver>-win64.zip (the zip archive is a34-archive); the macOS DMG asset is not recognised (other platform)."
   },
   "A16-09": {
    "status": "verified",
@@ -253,7 +253,7 @@
   },
   "A16-24": {
    "status": "other-platform",
-   "reason": "macOS in-place update (app_update_macos.py); FioriVoce ships for Windows."
+   "reason": "macOS in-place update (app_update_macos.py); OpenWhisper_CPP ships for Windows."
   },
   "A16-25": {
    "status": "fixed",
@@ -264,7 +264,7 @@
     "tests/ui_controller/test_update_native_launch.cpp",
     "tests/ui_controller/test_update_handoff.cpp"
    ],
-   "note": "Fixed after the audit's handoff: when the native helper (a hand-off with a transaction_id) cannot be started, UpdateHandoff::onDownloadFinished abandons the transaction and says \"The updater could not be started.\" with offerSetup true, as _report_launch_failure (ui_qt/ui_controller.py:229-239); a setup that cannot be started still says \"The installer could not be started.\" without the offer. New case 'an updater that cannot be started abandons the transaction and offers the setup'. The app mutexes are re-taken in both branches, because FioriVoce's startSetup releases them before either launch. The rest of the row (busy confirmation text, 'The update was not started.', 'The update was not installed. Your work is still open.', exit(0), the watchdog) is ported and tested in test_update_handoff.cpp."
+   "note": "Fixed after the audit's handoff: when the native helper (a hand-off with a transaction_id) cannot be started, UpdateHandoff::onDownloadFinished abandons the transaction and says \"The updater could not be started.\" with offerSetup true, as _report_launch_failure (ui_qt/ui_controller.py:229-239); a setup that cannot be started still says \"The installer could not be started.\" without the offer. New case 'an updater that cannot be started abandons the transaction and offers the setup'. The app mutexes are re-taken in both branches, because OpenWhisper_CPP's startSetup releases them before either launch. The rest of the row (busy confirmation text, 'The update was not started.', 'The update was not installed. Your work is still open.', exit(0), the watchdog) is ported and tested in test_update_handoff.cpp."
   },
   "A16-26": {
    "status": "verified",
@@ -294,7 +294,7 @@
     "tests/update_native/test_native_platform.cpp",
     "tests/update_native/test_preparation_limits.cpp"
    ],
-   "note": "Request checks, manifest validation, extraction limits, uninstaller compatibility files, completion marker, staged helper, cancel after the extraction and after the hashing, free space (check_preparation_space) and the gate refusals were ported and tested earlier. Fixed now, by the lead's decision of 2026-11-19 to follow OpenWhisper: a preparation canceled or failed after its journal exists, and a prepared hand-off that is abandoned, remove the archive they were prepared from with the candidate and the transaction (_discard_preparation, _remove_transaction_payloads, abandon_prepared_update; app_update_apply.py:1528-1537, 2476-2512); a failure before the journal keeps it, as OpenWhisper's first except clause does. Each removal is tried on its own, so a transaction that cannot be collected does not keep the archive. The end state differs in name only: OpenWhisper writes rolled_back, FioriVoce keeps superseded, its state for a transaction that never reached the commit (recovery of an unstarted preparation ends there too, difference a16-prepared-recovery-superseded); in FioriVoce rolled_back means the installation was displaced and restored, and makes cleanup look for a moved-aside failed tree. Nothing reads the state of a discarded preparation to report anything in either program. Tests (test_prepare.cpp): 'a cancel after the extraction still cancels and leaves nothing behind' (cancel after extraction, after the uninstaller hashing, after the helper staging; each attempt downloads again and a final one prepares), 'a preparation that fails part way removes what it wrote', 'a discarded preparation ends superseded and loses its archive even when its transaction stays', 'a preparation refused before its journal keeps the archive', 'an abandoned hand-off releases its candidate and transaction'."
+   "note": "Request checks, manifest validation, extraction limits, uninstaller compatibility files, completion marker, staged helper, cancel after the extraction and after the hashing, free space (check_preparation_space) and the gate refusals were ported and tested earlier. Fixed now, by the lead's decision of 2026-11-19 to follow OpenWhisper: a preparation canceled or failed after its journal exists, and a prepared hand-off that is abandoned, remove the archive they were prepared from with the candidate and the transaction (_discard_preparation, _remove_transaction_payloads, abandon_prepared_update; app_update_apply.py:1528-1537, 2476-2512); a failure before the journal keeps it, as OpenWhisper's first except clause does. Each removal is tried on its own, so a transaction that cannot be collected does not keep the archive. The end state differs in name only: OpenWhisper writes rolled_back, OpenWhisper_CPP keeps superseded, its state for a transaction that never reached the commit (recovery of an unstarted preparation ends there too, difference a16-prepared-recovery-superseded); in OpenWhisper_CPP rolled_back means the installation was displaced and restored, and makes cleanup look for a moved-aside failed tree. Nothing reads the state of a discarded preparation to report anything in either program. Tests (test_prepare.cpp): 'a cancel after the extraction still cancels and leaves nothing behind' (cancel after extraction, after the uninstaller hashing, after the helper staging; each attempt downloads again and a final one prepares), 'a preparation that fails part way removes what it wrote', 'a discarded preparation ends superseded and loses its archive even when its transaction stays', 'a preparation refused before its journal keeps the archive', 'an abandoned hand-off releases its candidate and transaction'."
   },
   "A16-28": {
    "status": "difference",
@@ -444,11 +444,11 @@
   },
   "A16-42": {
    "status": "other-platform",
-   "reason": "Linux shared-library preflight before Qt (linux_deps.py); FioriVoce ships for Windows."
+   "reason": "Linux shared-library preflight before Qt (linux_deps.py); OpenWhisper_CPP ships for Windows."
   },
   "A16-43": {
    "status": "other-platform",
-   "reason": "Linux Meeting Mode remediation text for PulseAudio/PipeWire packages (linux_deps.py); FioriVoce ships for Windows."
+   "reason": "Linux Meeting Mode remediation text for PulseAudio/PipeWire packages (linux_deps.py); OpenWhisper_CPP ships for Windows."
   },
   "A16-44": {
    "status": "dropped",
@@ -464,12 +464,12 @@
     "tests/cli/test_workflow_smoke.cpp",
     "tests/cli/test_cli.cpp"
    ],
-   "note": "It runs as fiorivoce-cli --workflow-smoke (M3.md change 6), with the same schema 2 synthetic_service_lifecycle report."
+   "note": "It runs as openwhisper-cpp-cli --workflow-smoke (M3.md change 6), with the same schema 2 synthetic_service_lifecycle report."
   },
   "A16-46": {
    "status": "verified",
    "cpp": [
-    "packaging/windows/FioriVoce.iss",
+    "packaging/windows/OpenWhisper_CPP.iss",
     "packaging/windows/build-installer.ps1",
     "packaging/windows/inno_defines.py",
     "src/update_native/updater_cli.cpp"
@@ -479,7 +479,7 @@
     "tests/updater/test_program.cpp",
     "tests/update_native/test_updater_cli.cpp"
    ],
-   "note": "Read against the row and OpenWhisper's installer/OpenWhisper.iss: per-user by default (PrivilegesRequired=lowest) with PrivilegesRequiredOverridesAllowed=dialog, CloseApplications=force, AppMutex and SetupMutex, [InstallDelete]/[UninstallDelete], the updater extracted to {tmp} for --setup-action; build-installer.ps1 writes the manifest and packs the zip archive with fiorivoce-updater. Executed here: tools/release/tests/test_windows_installer.py and test_serve_update_feed.py (40 passed, 3 skipped) and the built updater's manifest/pack/verify round trip. Never run: Inno Setup compilation, signing and an install (docs/port/open-items.md, Waiting on the owner: real signing, the M3 demos, installer choices). The PyInstaller specs and the .deb/pacman/DMG builders are not ported (other platforms and Python freezing)."
+   "note": "Read against the row and OpenWhisper's installer/OpenWhisper.iss: per-user by default (PrivilegesRequired=lowest) with PrivilegesRequiredOverridesAllowed=dialog, CloseApplications=force, AppMutex and SetupMutex, [InstallDelete]/[UninstallDelete], the updater extracted to {tmp} for --setup-action; build-installer.ps1 writes the manifest and packs the zip archive with openwhisper-cpp-updater. Executed here: tools/release/tests/test_windows_installer.py and test_serve_update_feed.py (40 passed, 3 skipped) and the built updater's manifest/pack/verify round trip. Never run: Inno Setup compilation, signing and an install (docs/port/open-items.md, Waiting on the owner: real signing, the M3 demos, installer choices). The PyInstaller specs and the .deb/pacman/DMG builders are not ported (other platforms and Python freezing)."
   },
   "A16-47": {
    "status": "fixed",
@@ -492,7 +492,7 @@
     "tests/update_native/test_updater_log.cpp",
     "tests/updater/test_program.cpp"
    ],
-   "note": "Fixed after the audit's handoff: update_native/updater_log.{h,cpp} ports updater_log_path and setup_updater_logging: <local app dir>/updater.log (identity().data_dir_name under %LOCALAPPDATA%, FIORIVOCE_DATA_DIR does not move it, as it does not move updates/), fv_log's RotatingFileSink at 512 KiB x 1 in the application log's format, root level INFO while it is open. run_updater opens it before anything else for every command line but --help and the packaging commands (run by build scripts); a log that cannot be opened is skipped silently. fiorivoce-updater sets UpdaterActions::log_file and links fv_log. A failed setup action now logs 'Setup <action> failed: ...' (logger.exception in _run_setup), and a command line the updater does not know logs a WARNING (FioriVoce only; Python showed a box). Tests: a failed transaction's 'The update transaction failed in state ...' line lands in the file and DEBUG does not, rollover at 512 KiB with one backup, an unwritable log does not fail the update, packaging commands open no log; the built program writes the file in the product's local folder (tests/updater, LOCALAPPDATA/XDG_DATA_HOME pointed at a temporary folder)."
+   "note": "Fixed after the audit's handoff: update_native/updater_log.{h,cpp} ports updater_log_path and setup_updater_logging: <local app dir>/updater.log (identity().data_dir_name under %LOCALAPPDATA%, OPENWHISPER_CPP_DATA_DIR does not move it, as it does not move updates/), fv_log's RotatingFileSink at 512 KiB x 1 in the application log's format, root level INFO while it is open. run_updater opens it before anything else for every command line but --help and the packaging commands (run by build scripts); a log that cannot be opened is skipped silently. openwhisper-cpp-updater sets UpdaterActions::log_file and links fv_log. A failed setup action now logs 'Setup <action> failed: ...' (logger.exception in _run_setup), and a command line the updater does not know logs a WARNING (OpenWhisper_CPP only; Python showed a box). Tests: a failed transaction's 'The update transaction failed in state ...' line lands in the file and DEBUG does not, rollover at 512 KiB with one backup, an unwritable log does not fail the update, packaging commands open no log; the built program writes the file in the product's local folder (tests/updater, LOCALAPPDATA/XDG_DATA_HOME pointed at a temporary folder)."
   },
   "A16-48": {
    "status": "verified",
@@ -580,7 +580,7 @@
     "A16-18"
    ],
    "openwhisper": "OpenWhisper can terminate a registered parent that outlasts its update timeout.",
-   "fiorivoce": "FioriVoce checks the parent executable and creation time and leaves a still-running application open when the deadline expires.",
+   "openwhisper-cpp": "OpenWhisper_CPP checks the parent executable and creation time and leaves a still-running application open when the deadline expires.",
    "reason": "The user can close the application and retry without losing an active recording.",
    "source": "docs/port/map/a16-updater-setup-packaging.md, A16-18"
   },
@@ -590,7 +590,7 @@
     "A16-23"
    ],
    "openwhisper": "The reference installer invokes its backup helper on the Python distribution tree.",
-   "fiorivoce": "The per-user installer authenticates its staged Qt payload, snapshots managed files and can restore a failed upgrade. Setup checks the named application and update locks again immediately before writing. An elevated installation uses Inno Setup's built-in recovery.",
+   "openwhisper-cpp": "The per-user installer authenticates its staged Qt payload, snapshots managed files and can restore a failed upgrade. Setup checks the named application and update locks again immediately before writing. An elevated installation uses Inno Setup's built-in recovery.",
    "reason": "An elevated process must not restore executable files from a per-user writable backup.",
    "source": "docs/port/map/a16-updater-setup-packaging.md, A16-23"
   },
@@ -601,8 +601,8 @@
     "UP-01"
    ],
    "openwhisper": "OpenWhisper has three install channels: installer when frozen, git when a .git folder sits beside the source, else source, with labels including \"Source checkout (git)\".",
-   "fiorivoce": "FioriVoce has two: Installer when a registration names the running folder, else Source (a development build, labelled \"Source copy\"); there is no git channel or git hint.",
-   "reason": "FioriVoce never runs from a Python source tree, so a git checkout of the app does not exist at run time.",
+   "openwhisper-cpp": "OpenWhisper_CPP has two: Installer when a registration names the running folder, else Source (a development build, labelled \"Source copy\"); there is no git channel or git hint.",
+   "reason": "OpenWhisper_CPP never runs from a Python source tree, so a git checkout of the app does not exist at run time.",
    "source": "docs/port/packages/M3.md, M3.2 API (enum class InstallChannel { Installer, Source }) and the test_app_update.py row of its Tests to port table (git channel and git hint dropped); change 9"
   },
   {
@@ -612,8 +612,8 @@
     "A16-46"
    ],
    "openwhisper": "OpenWhisperUpdater.exe started without a transaction shows the box \"OpenWhisper updater was started without a transaction.\" and exits 2.",
-   "fiorivoce": "fiorivoce-updater started with a command line it does not know (no transaction among them) prints its usage to standard error and exits 2 without a box; --help prints the usage and exits 0.",
-   "reason": "fiorivoce-updater is also the console tool the build scripts run (--write-manifest, --pack-archive, --verify-archive), and a modal box would hang an unattended build.",
+   "openwhisper-cpp": "openwhisper-cpp-updater started with a command line it does not know (no transaction among them) prints its usage to standard error and exits 2 without a box; --help prints the usage and exits 0.",
+   "reason": "openwhisper-cpp-updater is also the console tool the build scripts run (--write-manifest, --pack-archive, --verify-archive), and a modal box would hang an unattended build.",
    "source": "tests/update_native/test_updater_cli.cpp ('the helper started without a transaction does nothing and exits 2'); tests/updater/test_program.cpp; docs/port/packages/M10.md M10.11 and M10.17 (the updater writes the manifest and packs the archive)"
   },
   {
@@ -622,7 +622,7 @@
     "A16-19"
    ],
    "openwhisper": "Recovering a PREPARED transaction whose installation was never touched goes through the rollback path: it ends rolled_back, writes \"The previous update was interrupted and was rolled back.\" and relaunches the app.",
-   "fiorivoce": "Recovering a prepared, never-started transaction ends superseded: the installation and data are left alone, nothing is reported and nothing is relaunched.",
+   "openwhisper-cpp": "Recovering a prepared, never-started transaction ends superseded: the installation and data are left alone, nothing is reported and nothing is relaunched.",
    "reason": "Nothing was rolled back, so reporting a rollback would be untrue, and superseded is the state a helper can never act on again.",
    "source": "tests/update_native/test_transaction.cpp ('recovering a prepared transaction retires it without touching the installation'); tests/update_native/test_transaction_runner.cpp"
   },
@@ -632,8 +632,8 @@
     "A16-30"
    ],
    "openwhisper": "The code-changed prompt compares the installed executable's inode, size and mtime, or in a git checkout the HEAD commit read from .git.",
-   "fiorivoce": "Only the installed executable's identity (file index, size, modification time) is compared; there is no git-checkout identity.",
-   "reason": "FioriVoce never runs from a Python source tree, so the lazily imported code a git checkout could change under a running app does not exist.",
+   "openwhisper-cpp": "Only the installed executable's identity (file index, size, modification time) is compared; there is no git-checkout identity.",
+   "reason": "OpenWhisper_CPP never runs from a Python source tree, so the lazily imported code a git checkout could change under a running app does not exist.",
    "source": "docs/port/packages/M3.md, Changes to the cut 9; tests/update/test_code_identity.cpp; tests/ui_controller/test_code_change_restart.cpp"
   },
   {
@@ -642,7 +642,7 @@
     "A16-28"
    ],
    "openwhisper": "updater_helper.py shows a native message box for every update failure, and after a rolled-back commit the relaunched application shows \"Update failed\" again from apply_error.txt, so the user is told twice.",
-   "fiorivoce": "fiorivoce-updater stays silent only when a rolled-back commit started the previous version again and the failure was left in apply_error.txt for it to show; every other failure (no journal, a rollback that itself failed, a relaunch or an apply_error.txt write that failed, any recovery) gets the helper's box.",
+   "openwhisper-cpp": "openwhisper-cpp-updater stays silent only when a rolled-back commit started the previous version again and the failure was left in apply_error.txt for it to show; every other failure (no journal, a rollback that itself failed, a relaunch or an apply_error.txt write that failed, any recovery) gets the helper's box.",
    "reason": "One failure is reported once, by the window the user returns to; the helper still speaks whenever the application would not.",
    "source": "The lead's decision of 2026-11-19 on audit A16-28 (for the owner to confirm); tests/update_native/test_updater_cli.cpp ('the helper shows an update failure nobody else will show') and tests/update_native/test_transaction_runner.cpp ('a failure the application was not told about stays the helper's to report')"
   },
@@ -652,7 +652,7 @@
     "A16-27"
    ],
    "openwhisper": "The reference prunes abandoned directories by age, including older transactions without journals.",
-   "fiorivoce": "FioriVoce cleans verified files from terminal transactions, and the downloaded archive their journal names (as the reference does in every terminal cleanup), and leaves unknown contents and unauthenticated legacy backups for inspection; only an archive a crash left behind waits for the pruning of stale downloads. A later setup can recover its own interrupted backup.",
+   "openwhisper-cpp": "OpenWhisper_CPP cleans verified files from terminal transactions, and the downloaded archive their journal names (as the reference does in every terminal cleanup), and leaves unknown contents and unauthenticated legacy backups for inspection; only an archive a crash left behind waits for the pruning of stale downloads. A later setup can recover its own interrupted backup.",
    "reason": "Age alone cannot establish that the files belong to this updater.",
    "source": "docs/port/map/a16-updater-setup-packaging.md, A16-27"
   },
@@ -662,7 +662,7 @@
     "A16-29"
    ],
    "openwhisper": "A health launch records a startup failure as update_readiness_error and the acknowledgement then fails with exit code 1, so the helper rolls back. The acknowledgement runs 1500 ms after the event loop starts and reads update_readiness_error then, so a database still being initialized at that moment is acknowledged.",
-   "fiorivoce": "The database opens on first use, and one that will not open leaves the app running with failing saves, as in OpenWhisper. The acknowledgement task, 1500 ms after the event loop starts, opens the database first; when it cannot, it logs 'Update readiness failed: <error>', writes no token and exits 1, so the helper rolls back.",
+   "openwhisper-cpp": "The database opens on first use, and one that will not open leaves the app running with failing saves, as in OpenWhisper. The acknowledgement task, 1500 ms after the event loop starts, opens the database first; when it cannot, it logs 'Update readiness failed: <error>', writes no token and exits 1, so the helper rolls back.",
    "reason": "An update is acknowledged only once the database it runs on has opened, however long the opening takes.",
    "source": "tests/ui_shell/test_bootstrap.cpp ('update health waits for database and the running event loop', 'update health is never acknowledged when the database cannot be opened', 'a database that cannot be opened leaves the app running with failing saves'); the shell sweep of 2026-11-19 (open item ui_shell/bootstrap.cpp openDatabase): src/ui_shell/bootstrap.cpp, Database::deferred (tests/db/test_sweep_deferred.cpp)"
   },
@@ -672,7 +672,7 @@
     "A16-47"
    ],
    "openwhisper": "The updater helper opens updater.log for every command line, and one without a transaction shows the box 'OpenWhisper updater was started without a transaction.' and exits 2.",
-   "fiorivoce": "fiorivoce-updater opens no log for --help or the packaging commands (--write-manifest, --pack-archive, --verify-archive); a command line it does not know logs a WARNING, prints the usage to standard error and exits 2, with no box.",
+   "openwhisper-cpp": "openwhisper-cpp-updater opens no log for --help or the packaging commands (--write-manifest, --pack-archive, --verify-archive); a command line it does not know logs a WARNING, prints the usage to standard error and exits 2, with no box.",
    "reason": "Build scripts run the same program: its packaging commands must not write the user's updater log, and a command line it does not know must not stop a script with a box.",
    "source": "docs/port/audit/a16-updater-setup-packaging.json A16-47's note; src/update_native/updater_cli.cpp; tests/update_native/test_updater_log.cpp ('the packaging commands and --help open no updater log'), tests/update_native/test_updater_cli.cpp ('the helper started without a transaction does nothing and exits 2')"
   },
@@ -684,7 +684,7 @@
     "A16-27"
    ],
    "openwhisper": "The helper commits with --transaction-id <id>, recovers with --recover [--parent-pid], and a cleanup copy of the helper runs --cleanup-transaction --parent-pid after the commit to delete the transaction once the helper has exited.",
-   "fiorivoce": "The command line is --apply --transaction-id <id> or --recover --transaction-id <id> [--wait-for-launcher <pid> <creation time>]; there is no cleanup copy and no --cleanup-transaction: the helper collects a finished transaction's trees and the downloaded archive its journal names in its own run, and the next start of the app collects the rest once the update gates are free.",
+   "openwhisper-cpp": "The command line is --apply --transaction-id <id> or --recover --transaction-id <id> [--wait-for-launcher <pid> <creation time>]; there is no cleanup copy and no --cleanup-transaction: the helper collects a finished transaction's trees and the downloaded archive its journal names in its own run, and the next start of the app collects the rest once the update gates are free.",
    "reason": "A native helper does not need a second copy of itself to outlive its own folder: what it cannot delete while it runs from the transaction folder is authenticated and collected at the next start.",
    "source": "tests/update_native/test_updater_cli.cpp ('the helper leaves its launch directory and then commits the journal', 'the helper recovers the transaction it is given'); tests/update_native/test_prepare.cpp (the recovery command line); tests/update_native/test_transaction_runner.cpp ('the helper commits a prepared journal and then collects its leftovers'); tests/update_native/test_startup_recovery.cpp ('a finished transaction is collected by the next start'); src/update_native/terminal_cleanup.cpp remove_transaction_archive, tests/update_native/test_sweep_archive_cleanup.cpp ('sweep A37: the helper removes the archive once the update is healthy')"
   }

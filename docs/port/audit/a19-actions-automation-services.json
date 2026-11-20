@@ -520,7 +520,7 @@
     "tests/golden/services.automation.channel_bridge.json",
     "tests/cli/test_channel_e2e.cpp"
    ],
-   "note": "The bridge is fiorivoce-cli --channel (fiorivoce.exe --channel forwards to it, src/app/main.cpp); overrides are <PREFIX>URL/TOKEN with OPENWHISPER_ read too (channel_link.cpp), and the channel client header is X-FioriVoce-Client with X-OpenWhisper-Client accepted (ARCHITECTURE). The live event stream it follows is not served by this app (a19-live-api-not-served), so in practice it reports the app unreachable."
+   "note": "The bridge is openwhisper-cpp-cli --channel (openwhisper-cpp.exe --channel forwards to it, src/app/main.cpp); overrides are <PREFIX>URL/TOKEN with OPENWHISPER_ read too (channel_link.cpp), and the channel client header is X-OpenWhisper_CPP-Client with X-OpenWhisper-Client accepted (ARCHITECTURE). The live event stream it follows is not served by this app (a19-live-api-not-served), so in practice it reports the app unreachable."
   },
   "A19-51": {
    "status": "verified",
@@ -657,7 +657,7 @@
   "A19-61": {
    "status": "difference",
    "difference": "a19-live-api-not-served",
-   "note": "The live API counts X-FioriVoce-Client (and X-OpenWhisper-Client) 'claude-channel' streams and keeps the operation ids (tests/agentapi/test_live_api.cpp:757); the bridge sends the header (test_headers_identify_the_channel_client). Not served in the app."
+   "note": "The live API counts X-OpenWhisper_CPP-Client (and X-OpenWhisper-Client) 'claude-channel' streams and keeps the operation ids (tests/agentapi/test_live_api.cpp:757); the bridge sends the header (test_headers_identify_the_channel_client). Not served in the app."
   },
   "A19-62": {
    "status": "verified",
@@ -713,7 +713,7 @@
   {
    "id": "a19-confirmed-actions",
    "openwhisper": "An action's words run as soon as the recording ends: a missing or turned-off action copies them with 'That action no longer exists' / 'That action is turned off', and 'Send to my scripts' publishes action.ran with the words for whatever listens.",
-   "fiorivoce": "The running app shows each action's destination and exact material (webhook body, link, program and arguments, agent prompt with its context) and sends only after the user accepts; Copy only needs no confirmation; a declined or canceled run sends nothing ('Action canceled.'), a missing or turned-off action reads 'That action is unavailable.', 'Send to my scripts' is refused, only jobs the user started are delivered, and action shaping is sent raw. Settings' Try it asks the same way before a run other than Copy only.",
+   "openwhisper-cpp": "The running app shows each action's destination and exact material (webhook body, link, program and arguments, agent prompt with its context) and sends only after the user accepts; Copy only needs no confirmation; a declined or canceled run sends nothing ('Action canceled.'), a missing or turned-off action reads 'That action is unavailable.', 'Send to my scripts' is refused, only jobs the user started are delivered, and action shaping is sent raw. Settings' Try it asks the same way before a run other than Copy only.",
    "reason": "Dictated words leave the computer only for a destination the user has just seen; a listener count names no recipient, so script delivery fails closed. ActionRuntime itself keeps OpenWhisper's dispatch and copy and is tested as such.",
    "source": "src/automation/confirmed_automation.h and .cpp, src/ui_controller/action_wiring.cpp, src/dictation/transcription_runtime.cpp ('consent_declined'); tests/automation/test_confirmed_automation.cpp, tests/ui_controller/test_action_wiring.cpp; docs/port/open-items.md summary ('explicit hook and action tests ... are available', 'startup restoration of external hooks and unattended sharing remain differences')",
    "features": [
@@ -728,7 +728,7 @@
   {
    "id": "a19-explicit-routing",
    "openwhisper": "With 'Also listen to normal dictations' on, plain dictations that start with an action's name are judged too, and the judge is asked without a prompt.",
-   "fiorivoce": "Only the Route by voice shortcut routes (ConfirmedAutomation::route returns no decision for route 'auto'); before the judge is asked the user sees its route and the exact request and confirms, and declining cancels the job instead of pasting.",
+   "openwhisper-cpp": "Only the Route by voice shortcut routes (ConfirmedAutomation::route returns no decision for route 'auto'); before the judge is asked the user sees its route and the exact request and confirms, and declining cancels the job instead of pasting.",
    "reason": "The judgment sends the dictation to a model; it happens only on the explicit shortcut and after the user has seen where it goes.",
    "source": "src/automation/confirmed_automation.h and .cpp, src/ui_controller/action_wiring.cpp, src/dictation/transcription_runtime.cpp ('consent_declined'); tests/automation/test_confirmed_automation.cpp, tests/ui_controller/test_action_wiring.cpp; docs/port/open-items.md summary ('explicit hook and action tests ... are available', 'startup restoration of external hooks and unattended sharing remain differences')",
    "features": [
@@ -739,7 +739,7 @@
   {
    "id": "a19-hooks-not-started",
    "openwhisper": "After the window shows, AutomationService installs the AppControl, subscribes saved webhooks and program hooks to app events and starts MCP Events delivery; saved text filters (and API leases) rewrite each dictation before and after cleanup.",
-   "fiorivoce": "Nothing constructs AutomationService: Settings > Hooks' Send test and Run test drive the engines on a private bus, no saved webhook, program hook or MCP Events subscription receives app events, and no text filter runs on dictation (ConfirmedAutomation::filter_stage is empty). The engines, filters and the service are complete and tested on their own.",
+   "openwhisper-cpp": "Nothing constructs AutomationService: Settings > Hooks' Send test and Run test drive the engines on a private bus, no saved webhook, program hook or MCP Events subscription receives app events, and no text filter runs on dictation (ConfirmedAutomation::filter_stage is empty). The engines, filters and the service are complete and tested on their own.",
    "reason": "External hooks are not restored at startup without the user's action; only explicit hook tests send anything.",
    "source": "src/ui_automation/automation_feature.cpp ('neither engine's start() is called here'), src/automation/confirmed_automation.h ('No saved filters run through this port'); tests/ui_automation/test_manual_controls.cpp; docs/port/open-items.md summary ('Persisted startup restoration of external hooks and unattended sharing remain differences')",
    "features": [
@@ -756,7 +756,7 @@
   {
    "id": "a19-live-api-not-served",
    "openwhisper": "When API & MCP is on, the in-app listener also serves the live API (/v1/live/state, /v1/events SSE, actions, recording start/stop/cancel, filter leases, notify) through a Qt AppControl, which the channel bridge and 'Tell my Claude Code session' use.",
-   "fiorivoce": "The local MCP session is built with allow_live_tools=false; mount_live_api is never called and no UiAppControl is installed, so programs cannot read live state, stream live events, run actions, control recording, lease filters or show notices. LiveApi, SseStream, UiAppControl and FilterLeases are complete and tested on their own.",
+   "openwhisper-cpp": "The local MCP session is built with allow_live_tools=false; mount_live_api is never called and no UiAppControl is installed, so programs cannot read live state, stream live events, run actions, control recording, lease filters or show notices. LiveApi, SseStream, UiAppControl and FilterLeases are complete and tested on their own.",
    "reason": "The local MCP session serves saved content; its tools exclude live dictation text, microphone control and action requests.",
    "source": "src/ui_automation/session_mcp.cpp (deps.allow_live_tools = false); docs/port/open-items.md summary ('Its tool list excludes live dictation text, microphone control and action requests')",
    "features": [

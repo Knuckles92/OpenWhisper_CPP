@@ -50,7 +50,7 @@ std::chrono::system_clock::time_point at_seconds(double seconds) {
 }
 
 fv::Paths paths_for(const fs::path& data) {
-    fv::MapEnvReader env{{"FIORIVOCE_DATA_DIR", fv::path_to_utf8(data)}};
+    fv::MapEnvReader env{{"OPENWHISPER_CPP_DATA_DIR", fv::path_to_utf8(data)}};
     // Inside the data folder: never created, and never outside the test's folder.
     fv::pin_per_user_folders(env, data / ".per-user");
     return fv::Paths::resolve(fv::identity(), env);
@@ -334,7 +334,7 @@ TEST_CASE("snapshot exposes previous data location when available", "[test_backu
     // tests/test_backup_manager.py::test_snapshot_exposes_previous_data_location_when_available
     fv::testkit::TempDataRoot temp;
     const fs::path data = temp.path() / "data";
-    const fs::path previous = data / ".fiorivoce-restore" / "previous-123";
+    const fs::path previous = data / ".openwhisper-cpp-restore" / "previous-123";
     Rig rig;
     rig.service.on_previous = [&](const fs::path& root) -> std::optional<fs::path> {
         CHECK(fv::path_to_utf8(root) == resolved(data));
@@ -464,7 +464,7 @@ TEST_CASE("set_schedule refuses what Python refuses", "[backup]") {
     const fs::path folder = temp.path() / "backups";
     fs::create_directories(folder);
     fs::create_directories(data / "recordings" / "inside");
-    fs::create_directories(data / ".fiorivoce-restore" / "x");
+    fs::create_directories(data / ".openwhisper-cpp-restore" / "x");
     Rig rig;
     auto manager = rig.make(data);
     int changes = 0;
@@ -478,9 +478,9 @@ TEST_CASE("set_schedule refuses what Python refuses", "[backup]") {
     CHECK(manager->set_schedule("daily", 3, temp.path() / "missing") ==
           "Choose an existing folder for automatic backups.");
     CHECK(manager->set_schedule("daily", 3, data / "recordings" / "inside") ==
-          "Choose a backup folder outside FioriVoce's recording folders.");
-    CHECK(manager->set_schedule("weekly", 3, data / ".fiorivoce-restore" / "x") ==
-          "Choose a backup folder outside FioriVoce's recording folders.");
+          "Choose a backup folder outside OpenWhisper_CPP's recording folders.");
+    CHECK(manager->set_schedule("weekly", 3, data / ".openwhisper-cpp-restore" / "x") ==
+          "Choose a backup folder outside OpenWhisper_CPP's recording folders.");
     rig.ui.run_all();
     CHECK(changes == 0);
     CHECK_FALSE(fs::exists(data / kPreferencesFile));

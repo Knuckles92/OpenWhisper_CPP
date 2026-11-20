@@ -101,7 +101,7 @@ struct Harness {
     std::vector<std::string> steps;
     std::vector<std::string> errors;
     int argc = 1;
-    char program[10] = "fiorivoce";
+    char program[10] = "openwhisper-cpp";
     char* argv[2] = {program, nullptr};
 
     fv::BootstrapHooks hooks() {
@@ -141,7 +141,7 @@ struct Harness {
         made.step = [this](std::string_view step) {
             steps.emplace_back(step);
         };
-        made.arguments = std::vector<std::string>{"fiorivoce"};
+        made.arguments = std::vector<std::string>{"openwhisper-cpp"};
         // No audio system is opened by a startup test.
         made.audioBackend = [] {
             return std::make_shared<fv::audio::testing::FakeBackend>();
@@ -192,7 +192,7 @@ TEST_CASE("main runs startup flow and cleans up controller", "[test_bootstrap][w
 
     CHECK(startupToWindow.size() == 1);
     for (const char* line :
-         {"root: Starting FioriVoce", "root: Application initialization complete",
+         {"root: Starting OpenWhisper_CPP", "root: Application initialization complete",
           "root: Starting event loop", "root: Application shutdown complete",
           "ui_qt.startup_profiler: Startup timing summary:"}) {
         CHECK(capture.log->has(line));
@@ -415,12 +415,12 @@ TEST_CASE("update health waits for database and the running event loop", "[widge
     CHECK(capture.log->has("root: Could not acknowledge the update transaction") == !acknowledged);
 }
 
-// M10.12's forced failure for the owner's rollback demo: FIORIVOCE_TEST_FAIL_HEALTH=1 makes a
+// M10.12's forced failure for the owner's rollback demo: OPENWHISPER_CPP_TEST_FAIL_HEALTH=1 makes a
 // health launch exit 1 without acknowledging, and a normal start ignores it.
-TEST_CASE("FIORIVOCE_TEST_FAIL_HEALTH fails only a health launch", "[widget]") {
+TEST_CASE("OPENWHISPER_CPP_TEST_FAIL_HEALTH fails only a health launch", "[widget]") {
     const bool healthLaunch = GENERATE(false, true);
-    const auto saved = fv::testkit::get_env("FIORIVOCE_TEST_FAIL_HEALTH");
-    fv::testkit::set_env("FIORIVOCE_TEST_FAIL_HEALTH", "1");
+    const auto saved = fv::testkit::get_env("OPENWHISPER_CPP_TEST_FAIL_HEALTH");
+    fv::testkit::set_env("OPENWHISPER_CPP_TEST_FAIL_HEALTH", "1");
     Harness harness;
     LogCapture capture;
     auto hooks = harness.hooks();
@@ -440,13 +440,12 @@ TEST_CASE("FIORIVOCE_TEST_FAIL_HEALTH fails only a health launch", "[widget]") {
     }
     fv::Bootstrap bootstrap(std::move(hooks));
     const int code = bootstrap.run(harness.argc, harness.argv);
-    fv::testkit::set_env("FIORIVOCE_TEST_FAIL_HEALTH", saved);
+    fv::testkit::set_env("OPENWHISPER_CPP_TEST_FAIL_HEALTH", saved);
 
     CHECK(code == (healthLaunch ? 1 : 123));
     CHECK(attempts.load() == 0);
-    CHECK(capture.log->has(
-              "root: FIORIVOCE_TEST_FAIL_HEALTH=1: failing this update health check as a test") ==
-          healthLaunch);
+    CHECK(capture.log->has("root: OPENWHISPER_CPP_TEST_FAIL_HEALTH=1: failing this update health "
+                           "check as a test") == healthLaunch);
 }
 
 // The "database unavailable" case of
@@ -680,7 +679,7 @@ TEST_CASE("main gates restore after worker modes before ui import",
 
     Harness early;
     fv::BootstrapHooks hooks = early.hooks();
-    hooks.arguments = std::vector<std::string>{"fiorivoce", "--version"};
+    hooks.arguments = std::vector<std::string>{"openwhisper-cpp", "--version"};
     CHECK(fv::appMain(early.argc, early.argv, std::move(hooks)) == 0);
     CHECK(early.has("early_cli"));
     CHECK_FALSE(early.has("lease"));
@@ -695,10 +694,11 @@ TEST_CASE("a data folder another process restores refuses the start", "[widget]"
     CHECK_FALSE(harness.has("lease"));
     CHECK_FALSE(harness.has("qt_app"));
     REQUIRE(harness.errors.size() == 1);
-    CHECK(harness.errors[0] ==
-          "Could not safely open application data: Another FioriVoce process is restoring this "
-          "data. Wait for it to finish, then launch again. The backup restore remains pending. "
-          "Close other FioriVoce processes and start the app again.");
+    CHECK(
+        harness.errors[0] ==
+        "Could not safely open application data: Another OpenWhisper_CPP process is restoring this "
+        "data. Wait for it to finish, then launch again. The backup restore remains pending. "
+        "Close other OpenWhisper_CPP processes and start the app again.");
 }
 
 namespace {
@@ -707,7 +707,7 @@ namespace {
 // a restore, off the GUI thread (backups block on SQLite and the disk). Returns the bundle.
 std::filesystem::path stageRestoreOf(const std::filesystem::path& root,
                                      const std::filesystem::path& bundles) {
-    const std::filesystem::path archive = bundles / "FioriVoce-backup.fvbackup";
+    const std::filesystem::path archive = bundles / "OpenWhisper_CPP-backup.fvbackup";
     std::filesystem::create_directories(bundles);
     {
         std::ofstream out(root / fv::identity().settings_file, std::ios::binary | std::ios::trunc);
@@ -777,7 +777,7 @@ TEST_CASE("a pending restore another process blocks refuses the start with the e
     Harness harness;
     const std::filesystem::path root = paths().data_root();
     stageRestoreOf(root, harness.root.path() / "bundles");
-    // Another FioriVoce process still uses the data.
+    // Another OpenWhisper_CPP process still uses the data.
     const fv::DataLease other = fv::DataLease::acquire(root, fv::identity(), fv::LeaseMode::Shared);
 
     CHECK(fv::appMain(harness.argc, harness.argv, harness.hooks()) == 1);
@@ -787,8 +787,9 @@ TEST_CASE("a pending restore another process blocks refuses the start with the e
     REQUIRE(harness.errors.size() == 1);
     CHECK(harness.errors[0] ==
           "Could not safely open application data: A backup restore is pending, but another "
-          "FioriVoce process is still using this data. Close every FioriVoce window and History "
+          "OpenWhisper_CPP process is still using this data. Close every OpenWhisper_CPP window "
+          "and History "
           "API process, then launch again to finish the restore. The backup restore remains "
-          "pending. Close other FioriVoce processes and start the app again.");
+          "pending. Close other OpenWhisper_CPP processes and start the app again.");
     CHECK(fv::backup::pending_restore_exists(root));
 }

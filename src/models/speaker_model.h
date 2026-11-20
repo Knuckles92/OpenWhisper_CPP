@@ -52,10 +52,10 @@ std::filesystem::path speaker_model_cache_dir(const Paths& paths);
 // `root` is not a folder or holds none.
 std::optional<std::filesystem::path> first_onnx_file(const std::filesystem::path& root);
 
-// A usable speaker model already on this computer, in this order: FIORIVOCE_SPEAKER_MODEL, then
-// OPENWHISPER_SPEAKER_MODEL (each a .onnx file, made absolute, or a folder holding one; anything
-// else is logged and skipped), then speaker_model_cache_dir. OpenWhisper's last place, the source
-// checkout's models/speaker-id, does not exist for an installed app and is not consulted.
+// A usable speaker model already on this computer, in this order: OPENWHISPER_CPP_SPEAKER_MODEL,
+// then OPENWHISPER_SPEAKER_MODEL (each a .onnx file, made absolute, or a folder holding one;
+// anything else is logged and skipped), then speaker_model_cache_dir. OpenWhisper's last place, the
+// source checkout's models/speaker-id, does not exist for an installed app and is not consulted.
 std::optional<std::filesystem::path> speaker_model_path(const Paths& paths, const EnvReader& env);
 
 // Why the speaker model may not download now, or "": HF_HUB_OFFLINE set (kSpeakerModelEnvBlocked)

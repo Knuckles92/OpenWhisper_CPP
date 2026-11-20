@@ -385,7 +385,7 @@ TEST_CASE("a soak feed's prerelease is never installable on the stable track", "
                    {"digest", "sha256:" + kDigest},
                    {"browser_download_url", base + "/download/" + name}};
         return Json{{"tag_name", "v2.9.0"},
-                    {"name", "FioriVoce 2.9.0"},
+                    {"name", "OpenWhisper_CPP 2.9.0"},
                     {"html_url", base + "/releases/tag/v2.9.0"},
                     {"body", "n"},
                     {"draft", false},

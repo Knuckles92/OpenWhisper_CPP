@@ -1,7 +1,7 @@
 """OpenWhisper's remote-engine host or client as a live peer, for interop tests on 127.0.0.1.
 
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/remote_peer.py --role host --port 0 --data <dir>
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/remote_peer.py --role client --data <dir> `
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/remote_peer.py --role host --port 0 --data <dir>
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/remote_peer.py --role client --data <dir> `
         --host 127.0.0.1 --port <port> --code <digits>
 
 Runs under ow_isolation.py with every writable OpenWhisper path inside --data (a folder the

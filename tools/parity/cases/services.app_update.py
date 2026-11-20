@@ -4,8 +4,8 @@ trust.h).
 Only functions that do no network I/O are run. Those that read OPENWHISPER_UPDATE_FEED_URL take
 the feed as their last argument (None: unset) and set it for the call. Release payloads carry
 OpenWhisper's repository and asset names: the C++ replay rebrands inputs and results together
-(so the repository becomes "Knuckles92/FioriVoce"), maps the native archive's "-win64.tar.xz" to
-FioriVoce's "-win64.zip", and takes the repository from pins.github_repo. Release results are
+(so the repository becomes "Knuckles92/OpenWhisper_CPP"), maps the native archive's "-win64.tar.xz" to
+OpenWhisper_CPP's "-win64.zip", and takes the repository from pins.github_repo. Release results are
 dicts of the ReleaseInfo fields the port keeps (the macOS disk image is other-platform).
 """
 

@@ -1,4 +1,4 @@
-// What FioriVoce's host says to a paired computer it has not granted MCP control. Its Remote
+// What OpenWhisper_CPP's host says to a paired computer it has not granted MCP control. Its Remote
 // engine page offers "Grant session MCP control to one paired computer", not OpenWhisper's
 // "Allow paired computers to manage MCP" (a17-paired-mcp), so the refusal names the grant. A
 // host built without the session (OpenWhisper's opt-in, as the recorded wire transcripts

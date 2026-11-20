@@ -16,7 +16,7 @@ using fvtest::ControllerRig;
 
 namespace {
 
-// The main window in front, as when the user dictated into FioriVoce itself.
+// The main window in front, as when the user dictated into OpenWhisper_CPP itself.
 void bringToFront(ControllerRig& rig) {
     rig.window().show();
     rig.window().activateWindow();

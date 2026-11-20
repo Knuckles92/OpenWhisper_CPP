@@ -205,7 +205,7 @@ There is no layout tree or QSS in the overlay; everything is painted. The look d
 | `ctypes`/AppKit via `ui_qt.snap.macos` (`make_nonactivating`, `set_level`, `PARKED_LEVEL` 27) | non-activating panel and window level on macOS | Objective-C++ shim (`NSPanel` style mask, `setLevel`), other-platform only |
 | `WS_EX_NOACTIVATE` via Qt `WindowDoesNotAcceptFocus` + `WA_ShowWithoutActivating` | focus safety on Windows | same Qt flags |
 | `QToolTip`, `HotkeyHoverHint` (ui_qt/widgets/buttons.py) | hotkey pill on control hover | another area's widget; port with Buttons area |
-| `AudioRecorder` (`set_audio_level_callback`, `start_recording`, `cancel_recording`, `cleanup`, `last_start_error`) | Settings preview mic | FioriVoce audio capture class (other area) |
+| `AudioRecorder` (`set_audio_level_callback`, `start_recording`, `cancel_recording`, `cleanup`, `last_start_error`) | Settings preview mic | OpenWhisper_CPP audio capture class (other area) |
 | `services.dictation_language`, `settings_manager` | language lists, labels, settings | C++ settings store and a small language module |
 
 ## Platform-specific code

@@ -9,8 +9,8 @@
 
 namespace fv {
 
-// Where FioriVoce keeps its files (architecture 7.1). A source checkout never becomes the data
-// root: OpenWhisper's checkout rule exists for `python main.py` (a deliberate difference).
+// Where OpenWhisper_CPP keeps its files (architecture 7.1). A source checkout never becomes the
+// data root: OpenWhisper's checkout rule exists for `python main.py` (a deliberate difference).
 // Resolved once, where OpenWhisper's config.py re-evaluates data_root() on every call.
 // Affinity: thread-safe (immutable once resolved).
 class Paths {
@@ -18,8 +18,8 @@ public:
     // <env_prefix>DATA_DIR, when set and not empty, is expanded ("~"), made absolute and used;
     // otherwise the per-user directory. The data root is created (std::filesystem::filesystem_error
     // when it cannot be).
-    static Paths resolve(const AppIdentity&, const EnvReader&); // FIORIVOCE_DATA_DIR wins
-    const std::filesystem::path& data_root() const;             // %LOCALAPPDATA%\FioriVoce
+    static Paths resolve(const AppIdentity&, const EnvReader&); // OPENWHISPER_CPP_DATA_DIR wins
+    const std::filesystem::path& data_root() const;             // %LOCALAPPDATA%\OpenWhisper_CPP
     // %LOCALAPPDATA%\<data_dir_name> (the home folder when LOCALAPPDATA is unset or empty);
     // $XDG_DATA_HOME or ~/.local/share on Linux; ~/Library/Application Support on macOS.
     // Not moved by <env_prefix>DATA_DIR.

@@ -333,8 +333,8 @@ void ensure_version_row(sql::Connection& conn) {
     insert.step();
 }
 
-// FioriVoce's own tables. Version 1 is fv_schema_version alone; a package adding an fv_* table
-// adds a step here and raises schema::fv_schema_version.
+// OpenWhisper_CPP's own tables. Version 1 is fv_schema_version alone; a package adding an fv_*
+// table adds a step here and raises schema::fv_schema_version.
 void ensure_fv_schema(sql::Connection& conn) {
     conn.exec("CREATE TABLE IF NOT EXISTS fv_schema_version (\n"
               "\tversion INTEGER NOT NULL, \n"

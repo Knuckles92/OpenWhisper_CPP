@@ -53,7 +53,7 @@ struct FreshGpuInstall {
 } // namespace
 
 TEST_CASE("test_first_use_offers_the_gpu_runtime_auto_would_pick", "[test_local_asr]") {
-    // from tests/test_local_asr.py; Nemotron is not a FioriVoce model.
+    // from tests/test_local_asr.py; Nemotron is not a OpenWhisper_CPP model.
     for (const std::string platform : {"win_amd64", "linux_x86_64"}) {
         FreshGpuInstall fresh;
         fresh.platform = platform;
@@ -94,7 +94,7 @@ TEST_CASE("test_no_gpu_runtime_offer_where_auto_would_not_use_it", "[test_local_
     FreshGpuInstall fresh;
     fresh.card.reset();
     CHECK_FALSE(fresh.offer("parakeet-v3"));
-    // OpenWhisper's second half (CTranslate2 cannot count the card) has no FioriVoce
+    // OpenWhisper's second half (CTranslate2 cannot count the card) has no OpenWhisper_CPP
     // counterpart: Auto asks NVML, so a card NVML reports is the card Auto uses.
 }
 

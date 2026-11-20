@@ -17,7 +17,7 @@
 namespace fv::cli {
 namespace {
 
-// The ones fiorivoce.exe cannot start, take its look or draw its icons without, and the TLS
+// The ones openwhisper-cpp.exe cannot start, take its look or draw its icons without, and the TLS
 // backend Qt Network loads at run time, which no import table names (a34 section 6.2 and M3.11's
 // traps ask for it by name); windeployqt picks the rest.
 constexpr const char* kQtPlugins[] = {
@@ -142,8 +142,8 @@ std::wstring system_folder() {
 
 InstalledLayout installed_layout() {
     InstalledLayout layout;
-    layout.required = {"fiorivoce.exe", "fiorivoce-cli.exe", "fiorivoce-updater.exe",
-                       "webui/dist/index.html"};
+    layout.required = {"openwhisper-cpp.exe", "openwhisper-cpp-cli.exe",
+                       "openwhisper-cpp-updater.exe", "webui/dist/index.html"};
     for (const char* plugin : kQtPlugins) {
         layout.required.emplace_back(plugin);
     }
@@ -155,7 +155,8 @@ InstalledLayout installed_layout() {
     }
     layout.required.emplace_back("THIRD_PARTY_NOTICES.md");
 
-    layout.import_roots = {"fiorivoce.exe", "fiorivoce-cli.exe", "fiorivoce-updater.exe"};
+    layout.import_roots = {"openwhisper-cpp.exe", "openwhisper-cpp-cli.exe",
+                           "openwhisper-cpp-updater.exe"};
     for (const char* plugin : kQtPlugins) {
         layout.import_roots.emplace_back(plugin);
     }

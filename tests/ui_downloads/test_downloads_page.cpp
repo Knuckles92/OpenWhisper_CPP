@@ -2,8 +2,8 @@
 // actions, the inspector, batch selection, the components tab and the scan worker. The page is
 // built standalone over fakes here; test_downloads_window.cpp covers how Settings hosts it.
 //
-// FioriVoce's catalog is the Parakeet family: Orukeet stands in for Python's "tiny" (the row the
-// recommended order puts first), Parakeet TDT 0.6B v3 for "base" (the dictation model), and the
+// OpenWhisper_CPP's catalog is the Parakeet family: Orukeet stands in for Python's "tiny" (the row
+// the recommended order puts first), Parakeet TDT 0.6B v3 for "base" (the dictation model), and the
 // two NVIDIA Speech runtimes for the components a Windows computer lists.
 #include <catch2/catch_test_macros.hpp>
 
@@ -239,7 +239,7 @@ TEST_CASE("rows share the right edge with the toolbar", "[test_settings_download
     DownloadsRig rig;
     auto page = rig.page();
     page->show();
-    // OpenWhisper's thirty rows scroll at 560 px; FioriVoce's two need a shorter list. With
+    // OpenWhisper's thirty rows scroll at 560 px; OpenWhisper_CPP's two need a shorter list. With
     // Windows' fonts the themed toolbar's minimum is wider than the catalog column of an 806 px
     // page (Python's tests ran without fonts), so the page is as wide as Settings' default body.
     page->resize(fv::SettingsDialog::kDefaultSize.width() - 258 - 56, 300);

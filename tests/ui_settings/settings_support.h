@@ -42,7 +42,7 @@ namespace fvtest {
 namespace dest = fv::destinations;
 
 // OpenWhisper's page headings, as settings_dialog.py registers them (page modules' TITLE and
-// SUBTITLE for theirs), in _add_page order; the product name is FioriVoce's.
+// SUBTITLE for theirs), in _add_page order; the product name is OpenWhisper_CPP's.
 struct Heading {
     std::string_view key;
     const char* title;
@@ -66,12 +66,12 @@ inline const std::vector<Heading>& headings() {
         {dest::cleanup, "AI cleanup",
          "Rewrite a finished dictation with a language model, together with your learned rules."},
         {dest::cleanup_rules, "Learned rules",
-         "Teach FioriVoce your preferred spellings, terminology, and formatting. Applied "
+         "Teach OpenWhisper_CPP your preferred spellings, terminology, and formatting. Applied "
          "whenever AI cleanup runs."},
         {dest::cleanup_profiles, "Profiles",
          "Turn a recording into a support ticket, email, or your own format."},
         {dest::dictionary, "Dictionary",
-         "Names, jargon, and spellings FioriVoce should get right every time."},
+         "Names, jargon, and spellings OpenWhisper_CPP should get right every time."},
         {dest::snippets, "Snippets",
          "Say a short phrase to insert text you use often, exactly as written."},
         {dest::styles, "Apps & styles",

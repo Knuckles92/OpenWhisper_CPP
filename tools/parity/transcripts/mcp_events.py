@@ -27,7 +27,7 @@ GET /__calls__ (answered by the switch) gives the POSTs the fake callback receiv
 last such GET, oldest first: [{"url", "connect_to", "type"}], type being the body's "type"
 (a verification) or null.
 
-Subscription ids hash the principal ("openwhisper-mcp-token"), which FioriVoce spells after its
+Subscription ids hash the principal ("openwhisper-mcp-token"), which OpenWhisper_CPP spells after its
 own name; the replay maps each recorded id to its own. refreshBefore depends on the time.
 """
 from __future__ import annotations

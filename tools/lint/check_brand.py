@@ -1,4 +1,4 @@
-"""lint.brand: no C++ string literal under src/ spells OpenWhisper (in any letter case), except in
+"""lint.brand: C++ string literals under src/ may name the upstream OpenWhisper product only in
 the files whose job is to name it: base/identity.cpp (legacy_identity), backup/import* (the
 importer) and remote/wire.h (protocol constants). Everything else takes product, file and
 variable names from fv::identity(). Comments may name OpenWhisper: they cite the reference. So
@@ -20,6 +20,7 @@ import fvlint  # noqa: E402
 
 ALLOWED = ("src/base/identity.cpp", "src/backup/import*", "src/remote/wire.h")
 INCLUDE = re.compile(r"\s*#\s*include\b")
+UPSTREAM_BRAND = re.compile(r"openwhisper(?![-_]?cpp)", re.IGNORECASE)
 
 
 def check(root: Path) -> tuple[list[str], int]:
@@ -35,7 +36,7 @@ def check(root: Path) -> tuple[list[str], int]:
         for kind, value, line, _, _ in fvlint.cxx_tokens(text):
             if line in includes:
                 continue
-            if kind == "string" and "openwhisper" in value.lower():
+            if kind == "string" and UPSTREAM_BRAND.search(value):
                 problems.append(f"{relative}:{line}: string literal names OpenWhisper: "
                                 f'"{value[:60]}"; use fv::identity() or legacy_identity()')
     return problems, len(files)

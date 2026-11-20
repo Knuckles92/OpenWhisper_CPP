@@ -82,13 +82,14 @@ TEST_CASE("_safe_member matches OpenWhisper with its own names", "[golden]") {
     });
 }
 
-TEST_CASE("_safe_member accepts FioriVoce's core files where OpenWhisper accepts its own",
+TEST_CASE("_safe_member accepts OpenWhisper_CPP's core files where OpenWhisper accepts its own",
           "[golden]") {
     const auto& names = fv::backup::names_for(fv::identity());
     fv::golden::for_each("services.backup", "_safe_member", [&](const Case& c) {
-        // A name already spelled the FioriVoce way is foreign to OpenWhisper, not to FioriVoce.
+        // A name already spelled the OpenWhisper_CPP way is foreign to OpenWhisper, not to
+        // OpenWhisper_CPP.
         if (!c.args()[0].is_string() ||
-            c.arg<std::string>(0).find("fiorivoce") != std::string::npos) {
+            c.arg<std::string>(0).find("openwhisper-cpp") != std::string::npos) {
             return;
         }
         const std::string name = c.arg<std::string>(0);

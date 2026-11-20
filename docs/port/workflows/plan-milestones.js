@@ -12,11 +12,11 @@ const MILESTONES = args.milestones
 const PRIOR = args.prior || []
 
 const OW = 'D:\\coding\\whisper_local'
-const FV = 'C:\\coding\\fiorivoce_cpp'
+const FV = 'C:\\coding\\OpenWhisper_CPP'
 const PKG = FV + '\\docs\\port\\packages'
 const priorFiles = PRIOR.map(k => `${PKG}\\${k}.md`).join(', ')
 
-const CONTEXT = `FioriVoce (${FV}) is a C++23 / Qt 6 Widgets rewrite of OpenWhisper (Python 3.12 + PyQt6, read-only checkout at ${OW}) aiming at full feature parity. The port is built by worker agents, each implementing one work package in its own git worktree with a fresh context. A worker cannot ask questions: its package spec, the architecture and the area maps are all it has, plus the Python source it is pointed to.
+const CONTEXT = `OpenWhisper_CPP (${FV}) is a C++23 / Qt 6 Widgets rewrite of OpenWhisper (Python 3.12 + PyQt6, read-only checkout at ${OW}) aiming at full feature parity. The port is built by worker agents, each implementing one work package in its own git worktree with a fresh context. A worker cannot ask questions: its package spec, the architecture and the area maps are all it has, plus the Python source it is pointed to.
 
 Read:
 - ${FV}\\CLAUDE.md and ${FV}\\docs\\port\\ARCHITECTURE.md in full, starting with the "Lead amendments" at the top: they override the text below them and record what the milestones built so far settled. The architecture's names (targets, directories, classes, headers) are binding; its package tables in section 11 are only a first cut.
@@ -24,7 +24,7 @@ Read:
 - ${FV}\\docs\\port\\map-summaries.json, and in full the area maps under ${FV}\\docs\\port\\map that your milestone touches (architecture section 11's milestone table says which areas).
 - ${FV}\\docs\\port\\areas.json (the Python files of each area), and the Python itself wherever a map is not precise enough to scope a package.
 - ${FV}\\tools\\parity\\classification.json: every OpenWhisper test file classified by area and kind.
-- The FioriVoce tree as it is now under ${FV}\\src and ${FV}\\tests: the headers there are the contracts as built, and they win over anything a document says about their shape. Packages of earlier milestones that are not merged yet exist only as specs; plan against their specs.
+- The OpenWhisper_CPP tree as it is now under ${FV}\\src and ${FV}\\tests: the headers there are the contracts as built, and they win over anything a document says about their shape. Packages of earlier milestones that are not merged yet exist only as specs; plan against their specs.
 Do not modify anything except the one file you are asked to write. Never write under ${OW}, and never run git or any command that can write inside it.`
 
 const SPEC_FORMAT = `Format of each package section (keep the headings exactly, so workers and tools can find them):

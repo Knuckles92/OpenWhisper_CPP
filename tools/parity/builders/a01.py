@@ -1,14 +1,14 @@
 """Reference builders of the a01 shell chrome (fv_ui_shell, M0.11).
 
 Each builder returns (widget, (width, height), focus widget or None) with fixed fake data.
-OpenWhisper paints or labels its product name in these widgets; the builders put FioriVoce's in
+OpenWhisper paints or labels its product name in these widgets; the builders put OpenWhisper_CPP's in
 its place, so the references show what the port must draw (the rest is OpenWhisper's code as it
 is). Nothing here runs an event loop: render_reference.py processes events once.
 """
 
 import inspect
 
-PRODUCT = "FioriVoce"
+PRODUCT = "OpenWhisper_CPP"
 
 
 def title_bar(variant):

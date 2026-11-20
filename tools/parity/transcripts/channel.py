@@ -1,8 +1,8 @@
 """Record OpenWhisper's Claude Code channel server (services/automation/channel_bridge.py).
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
-        $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/transcripts/channel.py
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
+        $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/transcripts/channel.py
 
 The channel speaks JSON-RPC over stdio, not HTTP, so this scenario runs on its own rather than
 through Starlette's TestClient: it builds a ChannelServer inside this isolated process over

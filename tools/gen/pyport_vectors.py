@@ -1,6 +1,6 @@
 """Write tests/golden/builtins.json: golden vectors of the Python builtins fv_pyport ports.
 
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/gen/pyport_vectors.py
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/gen/pyport_vectors.py
 
 Run it with OpenWhisper's Python 3.12. Only the standard library is imported: the vectors are of
 round, format, repr, int, float, str methods, re, json, datetime, difflib and html, not of
@@ -10,7 +10,7 @@ floats written with repr, NaN and infinities tagged {"$float": "nan"|"inf"|"-inf
 outside int64 tagged {"$int": "<digits>"}, a string holding a lone surrogate tagged
 {"$code_points": [...]}. A raising case also records "message" where the
 message is part of the behaviour (json, datetime, re.sub; re.error's without its position). source_commit is the OpenWhisper commit of
-FIORIVOCE_OW_ROOT, or of the checkout holding the interpreter's virtual environment.
+OPENWHISPER_CPP_OW_ROOT, or of the checkout holding the interpreter's virtual environment.
 """
 
 from __future__ import annotations
@@ -392,8 +392,8 @@ def difflib_cases() -> dict:
 
 def source_commit() -> str:
     candidates = []
-    if os.environ.get("FIORIVOCE_OW_ROOT"):
-        candidates.append(Path(os.environ["FIORIVOCE_OW_ROOT"]))
+    if os.environ.get("OPENWHISPER_CPP_OW_ROOT"):
+        candidates.append(Path(os.environ["OPENWHISPER_CPP_OW_ROOT"]))
     candidates.append(Path(sys.prefix).parent)
     for checkout in candidates:
         if (checkout / ".git").exists():
@@ -407,7 +407,7 @@ def source_commit() -> str:
 
 def main() -> int:
     if sys.version_info[:2] != (3, 12) or unicodedata.unidata_version != "15.0.0":
-        print("run this with Python 3.12 (FIORIVOCE_OW_PYTHON)", file=sys.stderr)
+        print("run this with Python 3.12 (OPENWHISPER_CPP_OW_PYTHON)", file=sys.stderr)
         return 1
     # re warns about "[[" (a possible future set syntax); the vector records today's meaning.
     warnings.simplefilter("ignore", FutureWarning)

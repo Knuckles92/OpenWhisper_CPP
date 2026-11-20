@@ -1,5 +1,5 @@
 // main.py _show_startup_error (map row A01-71): "<product>: <message>" on stderr always, and the
-// message box (every FioriVoce build, where OpenWhisper showed it only frozen).
+// message box (every OpenWhisper_CPP build, where OpenWhisper showed it only frozen).
 #include <catch2/catch_test_macros.hpp>
 
 #include <cstdio>
@@ -66,11 +66,11 @@ TEST_CASE("a startup error goes to stderr with the product's name and to the err
             text += c;
         }
     }
-    CHECK(text == "FioriVoce: Could not safely open application data: busy.\n");
+    CHECK(text == "OpenWhisper_CPP: Could not safely open application data: busy.\n");
     CHECK(boxes == std::vector<std::string>{"Could not safely open application data: busy."});
 
     // Without a box (Qt cannot start), the stderr line still stands.
     const std::string alone =
         stderrOf(root.path() / "alone.txt", [] { fv::showStartupError("No box.", {}); });
-    CHECK(alone.starts_with("FioriVoce: No box."));
+    CHECK(alone.starts_with("OpenWhisper_CPP: No box."));
 }

@@ -9,7 +9,7 @@
 #include "models/component_store.h"
 
 // Where PDFium (which reads the knowledge folder's PDFs) is found. OpenWhisper reads PDFs with
-// pypdf, a Python package; FioriVoce loads PDFium by path, from a downloadable component or a
+// pypdf, a Python package; OpenWhisper_CPP loads PDFium by path, from a downloadable component or a
 // file the user names. Loading it is fv_meeting_intel's.
 namespace fv::models {
 
@@ -30,7 +30,7 @@ inline constexpr std::string_view kPdfiumLibrary = "libpdfium.so";
 // URL, size and SHA-256 are pinned, so nothing offers to install it. Shared and immutable.
 const Json& pdfium_catalog();
 
-// The PDFium library to load, or nullopt: FIORIVOCE_PDFIUM when it names an existing file
+// The PDFium library to load, or nullopt: OPENWHISPER_CPP_PDFIUM when it names an existing file
 // (anything else is logged and skipped), then the installed pdfium component's library (in the
 // release archive's bin/ or lib/ folder, or at the top of the component).
 std::optional<std::filesystem::path> locate_pdfium(const EnvReader& env,

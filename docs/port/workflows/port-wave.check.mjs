@@ -8,7 +8,7 @@ const agent = async (prompt, opts) => {
   prompts.push({ label: opts.label, isolation: opts.isolation, model: opts.model, prompt })
   const kind = opts.label.split(':')[0]
   const id = opts.label.split(':')[1]
-  if (kind === 'impl') return { id, branch: `wp/${id}`, sha: '1', worktree: `C:\\coding\\fiorivoce_cpp\\.claude\\worktrees\\wf_x-${id}`, summary: 's', testsTotal: 1, testsPassed: 1, testsFailed: 0, notDone: [], deviations: [], blockers: [] }
+  if (kind === 'impl') return { id, branch: `wp/${id}`, sha: '1', worktree: `C:\\coding\\OpenWhisper_CPP\\.claude\\worktrees\\wf_x-${id}`, summary: 's', testsTotal: 1, testsPassed: 1, testsFailed: 0, notDone: [], deviations: [], blockers: [] }
   if (kind === 'review') return { id, verdict: id === 'B' ? 'not-ready' : 'ready', sha: '2', summary: 'r', buildClean: true, testsTotal: 1, testsPassed: 1, testsFailed: 0, fixed: [], open: [] }
   if (kind === 'second') return { id, verdict: 'ready', sha: '3', summary: 'r2', buildClean: true, testsTotal: 1, testsPassed: 1, testsFailed: 0, fixed: [], open: [] }
   if (kind === 'integrate') return { gate: 'green', head: 'abc', merged: [], commits: [], forLead: [] }

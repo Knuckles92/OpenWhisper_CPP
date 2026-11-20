@@ -7,11 +7,11 @@ The window is OpenWhisper's GuidedSetupDialog over a real SettingsDialog, as
 tests/test_guided_setup.py's make_setup builds it: a throwaway settings file in the isolated
 data folder holding OpenWhisper's defaults on Windows (no guided_setup_state yet), no
 microphones, Parakeet downloaded (speech_model_downloaded answers True), no cleanup provider
-(cleanup is off by default, so provider_summary is never asked). FioriVoce differs where these
-builders put its own in: the product name in copy is FioriVoce's, and the app mark is the one
-FioriVoce draws (OpenWhisper's drawn fallback, app_icon.render_app_pixmap at every ICON_SIZES
+(cleanup is off by default, so provider_summary is never asked). OpenWhisper_CPP differs where these
+builders put its own in: the product name in copy is OpenWhisper_CPP's, and the app mark is the one
+OpenWhisper_CPP draws (OpenWhisper's drawn fallback, app_icon.render_app_pixmap at every ICON_SIZES
 size) where OpenWhisper shows its bundled .ico, and the Clean up page's provider row and privacy
-text are hidden, as FioriVoce hides them until M4 provides the provider summary (that page is in
+text are hidden, as OpenWhisper_CPP hides them until M4 provides the provider summary (that page is in
 no image, but its hidden widgets are in every tree). The default size is 720x690; the window's own
 show-time fit to the screen leaves a fixed size as it is.
 
@@ -19,7 +19,7 @@ welcome is the offer's first page; record, output and ready are the pages a File
 pass shows (begin(welcome=False) saves "started"), focus on Continue (Get started, Finish) or,
 on ready, on the try box, as _focus_page puts it. cleanup (M4.14) is the Clean up step of such a
 pass over saved settings with AI cleanup on at Medium through OpenRouter's free model, whose key
-resolve_credential reports saved: its provider row and privacy text show, as FioriVoce's
+resolve_credential reports saved: its provider row and privacy text show, as OpenWhisper_CPP's
 composition draws them with its provider summary.
 
 The update dialog (app_update_dialog/<state>) shows a fixed check result: running copy 0.1.0 of
@@ -29,14 +29,14 @@ and a fixed Markdown body whose "Checksums" section the notes renderer drops. St
 up-to-date (latest release 0.1.0), development (latest release 0.0.9), check-failed (no result),
 downloading (20,971,520 of 52,428,800 bytes, the bar at its end value and its sheen at the start)
 and error ("The download failed.", no setup offer).
-The product name in the dialog's labels and title is FioriVoce's, and the window is the size its
+The product name in the dialog's labels and title is OpenWhisper_CPP's, and the window is the size its
 own sizeHint asks for once the notes are fitted, scrolled to the top.
 """
 
 from contextlib import ExitStack
 from unittest.mock import patch
 
-PRODUCT = "FioriVoce"
+PRODUCT = "OpenWhisper_CPP"
 SIZE = (720, 690)
 
 _KEEP = []
@@ -81,7 +81,7 @@ def _drawn_icon():
 
 
 def _rebrand(dialog):
-    """FioriVoce's name in every label, now and whenever refresh() sets one again."""
+    """OpenWhisper_CPP's name in every label, now and whenever refresh() sets one again."""
     from PyQt6.QtWidgets import QLabel
 
     from ui_qt.widgets.wrapped_label import WrappedLabel
@@ -145,7 +145,7 @@ def _setup(page, settings=None, provider_row=False):
                                       manager=store)
     _keep(dialog)
     _rebrand(dialog)
-    # The cleanup provider row and the privacy text show only where FioriVoce's window is given
+    # The cleanup provider row and the privacy text show only where OpenWhisper_CPP's window is given
     # a provider summary, as the app's composition gives it; the page images other than cleanup
     # are of a window built without one, so they are hidden there (they sit on the Clean up page).
     if not provider_row:
@@ -232,8 +232,8 @@ def _update_result(state):
     digest = None if state == "available-notify" else "ab" * 32
     applies = state in ("available", "downloading", "error")
     asset = ReleaseAsset(
-        url=f"https://example.invalid/releases/download/v{version}/FioriVoce-Setup-{version}.exe",
-        name=f"FioriVoce-Setup-{version}.exe", size_bytes=SETUP_SIZE, sha256=digest)
+        url=f"https://example.invalid/releases/download/v{version}/OpenWhisper_CPP-Setup-{version}.exe",
+        name=f"OpenWhisper_CPP-Setup-{version}.exe", size_bytes=SETUP_SIZE, sha256=digest)
     return UpdateCheckResult(
         status=status, current_version="0.1.0", channel=InstallChannel.INSTALLER,
         release=ReleaseInfo(version=version, tag_name=f"v{version}",
@@ -243,7 +243,7 @@ def _update_result(state):
 
 
 def _rebrand_labels(dialog):
-    """FioriVoce's name in every label, now and whenever the dialog sets one again."""
+    """OpenWhisper_CPP's name in every label, now and whenever the dialog sets one again."""
     from PyQt6.QtWidgets import QLabel
 
     dialog.setWindowTitle(dialog.windowTitle().replace("OpenWhisper", PRODUCT))

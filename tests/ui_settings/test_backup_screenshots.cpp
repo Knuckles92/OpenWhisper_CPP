@@ -6,7 +6,7 @@
 //
 // The builder pins the local zone to UTC and today to 2026-10-04, as this test's clock is, and
 // its coordinator's snapshot: the last backup of 2026-10-04T12:30:00Z (734,003,200 bytes) in
-// C:\Backups\FioriVoce, daily, keeping 5, next due 2026-10-05 12:30 UTC, nothing inspected.
+// C:\Backups\OpenWhisper_CPP, daily, keeping 5, next due 2026-10-05 12:30 UTC, nothing inspected.
 #include <catch2/catch_test_macros.hpp>
 
 #include <memory>
@@ -51,7 +51,7 @@ void checkClasses(const Json& expected, const Json& actual, const std::string& p
 }
 
 Json snapshot() {
-    Json last = {{"path", "C:\\Backups\\FioriVoce\\FioriVoce-backup.fvbackup"},
+    Json last = {{"path", "C:\\Backups\\OpenWhisper_CPP\\OpenWhisper_CPP-backup.fvbackup"},
                  {"created_at", "2026-10-04T12:30:00Z"},
                  {"app_version", "0.1.0"},
                  {"schema_version", 1},
@@ -63,7 +63,7 @@ Json snapshot() {
     // The last automatic run, 2026-10-04T12:30:00Z, a day before the next.
     return Json{{"frequency", "daily"},
                 {"retention_count", 5},
-                {"destination", "C:\\Backups\\FioriVoce"},
+                {"destination", "C:\\Backups\\OpenWhisper_CPP"},
                 {"last_backup", last},
                 {"last_auto_at", 1791117000}};
 }

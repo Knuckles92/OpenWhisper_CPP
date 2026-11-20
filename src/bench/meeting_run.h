@@ -31,7 +31,7 @@ inline constexpr double MAX_GATE_MICRO_WER = 0.30;
 inline constexpr double MAX_GATE_MEETING_WER = 0.35;
 inline constexpr double MAX_GATE_RTF = 0.50;
 
-// The command line of `fiorivoce-bench meeting`. The defaults are the production meeting
+// The command line of `openwhisper-cpp-bench meeting`. The defaults are the production meeting
 // profile: the spool's chunk target and maximum (meeting_capture DEFAULT_TARGET_SEC and
 // DEFAULT_MAX_SEC) and the offline pass on.
 struct MeetingArgs {

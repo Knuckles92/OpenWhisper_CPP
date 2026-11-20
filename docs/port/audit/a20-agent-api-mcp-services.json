@@ -350,7 +350,7 @@
    "tests": [
     "tests/agentapi/test_setup.cpp"
    ],
-   "note": "'connection snippets match OpenWhisper's' and 'the agent prompt matches OpenWhisper's'; the server is named identity().product in lower case ('fiorivoce') by the identity rule."
+   "note": "'connection snippets match OpenWhisper's' and 'the agent prompt matches OpenWhisper's'; the server is named identity().product in lower case ('openwhisper-cpp') by the identity rule."
   },
   "A20-38": {
    "status": "verified",
@@ -360,7 +360,7 @@
    "tests": [
     "tests/agentapi/test_setup.cpp"
    ],
-   "note": "'the Claude Code channel entry matches OpenWhisper's' with fiorivoce.exe --channel and <PREFIX>DATA_DIR."
+   "note": "'the Claude Code channel entry matches OpenWhisper's' with openwhisper-cpp.exe --channel and <PREFIX>DATA_DIR."
   },
   "A20-39": {
    "status": "difference",
@@ -567,7 +567,7 @@
     "SM-01"
    ],
    "openwhisper": "OpenWhisper can restart its MCP listener when a stored preference is enabled.",
-   "fiorivoce": "Starting a desktop listener requires confirmation of its loopback address and access. Its switch reflects whether the current session is running.",
+   "openwhisper-cpp": "Starting a desktop listener requires confirmation of its loopback address and access. Its switch reflects whether the current session is running.",
    "reason": "Reviewing access at start lets a user choose when local assistants can read saved text or change selected preferences.",
    "source": "docs/port/map/a20-agent-api-mcp-services.md, A20-17"
   },
@@ -579,14 +579,14 @@
     "NP-02"
    ],
    "openwhisper": "The upstream MCP server can bind directly to a Tailscale interface.",
-   "fiorivoce": "The desktop session listens on loopback. A separate paired-session workflow can start a temporary read-only loopback server on the host. A host can stop that session at any time.",
+   "openwhisper-cpp": "The desktop session listens on loopback. A separate paired-session workflow can start a temporary read-only loopback server on the host. A host can stop that session at any time.",
    "reason": "Local desktop access and permission granted to a paired operator have separate audiences and lifetimes.",
    "source": "docs/port/map/a20-agent-api-mcp-services.md, A20-20"
   },
   {
    "id": "a20-local-mcp-saved-content",
    "openwhisper": "The desktop MCP server offers the live tools (get_live_state, list_actions, run_action, start/stop/cancel_dictation, recent_events, notify_user) behind the API & MCP permissions, reports those permissions in get_capabilities, and serves MCP Events (events/list, subscribe, unsubscribe and signed deliveries to subscribers' URLs).",
-   "fiorivoce": "The local MCP session is built with allow_live_tools=false: it lists and runs only the history and control tools, its instructions say it reads saved dictations and meetings, get_capabilities reports every live permission and mcp_events as false, and no agentapi::McpEvents is built, so events/* and deliveries are not offered (the API & MCP page reads 'MCP is not available in this session' for its Events controls). The live tools and McpEvents are complete and tested on their own.",
+   "openwhisper-cpp": "The local MCP session is built with allow_live_tools=false: it lists and runs only the history and control tools, its instructions say it reads saved dictations and meetings, get_capabilities reports every live permission and mcp_events as false, and no agentapi::McpEvents is built, so events/* and deliveries are not offered (the API & MCP page reads 'MCP is not available in this session' for its Events controls). The live tools and McpEvents are complete and tested on their own.",
    "reason": "The local MCP session serves saved content; its tool list excludes live dictation text, microphone control and action requests, and nothing sends events to external URLs unattended.",
    "source": "src/ui_automation/session_mcp.cpp (deps.allow_live_tools = false), src/agentapi/mcp_tools.cpp McpTools::listed/instructions, src/agentapi/agent_controls.cpp capabilities; tests/agentapi/test_mcp_protocol.cpp ('desktop history session excludes live tools even when live permissions were saved'); docs/port/open-items.md summary ('The local MCP session serves saved content ... Its tool list excludes live dictation text, microphone control and action requests')",
    "features": [
@@ -609,7 +609,7 @@
   {
    "id": "a20-peer-history-session",
    "openwhisper": "The History API and MCP history tools merge paired clients' history into pages with include_clients / device_id (parallel fetch, server-side clients- cursors, per-client status).",
-   "fiorivoce": "No server is given a client history source, so include_clients and device_id read only this computer's database; a paired client's recent history is viewed instead in an explicitly opened, time-limited session (ui_remote's client history dialog). FederatedHistory exists and is tested on its own.",
+   "openwhisper-cpp": "No server is given a client history source, so include_clients and device_id read only this computer's database; a paired client's recent history is viewed instead in an explicitly opened, time-limited session (ui_remote's client history dialog). FederatedHistory exists and is tested on its own.",
    "reason": "Time and record limits bound the data a live pairing exposes; matches the decision recorded as a17-direct-history.",
    "source": "docs/port/differences.md a17-direct-history (docs/port/map/a17-remote-engine-services.md, A17-52); src/agentapi/history_routes.cpp HistoryApi (federation only with a ClientHistorySource), src/ui_remote/client_history_dialog.cpp",
    "features": [
@@ -619,7 +619,7 @@
   {
    "id": "a20-host-mcp-read-only",
    "openwhisper": "A paired client can read and configure the host's MCP (enabled, port, Tailscale, write grants) through host_control's state() and configure().",
-   "fiorivoce": "A host grants one paired connection a read-only local listener for 15 minutes; the peer cannot change the host's MCP settings, and the token is shown on the host only.",
+   "openwhisper-cpp": "A host grants one paired connection a read-only local listener for 15 minutes; the peer cannot change the host's MCP settings, and the token is shown on the host only.",
    "reason": "Granting access to one paired device does not authorize changes to the host's usual settings; matches the decision recorded as a17-paired-mcp.",
    "source": "docs/port/differences.md a17-paired-mcp (docs/port/map/a17-remote-engine-services.md, A17-43)",
    "features": [

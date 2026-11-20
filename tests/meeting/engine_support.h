@@ -500,8 +500,8 @@ private:
 // OpenWhisper's `repo` fixture: a SQL meeting repository on a fresh database.
 struct SqlRepository {
     SqlRepository()
-        : database(
-              std::make_unique<Database>(Database::open_or_create(root.path() / "fiorivoce.db"))),
+        : database(std::make_unique<Database>(
+              Database::open_or_create(root.path() / "openwhisper-cpp.db"))),
           repo(std::make_shared<meeting_state::SqlMeetingRepository>(*database)) {}
 
     testkit::TempDataRoot root;

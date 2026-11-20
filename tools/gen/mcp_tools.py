@@ -1,7 +1,7 @@
 """Write src/agentapi/data/mcp_tools.json: the in-app MCP server's identity, instructions and tools.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/gen/mcp_tools.py [--check]
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/gen/mcp_tools.py [--check]
 
 OpenWhisper's MCP server (services/agent_mcp/app.py) is built under tools/parity/ow_isolation.py
 over an empty database in out/parity and asked, through Starlette's TestClient (no socket), for
@@ -13,7 +13,7 @@ its initialize handshake and tools/list on the 2025-11-25 wire. The file keeps w
 Tools are in registration order, with their descriptions (the tool functions' docstrings) and
 schemas as the SDK publishes them, keys in the order this wire sends them; the 2026-07-28 wire
 sends the same tools with inputSchema's "type" first and outputSchema's keys sorted
-(agentapi::McpServer derives that). "OpenWhisper" becomes "FioriVoce" everywhere, and
+(agentapi::McpServer derives that). "OpenWhisper" becomes "OpenWhisper_CPP" everywhere, and
 agentapi puts identity().product in its place again when it loads the file. --check compares
 with the committed file instead of writing it and fails on a difference.
 """
@@ -30,7 +30,7 @@ sys.path.insert(0, str(ROOT / "tools" / "parity"))
 import ow_isolation  # noqa: E402
 
 OUTPUT = ROOT / "src" / "agentapi" / "data" / "mcp_tools.json"
-OPENWHISPER, FIORIVOCE = "OpenWhisper", "FioriVoce"
+OPENWHISPER, OPENWHISPER_CPP = "OpenWhisper", "OpenWhisper_CPP"
 TOKEN = "g" * 40
 
 
@@ -71,9 +71,9 @@ def document() -> str:
     if server.get("name") != OPENWHISPER:
         raise SystemExit(f"The server is named {server.get('name')!r}; update this script.")
     document = {
-        "server": {"name": FIORIVOCE, "version": server["version"]},
-        "instructions": handshake["instructions"].replace(OPENWHISPER, FIORIVOCE),
-        "tools": json.loads(json.dumps(tools).replace(OPENWHISPER, FIORIVOCE)),
+        "server": {"name": OPENWHISPER_CPP, "version": server["version"]},
+        "instructions": handshake["instructions"].replace(OPENWHISPER, OPENWHISPER_CPP),
+        "tools": json.loads(json.dumps(tools).replace(OPENWHISPER, OPENWHISPER_CPP)),
     }
     if len(tools) != 22:
         raise SystemExit(f"{len(tools)} tools, not 22; review the new ones before regenerating.")

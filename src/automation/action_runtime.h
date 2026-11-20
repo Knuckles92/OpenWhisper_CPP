@@ -78,9 +78,9 @@ inline constexpr std::string_view COPIED_INSTEAD = " — copied instead";
 inline constexpr std::string_view FULL_ANSWER_COPIED = " — full answer copied";
 } // namespace runtime
 
-// '<context source="FioriVoce">': CONTEXT_OPEN with identity().product.
+// '<context source="OpenWhisper_CPP">': CONTEXT_OPEN with identity().product.
 std::string context_open();
-// "FioriVoce is closing": CLOSING_MESSAGE with identity().product.
+// "OpenWhisper_CPP is closing": CLOSING_MESSAGE with identity().product.
 std::string closing_message();
 
 // The `"text"` string of a JSON reply, or nullopt (no body, not JSON, not an object, or no

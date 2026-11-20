@@ -113,7 +113,7 @@ TEST_CASE("the font scale redraws the transcripts and a theme change applies the
 // colour scheme) is the one switched, not a second manager's.
 TEST_CASE("a Settings theme change goes through the application's own theme manager", "[widget]") {
     int argc = 1;
-    char program[] = "fiorivoce";
+    char program[] = "openwhisper-cpp";
     char* argv[] = {program, nullptr};
     std::unique_ptr<fv::Application> application;
     RigOptions options;

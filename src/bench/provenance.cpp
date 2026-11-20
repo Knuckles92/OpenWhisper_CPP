@@ -190,7 +190,7 @@ Json read_json(const std::filesystem::path& path) {
 }
 
 std::optional<std::filesystem::path> find_source_root(const std::filesystem::path& start) {
-    if (const auto configured = env_utf8("FIORIVOCE_SOURCE_ROOT")) {
+    if (const auto configured = env_utf8("OPENWHISPER_CPP_SOURCE_ROOT")) {
         return path_from_utf8(*configured);
     }
     std::error_code error;

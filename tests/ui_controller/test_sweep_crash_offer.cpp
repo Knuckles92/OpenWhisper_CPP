@@ -67,7 +67,7 @@ TEST_CASE("a declined crash offer does not come back at the next start", "[unit]
     const auto runtime = root.path() / "asr-nvidia-cuda";
     std::filesystem::create_directories(runtime);
     std::ofstream(runtime / "ggml-cuda.dll") << "x";
-    const auto offered = root.path() / "fiorivoce.crash.log.offered";
+    const auto offered = root.path() / "openwhisper-cpp.crash.log.offered";
     fv::MemorySettingsStore settings;
     const fv::log::CrashInfo crash{"2026-11-14T10:20:30Z", 0xC0000005u, "ggml-cuda.dll", ""};
 

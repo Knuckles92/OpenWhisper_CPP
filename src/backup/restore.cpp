@@ -475,7 +475,8 @@ std::filesystem::path prepare_restore(const std::filesystem::path& requested_arc
         write_text(settings_path, detail::settings_text(safe_settings));
         check_cancel(cancel);
         if (reading != &names) {
-            // The stage is FioriVoce's: apply_pending_restore reads it under identity()'s names.
+            // The stage is OpenWhisper_CPP's: apply_pending_restore reads it under identity()'s
+            // names.
             manifest["format"] = names.format;
             for (auto& item : manifest["files"]) {
                 const std::string& member = item.at("path").get_ref<const std::string&>();

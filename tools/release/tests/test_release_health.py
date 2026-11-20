@@ -2,7 +2,7 @@
 
 from tests/test_release_health.py (OpenWhisper); the fresh-process test of that file is the C++
 test ``fresh process workflow exits and preserves user history`` in tests/cli, which runs
-fiorivoce-cli --workflow-smoke itself.
+openwhisper-cpp-cli --workflow-smoke itself.
 """
 
 import contextlib
@@ -85,7 +85,7 @@ class TestCommandLine(rs.TempDirTestCase):
 
     def write(self, name, report):
         path = self.tmp / name
-        # As fiorivoce-cli saves it: indented, CRLF line ends on Windows.
+        # As openwhisper-cpp-cli saves it: indented, CRLF line ends on Windows.
         path.write_text(json.dumps(report, indent=2), encoding="utf-8")
         return path
 

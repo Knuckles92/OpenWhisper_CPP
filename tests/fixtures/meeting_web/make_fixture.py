@@ -1,8 +1,8 @@
 """Write tests/fixtures/meeting_web/meetings.db through OpenWhisper's own meeting repository.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
-        $env:FIORIVOCE_OW_PYTHON -I -B tests/fixtures/meeting_web/make_fixture.py
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
+        $env:OPENWHISPER_CPP_OW_PYTHON -I -B tests/fixtures/meeting_web/make_fixture.py
 
 The dashboard API reads this database: tools/parity/transcripts/meeting_api.py records
 OpenWhisper's answers over a copy of it and tests/meeting_web replays them against the C++

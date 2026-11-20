@@ -10,7 +10,7 @@ watched roots whose write or creation time is newer; the second checks against a
 never contents. Exit status: 0 when nothing changed and the command (if any) succeeded, 1 when
 something under a watched root changed, otherwise the command's own status.
 
-The watched roots are FIORIVOCE_OW_ROOT (or --root) and %LOCALAPPDATA%\\OpenWhisper, taken from
+The watched roots are OPENWHISPER_CPP_OW_ROOT (or --root) and %LOCALAPPDATA%\\OpenWhisper, taken from
 this process's environment, so run it from a shell whose LOCALAPPDATA is the real one. A change
 the owner made by using OpenWhisper during the run is reported like any other: judge it by its
 name and time.
@@ -29,12 +29,12 @@ from pathlib import Path
 
 def watched_roots(root_arg: str | None) -> list[Path]:
     roots = []
-    root = root_arg or os.environ.get("FIORIVOCE_OW_ROOT")
+    root = root_arg or os.environ.get("OPENWHISPER_CPP_OW_ROOT")
     if root:
         roots.append(Path(root))
     # ow_isolation moves LOCALAPPDATA into scratch and keeps the real one here, so a check run
     # from an isolated process still watches the owner's folder.
-    local = os.environ.get("FIORIVOCE_REAL_LOCALAPPDATA") or os.environ.get("LOCALAPPDATA")
+    local = os.environ.get("OPENWHISPER_CPP_REAL_LOCALAPPDATA") or os.environ.get("LOCALAPPDATA")
     if local:
         roots.append(Path(local) / "OpenWhisper")
     return [r for r in roots if r.exists()]
@@ -90,14 +90,14 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--since", help="ISO 8601 time or Unix seconds")
-    parser.add_argument("--root", help="the OpenWhisper checkout (default FIORIVOCE_OW_ROOT)")
+    parser.add_argument("--root", help="the OpenWhisper checkout (default OPENWHISPER_CPP_OW_ROOT)")
     args = parser.parse_args(argv)
     if bool(command) == bool(args.since):
         parser.error("give either --since or -- <command>")
 
     roots = watched_roots(args.root)
     if not roots:
-        parser.error("no watched root exists: set FIORIVOCE_OW_ROOT or pass --root")
+        parser.error("no watched root exists: set OPENWHISPER_CPP_OW_ROOT or pass --root")
     status = 0
     if command:
         since = time.time()

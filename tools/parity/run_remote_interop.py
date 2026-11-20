@@ -49,7 +49,7 @@ def cpp_client(args, root):
             if not line:
                 raise RuntimeError("The isolated OpenWhisper host exited during startup.")
             endpoint = json.loads(line)
-            env = {**os.environ, "FIORIVOCE_LOOPBACK_INTEROP": json.dumps(endpoint)}
+            env = {**os.environ, "OPENWHISPER_CPP_LOOPBACK_INTEROP": json.dumps(endpoint)}
             subprocess.run(ctest(args, CPP_CLIENT), env=env, timeout=45, check=True)
         finally:
             host.stdin.close()
@@ -57,7 +57,7 @@ def cpp_client(args, root):
 
 
 def cpp_host(args, root):
-    env = {**os.environ, "FIORIVOCE_LOOPBACK_INTEROP_DIR": str(root)}
+    env = {**os.environ, "OPENWHISPER_CPP_LOOPBACK_INTEROP_DIR": str(root)}
     with subprocess.Popen(ctest(args, CPP_HOST), env=env) as host:
         try:
             endpoint_file = root / "endpoint.json"

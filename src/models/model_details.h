@@ -51,8 +51,8 @@ std::string format_download_mb(double size_mb);
 
 // MODEL_SECURITY_NOTICE, naming identity().product where OpenWhisper names itself.
 std::string model_security_notice();
-// CUSTOM_MODEL_NOTICE, rebranded the same way. FioriVoce has no custom models; the consent copy
-// keeps the notice for parity with its callers.
+// CUSTOM_MODEL_NOTICE, rebranded the same way. OpenWhisper_CPP has no custom models; the consent
+// copy keeps the notice for parity with its callers.
 std::string custom_model_notice();
 
 // Every speech model's profile, in the order of models().

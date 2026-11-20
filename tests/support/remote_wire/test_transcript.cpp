@@ -33,7 +33,7 @@ const std::string kNonce = "ab00ab00ab00ab00ab00ab00ab00ab00ab00ab00ab00ab00ab00
 
 const fv::net::TlsIdentity& identity_for_tests() {
     static const fv::net::TlsIdentity identity =
-        fv::net::generate_self_signed_p256("FioriVoce host test");
+        fv::net::generate_self_signed_p256("OpenWhisper_CPP host test");
     return identity;
 }
 
@@ -184,29 +184,31 @@ TEST_CASE("product names in copy are this product's") {
 }
 
 TEST_CASE("product names in copy take the article this product's name needs") {
-    CHECK(with_product("The host is preparing an OpenWhisper update.", "FioriVoce") ==
-          "The host is preparing a FioriVoce update.");
-    CHECK(with_product("An OpenWhisper host", "FioriVoce") == "A FioriVoce host");
+    CHECK(with_product("The host is preparing an OpenWhisper update.", "OpenWhisper_CPP") ==
+          "The host is preparing a OpenWhisper_CPP update.");
+    CHECK(with_product("An OpenWhisper host", "OpenWhisper_CPP") == "A OpenWhisper_CPP host");
     CHECK(with_product("an OpenWhisper update", "Ombra") == "an Ombra update");
-    CHECK(with_product("Update OpenWhisper on both computers", "FioriVoce") ==
-          "Update FioriVoce on both computers");
-    CHECK(with_product("Klan OpenWhisper, OpenWhisper", "FioriVoce") ==
-          "Klan FioriVoce, FioriVoce");
+    CHECK(with_product("Update OpenWhisper on both computers", "OpenWhisper_CPP") ==
+          "Update OpenWhisper_CPP on both computers");
+    CHECK(with_product("Klan OpenWhisper, OpenWhisper", "OpenWhisper_CPP") ==
+          "Klan OpenWhisper_CPP, OpenWhisper_CPP");
     CHECK(with_product("an OpenWhisper update", kRecordedProduct) == "an OpenWhisper update");
 
-    // The update hold of remote_requests, as a FioriVoce host words it (M9.md, the wire).
+    // The update hold of remote_requests, as a OpenWhisper_CPP host words it (M9.md, the wire).
     const Transcript transcript = load_transcript("requests");
     REQUIRE(transcript.frames.size() > 67);
     REQUIRE(transcript.frames[67].text.find("preparing an OpenWhisper update") !=
             std::string::npos);
     Json bindings;
     const std::string ours = R"({"id":1,"code":"engine_reloading","error":"The host is )"
-                             R"(preparing a FioriVoce update. Try again shortly."})";
-    CHECK(compare(transcript, 67, text_frame("s2c", ours), bindings, "FioriVoce").empty());
-    const std::string wrong_article = R"({"id":1,"code":"engine_reloading","error":"The host )"
-                                      R"(is preparing an FioriVoce update. Try again shortly."})";
+                             R"(preparing a OpenWhisper_CPP update. Try again shortly."})";
+    CHECK(compare(transcript, 67, text_frame("s2c", ours), bindings, "OpenWhisper_CPP").empty());
+    const std::string wrong_article =
+        R"({"id":1,"code":"engine_reloading","error":"The host )"
+        R"(is preparing an OpenWhisper_CPP update. Try again shortly."})";
     CHECK_FALSE(
-        compare(transcript, 67, text_frame("s2c", wrong_article), bindings, "FioriVoce").empty());
+        compare(transcript, 67, text_frame("s2c", wrong_article), bindings, "OpenWhisper_CPP")
+            .empty());
 }
 
 TEST_CASE("a commit must commit to the nonce the transcript names") {

@@ -100,7 +100,7 @@ TEST_CASE("the tray menu holds OpenWhisper's items in order", "[widget]") {
     for (const char* id : {fv::tray_id::settings, fv::tray_id::update, fv::tray_id::exit}) {
         CHECK(menus.action(id)->menuRole() == QAction::NoRole);
     }
-    CHECK(tray.toolTip() == QStringLiteral("FioriVoce"));
+    CHECK(tray.toolTip() == QStringLiteral("OpenWhisper_CPP"));
     CHECK_FALSE(tray.icon().isNull());
 }
 
@@ -169,10 +169,10 @@ TEST_CASE("tray state setters change the items' text", "[widget]") {
     tray.setUpdateAvailable(QStringLiteral("0.2.0"));
     CHECK(menus.action(fv::tray_id::update)->text() == QStringLiteral("Update to 0.2.0…"));
     CHECK(menus.action(fv::tray_id::update)->isVisible());
-    CHECK(tray.toolTip() == QStringLiteral("FioriVoce: update 0.2.0 available"));
+    CHECK(tray.toolTip() == QStringLiteral("OpenWhisper_CPP: update 0.2.0 available"));
     tray.setUpdateAvailable(QString());
     CHECK_FALSE(menus.action(fv::tray_id::update)->isVisible());
-    CHECK(tray.toolTip() == QStringLiteral("FioriVoce"));
+    CHECK(tray.toolTip() == QStringLiteral("OpenWhisper_CPP"));
 
     tray.setMeetingActive(true);
     CHECK(menus.action(fv::tray_id::meeting)->text() == QStringLiteral("End Meeting"));

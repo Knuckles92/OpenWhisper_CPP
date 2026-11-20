@@ -144,7 +144,7 @@ TEST_CASE("a failing sink does not stop the next one, and removed sinks hear not
 TEST_CASE("the log level comes from the environment as Python's getattr(logging, name)") {
     const auto& app = fv::identity();
     const auto level = [&](const char* value) {
-        return fv::log::level_from_env(MapEnvReader{{"FIORIVOCE_LOG_LEVEL", value}}, app);
+        return fv::log::level_from_env(MapEnvReader{{"OPENWHISPER_CPP_LOG_LEVEL", value}}, app);
     };
     CHECK(fv::log::level_from_env(MapEnvReader{}, app) == Level::Info);
     CHECK(level("debug") == Level::Debug);

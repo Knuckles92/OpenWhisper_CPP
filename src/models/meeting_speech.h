@@ -9,9 +9,9 @@
 
 // Which engine and model transcribe a meeting (services/settings.py:1774-1916, 1997-2010).
 // Meetings follow dictation unless they were given an engine of their own. OpenWhisper's Local
-// Whisper branches are not here: FioriVoce's local engine is Parakeet, so a meeting that cannot
-// follow dictation falls back to the Parakeet default model where OpenWhisper's Windows build
-// falls back to Whisper "auto".
+// Whisper branches are not here: OpenWhisper_CPP's local engine is Parakeet, so a meeting that
+// cannot follow dictation falls back to the Parakeet default model where OpenWhisper's Windows
+// build falls back to Whisper "auto".
 namespace fv::models {
 
 struct MeetingSpeech {
@@ -57,7 +57,7 @@ std::string meeting_model_in_use(const Json& settings);
 bool keep_separate_meeting_speech(SettingsStore& store);
 
 // The speaker-identification backend a meeting uses: "off" or "local". A stored "openai" reads
-// as "local" on every date: FioriVoce has no OpenAI speaker pass (OpenWhisper switches it on
+// as "local" on every date: OpenWhisper_CPP has no OpenAI speaker pass (OpenWhisper switches it on
 // OpenAI's shutdown day, judged by `clock`'s local date). Anything invalid reads as the default.
 std::string resolve_meeting_speaker_id_backend(const Json& settings, const Clock& clock);
 

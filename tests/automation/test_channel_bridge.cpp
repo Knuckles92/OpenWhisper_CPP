@@ -2,7 +2,7 @@
 // from tests/test_automation_channel_protocol.py, tests/test_automation_fix_channel_gap.py,
 // tests/test_automation_fix_channel_link.py and tests/test_automation_fix_channel_origin.py
 // (the setup snippets, the update check and the process entry of the protocol file are tested
-// with fiorivoce-cli in tests/cli).
+// with openwhisper-cpp-cli in tests/cli).
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/generators/catch_generators.hpp>
 #include <catch2/matchers/catch_matchers_string.hpp>

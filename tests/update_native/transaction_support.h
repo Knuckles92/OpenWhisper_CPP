@@ -126,7 +126,7 @@ struct Fixture {
     u::JournalPaths paths;
     FakePlatform platform;
     Fixture()
-        : context{temp.path() / "data", temp.path() / "programs" / "FioriVoce",
+        : context{temp.path() / "data", temp.path() / "programs" / "OpenWhisper_CPP",
                   std::string(kAppId)},
           journal(u::make_journal(context, kId)), paths(u::journal_paths(context, kId)),
           platform(context) {
@@ -134,7 +134,7 @@ struct Fixture {
         journal.new_version = "0.1.1";
         journal.old_display_version = "0.1.0";
         journal.state = u::TransactionState::Prepared;
-        journal.registration.key_path = "Software\\FioriVoce\\Uninstall";
+        journal.registration.key_path = "Software\\OpenWhisper_CPP\\Uninstall";
         journal.runonce_key = kRunOnce;
         context.expected_registration = journal.registration;
         context.expected_runonce_key = journal.runonce_key;

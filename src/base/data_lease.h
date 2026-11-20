@@ -16,7 +16,7 @@ namespace fv {
 enum class LeaseMode { Shared, Exclusive };
 
 // Another process holds an incompatible lease: "The application data is in use by another
-// FioriVoce process." (any failure to take the lock reads as this, as in Python).
+// OpenWhisper_CPP process." (any failure to take the lock reads as this, as in Python).
 class DataLeaseBusy : public std::runtime_error {
 public:
     using runtime_error::runtime_error;

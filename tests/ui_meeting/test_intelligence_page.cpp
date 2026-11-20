@@ -1,8 +1,8 @@
 // The Intelligence page's insights model (tests/test_settings_models.py TestMeetingDestinations,
 // TestMeetingAgentChoice and TestCleanupSettingsOwnership, the meeting half): the meeting
 // picker's activation, who runs AI insights (the agent tiles and the built-in one), the agents'
-// models and the backup agent. FioriVoce's built-in tile is the product (M8 lead decision 1) and
-// it has no Agent core combo or Pi/OpenCode SDK payload state (M8 change 3).
+// models and the backup agent. OpenWhisper_CPP's built-in tile is the product (M8 lead decision 1)
+// and it has no Agent core combo or Pi/OpenCode SDK payload state (M8 change 3).
 #include <catch2/catch_test_macros.hpp>
 
 #include <map>

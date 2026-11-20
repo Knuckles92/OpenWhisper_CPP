@@ -33,8 +33,8 @@ QString locationText(const MeetingConsentCopy& copy) {
                                         "dashboard state are sent to %1, using the model chosen "
                                         "in %2.\n\n")
                              .arg(destination, kChosenIn);
-    // OpenWhisper also names a Fast judgments judge that receives excerpts; FioriVoce's meetings
-    // use only a judge on this computer, which sends nothing.
+    // OpenWhisper also names a Fast judgments judge that receives excerpts; OpenWhisper_CPP's
+    // meetings use only a judge on this computer, which sends nothing.
     if (copy.remote) {
         return sent + QStringLiteral("That destination is remote, so transcript text leaves this "
                                      "computer.");
@@ -100,7 +100,7 @@ MeetingConsentDialog::MeetingConsentDialog(const MeetingConsentCopy& copy, QWidg
     body_ = new ScrollingBody();
     layout->addWidget(body_, 1);
 
-    // FioriVoce authorizes the backup agent on its own route, after the primary.
+    // OpenWhisper_CPP authorizes the backup agent on its own route, after the primary.
     const QString text =
         backup ? QStringLiteral("If the primary agent cannot start, %1 can take over AI insights "
                                 "for this meeting.\n\n")

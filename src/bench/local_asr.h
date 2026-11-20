@@ -10,7 +10,7 @@
 #include "process/process_env.h"
 
 // scripts/benchmark_local_asr.py and benchmark_local_asr_corpus.py: the installed Parakeet
-// engine on audio files, never downloading. FioriVoce has one local engine, so OpenWhisper's
+// engine on audio files, never downloading. OpenWhisper_CPP has one local engine, so OpenWhisper's
 // model matrix (Whisper base and turbo, the optional engines) is one row.
 namespace fv::bench {
 

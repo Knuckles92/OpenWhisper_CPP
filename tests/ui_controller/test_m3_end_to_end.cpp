@@ -5,12 +5,12 @@
 // start_detached and a recorded exit.
 //   1. backup: create, inspect, "Restore and restart" (73), the next start applies the stage
 //      before the settings open and lists the restored history, the replaced data under
-//      .fiorivoce-restore\previous-*;
+//      .openwhisper-cpp-restore\previous-*;
 //   2. import: the guided setup's Welcome row opens the import window, "Import and restart" (73),
 //      the next start has OpenWhisper's history, selected_model as parakeet, fv_import and the key;
 //   3. update: the launch check (8 s on a fake clock) over the loopback feed lights the title bar
 //      and the tray, the dialog downloads and verifies the setup, the hand-off starts it with
-//      /FIORIVOCEUPDATE=1 and exits 0, and the About box names the release.
+//      /OPENWHISPER_CPPUPDATE=1 and exits 0, and the About box names the release.
 // The Backup page (M3.9) is not in this tree: the backup chain drives the coordinator the page
 // would drive, through the context.
 #include <catch2/catch_test_macros.hpp>
@@ -79,7 +79,7 @@ namespace {
 constexpr int kStuckExit = 99;
 
 // The archive functions with the import's keys copied between in-memory stores over the test's
-// keyring: OpenWhisper's credential service to FioriVoce's, never the computer's own.
+// keyring: OpenWhisper's credential service to OpenWhisper_CPP's, never the computer's own.
 class MemoryKeysService final : public fv::backup::BackupService {
 public:
     explicit MemoryKeysService(std::shared_ptr<fv::MemoryCredentialBackend> keyring)
@@ -137,7 +137,7 @@ public:
     static fs::path useDataDir(const fs::path& folder) {
         fs::create_directories(folder);
         const auto utf8 = folder.u8string();
-        fv::testkit::set_env("FIORIVOCE_DATA_DIR", std::string(utf8.begin(), utf8.end()));
+        fv::testkit::set_env("OPENWHISPER_CPP_DATA_DIR", std::string(utf8.begin(), utf8.end()));
         return folder;
     }
 
@@ -153,7 +153,7 @@ public:
     // One start: run() gets the shown main window and returns the event loop's code.
     int start(const Run& run) {
         int argc = 1;
-        char program[] = "fiorivoce";
+        char program[] = "openwhisper-cpp";
         char* argv[] = {program, nullptr};
         return fv::appMain(argc, argv, hooks(run));
     }
@@ -161,7 +161,7 @@ public:
 private:
     fv::BootstrapHooks hooks(const Run& run) {
         fv::BootstrapHooks made;
-        made.arguments = std::vector<std::string>{"fiorivoce"};
+        made.arguments = std::vector<std::string>{"openwhisper-cpp"};
         made.features = [this] {
             std::vector<std::unique_ptr<fv::Feature>> features;
             features.push_back(std::make_unique<fv::ShellFeature>());
@@ -418,7 +418,7 @@ int runUntilExit() {
 TEST_CASE("M3 end to end: back up, restore and restart, and open on the restored data",
           "[e2e][widget]") {
     M3App app;
-    const fs::path archive = app.root() / "bundles" / "FioriVoce-backup.fvbackup";
+    const fs::path archive = app.root() / "bundles" / "OpenWhisper_CPP-backup.fvbackup";
     fs::create_directories(archive.parent_path());
     std::optional<fv::backup::BackupInfo> created;
     std::optional<fv::backup::BackupInfo> inspected;
@@ -592,7 +592,7 @@ TEST_CASE("M3 end to end: the launch check finds a release and the setup hand-of
     const std::string feedUrl = "http://127.0.0.1:8765/releases/latest";
     const std::string setupName = update::setup_asset_name("0.2.0");
     const std::string setupUrl = "http://127.0.0.1:8765/download/v0.2.0/" + setupName;
-    const std::string setupBytes = "a verified FioriVoce 0.2.0 setup";
+    const std::string setupBytes = "a verified OpenWhisper_CPP 0.2.0 setup";
 
     update::testing::FakeFeed feed;
     update::testing::FakeFeed::ReleaseSpec spec;
@@ -613,7 +613,7 @@ TEST_CASE("M3 end to end: the launch check finds a release and the setup hand-of
     RigOptions options;
     options.http = &feed;
     options.platform = [&](fv::ControllerPlatform& platform) {
-        // FIORIVOCE_UPDATE_FEED_URL on the loopback feed, read as the app reads it.
+        // OPENWHISPER_CPP_UPDATE_FEED_URL on the loopback feed, read as the app reads it.
         platform.updateFeed = [&feedUrl] {
             const fv::MapEnvReader env{{update::update_feed_env(), feedUrl}};
             return update::feed_config(env);
@@ -634,7 +634,7 @@ TEST_CASE("M3 end to end: the launch check finds a release and the setup hand-of
         };
     };
     options.beforeFeatures = [&installDir](fv::AppContext& context) {
-        installDir = context.paths().local_app_dir() / "Programs" / "FioriVoce";
+        installDir = context.paths().local_app_dir() / "Programs" / "OpenWhisper_CPP";
         fs::create_directories(installDir);
     };
     ControllerRig rig(options);
@@ -689,7 +689,7 @@ TEST_CASE("M3 end to end: the launch check finds a release and the setup hand-of
         }
     }
     CHECK(launch.starts_with("start_detached:" + setupName));
-    CHECK(launch.find(" /FIORIVOCEUPDATE=1") != std::string::npos);
+    CHECK(launch.find(" /OPENWHISPER_CPPUPDATE=1") != std::string::npos);
     CHECK(launch.find(" /SILENT") != std::string::npos);
     CHECK(launch.find(" /CURRENTUSER") != std::string::npos);
     CHECK(rig.calls().has("watchdog"));

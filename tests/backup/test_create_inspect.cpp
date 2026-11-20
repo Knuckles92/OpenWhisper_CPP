@@ -1,5 +1,5 @@
 // Creating and inspecting bundles: the create-side safety tests of OpenWhisper's
-// tests/test_backup.py, and the FioriVoce bundle against OpenWhisper's own.
+// tests/test_backup.py, and the OpenWhisper_CPP bundle against OpenWhisper's own.
 
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_exception.hpp>
@@ -460,7 +460,7 @@ TEST_CASE("a bundle of a v18 data root names nothing after OpenWhisper", "[backu
     compact.key_sep = ":";
     CHECK(fv::py::dumps(manifest, compact) == manifest_text);
     CHECK(manifest_text.find("0.1.0-\xc3\xa9") != std::string::npos);
-    CHECK(manifest.at("format") == "fiorivoce-backup");
+    CHECK(manifest.at("format") == "openwhisper-cpp-backup");
     CHECK(manifest.at("format_version") == 1);
     CHECK(manifest.at("files")[0].at("path") == names().settings_member);
 
@@ -547,8 +547,8 @@ TEST_CASE("a bundle with another product's format is unsupported", "[backup]") {
     });
     CHECK_THROWS_MATCHES(inspect_backup(other), BackupError,
                          Catch::Matchers::Message("Unsupported backup format"));
-    // An OpenWhisper format id over FioriVoce's member names: read with OpenWhisper's names,
-    // FioriVoce's settings file is outside its owned data.
+    // An OpenWhisper format id over OpenWhisper_CPP's member names: read with OpenWhisper's names,
+    // OpenWhisper_CPP's settings file is outside its owned data.
     const fs::path mixed = temp.path() / "mixed.fvbackup";
     rewrite(archive, mixed, [](const std::string& name, std::string data) {
         if (name == "manifest.json") {

@@ -432,8 +432,8 @@ void SearchPalette::activateItem(QListWidgetItem* item) {
 // --- Index ---
 
 const std::vector<SearchAlias>& searchAliases() {
-    // _SEARCH_ALIASES. The Voice model alias no longer names Runtime, a page FioriVoce does not
-    // have.
+    // _SEARCH_ALIASES. The Voice model alias no longer names Runtime, a page OpenWhisper_CPP does
+    // not have.
     static const std::vector<SearchAlias> aliases{
         {destinations::walkthroughs, "Walkthrough and screenshot settings",
          "Dictation › Walkthroughs (moved from General)",

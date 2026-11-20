@@ -146,12 +146,12 @@ class Ownership(Tree):
                                   ["src/settings/", "src/base/clock.h", "CMakeLists.txt"]), [])
 
     def test_a_package_owning_a_frozen_folder_may_change_its_files(self):
-        write(self.root, {"cmake/FioriVoceModules.cmake": "", "src/settings/keys.inc": ""})
+        write(self.root, {"cmake/OpenWhisper_CPPModules.cmake": "", "src/settings/keys.inc": ""})
         self.git("init", "-q")
         self.git("-c", "user.email=t@example.invalid", "-c", "user.name=t", "add", "-A")
         self.git("-c", "user.email=t@example.invalid", "-c", "user.name=t", "commit", "-qm", "0")
         write(self.root, {
-            "cmake/FioriVoceModules.cmake": "x",
+            "cmake/OpenWhisper_CPPModules.cmake": "x",
             "cmake/pch/core.h": "x",
             "src/settings/keys.inc": "x",
         })

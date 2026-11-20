@@ -1041,7 +1041,7 @@ TEST_CASE("a narrow window folds the rail into the page menu", "[widget]") {
     CHECK(dialog->brandLabel()->isVisible());
     at(px(560) - 1);
     CHECK_FALSE(dialog->brandLabel()->isVisible());
-    CHECK(dialog->brandLabel()->text() == QStringLiteral("FioriVoce"));
+    CHECK(dialog->brandLabel()->text() == QStringLiteral("OpenWhisper_CPP"));
     dialog->close();
 }
 

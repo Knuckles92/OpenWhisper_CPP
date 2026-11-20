@@ -1,9 +1,9 @@
 """Writes tests/fixtures/import: two OpenWhisper data folders made by OpenWhisper's own
 services.database, services.settings and services.backup_startup, for the import tests.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
-        $env:FIORIVOCE_OW_PYTHON -I -B tests/fixtures/import/make_fixture.py
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
+        $env:OPENWHISPER_CPP_OW_PYTHON -I -B tests/fixtures/import/make_fixture.py
 
 OpenWhisper is imported through tools/parity/ow_isolation.py; the folders are built under
 out/parity/import-fixture/ (git-ignored) and then copied here, replacing what was here.
@@ -11,7 +11,7 @@ out/parity/import-fixture/ (git-ignored) and then copied here, replacing what wa
 - openwhisper/: a v18 database (DatabaseManager) with three history entries (audio below
   recordings/ by a relative name, audio by an absolute path, no audio) and an ended meeting with
   a chunk and a segment; settings (SettingsManager) with a dropped engine as selected_model, a
-  key FioriVoce does not know, MCP turned on, a saved action, a webhook, a custom text endpoint
+  key OpenWhisper_CPP does not know, MCP turned on, a saved action, a webhook, a custom text endpoint
   with its own key variable and a URL with credentials; recordings, meetings, captures,
   scratchpad.txt, recorded_audio.wav, a remote_records folder and a log file (neither is
   imported), and the data lease's lock file (DataLease).

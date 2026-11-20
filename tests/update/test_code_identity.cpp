@@ -1,5 +1,6 @@
 // Telling that the program on disk changed under the running app: OpenWhisper's
-// tests/test_code_identity.py (the installed-build half; a FioriVoce build has no git checkout).
+// tests/test_code_identity.py (the installed-build half; a OpenWhisper_CPP build has no git
+// checkout).
 
 #include <catch2/catch_test_macros.hpp>
 
@@ -27,13 +28,13 @@ struct ForgetLaunch {
 TEST_CASE("an installed build notices its program file replaced", "[test_code_identity]") {
     ForgetLaunch forget;
     fv::testkit::TempDataRoot root;
-    const auto program = root.path() / "fiorivoce.exe";
+    const auto program = root.path() / "openwhisper-cpp.exe";
     write_bytes(program, "version one");
     CodeIdentity::remember_launch(program);
     CHECK_FALSE(CodeIdentity::changed_since_launch());
 
     // Package managers write the new file beside the old and rename it over.
-    const auto staged = root.path() / "fiorivoce.exe.new";
+    const auto staged = root.path() / "openwhisper-cpp.exe.new";
     write_bytes(staged, "version two, longer");
     std::filesystem::rename(staged, program);
 
@@ -46,7 +47,7 @@ TEST_CASE("nothing is reported without a launch version or a readable head",
           "[test_code_identity]") {
     ForgetLaunch forget;
     fv::testkit::TempDataRoot root;
-    const auto program = root.path() / "fiorivoce.exe";
+    const auto program = root.path() / "openwhisper-cpp.exe";
     write_bytes(program, "version one");
     CHECK_FALSE(CodeIdentity::changed_since_launch()); // Nothing remembered.
 
@@ -62,7 +63,7 @@ TEST_CASE("nothing is reported without a launch version or a readable head",
 
 TEST_CASE("the identity is the file index, size and modification time", "[update]") {
     fv::testkit::TempDataRoot root;
-    const auto program = root.path() / "fiorivoce.exe";
+    const auto program = root.path() / "openwhisper-cpp.exe";
     write_bytes(program, "twelve bytes");
     const auto identity = update::code_identity(program);
     REQUIRE(identity.has_value());

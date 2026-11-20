@@ -112,7 +112,7 @@ void registerRemoteEnginePage(AppContext& context,
     spec.subtitle = QStringLiteral(
         "Transcribe dictation and meetings with another computer's engine over your network or "
         "Tailscale, or share this computer's engine with computers you pair.");
-    // OpenWhisper's history tile on API & MCP is this page's history session in FioriVoce
+    // OpenWhisper's history tile on API & MCP is this page's history session in OpenWhisper_CPP
     // (a17-direct-history): search finds it here.
     spec.searchFields = {{"remote_publish_history",
                           QStringLiteral("Share history for this session"),

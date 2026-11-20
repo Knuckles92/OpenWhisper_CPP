@@ -1,4 +1,4 @@
-// FioriVoce's own keystrokes (the paste after a dictation, the copy that reads the selection)
+// OpenWhisper_CPP's own keystrokes (the paste after a dictation, the copy that reads the selection)
 // carry kSyntheticInputTag, and the hook passes them on unseen, as `keyboard` passes the events
 // of its own send() (direct_callback returns before any hook while is_replaying is set). Keys
 // injected by other programs go through the shortcuts like typing, as in OpenWhisper. Driven
@@ -163,8 +163,8 @@ TEST_CASE("our own keys leave the hold machine and the holds as they were",
     REQUIRE(holds_before.first);
     REQUIRE(h.manager->keyboard_hold_active(t + 0.1));
 
-    // FioriVoce pastes meanwhile. Seen, its V would be the key that went down last and the hold
-    // would no longer count as active; unseen, nothing moves.
+    // OpenWhisper_CPP pastes meanwhile. Seen, its V would be the key that went down last and the
+    // hold would no longer count as active; unseen, nothing moves.
     CHECK(send_ctrl_v(hook, t, Source::OurPaste) == std::vector<bool>{true, true, true, true});
     CHECK(holds() == holds_before);
     CHECK(h.manager->keyboard_hold_active(t + 0.1));

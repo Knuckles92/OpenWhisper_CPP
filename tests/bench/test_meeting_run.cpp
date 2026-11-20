@@ -168,7 +168,7 @@ TEST_CASE("test_provenance_rejects_legacy_changed_audio_settings_and_dirty_sourc
           "[test_benchmark_contracts]") {
     // from
     // tests/test_benchmark_contracts.py::test_provenance_rejects_legacy_changed_audio_settings_and_dirty_source
-    // OpenWhisper's config.py is FioriVoce's settings key table, one of the hashed sources.
+    // OpenWhisper's config.py is OpenWhisper_CPP's settings key table, one of the hashed sources.
     fv::testkit::TempDataRoot root;
     const auto config = root.path() / "src" / "settings" / "keys.inc";
     write_file(config, "one");
@@ -224,7 +224,7 @@ TEST_CASE("test_preview_pool_rejects_different_installed_identity", "[test_bench
     // from
     // tests/test_benchmark_contracts.py::test_preview_pool_rejects_different_installed_identity
     // OpenWhisper's installed identity (artifacts, model snapshot, runtime manifest, device
-    // info) is FioriVoce's runtime folder, model file and device info.
+    // info) is OpenWhisper_CPP's runtime folder, model file and device info.
     const Json pass{{"summary", Json::object()}, {"clips", Json::array()}};
     const Json report{
         {"schema", 1},

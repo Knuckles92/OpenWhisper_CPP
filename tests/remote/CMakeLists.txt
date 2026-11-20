@@ -6,7 +6,7 @@ if(TARGET fv_remote_tests)
     # header comment). The test copies it into FV_REMOTE_SCRATCH, inside the build tree.
     add_executable(fv_remote_fake_tailscale fake_tailscale/main.cpp)
     target_compile_features(fv_remote_fake_tailscale PRIVATE cxx_std_23)
-    fiorivoce_target_defaults(fv_remote_fake_tailscale)
+    openwhisper_cpp_target_defaults(fv_remote_fake_tailscale)
     add_dependencies(fv_remote_tests fv_remote_fake_tailscale)
 
     target_compile_definitions(fv_remote_tests PRIVATE

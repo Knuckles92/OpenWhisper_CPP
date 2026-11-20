@@ -116,7 +116,7 @@ TEST_CASE("rotation at 5 MiB keeps .1 to .3", "[log]") {
     CHECK(flog::kLogMaxBytes == 5u * 1024 * 1024);
     CHECK(flog::kLogBackupCount == 3);
     TempDir folder;
-    const auto file = folder.path() / "fiorivoce.log";
+    const auto file = folder.path() / "openwhisper-cpp.log";
     const std::string chunk(64 * 1024, 'x');
     {
         flog::LogWriter writer;

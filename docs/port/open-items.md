@@ -110,7 +110,7 @@ arguments for the lease and detached test helpers (their tests pass with a tempo
 named outside the ANSI code page). The mouse hook's destructor now waits only for the callback
 that is running and drops what is queued behind it; a time limit would let a thread outlive the
 owner it calls. The three `process` items needed no change (M10 sweep, `process`). With the new
-list, `fiorivoce-cli --self-test --installed` passes on a stage that `packaging/windows/stage.ps1`
+list, `openwhisper-cpp-cli --self-test --installed` passes on a stage that `packaging/windows/stage.ps1`
 made from the `windows-ci` tree (windeployqt included).
 
 `windows-debug` builds with no error, and its default set passes: 12,349 tests (the
@@ -123,7 +123,7 @@ Studio puts in System32 and which the installed check rightly does not count as 
 This section describes that earlier checkpoint; the section above supersedes its counts and
 estimates.
 
-Resume on `codex/resume-port-n4` in `C:\coding\fiorivoce_cpp`. The D: checkout was 154
+Resume on `codex/resume-port-n4` in `C:\coding\OpenWhisper_CPP`. The D: checkout was 154
 commits behind the SSD checkpoint. Six saved implementations were recovered from the SSD
 worktrees (M7.18, M7.19, M8.4, M8.5, M9.4 and M9.7), including review fixes.
 
@@ -207,7 +207,7 @@ runner uses Claude model names. Measure the first Codex packages before revising
 ## Waiting on the owner
 
 - **Linux gate.** Runs on the owner's Arch machine (`ssh jed@jed`, GCC 16), at low priority
-  inside `~/fiorivoce-port`: push `port/parity` there, then `run.sh configure|build|test`
+  inside `~/openwhisper-cpp-port`: push `port/parity` there, then `run.sh configure|build|test`
   (the `linux-core` preset). Green on 2026-11-14: 1,399 tests, 10 skipped (Windows-only or
   needing the Parakeet runtime). The lead reruns it once per milestone. WSL on the Windows
   machine still lacks `nasm` and the ALSA headers. On 2026-11-19 the whole tree, the Qt modules
@@ -261,7 +261,7 @@ runner uses Claude model names. Measure the first Codex packages before revising
   from the real `%LOCALAPPDATA%\OpenWhisper`, the real runtime and model loading at startup, the
   RuntimeSetup dialog and its real file pickers (`ui_setup/runtime_setup_dialog.cpp`; the tests
   replace them), Ctrl+H and Play, kp - playing Canceled.
-- **Groq test.** The `[platform]` cloud speech test needs `FIORIVOCE_TEST_GROQ_KEY` and spends
+- **Groq test.** The `[platform]` cloud speech test needs `OPENWHISPER_CPP_TEST_GROQ_KEY` and spends
   the owner's credit; it has never run.
 - **Real HTTPS download.** Downloads are tested against a loopback server only; one fetch from
   the internet through Schannel and the system proxy needs the owner's permission. The same
@@ -282,24 +282,24 @@ runner uses Claude model names. Measure the first Codex packages before revising
   archive for the speaker-labelling component (M7; `models/data/onnxruntime_catalog.json`); the
   same three facts of a `pdfium-binaries` Windows x64 release for the knowledge folder's PDFs
   (M8). Until then both components ship unpublished and are found through
-  `FIORIVOCE_ONNXRUNTIME` and `FIORIVOCE_PDFIUM`. (ONNX Runtime 1.29.0's C API headers and
+  `OPENWHISPER_CPP_ONNXRUNTIME` and `OPENWHISPER_CPP_PDFIUM`. (ONNX Runtime 1.29.0's C API headers and
   licence were vendored on 2026-11-15 with the owner's yes.)
-- **OpenWhisper's own numbers (M10).** The performance table compares FioriVoce with
+- **OpenWhisper's own numbers (M10).** The performance table compares OpenWhisper_CPP with
   OpenWhisper. Measuring OpenWhisper means running its `--workflow-smoke` and benchmark scripts
   under the isolation harness (`tools/perf/ow_probes/run_probes.py`, never run: lead decision
   5); without the owner's yes the column comes from its documents
   (`tools/perf/baseline-openwhisper.json`). `src/bench`'s reports (M10.4) have no OpenWhisper
   column, and the golden vectors of `benchmarks.meeting_mode.metrics` are not written, for the
   same reason.
-- **Performance run on Windows (M10.3).** No FioriVoce number has been measured on Windows and
+- **Performance run on Windows (M10.3).** No OpenWhisper_CPP number has been measured on Windows and
   `docs/port/performance-report.md` does not exist: `perf_report.py` refuses to write it from
   non-Windows numbers. The owner's run is the section "The owner's Windows run" of
   `tools/perf/README.md` (`run_perf.py --preset windows-release --report-to
   docs/port/performance-report.md`, then `check_budgets.py`), on a quiet machine, with the
-  `FIORIVOCE_TEST_*` variables set for the `[decode]` case. The checklist audit left two lines
+  `OPENWHISPER_CPP_TEST_*` variables set for the `[decode]` case. The checklist audit left two lines
   on it (`docs/port/audit/a32-checklist-platform.json`): QA-04, startup and footprint
   (`startup_to_window_s` 0.4 s, `idle_rss_mb` 150 MB, `key_to_text_p95_ms` 300 ms in
-  `tools/perf/budgets.json`, never measured on Windows), and QA-05, the time `fiorivoce.exe`
+  `tools/perf/budgets.json`, never measured on Windows), and QA-05, the time `openwhisper-cpp.exe`
   takes to exit after Quit. On the Linux container, an optimised smoke run of 2026-11-19 was
   over five budgets that are set relative to OpenWhisper's documented numbers:
   `main_window_warm_ms` (43.6 ms against 42.7) and `history_first_100_cards_ms` (93.0 against
@@ -317,7 +317,7 @@ runner uses Claude model names. Measure the first Codex packages before revising
   checks by hand: the time from `main()` returning to the process ending (C runtime and Qt
   teardown), and a Quit while a history write is still pending.
 - **Wake names (M7, M8).** How the product name is spoken in a meeting is the owner's to
-  choose. So that M7 could go on, the lead set `fiorivoce` and `fiori voce`
+  choose. So that M7 could go on, the lead set `openwhispercpp` and `open whisper c p p`
   (`AppIdentity::wake_name`, `wake_name_spaced`) on 2026-11-16; other spellings are one edit in
   `base/identity.cpp`.
 - **GitHub push.** GitHub refused `port/parity` on 2026-11-16: the branch now holds workflow
@@ -327,28 +327,28 @@ runner uses Claude model names. Measure the first Codex packages before revising
   (`codex/cloud-development` and the `codex/cloud-*` branches merged into it) to GitHub through
   their own credentials; that does not change the owner's token.
 - **Folder on jed.** At a5337d6 a test (`tests/models/test_speaker_adoption.cpp`) created the
-  empty folder `~/.local/share/FioriVoce` on jed (2026-11-16 03:08), outside
-  `~/fiorivoce-port`, and another read the real `~/.local/share/OpenWhisper` there (sizes, and
+  empty folder `~/.local/share/OpenWhisper_CPP` on jed (2026-11-16 03:08), outside
+  `~/openwhisper-cpp-port`, and another read the real `~/.local/share/OpenWhisper` there (sizes, and
   a temporary copy of its database to count rows). Both tests are fixed and every test
   executable is now isolated (amendment 25). The lead removes nothing outside
-  `~/fiorivoce-port`: the owner may `rmdir ~/.local/share/FioriVoce`.
+  `~/openwhisper-cpp-port`: the owner may `rmdir ~/.local/share/OpenWhisper_CPP`.
 - **M3.6's commit message.** Commit 5b23082 has no blank line after its first line, so its whole
   description is its subject. Rewording it rewrites history and needs a forced update of jed
   (and of GitHub once it has the commit): only on the owner's word, and only between runs.
 - **A test that reads the live OpenWhisper folder by choice.**
   `tests/models/test_openwhisper_discovery.cpp` (`[platform]`) reads the folder named by
-  `FIORIVOCE_TEST_OW_DATA` when that variable is set. Nobody sets it; it is the owner's to use.
-- **Default ports (M5).** FioriVoce keeps OpenWhisper's MCP and History API ports (8767 and
+  `OPENWHISPER_CPP_TEST_OW_DATA` when that variable is set. Nobody sets it; it is the owner's to use.
+- **Default ports (M5).** OpenWhisper_CPP keeps OpenWhisper's MCP and History API ports (8767 and
   8766), so both apps cannot serve on the defaults at once.
 - **Field help card colour (M2.1).** The help card's description is drawn in the secondary text
   colour. OpenWhisper draws it in the ordinary label colour, through a fault that leaves the
   card's colour tokens unresolved; the owner may ask for OpenWhisper's look.
-- **Website (M1.16).** No FioriVoce website exists, so the About box carries no link.
+- **Website (M1.16).** No OpenWhisper_CPP website exists, so the About box carries no link.
 - **Upload demo (M2.21).** Not run: three dropped files, then Groq with a 30 MB file, need the
   owner's files and Groq key. Fakes cover the queue badges, "About N chunks" and the Splitting
   stage.
 - **M2 Settings, History and Scratchpad demos.** Not run, since no worker starts the app: the
-  footer Stats button and Export history… writing `fiorivoce_history.md` (M2.27); M2.20's demo
+  footer Stats button and Export history… writing `openwhisper_cpp_history.md` (M2.27); M2.20's demo
   again over the real Downloads page (switch to API and Groq, open Downloads filtered to
   Parakeet); the Scratchpad's real focus and activation (present, the reveal that must not take
   focus, the on-top re-show), tested only through an activity probe, with no `[interactive]` test.
@@ -368,13 +368,13 @@ runner uses Claude model names. Measure the first Codex packages before revising
   a manual check); the real restart after exit 73, the real `std::_Exit` watchdog, the named
   mutexes against a real Inno setup and an update through a loopback feed with an installed
   0.1.0; `packaging/windows/smoke-setup.ps1` (its Acceptance step against a `-Version 0.1.1`
-  build, before FioriVoce is installed: it plants a file in the real `%LOCALAPPDATA%\FioriVoce`
+  build, before OpenWhisper_CPP is installed: it plants a file in the real `%LOCALAPPDATA%\OpenWhisper_CPP`
   and relies on the silent uninstall prompt defaulting to No); `build-installer.ps1` with its
   default `windows` preset, `-Clean` and `-Version 0.1.1` (only `-Preset windows-ci` ran); the
   milestone demo written in `packaging/windows/README.md`.
 - **CI workflows (M3.11).** `.github/workflows/ci.yml`, `release-build.yml` and
   `qualify-release.yml` (added 2026-11-19 for A34-15; both its jobs run only when the repository
-  variable `FIORIVOCE_RELEASE_REPO` is set) start by hand only (`workflow_dispatch`, plus
+  variable `OPENWHISPER_CPP_RELEASE_REPO` is set) start by hand only (`workflow_dispatch`, plus
   `workflow_call` on `ci.yml`) and have never run; they reached GitHub only on the `codex/*`
   branches.
   Unproven: aqtinstall Qt 6.10.3, the vcpkg clone at the baseline, choco Inno Setup 6.4.0, the
@@ -402,26 +402,26 @@ runner uses Claude model names. Measure the first Codex packages before revising
   rule-dictation cap and a rule dictated on a real microphone; learning from a real field
   re-read after a manual edit; History's elapsed cleanup time.
 - **Leftover folder.** Gate runs before the `WindowRig` fix left an empty
-  `%LOCALAPPDATA%\FioriVoce\components\asr-nvidia-cpu` in the owner's real per-user folder;
+  `%LOCALAPPDATA%\OpenWhisper_CPP\components\asr-nvidia-cpu` in the owner's real per-user folder;
   nothing deletes it unasked, so the owner may remove it. The same folder holds
-  `fiorivoce_settings.json` and `.recorded_audio-recovery` written on 2026-11-15 at 23:29 and
+  `openwhisper_cpp_settings.json` and `.recorded_audio-recovery` written on 2026-11-15 at 23:29 and
   23:30, while workers were testing: the owner's own run of the app, or a test started before
   every test executable was isolated (amendment 25). Not opened, not changed.
-- **Installer choices (M3.11).** `packaging/windows/FioriVoce.iss` differs from OpenWhisper's:
+- **Installer choices (M3.11).** `packaging/windows/OpenWhisper_CPP.iss` differs from OpenWhisper's:
   the uninstall prompt's corrected speech-model line; no LicenseFile and no SetupIconFile (the
   repository has no licence file or `.ico`, so the setup has Inno's default icon). The local
   Qt kit has no licence files, so
   `generate_notices.py` copies no Qt licence text: a build that ships needs
   `-RequireQtLicenses` with a kit that has them.
 - **Channel and --api in a real terminal (M5.20).** Not run, since a test child has no console:
-  `fiorivoce.exe --api` in a real terminal (it attaches to the parent console and passes
-  `CONIN$`/`CONOUT$` to `fiorivoce-cli`), Ctrl+C or Ctrl+Break stopping a running `--api`, and
+  `openwhisper-cpp.exe --api` in a real terminal (it attaches to the parent console and passes
+  `CONIN$`/`CONOUT$` to `openwhisper-cpp-cli`), Ctrl+C or Ctrl+Break stopping a running `--api`, and
   `cli::update_in_progress` answering true (it needs the installed copy and a live setup or update
   mutex; `src/app/main.cpp` `forwardToCli`, `src/cli/win/console_interrupt.cpp`).
 - **Decisions taken for the owner on 2026-11-19, to confirm.** Each is recorded as a deliberate
   difference (`docs/port/differences.md`, from `docs/port/audit/*.json`) or in its audit entry,
   and each can be turned back to OpenWhisper's behaviour:
-  `a16-failure-reported-once` (A16-28): `fiorivoce-updater` stays silent when a rolled-back
+  `a16-failure-reported-once` (A16-28): `openwhisper-cpp-updater` stays silent when a rolled-back
   commit started the previous version again and wrote `apply_error.txt` for it to show, where
   OpenWhisper's helper always shows its box; a previous version that starts and dies before its
   window opens then shows nothing. `a28-delete-keeps-host-copy` (A28-40): deleting a meeting
@@ -443,7 +443,7 @@ runner uses Claude model names. Measure the first Codex packages before revising
   computer is connected, as for any untracked client. README's "AI cleanup for dictation"
   paragraph now names the endpoint choice "API / local model" (OpenWhisper's tile label) and no
   longer mentions a typed agent model ID: the AI cleanup card hosts the shared agent picker
-  (installed-agent discovery and its model catalog), with FioriVoce's staged Apply and named
+  (installed-agent discovery and its model catalog), with OpenWhisper_CPP's staged Apply and named
   consent kept (`a13-cleanup-agent-apply-and-consent`).
 - **What an OpenWhisper import tells the user.** `backup/import.cpp` collects `copied_keys` and
   warnings (keys not copied, settings that could not be read and were imported as defaults, a
@@ -458,7 +458,7 @@ runner uses Claude model names. Measure the first Codex packages before revising
   message?
 - **Update source.** The release identity names no update source (`{"kind": "none"}` in
   `src/update/data/release_identity.json`, difference `a32-no-update-source`): automatic
-  checks never run and a manual check says the build has none. The owner chooses the FioriVoce
+  checks never run and a manual check says the build has none. The owner chooses the OpenWhisper_CPP
   repository or feed the updater asks.
 
 ## Lead work before a wave
@@ -498,7 +498,7 @@ runner uses Claude model names. Measure the first Codex packages before revising
   again: `tests/credentials/test_wincred.cpp`, `tests/backup/test_import_credentials.cpp`. The
   registry reads of `update/win/platform.cpp` and `http/win/system.cpp` are sandboxed or read
   only. Decide whether the WinCred tests move behind `[interactive]`.
-- Never reviewed or run, because they need `FIORIVOCE_OW_PYTHON` at configure time, which the
+- Never reviewed or run, because they need `OPENWHISPER_CPP_OW_PYTHON` at configure time, which the
   gate does not set (amendment 25): the Python keyring child of `test_wincred.cpp`, the
   `remote_host` interop tests, `settings.keys_are_current`, `models.speech_catalog_is_current`,
   `hotkeys.keyboard_names_are_current`. The isolated scripts share `out/parity/ow-data`, so
@@ -545,7 +545,7 @@ runner uses Claude model names. Measure the first Codex packages before revising
 - `tests/credentials/test_wincred.cpp`: the WinCred tests ("reads UTF-8 blobs and moves an
   entry without a user name", "writes, reads, overwrites and deletes as keyring does") fail now
   and then in parallel runs and pass alone. Each uses its own service name
-  (`FioriVoceTest.<process id>`), so they share no entry. On 2026-11-15 line 216
+  (`OpenWhisper_CPPTest.<process id>`), so they share no entry. On 2026-11-15 line 216
   (`backend.get(s, "K") == "mine"` right after `backend.set(s, "K", "mine")`) failed once.
   `WinCredBackend::set` and `get` hold no state and throw on every Credential Manager error but
   `ERROR_NOT_FOUND`; no race was found in them. Log what `get` returned before calling it fixed.
@@ -692,7 +692,7 @@ runner uses Claude model names. Measure the first Codex packages before revising
 - ONNX Runtime (MIT) has no entry in `tools/release/notices/` yet: add one, from
   `third_party/onnxruntime/LICENSE`, before the `onnxruntime-cpu` component is published or
   the runtime ships with the app.
-- Programs that a test starts as a child process (`fiorivoce-cli`, the helpers, `fv_process_child`,
+- Programs that a test starts as a child process (`openwhisper-cpp-cli`, the helpers, `fv_process_child`,
   `tests/remote/fake_tailscale`) are not covered
   by the guard that keeps test executables from showing an abort or assertion dialog in a Debug
   build (`cmake/fv_test_no_dialogs.cpp`): give them the same guard when a test first aborts one.
@@ -764,7 +764,7 @@ runner uses Claude model names. Measure the first Codex packages before revising
 - `tools/lint/check_ownership.py` passes when no owned paths are given, so a worker's "passed"
   checks nothing.
 - `tools/release/check_release_qualification.py`: OpenWhisper requires
-  `source_qualification == 'passed'` and schema 3; FioriVoce writes schema 1, defaults to
+  `source_qualification == 'passed'` and schema 3; OpenWhisper_CPP writes schema 1, defaults to
   `not-run` for local builds and requires `passed` only with `--require-source-qualification`
   (README, `tests/release/PARITY.json`). Confirm against the ledger.
 - Settings references (M2.19, M2.24): each page and Home is rendered as its body (pages at
@@ -822,7 +822,7 @@ runner uses Claude model names. Measure the first Codex packages before revising
 - The engine-only `default` preset build of `src/cli/main.cpp`'s new dispatch (where
   `--workflow-smoke` and `--self-test --installed` print "not in the engine-only build") has
   not been built.
-- `tools/release/generate_notices.py:32` keeps `PRODUCT = 'FioriVoce'` as a literal and the
+- `tools/release/generate_notices.py:32` keeps `PRODUCT = 'OpenWhisper_CPP'` as a literal and the
   `notices/*.md` fragments name the product in prose: the release identity has no product key.
 - Tests that compose `SetupFeature` (the Welcome page or the Backup page call
   `OpenWhisperImport::refresh()`) move only `LOCALAPPDATA`; an `OPENWHISPER_DATA_DIR` set in the
@@ -847,8 +847,8 @@ runner uses Claude model names. Measure the first Codex packages before revising
   with `error_with` where Python warns; the refresh after a schedule save is queued after the
   confirmation text.
 - Generator checks `text.common_words_are_current`, `text.cleanup_prompts_are_current` and
-  `llm.text_model_catalog_is_current` are registered only when `FIORIVOCE_OW_PYTHON` and
-  `FIORIVOCE_OW_ROOT` are set at configure, so the gate never runs them; M4.1's reordered
+  `llm.text_model_catalog_is_current` are registered only when `OPENWHISPER_CPP_OW_PYTHON` and
+  `OPENWHISPER_CPP_OW_ROOT` are set at configure, so the gate never runs them; M4.1's reordered
   `tools/gen/dictionary_words.py --check` has never run. M4.4's golden vectors use curated
   inputs only (no trace of OpenWhisper's pytest runs).
 - `src/text/detail/cleanup_rules.{h,cpp}` is M4.1's private copy of
@@ -862,7 +862,7 @@ runner uses Claude model names. Measure the first Codex packages before revising
   Anthropic and Google adapters too (the SDK returns text there and fails); an HTTP-date
   `Retry-After` without a zone is read as UTC (`email.utils` reads local time); it leaves out
   `OPENAI_BASE_URL`, `OPENAI_ORG_ID`, `OPENAI_PROJECT_ID`, the `X-Stainless-*` headers and the
-  idempotency key, and sends `FioriVoce/<ver>` as User-Agent (deliberate).
+  idempotency key, and sends `OpenWhisper_CPP/<ver>` as User-Agent (deliberate).
 - `llm/local_servers.cpp` `detect_running_servers` waits for every probe (0.6 s connect and
   idle timeout per request), as Python's executor does, where the spec said it joins within
   0.6 s (deliberate).
@@ -950,7 +950,7 @@ runner uses Claude model names. Measure the first Codex packages before revising
   prints `argv[1]` only, where Python prints `cmd[:2]`.
 - `remote_host/host_engine.cpp` `SpeechServiceEngine::stream` throws "The host's engine has no
   live stream" where Python forwards to the backend and fails with the runtime's own error. No
-  user can reach the text: no FioriVoce client sends a "stream" request, and the host advertises
+  user can reach the text: no OpenWhisper_CPP client sends a "stream" request, and the host advertises
   `streaming` false for Parakeet TDT, which the runtime decodes offline only. Forwarding would
   need `streaming_recognize` in `src/engine`; later work, together with any streaming backend.
 - `automation` (M5.3): `detail/pyvalue.cpp` `error_type` logs a non-pyport exception's type
@@ -959,8 +959,8 @@ runner uses Claude model names. Measure the first Codex packages before revising
   keeps its Python name, so `ctest -R ^dictation\.event_payloads` selects only the three golden
   replays (it still runs under `-L dictation`).
 - `agents` (M5.7) `agent_actions.cpp` `ask_headless`: as in Python, only the
-  `fiorivoce-ask-*` folder is removed after an ask and the shared agent workspace
-  (`%TEMP%\fiorivoce-agent-workspace`) stays, where the spec's acceptance says both go. Accept
+  `openwhisper-cpp-ask-*` folder is removed after an ask and the shared agent workspace
+  (`%TEMP%\openwhisper-cpp-agent-workspace`) stays, where the spec's acceptance says both go. Accept
   it or amend the spec.
 - `ui_settings` (M5.19) `fast_judgments_page.cpp`: `typesafe_feature_tiles` (a dict in Python)
   is not a registered control name; the tiles are `featureTiles()`.
@@ -1094,7 +1094,7 @@ runner uses Claude model names. Measure the first Codex packages before revising
   every 100 ms while a retry waits (`kLongestWait`, `mcp_events_delivery.cpp:25`), where Python
   sleeps until the job is due. Subscriptions saved by OpenWhisper carry ids hashed with
   `openwhisper-mcp-token` and secrets named `OPENWHISPER_MCP_EVENT_SECRET_*`: once imported, a
-  refresh from FioriVoce creates a second subscription under the new id (`mcp_events.cpp:254`,
+  refresh from OpenWhisper_CPP creates a second subscription under the new id (`mcp_events.cpp:254`,
   the OpenWhisper import).
 - `automation` (M5.15): the lease-routing tests check `channel.message`'s `origin` field, because
   M5.20's channel bridge was not in the tree; with it merged, they can check
@@ -1214,7 +1214,7 @@ runner uses Claude model names. Measure the first Codex packages before revising
   The fonts also hide tree regressions there: the 36 reference failures of the first Windows
   run (2026-11-19, widgets the port gained that day) failed on Linux among the font ones. A tree
   comparison that ignores geometry and fonts would catch those on Linux too.
-- On Windows, `fiorivoce.exe`, the CLI and the test programs declare no `longPathAware` in a
+- On Windows, `openwhisper-cpp.exe`, the CLI and the test programs declare no `longPathAware` in a
   manifest, where `python.exe` does: a data root, backup target or archive past MAX_PATH works
   in OpenWhisper and fails here unless the path is in the `\\?\` form (the long-path zip test
   uses that form). The manifest is a change to the root build, which is frozen.

@@ -1,4 +1,4 @@
-"""Write the performance report: every metric with its FioriVoce number, the platform and build
+"""Write the performance report: every metric with its OpenWhisper_CPP number, the platform and build
 it was measured on, OpenWhisper's number and where it comes from, the budget, the verdict and
 the package that owns a miss.
 
@@ -89,7 +89,7 @@ def render(verdicts: list[perf_lib.Verdict], budgets: list[dict], baseline: dict
     elif non_windows:
         lines += [
             f"> **Measured on {', '.join(p.capitalize() for p in non_windows)}, not Windows.** "
-            "FioriVoce is a Windows product; these numbers come from another platform and are "
+            "OpenWhisper_CPP is a Windows product; these numbers come from another platform and are "
             "not the product's numbers. They show the harness works and how the code behaves "
             "there; the budgets' verdicts below hold for this platform only. The committed "
             "report is the owner's Windows run (tools/perf/README.md).", ""]
@@ -130,7 +130,7 @@ def render(verdicts: list[perf_lib.Verdict], budgets: list[dict], baseline: dict
 
     lines.append("## Metrics")
     lines.append("")
-    lines.append("| Metric | Statistic | FioriVoce | Measured on | OpenWhisper | Budget | Result "
+    lines.append("| Metric | Statistic | OpenWhisper_CPP | Measured on | OpenWhisper | Budget | Result "
                  "| Owner |")
     lines.append("|---|---|---|---|---|---|---|---|")
     for verdict in verdicts:

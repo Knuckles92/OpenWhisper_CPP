@@ -413,7 +413,7 @@ DocumentFormat format_from(const fv::Json& value) {
             value.at(3).get<bool>()};
 }
 
-// The golden texts name OpenWhisper where FioriVoce says its own name.
+// The golden texts name OpenWhisper where OpenWhisper_CPP says its own name.
 std::string rebranded(const std::string& text) {
     return fv::golden::rebrand(text);
 }

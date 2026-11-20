@@ -254,8 +254,8 @@ TEST_CASE("recall reads the in-memory meeting repository", "[test_meeting_recall
 TEST_CASE("recall reads the SQL meeting repository", "[test_meeting_recall]") {
     fv::testkit::TempDataRoot root;
     fv::FakeClock clock;
-    auto database =
-        std::make_unique<fv::Database>(fv::Database::open_or_create(root.path() / "fiorivoce.db"));
+    auto database = std::make_unique<fv::Database>(
+        fv::Database::open_or_create(root.path() / "openwhisper-cpp.db"));
     fv::meeting_state::SqlMeetingRepository repository(*database, clock);
     repository.create_meeting({{"id", "m_past"},
                                {"title", "Budget review"},

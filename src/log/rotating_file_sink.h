@@ -12,7 +12,7 @@
 
 namespace fv::log {
 
-// config.LOG_MAX_BYTES and config.LOG_BACKUP_COUNT: fiorivoce.log plus .1 to .3.
+// config.LOG_MAX_BYTES and config.LOG_BACKUP_COUNT: openwhisper-cpp.log plus .1 to .3.
 inline constexpr std::uintmax_t kLogMaxBytes = 5 * 1024 * 1024;
 inline constexpr int kLogBackupCount = 3;
 

@@ -15,7 +15,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
 # One lock for every writer on this machine: workers sharing a checkout edit the same files.
-LOCK = Path(tempfile.gettempdir()) / "fiorivoce-audit-files.lock"
+LOCK = Path(tempfile.gettempdir()) / "openwhisper-cpp-audit-files.lock"
 
 
 def main() -> int:
@@ -39,7 +39,7 @@ def main() -> int:
             document = {"area": args.area, "package": args.package, "features": {}, "differences": []}
         if args.kind == "difference":
             record = json.loads(args.rest[0])
-            for field in ("id", "features", "openwhisper", "fiorivoce", "reason", "source"):
+            for field in ("id", "features", "openwhisper", "openwhisper-cpp", "reason", "source"):
                 if field not in record:
                     print(f"auditput: the record needs {field}")
                     return 2

@@ -30,7 +30,8 @@ std::unique_ptr<MouseHookSource> make_mouse_hook_source(ClickObserver, Monotonic
     return std::make_unique<UnsupportedMouseHookSource>();
 }
 
-// FioriVoce's only hotkey backend is the Windows hook, so side buttons are bound nowhere else.
+// OpenWhisper_CPP's only hotkey backend is the Windows hook, so side buttons are bound nowhere
+// else.
 bool mouse_shortcuts_supported() {
     return false;
 }

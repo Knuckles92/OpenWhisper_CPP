@@ -1,5 +1,5 @@
 // The API & MCP page's paired-host frame follows a rename of the host
-// (tests/test_remote_rename.py::test_the_mcp_page_names_the_host_by_its_new_name). FioriVoce
+// (tests/test_remote_rename.py::test_the_mcp_page_names_the_host_by_its_new_name). OpenWhisper_CPP
 // names the host in the frame's title where OpenWhisper names it on a host tab
 // (differences a17-paired-mcp).
 

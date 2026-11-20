@@ -328,7 +328,7 @@ TEST_CASE("a decoder that fails inside is asked once and the pass fails", "[spea
     };
     const auto result = rerun_approved_speakers(offer, root, request, options);
     CHECK(result.at("ok") == false);
-    // FioriVoce reports its own sentence rather than the decoder's text (a provider body can
+    // OpenWhisper_CPP reports its own sentence rather than the decoder's text (a provider body can
     // quote what was sent).
     CHECK(result.at("error") == "OpenAI speaker identification could not finish.");
     CHECK(calls == 1);

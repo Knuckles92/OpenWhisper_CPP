@@ -29,7 +29,7 @@ using fv::credentials_test::TempDir;
 
 namespace {
 
-constexpr const char* kName = "FIORIVOCE_TEST_KEY";
+constexpr const char* kName = "OPENWHISPER_CPP_TEST_KEY";
 constexpr const char* kSecret = "sk-test-secret-value-1234abcd";
 
 std::shared_ptr<MemoryCredentialBackend> memory_backend() {

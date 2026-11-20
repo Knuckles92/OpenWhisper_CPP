@@ -47,10 +47,11 @@ inline constexpr std::string_view kRecoverArg = "--recover";
 inline constexpr std::string_view kCleanupArg = "--cleanup-transaction";
 inline constexpr std::string_view kParentPidArg = "--parent-pid";
 
-// ".fiorivoce-update.json" and ".fiorivoce-update-complete" (amendment 22), from identity().
+// ".openwhisper-cpp-update.json" and ".openwhisper-cpp-update-complete" (amendment 22), from
+// identity().
 std::string manifest_name();
 std::string sentinel_name();
-// "!FioriVoceUpdateRecover": the "!" makes Windows delete the RunOnce value only once the
+// "!OpenWhisper_CPPUpdateRecover": the "!" makes Windows delete the RunOnce value only once the
 // recovery command has started.
 std::string runonce_value_name();
 
@@ -68,7 +69,7 @@ bool is_newer_version(std::string_view current, std::string_view candidate);
 // A version at or below kMinimumUpdaterVersion must update through the setup first.
 bool is_setup_bridge_release(std::string_view version);
 
-// "<setup_prefix><version>.exe" ("FioriVoce-Setup-0.1.1.exe").
+// "<setup_prefix><version>.exe" ("OpenWhisper_CPP-Setup-0.1.1.exe").
 std::string setup_asset_name(std::string_view version);
 // "<product>-<version>-win64.zip" (amendment 22): parsed from a release, unused before M10.
 std::string archive_asset_name(std::string_view version);

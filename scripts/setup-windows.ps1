@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    One-time Windows setup for FioriVoce development. Safe to re-run.
+    One-time Windows setup for OpenWhisper_CPP development. Safe to re-run.
 
 .DESCRIPTION
     Checks for the compiler and CMake, clones vcpkg, sets VCPKG_ROOT for your

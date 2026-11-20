@@ -58,10 +58,11 @@ TEST_CASE("the updater log lives beside the application's log, outside the data 
           "[update_native]") {
     fv::testkit::TempDataRoot temp;
     const auto base = fv::path_to_utf8(temp.path() / "local");
-    const fv::MapEnvReader env{{"LOCALAPPDATA", base},
-                               {"XDG_DATA_HOME", base},
-                               {"HOME", base},
-                               {"FIORIVOCE_DATA_DIR", fv::path_to_utf8(temp.path() / "moved")}};
+    const fv::MapEnvReader env{
+        {"LOCALAPPDATA", base},
+        {"XDG_DATA_HOME", base},
+        {"HOME", base},
+        {"OPENWHISPER_CPP_DATA_DIR", fv::path_to_utf8(temp.path() / "moved")}};
     CHECK(u::updater_log_path(env) ==
           temp.path() / "local" / fv::path_from_utf8(fv::identity().data_dir_name) / "updater.log");
     CHECK(u::kUpdaterLogMaxBytes == 512 * 1024);

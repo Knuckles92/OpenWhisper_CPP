@@ -37,7 +37,7 @@ struct CodeChangeRestartPorts {
     std::function<void()> restart;
 };
 
-// The restart offer after FioriVoce's program changed under the running app
+// The restart offer after OpenWhisper_CPP's program changed under the running app
 // (ui_qt/ui_controller.py:2769-2830, A03-83, A16-30): an upgrade that replaced the installed
 // executable leaves the running app mixing what it loaded with the new version's files. Every
 // 10 s, while update_restart_prompt_enabled is on, the poll asks once the program changed and

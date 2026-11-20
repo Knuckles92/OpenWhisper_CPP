@@ -13,7 +13,7 @@ constexpr std::string_view kCpuRuntime = component_id::kAsrNvidiaCpu;
 constexpr std::string_view kCudaRuntime = component_id::kAsrNvidiaCuda;
 constexpr std::string_view kVulkanRuntime = component_id::kAsrNvidiaVulkan;
 constexpr std::string_view kMetalRuntime = component_id::kAsrNvidiaMetal;
-// Runtimes of backends FioriVoce does not have; no catalog entry names them.
+// Runtimes of backends OpenWhisper_CPP does not have; no catalog entry names them.
 constexpr std::string_view kMlxRuntime = "asr-parakeet-mlx";
 constexpr std::string_view kTranscribeRuntime = "asr-transcribe";
 

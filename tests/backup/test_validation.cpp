@@ -108,7 +108,7 @@ Bundle valid_bundle(const fs::path& folder) {
         {names().database_member, database_bytes(folder, schema_sql())},
         {"data/scratchpad.txt", "notes"},
     };
-    bundle.manifest = Json{{"format", "fiorivoce-backup"},
+    bundle.manifest = Json{{"format", "openwhisper-cpp-backup"},
                            {"format_version", 1},
                            {"created_at", "2026-11-15T00:00:00+00:00"},
                            {"app_version", "0.1.0"},

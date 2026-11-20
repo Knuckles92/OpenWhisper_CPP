@@ -24,7 +24,7 @@ namespace fv::bench {
 namespace {
 
 constexpr std::string_view kUsage =
-    "usage: fiorivoce-bench {live-preview,live-preview-report,cleanup-levels,meeting,asr,"
+    "usage: openwhisper-cpp-bench {live-preview,live-preview-report,cleanup-levels,meeting,asr,"
     "asr-corpus} ...";
 
 // A command line split as argparse reads it: --name value, --name=value, flags and positionals.
@@ -342,7 +342,7 @@ int meeting(const std::vector<std::string>& argv, CommandContext& context) {
         }
         context.err << "Missing AMI audio for " << names << ". Put the headset mixes in "
                     << path_to_utf8(args.data_dir / "audio") << " and the extracted annotations in "
-                    << path_to_utf8(annotations) << ": fiorivoce-bench never downloads.\n";
+                    << path_to_utf8(annotations) << ": openwhisper-cpp-bench never downloads.\n";
         return 2;
     }
     if (args.target_sec <= 0 || args.max_sec < args.target_sec) {
@@ -636,7 +636,7 @@ int run_command(const std::vector<std::string>& args, CommandContext& context) {
         }
         throw UsageError("argument command: invalid choice: " + py::repr(command));
     } catch (const UsageError& error) {
-        context.err << kUsage << "\nfiorivoce-bench: error: " << error.what() << '\n';
+        context.err << kUsage << "\nopenwhisper-cpp-bench: error: " << error.what() << '\n';
         return 2;
     } catch (const std::exception& error) {
         context.err << error.what() << '\n';

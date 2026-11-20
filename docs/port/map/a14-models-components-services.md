@@ -37,7 +37,7 @@ elsewhere).
   0.1 s near 24-30 s, silent windows skipped, segments timestamped in source time; a
   warm-up decode after load; a best-effort live preview that never blocks a real job;
   window-by-window decode for incremental dictation; a timestamped decoder for meetings.
-- Optional backends (undecided for FioriVoce): OpenAI / OpenAI-compatible upload with
+- Optional backends (undecided for OpenWhisper_CPP): OpenAI / OpenAI-compatible upload with
   hint fields, chunked parallel upload of large files and a pre-warmed upload client; the
   Remote engine (a paired computer's speech engine) with link status, busy retry, model
   switching and timing.
@@ -67,7 +67,7 @@ elsewhere).
 | A14-19 | Install coordinator | One install per component (`begin_install` returns cancel event or None), `cancel_install`, `cancel_all` before executor shutdown, `is_installing`, `is_any_installing`. App layer refuses runtime install/remove during a speech job: "Finish the current speech job before installing its runtime" / "...before removing its runtime"; closes backends using that runtime first. Finish messages: "Installed and ready to use — no restart needed." / "Restart OpenWhisper to enable this component." / "Installation canceled." | components.py:ComponentCoordinator (2147); services/runtime/components.py | port |
 | A14-20 | Component leases | Use count vs mutation: "This component is being installed or removed. Try again when Downloads finishes." / "This component is in use. Finish the meeting or report job before changing it." Only wired for OpenCode. | services/component_leases.py | port if OpenCode kept, else drop |
 | A14-21 | Component details copy | Display name, summary, description, origin, source, maintainer, family, requires, payload, local format, license, best-for, limitations, compact tags, source note, URLs. NVIDIA rows: "NVIDIA Speech CPU" / "NVIDIA Speech GPU" / "NVIDIA Speech GPU (Vulkan)" / "NVIDIA Speech GPU (Metal)"; description + " Models download separately. Runs in a dedicated process." | services/component_catalog.py | port (rewrite "Runs in a dedicated process"; NVIDIA rows only) |
-| A14-22 | Startup activation | gpu-accel: Windows add `bin` to DLL dirs + PATH; Linux RTLD_GLOBAL preload of `lib/*.so*`. Speech runtimes need no startup activation, but `NvidiaRecognizer.__init__` itself calls `os.add_dll_directory(<runtime>/bin)` on Windows before loading `nemo_speech_asr_c.dll` (so its sibling DLLs resolve); FioriVoce must do the equivalent (`AddDllDirectory` / `LOAD_LIBRARY_SEARCH_DEFAULT_DIRS`) at load. | services/component_runtime.py | drop (gpu-accel is faster-whisper only) |
+| A14-22 | Startup activation | gpu-accel: Windows add `bin` to DLL dirs + PATH; Linux RTLD_GLOBAL preload of `lib/*.so*`. Speech runtimes need no startup activation, but `NvidiaRecognizer.__init__` itself calls `os.add_dll_directory(<runtime>/bin)` on Windows before loading `nemo_speech_asr_c.dll` (so its sibling DLLs resolve); OpenWhisper_CPP must do the equivalent (`AddDllDirectory` / `LOAD_LIBRARY_SEARCH_DEFAULT_DIRS`) at load. | services/component_runtime.py | drop (gpu-accel is faster-whisper only) |
 | A14-23 | NVIDIA GPU detection | NVML (`nvml.dll` / `%ProgramFiles%\NVIDIA Corporation\NVSMI\nvml.dll`; `libnvidia-ml.so.1` / `.so`): first device name, total MiB, compute capability; v2 symbols preferred; queried once per run; never raises; `short_name` strips "NVIDIA ", "GeForce ", "Quadro ". | services/gpu_info.py:nvidia_gpu (145), _query_nvml (99), NvidiaGpu (50) | port |
 | A14-24 | CUDA vs Vulkan runtime | "cuda" device = `asr-nvidia-vulkan` when capability known and < (7,5) and Vulkan published on this platform (Linux x64 only), else `asr-nvidia-cuda`. | local_asr/catalog.py:nvidia_gpu_runtime (129) | port |
 | A14-25 | Runtime resolution | `resolve_runtime(backend, requested)`: Apple Silicon: cpu -> cpu runtime; Auto keeps installed CPU runtime until Metal installed, else Metal ("metal"); a saved "cuda" means Metal. Else Auto device = `_auto_device`; if Auto and that runtime is not installed (parakeet/nemotron) -> CPU runtime, "cpu". Explicit CUDA never falls back. | local_asr/catalog.py:resolve_runtime (168), runtime_id (154), _auto_device (199) | port (adapt _auto_device) |
@@ -78,7 +78,7 @@ elsewhere).
 | A14-30 | Model download | Refuses under `HF_HUB_OFFLINE`: "Model downloads are disabled by HF_HUB_OFFLINE." Per-key thread lock + cross-process file lock `<target>.lock`; restores `.previous` if target missing; downloads each file into `<key>.partial/` via the verified downloader with overall progress; writes `installed.json`; swaps `target -> .previous`, `partial -> target`, rollback on failure, delete `.previous`. | local_asr/cache.py:download (40), _swap_into_place (82) | port |
 | A14-31 | Model delete / inventory | Delete removes target, `.partial`, `.previous` under the same locks. Inventory reports `{repo: (repo, total bytes, path, (revision,))}` for cached keys; replaces HF-cache rows for the same repo. | local_asr/cache.py:delete (99), inventory (114); hf_access.py:scan_cached_models (332) | port |
 | A14-32 | Download consent policy | `evaluate_access`: cached -> load_cached; `HF_HUB_OFFLINE` env (1/on/true/yes) -> blocked_by_env (beats grants); one-time grant -> download_allowed (consumed unless advisory); policy always -> allowed; else needs_consent. Dialog results: cancel / download_once / always_allow / open_settings. `begin_request`/`end_request` dedupe one consent+download per model; `claim_batch` skips cached, duplicates, in-flight; grants issued just before each fetch. | services/hf_access.py:HuggingFaceAccessCoordinator (444), AccessDecision (41), ConsentAction (49) | port |
-| A14-33 | Model download error text | "Download of '{m}' was canceled." / "Not enough disk space for '{m}' (about {size}). Free up space, then retry in Downloads." / "Couldn't reach the download server for '{m}'. Check the internet connection, then retry in Downloads." / "Couldn't download '{m}' (details in openwhisper.log). Retry in Downloads." Marker lists _OFFLINE_MARKERS, _DISK_FULL_MARKERS; chain walked up to 8 causes. | hf_access.py:describe_model_download_error (94) | port (log name "fiorivoce.log"?) |
+| A14-33 | Model download error text | "Download of '{m}' was canceled." / "Not enough disk space for '{m}' (about {size}). Free up space, then retry in Downloads." / "Couldn't reach the download server for '{m}'. Check the internet connection, then retry in Downloads." / "Couldn't download '{m}' (details in openwhisper.log). Retry in Downloads." Marker lists _OFFLINE_MARKERS, _DISK_FULL_MARKERS; chain walked up to 8 causes. | hf_access.py:describe_model_download_error (94) | port (log name "openwhisper-cpp.log"?) |
 | A14-34 | Model details for Downloads | For speech models: description = purpose, origin = label, repo URL `https://huggingface.co/<repo>`, maintainer = repo owner, params "600 million" default (Orukeet "627 million"), relative_performance "Measure on your hardware; published throughput is not dictation latency.", memory text, download MB = round(sum/1e6), format "GGUF Q8", limitations (runtime note + device note), license URL (Orukeet NOTICE.md), revision, hosts, verification "Pinned version; size and SHA-256 checked during download". Orukeet overrides at 536-545. Size text `~N MB` / `~N.N GB` (>=1000 MB). Notices MODEL_SECURITY_NOTICE. | services/model_catalog.py:_speech_model_details (494), format_download_mb (41), MODEL_SECURITY_NOTICE (31) | port (parakeet, orukeet; nemotron undecided) |
 | A14-35 | Languages | Presets: en English, ru Russian, es Spanish, fr French, pt Portuguese, zh Mandarin, auto Auto. Parakeet: en, ru, es, fr, pt, auto. Nemotron: all seven. `selected_language`: stored if allowed, else "en" when only English, else "auto". Nemotron "zh" -> "zh-CN". Default setting "en". | local_asr/languages.py | port (parakeet); undecided (nemotron) |
 | A14-36 | Parakeet recognizer options | Default options from runtime; language_code null for auto; `enable_word_time_offsets`, `enable_automatic_punctuation`, `interim_results` all true; times in ms -> s. Errors: runtime `last_error` text, else "Speech runtime error {status}". GPU index: -1 for CPU, else 0 (or Vulkan NVIDIA index). | local_asr/nvidia.py:NvidiaRecognizer (147-255) | port (already partly in src/engine) |
@@ -118,7 +118,7 @@ elsewhere).
 | A14-65 | Archive path errors | zip extraction: "Archive contains an unsafe path: {name}" (absolute or `..`); native tar: "Archive contains an unsafe path: {name}" and "Archive contains an unsafe link: {linkname}" (link target outside the release root); both check cancel per member. Install always removes the `.staging/<id>.<pid>` folder in a `finally`, and checks cancel again after payload validation, before FINALIZING. | components.py:_safe_extract (1350), _safe_extract_native_tar (1596), _install_component (1865) | port |
 | A14-66 | Download error strings (verbatim) | invalid_size "The download has an invalid size."; unsafe_partial "The download could not be created safely."; partial_not_regular "The partial download is not a regular file."; partial_unreadable "The partial download could not be read."; canceled "The download was canceled."; bad_resume "The download server returned an invalid resume response."; bad_length "The download server returned an invalid download size."; unexpected_length "The download server returned an unexpected download size."; too_much_data "The download server returned more data than expected."; incomplete "The download did not complete ({done} of {total})."; integrity "The download failed its integrity check and was discarded. Please try again."; finalize "The verified download could not be finalized. Please retry." Exceptions: DownloadError, DownloadInterrupted (prefix kept for resume), DownloadCanceled. Progress phases `downloading` / `verifying`. | verified_download.py:MESSAGES (49), DownloadError (68-77) | port |
 | A14-67 | Speaker-model strings (verbatim) | Blocked: "Hugging Face downloads are disabled by HF_HUB_OFFLINE, so the speaker model can't download." / "Hugging Face access is set to Never connect, so the speaker model can't download." Failures: "Hugging Face did not respond in time, so the speaker model did not download." / "Could not reach Hugging Face to download the speaker model (network error)." / "Hugging Face refused the speaker model download (HTTP {status})." / "Could not save the speaker model: {strerror}." / "Could not download the speaker model: {first line, 160 chars or exception type}." / "The speaker model download produced no file." / "The speaker model failed its integrity check and was discarded." (file also deleted). Success clears the kept error. Note: unlike every other component, the bytes come from `hf_hub_download(repo, filename, revision="main", local_dir=...)`, then SHA-256 is verified after the fact; revision "main" is not pinned. `_first_onnx_file` walks the folder (sorted names, first `.onnx`, case-insensitive); an env path that is a file must end `.onnx` else warning and ignored; an env directory with no `.onnx` logs a warning. | components.py:896-1073 | other-area (diarization); port the strings |
-| A14-68 | Speech-runtime row copy (verbatim, NVIDIA rows) | All share: origin_label/source_label "Project ↗", source_name "Pinned upstream archives", origin/source URL `https://github.com/NVIDIA/NeMo-Speech.cpp`, maintainer "Upstream publishers; packaged by OpenWhisper", family "Speech runtime", compact_tags "Local speech", limitations ("Model weights are a separate download.",), best_for = summary, source_note = `_SOURCE_NOTE` + " Speech runtimes install third-party executable software. Integrity checks do not guarantee security; keep runtimes updated." where `_SOURCE_NOTE` = "Download URLs and SHA-256 pins ship with the app. Archives are verified before extract, and an interruption leaves either the previous install or the new one — never a mixture." Per row (summary; license): CPU "CPU runtime shared by Parakeet and Nemotron." (Apache-2.0; Python PSF); CUDA "NVIDIA GPU runtime shared by Parakeet and Nemotron." (Apache-2.0; NVIDIA CUDA; Python PSF); Vulkan "Vulkan GPU runtime shared by Parakeet and Nemotron, for NVIDIA GPUs older than Turing, such as the GTX 10 series." (Apache-2.0); Metal "Apple GPU runtime shared by Parakeet and Nemotron on Apple Silicon Macs. Auto uses it once installed." (Apache-2.0). `requires`: cpu "Windows x64, Linux x86_64 (glibc 2.31+), or macOS (Apple Silicon or Intel)"; cuda "Windows x64 or Linux x86_64 (glibc 2.31+), and an NVIDIA GPU (Turing or newer) with its driver"; vulkan "Linux x86_64 (glibc 2.31+), and an NVIDIA GPU older than Turing with its driver and the Vulkan loader"; metal "Apple Silicon Mac, macOS 14 or newer". `payload`: cpu/cuda "Verified native libraries; portable Python on Windows"; vulkan/metal "Verified native libraries". `source_urls` also lists the Python 3.12.10 download page (drop in FioriVoce). `get_component_details` raises KeyError for unknown ids. | component_catalog.py:196-297 | port (rewrite payload / local_format / "Runs in a dedicated process"; drop the Python line and PSF license) |
+| A14-68 | Speech-runtime row copy (verbatim, NVIDIA rows) | All share: origin_label/source_label "Project ↗", source_name "Pinned upstream archives", origin/source URL `https://github.com/NVIDIA/NeMo-Speech.cpp`, maintainer "Upstream publishers; packaged by OpenWhisper", family "Speech runtime", compact_tags "Local speech", limitations ("Model weights are a separate download.",), best_for = summary, source_note = `_SOURCE_NOTE` + " Speech runtimes install third-party executable software. Integrity checks do not guarantee security; keep runtimes updated." where `_SOURCE_NOTE` = "Download URLs and SHA-256 pins ship with the app. Archives are verified before extract, and an interruption leaves either the previous install or the new one — never a mixture." Per row (summary; license): CPU "CPU runtime shared by Parakeet and Nemotron." (Apache-2.0; Python PSF); CUDA "NVIDIA GPU runtime shared by Parakeet and Nemotron." (Apache-2.0; NVIDIA CUDA; Python PSF); Vulkan "Vulkan GPU runtime shared by Parakeet and Nemotron, for NVIDIA GPUs older than Turing, such as the GTX 10 series." (Apache-2.0); Metal "Apple GPU runtime shared by Parakeet and Nemotron on Apple Silicon Macs. Auto uses it once installed." (Apache-2.0). `requires`: cpu "Windows x64, Linux x86_64 (glibc 2.31+), or macOS (Apple Silicon or Intel)"; cuda "Windows x64 or Linux x86_64 (glibc 2.31+), and an NVIDIA GPU (Turing or newer) with its driver"; vulkan "Linux x86_64 (glibc 2.31+), and an NVIDIA GPU older than Turing with its driver and the Vulkan loader"; metal "Apple Silicon Mac, macOS 14 or newer". `payload`: cpu/cuda "Verified native libraries; portable Python on Windows"; vulkan/metal "Verified native libraries". `source_urls` also lists the Python 3.12.10 download page (drop in OpenWhisper_CPP). `get_component_details` raises KeyError for unknown ids. | component_catalog.py:196-297 | port (rewrite payload / local_format / "Runs in a dedicated process"; drop the Python line and PSF license) |
 | A14-69 | Speech-model copy (verbatim) | Parakeet: description/best_for "Fast dictation and files", language "25 European languages". Orukeet: "Community adaptation of Parakeet for multilingual transcription", languages "25 European languages, including Russian and English", origin_name "Orukeet, based on NVIDIA Parakeet TDT v3", maintainer "Oruk AI (adaptation); NVIDIA (base model)", relative_performance "Publisher reports improvements over Parakeet; results depend on datasets and decoding.", extra limitations "Community model; independently evaluate quality on your recordings." / "Validated on Windows/Linux CPU and CUDA; Orukeet on Apple Silicon has not been tested." / "One reported benchmark split was also used for training and checkpoint selection." / "CC BY-SA 4.0 weights retain attribution and applicable ShareAlike terms." Nemotron: "Nemotron 3.5 ASR 0.6B", purpose "Live speech recognition", license "OpenMDW-1.1", languages "Multilingual; coverage varies by locale". Shared detail fields: task_support "Speech transcription"; memory_guidance "CPU RAM / GPU memory use depends on model and audio length."; limitations pair for parakeet/nemotron: "Requires its optional runtime from Downloads (Windows x64, Linux x86_64, or Apple Silicon Mac CPU)." + default device note "CPU and NVIDIA GPU use separately installed runtimes."; license_url `<repo URL>#license` (Orukeet: `https://huggingface.co/oruk/orukeet/blob/main/NOTICE.md`); source_urls = (repo URL, `https://github.com/NVIDIA/NeMo-Speech.cpp`); download_hosts = sorted unique URL hostnames; `download_size` shows "Unknown" when the size is 0. `MODEL_SECURITY_NOTICE`: "Models are provided by third-party publishers. Model files and speech runtimes can have security vulnerabilities. Keep OpenWhisper and its runtimes updated, and review important transcripts for errors." (rename the app). `SpeechModel` also carries `streaming`, `meeting` and `stream_final` flags (parakeet and orukeet: meeting only; nemotron: streaming + meeting). | local_asr/catalog.py:MODELS (25), model_catalog.py:31-35, 494-545 | port (parakeet, orukeet); undecided (nemotron) |
 | A14-70 | Consent / error classification tables | `_OFFLINE_MARKERS` (lowercased substring match on the joined cause chain): "name resolution", "getaddrinfo", "name or service not known", "nodename nor servname", "network is unreachable", "no route to host", "connection refused", "connecterror", "failed to establish a new connection", "max retries exceeded", "could not reach the download server", "11001"; typed matches `socket.gaierror` / `ConnectionError` / `TimeoutError`. `_DISK_FULL_MARKERS`: "no space left on device", "[errno 28]", "not enough space on the disk", "[winerror 112]"; typed: errno ENOSPC or winerror 112. Order of checks: canceled/cancelled, then disk full, then offline, else generic. Disk message size comes from the bundled download size text with the leading `~` stripped ("about 714 MB"). The error text ends with "in Downloads." so the status line links there. Persisted policy values "ask"/"always"/"never"; `hf_access_coordinator` is a process-wide singleton; `requests_in_flight` counter; `grant_once` logs. | hf_access.py:82-137, 444-543 | port |
 | A14-71 | Native result decode | The transcript is `result_transcript(result, 0)` UTF-8 (not the join of words); words come from `result_word_count/text/start_time/end_time(result, 0, i)` with times in ms divided by 1000; `final` = `result_is_final`, `end` = `result_audio_processed`. `transcribe` passes `recognize_f32(handle, &options, samples, n, 16000, &result)`. The sample rate constant is 16000 and every result is destroyed even on error. Language `"auto"` or empty becomes a null `language_code`. | nvidia.py:_options (216), _result (229), transcribe (244) | port (verify src/engine matches) |
@@ -168,13 +168,13 @@ Copy only. `ComponentDetails` dataclass (21 fields), `COMPONENT_CATALOG`,
 (260). Speech runtime rows are generated from `_SPEECH_RUNTIMES` (197) with
 `_SPEECH_RUNTIME_REQUIRES` (243) and `_speech_runtime_payload` (266). Port the NVIDIA
 rows; rewrite `payload` ("Verified native libraries; portable Python on Windows") and
-`local_format` ("Isolated worker process") since FioriVoce runs the runtime in process.
+`local_format` ("Isolated worker process") since OpenWhisper_CPP runs the runtime in process.
 
 ### services/component_leases.py (43)
 `acquire_component(id)` returns an idempotent release; `component_mutation(id)` context
 manager. RLock-guarded counters. Only OpenCode uses it (components.py:1849-1862). A C++
 port would apply it to speech runtimes too, since an in-process engine holds the runtime
-library loaded (and FioriVoce never unloads it: see Engine-specific code).
+library loaded (and OpenWhisper_CPP never unloads it: see Engine-specific code).
 
 ### services/component_runtime.py (195)
 Startup activation of installed components (Windows `os.add_dll_directory` + PATH prepend,
@@ -202,7 +202,7 @@ model + model download). Whisper only: **drop**. The NeMo equivalent is A14-26.
   `CachedModelInfo`, snapshot cache (`peek_cached_models`, `invalidate_cached_models_snapshot`,
   `scan_cached_models` with `max_age_seconds`, a condition variable so concurrent scans
   share one walk, and an epoch so a scan that raced a mutation is discarded (380-394)).
-  For FioriVoce the "scan" is just `cache.inventory()` over speech-models; no HF hub
+  For OpenWhisper_CPP the "scan" is just `cache.inventory()` over speech-models; no HF hub
   cache walk.
 - Drop: `resolve_model_repo`, `_progress_tqdm_class`, `download_model_files` (worker),
   `_download_model_files_in_process` (snapshot_download), `get_hf_cache_dir`,
@@ -229,7 +229,7 @@ merges per-platform JSON files (277-304; Windows files read with `utf-8-sig`).
 ### services/local_asr/cache.py (124)
 Speech model cache (A14-29..A14-31). Locks: per-key `threading.Lock` plus `filelock`
 `<target>.lock` (cross-process, because downloads ran in killable workers). Keep a
-cross-process lock in C++ (`QLockFile`) only if two FioriVoce processes or an OpenWhisper
+cross-process lock in C++ (`QLockFile`) only if two OpenWhisper_CPP processes or an OpenWhisper
 install may share the directory (open question).
 
 ### services/local_asr/audio.py (105)
@@ -250,7 +250,7 @@ vendored `asr.h`). `NvidiaRecognizer`: load per platform, bind 18 functions, cre
 `BackendConfig{size, gpu}` (gpu -1 for CPU), `ModelConfig{size, path, name=NULL}`,
 `transcribe` (`recognize_f32` at 16 kHz), `stream`/`cancel_stream`/`close`, `_result`
 (always destroys the result). Speech-context keepalive must outlive the request or stream
-(65-78, 180-183): FioriVoce CLAUDE.md already states this rule. Constants: `_SEGMENT_MAX_WORDS
+(65-78, 180-183): OpenWhisper_CPP CLAUDE.md already states this rule. Constants: `_SEGMENT_MAX_WORDS
 24`, `WORD_BOOSTING False`, `BOOST_SCORE 2.0`, `MAX_BOOST_PHRASES 50`, ggml device types
 GPU=1, IGPU=2.
 
@@ -260,21 +260,21 @@ interpreter or the frozen app with `--local-asr-worker`), env `PYTHONUTF8=1`,
 `HF_HUB_OFFLINE=1`, `TRANSFORMERS_OFFLINE=1`; one serialized request at a time; replies
 matched by id (stale ids ignored); progress lines; last 25 stderr lines kept and logged on
 crash; `close` = terminate, wait 1.5 s, kill, wait 0.5 s. **Drop**. Behaviors to carry
-over in-process: serialized engine access (FioriVoce: `EngineWorker` thread), load timeout
+over in-process: serialized engine access (OpenWhisper_CPP: `EngineWorker` thread), load timeout
 300 s and request timeout 300 s are replaced by cancel flags, crash isolation is lost (see
 Risks).
 
 ### services/local_asr/{mlx,moonshine,qwen_batch,qwen_speech,transcribe_engine}.py
 Engine adapters for dropped engines. **Drop**. Notable only as reference:
 `transcribe_engine.STREAM_GEOMETRY` (Parakeet Unified live preview, 5.6 s / 1.04 s /
-1.04 s) shows how OpenWhisper got streaming-quality live text; FioriVoce previews Parakeet
+1.04 s) shows how OpenWhisper got streaming-quality live text; OpenWhisper_CPP previews Parakeet
 TDT by window re-decode instead.
 
 ### services/local_asr/*.json
 - `models.json`: port parakeet-v3, orukeet-v0.1 (and nemotron-3.5 if kept) verbatim.
 - `nvidia_*_runtime.json` (8 files): port the NeMo-Speech.cpp archive entries. Windows
   entries also pin the Python 3.12.10 embeddable zip (11,133,606 bytes): drop that
-  archive in FioriVoce and recompute `install_bytes`.
+  archive in OpenWhisper_CPP and recompute `install_bytes`.
 - `mlx_runtime.json`, `moonshine*_runtime.json`, `qwen*_runtime.json`,
   `transcribe_*_runtime.json`: drop.
 
@@ -323,7 +323,7 @@ faster-whisper backend. **Drop** (A14-51). `GpuFallbackCause` names are re-expor
 must not depend on them.
 
 ### transcriber/optional_backend.py (507)
-`LocalSpeechBackend` + `SpeechDecoder`. The heart of what FioriVoce keeps (A14-42..A14-48).
+`LocalSpeechBackend` + `SpeechDecoder`. The heart of what OpenWhisper_CPP keeps (A14-42..A14-48).
 - **Locks**: `_state_lock` (RLock) guards process/model/generation; `_decode_lock` makes
   one decode at a time; preview and warm-up use non-blocking acquire.
 - **Generation protocol**: a load captures `generation`; after the worker answers, it
@@ -373,7 +373,7 @@ model download, including non-HF hosts; `OPENWHISPER_SPEAKER_MODEL`;
   `<id>.old/`, `.staging/<id>.<pid>/`, `.cache/<archive name>` and `.cache/<name>.part`.
 - NeMo runtime layouts inside `<id>/`: Windows `bin/nemo_speech_asr_c.dll` (+ embedded
   Python files in OpenWhisper installs); Linux and macOS `nemo-speech/lib/libnemo_speech_asr_c.{so,dylib}`
-  plus `libggml*.{so,dylib}`. FioriVoce's `find_runtime_library` already accepts both.
+  plus `libggml*.{so,dylib}`. OpenWhisper_CPP's `find_runtime_library` already accepts both.
 - Speech models: `<local_app_dir>/speech-models/<key>/<files>` + `installed.json`
   (`json.dumps(spec)`; equality compared after parsing), siblings `<key>.partial/`,
   `<key>.previous/`, `<key>.lock`.
@@ -382,7 +382,7 @@ model download, including non-HF hosts; `OPENWHISPER_SPEAKER_MODEL`;
   `openwhisper-opencode-verify-*`, `openwhisper-opencode-<pid>-<id>/`.
 - Hugging Face hub cache (Whisper only): drop.
 
-An existing OpenWhisper install already has these trees. FioriVoce can reuse them byte
+An existing OpenWhisper install already has these trees. OpenWhisper_CPP can reuse them byte
 for byte (same layout and `installed.json` rule) if it points at the same folder; see
 open questions.
 
@@ -467,7 +467,7 @@ content_digest, created_at, updated_at)`. The database area owns migrations; an 
 ## Platform-specific code
 
 - **Windows**: NeMo runtime DLL in `bin/`; OpenWhisper's runtime bundles an embedded
-  Python 3.12 and writes `python312._pth` (components.py:1747): FioriVoce needs neither.
+  Python 3.12 and writes `python312._pth` (components.py:1747): OpenWhisper_CPP needs neither.
   NVML at `nvml.dll` or `%ProgramFiles%\NVIDIA Corporation\NVSMI\nvml.dll`. No Vulkan
   release, so a pre-Turing card gets no GPU runtime offer (test_local_asr.py:193-200).
   Locked-file retries (WinError 5/32/33, and 15 s swap retry for runtimes). No directory
@@ -499,13 +499,13 @@ wheel-tree validation (`_MACOS_WHEEL_RUNTIME_FILES`, `_validate_mlx_runtime`);
 
 **Must adapt to an in-process Parakeet engine**:
 1. **Runtime component layout**: Windows OpenWhisper archives pair the NeMo zip with the
-   Python embeddable zip; FioriVoce pins only the NeMo zip. If FioriVoce reuses an
+   Python embeddable zip; OpenWhisper_CPP pins only the NeMo zip. If OpenWhisper_CPP reuses an
    OpenWhisper component tree, the extra Python files are harmless; the manifest
-   `version` ("0.1.0-py312") would then differ from a FioriVoce catalog version and show
+   `version` ("0.1.0-py312") would then differ from a OpenWhisper_CPP catalog version and show
    "Update available" unless the versions are aligned (decide).
-2. **Never unload**: FioriVoce cannot `FreeLibrary` the runtime (crashes on 0.1.0), so an
+2. **Never unload**: OpenWhisper_CPP cannot `FreeLibrary` the runtime (crashes on 0.1.0), so an
    update or removal of the runtime that is loaded must be refused or deferred until
-   restart ("Restart FioriVoce to finish removing ..."), unlike Python, which killed the
+   restart ("Restart OpenWhisper_CPP to finish removing ..."), unlike Python, which killed the
    worker first (services/runtime/components.py:74-76, 104-111). The component lease
    (A14-20) is the natural guard.
 3. **Cancel**: Python cancels by killing the worker (2 s budget). In process there is no
@@ -652,7 +652,7 @@ table against a scripted HTTP server.
   implementation for both.
 - Sharing folders with an installed OpenWhisper: concurrent writers (needs `QLockFile`),
   version strings causing spurious "Update available", and OpenWhisper deleting a tree
-  FioriVoce has loaded.
+  OpenWhisper_CPP has loaded.
 - Proxy / enterprise TLS behavior differs between urllib and Qt networking; the cert error
   text must still trigger on verification failures.
 

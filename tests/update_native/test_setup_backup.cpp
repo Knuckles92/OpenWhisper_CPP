@@ -18,14 +18,14 @@ TEST_CASE("installer backup survives partial install, retry and failed verificat
     const auto next = temp.path() / "release";
     fs::create_directory(app);
     fs::create_directory(next);
-    fv::write_file_atomic(app / "fiorivoce.exe", "old app");
+    fv::write_file_atomic(app / "openwhisper-cpp.exe", "old app");
     fv::write_file_atomic(app / "retired.dll", "previous component");
     fv::write_file_atomic(app / "unins000.dat", "Inno registration");
     fv::write_file_atomic(app / "my-notes.txt", "unmanaged");
-    for (const auto& name : {"fiorivoce.exe", "fiorivoce-updater.exe", "new.dll"})
+    for (const auto& name : {"openwhisper-cpp.exe", "openwhisper-cpp-updater.exe", "new.dll"})
         fv::write_file_atomic(next / name, name);
     const auto manifest = u::build_manifest(next, "0.1.1");
-    const auto old_hash = fv::download::sha256_file(app / "fiorivoce.exe", true);
+    const auto old_hash = fv::download::sha256_file(app / "openwhisper-cpp.exe", true);
     REQUIRE_THROWS(u::prepare_setup(app, manifest, false));
     u::prepare_setup(app, manifest, true);
     fs::remove(app / "retired.dll");
@@ -45,11 +45,11 @@ TEST_CASE("installer backup survives partial install, retry and failed verificat
         u::rollback_setup(app, manifest, true);
         CHECK(fs::is_regular_file(app / "retired.dll"));
         CHECK_FALSE(fs::exists(app / "new.dll"));
-        CHECK(fv::download::sha256_file(app / "fiorivoce.exe", true) == old_hash);
+        CHECK(fv::download::sha256_file(app / "openwhisper-cpp.exe", true) == old_hash);
     }
     SECTION("starting setup again restores an interrupted preparation before taking a fresh copy") {
         u::prepare_setup(app, manifest, true);
-        CHECK(fv::download::sha256_file(app / "fiorivoce.exe", true) == old_hash);
+        CHECK(fv::download::sha256_file(app / "openwhisper-cpp.exe", true) == old_hash);
         u::rollback_setup(app, manifest, true);
     }
     CHECK(fs::is_regular_file(app / "my-notes.txt"));
@@ -60,7 +60,7 @@ TEST_CASE("first setup rollback only removes identical installer payloads", "[up
     const auto app = temp.path() / "install";
     const auto next = temp.path() / "release";
     fs::create_directory(next);
-    for (const auto& name : {"fiorivoce.exe", "fiorivoce-updater.exe", "new.dll"})
+    for (const auto& name : {"openwhisper-cpp.exe", "openwhisper-cpp-updater.exe", "new.dll"})
         fv::write_file_atomic(next / name, name);
     const auto manifest = u::build_manifest(next, "0.1.1");
     u::prepare_setup(app, manifest, false);

@@ -421,7 +421,7 @@ void ComponentStore::validate_payload(std::string_view component_id, const fs::p
         return;
     }
     // Windows: OpenWhisper's runtime also carried an embedded Python (python.exe, python312.dll,
-    // python312.zip, and a python312._pth it wrote); FioriVoce loads the library in process.
+    // python312.zip, and a python312._pth it wrote); OpenWhisper_CPP loads the library in process.
     if (!component_id.starts_with("asr-nvidia")) {
         throw ComponentError(std::string(kSpeechRuntimeIncomplete));
     }
@@ -507,7 +507,7 @@ void ComponentStore::extract_archive(const Json& archive, const fs::path& archiv
             progress(install_phase::kExtracting, done, total);
         }
     };
-    // FioriVoce's catalog holds zip and nemo-tar archives only; OpenWhisper's wheel, Node and
+    // OpenWhisper_CPP's catalog holds zip and nemo-tar archives only; OpenWhisper's wheel, Node and
     // transcribe.cpp extractors belong to components it does not ship.
     if (archive_text(archive, "extract") == "nemo-tar") {
         const Json* root = detail::member(archive, "root");

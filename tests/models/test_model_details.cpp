@@ -54,7 +54,7 @@ Json details_json(const ModelDetails& d) {
 
 TEST_CASE("TestModelCatalog::test_catalog_covers_every_concrete_model", "[test_model_catalog]") {
     // from tests/test_model_catalog.py: the catalog is exactly the speech models (Whisper's
-    // names are not in FioriVoce).
+    // names are not in OpenWhisper_CPP).
     std::set<std::string> expected;
     for (const SpeechModel& model : models()) {
         expected.emplace(model.key);
@@ -125,10 +125,11 @@ TEST_CASE("test_orukeet_metadata_and_notice_identify_actual_weight_terms",
     CHECK(body.find("do not guarantee") != std::string::npos);
 }
 
-TEST_CASE("the security notices name FioriVoce", "[test_model_catalog]") {
-    CHECK(model_security_notice().find("Keep FioriVoce and its runtimes updated") !=
+TEST_CASE("the security notices name OpenWhisper_CPP", "[test_model_catalog]") {
+    CHECK(model_security_notice().find("Keep OpenWhisper_CPP and its runtimes updated") !=
           std::string::npos);
-    CHECK(custom_model_notice().starts_with("This source has not been reviewed by FioriVoce."));
+    CHECK(
+        custom_model_notice().starts_with("This source has not been reviewed by OpenWhisper_CPP."));
     CHECK(get_model_details("parakeet-v3").download_size() == "~714 MB");
     CHECK_FALSE(model_download_size_mb("unknown-model"));
     CHECK(find_model_details("unknown-model") == nullptr);

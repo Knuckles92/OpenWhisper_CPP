@@ -1,6 +1,6 @@
 // "Paste original" after this computer's dictations moved to the paired host
 // (tests/test_personalize_fix_f1_paste_original_host.py): the last dictation is the newest one
-// made here, even once its row went to the host. FioriVoce moves records when the user asks
+// made here, even once its row went to the host. OpenWhisper_CPP moves records when the user asks
 // (Move existing records, a17-retention), never a second after a save, so OpenWhisper's
 // "leftover from before the switch" cannot arise: the newest row kept here is this computer's
 // newest dictation.

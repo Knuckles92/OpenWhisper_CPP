@@ -15,14 +15,14 @@ struct Engine {
     std::string_view name;
 };
 
-// config.MODEL_VALUE_MAP, restricted to the engines FioriVoce has.
+// config.MODEL_VALUE_MAP, restricted to the engines OpenWhisper_CPP has.
 constexpr std::array<Engine, 3> kEngines{{
     {"api", "API"},
     {"parakeet", "Parakeet"},
     {"remote", "Remote computer"},
 }};
 
-// config.DEFAULT_BACKEND: Parakeet on every platform FioriVoce runs on.
+// config.DEFAULT_BACKEND: Parakeet on every platform OpenWhisper_CPP runs on.
 constexpr std::string_view kDefaultId = "parakeet";
 
 QString toQString(std::string_view text) {

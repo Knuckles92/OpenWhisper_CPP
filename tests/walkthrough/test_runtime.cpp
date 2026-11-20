@@ -617,7 +617,7 @@ TEST_CASE("a walkthrough screenshot whose folder cannot be made reports the fail
 
 TEST_CASE("walkthrough starts and chooses a screenshot mode", "[runtime]") {
     fv::walkthrough::test::TempFolder folder;
-    fv::MapEnvReader env{{"FIORIVOCE_DATA_DIR", fv::path_to_utf8(folder.path())}};
+    fv::MapEnvReader env{{"OPENWHISPER_CPP_DATA_DIR", fv::path_to_utf8(folder.path())}};
     const auto paths = fv::Paths::resolve(fv::identity(), env);
     fv::SettingsStore settings(folder / "settings.json");
     fv::FakeClock clock;
@@ -641,7 +641,7 @@ TEST_CASE("walkthrough starts and chooses a screenshot mode", "[runtime]") {
 
 TEST_CASE("delayed snap can be taken early", "[runtime]") {
     fv::walkthrough::test::TempFolder folder;
-    fv::MapEnvReader env{{"FIORIVOCE_DATA_DIR", fv::path_to_utf8(folder.path())}};
+    fv::MapEnvReader env{{"OPENWHISPER_CPP_DATA_DIR", fv::path_to_utf8(folder.path())}};
     const auto paths = fv::Paths::resolve(fv::identity(), env);
     fv::SettingsStore settings(folder / "settings.json");
     fv::FakeClock clock;
@@ -662,7 +662,7 @@ TEST_CASE("delayed snap can be taken early", "[runtime]") {
 
 TEST_CASE("auto clicks coalesce and capture after settling", "[runtime]") {
     fv::walkthrough::test::TempFolder folder;
-    fv::MapEnvReader env{{"FIORIVOCE_DATA_DIR", fv::path_to_utf8(folder.path())}};
+    fv::MapEnvReader env{{"OPENWHISPER_CPP_DATA_DIR", fv::path_to_utf8(folder.path())}};
     const auto paths = fv::Paths::resolve(fv::identity(), env);
     fv::SettingsStore settings(folder / "settings.json");
     settings.save_setting("walkthrough_auto_mode", true);
@@ -704,7 +704,7 @@ TEST_CASE("auto clicks coalesce and capture after settling", "[runtime]") {
 
 TEST_CASE("walkthrough start explains recording, write-up and readiness refusals", "[runtime]") {
     fv::walkthrough::test::TempFolder folder;
-    fv::MapEnvReader env{{"FIORIVOCE_DATA_DIR", fv::path_to_utf8(folder.path())}};
+    fv::MapEnvReader env{{"OPENWHISPER_CPP_DATA_DIR", fv::path_to_utf8(folder.path())}};
     const auto paths = fv::Paths::resolve(fv::identity(), env);
     fv::SettingsStore settings(folder / "settings.json");
     fv::FakeClock clock;
@@ -734,7 +734,7 @@ TEST_CASE("walkthrough start explains recording, write-up and readiness refusals
 
 TEST_CASE("finishing a walkthrough keeps an open screenshot before stopping", "[runtime]") {
     fv::walkthrough::test::TempFolder folder;
-    fv::MapEnvReader env{{"FIORIVOCE_DATA_DIR", fv::path_to_utf8(folder.path())}};
+    fv::MapEnvReader env{{"OPENWHISPER_CPP_DATA_DIR", fv::path_to_utf8(folder.path())}};
     const auto paths = fv::Paths::resolve(fv::identity(), env);
     fv::SettingsStore settings(folder / "settings.json");
     fv::FakeClock clock;
@@ -757,7 +757,7 @@ TEST_CASE("finishing a walkthrough keeps an open screenshot before stopping", "[
 
 TEST_CASE("pressing screenshot again keeps the open selection", "[runtime]") {
     fv::walkthrough::test::TempFolder folder;
-    fv::MapEnvReader env{{"FIORIVOCE_DATA_DIR", fv::path_to_utf8(folder.path())}};
+    fv::MapEnvReader env{{"OPENWHISPER_CPP_DATA_DIR", fv::path_to_utf8(folder.path())}};
     const auto paths = fv::Paths::resolve(fv::identity(), env);
     fv::SettingsStore settings(folder / "settings.json");
     fv::FakeClock clock;
@@ -776,7 +776,7 @@ TEST_CASE("pressing screenshot again keeps the open selection", "[runtime]") {
 
 TEST_CASE("Done captures a pending drawing before stopping", "[runtime]") {
     fv::walkthrough::test::TempFolder folder;
-    fv::MapEnvReader env{{"FIORIVOCE_DATA_DIR", fv::path_to_utf8(folder.path())}};
+    fv::MapEnvReader env{{"OPENWHISPER_CPP_DATA_DIR", fv::path_to_utf8(folder.path())}};
     const auto paths = fv::Paths::resolve(fv::identity(), env);
     fv::SettingsStore settings(folder / "settings.json");
     settings.save_setting("walkthrough_auto_mode", true);
@@ -813,7 +813,7 @@ TEST_CASE("Done captures a pending drawing before stopping", "[runtime]") {
 
 TEST_CASE("drawings on different screens get separate screenshots", "[runtime]") {
     fv::walkthrough::test::TempFolder folder;
-    fv::MapEnvReader env{{"FIORIVOCE_DATA_DIR", fv::path_to_utf8(folder.path())}};
+    fv::MapEnvReader env{{"OPENWHISPER_CPP_DATA_DIR", fv::path_to_utf8(folder.path())}};
     const auto paths = fv::Paths::resolve(fv::identity(), env);
     fv::SettingsStore settings(folder / "settings.json");
     settings.save_setting("walkthrough_auto_mode", true);
@@ -853,7 +853,7 @@ TEST_CASE("drawings on different screens get separate screenshots", "[runtime]")
 
 TEST_CASE("late snap callbacks are ignored after runtime destruction", "[runtime]") {
     fv::walkthrough::test::TempFolder folder;
-    fv::MapEnvReader env{{"FIORIVOCE_DATA_DIR", fv::path_to_utf8(folder.path())}};
+    fv::MapEnvReader env{{"OPENWHISPER_CPP_DATA_DIR", fv::path_to_utf8(folder.path())}};
     const auto paths = fv::Paths::resolve(fv::identity(), env);
     fv::SettingsStore settings(folder / "settings.json");
     fv::FakeClock clock;

@@ -1,4 +1,4 @@
-// fiorivoce-updater's command line (update_native/updater_cli.h), from OpenWhisper's
+// openwhisper-cpp-updater's command line (update_native/updater_cli.h), from OpenWhisper's
 // tests/test_updater_helper.py and tests/test_frozen_updater.py. The program itself is only
 // main(): these tests give run_updater what main() gives it.
 
@@ -70,7 +70,7 @@ TEST_CASE("the helper started without a transaction does nothing and exits 2", "
     CHECK(p.run({"--recover", kId}) == 2);
     CHECK(p.calls.empty());
     // The usage goes to standard error. No box: build scripts run this program too.
-    CHECK(p.err.find("fiorivoce-updater --apply --transaction-id <id>") != std::string::npos);
+    CHECK(p.err.find("openwhisper-cpp-updater --apply --transaction-id <id>") != std::string::npos);
     CHECK(p.out.empty());
     CHECK(p.boxes.empty());
 }
@@ -114,7 +114,7 @@ TEST_CASE("the helper shows an update failure nobody else will show", "[update_n
     };
     CHECK(p.run({"--apply", "--transaction-id", kId}) == 1);
     CHECK(p.boxes == std::vector<std::string>{"missing journal"});
-    CHECK(p.err == "fiorivoce-updater: missing journal\n");
+    CHECK(p.err == "openwhisper-cpp-updater: missing journal\n");
 
     // Anything unexpected is worded as OpenWhisper's last-resort handler words it.
     Program odd;
@@ -131,7 +131,8 @@ TEST_CASE("the helper shows an update failure nobody else will show", "[update_n
     };
     CHECK(told.run({"--apply", "--transaction-id", kId}) == 1);
     CHECK(told.boxes.empty());
-    CHECK(told.err == "fiorivoce-updater: The new version started but did not become ready.\n");
+    CHECK(told.err ==
+          "openwhisper-cpp-updater: The new version started but did not become ready.\n");
 }
 
 TEST_CASE("the helper has no transaction or setup commands where the product has none",
@@ -153,8 +154,8 @@ TEST_CASE("the helper packs and verifies a release from its command line", "[upd
     fv::testkit::TempDataRoot temp;
     const auto tree = temp.path() / "stage";
     fs::create_directories(tree / "platforms");
-    fv::write_file_atomic(tree / "fiorivoce.exe", "app");
-    fv::write_file_atomic(tree / "fiorivoce-updater.exe", "helper");
+    fv::write_file_atomic(tree / "openwhisper-cpp.exe", "app");
+    fv::write_file_atomic(tree / "openwhisper-cpp-updater.exe", "helper");
     fv::write_file_atomic(tree / "platforms" / "qwindows.dll", "plugin");
     const auto zip = temp.path() / "release.zip";
     Program p;
@@ -167,7 +168,7 @@ TEST_CASE("the helper packs and verifies a release from its command line", "[upd
     CHECK(p.err.empty());
     // A failure is a line on standard error and exit code 1, never a box.
     CHECK(p.run({"--verify-archive", fv::path_to_utf8(zip), "--version", "0.1.2"}) == 1);
-    CHECK(p.err.starts_with("fiorivoce-updater: "));
+    CHECK(p.err.starts_with("openwhisper-cpp-updater: "));
     CHECK(p.boxes.empty());
     CHECK(p.run({"--help"}) == 0);
     CHECK(p.out.find("--verify-archive <zip> [--version <version>]") != std::string::npos);
@@ -182,11 +183,11 @@ TEST_CASE("the setup helper replaces an installation and rolls an incomplete one
     const auto next = temp.path() / "new";
     for (const auto& dir : {app, helper, next})
         fs::create_directories(dir);
-    fv::write_file_atomic(app / "fiorivoce.exe", "old");
-    fv::write_file_atomic(app / "fiorivoce-updater.exe", "old helper");
+    fv::write_file_atomic(app / "openwhisper-cpp.exe", "old");
+    fv::write_file_atomic(app / "openwhisper-cpp-updater.exe", "old helper");
     u::write_manifest(app, "0.1.0");
     fv::write_file_atomic(app / "unins000.exe", "uninstaller");
-    for (const auto* name : {"fiorivoce.exe", "fiorivoce-updater.exe"})
+    for (const auto* name : {"openwhisper-cpp.exe", "openwhisper-cpp-updater.exe"})
         fv::write_file_atomic(next / name, std::string("new ") + name);
     u::write_manifest(next, "0.1.1");
     // Inno extracts the helper with the manifest of what it is about to install.
@@ -217,8 +218,9 @@ TEST_CASE("the setup helper replaces an installation and rolls an incomplete one
     const auto install_new = [&] {
         // Inno's [InstallDelete] clears the managed names, then its [Files] land.
         for (const auto& entry : fs::directory_iterator(app))
-            if (entry.path().extension() == ".dll" || entry.path().filename() == "fiorivoce.exe" ||
-                entry.path().filename() == "fiorivoce-updater.exe" ||
+            if (entry.path().extension() == ".dll" ||
+                entry.path().filename() == "openwhisper-cpp.exe" ||
+                entry.path().filename() == "openwhisper-cpp-updater.exe" ||
                 entry.path().filename() == fv::update::manifest_name())
                 fs::remove(entry.path());
         for (const auto& entry : fs::directory_iterator(next))
@@ -227,9 +229,9 @@ TEST_CASE("the setup helper replaces an installation and rolls an incomplete one
 
     REQUIRE(run("prepare", app) == 0);
     CHECK(retired == 1);
-    fv::write_file_atomic(app / "fiorivoce.exe", "incomplete");
+    fv::write_file_atomic(app / "openwhisper-cpp.exe", "incomplete");
     REQUIRE(run("rollback", app) == 0);
-    CHECK(read_text(app / "fiorivoce.exe") == "old");
+    CHECK(read_text(app / "openwhisper-cpp.exe") == "old");
     CHECK_FALSE(fs::exists(temp.path() / "installed.setup-backup"));
 
     fv::write_file_atomic(app / "retired.dll", "old dependency");
@@ -240,7 +242,7 @@ TEST_CASE("the setup helper replaces an installation and rolls an incomplete one
           "The setup destination changed after preparation.");
     install_new();
     REQUIRE(run("finish", app) == 0);
-    CHECK(read_text(app / "fiorivoce.exe") == "new fiorivoce.exe");
+    CHECK(read_text(app / "openwhisper-cpp.exe") == "new openwhisper-cpp.exe");
     CHECK_FALSE(fs::exists(app / "retired.dll"));
     CHECK(read_text(app / "unins000.exe") == "uninstaller");
     CHECK_FALSE(fs::exists(temp.path() / "installed.setup-backup"));

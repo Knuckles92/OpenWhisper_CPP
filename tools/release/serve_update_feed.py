@@ -1,15 +1,15 @@
 """Serve a setup and optional native update archive on this machine only.
 
-Lets an installed FioriVoce update to a build that has not been published, so the update path
+Lets an installed OpenWhisper_CPP update to a build that has not been published, so the update path
 can be soaked before it ships::
 
-    python tools/release/serve_update_feed.py --setup out/installer/FioriVoce-Setup-0.1.1.exe \\
+    python tools/release/serve_update_feed.py --setup out/installer/OpenWhisper_CPP-Setup-0.1.1.exe \\
         --version 0.1.1
 
 Then, in a second shell, start the *installed* app with the feed override::
 
-    $env:FIORIVOCE_UPDATE_FEED_URL = "http://127.0.0.1:<port>/releases/latest"
-    & "$env:LOCALAPPDATA\\Programs\\FioriVoce\\fiorivoce.exe"
+    $env:OPENWHISPER_CPP_UPDATE_FEED_URL = "http://127.0.0.1:<port>/releases/latest"
+    & "$env:LOCALAPPDATA\\Programs\\OpenWhisper_CPP\\openwhisper-cpp.exe"
 
 Digests and sizes are the file's own, so the app verifies the setup exactly as it would a
 published one. ``--prerelease`` serves the build as a GitHub prerelease (and as the one entry of
@@ -242,8 +242,8 @@ def make_server(
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     parser.add_argument("--setup", type=Path, required=True,
-                        help="the FioriVoce-Setup-X.Y.Z.exe to offer")
-    parser.add_argument("--archive", type=Path, help="the optional FioriVoce-X.Y.Z-win64.zip")
+                        help="the OpenWhisper_CPP-Setup-X.Y.Z.exe to offer")
+    parser.add_argument("--archive", type=Path, help="the optional OpenWhisper_CPP-X.Y.Z-win64.zip")
     parser.add_argument("--version", required=True, help="X.Y.Z, the version the setup carries")
     parser.add_argument("--host", default="127.0.0.1", help="a loopback address (the default)")
     parser.add_argument("--port", type=int, default=0, help="0 picks a free port (the default)")
@@ -269,8 +269,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         print(f"  {asset['name']}  {asset['size']} bytes  {asset['digest']}")
     print()
     print("Start the installed app with the feed override, then check for updates:")
-    print(f'  $env:FIORIVOCE_UPDATE_FEED_URL = "{feed_url}"')
-    exe = identity.get("app_exe") or "fiorivoce.exe"
+    print(f'  $env:OPENWHISPER_CPP_UPDATE_FEED_URL = "{feed_url}"')
+    exe = identity.get("app_exe") or "openwhisper-cpp.exe"
     folder = identity.get("install_dir_name") or common.product_name(identity)
     print(f'  & "$env:LOCALAPPDATA\\Programs\\{folder}\\{exe}"')
     print(flush=True)

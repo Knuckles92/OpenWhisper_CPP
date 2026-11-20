@@ -74,7 +74,7 @@ std::vector<std::int16_t> write_recording(const std::filesystem::path& path, dou
 } // namespace
 
 TEST_CASE("golden windows", "[golden]") {
-    // Files FioriVoce's FFmpeg decodes slightly differently from PyAV's (av.resample16k's
+    // Files OpenWhisper_CPP's FFmpeg decodes slightly differently from PyAV's (av.resample16k's
     // tolerance pins): their windows are compared by count and offset only.
     const fv::Json& pins = fv::golden::load("av.resample16k").at("pins");
     const fv::Json& tolerance = pins.at("tolerance");

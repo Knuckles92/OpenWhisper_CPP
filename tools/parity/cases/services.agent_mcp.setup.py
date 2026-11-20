@@ -3,7 +3,7 @@
 The connection snippets with a fixed URL, token and host name; the channel entry with a fixed
 executable, data root and per-user folder. setup.py reads those three from sys.executable,
 config.is_frozen(), config.data_root() and config.local_app_dir(), so the wrappers pin them for
-the call and put them back. FioriVoce is always a built executable: only the frozen branch of
+the call and put them back. OpenWhisper_CPP is always a built executable: only the frozen branch of
 channel_command_line is recorded.
 
     channel_command_line(executable)

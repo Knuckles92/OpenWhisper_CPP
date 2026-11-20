@@ -22,7 +22,7 @@ import release_common as common
 
 REPO = Path(__file__).resolve().parents[3]
 PACKAGING = REPO / "packaging" / "windows"
-INSTALLER = PACKAGING / "FioriVoce.iss"
+INSTALLER = PACKAGING / "OpenWhisper_CPP.iss"
 SOURCE_IDENTITY = REPO / "src" / "update" / "data" / "release_identity.json"
 BASE_IDENTITY = REPO / "src" / "base" / "identity.cpp"
 
@@ -52,7 +52,7 @@ def app_identity_field(field: str) -> str:
 
 
 def find_iscc():
-    named = os.environ.get("FIORIVOCE_ISCC")
+    named = os.environ.get("OPENWHISPER_CPP_ISCC")
     candidates = [named, shutil.which("ISCC.exe") or shutil.which("iscc")]
     local = os.environ.get("LOCALAPPDATA")
     if local:
@@ -89,7 +89,7 @@ class InstallerScript(unittest.TestCase):
         deletes = section(self.script, "InstallDelete")
         names = entry_names(deletes)
         # Every name the install tree manages is cleared before the new files land.
-        for managed in (r"{app}\*.dll", r"{app}\fiorivoce*.exe", r"{app}\platforms",
+        for managed in (r"{app}\*.dll", r"{app}\openwhisper-cpp*.exe", r"{app}\platforms",
                         r"{app}\styles", r"{app}\imageformats", r"{app}\iconengines",
                         r"{app}\tls", r"{app}\share"):
             self.assertIn(managed, names)
@@ -124,10 +124,10 @@ class InstallerScript(unittest.TestCase):
         self.assertEqual([line for line in uninstalls if '"{app}\\' in line], installs)
         names = entry_names(uninstalls)
         # The native updater's two names in the tree (update/update_contract.h, amendment 22).
-        for leaf in (".fiorivoce-update.json", ".fiorivoce-update-complete"):
+        for leaf in (".openwhisper-cpp-update.json", ".openwhisper-cpp-update-complete"):
             self.assertIn("{app}\\" + leaf, names)
         contract = (REPO / "src" / "update" / "update_contract.h").read_text(encoding="utf-8")
-        self.assertIn('".fiorivoce-update.json" and ".fiorivoce-update-complete"', contract)
+        self.assertIn('".openwhisper-cpp-update.json" and ".openwhisper-cpp-update-complete"', contract)
         exe_patterns = [n.split("\\", 1)[1] for n in names if n.endswith(".exe")]
         updater = re.search(r'updater_name = "([^"]+)"',
                             (REPO / "src" / "update_native" / "manifest.h")
@@ -198,7 +198,7 @@ class InstallerScript(unittest.TestCase):
         self.assertTrue(prompt.group(1).rstrip().endswith("mbConfirmation, MB_YESNO, IDNO"))
         self.assertIn("Choose No to keep them for a future reinstall.", prompt.group(1))
         self.assertIn("ExpandConstant('{localappdata}\\{#DataDirName}')", self.script)
-        # FioriVoce's speech models live in speech-models\ inside the data folder (base/paths.h
+        # OpenWhisper_CPP's speech models live in speech-models\ inside the data folder (base/paths.h
         # speech_models_root), so Yes deletes them: OpenWhisper's "never removed" line would be
         # false here.
         self.assertNotIn("never removed", prompt.group(1))
@@ -221,9 +221,9 @@ class ReleaseRotation(rs.TempDirTestCase):
         build = self.tmp / "candidate"
         previous = self.tmp / "previous"
         build.mkdir()
-        older = {"FioriVoce-Setup-0.0.0.exe", "FioriVoce-0.0.0-win64.zip"}
-        current = {"FioriVoce-Setup-0.1.0.exe", "FioriVoce-0.1.0-win64.zip"}
-        unrelated = {"FioriVoce-Setup-notes.exe", "FioriVoce-other-win64.zip", "notes.txt"}
+        older = {"OpenWhisper_CPP-Setup-0.0.0.exe", "OpenWhisper_CPP-0.0.0-win64.zip"}
+        current = {"OpenWhisper_CPP-Setup-0.1.0.exe", "OpenWhisper_CPP-0.1.0-win64.zip"}
+        unrelated = {"OpenWhisper_CPP-Setup-notes.exe", "OpenWhisper_CPP-other-win64.zip", "notes.txt"}
         for name in older | current | unrelated:
             (build / name).write_text(name, encoding="utf-8")
         script = self.tmp / "rotate.ps1"
@@ -231,7 +231,7 @@ class ReleaseRotation(rs.TempDirTestCase):
             "param($Helpers, $Candidate, $Previous)\n"
             "$ErrorActionPreference = 'Stop'\n"
             ". $Helpers\n"
-            "Move-PreviousReleaseArtifacts $Candidate $Previous FioriVoce 0.1.0\n",
+            "Move-PreviousReleaseArtifacts $Candidate $Previous OpenWhisper_CPP 0.1.0\n",
             encoding="utf-8",
         )
         shell = shutil.which("pwsh") or shutil.which("powershell")
@@ -274,8 +274,8 @@ class Defines(rs.TempDirTestCase):
         self.assertNotIn("AppURL", values)
 
     def test_publisher_url_is_passed_when_the_identity_has_one(self):
-        identity = {**rs.IDENTITY, "publisher_url": "https://example.test/fiorivoce"}
-        self.assertEqual(self.defines(identity)["AppURL"], "https://example.test/fiorivoce")
+        identity = {**rs.IDENTITY, "publisher_url": "https://example.test/openwhisper-cpp"}
+        self.assertEqual(self.defines(identity)["AppURL"], "https://example.test/openwhisper-cpp")
 
     def test_malformed_input_is_refused(self):
         with self.assertRaises(common.ReleaseToolError):
@@ -310,8 +310,8 @@ class Defines(rs.TempDirTestCase):
         tree's identity, and the expanded text holds the exact AppId and mutex names."""
         stage = self.tmp / "stage"
         (stage / "platforms").mkdir(parents=True)
-        for name in ("fiorivoce.exe", "fiorivoce-updater.exe", "runtime.dll",
-                     ".fiorivoce-update.json"):
+        for name in ("openwhisper-cpp.exe", "openwhisper-cpp-updater.exe", "runtime.dll",
+                     ".openwhisper-cpp-update.json"):
             (stage / name).write_bytes(b"stand-in")
         (stage / "platforms" / "qwindows.dll").write_bytes(b"stand-in")
         expanded = self.tmp / "expanded.iss"
@@ -327,18 +327,18 @@ class Defines(rs.TempDirTestCase):
         identity = json.loads(SOURCE_IDENTITY.read_text(encoding="utf-8"))
         bare = identity["app_id"].strip("{}")
         self.assertIn("AppId={" + identity["app_id"] + "\n", text)
-        self.assertIn(f"AppMutex=FioriVoce-App-{bare},Global\\FioriVoce-App-{bare}\n", text)
-        self.assertIn(f"SetupMutex=Global\\FioriVoce-Setup-{bare}\n", text)
+        self.assertIn(f"AppMutex=OpenWhisper_CPP-App-{bare},Global\\OpenWhisper_CPP-App-{bare}\n", text)
+        self.assertIn(f"SetupMutex=Global\\OpenWhisper_CPP-Setup-{bare}\n", text)
         self.assertIn(f"'{identity['app_id']}_is1'", text)
-        self.assertIn("{param:FIORIVOCEUPDATE|0}", text)
-        self.assertIn('Name: "{localappdata}\\FioriVoce\\updates"', text)
+        self.assertIn("{param:OPENWHISPER_CPPUPDATE|0}", text)
+        self.assertIn('Name: "{localappdata}\\OpenWhisper_CPP\\updates"', text)
 
 
 class StageCheck(rs.TempDirTestCase):
     """inno_defines.py --check-stage: [InstallDelete] clears every top-level name of the stage."""
 
     # The top level of the tree stage.ps1 writes (windeployqt 6.10.3, vcpkg x64-windows).
-    STAGED_FILES = ("fiorivoce.exe", "fiorivoce-cli.exe", "Qt6Core.dll", "avcodec-61.dll",
+    STAGED_FILES = ("openwhisper-cpp.exe", "openwhisper-cpp-cli.exe", "Qt6Core.dll", "avcodec-61.dll",
                     "msvcp140.dll", "opengl32sw.dll", "THIRD_PARTY_NOTICES.md")
     STAGED_FOLDERS = ("generic", "iconengines", "imageformats", "licenses",
                       "networkinformation", "platforms", "styles", "tls", "webui")
@@ -387,7 +387,7 @@ class StageCheck(rs.TempDirTestCase):
         (self.tmp / "stage" / "translations").mkdir()
         unmanaged = run(self.tmp / "stage")
         self.assertEqual(unmanaged.returncode, 1)
-        self.assertIn("FioriVoce.iss [InstallDelete] does not clear {app}\\translations\\",
+        self.assertIn("OpenWhisper_CPP.iss [InstallDelete] does not clear {app}\\translations\\",
                       unmanaged.stderr)
 
     def test_build_installer_checks_the_stage_before_the_setup(self):
@@ -425,9 +425,9 @@ class SmokeUpdateScript(unittest.TestCase):
         self.assertIn("'/CURRENTUSER', \"/DIR=`\"$Target`\"\"", body)
         self.assertNotIn("Programs", body)
         # Every child (setup, app, updater, health launch) inherits the temporary LOCALAPPDATA,
-        # and FIORIVOCE_DATA_DIR is cleared (a non-default data root is not eligible, A16-16).
+        # and OPENWHISPER_CPP_DATA_DIR is cleared (a non-default data root is not eligible, A16-16).
         self.assertIn("$env:LOCALAPPDATA = $LocalRoot", body)
-        self.assertIn("Remove-Item Env:FIORIVOCE_DATA_DIR", body)
+        self.assertIn("Remove-Item Env:OPENWHISPER_CPP_DATA_DIR", body)
         self.assertIn("Restore-Environment", body.split("} finally {", 1)[1])
         # Nothing but its own folder is ever deleted.
         for line in body.splitlines():
@@ -459,7 +459,7 @@ class SmokeUpdateScript(unittest.TestCase):
         self.assertEqual(steps, sorted(steps))
         # The health-failure switch is set for the failing release's hand-off only.
         self.assertEqual(self.body.count("Start-App $url $true"), 1)
-        self.assertIn("$env:FIORIVOCE_TEST_FAIL_HEALTH = '1'", self.body)
+        self.assertIn("$env:OPENWHISPER_CPP_TEST_FAIL_HEALTH = '1'", self.body)
         # It refuses a failing build that does not know the switch rather than install it.
         self.assertLess(self.body.index("Test-FailHealthSwitch $Releases[$Failing].Archive"),
                         self.body.index("$Uninstalled = $false"))

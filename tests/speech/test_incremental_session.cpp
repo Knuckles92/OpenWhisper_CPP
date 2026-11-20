@@ -894,7 +894,7 @@ TEST_CASE("test_a_new_recording_supersedes_a_stale_session", "[test_incremental_
 TEST_CASE("test_ineligible_engines_and_recorders_get_no_session", "[test_incremental_dictation]") {
     // from
     // tests/test_incremental_dictation.py::test_ineligible_engines_and_recorders_get_no_session
-    // Whisper, Moonshine and Qwen are dropped engines; FioriVoce's other backends are api and
+    // Whisper, Moonshine and Qwen are dropped engines; OpenWhisper_CPP's other backends are api and
     // remote. Python's "canceled" case (a backend flag) has no counterpart: a cancel reaches a
     // session through discard().
     const std::string engine = GENERATE("api", "remote", "moonshine", "unavailable", "stereo");
@@ -1114,15 +1114,16 @@ TEST_CASE("read_wav_pcm reads chunks as the wave module does", "[incremental_ses
 
 TEST_CASE("a long dictation decoded while recording equals decode_file on the saved WAV",
           "[decode]") {
-    const auto runtime = fv::env_utf8("FIORIVOCE_TEST_RUNTIME_DIR");
-    const auto model = fv::env_utf8("FIORIVOCE_TEST_MODEL");
-    const auto wav = fv::env_utf8("FIORIVOCE_TEST_WAV");
+    const auto runtime = fv::env_utf8("OPENWHISPER_CPP_TEST_RUNTIME_DIR");
+    const auto model = fv::env_utf8("OPENWHISPER_CPP_TEST_MODEL");
+    const auto wav = fv::env_utf8("OPENWHISPER_CPP_TEST_WAV");
     if (!runtime || !model || !wav) {
-        SKIP("Set FIORIVOCE_TEST_RUNTIME_DIR, FIORIVOCE_TEST_MODEL and FIORIVOCE_TEST_WAV.");
+        SKIP("Set OPENWHISPER_CPP_TEST_RUNTIME_DIR, OPENWHISPER_CPP_TEST_MODEL and "
+             "OPENWHISPER_CPP_TEST_WAV.");
     }
     const auto source = fv::speech::detail::read_wav_pcm(fv::path_from_utf8(*wav));
     if (source.channels != 1 || source.sample_width != 2) {
-        SKIP("FIORIVOCE_TEST_WAV is not 16-bit mono.");
+        SKIP("OPENWHISPER_CPP_TEST_WAV is not 16-bit mono.");
     }
     Pcm speech(source.pcm.size() / 2);
     std::memcpy(speech.data(), source.pcm.data(), speech.size() * 2);

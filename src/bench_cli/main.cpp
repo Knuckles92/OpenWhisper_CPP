@@ -1,4 +1,4 @@
-// fiorivoce-bench: OpenWhisper's developer benchmarks (benchmarks/live_preview.py,
+// openwhisper-cpp-bench: OpenWhisper's developer benchmarks (benchmarks/live_preview.py,
 // cleanup_levels/run.py, meeting_mode/run.py, scripts/benchmark_local_asr*.py) over fv_bench.
 // Qt-free, never staged or installed, and it contacts no host but the cleanup provider a
 // cleanup-levels run names. The commands are in bench/commands.h.

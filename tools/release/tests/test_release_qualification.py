@@ -78,7 +78,7 @@ class TestReleaseQualification(Candidate):
                                  identity=rs.IDENTITY)
         with self.assertRaisesRegex(ValueError, "unrelated"):
             cq.validate_draft_assets(
-                self.directory, {"assets": [{"name": "FioriVoce-0.0.9-win64.zip"}]},
+                self.directory, {"assets": [{"name": "OpenWhisper_CPP-0.0.9-win64.zip"}]},
                 identity=rs.IDENTITY)
 
     def test_candidate_must_record_windows_signing(self):

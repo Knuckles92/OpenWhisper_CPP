@@ -42,8 +42,8 @@ Use it for unfamiliar names, "as we decided last time", recurring projects, or t
 
 Parameters: query (keywords), optional meeting_id (return a short slice of one past meeting), optional limit (default 10). If the user has not enabled past-meeting recall the tool says so; do not retry.)";
 
-// tools.ts said "the sidecar never touches the filesystem"; FioriVoce runs no sidecar, and what
-// the sentence promises is about the agent.
+// tools.ts said "the sidecar never touches the filesystem"; OpenWhisper_CPP runs no sidecar, and
+// what the sentence promises is about the agent.
 constexpr std::string_view kSearchContextFilesDescription =
     R"(Search the user's local knowledge folder for names, project notes, or phrasing that help the current pass. Read-only: it never changes the dashboard or transcript, and the agent never touches the filesystem.
 

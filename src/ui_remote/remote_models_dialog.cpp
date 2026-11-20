@@ -100,7 +100,7 @@ WrappedLabel* plainLabel(const QString& text) {
 // The paired host's models and speech runtimes, independent of this computer's storage
 // (ui_qt/dialogs/remote_models.py RemoteModelsDialog): a searchable list, an inspector with
 // Download, Run on host, Install runtime and Use on host, and the host's download and install
-// progress. FioriVoce adds the host's speech language, which OpenWhisper sets from the engine
+// progress. OpenWhisper_CPP adds the host's speech language, which OpenWhisper sets from the engine
 // card only. Requests run on `io`; their answers come back on `ui` to the dialog if it is still
 // open, and to the host the dialog was opened for only (its fingerprint).
 class RemoteModelsDialog final : public QDialog {
@@ -205,7 +205,7 @@ public:
         splitter->setSizes({360, 520});
         layout->addWidget(splitter, 1);
 
-        // FioriVoce: the host's speech language, for the engine it runs now.
+        // OpenWhisper_CPP: the host's speech language, for the engine it runs now.
         auto* languageRow = new QHBoxLayout;
         auto* languageCaption = new QLabel(QStringLiteral("Host speech language"));
         languages_ = new QComboBox;

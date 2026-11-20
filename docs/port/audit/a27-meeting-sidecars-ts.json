@@ -4,11 +4,11 @@
  "features": {
   "A27-01": {
    "status": "dropped",
-   "reason": "NDJSON JSON-RPC framing exists only between the Python host and a sidecar process. FioriVoce has no sidecar process (M8.md 'The native agent loop (owner decision, amendment 1)', change 2; ARCHITECTURE.md 'One agent loop (M8)'); M8.md's a27 table: 'dropped (no process boundary)'. The core calls the loop and the loop calls the tool host directly."
+   "reason": "NDJSON JSON-RPC framing exists only between the Python host and a sidecar process. OpenWhisper_CPP has no sidecar process (M8.md 'The native agent loop (owner decision, amendment 1)', change 2; ARCHITECTURE.md 'One agent loop (M8)'); M8.md's a27 table: 'dropped (no process boundary)'. The core calls the loop and the loop calls the tool host directly."
   },
   "A27-02": {
    "status": "dropped",
-   "reason": "The hello handshake (token, protocol and version checks, outdated-bundle message) authenticates a child process. FioriVoce has no sidecar process (M8.md 'The native agent loop (owner decision, amendment 1)', change 2; ARCHITECTURE.md 'One agent loop (M8)'); M8.md's a27 table: 'dropped (process only)'."
+   "reason": "The hello handshake (token, protocol and version checks, outdated-bundle message) authenticates a child process. OpenWhisper_CPP has no sidecar process (M8.md 'The native agent loop (owner decision, amendment 1)', change 2; ARCHITECTURE.md 'One agent loop (M8)'); M8.md's a27 table: 'dropped (process only)'."
   },
   "A27-03": {
    "status": "fixed",
@@ -76,7 +76,7 @@
   },
   "A27-08": {
    "status": "dropped",
-   "reason": "Exiting the process so the supervisor restarts it is a process policy; FioriVoce has no sidecar process (M8.md 'The native agent loop (owner decision, amendment 1)', change 2; ARCHITECTURE.md 'One agent loop (M8)'). What survives (M8.md table: 'a pass that throws fails that pass only') is tested: test_native_core_budgets.cpp 'a broken transfer fails that pass only', test_scheduler.cpp 'a pass that throws a non-standard exception fails that pass only'. Provider errors never reach the log or the user with a body (llm::StreamError texts)."
+   "reason": "Exiting the process so the supervisor restarts it is a process policy; OpenWhisper_CPP has no sidecar process (M8.md 'The native agent loop (owner decision, amendment 1)', change 2; ARCHITECTURE.md 'One agent loop (M8)'). What survives (M8.md table: 'a pass that throws fails that pass only') is tested: test_native_core_budgets.cpp 'a broken transfer fails that pass only', test_scheduler.cpp 'a pass that throws a non-standard exception fails that pass only'. Provider errors never reach the log or the user with a body (llm::StreamError texts)."
   },
   "A27-09": {
    "status": "verified",
@@ -164,7 +164,7 @@
     "tests/meeting_agent/test_native_core.cpp",
     "tests/meeting_agent/test_native_core_passes.cpp"
    ],
-   "note": "As A27-10: the model now sees tools.ts's search_context_files: SEARCH_CONTEXT_FILES_DESCRIPTION with the untrusted-content warning; 'the sidecar never touches the filesystem' reads 'the agent never touches the filesystem' (FioriVoce has no sidecar); limit number, no required list, compared whole with tests/fixtures/meeting_agent/native/tools.json in tests/meeting_agent/test_audit_a27_loop.cpp. Tally and result texts unchanged and tested as before."
+   "note": "As A27-10: the model now sees tools.ts's search_context_files: SEARCH_CONTEXT_FILES_DESCRIPTION with the untrusted-content warning; 'the sidecar never touches the filesystem' reads 'the agent never touches the filesystem' (OpenWhisper_CPP has no sidecar); limit number, no required list, compared whole with tests/fixtures/meeting_agent/native/tools.json in tests/meeting_agent/test_audit_a27_loop.cpp. Tally and result texts unchanged and tested as before."
   },
   "A27-15": {
    "status": "verified",
@@ -265,7 +265,7 @@
   },
   "A27-23": {
    "status": "dropped",
-   "reason": "The embedded OpenCode SDK host (in-memory DB, plugin, config overlay, log suppression) existed only inside the Bun sidecar; FioriVoce has no sidecar process (M8.md 'The native agent loop (owner decision, amendment 1)', change 2; ARCHITECTURE.md 'One agent loop (M8)'). Its rules survive in the native loop: only the meeting tools and the charter as the only system text (A27-15, A27-27)."
+   "reason": "The embedded OpenCode SDK host (in-memory DB, plugin, config overlay, log suppression) existed only inside the Bun sidecar; OpenWhisper_CPP has no sidecar process (M8.md 'The native agent loop (owner decision, amendment 1)', change 2; ARCHITECTURE.md 'One agent loop (M8)'). Its rules survive in the native loop: only the meeting tools and the charter as the only system text (A27-15, A27-27)."
   },
   "A27-24": {
    "status": "difference",
@@ -372,7 +372,7 @@
   },
   "A27-32": {
    "status": "dropped",
-   "reason": "The runtime isolation root and stripped environment protected a Bun child process; FioriVoce has no sidecar process (M8.md 'The native agent loop (owner decision, amendment 1)', change 2; ARCHITECTURE.md 'One agent loop (M8)'). M8.md a27 table: 'dropped (process only)'."
+   "reason": "The runtime isolation root and stripped environment protected a Bun child process; OpenWhisper_CPP has no sidecar process (M8.md 'The native agent loop (owner decision, amendment 1)', change 2; ARCHITECTURE.md 'One agent loop (M8)'). M8.md a27 table: 'dropped (process only)'."
   }
  },
  "differences": [
@@ -382,7 +382,7 @@
     "A27-06"
    ],
    "openwhisper": "runner.ts's cancel names one request id: the active pass is aborted, any other id is pre-canceled so that queued checkpoint returns canceled without running; sidecar.py's cancel() sends one per in-flight request and a timed-out request is canceled alone.",
-   "fiorivoce": "AgentCore::cancel cancels every pass of the core at once through its cancel generation (the running pass and every pass waiting for it); there is no per-request cancel, and a pass that runs out of time cancels only itself through its own deadline.",
+   "openwhisper-cpp": "AgentCore::cancel cancels every pass of the core at once through its cancel generation (the running pass and every pass waiting for it); there is no per-request cancel, and a pass that runs out of time cancels only itself through its own deadline.",
    "reason": "With no process there is no request id on the wire; the scheduler only ever cancels everything in flight.",
    "source": "docs/port/packages/M8.md 'The native agent loop' table ('cancel of every in-flight pass, pre-cancel of a queued pass, cancel generation ... M8.8'); tests/meeting_agent/test_native_core_passes.cpp 'cancel ends the running pass and every pass waiting behind it'"
   },
@@ -392,7 +392,7 @@
     "A27-05"
    ],
    "openwhisper": "sidecar.py starts a checkpoint's wall and stall clocks when it sends the RPC, so a checkpoint queued behind another in the sidecar's chain spends its budget waiting.",
-   "fiorivoce": "A pass waiting for the core's previous pass starts its wall and stall budget when it runs; the scheduler's own bound (run_agent_call's wall for the consolidation) still covers the wait.",
+   "openwhisper-cpp": "A pass waiting for the core's previous pass starts its wall and stall budget when it runs; the scheduler's own bound (run_agent_call's wall for the consolidation) still covers the wait.",
    "reason": "Passes are serialized in process by a mutex (one pass at a time per core), so the budget measures the pass's own model and tool work.",
    "source": "docs/port/packages/M8.md 'The native agent loop' table ('checkpoint one pass at a time ... M8.8: one pass at a time per core (mutex), queued passes run in order'); tests/meeting_agent/test_native_core_passes.cpp, test_native_core_budgets.cpp"
   },
@@ -404,7 +404,7 @@
     "A27-29"
    ],
    "openwhisper": "Pi registers the provider in a temporary models.json (base URLs, authHeader, compat flags, thinking map) and OpenCode routes through its SDK's provider adapters with its own body shaping (Anthropic budget_tokens, Google thinkingConfig, store:false, 4096 output tokens by default).",
-   "fiorivoce": "The loop builds each request with the same llm request builders as text generation over the meeting's profile and model spec: reasoning at medium when the spec reasons (as OpenWhisper sent it: sidecar.py's model_metadata always carried the spec's bool reasoning, so Pi's openrouter/openai kind default never applied), max_tokens from the spec else 16,384; SDK-only URL fixups and OpenCode's body rules are not carried.",
+   "openwhisper-cpp": "The loop builds each request with the same llm request builders as text generation over the meeting's profile and model spec: reasoning at medium when the spec reasons (as OpenWhisper sent it: sidecar.py's model_metadata always carried the spec's bool reasoning, so Pi's openrouter/openai kind default never applied), max_tokens from the spec else 16,384; SDK-only URL fixups and OpenCode's body rules are not carried.",
    "reason": "One loop replaces both harnesses and follows Pi, the default core; the provider requests are M4.5's.",
    "source": "docs/port/packages/M8.md changes 4 and 5, M8.8 Scope ('agent_request.{h,cpp}'), 'The native agent loop' table ('Provider registration ... SDK-only URL fixups dropped'); tests/meeting_agent/test_audit_a26.cpp, test_native_requests.cpp"
   },
@@ -414,7 +414,7 @@
     "A27-20"
    ],
    "openwhisper": "Pi returns the last usage it saw in the pass's session events as the checkpoint's usage.",
-   "fiorivoce": "A pass's usage is the sum of every model call it made (merge_usage, with a request count).",
+   "openwhisper-cpp": "A pass's usage is the sum of every model call it made (merge_usage, with a request count).",
    "reason": "The native loop sees each response's usage and sums the pass as the scheduler does.",
    "source": "docs/port/packages/M8.md 'The native agent loop' table ('Usage capture (A27-20), merge_usage (A26-45): M8.8 sums a pass with M8.2's merge_usage'); tests/meeting_agent/test_native_core.cpp"
   },
@@ -424,7 +424,7 @@
     "A27-24"
    ],
    "openwhisper": "Pi's turnFailure surfaced the SDK's errorMessage for a failed provider turn (which can carry the provider's body), so the user could read e.g. \"Final insights failed: 503 ...\"; the OpenCode sidecar read \"OpenCode model turn failed (HTTP <status>)\" and never surfaced the provider's text.",
-   "fiorivoce": "A failed model turn with an HTTP status reads \"{profile name} model turn failed (HTTP {status})\", followed by \": {message}\" when the provider's error body or stream error names one, cleaned (error.message or message, first line, keys, bearer tokens, key-shaped runs and URL queries removed, at most 200 code points); the body itself is never shown. A transport failure without a status keeps its own sentence (\"Connection error.\", \"Model stream ended before the reply was complete.\").",
+   "openwhisper-cpp": "A failed model turn with an HTTP status reads \"{profile name} model turn failed (HTTP {status})\", followed by \": {message}\" when the provider's error body or stream error names one, cleaned (error.message or message, first line, keys, bearer tokens, key-shaped runs and URL queries removed, at most 200 code points); the body itself is never shown. A transport failure without a status keeps its own sentence (\"Connection error.\", \"Model stream ended before the reply was complete.\").",
    "reason": "Lead decision: one failure rule for both former sidecars, never a provider body, with the cleaned provider message as the gain M10.22 scoped; the corrupted-signature sentence stays in the message so the polish retry works.",
    "source": "docs/port/ARCHITECTURE.md amendment 20 'Provider errors (M8)'; docs/port/packages/M8.md lead decision 4 and change 4; docs/port/packages/M10.md M10.22 Scope (gain row) and Contracts (StreamError::provider_message)"
   }

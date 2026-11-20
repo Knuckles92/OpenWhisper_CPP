@@ -352,7 +352,8 @@ TEST_CASE("a backup or a host update refuses a start before anything else", "[me
     rig.rt->start_meeting(false);
     rig.drain();
     CHECK(rig.got.statuses == std::vector<std::string>{messages::update_preparing()});
-    CHECK_THAT(rig.got.statuses.back(), ContainsSubstring("FioriVoce is preparing an update"));
+    CHECK_THAT(rig.got.statuses.back(),
+               ContainsSubstring("OpenWhisper_CPP is preparing an update"));
 
     rig.activity.set_host_update_active(false);
     rig.rt->start_meeting(false);

@@ -108,10 +108,10 @@ inline constexpr std::string_view PEER_DELIVERY_FAILED = "delivery_failed";
 inline constexpr std::array<std::string_view, 6> MODES = {"dictation", "command",     "transform",
                                                           "action",    "walkthrough", "file"};
 
-// "<env_prefix>MCP_EVENT_SECRET_" (FIORIVOCE_MCP_EVENT_SECRET_).
+// "<env_prefix>MCP_EVENT_SECRET_" (OPENWHISPER_CPP_MCP_EVENT_SECRET_).
 std::string secret_name_prefix();
 // Everyone holding the MCP token is the same principal, the user's agents:
-// "<data_dir_name in lower case>-mcp-token" ("fiorivoce-mcp-token").
+// "<data_dir_name in lower case>-mcp-token" ("openwhisper-cpp-mcp-token").
 std::string principal();
 // OpenWhisper's principal, for comparing ids recorded from it.
 std::string legacy_principal();

@@ -1,6 +1,6 @@
 # Development environment
 
-How to set up a machine and build, run, test and debug FioriVoce day to day,
+How to set up a machine and build, run, test and debug OpenWhisper_CPP day to day,
 and how the build is organised. README.md covers what the project is and how to
 get a speech runtime and model; `docs/port/ARCHITECTURE.md` the port's design.
 
@@ -52,7 +52,7 @@ The individual steps, when you want just one:
 cmake --preset windows                      # configure (once, or after CMake changes)
 cmake --build --preset windows-debug        # build
 ctest --preset windows-debug                # test
-out/build/windows/bin/Debug/fiorivoce-cli --help
+out/build/windows/bin/Debug/openwhisper-cpp-cli --help
 out/build/windows/bin/Debug/fv_engine_tests "name of one test"
 ```
 
@@ -65,8 +65,8 @@ never collide.
 | Workflow | What it builds and runs |
 | --- | --- |
 | `windows-debug`, `windows-release` | Everything, with Qt when found |
-| `windows-ci` | Everything (Qt required) in RelWithDebInfo, warnings as errors on FioriVoce's targets, every test including the lints (Python 3.12 required) and the screenshot comparisons. A package passes this before it merges. |
-| `windows-core` | The Qt-free modules and their tests only (`FIORIVOCE_BUILD_APP=OFF`): the fastest loop for a core package |
+| `windows-ci` | Everything (Qt required) in RelWithDebInfo, warnings as errors on OpenWhisper_CPP's targets, every test including the lints (Python 3.12 required) and the screenshot comparisons. A package passes this before it merges. |
+| `windows-core` | The Qt-free modules and their tests only (`OPENWHISPER_CPP_BUILD_APP=OFF`): the fastest loop for a core package |
 | `linux-debug`, `linux-release` | Everything that builds on Linux |
 | `linux-core` | Every `core` module and its tests with GCC, no Qt |
 | `linux-asan` | As `linux-debug`, under ASan and UBSan with Clang |
@@ -74,8 +74,8 @@ never collide.
 
 The `default` preset (`cmake --preset default`, building into `build/`) needs no
 vcpkg and no setup script: it uses the platform's default generator, fetches
-Catch2 itself and builds only the engine, `fiorivoce-cli` and their tests
-(`FIORIVOCE_ENGINE_ONLY`).
+Catch2 itself and builds only the engine, `openwhisper-cpp-cli` and their tests
+(`OPENWHISPER_CPP_ENGINE_ONLY`).
 
 ### A package's inner loop
 
@@ -88,10 +88,10 @@ ctest --preset windows-debug -L <dir>
 tests that decode real audio, `-L lint` the lints, `-L cmake` the tests of the
 build system itself.
 
-The decode tests are skipped unless `FIORIVOCE_TEST_RUNTIME_DIR`,
-`FIORIVOCE_TEST_MODEL` and `FIORIVOCE_TEST_WAV` are set (README.md). The PDF text tests
-need `FIORIVOCE_TEST_PDFIUM`, and the speaker embedding tests need
-`FIORIVOCE_TEST_ONNXRUNTIME` and `FIORIVOCE_TEST_SPEAKER_MODEL`; without them those tests
+The decode tests are skipped unless `OPENWHISPER_CPP_TEST_RUNTIME_DIR`,
+`OPENWHISPER_CPP_TEST_MODEL` and `OPENWHISPER_CPP_TEST_WAV` are set (README.md). The PDF text tests
+need `OPENWHISPER_CPP_TEST_PDFIUM`, and the speaker embedding tests need
+`OPENWHISPER_CPP_TEST_ONNXRUNTIME` and `OPENWHISPER_CPP_TEST_SPEAKER_MODEL`; without them those tests
 skip.
 
 ## How the tree is organised
@@ -133,9 +133,9 @@ Windows or `posix/` elsewhere. A directory with headers only becomes an
 implementations; its first `.cpp` turns it into a static library. Qt kinds also
 get AUTOMOC and compile `resources/` into `:/<dir>/`. `QT <components>` adds
 the named exceptions (`Widgets` for `appkit`, `Network` for `ui_shell`). An
-executable is `fv_module(KIND exe NAME fiorivoce GUI FEATURES DEPS ...)`: `GUI`
+executable is `fv_module(KIND exe NAME openwhisper-cpp GUI FEATURES DEPS ...)`: `GUI`
 makes it a Windows GUI program, `FEATURES` links the generated feature
-registry. Third-party targets come from `cmake/FioriVoceDeps.cmake`, which holds
+registry. Third-party targets come from `cmake/OpenWhisper_CPPDeps.cmake`, which holds
 every `find_package`.
 
 ### Adding a test
@@ -146,7 +146,7 @@ registers every test case with CTest under the label `<dir>` and its kind, taken
 from the test's Catch2 tag: `[decode]`, `[platform]`, `[golden]`, `[widget]`,
 `[screenshot]`, or `unit` when it has none. `QT <components>` builds a Qt test;
 `NO_MAIN` links Catch2 without its main (for a custom one). CTest gives every
-test case its own `FIORIVOCE_DATA_DIR` (a folder under the test directory's
+test case its own `OPENWHISPER_CPP_DATA_DIR` (a folder under the test directory's
 build folder, so `ctest -j` never shares one between cases) and, for Qt tests,
 `QT_QPA_PLATFORM=offscreen`.
 
@@ -180,8 +180,8 @@ The lead edits these, at milestone boundaries only: the top-level
 `src/settings/keys.inc`, `src/appkit/order.h`, `src/appkit/destinations.h`,
 `src/ui_theme/style_props.h`, `src/ui_theme/resources/theme.qss`, `CLAUDE.md`
 and `BUILDING.md`. A package changes only the directories it owns;
-`lint.ownership` checks that when `FIORIVOCE_OWNS` names them (for example
-`FIORIVOCE_OWNS="src/settings/;tools/gen/settings_keys.py"`).
+`lint.ownership` checks that when `OPENWHISPER_CPP_OWNS` names them (for example
+`OPENWHISPER_CPP_OWNS="src/settings/;tools/gen/settings_keys.py"`).
 
 ### Lints
 
@@ -196,14 +196,14 @@ tests named `lint.<check>`: `layering`, `ownership`, `qss_names`, `brand`
 
 - Two shared precompiled headers (`cmake/pch/core.h`, `cmake/pch/qt.h`) are
   compiled once per set of compile definitions and reused by every target
-  (`FIORIVOCE_PCH`, on by default).
+  (`OPENWHISPER_CPP_PCH`, on by default).
 - Qt's DLLs and plugins are copied into `bin/` once, by the `fv_qt_runtime`
   target, rather than by `windeployqt` after each executable.
 - `sccache` is used when it is on `PATH`; nothing depends on it.
 
 ## Qt (the desktop app)
 
-The Qt modules, the desktop app (`fiorivoce`) and their tests are built only
+The Qt modules, the desktop app (`openwhisper-cpp`) and their tests are built only
 when CMake finds Qt 6.8 or later (Core, Gui, Widgets, Svg, SvgWidgets, Network,
 Test); without it, every `core` module and its tests still build. Qt is a
 prebuilt install rather than a vcpkg dependency, because vcpkg would compile all
@@ -225,7 +225,7 @@ there when prompted.
 - **Pick a preset**: CMake Tools asks on first open; choose `Windows (MSVC x64)`
   or `Linux (GCC)`. Change it later from the status bar.
 - **Build**: `F7`. **Run tests**: the Testing panel, or `CMake: Run Tests`.
-- **Debug**: choose the target in the status bar (`fiorivoce`, `fiorivoce-cli`
+- **Debug**: choose the target in the status bar (`openwhisper-cpp`, `openwhisper-cpp-cli`
   or an `fv_<dir>_tests`), then `F5`. Program arguments go in `args` in
   `.vscode/launch.json`.
 - Files format on save with `.clang-format`; clang-tidy warnings from
@@ -259,8 +259,8 @@ On Windows, clang-format runs in WSL:
 | File | Purpose |
 | --- | --- |
 | `CMakeLists.txt` | Finds the modules and tests; options |
-| `cmake/FioriVoceModules.cmake` | `fv_module`, `fv_test`, `fv_feature`, `fv_embed`, the layering check, the feature registry |
-| `cmake/FioriVoceDeps.cmake` | Every `find_package` |
+| `cmake/OpenWhisper_CPPModules.cmake` | `fv_module`, `fv_test`, `fv_feature`, `fv_embed`, the layering check, the feature registry |
+| `cmake/OpenWhisper_CPPDeps.cmake` | Every `find_package` |
 | `CMakePresets.json` | Every supported way to configure, build and test |
 | `vcpkg.json` | Third-party libraries and the pinned versions |
 | `tools/lint/` | The lints and their tests |

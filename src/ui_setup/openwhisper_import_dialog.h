@@ -32,11 +32,11 @@ struct ImportFindings {
     bool running = false;
 };
 
-// The window that brings an OpenWhisper install's data over (FioriVoce only, architecture 7.5):
-// what was found (the folder, its settings, history, recordings, and the speech runtime and
-// model that come with it), the safety rules it is imported under, the "Copy API keys" choice
-// (off until ticked), and "Import and restart". It starts no work itself: importRequested and
-// chooseFolderRequested ask its owner (OpenWhisperImport), which feeds back setFindings,
+// The window that brings an OpenWhisper install's data over (OpenWhisper_CPP only,
+// architecture 7.5): what was found (the folder, its settings, history, recordings, and the speech
+// runtime and model that come with it), the safety rules it is imported under, the "Copy API keys"
+// choice (off until ticked), and "Import and restart". It starts no work itself: importRequested
+// and chooseFolderRequested ask its owner (OpenWhisperImport), which feeds back setFindings,
 // setBusy and setError, and accepts the window once the import is staged.
 // Affinity: GUI thread.
 class OpenWhisperImportDialog : public QDialog {

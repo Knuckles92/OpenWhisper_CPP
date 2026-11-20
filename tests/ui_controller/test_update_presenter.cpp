@@ -89,7 +89,7 @@ TEST_CASE("manual check opens the dialog and lights the notice", "[test_update_n
     fv::AppUpdateDialog* dialog = presenter(rig).dialog();
     REQUIRE(dialog != nullptr);
     CHECK(dialog->isVisible());
-    CHECK(dialog->titleLabel()->text() == QStringLiteral("FioriVoce 2.2.0 is available"));
+    CHECK(dialog->titleLabel()->text() == QStringLiteral("OpenWhisper_CPP 2.2.0 is available"));
     CHECK(notice(rig) == QStringLiteral("Update to 2.2.0"));
     closeDialog(presenter(rig));
     CHECK(presenter(rig).dialog() == nullptr);
@@ -112,7 +112,7 @@ TEST_CASE("up to date result withdraws the notice", "[test_update_notice][widget
     presenter(rig).onCheckFinished(result(update::UpdateStatus::UpToDate, "2.1.1"), "", false);
     CHECK(notice(rig).isEmpty());
     CHECK(tray(rig).isEmpty());
-    CHECK(rig.tray().toolTip() == QStringLiteral("FioriVoce"));
+    CHECK(rig.tray().toolTip() == QStringLiteral("OpenWhisper_CPP"));
 }
 
 // from tests/test_update_notice.py::test_notices_follow_the_notify_setting
@@ -162,7 +162,7 @@ TEST_CASE("notice and tray open the found release", "[test_update_notice][widget
     Q_EMIT rig.window().updateNoticeRequested();
     REQUIRE(presenter(rig).dialog() != nullptr);
     CHECK(presenter(rig).dialog()->titleLabel()->text() ==
-          QStringLiteral("FioriVoce 2.2.0 is available"));
+          QStringLiteral("OpenWhisper_CPP 2.2.0 is available"));
     closeDialog(presenter(rig));
     REQUIRE(presenter(rig).dialog() == nullptr);
 
@@ -252,8 +252,8 @@ TEST_CASE("the About box shows the update status of the last check", "[widget]")
     parts.ui = &rig.uiExecutor();
     update::InstallProbe probe;
     probe.registered = true;
-    probe.install_dir = "C:/Programs/FioriVoce";
-    probe.running_dir = "C:/Programs/FioriVoce";
+    probe.install_dir = "C:/Programs/OpenWhisper_CPP";
+    probe.running_dir = "C:/Programs/OpenWhisper_CPP";
     parts.probe = &probe;
     // The Windows installer this test describes, whatever system runs it.
     parts.platform = "win32";
@@ -264,7 +264,7 @@ TEST_CASE("the About box shows the update status of the last check", "[widget]")
     fv::UpdatePresenter own(std::move(parts));
     own.onCheckFinished(result(), "", false);
     own.showAbout();
-    CHECK(title == QStringLiteral("About FioriVoce"));
+    CHECK(title == QStringLiteral("About OpenWhisper_CPP"));
     CHECK(html.contains(QStringLiteral("Install: Windows installer</p>")));
     CHECK(html.contains(QStringLiteral("<p>Update status: Update available: 2.2.0</p>")));
 }

@@ -15,8 +15,8 @@ namespace fv {
 // chosen, a "Manage downloads" link to the Downloads page, and a caption line. Object name
 // localModelPicker. Downloads owns download and delete; this only chooses which model to load.
 //
-// OpenWhisper's picker also offered "auto", Whisper sizes and custom models; FioriVoce has none
-// of them, so the choices are the Parakeet models of the speech catalog. Affinity: GUI thread.
+// OpenWhisper's picker also offered "auto", Whisper sizes and custom models; OpenWhisper_CPP has
+// none of them, so the choices are the Parakeet models of the speech catalog. Affinity: GUI thread.
 class LocalModelPicker : public QWidget {
     Q_OBJECT
 public:

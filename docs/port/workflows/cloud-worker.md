@@ -14,7 +14,7 @@ them file for file, so use them for intent and trust the tree for what exists).
 GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1 https://github.com/Knuckles92/openwhisper /home/user/openwhisper-ref
 git -C /home/user/openwhisper-ref fetch --depth 1 origin 768b559edd932d40806c96eed05ef5a20e57e415
 git -C /home/user/openwhisper-ref checkout -q --detach FETCH_HEAD
-export FIORIVOCE_OW_ROOT=/home/user/openwhisper-ref      # every parity tool reads it
+export OPENWHISPER_CPP_OW_ROOT=/home/user/openwhisper-ref      # every parity tool reads it
 
 # Configure: the first run builds the vcpkg dependencies (about half an hour).
 cmake --preset linux -DCMAKE_EXE_LINKER_FLAGS=-fuse-ld=lld -DCMAKE_SHARED_LINKER_FLAGS=-fuse-ld=lld \
@@ -50,7 +50,7 @@ For each one:
    - **The behaviour is missing or differs**: port it from the Python (a pending test often
      marks code nobody wired up), then test it, then `ported`. Say in your report what was
      missing.
-   - **It does not apply to FioriVoce**: `dropped` or `other-platform` with a `reason` a
+   - **It does not apply to OpenWhisper_CPP**: `dropped` or `other-platform` with a `reason` a
      reviewer can check: another speech engine than Parakeet, Python or PyInstaller plumbing, the
      TypeScript sidecars the native agent loop replaced, macOS- or Linux-only behaviour of the
      Windows product, or a deliberate difference already recorded in `docs/port/differences.md`
@@ -96,7 +96,7 @@ ctest --preset linux-debug -L lint                 # when you touched src/
 
 Run tests through `ctest`, never by starting a test executable. Build and run every few
 functions, not once at the end, and run each directory you touched in full before you finish.
-The decode tests have their runtime, model and WAV (`FIORIVOCE_TEST_*` are set). Windows-only
+The decode tests have their runtime, model and WAV (`OPENWHISPER_CPP_TEST_*` are set). Windows-only
 code under `win/` does not compile here: keep new behaviour platform-neutral where the design
 allows; when a change must go in `win/`, write it carefully, keep the `posix/` stub in step, and
 list it in your report as not compiled. `[interactive]` tests are never run. Format what you
@@ -104,7 +104,7 @@ touch with `clang-format -i`.
 
 ### What already fails on Linux and is not a port defect
 
-FioriVoce is a Windows product and its Qt modules were first built with GCC on 2026-11-19. Do
+OpenWhisper_CPP is a Windows product and its Qt modules were first built with GCC on 2026-11-19. Do
 not "fix" these by changing what a test asserts, and do not count them against your work:
 
 - Reference screenshot tests: the pixel half skips; the widget-tree half fails where the

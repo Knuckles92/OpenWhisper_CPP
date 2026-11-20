@@ -70,7 +70,7 @@ CASES = {
     ],
     "voice_command_choice": [
         ["Assistant, mark that as a decision.", ["We ship Friday.", "", "Agreed."],
-         ["assistant", "fiorivoce"], ["mark_decision", 0.93]],
+         ["assistant", "openwhisper-cpp"], ["mark_decision", 0.93]],
         ["  note taker, replace Acme with Acme Labs  ", ["a", "b", "c", "d", ""],
          ["note taker"], ["fix_transcript", 0.71]],
         ["Assistant recap please", [], [], None],

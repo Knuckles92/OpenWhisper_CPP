@@ -37,7 +37,8 @@ constexpr char kCuda[] = "asr-nvidia-cuda";
 constexpr char kCpu[] = "asr-nvidia-cpu";
 constexpr std::int64_t kModelBytes = 713'975'456;
 constexpr int kScreenHeight = 900;
-const QString kDestination = QStringLiteral("C:/Users/test/AppData/Local/FioriVoce/speech-models");
+const QString kDestination =
+    QStringLiteral("C:/Users/test/AppData/Local/OpenWhisper_CPP/speech-models");
 
 // Qt 6.11, the kit the references were rendered with, gives a scroll area's hidden scroll bars
 // (and their containers) their thickness from the start. Qt 6.10 leaves them at QWidget's

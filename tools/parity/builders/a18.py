@@ -5,7 +5,7 @@ host "devbox", fingerprint ABCD..., paired dates of 2026-11-12, the clock of the
 convert to the machine's Pacific time, as on the C++ side). The page is OpenWhisper's own Settings
 → Remote engine, built by a SettingsDialog over a throwaway settings file in the isolated data
 folder (out/parity/ow-data), as builders/a06.py builds the Hotkeys page, and bound to a fake
-service and record sync that answer at once; then taken out of the dialog, since FioriVoce's
+service and record sync that answer at once; then taken out of the dialog, since OpenWhisper_CPP's
 RemoteEnginePage is the page body the Settings shell hosts. The page body has no object name
 there (settingsPage_<key> is the shell's wrapper).
 
@@ -19,7 +19,7 @@ import time
 from contextlib import ExitStack
 from unittest.mock import MagicMock, patch
 
-PRODUCT = "FioriVoce"
+PRODUCT = "OpenWhisper_CPP"
 PAGE_WIDTH = 900
 FINGERPRINT = "ABCD" * 16
 

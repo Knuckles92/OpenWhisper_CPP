@@ -8,7 +8,7 @@
 // Affinity: thread-safe (pure functions).
 namespace fv::speech {
 
-// Lead decision: FioriVoce has one previewing engine, so the copy names only Parakeet.
+// Lead decision: OpenWhisper_CPP has one previewing engine, so the copy names only Parakeet.
 inline constexpr std::string_view kPreviewUnavailableStatus = "Live preview needs Parakeet";
 // {host} is the paired computer's name.
 inline constexpr std::string_view kRemotePreviewUnavailableStatus =

@@ -35,7 +35,7 @@ No widgets live here. The Settings "Remote engine" page, host dashboard and pair
 controller glue (`services/runtime/remote.py`: `switch_engine_for_client`, `configure_engine_for_client`,
 `on_host_event`) is `a04`. Nothing in this area imports Qt; listeners fire on arbitrary threads.
 
-Status of the whole area for FioriVoce: **undecided backend** (the remote-computer engine is not yet kept or
+Status of the whole area for OpenWhisper_CPP: **undecided backend** (the remote-computer engine is not yet kept or
 dropped). Within it, Whisper / Moonshine / Qwen / MLX specifics are **drop**. `lan_address.py` is also used by the
 meeting web server (`meeting/web/server.py:discover_lan_ipv4`), so it is **port** regardless.
 
@@ -440,7 +440,7 @@ meeting web server (`meeting/web/server.py:discover_lan_ipv4`), so it is **port*
 - UDP discovery on 47821 (A17-34).
 - **Compatibility**: an existing OpenWhisper install depends on: path, magic strings, SAS/commit domain strings,
   close codes, JSON field names, cert/key filenames, credential name, settings key names and the `record_sync`
-  table. Keep all byte-identical if FioriVoce should pair with OpenWhisper computers or take over an existing
+  table. Keep all byte-identical if OpenWhisper_CPP should pair with OpenWhisper computers or take over an existing
   data dir.
 
 ## External dependencies
@@ -486,7 +486,7 @@ meeting web server (`meeting/web/server.py:discover_lan_ipv4`), so it is **port*
   network thread; CLAUDE.md). It must share the decode queue with the host's own dictation (the Python worker's
   decode lock did this). `identity` = (family, model path/id, device cpu|gpu runtime, language); `describe()` keys
   unchanged. `stream` -> "The host's engine has no live stream" (Parakeet TDT is offline-only; clients preview with
-  `transcribe` windows). `accepts_phrases` = whether FioriVoce's Parakeet path uses word boosting (likely false ->
+  `transcribe` windows). `accepts_phrases` = whether OpenWhisper_CPP's Parakeet path uses word boosting (likely false ->
   `recognition_hints:false`). Nemotron Streaming (same runtime, undecided) would implement `stream`.
 - `runtime_state` reduces to device choice between installed NeMo CPU/GPU runtimes (loaded by path, never unloaded:
   a runtime switch may need restart, cf. `restart_required`).
@@ -549,7 +549,7 @@ fixed interface list; `settings.remember_host_addresses` (as a pure function of 
 clock.
 
 ## Porting notes
-- **Decision first**: whether the remote-computer engine is kept. If kept, decide whether FioriVoce must
+- **Decision first**: whether the remote-computer engine is kept. If kept, decide whether OpenWhisper_CPP must
   interoperate with OpenWhisper computers (then every string in "Compatibility" stays byte-identical, including the
   `openwhisper` path, magics and credential name).
 - Decomposition:

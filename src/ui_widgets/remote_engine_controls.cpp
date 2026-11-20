@@ -17,7 +17,7 @@ const QString kDeviceTip =
                    "GPU uses its graphics card; CPU uses its processor.");
 const QString kQuantTip = QStringLiteral("Choose Whisper's precision on the remote computer. "
                                          "Auto chooses a supported precision for its hardware.");
-// OpenWhisper adds "Moonshine supports English only": FioriVoce's hosts serve Parakeet alone.
+// OpenWhisper adds "Moonshine supports English only": OpenWhisper_CPP's hosts serve Parakeet alone.
 const QString kLanguageTip =
     QStringLiteral("Choose the host engine's language for remote transcription. "
                    "Auto detects a supported language.");

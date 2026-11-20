@@ -1,9 +1,9 @@
 """Record OpenWhisper's remote-engine wire, both sides of every frame, for C++ replay.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
-        $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/remote_wire.py --all
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/remote_wire.py --scenario remote_probe
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
+        $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/remote_wire.py --all
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/remote_wire.py --scenario remote_probe
 
 OpenWhisper's SpeechHost (services/remote_asr/host.py), HistoryBroker and its client functions
 (probe_host, pair_with_host, request_pairing, RemoteConnection, HistoryClient) run in this one
@@ -42,7 +42,7 @@ placeholder wherever it appears, so a replay can check that the token of "paired
 next "hello" sends. host_ms and iso_time get a placeholder per occurrence. A commit that is the
 SHA-256 of "openwhisper-pair-commit-v1" and a recorded nonce names it: "of": "<nonce#n>". A JSON
 string holding OpenWhisper's product name is listed as {"as": "product"} and left as is: a
-FioriVoce host writes its own name there. NORMALIZE rules are {"pointer", "as"} with optional
+OpenWhisper_CPP host writes its own name there. NORMALIZE rules are {"pointer", "as"} with optional
 "when": {top-level key: value}, "dir" and "keep" (literal values a step chose, left as they are);
 they apply to text frames and binary headers.
 

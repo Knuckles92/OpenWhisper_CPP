@@ -58,9 +58,9 @@ const JOBS = Math.min(jobCount(args.jobs, 4, 'jobs'), MAX_JOBS)
 
 // The harness starts a worktree at the repository's default branch (main, the first commit,
 // since the repository has a remote), not at the session's branch.
-const WHERE_FRESH = 'Where you are: a fresh git worktree of the FioriVoce repository, on your own branch. Your current directory is that worktree. The harness may have started it at the repository\'s default branch, which holds almost nothing: before anything else run "git reset --hard port/parity" there (it has no work of yours yet) and check that docs/port/ARCHITECTURE.md exists. Do all work inside your worktree. Never modify the main checkout at C:\\coding\\fiorivoce_cpp outside your worktree, never switch or move the port/parity branch, never push.'
+const WHERE_FRESH = 'Where you are: a fresh git worktree of the OpenWhisper_CPP repository, on your own branch. Your current directory is that worktree. The harness may have started it at the repository\'s default branch, which holds almost nothing: before anything else run "git reset --hard port/parity" there (it has no work of yours yet) and check that docs/port/ARCHITECTURE.md exists. Do all work inside your worktree. Never modify the main checkout at C:\\coding\\OpenWhisper_CPP outside your worktree, never switch or move the port/parity branch, never push.'
 
-const COMMON = `FioriVoce is a C++23 / Qt 6 Widgets rewrite of OpenWhisper (Python 3.12 + PyQt6) aiming at full feature parity: same features, same behavior, same look. The OpenWhisper checkout at ${OW} is the behavior reference and is READ-ONLY: never create, edit or delete anything under it, never start that app, never run git or any other command inside it that can write (even "git status" there refreshes its index), and do not read or quote the owner's live data in its root (openwhisper_settings.json, openwhisper.db, logs, recordings, meetings, .env).
+const COMMON = `OpenWhisper_CPP is a C++23 / Qt 6 Widgets rewrite of OpenWhisper (Python 3.12 + PyQt6) aiming at full feature parity: same features, same behavior, same look. The OpenWhisper checkout at ${OW} is the behavior reference and is READ-ONLY: never create, edit or delete anything under it, never start that app, never run git or any other command inside it that can write (even "git status" there refreshes its index), and do not read or quote the owner's live data in its root (openwhisper_settings.json, openwhisper.db, logs, recordings, meetings, .env).
 
 @@WHERE@@
 
@@ -72,19 +72,19 @@ Building in your worktree (PowerShell):
 Use that one preset for everything. It is the merge gate's own configuration (RelWithDebInfo, warnings as errors, the lints), so checks reuse the objects already built in this worktree. Do not configure or build the windows or windows-debug presets: a second build tree doubles the compile time for nothing.
 Several workers share this machine, and unlimited parallel builds have already exhausted its memory once (MSVC C1076 and C3859, then a crashed session). In every shell you build or test from, first set $env:CMAKE_BUILD_PARALLEL_LEVEL = '${JOBS}' and $env:CTEST_PARALLEL_LEVEL = '${JOBS}', and never pass a higher -j or --parallel. If a compile fails with C1076, C3859 or "out of memory", it is the machine, not your code: wait a minute and run it again.
 Scratch files (build scripts, logs, probes) go in a folder of your own under your worktree's out/ directory, which git ignores; never in a temp folder another worker might share.
-The repository and every worktree are on the machine's NVMe SSD, which is also the owner's system drive, and a windows-ci build tree is about 20 GB: keep to the one build tree in your worktree's out folder, copy none, and write nothing else large. The out folder is an ordinary folder; create no link (junction or symbolic link) anywhere. An older copy of the repository at D:\\coding\\fiorivoce_cpp is not yours to read from or write to: everything you need is in your worktree.
+The repository and every worktree are on the machine's NVMe SSD, which is also the owner's system drive, and a windows-ci build tree is about 20 GB: keep to the one build tree in your worktree's out folder, copy none, and write nothing else large. The out folder is an ordinary folder; create no link (junction or symbolic link) anywhere. An older copy of the repository at D:\\coding\\OpenWhisper_CPP is not yours to read from or write to: everything you need is in your worktree.
 If a build fails with C1083 on a "<name>.moc" file after you added a .cpp that includes its own .moc, delete the timestamp_* files under that build directory's autogen folders and build again; it is not your code. Every target compiles with QT_NO_KEYWORDS: in Qt code write Q_SIGNALS:, public Q_SLOTS: and Q_EMIT, never signals:, slots: or emit (those are ordinary names here, as in fv::Signal::emit).
 The first configure in a worktree restores the vcpkg libraries from the machine's binary cache; a library not yet in the cache is built from source, which for FFmpeg, Boost and OpenSSL can take more than an hour in total. Run long commands in the background and wait for them; never abandon or kill a vcpkg build because it is slow. Never run a test labelled interactive (they take over the owner's keyboard, microphone, speakers and clipboard): run ctest only through a test preset, all of which exclude that label except windows-interactive, which you never use, or pass -LE interactive yourself. Never start the GUI app, and never start a widget test executable directly: run tests through ctest, which sets the offscreen display plugin (started bare, a failure puts a dialog on the owner's screen).
 
 Tests that decode real audio need these environment variables, which are valid on this machine:
-  $env:FIORIVOCE_TEST_RUNTIME_DIR = "$env:LOCALAPPDATA\\OpenWhisper\\components\\asr-nvidia-cuda"
-  $env:FIORIVOCE_TEST_MODEL = "$env:LOCALAPPDATA\\OpenWhisper\\speech-models\\parakeet-v3\\parakeet-tdt-0.6b-v3.q8_0.gguf"
-  $env:FIORIVOCE_TEST_WAV = "${OW}\\recorded_audio.wav"
-  $env:FIORIVOCE_TEST_PDFIUM = "${OW}\\.venv\\Lib\\site-packages\\pypdfium2_raw\\pdfium.dll"
-  $env:FIORIVOCE_TEST_ONNXRUNTIME = "${OW}\\.venv\\Lib\\site-packages\\onnxruntime\\capi\\onnxruntime.dll"
-  $env:FIORIVOCE_TEST_SPEAKER_MODEL = "$env:LOCALAPPDATA\\OpenWhisper\\models\\speaker-id\\voxceleb_resnet34_LM.onnx"
+  $env:OPENWHISPER_CPP_TEST_RUNTIME_DIR = "$env:LOCALAPPDATA\\OpenWhisper\\components\\asr-nvidia-cuda"
+  $env:OPENWHISPER_CPP_TEST_MODEL = "$env:LOCALAPPDATA\\OpenWhisper\\speech-models\\parakeet-v3\\parakeet-tdt-0.6b-v3.q8_0.gguf"
+  $env:OPENWHISPER_CPP_TEST_WAV = "${OW}\\recorded_audio.wav"
+  $env:OPENWHISPER_CPP_TEST_PDFIUM = "${OW}\\.venv\\Lib\\site-packages\\pypdfium2_raw\\pdfium.dll"
+  $env:OPENWHISPER_CPP_TEST_ONNXRUNTIME = "${OW}\\.venv\\Lib\\site-packages\\onnxruntime\\capi\\onnxruntime.dll"
+  $env:OPENWHISPER_CPP_TEST_SPEAKER_MODEL = "$env:LOCALAPPDATA\\OpenWhisper\\models\\speaker-id\\voxceleb_resnet34_LM.onnx"
 Those files are the owner's installed copies: read them, never modify or delete them. The last three matter only to the PDF text tests and the speaker embedding tests, which skip without them.
-Every test executable starts with the per-user folders of its own process pointed at a new temporary folder (cmake/fv_test_isolation.cpp, compiled into each by fv_test), so a test cannot reach the owner's real %LOCALAPPDATA%\\FioriVoce or OpenWhisper data by accident. Do not undo that in a test: a test that needs a per-user folder builds it under its own temporary folder and passes it in, or moves the variables further with the scoped helpers in tests/support.`
+Every test executable starts with the per-user folders of its own process pointed at a new temporary folder (cmake/fv_test_isolation.cpp, compiled into each by fv_test), so a test cannot reach the owner's real %LOCALAPPDATA%\\OpenWhisper_CPP or OpenWhisper data by accident. Do not undo that in a test: a test that needs a per-user folder builds it under its own temporary folder and passes it in, or moves the variables further with the scoped helpers in tests/support.`
 
 function common(where) {
   return COMMON.replace('@@WHERE@@', () => where)
@@ -180,11 +180,11 @@ function reuses(impl) {
 
 function whereOf(impl) {
   if (!reuses(impl)) return 'Where you are: your shell starts in a fresh scratch worktree. A previous package worktree may already hold the matching build. Use the setup checks below to choose the working directory. Leave the main checkout and port/parity alone. Keep all work local; never push.'
-  return `Where you are: your shell starts in a scratch worktree that you do not use. You work in the implementer's worktree, ${impl.worktree}: a git worktree of the FioriVoce repository on its own branch, whose build tree for the windows-ci preset is already built, so that you compile only what you change. Begin every command by making that folder the current directory, and do all work inside it. Never modify the main checkout at C:\\coding\\fiorivoce_cpp, never switch or move the port/parity branch, never push.`
+  return `Where you are: your shell starts in a scratch worktree that you do not use. You work in the implementer's worktree, ${impl.worktree}: a git worktree of the OpenWhisper_CPP repository on its own branch, whose build tree for the windows-ci preset is already built, so that you compile only what you change. Begin every command by making that folder the current directory, and do all work inside it. Never modify the main checkout at C:\\coding\\OpenWhisper_CPP, never switch or move the port/parity branch, never push.`
 }
 
 function setUp(p, impl) {
-  if (!reuses(impl)) return `Set up: use "git worktree list --porcelain" to find an idle package worktree under C:\\coding\\fiorivoce_cpp\\.claude\\worktrees at the exact tip of wp/${p.id}. Reuse its build only if the worktree is clean and out/build/windows-ci/CMakeCache.txt names that worktree as CMAKE_HOME_DIRECTORY. Otherwise start the fresh scratch worktree at wp/${p.id}. Keep interrupted edits intact. In the selected directory, read out/port-implementation.json if it exists and its id and sha match the package and current commit. Verify its claims independently. The package's changes are ${baseOf(p)}.`
+  if (!reuses(impl)) return `Set up: use "git worktree list --porcelain" to find an idle package worktree under C:\\coding\\OpenWhisper_CPP\\.claude\\worktrees at the exact tip of wp/${p.id}. Reuse its build only if the worktree is clean and out/build/windows-ci/CMakeCache.txt names that worktree as CMAKE_HOME_DIRECTORY. Otherwise start the fresh scratch worktree at wp/${p.id}. Keep interrupted edits intact. In the selected directory, read out/port-implementation.json if it exists and its id and sha match the package and current commit. Verify its claims independently. The package's changes are ${baseOf(p)}.`
   return `Set up: in ${impl.worktree}, "git rev-parse HEAD" must equal "git rev-parse wp/${p.id}" and "git status --short" must be empty. If either check differs, keep that worktree and its edits. Set your fresh scratch worktree to wp/${p.id} and review it there. Read the diff in ${impl.worktree} and carry verified package fixes forward into your scratch worktree. The package's changes are ${baseOf(p)}.`
 }
 
@@ -199,7 +199,7 @@ function packageCheck(p) {
 }
 
 function implPrompt(p) {
-  return `You are building one work package of the FioriVoce port: ${p.id} ${p.name}.
+  return `You are building one work package of the OpenWhisper_CPP port: ${p.id} ${p.name}.
 
 ${common(WHERE_FRESH)}
 
@@ -215,7 +215,7 @@ ${p.spec}
 
 Rules of the job
 - Own only the directories and files your spec lists. If the job needs a change anywhere else (a contract header is wrong, a dependency is missing, a shared file needs an entry), do not make it: finish what you can and report the exact change under "blockers".
-- Port behavior exactly: strings, defaults, limits, timings, ordering, edge cases, error messages. Where FioriVoce deliberately differs, the spec or the architecture says so; add nothing else and drop nothing silently.
+- Port behavior exactly: strings, defaults, limits, timings, ordering, edge cases, error messages. Where OpenWhisper_CPP deliberately differs, the spec or the architecture says so; add nothing else and drop nothing silently.
 - Be honest about completeness. Anything missing, partial or stubbed goes in "notDone". Never leave a stub that looks finished, a test that asserts nothing, or a test weakened until it passes.
 - Tests are part of the package (architecture section 9): port the OpenWhisper tests your spec lists and keep their names; replay golden vectors where the spec lists them; add reference-screenshot tests for new widgets once the harness exists in the tree.
 - Comments say what the code cannot: the reason, the constraint, the unit. No narration, no references to this task or to "the port".
@@ -227,11 +227,11 @@ Save the same structured report to out/port-implementation.json in your worktree
 }
 
 function releaseBuild(p) {
-  return `After committing and verifying the wp/${p.id} tip, if your verdict is ready or ready-with-notes, reclaim the build output in the worktree where you actually tested. Check that HEAD equals wp/${p.id}, the worktree is clean, and no build is running there. Resolve the absolute worktree and out/build paths. The worktree must be a direct child of C:\\coding\\fiorivoce_cpp\\.claude\\worktrees and the target must be its ordinary out\\build directory, with no junction or symbolic link in that path. Remove only that validated build directory with PowerShell Remove-Item -LiteralPath. Keep the cache of an unfinished review. If cleanup is unavailable or ownership is uncertain, leave the directory and report its path in "open".`
+  return `After committing and verifying the wp/${p.id} tip, if your verdict is ready or ready-with-notes, reclaim the build output in the worktree where you actually tested. Check that HEAD equals wp/${p.id}, the worktree is clean, and no build is running there. Resolve the absolute worktree and out/build paths. The worktree must be a direct child of C:\\coding\\OpenWhisper_CPP\\.claude\\worktrees and the target must be its ordinary out\\build directory, with no junction or symbolic link in that path. Remove only that validated build directory with PowerShell Remove-Item -LiteralPath. Keep the cache of an unfinished review. If cleanup is unavailable or ownership is uncertain, leave the directory and report its path in "open".`
 }
 
 function reviewPrompt(p, impl) {
-  return `You are the independent reviewer of work package ${p.id} ${p.name} of the FioriVoce port. Find what is wrong or missing, and fix it. The implementer's work is the tip of branch wp/${p.id}.
+  return `You are the independent reviewer of work package ${p.id} ${p.name} of the OpenWhisper_CPP port. Find what is wrong or missing, and fix it. The implementer's work is the tip of branch wp/${p.id}.
 
 ${common(whereOf(impl))}
 
@@ -263,7 +263,7 @@ Return the result and include any cleanup note in both copies.`
 }
 
 function secondPassPrompt(p, impl, review) {
-  return `Work package ${p.id} ${p.name} of the FioriVoce port was implemented and reviewed, and the reviewer could not get it ready. Finish it. The current state is the tip of branch wp/${p.id}.
+  return `Work package ${p.id} ${p.name} of the OpenWhisper_CPP port was implemented and reviewed, and the reviewer could not get it ready. Finish it. The current state is the tip of branch wp/${p.id}.
 
 ${common(whereOf(impl))}
 
@@ -422,9 +422,9 @@ ${JSON.stringify(digests, null, 1)}`
     : !it.resultsFile
       ? 'No package is merged in this step: the merges are committed already. Skip the merging and go on with steps 2 to 4 on the tree as it is; the lead names below the branches to delete in step 4.'
       : `The packages, in merge order: ${(it.order || []).join(', ')}. Their reports are in the JSON file ${it.resultsFile} (key "packages": for each id the implementer's report "impl" and the reviewer's "review" with its "verdict" and "open" items); read it with a short Python script, it is large. A package's name is in the subject of the first commit on its branch.`
-  return `You are the integrator of wave ${w.wave} of the FioriVoce port, a C++23 / Qt 6 rewrite of OpenWhisper. You do the lead's mechanical work after a wave, so that the lead only checks your result. Be exact and conservative: when a step needs a judgment this prompt does not give you, do not guess: leave it and say so under "forLead".
+  return `You are the integrator of wave ${w.wave} of the OpenWhisper_CPP port, a C++23 / Qt 6 rewrite of OpenWhisper. You do the lead's mechanical work after a wave, so that the lead only checks your result. Be exact and conservative: when a step needs a judgment this prompt does not give you, do not guess: leave it and say so under "forLead".
 
-Where you work: the main checkout C:\\coding\\fiorivoce_cpp, branch port/parity. First run "git -C C:\\coding\\fiorivoce_cpp branch --show-current" and "git -C C:\\coding\\fiorivoce_cpp status --short". If the branch is not port/parity or the tree is not clean, change nothing and return gate "not-run" with what you saw. Make that directory your current directory for every command. No other agent is building now.
+Where you work: the main checkout C:\\coding\\OpenWhisper_CPP, branch port/parity. First run "git -C C:\\coding\\OpenWhisper_CPP branch --show-current" and "git -C C:\\coding\\OpenWhisper_CPP status --short". If the branch is not port/parity or the tree is not clean, change nothing and return gate "not-run" with what you saw. Make that directory your current directory for every command. No other agent is building now.
 
 Rules that have no exception
 - Never push, anywhere. Never amend, rebase or revert a commit that exists already. Commit messages carry no attribution or co-author lines.
@@ -449,12 +449,12 @@ The frozen files named in CLAUDE.md are yours to edit only for the cases above. 
 3. Gate (PowerShell, from the main checkout)
   . .\\scripts\\vsenv.ps1
   $env:CMAKE_BUILD_PARALLEL_LEVEL = '${jobs}'; $env:CTEST_PARALLEL_LEVEL = '${jobs}'
-  $env:FIORIVOCE_TEST_RUNTIME_DIR = "$env:LOCALAPPDATA\\OpenWhisper\\components\\asr-nvidia-cuda"
-  $env:FIORIVOCE_TEST_MODEL = "$env:LOCALAPPDATA\\OpenWhisper\\speech-models\\parakeet-v3\\parakeet-tdt-0.6b-v3.q8_0.gguf"
-  $env:FIORIVOCE_TEST_WAV = "${OW}\\recorded_audio.wav"
-  $env:FIORIVOCE_TEST_PDFIUM = "${OW}\\.venv\\Lib\\site-packages\\pypdfium2_raw\\pdfium.dll"
-  $env:FIORIVOCE_TEST_ONNXRUNTIME = "${OW}\\.venv\\Lib\\site-packages\\onnxruntime\\capi\\onnxruntime.dll"
-  $env:FIORIVOCE_TEST_SPEAKER_MODEL = "$env:LOCALAPPDATA\\OpenWhisper\\models\\speaker-id\\voxceleb_resnet34_LM.onnx"
+  $env:OPENWHISPER_CPP_TEST_RUNTIME_DIR = "$env:LOCALAPPDATA\\OpenWhisper\\components\\asr-nvidia-cuda"
+  $env:OPENWHISPER_CPP_TEST_MODEL = "$env:LOCALAPPDATA\\OpenWhisper\\speech-models\\parakeet-v3\\parakeet-tdt-0.6b-v3.q8_0.gguf"
+  $env:OPENWHISPER_CPP_TEST_WAV = "${OW}\\recorded_audio.wav"
+  $env:OPENWHISPER_CPP_TEST_PDFIUM = "${OW}\\.venv\\Lib\\site-packages\\pypdfium2_raw\\pdfium.dll"
+  $env:OPENWHISPER_CPP_TEST_ONNXRUNTIME = "${OW}\\.venv\\Lib\\site-packages\\onnxruntime\\capi\\onnxruntime.dll"
+  $env:OPENWHISPER_CPP_TEST_SPEAKER_MODEL = "$env:LOCALAPPDATA\\OpenWhisper\\models\\speaker-id\\voxceleb_resnet34_LM.onnx"
   Remove-Item out\\lead-gate.done -ErrorAction SilentlyContinue
   cmake --workflow --preset windows-ci *> out\\lead-gate.log; "exit=$LASTEXITCODE" | Set-Content out\\lead-gate.done
 Start those lines as one background command, then wait until out\\lead-gate.done exists: with your Monitor tool if you have one (an until-loop on that file), otherwise with a loop that looks every 15 seconds for at most nine minutes per command, repeated as often as needed (the gate takes two to fifteen minutes on this machine). You have not finished while that file is missing: an integrator that returns while the gate runs leaves the lead with no gate, and that has happened. Then read the .done file and the end of the log, not all of it. For each failing test, run it alone: ctest --test-dir out/build/windows-ci -C RelWithDebInfo -LE interactive -R "<name>" --repeat until-fail:5. One that passes alone fails only under load: list it under "flaky" (and in open-items.md if it is not there) and do not count it against the gate. One that fails alone is real: find the cause. If the fix is small and you are sure of it, make it with the test that proves it, commit "Fix after ${w.wave}: <what>" and run the gate again. Otherwise leave the tree as it is and return gate "red" with the evidence. Never weaken, skip or delete a test to get green. A compile error C1076 or C3859 is the machine running out of memory: wait and retry with ${Math.max(1, Math.floor(jobs / 2))} jobs.
@@ -471,15 +471,15 @@ Return the structured report. "git status --short" must be empty when you finish
 }
 
 function linuxPrompt() {
-  return `Run the Linux core check of the FioriVoce port on the owner's Linux machine "jed" (Arch) and report the result. You fix nothing: you run and report.
+  return `Run the Linux core check of the OpenWhisper_CPP port on the owner's Linux machine "jed" (Arch) and report the result. You fix nothing: you run and report.
 
-jed also runs the owner's media server. Rules without exception: log in by key only ("ssh -o BatchMode=yes jed@jed ..."); if anything asks for a password, stop and report; never sudo; install nothing; touch nothing outside ~/fiorivoce-port; start nothing except the commands below (run.sh already runs at the lowest priority with 3 jobs: never raise either); stop nothing you did not start.
+jed also runs the owner's media server. Rules without exception: log in by key only ("ssh -o BatchMode=yes jed@jed ..."); if anything asks for a password, stop and report; never sudo; install nothing; touch nothing outside ~/openwhisper-cpp-port; start nothing except the commands below (run.sh already runs at the lowest priority with 3 jobs: never raise either); stop nothing you did not start.
 
-1. From C:\\coding\\fiorivoce_cpp: "git push jed@jed:fiorivoce-port/repo.git port/parity". Then the same branch to the owner's private GitHub repository, as a plain push: git -c credential.helper= -c "credential.helper=!gh auth git-credential" push origin port/parity. The owner approved these two pushes; push nothing else and nowhere else, never with --force, and if one is rejected say so in your report and go on. Change nothing in that checkout.
-2. On jed: look at "git -C ~/fiorivoce-port/src remote -v", fetch, and check out the pushed commit detached (git -C ~/fiorivoce-port/src checkout --detach <the commit>). Confirm with rev-parse.
-3. For each step of configure, build, test, in that order: remove ~/fiorivoce-port/logs/<step>.done, then start it detached:
-     ssh -o BatchMode=yes jed@jed "(setsid nohup ~/fiorivoce-port/run.sh <step> > /dev/null 2>&1 < /dev/null &)"
-   and wait for ~/fiorivoce-port/logs/<step>.done to appear, checking once a minute in a loop of at most nine minutes per command, as often as needed (the build can take more than an hour). Then read the .done file and the last 40 lines of ~/fiorivoce-port/logs/<step>.log. Stop at the first step that fails.
+1. From C:\\coding\\OpenWhisper_CPP: "git push jed@jed:openwhisper-cpp-port/repo.git port/parity". Then the same branch to the owner's private GitHub repository, as a plain push: git -c credential.helper= -c "credential.helper=!gh auth git-credential" push origin port/parity. The owner approved these two pushes; push nothing else and nowhere else, never with --force, and if one is rejected say so in your report and go on. Change nothing in that checkout.
+2. On jed: look at "git -C ~/openwhisper-cpp-port/src remote -v", fetch, and check out the pushed commit detached (git -C ~/openwhisper-cpp-port/src checkout --detach <the commit>). Confirm with rev-parse.
+3. For each step of configure, build, test, in that order: remove ~/openwhisper-cpp-port/logs/<step>.done, then start it detached:
+     ssh -o BatchMode=yes jed@jed "(setsid nohup ~/openwhisper-cpp-port/run.sh <step> > /dev/null 2>&1 < /dev/null &)"
+   and wait for ~/openwhisper-cpp-port/logs/<step>.done to appear, checking once a minute in a loop of at most nine minutes per command, as often as needed (the build can take more than an hour). Then read the .done file and the last 40 lines of ~/openwhisper-cpp-port/logs/<step>.log. Stop at the first step that fails.
 
 Report status "green" only when all three steps succeeded and no test failed; give the test totals from ctest's summary, and for a failure the first lines of each error.`
 }

@@ -1,5 +1,5 @@
 // PDF text through PDFium loaded by path: the fixture PDFs with the owner's pdfium.dll
-// (FIORIVOCE_TEST_PDFIUM, read-only; skipped when unset), and what happens without a library.
+// (OPENWHISPER_CPP_TEST_PDFIUM, read-only; skipped when unset), and what happens without a library.
 
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_string.hpp>
@@ -20,9 +20,9 @@ namespace fs = std::filesystem;
 namespace {
 
 void use_test_pdfium() {
-    const auto library = fv::testkit::get_env("FIORIVOCE_TEST_PDFIUM");
+    const auto library = fv::testkit::get_env("OPENWHISPER_CPP_TEST_PDFIUM");
     if (!library || library->empty()) {
-        SKIP("FIORIVOCE_TEST_PDFIUM is not set: PDFs are not read");
+        SKIP("OPENWHISPER_CPP_TEST_PDFIUM is not set: PDFs are not read");
     }
     set_pdfium_path(fv::base_utf8::path_from_utf8(*library));
 }

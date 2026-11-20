@@ -1,5 +1,5 @@
 // openMeetingsFolder when the folder cannot be made: OpenWhisper's os.makedirs raises out of
-// _on_open_meetings_folder, so the folder is not shown; FioriVoce logs the reason and returns
+// _on_open_meetings_folder, so the folder is not shown; OpenWhisper_CPP logs the reason and returns
 // false.
 #include <catch2/catch_test_macros.hpp>
 

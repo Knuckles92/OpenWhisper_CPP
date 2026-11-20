@@ -12,7 +12,7 @@
 // desktop Retry, the dashboard's re-run and crash recovery resume the same pipeline, so they
 // resolve the ASR language and model and the speaker-pass gate here rather than each picking
 // their own. The agent route (provider, model, endpoint, agent core) joins with the meeting
-// intelligence; the OpenAI key is never read: FioriVoce's speaker backend is never "openai".
+// intelligence; the OpenAI key is never read: OpenWhisper_CPP's speaker backend is never "openai".
 namespace fv::meeting {
 
 // meeting/reinsight.py DEFAULT_TIMEOUT_S: the budget of a re-run's agent passes, in seconds.

@@ -38,7 +38,7 @@ Json to_json(const sql::Value&);
 
 // What services.database.py's _dump records: sqlite_master (type, name, tbl_name, sql) ORDER
 // BY type, name; PRAGMA table_info of every table; every row of every ordinary table ORDER BY
-// rowid; schema_version. FioriVoce's fv_* tables are left out, as OpenWhisper has none.
+// rowid; schema_version. OpenWhisper_CPP's fv_* tables are left out, as OpenWhisper has none.
 Json dump(const std::filesystem::path& path);
 
 // Runs of whitespace as one space, none at either end: the golden comparator for stored SQL.

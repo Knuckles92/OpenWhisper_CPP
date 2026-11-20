@@ -1,6 +1,6 @@
 // Search finding the control that shares this computer's history with the paired host. In
-// OpenWhisper it is a tile on API & MCP; in FioriVoce history is shared only in a session opened
-// from Remote engine's "Share history for this session…" (docs/port/differences.md
+// OpenWhisper it is a tile on API & MCP; in OpenWhisper_CPP history is shared only in a session
+// opened from Remote engine's "Share history for this session…" (docs/port/differences.md
 // a17-direct-history), so search opens that page and marks the tile holding the button.
 
 #include <catch2/catch_test_macros.hpp>

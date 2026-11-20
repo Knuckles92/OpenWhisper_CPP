@@ -117,9 +117,9 @@ TEST_CASE("export history opens the export dialog over every entry", "[widget]")
     CHECK(runs == 1);
     CHECK(ids == std::vector<std::string>{"b", "a"});
     CHECK(parent == wiring.sidebar());
-    // Beside the recordings folder, under FioriVoce's name.
+    // Beside the recordings folder, under OpenWhisper_CPP's name.
     CHECK(fv::path_from_utf8(fv::qt::toUtf8(defaultPath)) ==
-          wiring.root() / "fiorivoce_history.md");
+          wiring.root() / "openwhisper_cpp_history.md");
 
     Q_EMIT wiring.sidebar()->exportRequested();
     wiring.io().drain();

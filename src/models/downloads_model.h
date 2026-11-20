@@ -17,7 +17,7 @@
 // The Qt-free state of Settings > Downloads (ui_qt/dialogs/settings_downloads.py,
 // ui_qt/widgets/model_row_widget.py and component_row_widget.py): row states, sort and filter,
 // the selection bar, the download queue's messages, the rail value, tab titles and the storage
-// summary. The page and the rows render what these return. FioriVoce's catalog is the speech
+// summary. The page and the rows render what these return. OpenWhisper_CPP's catalog is the speech
 // models alone: the Whisper rows, custom models and the Hugging Face cache folder are not ported.
 namespace fv::models {
 
@@ -61,7 +61,7 @@ int backend_filter_index(std::string_view backend);
 // _sort_key. Each mode's tuple fits this shape with the unused fields left at their defaults:
 // "downloaded" (not cached, name), "size" (size, name), "name" (name), "backend" (filter index,
 // not cached, size, name), anything else "recommended" (not cached, size, name). OpenWhisper's
-// recommended order first puts the MLX models on a supported Mac; FioriVoce has none.
+// recommended order first puts the MLX models on a supported Mac; OpenWhisper_CPP has none.
 struct SortKey {
     int group = 0;
     bool not_cached = false;
@@ -113,7 +113,7 @@ std::string usage_text(std::string_view model_name, std::string_view dictation_m
 // _models_in_use: the dictation model (the loaded one when dictation is on Auto) and the meeting
 // model, "" when meetings use remote speech. The meeting model is resolved by the caller (meeting
 // speech settings are not part of fv_models). With a backend other than Parakeet selected,
-// OpenWhisper took its Whisper model, "auto" unless one was saved; FioriVoce reads no Whisper
+// OpenWhisper took its Whisper model, "auto" unless one was saved; OpenWhisper_CPP reads no Whisper
 // setting, so that case is Auto.
 struct ModelsInUse {
     std::string dictation;

@@ -4,7 +4,7 @@
 // database, written through the real store and repository. Per operation, five trials of three
 // warmups and fifteen timed writes, the median of the 75 samples, as OpenWhisper's probe ran them.
 // OpenWhisper's probe script is not committed (it lived in .tmp/), so the three operations are
-// FioriVoce's nearest: a runtime field (update_runtime_fields), the rolling summary
+// OpenWhisper_CPP's nearest: a runtime field (update_runtime_fields), the rolling summary
 // (set_rolling_summary) and a card item's text (update_item), each by the host.
 #include <catch2/catch_test_macros.hpp>
 
@@ -97,8 +97,8 @@ struct Measured {
 Measured measure() {
     Measured out;
     fv::testkit::TempDataRoot root;
-    auto database =
-        std::make_unique<fv::Database>(fv::Database::open_or_create(root.path() / "fiorivoce.db"));
+    auto database = std::make_unique<fv::Database>(
+        fv::Database::open_or_create(root.path() / "openwhisper-cpp.db"));
     auto repo = std::make_shared<SqlMeetingRepository>(*database);
     const std::string meetingId = "m_perf";
     repo->create_meeting({{"id", meetingId},

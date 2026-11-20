@@ -36,7 +36,7 @@ void shot(const std::string& theme, int scale, const char* name, int page) {
     options.focus = page == GuidedSetupDialog::Ready ? static_cast<QWidget*>(setup.tryBox())
                                                      : static_cast<QWidget*>(setup.nextButton());
     // render_reference.py dumps the tree after its grab, which also lays out the hidden pages
-    // and rows, and the window's hotkey-window property is FioriVoce's name for OpenWhisper's
+    // and rows, and the window's hotkey-window property is OpenWhisper_CPP's name for OpenWhisper's
     // (architecture 8.4). The tree is compared first without geometry and properties, then
     // whole, after the grab, with that one name mapped.
     options.ignore_keys = {"properties", "geometry"};
@@ -46,7 +46,7 @@ void shot(const std::string& theme, int scale, const char* name, int page) {
     // Properties keep their order (an ordered object), so the one name is replaced in place.
     Json properties = Json::object();
     for (const auto& [key, value] : expected.at("properties").items()) {
-        properties[key == "openwhisperHotkeyWindow" ? "fiorivoceHotkeyWindow" : key] = value;
+        properties[key == "openwhisperHotkeyWindow" ? "openwhisperCppHotkeyWindow" : key] = value;
     }
     expected["properties"] = std::move(properties);
     for (const auto& difference :

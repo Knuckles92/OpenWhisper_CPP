@@ -1,4 +1,4 @@
-// The meeting resolvers of services/settings.py where FioriVoce's identity or the platform
+// The meeting resolvers of services/settings.py where OpenWhisper_CPP's identity or the platform
 // matters (the rest is in test_golden.cpp).
 
 #include <catch2/catch_test_macros.hpp>
@@ -17,7 +17,7 @@ using namespace fv::meeting_intel;
 using fv::Json;
 namespace fs = std::filesystem;
 
-TEST_CASE("the default wake names are FioriVoce's", "[intel_settings]") {
+TEST_CASE("the default wake names are OpenWhisper_CPP's", "[intel_settings]") {
     const std::vector<std::string> expected{"note taker", "notetaker", "assistant",
                                             std::string(fv::identity().wake_name),
                                             std::string(fv::identity().wake_name_spaced)};

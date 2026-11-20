@@ -62,7 +62,8 @@ TEST_CASE("a remote meeting takes its route's language", "[meeting][rerun]") {
 }
 
 TEST_CASE("a stored openai backend never reaches the key", "[meeting][rerun]") {
-    // FioriVoce reads "openai" as on-device on every date, so the gate refuses before any key.
+    // OpenWhisper_CPP reads "openai" as on-device on every date, so the gate refuses before any
+    // key.
     const SpeakerPassGate gate = resolve_speaker_pass(
         {{"meeting_speaker_id_backend", "openai"}, {"meeting_audio_upload_consent_given", true}},
         before_shutdown());

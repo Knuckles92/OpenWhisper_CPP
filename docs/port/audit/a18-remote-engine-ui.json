@@ -214,7 +214,7 @@
    "tests": [
     "tests/ui_remote/test_a18_page_rows.cpp"
    ],
-   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'the record actions show where they apply and wait for each other': send hidden for local and bring-back hidden with nothing stored, both tooltips, 'Queuing records…' / 'Bringing records back from devbox…' while every location and action button is disabled, 'Everything here is already on the host.', 'Try again' only with pending and an error and nothing active, calling wake(true), and FioriVoce's manual-transfer question before sending (a17-backup-transfer) with its tile description."
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'the record actions show where they apply and wait for each other': send hidden for local and bring-back hidden with nothing stored, both tooltips, 'Queuing records…' / 'Bringing records back from devbox…' while every location and action button is disabled, 'Everything here is already on the host.', 'Try again' only with pending and an error and nothing active, calling wake(true), and OpenWhisper_CPP's manual-transfer question before sending (a17-backup-transfer) with its tile description."
   },
   "A18-21": {
    "status": "fixed",
@@ -526,7 +526,7 @@
   },
   "A18-48": {
    "status": "other-platform",
-   "reason": "macOS Keychain help, 'Retry Keychain access' and 'Open Keychain Access' are macOS-only in OpenWhisper. macOS Keychain help text, 'Retry Keychain access' and 'Open Keychain Access' (/usr/bin/open -b com.apple.keychainaccess) are macOS-only in OpenWhisper; FioriVoce builds Open Keychain Access hidden and shows the platform_backend_name() help (A18-11). The cross-platform parts of this row are pinned: Retry disabled while a pairing is busy and the panel only while unpaired with a pending name ('page recovers after repeated denials', 'reopening settings keeps the recovery action'); pending_pairing_name is a required RemoteEngineControl method, so no getattr default is needed."
+   "reason": "macOS Keychain help, 'Retry Keychain access' and 'Open Keychain Access' are macOS-only in OpenWhisper. macOS Keychain help text, 'Retry Keychain access' and 'Open Keychain Access' (/usr/bin/open -b com.apple.keychainaccess) are macOS-only in OpenWhisper; OpenWhisper_CPP builds Open Keychain Access hidden and shows the platform_backend_name() help (A18-11). The cross-platform parts of this row are pinned: Retry disabled while a pairing is busy and the panel only while unpaired with a pending name ('page recovers after repeated denials', 'reopening settings keeps the recovery action'); pending_pairing_name is a required RemoteEngineControl method, so no getattr default is needed."
   },
   "A18-49": {
    "status": "fixed",
@@ -581,7 +581,7 @@
    "tests": [
     "tests/ui_remote/test_a18_page_rows.cpp"
    ],
-   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'a records job's progress replaces its busy line' (bringing back from location local asks nothing, makes no set_location call, calls bring_back and shows its progress line while busy) and 'choosing the location already chosen saves nothing' (no set_location for the current location, one for another). Small difference kept: OpenWhisper calls set_location(\"local\") on the UI thread before the job, FioriVoce inside the job on io."
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'a records job's progress replaces its busy line' (bringing back from location local asks nothing, makes no set_location call, calls bring_back and shows its progress line while busy) and 'choosing the location already chosen saves nothing' (no set_location for the current location, one for another). Small difference kept: OpenWhisper calls set_location(\"local\") on the UI thread before the job, OpenWhisper_CPP inside the job on io."
   },
   "A18-54": {
    "status": "fixed",
@@ -616,7 +616,7 @@
    "tests": [
     "tests/ui_remote/test_host_mode.cpp"
    ],
-   "note": "Pinned by 'Host Mode asks before stopping only while someone is connected' (distinct sorted names, one vs several, starting asks nothing). FioriVoce refreshes once the background change has returned rather than also at once, which shows the same end state."
+   "note": "Pinned by 'Host Mode asks before stopping only while someone is connected' (distinct sorted names, one vs several, starting asks nothing). OpenWhisper_CPP refreshes once the background change has returned rather than also at once, which shows the same end state."
   },
   "A18-57": {
    "status": "fixed",
@@ -682,7 +682,7 @@
     "A18-14"
    ],
    "openwhisper": "'Use for meetings' saves meeting_speech_separate and meeting_asr_source remote (use_remote_for_meetings) and opens Meeting voice; 'Use for dictation' selects the Remote computer engine.",
-   "fiorivoce": "'Use for meetings' opens Settings on Meeting voice (useForMeetingsRequested has no receiver), where the paired host is chosen and confirmed for meeting audio. 'Use for dictation' saves the remote model selection and reloads (remote_feature.cpp); the page's half is pinned by 'settings page pairs with a host and lists the device', the wiring has no test.",
+   "openwhisper-cpp": "'Use for meetings' opens Settings on Meeting voice (useForMeetingsRequested has no receiver), where the paired host is chosen and confirmed for meeting audio. 'Use for dictation' saves the remote model selection and reloads (remote_feature.cpp); the page's half is pinned by 'settings page pairs with a host and lists the device', the wiring has no test.",
    "reason": "A dictation preference does not authorize sending meeting audio to another computer: each remote meeting route needs its own confirmation of the named host.",
    "source": "docs/port/differences.md a25-remote-meeting-consent; src/ui_remote/remote_engine_page.cpp useForMeetings"
   },
@@ -692,7 +692,7 @@
     "A18-18"
    ],
    "openwhisper": "The records-location tile keeps new records on the host automatically and describes it so.",
-   "fiorivoce": "The shipped RecordSync reports manual_transfers(), so the tile and its notes use the manual-transfer wording ('Copy or move existing dictations…', 'Choose the transfer button when you are ready.'); OpenWhisper's wording shows only without it and is pinned there.",
+   "openwhisper-cpp": "The shipped RecordSync reports manual_transfers(), so the tile and its notes use the manual-transfer wording ('Copy or move existing dictations…', 'Choose the transfer button when you are ready.'); OpenWhisper's wording shows only without it and is pinned there.",
    "reason": "Record sharing is explicit and per session.",
    "source": "docs/port/audit/a17-remote-engine-services.json a17-retention and a17-backup-transfer"
   },
@@ -702,7 +702,7 @@
     "A18-24"
    ],
    "openwhisper": "'Allow paired computers to manage MCP' lets a paired computer change the host's MCP settings.",
-   "fiorivoce": "With a PeerMcpSession (the app) the tile is 'Grant session MCP control to one paired computer': it asks which computer, confirms and calls grant_mcp_session for a 15-minute read-only local listener.",
+   "openwhisper-cpp": "With a PeerMcpSession (the app) the tile is 'Grant session MCP control to one paired computer': it asks which computer, confirms and calls grant_mcp_session for a 15-minute read-only local listener.",
    "reason": "Granting one paired device access does not authorize changes to the host's settings or a reusable credential.",
    "source": "docs/port/audit/a17-remote-engine-services.json a17-paired-mcp"
   },
@@ -712,7 +712,7 @@
     "A18-08"
    ],
    "openwhisper": "A pairing request waiting for the host's owner keeps its worker thread waiting after Settings closes, until the host answers or the request ends.",
-   "fiorivoce": "Closing the Remote engine page cancels a pairing request still waiting.",
+   "openwhisper-cpp": "Closing the Remote engine page cancels a pairing request still waiting.",
    "reason": "A request whose page is gone has nowhere to show its code or its result.",
    "source": "The remote sweep of 2026-11-19 (open item Remote engine page: a pairing request waiting on the host's owner); src/ui_remote/remote_engine_page.cpp ~RemoteEnginePage; tests/ui_remote/test_remote_page.cpp ('closing the page cancels a pairing request still waiting')"
   }

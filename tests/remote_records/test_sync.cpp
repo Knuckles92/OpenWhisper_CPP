@@ -1,8 +1,9 @@
 // Records sent to a paired host over the real wire (tests/test_remote_records.py and the files
-// that share its fixtures). FioriVoce shares records explicitly: nothing is queued when a record
-// is saved, edited, deleted or cleared here (docs/port/differences.md a17-retention), and a
+// that share its fixtures). OpenWhisper_CPP shares records explicitly: nothing is queued when a
+// record is saved, edited, deleted or cleared here (docs/port/differences.md a17-retention), and a
 // transfer refused because a backup runs is retried by asking again (a17-backup-transfer). The
-// tests of OpenWhisper behaviour those decisions replace check the FioriVoce behaviour instead.
+// tests of OpenWhisper behaviour those decisions replace check the OpenWhisper_CPP behaviour
+// instead.
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/generators/catch_generators.hpp>
 #include <catch2/matchers/catch_matchers_string.hpp>
@@ -112,7 +113,7 @@ TEST_CASE("test_an_unedited_upload_is_done_once", "[test_personalize_fix_f5_sync
 TEST_CASE("test_a_moved_entry_stays_here_until_the_edit_is_sent",
           "[test_personalize_fix_f5_sync_edit_race]") {
     // The original chosen while the AI version is on its way: the edited entry stays here.
-    // FioriVoce does not send the edit on its own (a17-retention); both copies are kept and
+    // OpenWhisper_CPP does not send the edit on its own (a17-retention); both copies are kept and
     // the transfer says so.
     Paired rig;
     rig.sync->set_location("host");
@@ -493,7 +494,7 @@ TEST_CASE("records left by removed computers are offered by name",
 }
 
 TEST_CASE("test_history_channel_requires_authentication", "[test_client_history]") {
-    // The direct-history channel FioriVoce's explicit history session uses
+    // The direct-history channel OpenWhisper_CPP's explicit history session uses
     // (a17-direct-history) is refused to a computer that isn't paired, as the speech one is.
     Paired rig;
     remote::ClientEnv env{rig.reactor};

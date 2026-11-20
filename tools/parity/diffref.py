@@ -14,7 +14,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
 # One lock for every writer on this machine: workers sharing a checkout edit the same files.
-LOCK = Path(tempfile.gettempdir()) / "fiorivoce-audit-files.lock"
+LOCK = Path(tempfile.gettempdir()) / "openwhisper-cpp-audit-files.lock"
 
 
 def main() -> int:

@@ -12,7 +12,7 @@
 // Copyable connection instructions for the in-app MCP server (services/agent_mcp/setup.py); no
 // credential is written to disk. Each format takes the access token so a copy is ready to paste,
 // or TOKEN_PLACEHOLDER for the user to replace. The MCP server's name in these snippets is the
-// product's, lower case ("fiorivoce"), as is the Claude Code channel's.
+// product's, lower case ("openwhisper-cpp"), as is the Claude Code channel's.
 // Affinity: functions; any thread.
 namespace fv::agentapi {
 

@@ -8,7 +8,7 @@
 #include "base/json.h"
 
 // Builders of OpenWhisper-style installs in a test's temporary folder, for discovery and
-// adoption tests. Nothing here touches a real OpenWhisper or FioriVoce folder.
+// adoption tests. Nothing here touches a real OpenWhisper or OpenWhisper_CPP folder.
 namespace fv::models::testing {
 
 // A pinned spec of the models.json shape for one small file, standing in for a model's real pin

@@ -34,7 +34,7 @@ Json voice_command_ops(std::string_view command, const Json& row, const std::vec
                        const std::vector<std::string>& exclude_ids = {});
 
 // Said when the listener may not send a segment to the judge or has no device-local judge.
-// OpenWhisper's NEEDS_CONSENT also offers "AI insights on for this meeting"; in FioriVoce AI
+// OpenWhisper's NEEDS_CONSENT also offers "AI insights on for this meeting"; in OpenWhisper_CPP AI
 // insights never unlock a hosted Fast judgments route, so only the local model is named.
 inline constexpr std::string_view VOICE_NEEDS_LOCAL_JUDGE =
     "Voice commands need Fast judgments on a model that runs on this computer.";

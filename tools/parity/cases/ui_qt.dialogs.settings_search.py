@@ -15,7 +15,7 @@ ENTRIES = [
     [SETTING, "Preferred microphone", "Dictation › Recording", "recording",
      "Used for dictation and meetings."],
     [SETTING, "If it's unplugged, use", "Dictation › Recording", "recording",
-     "FioriVoce moves down this list, even in the middle of a dictation."],
+     "OpenWhisper_CPP moves down this list, even in the middle of a dictation."],
     [SETTING, "Microphone", "Dictation › Recording", "recording", ""],
     [SETTING, "Microphone check", "App › Hotkeys", "hotkeys", "mic test level"],
     [SETTING, "Keep recordings", "Dictation › Recording", "recording", "retention delete audio"],

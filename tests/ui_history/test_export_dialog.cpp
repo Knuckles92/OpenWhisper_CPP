@@ -538,19 +538,19 @@ TEST_CASE("TestHistoryExportDialog default path is absolute and follows format",
           "[test_history_export_dialog][widget]") {
     // from
     // tests/test_history_export_dialog.py::TestHistoryExportDialog::test_default_path_is_absolute_and_follows_format
-    // FioriVoce's single-file name is "<product in lower case>_history" (lead decision 4).
+    // OpenWhisper_CPP's single-file name is "<product in lower case>_history" (lead decision 4).
     Dialog dialog({entry("h_a")});
     std::filesystem::create_directories(recordingsIn(dialog.root));
     const std::filesystem::path path = fv::path_from_utf8(fv::qt::toUtf8(dialog->defaultPath()));
     CHECK(path.is_absolute());
-    CHECK(fv::path_to_utf8(path.filename()) == "fiorivoce_history.md");
+    CHECK(fv::path_to_utf8(path.filename()) == "openwhisper_cpp_history.md");
     CHECK(path.parent_path() == dialog.root.path());
     dialog->perItemCheck()->setChecked(true);
     CHECK(dialog->defaultPath().endsWith(q("history_export")));
     // Still a default, it follows the format.
     dialog->perItemCheck()->setChecked(false);
     dialog->formatCombo()->setCurrentIndex(dialog->formatCombo()->findData(q("txt")));
-    CHECK(dialog->pathEdit()->text().endsWith(q("fiorivoce_history.txt")));
+    CHECK(dialog->pathEdit()->text().endsWith(q("openwhisper_cpp_history.txt")));
     // A path of the user's own stays.
     dialog->pathEdit()->setText(q("C:/elsewhere/mine.md"));
     dialog->formatCombo()->setCurrentIndex(dialog->formatCombo()->findData(q("json")));
@@ -588,10 +588,11 @@ TEST_CASE("a single-file export is written in text mode", "[widget]") {
 }
 
 TEST_CASE("exporting all history writes every transcription", "[widget]") {
-    // The demo's step: "Export history…" writes fiorivoce_history.md with every transcription.
+    // The demo's step: "Export history…" writes openwhisper_cpp_history.md with every
+    // transcription.
     Dialog dialog({entry("h_a", "Alpha says hello"), entry("h_b", "Beta says goodbye")});
     const std::filesystem::path target = fv::path_from_utf8(fv::qt::toUtf8(dialog->defaultPath()));
-    CHECK(fv::path_to_utf8(target.filename()) == "fiorivoce_history.md");
+    CHECK(fv::path_to_utf8(target.filename()) == "openwhisper_cpp_history.md");
     std::vector<std::pair<int, QString>> finished;
     QObject::connect(
         dialog.dialog.get(), &ExportDialogBase::exportFinished,

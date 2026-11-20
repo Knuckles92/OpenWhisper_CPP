@@ -209,7 +209,7 @@ TEST_CASE("a preview that fails to set up says so on reconfigure only", "[stream
 // A04-10, a deliberate difference: OpenWhisper's _stop_recording returns on a refused claim
 // without stopping the preview, which keeps streaming over the old recording; the next
 // recording's start_streaming then refuses ("Streaming worker is still active") and its overlay
-// joins the old text. FioriVoce stops it, so the next recording previews afresh.
+// joins the old text. OpenWhisper_CPP stops it, so the next recording previews afresh.
 TEST_CASE("a stop refused as busy stops the preview for the next recording", "[streaming]") {
     PreviewRig p;
     REQUIRE(p.rig.runtime->start_recording());

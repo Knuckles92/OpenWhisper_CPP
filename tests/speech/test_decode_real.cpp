@@ -1,8 +1,8 @@
 // Decodes on the installed NeMo-Speech.cpp runtime and Parakeet model. Skipped unless these
 // are set (README.md):
-//   FIORIVOCE_TEST_RUNTIME_DIR  an unpacked NeMo-Speech.cpp release
-//   FIORIVOCE_TEST_MODEL        a Parakeet .gguf
-//   FIORIVOCE_TEST_WAV          a recording with speech in it
+//   OPENWHISPER_CPP_TEST_RUNTIME_DIR  an unpacked NeMo-Speech.cpp release
+//   OPENWHISPER_CPP_TEST_MODEL        a Parakeet .gguf
+//   OPENWHISPER_CPP_TEST_WAV          a recording with speech in it
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_string.hpp>
 
@@ -25,8 +25,8 @@ using fv::speech::Slot;
 namespace {
 
 std::optional<fv::speech::BackendConfig> installed() {
-    const auto runtime = fv::env_utf8("FIORIVOCE_TEST_RUNTIME_DIR");
-    const auto model = fv::env_utf8("FIORIVOCE_TEST_MODEL");
+    const auto runtime = fv::env_utf8("OPENWHISPER_CPP_TEST_RUNTIME_DIR");
+    const auto model = fv::env_utf8("OPENWHISPER_CPP_TEST_MODEL");
     if (!runtime || !model) {
         return std::nullopt;
     }
@@ -67,7 +67,7 @@ fv::RecognitionOptions english() {
 TEST_CASE("decode_file returns the text OpenWhisper decoded for each fixture", "[decode]") {
     const auto config = installed();
     if (!config) {
-        SKIP("Set FIORIVOCE_TEST_RUNTIME_DIR and FIORIVOCE_TEST_MODEL.");
+        SKIP("Set OPENWHISPER_CPP_TEST_RUNTIME_DIR and OPENWHISPER_CPP_TEST_MODEL.");
     }
     RealService real(*config);
     fv::golden::for_each("transcriber.optional_backend", "decode", [&](const fv::golden::Case& c) {
@@ -79,9 +79,10 @@ TEST_CASE("decode_file returns the text OpenWhisper decoded for each fixture", "
 
 TEST_CASE("the test recording decodes on the speech thread as the backend decodes it", "[decode]") {
     const auto config = installed();
-    const auto wav = fv::env_utf8("FIORIVOCE_TEST_WAV");
+    const auto wav = fv::env_utf8("OPENWHISPER_CPP_TEST_WAV");
     if (!config || !wav) {
-        SKIP("Set FIORIVOCE_TEST_RUNTIME_DIR, FIORIVOCE_TEST_MODEL and FIORIVOCE_TEST_WAV.");
+        SKIP("Set OPENWHISPER_CPP_TEST_RUNTIME_DIR, OPENWHISPER_CPP_TEST_MODEL and "
+             "OPENWHISPER_CPP_TEST_WAV.");
     }
     const auto path = fv::path_from_utf8(*wav);
     std::string through_service;

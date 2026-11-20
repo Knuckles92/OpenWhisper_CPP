@@ -91,7 +91,7 @@ TEST_CASE("the request carries method, decoded query, headers and peer", "[platf
     const auto endpoint = f.listen();
     auto request =
         t::request("POST", t::url(endpoint.port, "/echo?q=a+b%21&empty=&flag&q=2"), "payload");
-    request.headers = {{"X-FioriVoce-Client", "test"}};
+    request.headers = {{"X-OpenWhisper_CPP-Client", "test"}};
     const auto response = f.client->send(request, {});
     REQUIRE(response);
     CHECK(response->status == 204);
@@ -102,7 +102,7 @@ TEST_CASE("the request carries method, decoded query, headers and peer", "[platf
     CHECK(got.path == "/echo");
     CHECK(got.body == "payload");
     CHECK(got.query == Query{{"q", "a b!"}, {"empty", ""}, {"flag", ""}, {"q", "2"}});
-    CHECK(header(got.headers, "x-fiorivoce-client") == "test");
+    CHECK(header(got.headers, "x-openwhisper-cpp-client") == "test");
     CHECK_FALSE(header(got.headers, "x-missing").has_value());
     CHECK(got.peer.address == "127.0.0.1");
     CHECK(got.peer.port != 0);

@@ -101,7 +101,7 @@ test('the chosen pocket tab is remembered for the session and falls back when un
   assert.equal(api[0], 'live');
   await act(async () => api[1]('notes'));
   assert.equal(api[0], 'notes');
-  assert.equal(sessionStorage.getItem('fiorivoce.pocketTab'), 'notes');
+  assert.equal(sessionStorage.getItem('openwhisper-cpp.pocketTab'), 'notes');
   await act(async () => root.render(React.createElement(Probe, {ended:true})));
   assert.equal(api[0], 'live', 'ended meetings have no notes tab');
 });

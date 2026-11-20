@@ -39,8 +39,8 @@ constexpr char kFailedAudio[] = "recording_20260315_143000.wav";
 std::vector<HistoryEntry> entries() {
     HistoryEntry dictation;
     dictation.id = "entry-dictation";
-    dictation.text = "Hello from FioriVoce.";
-    dictation.raw_text = "hello from fiorivoce";
+    dictation.text = "Hello from OpenWhisper_CPP.";
+    dictation.raw_text = "hello from openwhisper-cpp";
     dictation.timestamp = "2026-03-15T15:00:00";
     dictation.model = kModel;
     dictation.audio_file = kDictationAudio;

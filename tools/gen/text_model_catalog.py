@@ -1,7 +1,7 @@
 """Write src/llm/data/text_model_catalog.json: the reviewed OpenCode routes and model capabilities.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/gen/text_model_catalog.py [--check]
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/gen/text_model_catalog.py [--check]
 
 Imports services/text_model_catalog.py from the checkout through tools/parity/ow_isolation.py
 and copies its _ROUTES (kind -> protocol -> model ids, in the module's order: the first

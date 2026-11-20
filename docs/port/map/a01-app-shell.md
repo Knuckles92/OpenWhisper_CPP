@@ -33,16 +33,16 @@ Area a01-app-shell. Source root: `D:\coding\whisper_local` (OpenWhisper 2.8.92,
 
 | ID | Feature | Exact user-visible behavior | Source | Disposition |
 |---|---|---|---|---|
-| A01-01 | Data directory resolution | `OPENWHISPER_DATA_DIR` wins (expanded, made absolute, created). Else frozen build -> per-user dir; source run -> cwd or checkout if it holds `openwhisper_settings.json`, else checkout if it has `.git`, else per-user dir. Per-user: `%LOCALAPPDATA%\OpenWhisper`, `~/Library/Application Support/OpenWhisper`, `$XDG_DATA_HOME` or `~/.local/share/OpenWhisper`. | `config.py:data_root`, `_source_data_dir`, `local_app_dir` | port (FioriVoce needs its own app name/env var decision) |
+| A01-01 | Data directory resolution | `OPENWHISPER_DATA_DIR` wins (expanded, made absolute, created). Else frozen build -> per-user dir; source run -> cwd or checkout if it holds `openwhisper_settings.json`, else checkout if it has `.git`, else per-user dir. Per-user: `%LOCALAPPDATA%\OpenWhisper`, `~/Library/Application Support/OpenWhisper`, `$XDG_DATA_HOME` or `~/.local/share/OpenWhisper`. | `config.py:data_root`, `_source_data_dir`, `local_app_dir` | port (OpenWhisper_CPP needs its own app name/env var decision) |
 | A01-02 | Components root | Always `<local_app_dir>/components`, never per checkout | `config.py:components_root` | port |
 | A01-03 | `.env` lookup | `<data_root>/.env` first, then `<checkout>/.env`; returns the first path even if missing | `config.py:env_file_path` | port |
 | A01-04 | App constants (`AppConfig`) | ~200 constants: file names, audio (44100 Hz, 1024 frame chunks, mono int16), timings (hotkey debounce 300 ms, min hold 250 ms, latch 400 ms, post-roll 1200 ms cap, adaptive quiet 300 ms, +12 dB margin, etc.), window sizes, cleanup prompts, batch notes, meeting defaults, updater intervals | `config.py:AppConfig` | port (constants), several engine-only ones drop |
-| A01-05 | Default backend choice | `parakeet_mlx` on macOS 14+ arm64; `parakeet` on Windows/Linux x86_64; else `local_whisper` | `config.py:__post_init__`, `parakeet_default_supported`, `parakeet_mlx_supported` | adapt: FioriVoce is always Parakeet |
+| A01-05 | Default backend choice | `parakeet_mlx` on macOS 14+ arm64; `parakeet` on Windows/Linux x86_64; else `local_whisper` | `config.py:__post_init__`, `parakeet_default_supported`, `parakeet_mlx_supported` | adapt: OpenWhisper_CPP is always Parakeet |
 | A01-06 | Host CPU arch without WMI | Windows: `IsWow64Process2` native machine, then `PROCESSOR_ARCHITEW6432`, then `PROCESSOR_ARCHITECTURE` | `config.py:host_machine`, `_windows_native_machine` | port (engine `platform.cpp` may already cover it) |
 | A01-07 | Default hotkeys | Win/Linux: record `kp *`, cancel `kp -`, enable/disable `ctrl+alt+kp *`, minimize `ctrl+alt+m`, paste walkthrough `ctrl+shift+f12`, rest unbound. macOS: `ctrl+alt+r`, `ctrl+alt+escape`, `ctrl+alt+shift+r`, `ctrl+alt+m`, `ctrl+shift+f12` | `config.py:__post_init__` | port |
 | A01-08 | Model choice lists | Display names and value map (`Local Whisper`->`local_whisper`, `API`->`api`, `Parakeet`->`parakeet`, `Qwen3-ASR`, `Nemotron Streaming`, `Moonshine`, `Parakeet MLX`, `Parakeet Unified`, `Remote computer`->`remote`); API models `gpt-transcribe` (default), `gpt-4o-transcribe`, `gpt-4o-mini-transcribe`, `whisper-1`; Whisper sizes list | `config.py:MODEL_CHOICES`, `MODEL_VALUE_MAP`, `API_MODEL_CHOICES`, `WHISPER_MODEL_CHOICES` | Parakeet port; Whisper/Moonshine/Qwen/MLX/Unified drop; Nemotron, API, Remote undecided backend |
 | A01-09 | AI cleanup prompt presets | Light / Medium (default) / High built from fixed sentences; unknown-app and terminal line rules; legacy prompt; rule-polish prompt; batch relation notes and timeouts (8 s / 1 retry dictation, 120 s / 2 retries batch) | `config.py:TRANSCRIPT_CLEANUP_*`, `TRANSCRIPT_BATCH_*` | port (text verbatim; consumed by a12) |
-| A01-10 | CLI help | `-h`/`--help` prints `_USAGE` and exits 0 before Qt or CUDA load | `main.py:_USAGE`, `_handle_early_cli` | port (FioriVoce wording) |
+| A01-10 | CLI help | `-h`/`--help` prints `_USAGE` and exits 0 before Qt or CUDA load | `main.py:_USAGE`, `_handle_early_cli` | port (OpenWhisper_CPP wording) |
 | A01-11 | `--version` | Prints `OpenWhisper 2.8.92`, exit 0 | `main.py:_handle_early_cli` | port |
 | A01-12 | `--diagnostics OUT.json` | Writes sanitized report to a new file (`open("x")`: refuses to overwrite), exit 0 | `services/diagnostics.py:main`, `collect_report` | port |
 | A01-13 | `--api`, `--channel` | Dispatch to History API server / Claude Code channel bridge before Qt loads | `main.py:_handle_early_cli` | port (owned by a19/a20) |
@@ -95,7 +95,7 @@ Area a01-app-shell. Source root: `D:\coding\whisper_local` (OpenWhisper 2.8.92,
 | A01-60 | History entry dialog and calendar | Sidebar entry opens modal entry dialog; calendar window created once and reused | `main_window.py:_open_history_entry`, `open_history_calendar` | port (a09) |
 | A01-61 | Tray icon and menu | Tooltip "OpenWhisper" or "OpenWhisper: update {v} available"; menu as listed above; Meeting Dashboard disabled until a meeting is active; update item hidden until a version is set ("Update to {v}…"); Win/Linux double-click restores; macOS left-click restores, right/Ctrl-click pops the menu under the item | `ui_qt/system_tray.py:SystemTrayManager` | port |
 | A01-62 | No-tray desktops | Tray button and "Minimize to Tray" hidden; tooltip "This desktop session does not provide a system tray."; minimize instead of hide; close quits; log warning "No system tray is available; close-to-tray and tray controls are disabled" | `system_tray.py:__init__`, `main_window.py:set_tray_available` | port |
-| A01-63 | What's New note | release_line "2.8", updated "2026-11-09", text <= 280 chars; seen when stored `whats_new_seen` equals `updated` | `ui_qt/whats_new.py` | port (FioriVoce text) |
+| A01-63 | What's New note | release_line "2.8", updated "2026-11-09", text <= 280 chars; seen when stored `whats_new_seen` equals `updated` | `ui_qt/whats_new.py` | port (OpenWhisper_CPP text) |
 | A01-64 | Writing styles per app category | Categories email/work/personal/other; tones formal/casual/very_casual; new-install seed email formal, work casual, personal casual, other formal; prompt blocks for casual and very casual; terminal and code surface rules; overrides list | `services/app_styles.py` | port (logically a12/a13) |
 | A01-65 | Child-process environment | Programs started for the user get the user's environment: app-set vars restored, `.env` keys removed, frozen loader paths undone, the app's own venv removed | `services/process_env.py` | port (simplified: no venv/PyInstaller) |
 | A01-66 | Desktop session detection | Wayland: Linux and (`XDG_SESSION_TYPE=wayland` or `WAYLAND_DISPLAY`); Omarchy: `OPENWHISPER_UI=omarchy|classic` override, else Linux and (`OMARCHY_PATH` or a `colors.toml` exists or `/etc/os-release` `ID=omarchy`), cached | `services/desktop_session.py` | other-platform only (Linux) |
@@ -105,7 +105,7 @@ Area a01-app-shell. Source root: `D:\coding\whisper_local` (OpenWhisper 2.8.92,
 
 ### `_version.py` (13 lines)
 Single `__version__ = "2.8.92"`; also read by the PyInstaller version resource and Inno Setup.
-Port: a CMake `project(VERSION)` feeding `version.h.in` (FioriVoce already has
+Port: a CMake `project(VERSION)` feeding `version.h.in` (OpenWhisper_CPP already has
 `src/engine/version.h.in`). Note: unrelated to `services.database.SCHEMA_VERSION`.
 
 ### `config.py` (843 lines)
@@ -207,7 +207,7 @@ QCoreApplication for `--help` speed requirement; a hand parser is fine).
   removes the app's own virtualenv only if `sys.prefix` is inside it (`:126-131`).
 - Port: keep `set_for_app` / `prepend_for_app` / `load_for_app` / `external_env` / `drop` as a
   Qt-free `fv::ProcessEnv` returning a map usable as `QProcessEnvironment`. PyInstaller and venv
-  branches drop; a bundled-library dir (if FioriVoce ships one on Linux) replaces them.
+  branches drop; a bundled-library dir (if OpenWhisper_CPP ships one on Linux) replaces them.
 
 ### `services/ui_instance.py` (204 lines)
 - Public: `SHOW = b"show\n"`, `runtime_paths(data_dir)`, `request_show(sock_name, timeout=0.4)`,
@@ -220,7 +220,7 @@ QCoreApplication for `--help` speed requirement; a hand parser is fine).
   mode 0600, directory 0700; a lock holder that never answers still blocks a second copy
   (`test_lock_holder_without_a_socket_blocks_a_second_copy`). Different data dirs get separate UIs.
 - Port: `QLockFile` + `QLocalServer`/`QLocalSocket` keyed by the same hash on every platform
-  (FioriVoce could extend single-instance to Windows; decide with the updater mutex).
+  (OpenWhisper_CPP could extend single-instance to Windows; decide with the updater mutex).
 
 ### `services/desktop_session.py` (50 lines)
 `is_wayland_session()`, `omarchy_theme_paths()` (`$XDG_STATE_HOME/omarchy/current/theme/colors.toml`
@@ -496,7 +496,7 @@ Installed-system contracts: Linux `.desktop` file name `openwhisper` must match
 `setDesktopFileName`; Windows frozen install at `%LOCALAPPDATA%\Programs\OpenWhisper` with data in
 `%LOCALAPPDATA%\OpenWhisper`; bundled assets `ui_qt/styles/theme.qss`,
 `ui_qt/assets/openwhisper.ico`, `openwhisper.png`, `check.svg`, `webui/dist/index.html`.
-Decision needed: whether FioriVoce reads an existing OpenWhisper data directory (migration) or
+Decision needed: whether OpenWhisper_CPP reads an existing OpenWhisper data directory (migration) or
 uses its own name (the CLAUDE.md says it is a separate project).
 
 ## External dependencies
@@ -560,7 +560,7 @@ Drop (non-Parakeet or Python worker plumbing):
   versions.
 Adapt to in-process Parakeet:
 - `DEFAULT_BACKEND` is always Parakeet; `parakeet_default_supported` becomes "is a NeMo runtime
-  available for this host" (FioriVoce engine `platform.cpp`/`runtime.cpp`).
+  available for this host" (OpenWhisper_CPP engine `platform.cpp`/`runtime.cpp`).
 - `run_with_ui_pulse` is the natural place to load the NeMo runtime and model on
   `EngineWorker`'s thread while the splash animates; per CLAUDE.md the engine must never be
   called from the GUI thread, so use queued signals rather than a nested loop polling a box.

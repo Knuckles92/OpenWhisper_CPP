@@ -12,7 +12,7 @@ tag.
 | `include/onnxruntime_ep_c_api.h` | `e6c986c9e98583f8113b2c6bc3864814883b806d501cf24da4d239c45753e235` |
 | `LICENSE` | `2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c` |
 
-`onnxruntime_c_api.h` is the header FioriVoce uses (`ORT_API_VERSION` 29). The other two are
+`onnxruntime_c_api.h` is the header OpenWhisper_CPP uses (`ORT_API_VERSION` 29). The other two are
 there only because it includes them.
 
 Only headers are vendored. `onnxruntime.dll` is loaded at run time by its full path, never

@@ -489,7 +489,7 @@ Wire protocols used (all JSON over HTTPS/HTTP):
   whether Parakeet TDT honors it decides `engine_support("parakeet")` = model vs after (today it
   is "after": phrases only drive replacements and the cleanup prompt). Phrase strings must
   outlive the request (CLAUDE.md engine rule). `transcribe()` with the incremental slot maps to
-  FioriVoce's live-preview window reuse.
+  OpenWhisper_CPP's live-preview window reuse.
 
 ## Dependencies on other areas
 
@@ -603,7 +603,7 @@ Risks:
 - The catalogs are dated and will drift; keep them as data (JSON resource) so updates do not need
   code changes.
 - Branding strings ("OpenWhisper" in headers, snippet cap message, `OPENWHISPER_LLM_API_KEY`)
-  must be decided; keyring entry names must stay compatible if FioriVoce should read existing keys.
+  must be decided; keyring entry names must stay compatible if OpenWhisper_CPP should read existing keys.
 - Many cross-area contracts (settings resolvers, focus snapshot, installed agents) must exist
   before the services compile; stub interfaces early.
 

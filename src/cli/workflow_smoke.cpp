@@ -690,14 +690,14 @@ int run_workflow_smoke_command(std::span<const std::string> args) {
     try {
         report = run_workflow_smoke();
     } catch (const std::exception& error) {
-        std::fprintf(stderr, "fiorivoce-cli: workflow smoke failed: %s\n", error.what());
+        std::fprintf(stderr, "openwhisper-cpp-cli: workflow smoke failed: %s\n", error.what());
         return 1;
     }
     if (args.size() == 1) {
         try {
             write_file(path_from_utf8(args.front()), report_file_text(report));
         } catch (const std::exception&) {
-            std::fprintf(stderr, "fiorivoce-cli: The report could not be written to %s.\n",
+            std::fprintf(stderr, "openwhisper-cpp-cli: The report could not be written to %s.\n",
                          args.front().c_str());
             return 1;
         }

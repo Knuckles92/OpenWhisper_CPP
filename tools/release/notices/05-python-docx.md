@@ -1,6 +1,6 @@
 ## python-docx (Word template parts)
 
-The Word documents FioriVoce writes carry four parts of python-docx 1.2.0's default template
+The Word documents OpenWhisper_CPP writes carry four parts of python-docx 1.2.0's default template
 (`docx/templates/default.docx`), unchanged: `word/styles.xml`, `word/stylesWithEffects.xml`,
 `word/numbering.xml` and `docProps/thumbnail.jpeg` (<https://github.com/python-openxml/python-docx>),
 under the MIT License:

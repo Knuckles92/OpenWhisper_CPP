@@ -57,8 +57,8 @@ struct Names {
     const AppIdentity* identity = nullptr;
     std::string format;        // FORMAT
     std::string extension;     // ARCHIVE_EXTENSION
-    std::string settings_file; // fiorivoce_settings.json
-    std::string database_file; // fiorivoce.db
+    std::string settings_file; // openwhisper_cpp_settings.json
+    std::string database_file; // openwhisper-cpp.db
     std::string restore_dir;   // RESTORE_DIR
     // OWNED_NAMES, in OpenWhisper's order: settings, database, the legacy history and meeting
     // JSON files with their .bak, recorded_audio.wav, .recorded_audio-recovery, recordings,

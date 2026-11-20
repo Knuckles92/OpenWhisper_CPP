@@ -161,7 +161,7 @@ TEST_CASE("load hotkey settings matches OpenWhisper's", "[test_settings][golden]
 }
 
 TEST_CASE("load model selection matches OpenWhisper's", "[test_settings][golden]") {
-    // Saved names of engines FioriVoce does not have read as the default and stay saved.
+    // Saved names of engines OpenWhisper_CPP does not have read as the default and stay saved.
     static const std::set<std::string> kDropped{
         "local_whisper", "qwen_asr", "nemotron", "moonshine", "parakeet_mlx", "parakeet_unified"};
     fv::settings_test::for_each_case(

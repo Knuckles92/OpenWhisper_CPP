@@ -3,7 +3,7 @@ button notes, the Escape test and the Windows capture's result.
 
 mouse_shortcut_note reads the backend the platform loaded; the wrapper pins it per case, as
 OpenWhisper's test does ("windows": the `keyboard` backend; "pynput": the macOS and Linux one,
-with that backend's parse_hotkey). FioriVoce runs the Windows rows; the pynput rows are recorded
+with that backend's parse_hotkey). OpenWhisper_CPP runs the Windows rows; the pynput rows are recorded
 for completeness and replayed through Vocabulary::Pynput.
 
 capture_run runs HotkeyCaptureThread.run (the Windows variant) synchronously over scripted
@@ -13,7 +13,7 @@ only normalizes the names it is given and installs nothing. An event is [type, n
 is_keypad]; the result is {"captured": [...], "cancelled": n, "failed": [...]}. The C++ replay is
 tests/hotkeys/test_golden_mouse.cpp.
 
-M2.17 hotkeys-page adds qt_modifier_names over modifier sets and platforms (FioriVoce replays the
+M2.17 hotkeys-page adds qt_modifier_names over modifier sets and platforms (OpenWhisper_CPP replays the
 win32 rows), and the Hotkeys page's standard row table and record-row descriptions, generated
 from settings_dialog.py (hotkey_rows, record_hotkey_description); the C++ replay is
 tests/ui_hotkeys/test_golden.cpp.

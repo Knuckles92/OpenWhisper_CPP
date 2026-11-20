@@ -79,7 +79,7 @@ bool wait_for_parent(std::uint32_t pid, const fs::path& expected_exe, std::uint6
 std::int64_t current_process_creation_time() {
     const auto ticks = start_ticks("self");
     if (ticks <= 0)
-        throw UpdateError("Could not identify the running FioriVoce process.");
+        throw UpdateError("Could not identify the running OpenWhisper_CPP process.");
     return ticks;
 }
 } // namespace fv::update_native

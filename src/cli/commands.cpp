@@ -37,12 +37,12 @@
 namespace fv::cli {
 namespace {
 
-constexpr const char* kDiagnosticsUsage = "usage: fiorivoce-cli --diagnostics [-h] output\n";
+constexpr const char* kDiagnosticsUsage = "usage: openwhisper-cpp-cli --diagnostics [-h] output\n";
 
 // argparse's exit for a bad command line: usage, then "<prog>: error: <message>", status 2.
 int diagnostics_usage_error(const std::string& message) {
     std::fputs(kDiagnosticsUsage, stderr);
-    std::fprintf(stderr, "fiorivoce-cli --diagnostics: error: %s\n", message.c_str());
+    std::fprintf(stderr, "openwhisper-cpp-cli --diagnostics: error: %s\n", message.c_str());
     return 2;
 }
 
@@ -212,12 +212,14 @@ int write_diagnostics(std::span<const std::string> args,
     } catch (const std::filesystem::filesystem_error& error) {
         // filesystem_error::what() spells the path in the ANSI code page; the argument is UTF-8.
         if (error.code() == std::errc::file_exists) {
-            std::fprintf(stderr,
-                         "fiorivoce-cli: %s already exists, and a report never replaces a file. "
-                         "Choose a new file name.\n",
-                         positionals.front().c_str());
+            std::fprintf(
+                stderr,
+                "openwhisper-cpp-cli: %s already exists, and a report never replaces a file. "
+                "Choose a new file name.\n",
+                positionals.front().c_str());
         } else {
-            std::fprintf(stderr, "fiorivoce-cli: The report could not be written to %s (%s).\n",
+            std::fprintf(stderr,
+                         "openwhisper-cpp-cli: The report could not be written to %s (%s).\n",
                          positionals.front().c_str(), error.code().message().c_str());
         }
         return 1;
@@ -267,7 +269,7 @@ int run_self_test() {
         std::printf("%s package self-test passed\n", std::string(id.product).c_str());
         return 0;
     } catch (const std::exception& error) {
-        std::fprintf(stderr, "fiorivoce-cli: self-test failed: %s\n", error.what());
+        std::fprintf(stderr, "openwhisper-cpp-cli: self-test failed: %s\n", error.what());
         return 1;
     }
 }

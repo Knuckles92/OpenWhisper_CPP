@@ -372,7 +372,7 @@ TEST_CASE("show stats keeps one window and leaves settings alone",
 
 TEST_CASE("it fits narrow windows at large fonts", "[test_personalize_s9_stats_dialog][widget]") {
     // from tests/test_personalize_s9_stats_dialog.py::test_it_fits_narrow_windows_at_large_fonts
-    // The "omarchy" variant is Linux's Omarchy desktop look, which FioriVoce does not port.
+    // The "omarchy" variant is Linux's Omarchy desktop look, which OpenWhisper_CPP does not port.
     const int width = GENERATE(720, 460);
     CAPTURE(width);
     const fvtest::AppTheme theme(QStringLiteral("dark"), 130);

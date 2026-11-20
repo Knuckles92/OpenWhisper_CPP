@@ -62,7 +62,7 @@ template <class Fn> Json outcome(Fn&& fn) {
     return out;
 }
 
-// The recorded outcome with OpenWhisper's names in messages as FioriVoce's.
+// The recorded outcome with OpenWhisper's names in messages as OpenWhisper_CPP's.
 Json rebranded(const Json& expected) {
     Json out = expected;
     if (out.contains("error")) {
@@ -105,7 +105,7 @@ TEST_CASE("_granted_ttl_ms matches OpenWhisper", "[golden]") {
 }
 
 TEST_CASE("subscription_id with OpenWhisper's principal matches OpenWhisper", "[golden]") {
-    CHECK(principal() == "fiorivoce-mcp-token");
+    CHECK(principal() == "openwhisper-cpp-mcp-token");
     fv::golden::for_each(kModule, "subscription_id", [](const fv::golden::Case& c) {
         INFO(c.label());
         CHECK(subscription_id(legacy_principal(), c.arg<std::string>(2), c.arg<std::string>(0),

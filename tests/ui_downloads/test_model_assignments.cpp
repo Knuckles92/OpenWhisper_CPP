@@ -1,6 +1,6 @@
 // What the Voice model page says about the engine, as functions over a settings snapshot, replayed
 // against the vectors OpenWhisper's ModelAssignments methods give (tools/parity/cases/
-// ui_qt.dialogs.settings_models.py) and checked where FioriVoce differs.
+// ui_qt.dialogs.settings_models.py) and checked where OpenWhisper_CPP differs.
 #include <catch2/catch_test_macros.hpp>
 
 #include <chrono>
@@ -146,7 +146,7 @@ TEST_CASE("a runtime that cannot be resolved says where to look", "[widget]") {
           " · NVIDIA Speech CPU not installed.");
 }
 
-// FioriVoce's own runtime settings: the line names the runtime the engine will load.
+// OpenWhisper_CPP's own runtime settings: the line names the runtime the engine will load.
 TEST_CASE("the runtime line follows the runtime build and folder chosen", "[unit]") {
     const auto cpuOnly = fvtest::hostWith({"asr-nvidia-cpu"});
     Json settings{{"selected_model", "parakeet"}};
@@ -170,7 +170,7 @@ TEST_CASE("the runtime line follows the runtime build and folder chosen", "[unit
     settings["fv_speech_runtime"] = "";
     CHECK(fv::engine_runtime_label(settings, "parakeet", "cuda", fvtest::hostWith({})) ==
           " · NVIDIA Speech GPU installed.");
-    // Another backend is not FioriVoce's engine: its settings change nothing.
+    // Another backend is not OpenWhisper_CPP's engine: its settings change nothing.
     CHECK(fv::engine_runtime_label(settings, "parakeet_mlx", "cuda", fvtest::hostWith({})) ==
           fv::kRuntimeCheckFailed);
 }
@@ -184,7 +184,7 @@ TEST_CASE("the runtime summary says which build is loaded", "[widget]") {
     CHECK(fv::runtime_summary(cpu, true) == "Auto · CPU runtime loaded");
 }
 
-TEST_CASE("the voice footnote and captions name only the engines FioriVoce has", "[widget]") {
+TEST_CASE("the voice footnote and captions name only the engines OpenWhisper_CPP has", "[widget]") {
     for (const std::string_view text :
          {fv::kVoiceFootnote, fv::kApiEngineCaption, fv::kRemoteEngineCaption}) {
         for (const char* gone : {"Whisper", "Nemotron", "Moonshine", "Qwen"}) {

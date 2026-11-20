@@ -6,7 +6,7 @@
 
 #include "base/json.h"
 
-// The speech models and backends FioriVoce offers (services/local_asr/catalog.py MODELS,
+// The speech models and backends OpenWhisper_CPP offers (services/local_asr/catalog.py MODELS,
 // BACKENDS, DEFAULT_MODELS, artifacts, selected_model, selected_device) and the Parakeet entry of
 // config.py's MODEL_CHOICES / MODEL_VALUE_MAP. Only the Parakeet family is kept: Parakeet TDT
 // 0.6B v3 and Orukeet; Qwen3-ASR, Nemotron, Moonshine, Parakeet MLX and Parakeet Unified are not.

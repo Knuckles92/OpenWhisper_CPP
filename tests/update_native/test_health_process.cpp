@@ -44,7 +44,7 @@ struct HealthFixture {
     explicit HealthFixture(const std::string& script) {
         fs::create_directories(paths.transaction_dir);
         fs::create_directories(paths.install_dir);
-        const auto app = paths.install_dir / "fiorivoce.exe";
+        const auto app = paths.install_dir / "openwhisper-cpp.exe";
         fv::write_file_atomic(app, script);
         fs::permissions(app, fs::perms::owner_exec, fs::perm_options::add);
         hash = fv::download::sha256_file(app, true);
@@ -116,7 +116,7 @@ TEST_CASE("a health process that exits fails without waiting for the timeout",
     fs::create_directories(paths.install_dir);
     wchar_t system_dir[MAX_PATH]{};
     REQUIRE(GetSystemDirectoryW(system_dir, MAX_PATH) > 0);
-    const auto app = paths.install_dir / "fiorivoce.exe";
+    const auto app = paths.install_dir / "openwhisper-cpp.exe";
     fs::copy_file(fs::path(system_dir) / "hostname.exe", app);
     fv::update_native::TransactionStorage storage(context, id);
     fv::update_native::HealthProcess process;

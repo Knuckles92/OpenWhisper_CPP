@@ -1,7 +1,7 @@
-// Importing an OpenWhisper data folder (backup/import.h). FioriVoce only: there is no OpenWhisper
-// test to port. The OpenWhisper folders come from tests/fixtures/import (made by OpenWhisper's own
-// services.database and services.settings) and are copied into a temporary folder first; nothing
-// here reads an installed OpenWhisper.
+// Importing an OpenWhisper data folder (backup/import.h). OpenWhisper_CPP only: there is no
+// OpenWhisper test to port. The OpenWhisper folders come from tests/fixtures/import (made by
+// OpenWhisper's own services.database and services.settings) and are copied into a temporary folder
+// first; nothing here reads an installed OpenWhisper.
 
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_string.hpp>
@@ -150,7 +150,7 @@ fs::path resolved_temp(const fv::testkit::TempDataRoot& temp) {
 struct Folders {
     fv::testkit::TempDataRoot temp;
     fs::path source = install_fixture("openwhisper", resolved_temp(temp) / "OpenWhisper");
-    fs::path root = resolved_temp(temp) / "FioriVoce";
+    fs::path root = resolved_temp(temp) / "OpenWhisper_CPP";
 };
 
 ImportOptions version(std::string app_version = "0.1.0") {
@@ -166,14 +166,15 @@ ImportResult import_from(const Folders& folders, ImportOptions options = version
 
 } // namespace
 
-TEST_CASE("an OpenWhisper folder stages as a pending restore of the FioriVoce folder", "[import]") {
+TEST_CASE("an OpenWhisper folder stages as a pending restore of the OpenWhisper_CPP folder",
+          "[import]") {
     Folders folders;
-    write_bytes(folders.root / "fiorivoce_settings.json", "{\"ui_theme\": \"light\"}");
+    write_bytes(folders.root / "openwhisper_cpp_settings.json", "{\"ui_theme\": \"light\"}");
     const auto before = tree(folders.source);
 
     const ImportResult result = import_from(folders);
 
-    const fs::path home = folders.root / ".fiorivoce-restore";
+    const fs::path home = folders.root / ".openwhisper-cpp-restore";
     CHECK(result.stage.parent_path() == fs::weakly_canonical(home));
     CHECK(fv::backup::detail::file_sha256(result.stage / "manifest.json").size() == 64);
     CHECK(read_json(home / "pending.json").at("stage") ==
@@ -192,8 +193,8 @@ TEST_CASE("an OpenWhisper folder stages as a pending restore of the FioriVoce fo
     }
     const std::string sep(1, static_cast<char>(fs::path::preferred_separator));
     CHECK(staged == std::set<std::string>{
-                        "fiorivoce_settings.json",
-                        "fiorivoce.db",
+                        "openwhisper_cpp_settings.json",
+                        "openwhisper-cpp.db",
                         "recorded_audio.wav",
                         "scratchpad.txt",
                         "recordings" + sep + "dictation.wav",
@@ -203,7 +204,7 @@ TEST_CASE("an OpenWhisper folder stages as a pending restore of the FioriVoce fo
                     });
 
     SECTION("settings: the engine mapped, unknown keys kept, sanitized, the import recorded") {
-        const Json settings = read_json(data / "fiorivoce_settings.json");
+        const Json settings = read_json(data / "openwhisper_cpp_settings.json");
         CHECK(settings.at("selected_model") == "parakeet");
         CHECK(settings.at("ui_theme") == "dark");
         CHECK(settings.at("fixture_future_key") == Json::parse(R"({"kept": true})"));
@@ -222,12 +223,12 @@ TEST_CASE("an OpenWhisper folder stages as a pending restore of the FioriVoce fo
         CHECK(keys == std::vector<std::string>{"source", "at", "version"});
         CHECK(settings.items().begin().key() == "selected_model"); // OpenWhisper's order kept
         // Written as the app writes its settings: indent 2, CRLF on Windows.
-        CHECK(read_bytes(data / "fiorivoce_settings.json") ==
+        CHECK(read_bytes(data / "openwhisper_cpp_settings.json") ==
               fv::backup::detail::settings_text(settings));
     }
 
-    SECTION("the database: a snapshot, its paths rebased onto the FioriVoce folder") {
-        const fs::path db = data / "fiorivoce.db";
+    SECTION("the database: a snapshot, its paths rebased onto the OpenWhisper_CPP folder") {
+        const fs::path db = data / "openwhisper-cpp.db";
         CHECK(count_of(db, "SELECT COUNT(*) FROM transcription_history") == 3);
         CHECK(text_of(db, "SELECT audio_file FROM transcription_history WHERE "
                           "id='history-relative'") == "dictation.wav");
@@ -258,16 +259,17 @@ TEST_CASE("an OpenWhisper folder stages as a pending restore of the FioriVoce fo
         CHECK(tree(folders.source) == before);
     }
 
-    SECTION("the next start applies it, keeping FioriVoce's own data aside") {
+    SECTION("the next start applies it, keeping OpenWhisper_CPP's own data aside") {
         REQUIRE(fv::backup::apply_pending_restore(folders.root));
-        CHECK(read_json(folders.root / "fiorivoce_settings.json").at("selected_model") ==
+        CHECK(read_json(folders.root / "openwhisper_cpp_settings.json").at("selected_model") ==
               "parakeet");
-        CHECK(count_of(folders.root / "fiorivoce.db",
+        CHECK(count_of(folders.root / "openwhisper-cpp.db",
                        "SELECT COUNT(*) FROM transcription_history") == 3);
         CHECK(fs::exists(folders.root / "recordings" / "absolute.wav"));
         const auto previous = fv::backup::previous_data_dir(folders.root);
         REQUIRE(previous.has_value());
-        CHECK(read_bytes(*previous / "fiorivoce_settings.json") == "{\"ui_theme\": \"light\"}");
+        CHECK(read_bytes(*previous / "openwhisper_cpp_settings.json") ==
+              "{\"ui_theme\": \"light\"}");
         CHECK_FALSE(fs::exists(folders.root / "remote_records"));
         CHECK(tree(folders.source) == before);
     }
@@ -295,23 +297,23 @@ TEST_CASE("legacy JSON history is merged into an empty history table and never s
     const fs::path base = resolved_temp(temp);
     const fs::path source = install_fixture("legacy", base / "OpenWhisper");
     const auto before = tree(source);
-    const ImportResult result =
-        stage_from_data_root(fv::legacy_identity(), source, fv::identity(), base / "FioriVoce");
+    const ImportResult result = stage_from_data_root(fv::legacy_identity(), source, fv::identity(),
+                                                     base / "OpenWhisper_CPP");
     const fs::path data = result.stage / "data";
-    const fs::path db = data / "fiorivoce.db";
+    const fs::path db = data / "openwhisper-cpp.db";
     CHECK(count_of(db, "SELECT COUNT(*) FROM transcription_history") == 2);
     CHECK(text_of(db, "SELECT text FROM transcription_history WHERE id='legacy-1'") ==
           "from the JSON file");
     CHECK_FALSE(fs::exists(data / "transcription_history.json"));
     CHECK_FALSE(fs::exists(data / "transcription_history.json.bak"));
     // No settings file: the staged settings are the sanitizer's and the import record.
-    const Json settings = read_json(data / "fiorivoce_settings.json");
+    const Json settings = read_json(data / "openwhisper_cpp_settings.json");
     CHECK(settings.at("mcp_enabled") == false);
     CHECK(settings.at("fv_import").at("source") == fv::path_to_utf8(source));
     CHECK_FALSE(settings.contains("selected_model"));
     CHECK(tree(source) == before);
-    REQUIRE(fv::backup::apply_pending_restore(base / "FioriVoce"));
-    CHECK_FALSE(fs::exists(base / "FioriVoce" / "transcription_history.json"));
+    REQUIRE(fv::backup::apply_pending_restore(base / "OpenWhisper_CPP"));
+    CHECK_FALSE(fs::exists(base / "OpenWhisper_CPP" / "transcription_history.json"));
 }
 
 TEST_CASE("a running OpenWhisper refuses the import until it closes", "[import][platform]") {
@@ -339,7 +341,7 @@ TEST_CASE("an import is refused while a restore is waiting for restart", "[impor
     REQUIRE_THROWS_WITH(import_from(folders), "A restore is already waiting for restart");
     // The first stage is untouched and nothing else was made.
     std::vector<fs::path> stages;
-    for (const auto& entry : fs::directory_iterator(folders.root / ".fiorivoce-restore")) {
+    for (const auto& entry : fs::directory_iterator(folders.root / ".openwhisper-cpp-restore")) {
         if (entry.is_directory()) {
             stages.push_back(entry.path());
         }
@@ -367,19 +369,20 @@ TEST_CASE("a meeting OpenWhisper never ended refuses the import", "[import]") {
                         ContainsSubstring("OpenWhisper has a meeting that was never ended"));
     CHECK(tree(folders.source) == before);
     CHECK_FALSE(fv::backup::pending_restore_exists(folders.root));
-    CHECK(fs::is_empty(folders.root / ".fiorivoce-restore"));
+    CHECK(fs::is_empty(folders.root / ".openwhisper-cpp-restore"));
 }
 
 TEST_CASE("a folder that is not an OpenWhisper data folder is refused", "[import]") {
     fv::testkit::TempDataRoot temp;
     REQUIRE_THROWS_WITH(stage_from_data_root(fv::legacy_identity(), temp.path() / "missing",
-                                             fv::identity(), temp.path() / "FioriVoce"),
+                                             fv::identity(), temp.path() / "OpenWhisper_CPP"),
                         ContainsSubstring("No OpenWhisper data folder was found at"));
-    fs::create_directories(temp.path() / "FioriVoce" / "inner");
-    REQUIRE_THROWS_WITH(stage_from_data_root(fv::legacy_identity(), temp.path() / "FioriVoce",
-                                             fv::identity(), temp.path() / "FioriVoce"),
-                        "The OpenWhisper data folder must be separate from the FioriVoce data "
-                        "folder");
+    fs::create_directories(temp.path() / "OpenWhisper_CPP" / "inner");
+    REQUIRE_THROWS_WITH(
+        stage_from_data_root(fv::legacy_identity(), temp.path() / "OpenWhisper_CPP", fv::identity(),
+                             temp.path() / "OpenWhisper_CPP"),
+        "The OpenWhisper data folder must be separate from the OpenWhisper_CPP data "
+        "folder");
 }
 
 TEST_CASE("the OpenWhisper data folders are found, read from copies", "[import]") {
@@ -390,7 +393,7 @@ TEST_CASE("the OpenWhisper data folders are found, read from copies", "[import]"
     const auto legacy_before = tree(legacy);
     // The per-user folder is LOCALAPPDATA on Windows and XDG_DATA_HOME on Linux: pinning only
     // the first sent this test to the real ~/.local/share/OpenWhisper of a Linux machine.
-    const fv::MapEnvReader env{{"FIORIVOCE_DATA_DIR", fv::path_to_utf8(temp.path() / "fv")},
+    const fv::MapEnvReader env{{"OPENWHISPER_CPP_DATA_DIR", fv::path_to_utf8(temp.path() / "fv")},
                                {"OPENWHISPER_DATA_DIR", fv::path_to_utf8(source)},
                                {"LOCALAPPDATA", fv::path_to_utf8(temp.path() / "local")},
                                {"XDG_DATA_HOME", fv::path_to_utf8(temp.path() / "local")},
@@ -426,7 +429,7 @@ TEST_CASE("the OpenWhisper data folders are found, read from copies", "[import]"
     CHECK_FALSE(fv::backup::inspect_import_source(temp.path() / "missing").has_value());
 }
 
-TEST_CASE("the imported settings map only what FioriVoce cannot read", "[import]") {
+TEST_CASE("the imported settings map only what OpenWhisper_CPP cannot read", "[import]") {
     const auto mapped = [](const Json& legacy) {
         return fv::backup::import_settings(legacy, "C:/ow", "2026-11-15T00:00:00+00:00", "0.1.0");
     };
@@ -451,7 +454,7 @@ TEST_CASE("the coordinator stages an import as a restore", "[import]") {
     fv::ManualExecutor worker;
     fv::backup::testing::FakeBackupService service;
     fv::backup::testing::FakeHooks hooks;
-    fv::MapEnvReader env{{"FIORIVOCE_DATA_DIR", fv::path_to_utf8(temp.path() / "data")}};
+    fv::MapEnvReader env{{"OPENWHISPER_CPP_DATA_DIR", fv::path_to_utf8(temp.path() / "data")}};
     fv::pin_per_user_folders(env, temp.path() / "per-user");
     fv::backup::BackupCoordinator coordinator(fv::Paths::resolve(fv::identity(), env),
                                               fv::identity(), hooks.hooks(), ui, worker, clock,

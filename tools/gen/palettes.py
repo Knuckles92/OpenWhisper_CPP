@@ -1,7 +1,7 @@
 """Write src/ui_theme/data/palettes.json: OpenWhisper's dark and light palette tokens.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/gen/palettes.py [--check]
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/gen/palettes.py [--check]
 
 The tokens are read from ui_qt/utils/palette.py by importing it from the read-only checkout
 through tools/parity/ow_isolation.py, so fv_ui_theme resolves theme.qss against exactly the

@@ -5,8 +5,8 @@
 #include <string_view>
 
 // The remote engine's wire constants, byte for byte as OpenWhisper's services/remote_asr
-// (protocol.py, discovery.py, tls.py, settings.py) spells them, so that a FioriVoce computer and
-// an OpenWhisper one pair, discover and dictate through each other. This is the one C++ file
+// (protocol.py, discovery.py, tls.py, settings.py) spells them, so that a OpenWhisper_CPP computer
+// and an OpenWhisper one pair, discover and dictate through each other. This is the one C++ file
 // that may spell the other product's name (lint.brand): only where the bytes on the wire or a
 // peer's own code need it.
 namespace fv::remote {
@@ -64,7 +64,7 @@ inline constexpr std::size_t QUERY_BYTES = 512;
 // Receive buffer for one datagram, larger than anything valid.
 inline constexpr std::size_t DATAGRAM_MAX_BYTES = 2048;
 
-// The host's TLS identity, in the data root (FioriVoce's own; never OpenWhisper's).
+// The host's TLS identity, in the data root (OpenWhisper_CPP's own; never OpenWhisper's).
 inline constexpr std::string_view CERT_FILENAME = "remote_engine_host_cert.pem";
 inline constexpr std::string_view KEY_FILENAME = "remote_engine_host_key.pem";
 // The client's device token is the credential <identity().env_prefix>REMOTE_ENGINE_TOKEN

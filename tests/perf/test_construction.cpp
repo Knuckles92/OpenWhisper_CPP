@@ -3,11 +3,11 @@
 // after_settings_and_history.settings), with the child widget counts. Offscreen, over the
 // controller's real feature graph and its fakes (tests/ui_controller/controller_support.h).
 //
-// Where FioriVoce differs: its main window is built by the features as they install (the shell
-// feature constructs it, each feature plugs its screens in, completeSetup() fills the tabs), so
-// "construction" here is the feature graph's install through completeSetup and the tray, the span
-// Bootstrap reports between its "features" and "main_window_created" steps; OpenWhisper's number
-// is MainWindow's constructor. The Settings window is the SettingsDialog's constructor, as
+// Where OpenWhisper_CPP differs: its main window is built by the features as they install (the
+// shell feature constructs it, each feature plugs its screens in, completeSetup() fills the tabs),
+// so "construction" here is the feature graph's install through completeSetup and the tray, the
+// span Bootstrap reports between its "features" and "main_window_created" steps; OpenWhisper's
+// number is MainWindow's constructor. The Settings window is the SettingsDialog's constructor, as
 // OpenWhisper's is. Each Catch2 case runs in its own process under CTest, so "first" is the first
 // in the process; the warm builds follow in the same process, as OpenWhisper's did.
 #include <catch2/catch_test_macros.hpp>

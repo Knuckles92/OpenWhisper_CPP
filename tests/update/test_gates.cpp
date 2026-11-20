@@ -27,8 +27,8 @@ const update::ReleaseIdentity& identity() {
 }
 
 update::InstallProbe development_build() {
-    auto probe = installed_probe("C:/Users/u/Programs/FioriVoce");
-    probe.running_dir = "D:/src/fiorivoce/out/build/bin";
+    auto probe = installed_probe("C:/Users/u/Programs/OpenWhisper_CPP");
+    probe.running_dir = "D:/src/openwhisper-cpp/out/build/bin";
     return probe;
 }
 
@@ -90,8 +90,9 @@ TEST_CASE("a setup that never ends refuses the launch", "[test_update_startup_ga
     const auto gate = update::LaunchGate::enter(identity(), installed_probe(), mutexes, clock);
     REQUIRE_FALSE(gate.has_value());
     CHECK(gate.error().find("Setup is still running") != std::string::npos);
-    CHECK(gate.error() == "FioriVoce Setup is still running, so FioriVoce did not start. Finish "
-                          "the installer, then start FioriVoce again.");
+    CHECK(gate.error() ==
+          "OpenWhisper_CPP Setup is still running, so OpenWhisper_CPP did not start. Finish "
+          "the installer, then start OpenWhisper_CPP again.");
     // 120 s at a 0.25 s poll.
     CHECK(mutexes.waits.size() == 480);
     CHECK(mutexes.owned().empty());
@@ -106,7 +107,7 @@ TEST_CASE("a native update admits only the verified health launch", "[test_updat
     // is refused at once, with the sentence main() shows in the native box before leaving with 0.
     const auto refused = update::LaunchGate::enter(identity(), installed_probe(), mutexes, clock);
     REQUIRE_FALSE(refused);
-    CHECK(refused.error() == "FioriVoce is finishing an update. Try again in a moment.");
+    CHECK(refused.error() == "OpenWhisper_CPP is finishing an update. Try again in a moment.");
     CHECK(mutexes.waits.empty());
     CHECK(mutexes.owned().empty());
     // from tests/test_update_startup_gate.py::test_health_token_may_launch_during_update: only
@@ -187,7 +188,7 @@ TEST_CASE("the first argument decides whether the gate runs", "[update]") {
 
 #ifdef _WIN32
 // The kernel's named mutexes: creates the identity's real app and setup mutex names, which a
-// running FioriVoce or its setup would see. Written for the owner; never run by the gate.
+// running OpenWhisper_CPP or its setup would see. Written for the owner; never run by the gate.
 TEST_CASE("the kernel's mutexes gate a launch", "[update][interactive]") {
     auto& mutexes = update::system_mutex_api();
     fv::FakeClock clock;

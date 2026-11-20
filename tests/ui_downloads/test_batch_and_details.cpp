@@ -23,7 +23,7 @@ using fv::ComponentDetailsDialog;
 
 namespace {
 
-const QString kFolder = QStringLiteral("C:/Users/test/AppData/Local/FioriVoce/speech-models");
+const QString kFolder = QStringLiteral("C:/Users/test/AppData/Local/OpenWhisper_CPP/speech-models");
 
 QString dot(const QString& name, const QString& size) {
     return name + QString::fromUtf8("  \u00b7  ") + size;

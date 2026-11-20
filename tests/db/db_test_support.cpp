@@ -88,7 +88,7 @@ Json rows_of(sql::Connection& conn, const std::string& query) {
     return rows;
 }
 
-bool fiorivoce_only(const Json& name) {
+bool openwhisper_cpp_only(const Json& name) {
     return name.is_string() && name.get<std::string>().starts_with("fv_");
 }
 
@@ -99,7 +99,7 @@ Json dump(const std::filesystem::path& path) {
     Json master = Json::array();
     for (Json& row : rows_of(conn, "SELECT type, name, tbl_name, sql FROM sqlite_master "
                                    "ORDER BY type, name")) {
-        if (!fiorivoce_only(row[1]) && !fiorivoce_only(row[2])) {
+        if (!openwhisper_cpp_only(row[1]) && !openwhisper_cpp_only(row[2])) {
             master.push_back(std::move(row));
         }
     }

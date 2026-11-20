@@ -10,8 +10,8 @@
     "NP-01"
    ],
    "openwhisper": "The update check is on by default and asks GitHub (api.github.com, the Knuckles92/OpenWhisper repository) 8 s after every launch and every 4 hours while running.",
-   "fiorivoce": "The release identity names no update source ({\"kind\": \"none\"} in src/update/data/release_identity.json) until the lead records a FioriVoce repository: automatic checks never run and a manual check says the build has no update source, without touching the network; the scheduling, the request and its fallbacks are ported and tested against a configured repository and the loopback feed (FIORIVOCE_UPDATE_FEED_URL).",
-   "reason": "FioriVoce has no release feed of its own yet, and OpenWhisper's repository constant must not be ported (it would offer OpenWhisper releases to FioriVoce).",
+   "openwhisper-cpp": "The release identity names no update source ({\"kind\": \"none\"} in src/update/data/release_identity.json) until the lead records a OpenWhisper_CPP repository: automatic checks never run and a manual check says the build has no update source, without touching the network; the scheduling, the request and its fallbacks are ported and tested against a configured repository and the loopback feed (OPENWHISPER_CPP_UPDATE_FEED_URL).",
+   "reason": "OpenWhisper_CPP has no release feed of its own yet, and OpenWhisper's repository constant must not be ported (it would offer OpenWhisper releases to OpenWhisper_CPP).",
    "source": "docs/port/packages/M3.md, Changes to the cut 3 (No update source by default) and Open decisions 3; tests/update/test_schedule.cpp (a build without an update source never checks), tests/update/test_runtime.cpp (a build without an update source says so and never schedules)"
   }
  ],
@@ -72,7 +72,7 @@
     "tests/ui_setup/test_guided_setup_cleanup.cpp",
     "tests/ui_setup/test_guided_setup_screenshots.cpp"
    ],
-   "note": "Keycap, try-it box with focus, where-text-lands line (three variants), Almost ready with Download and the cleanup Add key line, That worked / the failure reason, text put in the box after kTryFillQuickMs / kTryFillMs when it was not pasted, projections restored on a failed save, no provider probe and no download without a click, fiorivoceHotkeyWindow set (asserted and in the reference tree)."
+   "note": "Keycap, try-it box with focus, where-text-lands line (three variants), Almost ready with Download and the cleanup Add key line, That worked / the failure reason, text put in the box after kTryFillQuickMs / kTryFillMs when it was not pasted, projections restored on a failed save, no provider probe and no download without a click, openwhisperCppHotkeyWindow set (asserted and in the reference tree)."
   },
   "UP-01": {
    "status": "difference",
@@ -95,7 +95,7 @@
     "tests/update/test_download.cpp",
     "tests/ui_settings/test_app_pages.cpp"
    ],
-   "note": "Against a configured source: launch check after 8 s that skips the 4 h interval once, 4 h interval, 1 h after a failure, FioriVoce/<version> User-Agent and nothing else, the HEAD latest-release redirect plus SHA256SUMS.txt fallback on a rate limit, and the certificate-failure text naming api.github.com, github.com and release-assets.githubusercontent.com (test_check.cpp, test_download.cpp) are pinned; the Settings tile text saying what is contacted is in the settings_general and settings_home reference trees. No git channel exists to exclude (a16-two-channels)."
+   "note": "Against a configured source: launch check after 8 s that skips the 4 h interval once, 4 h interval, 1 h after a failure, OpenWhisper_CPP/<version> User-Agent and nothing else, the HEAD latest-release redirect plus SHA256SUMS.txt fallback on a rate limit, and the certificate-failure text naming api.github.com, github.com and release-assets.githubusercontent.com (test_check.cpp, test_download.cpp) are pinned; the Settings tile text saying what is contacted is in the settings_general and settings_home reference trees. No git channel exists to exclude (a16-two-channels)."
   },
   "UP-02": {
    "status": "verified",
@@ -132,7 +132,7 @@
    "status": "difference",
    "difference": "a34-archive",
    "cpp": [
-    "packaging/windows/FioriVoce.iss",
+    "packaging/windows/OpenWhisper_CPP.iss",
     "packaging/windows/build-installer.ps1",
     "src/update_native/eligibility.cpp",
     "src/update_native/transaction.cpp",
@@ -149,19 +149,19 @@
     "tests/update/test_apply.cpp",
     "tests/ui_controller/test_code_change_restart.cpp"
    ],
-   "note": "The update archive is a Zip64 (FioriVoce-<ver>-win64.zip), not win64.tar.xz. Read in FioriVoce.iss (not run): PrivilegesRequired=lowest, Start Menu group, desktop and sign-in (userstartup) tasks, Add/Remove Programs entry, data under {localappdata}\\FioriVoce outside {app}. The native helper (swap, health check, rollback, updater.log), the setup-only fallback for elevated / Program Files installs and the Restart now prompt that waits for idle are pinned by the C++ tests named; tools/release/tests passed here (131 passed, 6 skipped). fiorivoce-updater is a console-subsystem exe started with CREATE_NO_WINDOW (src/process/win/start_detached.cpp, read, not compiled here). Related recorded differences: a16-parent-exit, a16-helper-command-line, a16-installer-recovery, a16-code-identity-installed."
+   "note": "The update archive is a Zip64 (OpenWhisper_CPP-<ver>-win64.zip), not win64.tar.xz. Read in OpenWhisper_CPP.iss (not run): PrivilegesRequired=lowest, Start Menu group, desktop and sign-in (userstartup) tasks, Add/Remove Programs entry, data under {localappdata}\\OpenWhisper_CPP outside {app}. The native helper (swap, health check, rollback, updater.log), the setup-only fallback for elevated / Program Files installs and the Restart now prompt that waits for idle are pinned by the C++ tests named; tools/release/tests passed here (131 passed, 6 skipped). openwhisper-cpp-updater is a console-subsystem exe started with CREATE_NO_WINDOW (src/process/win/start_detached.cpp, read, not compiled here). Related recorded differences: a16-parent-exit, a16-helper-command-line, a16-installer-recovery, a16-code-identity-installed."
   },
   "UP-05": {
    "status": "other-platform",
-   "reason": "macOS DMG, notarization, in-place DMG update and macOS permissions [MAC]; FioriVoce ships for Windows (A16-24 other-platform)."
+   "reason": "macOS DMG, notarization, in-place DMG update and macOS permissions [MAC]; OpenWhisper_CPP ships for Windows (A16-24 other-platform)."
   },
   "UP-06": {
    "status": "other-platform",
-   "reason": "Linux .deb / .pkg.tar.zst packages, ow/openwhisper commands, desktop entry and dependency checks [LINUX]; FioriVoce ships for Windows (A16-42, A34 Linux packaging other-platform)."
+   "reason": "Linux .deb / .pkg.tar.zst packages, ow/openwhisper commands, desktop entry and dependency checks [LINUX]; OpenWhisper_CPP ships for Windows (A16-42, A34 Linux packaging other-platform)."
   },
   "UP-07": {
    "status": "dropped",
-   "reason": "The ow / openwhisper source launchers and install.cmd / install.sh PATH installers are Python venv plumbing (A34-18, A34-19 dropped; docs/port/packages/M10.md a32 table: dropped UP-07). The terminal answers themselves live in fiorivoce-cli: --help, --version, --diagnostics, --api, --channel, --self-test and --workflow-smoke (src/cli/usage.cpp, src/cli/commands.cpp; tests/cli/test_cli.cpp, tests/cli/test_api_command.cpp, tests/cli/test_workflow_smoke.cpp)."
+   "reason": "The ow / openwhisper source launchers and install.cmd / install.sh PATH installers are Python venv plumbing (A34-18, A34-19 dropped; docs/port/packages/M10.md a32 table: dropped UP-07). The terminal answers themselves live in openwhisper-cpp-cli: --help, --version, --diagnostics, --api, --channel, --self-test and --workflow-smoke (src/cli/usage.cpp, src/cli/commands.cpp; tests/cli/test_cli.cpp, tests/cli/test_api_command.cpp, tests/cli/test_workflow_smoke.cpp)."
   },
   "UP-08": {
    "status": "verified",
@@ -191,7 +191,7 @@
     "tests/cli/test_workflow_smoke.cpp",
     "tests/cli/test_cli.cpp"
    ],
-   "note": "The gate checks fiorivoce-cli --workflow-smoke's synthetic lifecycle report (limits, required data-safety checks, baseline regressions); --self-test is fiorivoce-cli's (A16-44: the frozen import audit is dropped)."
+   "note": "The gate checks openwhisper-cpp-cli --workflow-smoke's synthetic lifecycle report (limits, required data-safety checks, baseline regressions); --self-test is openwhisper-cpp-cli's (A16-44: the frozen import audit is dropped)."
   },
   "GS-05": {
    "status": "fixed",
@@ -234,7 +234,7 @@
     "tests/agentapi/test_transcript.cpp",
     "tests/fixtures/transcripts/agent_api.json"
    ],
-   "note": "fiorivoce-cli --api with --port / --database, FIORIVOCE_API_TOKEN (32-512 printable ASCII), every endpoint, cursor paging (limit 1-100, default 20), literal case-insensitive q (1-500), since/before with a zone, kind, include_remote, 320-char excerpts with resource links, the error envelope and its codes, Host/Origin refusal, no-store, mode=ro + query_only: a20's A20-01 to A20-15, A20-46, A20-47, replayed by the 334-exchange transcript."
+   "note": "openwhisper-cpp-cli --api with --port / --database, OPENWHISPER_CPP_API_TOKEN (32-512 printable ASCII), every endpoint, cursor paging (limit 1-100, default 20), literal case-insensitive q (1-500), since/before with a zone, kind, include_remote, 320-char excerpts with resource links, the error envelope and its codes, Host/Origin refusal, no-store, mode=ro + query_only: a20's A20-01 to A20-15, A20-46, A20-47, replayed by the 334-exchange transcript."
   },
   "AG-02": {
    "status": "difference",
@@ -331,11 +331,11 @@
     "tests/cli/test_channel_setup.cpp",
     "tests/agentapi/test_setup.cpp"
    ],
-   "note": "The bridge (fiorivoce-cli --channel, also through fiorivoce.exe --channel) is ported and tested: experimental claude/channel, channel.message forwarded as notifications/claude/channel with origin, the reply tool posting to /v1/notify, reconnect and the gap notice (A19-50, A19-51, A19-63, A19-64). In the running app it has nothing to connect to: /v1/events and /v1/notify are not mounted."
+   "note": "The bridge (openwhisper-cpp-cli --channel, also through openwhisper-cpp.exe --channel) is ported and tested: experimental claude/channel, channel.message forwarded as notifications/claude/channel with origin, the reply tool posting to /v1/notify, reconnect and the gap notice (A19-50, A19-51, A19-63, A19-64). In the running app it has nothing to connect to: /v1/events and /v1/notify are not mounted."
   },
   "AG-08": {
    "status": "other-platform",
-   "reason": "Omarchy/Hyprland D-Bus controls (org.openwhisper.Control) and the Omarchy bar widget [OMARCHY]; FioriVoce ships for Windows (docs/port/packages/M10.md a32 table: other-platform AG-08)."
+   "reason": "Omarchy/Hyprland D-Bus controls (org.openwhisper.Control) and the Omarchy bar widget [OMARCHY]; OpenWhisper_CPP ships for Windows (docs/port/packages/M10.md a32 table: other-platform AG-08)."
   },
   "AG-09": {
    "status": "verified",
@@ -349,7 +349,7 @@
     "tests/log/test_diagnostics.cpp",
     "tests/cli/test_cli.cpp"
    ],
-   "note": "fiorivoce-cli --diagnostics OUTPUT.json refuses an existing file, writes schema 1 (versions, system/release/machine/cpu_count/nvidia_gpu, allowlisted settings), the last kMaxFailures 50 sanitized failures and the last kMaxMetricSamples 100 samples per metric; the report code makes no network call."
+   "note": "openwhisper-cpp-cli --diagnostics OUTPUT.json refuses an existing file, writes schema 1 (versions, system/release/machine/cpu_count/nvidia_gpu, allowlisted settings), the last kMaxFailures 50 sanitized failures and the last kMaxMetricSamples 100 samples per metric; the report code makes no network call."
   },
   "AG-10": {
    "status": "verified",
@@ -381,7 +381,7 @@
     "tests/agents/test_agent_actions_golden.cpp",
     "tests/golden/services.actions.agents.json"
    ],
-   "note": "app_links vectors (claude-cli:// and codex://new?prompt=...&path= for the folder Codex adds as a local project, only for a registered handler), terminal fallback, Claude with no tools, Codex --ignore-user-config with tools off, OpenCode over ACP with deny-all permissions (A19-24 to A19-28). In FioriVoce every action run is confirmed first (a19-confirmed-actions)."
+   "note": "app_links vectors (claude-cli:// and codex://new?prompt=...&path= for the folder Codex adds as a local project, only for a registered handler), terminal fallback, Claude with no tools, Codex --ignore-user-config with tools off, OpenCode over ACP with deny-all permissions (A19-24 to A19-28). In OpenWhisper_CPP every action run is confirmed first (a19-confirmed-actions)."
   },
   "SE-01": {
    "status": "verified",
@@ -577,7 +577,7 @@
     "tests/speech/test_speech_service.cpp",
     "tests/speech/test_parakeet_backend.cpp"
    ],
-   "note": "Initial load after first paint (test_notify_main_ui_ready_loads_deferred_local_backend), 'Reloading speech engine...', release while Meeting Mode runs ('Released while Meeting Mode runs') and the restore, and 'The speech engine stopped unexpectedly. Details are in fiorivoce.log.' were pinned. That a loaded runtime is never released (NemoApi::get keeps a leaked table; FreeLibrary is only in SharedLibrary::close, which the table never reaches) had no test: added tests/engine/test_audit_a32_engine.cpp ('a loaded runtime is loaded once and never released', [decode]), which loads the real CPU runtime twice by two spellings and gets the same bound table. Passes here (engine: 26 of 26)."
+   "note": "Initial load after first paint (test_notify_main_ui_ready_loads_deferred_local_backend), 'Reloading speech engine...', release while Meeting Mode runs ('Released while Meeting Mode runs') and the restore, and 'The speech engine stopped unexpectedly. Details are in openwhisper-cpp.log.' were pinned. That a loaded runtime is never released (NemoApi::get keeps a leaked table; FreeLibrary is only in SharedLibrary::close, which the table never reaches) had no test: added tests/engine/test_audit_a32_engine.cpp ('a loaded runtime is loaded once and never released', [decode]), which loads the real CPU runtime twice by two spellings and gets the same bound table. Passes here (engine: 26 of 26)."
   },
   "NP-01": {
    "status": "difference",
@@ -664,7 +664,7 @@
     "tests/automation/test_webhooks.cpp",
     "tests/credentials/test_store.cpp"
    ],
-   "note": "fiorivoce.log (identity().log_file) and fiorivoce.crash.log (with_suffix .crash.log) pinned; the failure journal never formats the message or exception, hook/program/filter logs never carry text, URLs or secrets (A19-53), a credential never reaches the log. The 'kind of error only' rule for every other failure site (type_display_name(typeid(...)) in place of what()) was read at the sites seen in this audit, not pinned everywhere; no lint enforces it."
+   "note": "openwhisper-cpp.log (identity().log_file) and openwhisper-cpp.crash.log (with_suffix .crash.log) pinned; the failure journal never formats the message or exception, hook/program/filter logs never carry text, URLs or secrets (A19-53), a credential never reaches the log. The 'kind of error only' rule for every other failure site (type_display_name(typeid(...)) in place of what()) was read at the sites seen in this audit, not pinned everywhere; no lint enforces it."
   },
   "NP-06": {
    "status": "verified",
@@ -688,11 +688,11 @@
   },
   "PL-01": {
    "status": "other-platform",
-   "reason": "Omarchy/Hyprland mode (compact chrome, desktop palette, compositor shortcuts, OPENWHISPER_UI) [OMARCHY]; FioriVoce ships for Windows."
+   "reason": "Omarchy/Hyprland mode (compact chrome, desktop palette, compositor shortcuts, OPENWHISPER_UI) [OMARCHY]; OpenWhisper_CPP ships for Windows."
   },
   "PL-02": {
    "status": "other-platform",
-   "reason": "Linux system-audio capture diagnostics and remediation (PulseAudio/PipeWire keys and commands) [LINUX]; A16-43 other-platform. FioriVoce captures system audio with WASAPI loopback (a25-native-wasapi-loopback)."
+   "reason": "Linux system-audio capture diagnostics and remediation (PulseAudio/PipeWire keys and commands) [LINUX]; A16-43 other-platform. OpenWhisper_CPP captures system audio with WASAPI loopback (a25-native-wasapi-loopback)."
   },
   "PL-03": {
    "status": "other-platform",
@@ -755,7 +755,7 @@
     "tests/golden/ui_qt.clipboard.json",
     "tests/clipboard/test_files.cpp"
    ],
-   "note": "Text, rich and custom formats restored, a user's own copy after the stage never overwritten, consecutive stages restore the original, cleanup restores a pending clipboard, a failed stage write prevents the paste, the product-named ownership marker (application/x-fiorivoce-auto-paste) beside staged text (A06-31 to A06-37). The Windows sequence-number half is read, not run here."
+   "note": "Text, rich and custom formats restored, a user's own copy after the stage never overwritten, consecutive stages restore the original, cleanup restores a pending clipboard, a failed stage write prevents the paste, the product-named ownership marker (application/x-openwhisper-cpp-auto-paste) beside staged text (A06-31 to A06-37). The Windows sequence-number half is read, not run here."
   },
   "QA-04": {
    "status": "verified",
@@ -819,7 +819,7 @@
     "tests/log/test_diagnostics.cpp",
     "tests/backup/test_restore.cpp"
    ],
-   "note": "The files carry identity() names (fiorivoce_settings.json, fiorivoce.db, fiorivoce.log, .fiorivoce-restore); the data root has no checkout rule (a01-no-checkout-data-root). Otherwise the same set: recordings, meetings, captures (walkthrough captures_root), scratchpad.txt, diagnostic-failures.json and diagnostic-metrics.json (kJournalName, kMetricsName), with the backup member and restore rules replayed from services.backup."
+   "note": "The files carry identity() names (openwhisper_cpp_settings.json, openwhisper-cpp.db, openwhisper-cpp.log, .openwhisper-cpp-restore); the data root has no checkout rule (a01-no-checkout-data-root). Otherwise the same set: recordings, meetings, captures (walkthrough captures_root), scratchpad.txt, diagnostic-failures.json and diagnostic-metrics.json (kJournalName, kMetricsName), with the backup member and restore rules replayed from services.backup."
   }
  }
 }

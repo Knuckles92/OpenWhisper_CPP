@@ -1,9 +1,9 @@
-# FioriVoce
+# OpenWhisper_CPP
 
 C++ rewrite of OpenWhisper (https://github.com/Knuckles92/OpenWhisper, Python
 and PyQt6), keeping only the Parakeet engine on NVIDIA NeMo-Speech.cpp. A
 separate project, not a fork: OpenWhisper is the behaviour reference, so read
-its code for how a feature works before porting it, and say where FioriVoce
+its code for how a feature works before porting it, and say where OpenWhisper_CPP
 deliberately differs. The port's design is `docs/port/ARCHITECTURE.md`.
 
 ## Commands
@@ -23,7 +23,7 @@ On Windows outside VS Code, run `. .\scripts\vsenv.ps1` first to put MSVC on
 - Format: `wsl clang-format -i <files>` (clang-format is in WSL, not Windows).
 
 The tests that decode audio (label `decode`) are skipped unless
-`FIORIVOCE_TEST_RUNTIME_DIR`, `FIORIVOCE_TEST_MODEL` and `FIORIVOCE_TEST_WAV`
+`OPENWHISPER_CPP_TEST_RUNTIME_DIR`, `OPENWHISPER_CPP_TEST_MODEL` and `OPENWHISPER_CPP_TEST_WAV`
 are set (see README.md). Set them when changing anything under `src/engine` or
 `src/speech`.
 
@@ -53,7 +53,7 @@ are set (see README.md). Set them when changing anything under `src/engine` or
   snake_case. Every target compiles with `QT_NO_KEYWORDS`, because Qt-free
   headers use `emit`, `slots` and `signals` as names (`fv::Signal::emit`): Qt
   code writes `Q_SIGNALS:`, `public Q_SLOTS:` and `Q_EMIT`.
-- `src/app` is only `main()` for `fiorivoce.exe`; the shell is `src/ui_shell`,
+- `src/app` is only `main()` for `openwhisper-cpp.exe`; the shell is `src/ui_shell`,
   and the engine bench lives on in `src/ui_shell/dev` as a development aid.
 - Only the speech thread touches a `Recognizer`: `SpeechService`'s `fv-speech`
   (and `EngineWorker`'s own thread in the bench). Never call a `Recognizer`

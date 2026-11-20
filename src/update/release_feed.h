@@ -28,12 +28,12 @@ inline constexpr std::int64_t kMaxAssetBytes = 2LL * 1024 * 1024 * 1024;
 // Largest SHA256SUMS.txt read.
 inline constexpr std::size_t kMaxChecksumBytes = 64 * 1024;
 
-// FIORIVOCE_UPDATE_FEED_URL ("<env_prefix>UPDATE_FEED_URL").
+// OPENWHISPER_CPP_UPDATE_FEED_URL ("<env_prefix>UPDATE_FEED_URL").
 std::string update_feed_env();
 
 // The release identity's source, and the feed override when the variable holds an exact
 // loopback feed URL (is_loopback_feed_url); any other non-blank value is logged
-// ("Ignoring unsafe FIORIVOCE_UPDATE_FEED_URL value") and ignored.
+// ("Ignoring unsafe OPENWHISPER_CPP_UPDATE_FEED_URL value") and ignored.
 FeedConfig feed_config(const EnvReader&);
 FeedConfig feed_config(const EnvReader&, UpdateSource source);
 
@@ -50,7 +50,7 @@ std::string_view feed_repo(const FeedConfig&);
 
 // Whether a check has anywhere to ask: a GitHub source or a feed override.
 bool has_update_source(const FeedConfig&);
-// "This build of FioriVoce has no update source."
+// "This build of OpenWhisper_CPP has no update source."
 std::string no_update_source_message();
 
 // The URL a check reads: the feed override (logged), else the release list on the beta track,

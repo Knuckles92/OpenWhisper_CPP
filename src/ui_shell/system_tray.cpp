@@ -52,7 +52,7 @@ SystemTray::SystemTray(MainWindow& window, TrayEnvironment environment, QObject*
         connect(language, &QMenu::aboutToShow, this,
                 [this, language] { Q_EMIT languageMenuRequested(language); });
     }
-    // Attached on every platform FioriVoce builds for. macOS, where an attached menu swallows
+    // Attached on every platform OpenWhisper_CPP builds for. macOS, where an attached menu swallows
     // the left click that should restore the window, is not one of them.
     setContextMenu(menu_);
 

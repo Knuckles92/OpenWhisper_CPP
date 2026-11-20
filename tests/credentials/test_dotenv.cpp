@@ -1,6 +1,6 @@
 // OpenWhisper's .env: python-dotenv's parse, replayed from golden vectors, and the review round 4
 // rules for a variable that already holds the file's value (tests/test_automation_r4b_dotenv.py).
-// FioriVoce never copies .env into the process environment, so OpenWhisper's "what children
+// OpenWhisper_CPP never copies .env into the process environment, so OpenWhisper's "what children
 // inherit" checks become credential_source checks, and its two tests of names and values no
 // environment can hold are dropped.
 

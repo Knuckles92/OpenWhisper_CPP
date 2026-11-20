@@ -195,7 +195,7 @@ TEST_CASE("the overlay opens on the grabbed screen", "[test_snap_session]") {
     CHECK(snap->isActive());
     REQUIRE_FALSE(desktop.grabs().empty());
     CHECK(desktop.grabs().front() == overlay->snapScreen());
-    CHECK(overlay->windowTitle() == QStringLiteral("FioriVoce Snap"));
+    CHECK(overlay->windowTitle() == QStringLiteral("OpenWhisper_CPP Snap"));
 }
 
 // from tests/test_snap_session.py::TestOutcomes::test_draw_starts_with_the_pen_on_the_whole_screen

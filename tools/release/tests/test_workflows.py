@@ -1,7 +1,7 @@
 """The GitHub workflows (.github/workflows): they parse, start only by hand, qualify a release
 candidate through CI and its checksums, and publish nothing. The one write they hold is
 qualify-release.yml's ``upload`` job: ``gh release upload`` to an existing draft, behind
-``if: vars.FIORIVOCE_RELEASE_REPO != ''`` (M10.17, lead decision 8); written, never run.
+``if: vars.OPENWHISPER_CPP_RELEASE_REPO != ''`` (M10.17, lead decision 8); written, never run.
 
 Python's standard library has no YAML reader, so ``load_yaml`` reads the block subset the
 workflows are written in (mappings, sequences, plain and quoted scalars, flow sequences of
@@ -236,7 +236,7 @@ class YamlReader(unittest.TestCase):
                 load_yaml(text)
 
 
-RELEASE_GUARD = "vars.FIORIVOCE_RELEASE_REPO != ''"
+RELEASE_GUARD = "vars.OPENWHISPER_CPP_RELEASE_REPO != ''"
 # The only place a workflow may write to a release: this job of this workflow.
 UPLOAD_WORKFLOW, UPLOAD_JOB = "qualify-release.yml", "upload"
 _PINNED = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+@[0-9a-f]{40}$")
@@ -329,7 +329,7 @@ class Workflows(unittest.TestCase):
 
     def test_release_upload_is_only_in_the_guarded_manual_job(self):
         """gh release upload appears once in all the workflows: in qualify-release.yml's upload
-        job, which runs only by hand, only when FIORIVOCE_RELEASE_REPO is set, after the
+        job, which runs only by hand, only when OPENWHISPER_CPP_RELEASE_REPO is set, after the
         qualify job, and between the draft's two validations."""
         found = []
         for path in sorted(WORKFLOWS.glob("*.y*ml")):

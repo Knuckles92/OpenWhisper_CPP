@@ -207,7 +207,7 @@ TEST_CASE("test_unsupported_runtime_does_not_point_to_downloads", "[test_local_a
     CHECK_THAT(*resolved.missing_message, !ContainsSubstring("Downloads"));
 }
 
-// FioriVoce: the resolution messages and paths resolve_parakeet hands the speech service.
+// OpenWhisper_CPP: the resolution messages and paths resolve_parakeet hands the speech service.
 
 TEST_CASE("resolve_parakeet words each missing piece as OpenWhisper does", "[models]") {
     TempPaths temp;

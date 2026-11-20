@@ -16,13 +16,13 @@ the tree and sorted them: `docs/port/workflows/open-items-triage.md` lists every
 them in `docs/port/open-items.md` to read the item in full: the review's wording is usually
 more precise than the triage line), a class and a one-sentence plan.
 
-- **A, parity**: OpenWhisper does something a user could notice and FioriVoce does not, or does
+- **A, parity**: OpenWhisper does something a user could notice and OpenWhisper_CPP does not, or does
   it differently. OpenWhisper is the behaviour reference: read the Python it concerns
   (`/home/user/knuckles92/openwhisper`, read-only) before you change anything, and make the C++
   do what the Python does, strings verbatim ("OpenWhisper" in copy is `identity().product`).
-  Some A items are marked "unsure": establish first whether FioriVoce really differs. If it
+  Some A items are marked "unsure": establish first whether OpenWhisper_CPP really differs. If it
   already agrees, the item is closed by a test that proves it (write one if none exists).
-- **B, defect**: FioriVoce's own code can crash, hang, race, leak or give a wrong result. Fix
+- **B, defect**: OpenWhisper_CPP's own code can crash, hang, race, leak or give a wrong result. Fix
   the cause. Where the Python has the same fault and the item says so, the fix is still wanted,
   and you say in your report that it deliberately differs from OpenWhisper and how.
 
@@ -41,7 +41,7 @@ Your package names its items by class and number, as in the triage file ("A7", "
    the question in your report with what each choice would mean.
 5. If a deliberate difference results (a B fix where Python has the fault, or a behaviour a
    recorded decision keeps), say so in your report with the one-sentence "OpenWhisper /
-   FioriVoce / reason" the lead needs to record it. Do not edit `docs/port/differences.md` or
+   OpenWhisper_CPP / reason" the lead needs to record it. Do not edit `docs/port/differences.md` or
    `docs/port/open-items.md`. If an audit entry in `docs/port/audit/*.json` describes the
    behaviour you changed and is now wrong, correct its note with the locked helper only:
    `python3 -I -B tools/parity/auditput.py <file>.json features <ID> '<entry as JSON>'` (read the entry

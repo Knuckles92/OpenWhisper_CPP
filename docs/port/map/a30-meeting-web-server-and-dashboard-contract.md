@@ -389,7 +389,7 @@ unparseable JSON gives 400 `"invalid JSON body"`.
 
 - Nothing here is specific to Whisper, Moonshine or Qwen. **No drops.**
 - Reinsights passes `model_lease=engine.model_lease` to `rerun_finalization` (redecode reloads
-  the ASR model). In FioriVoce the lease has to cover the in-process Parakeet `Recognizer`, which
+  the ASR model). In OpenWhisper_CPP the lease has to cover the in-process Parakeet `Recognizer`, which
   runs on `EngineWorker`'s thread. The re-run job must not call the recognizer from the server
   thread.
 - `state.speech` (`source:"remote"`, host, model, connected, message) exists only for the
@@ -457,7 +457,7 @@ browser app by design: it serves guests on other machines and has no Qt UI to ma
 `webui/dist` gives an identical look for free, keeps the 22 JS tests meaningful, and limits this
 area to the server contract. The cost is a Node toolchain at development time only, needed to
 rebuild after rebranding (index title `OpenWhisper · Meeting`, the missing-bundle notice text, the
-storage keys `openwhisper.meeting.*`). Vendor `webui/` source and `dist` into FioriVoce, and serve
+storage keys `openwhisper.meeting.*`). Vendor `webui/` source and `dist` into OpenWhisper_CPP, and serve
 `dist` from the install folder or from Qt resources (`:/webui`).
 
 Suggested decomposition:

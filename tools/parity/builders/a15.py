@@ -5,15 +5,15 @@ Each builder returns (widget, (width, height), focus widget or None) with fixed 
 rows are 680 px wide at the height their layout asks for; the dialogs are shown once and hidden
 again to learn the size they open at, which is the size recorded.
 
-FioriVoce differs from OpenWhisper in the text these builders put FioriVoce's in (the C++ side
+OpenWhisper_CPP differs from OpenWhisper in the text these builders put OpenWhisper_CPP's in (the C++ side
 reads the same copy from fv_models):
-- MODEL_SECURITY_NOTICE names FioriVoce where OpenWhisper names itself;
-- the speech runtimes' profile (ComponentDetails) is FioriVoce's: the runtime is a set of native
+- MODEL_SECURITY_NOTICE names OpenWhisper_CPP where OpenWhisper names itself;
+- the speech runtimes' profile (ComponentDetails) is OpenWhisper_CPP's: the runtime is a set of native
   libraries loaded into the app's own process, so the rows say so instead of "Runs in a
   dedicated process" and carry no portable Python;
 - the consent dialog names the one runtime it still needs (the isolated data folder has none
   installed) and the notice fits a screen 900 px high, as the C++ test pins it;
-- the speech runtimes' archives and install sizes are FioriVoce's (src/models/data/
+- the speech runtimes' archives and install sizes are OpenWhisper_CPP's (src/models/data/
   speech_catalog.json, the win_amd64 entries), which carry no portable Python;
 - the batch dialog's destination is a fixed folder instead of the Hugging Face cache.
 
@@ -29,7 +29,7 @@ from unittest.mock import patch
 
 ROW_WIDTH = 680
 SCREEN_HEIGHT = 900
-DESTINATION = "C:/Users/test/AppData/Local/FioriVoce/speech-models"
+DESTINATION = "C:/Users/test/AppData/Local/OpenWhisper_CPP/speech-models"
 PARAKEET = "parakeet-v3"
 CUDA = "asr-nvidia-cuda"
 CPU = "asr-nvidia-cpu"
@@ -37,7 +37,7 @@ PARAKEET_BYTES = 713975456
 
 _SECURITY_NOTICE = (
     "Models are provided by third-party publishers. Model files and speech runtimes "
-    "can have security vulnerabilities. Keep FioriVoce and its runtimes updated, "
+    "can have security vulnerabilities. Keep OpenWhisper_CPP and its runtimes updated, "
     "and review important transcripts for errors."
 )
 
@@ -60,14 +60,14 @@ _CATALOG_JSON = (
 _pinned = False
 
 
-def _fiorivoce_entry(component_id):
-    """FioriVoce's catalog entry of a runtime for Windows x64: its archives and install size."""
+def _openwhisper_cpp_entry(component_id):
+    """OpenWhisper_CPP's catalog entry of a runtime for Windows x64: its archives and install size."""
     catalog = json.loads(_CATALOG_JSON.read_text(encoding="utf-8"))
     return catalog["components"][component_id]["platforms"]["win_amd64"]
 
 
 def _pin():
-    """FioriVoce's notice and runtime profiles, once per process."""
+    """OpenWhisper_CPP's notice and runtime profiles, once per process."""
     global _pinned
     if _pinned:
         return
@@ -80,23 +80,23 @@ def _pin():
     for component_id, (name, licence, summary, requires) in _RUNTIMES.items():
         catalog[component_id] = replace(
             catalog[component_id], display_name=name, summary=summary,
-            description=summary + " Models download separately. Runs inside FioriVoce.",
+            description=summary + " Models download separately. Runs inside OpenWhisper_CPP.",
             origin_name=name, origin_url=_UPSTREAM, origin_label="Project \u2197",
             source_name="Pinned upstream archives", source_url=_UPSTREAM,
             source_label="Project \u2197",
-            maintainer="Upstream publishers; packaged by FioriVoce", family="Speech runtime",
+            maintainer="Upstream publishers; packaged by OpenWhisper_CPP", family="Speech runtime",
             requires=requires, payload="Verified native libraries",
-            local_format="Native libraries loaded by FioriVoce", license=licence,
+            local_format="Native libraries loaded by OpenWhisper_CPP", license=licence,
             best_for=summary, limitations=("Model weights are a separate download.",),
             compact_tags="Local speech", source_urls=(_UPSTREAM,))
     component_catalog.COMPONENT_CATALOG = MappingProxyType(catalog)
 
 
 def _runtime_dialogs():
-    """The runtime dialogs' module, reading FioriVoce's sizes."""
+    """The runtime dialogs' module, reading OpenWhisper_CPP's sizes."""
     from ui_qt.dialogs import required_runtime_dialog
 
-    required_runtime_dialog.catalog_entry_for_platform = _fiorivoce_entry
+    required_runtime_dialog.catalog_entry_for_platform = _openwhisper_cpp_entry
     return required_runtime_dialog
 
 
@@ -165,7 +165,7 @@ def _component_info(state, **fields):
     from services.components import ComponentInfo
 
     _pin()
-    entry = _fiorivoce_entry(CUDA)
+    entry = _openwhisper_cpp_entry(CUDA)
     download = sum(archive.get("size_bytes", 0) for archive in entry.get("archives", []))
     return ComponentInfo(
         component_id=CUDA, display_name=_RUNTIMES[CUDA][0], summary=_RUNTIMES[CUDA][2],
@@ -258,10 +258,10 @@ BUILDERS = {
 # --- The Voice model page (M2.20) ---
 #
 # The page is OpenWhisper's own, built by its SettingsDialog (build_voice_page) among stand-ins
-# for every other destination, the way a11.py builds the shell: FioriVoce's test registers the
-# same stand-ins around the real page. Differences from OpenWhisper put FioriVoce's in:
-# - the product name in the header, and the app mark FioriVoce draws (as a11.py);
-# - the footnote is FioriVoce's, which names Parakeet's previews only;
+# for every other destination, the way a11.py builds the shell: OpenWhisper_CPP's test registers the
+# same stand-ins around the real page. Differences from OpenWhisper put OpenWhisper_CPP's in:
+# - the product name in the header, and the app mark OpenWhisper_CPP draws (as a11.py);
+# - the footnote is OpenWhisper_CPP's, which names Parakeet's previews only;
 # - OpenWhisper's Local Whisper picker field and the Quant field of the local engine row (Local
 #   Whisper's, hidden for every engine rendered here) are taken out of the tree, and nothing else is;
 # - the rail has no values but Voice model's, because the stand-ins register none.
@@ -341,7 +341,7 @@ def _voice_dialog(values):
             stack.enter_context(patch.object(module, "scan_cached_models", return_value={}))
         stack.enter_context(patch.object(models_module, "peek_cached_models", return_value={}))
         # What is on this computer: the one model downloaded and the CPU runtime installed; Auto
-        # runs on the CPU (FioriVoce asks NVML, and the answer here is no GPU).
+        # runs on the CPU (OpenWhisper_CPP asks NVML, and the answer here is no GPU).
         stack.enter_context(patch("services.local_asr.cache.is_cached",
                                   side_effect=lambda key: key == PARAKEET))
         stack.enter_context(patch("services.components.is_installed",
@@ -360,7 +360,7 @@ def _voice_dialog(values):
     dialog.screen = lambda: screen
 
     dialog.search_palette.setParent(None)
-    dialog.settings_brand.setText("FioriVoce")
+    dialog.settings_brand.setText("OpenWhisper_CPP")
     header = dialog.findChild(QLabel, "settingsViewBrand").parentWidget()
     icon = next(label for label in header.findChildren(QLabel) if not label.objectName())
     icon.setPixmap(QPixmap(render_app_pixmap(32)))
@@ -372,9 +372,9 @@ def _voice_dialog(values):
         dialog.stack.addWidget(page)
 
     dialog.select_destination(VOICE_MODEL)
-    # OpenWhisper's Local Whisper picker: hidden for every engine rendered here, not FioriVoce's.
+    # OpenWhisper's Local Whisper picker: hidden for every engine rendered here, not OpenWhisper_CPP's.
     sip.delete(dialog.models.ondemand_whisper_field)
-    # The Quant field of the local engine row is Local Whisper's; FioriVoce's row has none.
+    # The Quant field of the local engine row is Local Whisper's; OpenWhisper_CPP's row has none.
     sip.delete(dialog.models.speech_controls.compute_combo.parentWidget())
     dialog.models._refresh_rail_values()
     # The language chips are rebuilt on every refresh and the old ones are deleted later; the
@@ -401,10 +401,10 @@ BUILDERS["settings_voice_model/groq"] = settings_voice_model_groq
 # --- The Downloads page (M2.23) ---
 #
 # OpenWhisper's own DownloadsPage, built by its SettingsDialog among stand-ins for every other
-# destination, as the Voice model builder does above: FioriVoce's test registers the same
+# destination, as the Voice model builder does above: OpenWhisper_CPP's test registers the same
 # stand-ins around the real page. The data is fixed: Parakeet TDT 0.6B v3 downloaded, Orukeet
 # not, the CPU runtime installed and the CUDA runtime available, the "Ask before downloading"
-# policy, Parakeet the dictation model. Differences from OpenWhisper put FioriVoce's in:
+# policy, Parakeet the dictation model. Differences from OpenWhisper put OpenWhisper_CPP's in:
 # - the catalog is the Parakeet family only (MODELS, BACKENDS and the Whisper rows are cut to it,
 #   and the backend filter's "Whisper" entry is taken out);
 # - "Add custom models…" is taken out of the tree (custom faster-whisper models are not ported);
@@ -412,7 +412,7 @@ BUILDERS["settings_voice_model/groq"] = settings_voice_model_groq
 # - meetings use no local model (Meeting Mode is not ported yet), so the usage chip says
 #   "Dictation" alone;
 # - the isolation's HF_HUB_OFFLINE=1 is not the computer's: the offline banner stays hidden;
-# - the rail shows Downloads' value only, as FioriVoce's stand-ins register none.
+# - the rail shows Downloads' value only, as OpenWhisper_CPP's stand-ins register none.
 # The Voice model builder's patches are closed first: they stand in for the Downloads page.
 
 DOWNLOADS_SIZE = (1315, 850)
@@ -491,7 +491,7 @@ def _component_for(component_id, state):
     from services.components import ComponentInfo
 
     _pin()
-    entry = _fiorivoce_entry(component_id)
+    entry = _openwhisper_cpp_entry(component_id)
     download = sum(archive.get("size_bytes", 0) for archive in entry.get("archives", []))
     return ComponentInfo(
         component_id=component_id, display_name=_RUNTIMES[component_id][0],
@@ -539,7 +539,7 @@ def _downloads_dialog(size, tab=0, select=PARAKEET):
     dialog.screen = lambda: screen
 
     dialog.search_palette.setParent(None)
-    dialog.settings_brand.setText("FioriVoce")
+    dialog.settings_brand.setText("OpenWhisper_CPP")
     header = dialog.findChild(QLabel, "settingsViewBrand").parentWidget()
     icon = next(label for label in header.findChildren(QLabel) if not label.objectName())
     icon.setPixmap(QPixmap(render_app_pixmap(32)))
@@ -627,13 +627,13 @@ BUILDERS["cleanup_model_section/openrouter"] = cleanup_model_section_openrouter
 #
 # The page body is OpenWhisper's own (build_meeting_voice_page), taken out of a real
 # SettingsDialog as builders/a31.py takes the Fast judgments page out, with the speaker model's
-# whereabouts pinned (found or not, no download blocked, no failure). Where FioriVoce differs,
+# whereabouts pinned (found or not, no download blocked, no failure). Where OpenWhisper_CPP differs,
 # these builders put its own in:
 # - "Runs on" is hidden: remote meeting speech is not in this build, so where a meeting runs is
-#   not a choice (FioriVoce shows it only while a saved setting sends a separate engine's
+#   not a choice (OpenWhisper_CPP shows it only while a saved setting sends a separate engine's
 #   meetings to the paired computer, which no variant here does);
 # - the meeting model picker lists the catalog's meeting models (Orukeet TDT 0.6B, Parakeet TDT
-#   0.6B v3) with no caption and no "Add custom models…" button, as FioriVoce's picker does;
+#   0.6B v3) with no caption and no "Add custom models…" button, as OpenWhisper_CPP's picker does;
 # - the OpenAI speaker item reads "OpenAI (retired)" and cannot be chosen.
 #
 #   settings_meeting_voice/following         meetings follow dictation's Parakeet, the speaker
@@ -645,7 +645,7 @@ BUILDERS["cleanup_model_section/openrouter"] = cleanup_model_section_openrouter
 
 _A31 = []
 MEETING_VOICE_MODELS = (("Orukeet TDT 0.6B", ORUKEET), ("Parakeet TDT 0.6B v3", PARAKEET))
-SPEAKER_MODEL = "C:/Users/test/AppData/Local/FioriVoce/models/speaker-id/voxceleb_resnet34_LM.onnx"
+SPEAKER_MODEL = "C:/Users/test/AppData/Local/OpenWhisper_CPP/models/speaker-id/voxceleb_resnet34_LM.onnx"
 
 
 def _a31():
@@ -673,7 +673,7 @@ def _meeting_voice(values, model_found):
     original_refresh = models_module.ModelAssignments._refresh_meeting_source
 
     def refresh_source(self):
-        # Hidden before any layout reaches it, as FioriVoce's field is never shown.
+        # Hidden before any layout reaches it, as OpenWhisper_CPP's field is never shown.
         original_refresh(self)
         self.meeting_source_field.setVisible(False)
 

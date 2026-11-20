@@ -8,7 +8,7 @@
 
 // The dashboard routes that need the meeting intelligence (M8): insight review, tailored report
 // requests, note requests, the AI insights switch and the semantic ranking of history search.
-// FioriVoce without them (M7) registers no extensions, and the routes answer:
+// OpenWhisper_CPP without them (M7) registers no extensions, and the routes answer:
 //   POST /api/meetings/{id}/review, POST /api/meetings/{id}/reports and
 //   POST /api/meeting/notes/request   409 "Turn on AI insights in an active meeting first."
 //                                      (the archive dashboard's wording), after their own

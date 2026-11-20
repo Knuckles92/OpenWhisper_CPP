@@ -29,7 +29,7 @@ into the folder; a look is [text_color, heading_color, font] or None. A package 
 
 The rest of styles.xml (latent styles and 160 styles nothing refers to), stylesWithEffects.xml,
 numbering.xml, customXml and the template's thumbnail are python-docx's template, carried
-unchanged and unused; template_parts holds the parts FioriVoce carries too.
+unchanged and unused; template_parts holds the parts OpenWhisper_CPP carries too.
 """
 
 import os

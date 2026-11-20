@@ -39,22 +39,22 @@ std::string failure_of(const std::function<void()>& action) {
 } // namespace
 
 TEST_CASE("the setup runs silently over the running install", "[update]") {
-    const auto probe = installed_probe("C:\\Users\\u\\AppData\\Local\\Programs\\FioriVoce");
-    const std::filesystem::path updates = "C:\\Users\\u\\AppData\\Local\\FioriVoce\\updates";
-    const auto setup = updates / "FioriVoce-Setup-0.1.1.exe";
+    const auto probe = installed_probe("C:\\Users\\u\\AppData\\Local\\Programs\\OpenWhisper_CPP");
+    const std::filesystem::path updates = "C:\\Users\\u\\AppData\\Local\\OpenWhisper_CPP\\updates";
+    const auto setup = updates / "OpenWhisper_CPP-Setup-0.1.1.exe";
     const auto handoff = update::setup_command(setup, probe, updates);
     CHECK(handoff.setup_exe == setup);
     const std::vector<std::string> expected{
         "/SP-",
         "/SILENT",
         "/NORESTART",
-        "/FIORIVOCEUPDATE=1",
+        "/OPENWHISPER_CPPUPDATE=1",
         "/CURRENTUSER",
         "/DIR=" + probe.running_dir.string(),
         "/LOG=" + (updates / "setup.log").string(),
     };
     CHECK(handoff.args == expected);
-    CHECK(update::setup_update_switch() == "/FIORIVOCEUPDATE=1");
+    CHECK(update::setup_update_switch() == "/OPENWHISPER_CPPUPDATE=1");
 }
 
 TEST_CASE("apply_update hands off the verified setup or says why not", "[update]") {
@@ -258,14 +258,15 @@ TEST_CASE("an apply error is read once, trimmed and cut", "[update]") {
     const auto updates = root.path() / "updates";
     CHECK_FALSE(update::consume_apply_error(updates));
 
-    update::write_apply_error(updates, "  The update could not replace fiorivoce.exe.  \n");
+    update::write_apply_error(updates, "  The update could not replace openwhisper-cpp.exe.  \n");
     const auto raw = read_bytes(update::apply_error_path(updates));
 #ifdef _WIN32
-    CHECK(raw == "The update could not replace fiorivoce.exe.\r\n");
+    CHECK(raw == "The update could not replace openwhisper-cpp.exe.\r\n");
 #else
-    CHECK(raw == "The update could not replace fiorivoce.exe.\n");
+    CHECK(raw == "The update could not replace openwhisper-cpp.exe.\n");
 #endif
-    CHECK(update::consume_apply_error(updates) == "The update could not replace fiorivoce.exe.");
+    CHECK(update::consume_apply_error(updates) ==
+          "The update could not replace openwhisper-cpp.exe.");
     CHECK_FALSE(std::filesystem::exists(update::apply_error_path(updates)));
     CHECK_FALSE(update::consume_apply_error(updates));
 
@@ -297,7 +298,7 @@ TEST_CASE("an apply error is read once, trimmed and cut", "[update]") {
 
 TEST_CASE("a hand-off is discarded without touching the verified setup", "[update]") {
     fv::testkit::TempDataRoot root;
-    const auto setup = root.path() / "FioriVoce-Setup-0.1.1.exe";
+    const auto setup = root.path() / "OpenWhisper_CPP-Setup-0.1.1.exe";
     write_bytes(setup, "setup");
     update::discard_prepared_result(update::Handoff{setup, {"/SILENT"}});
     CHECK(read_bytes(setup) == "setup");

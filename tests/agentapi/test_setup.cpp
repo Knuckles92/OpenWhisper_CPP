@@ -19,8 +19,8 @@ namespace agentapi = fv::agentapi;
 
 constexpr std::string_view kModule = "services.agent_mcp.setup";
 
-// OpenWhisper's names as FioriVoce's: the product, its variables and files, and the MCP server
-// name, which setup.py spells in lower case.
+// OpenWhisper's names as OpenWhisper_CPP's: the product, its variables and files, and the MCP
+// server name, which setup.py spells in lower case.
 std::string rebranded(std::string_view text) {
     std::string out = golden::rebrand(text);
     const std::string legacy = "open" + std::string("whisper");
@@ -47,7 +47,7 @@ bool recorded_on_windows() {
 } // namespace
 
 TEST_CASE("the MCP server is named after the product, in lower case", "[golden]") {
-    CHECK(agentapi::server_name() == "fiorivoce");
+    CHECK(agentapi::server_name() == "openwhisper-cpp");
     golden::for_each(kModule, "CHANNEL_SERVER_NAME", [](const golden::Case& c) {
         CHECK(agentapi::server_name() == rebranded(c.result<std::string>()));
     });

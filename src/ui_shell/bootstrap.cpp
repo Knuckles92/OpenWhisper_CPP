@@ -69,7 +69,7 @@ constexpr log::Logger kRoot{"root"};
 
 // Spelled out whole: packaging/windows/smoke-update.ps1 finds the switch by this name in the
 // built executable before it relies on a forced rollback.
-constexpr std::string_view kFailHealthVariable = "FIORIVOCE_TEST_FAIL_HEALTH";
+constexpr std::string_view kFailHealthVariable = "OPENWHISPER_CPP_TEST_FAIL_HEALTH";
 
 const std::string kRule(60, '=');
 
@@ -494,8 +494,8 @@ int Bootstrap::run(int& argc, char** argv) {
 
             if (hooks_.acknowledgeUpdate) {
                 // The owner's rollback demo (M10.12): a build started with
-                // FIORIVOCE_TEST_FAIL_HEALTH=1 fails its health launch, so the helper rolls it
-                // back. Read here only: a normal start never looks at it.
+                // OPENWHISPER_CPP_TEST_FAIL_HEALTH=1 fails its health launch, so the helper rolls
+                // it back. Read here only: a normal start never looks at it.
                 const bool failHealth = hooks_.env->get(kFailHealthVariable) == "1";
                 // Wait for the real event loop and deferred feature setup before the helper can
                 // retire its rollback tree; the database must open first.

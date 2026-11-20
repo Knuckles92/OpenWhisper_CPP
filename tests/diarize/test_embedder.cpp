@@ -151,10 +151,11 @@ TEST_CASE("create_diarizer gives no diarizer without a model, a model file or a 
 // filterbank and ONNX path must match Python's. It guards the whole front end (window,
 // pre-emphasis, mel band edges, CMN) against drift that would degrade every embedding.
 TEST_CASE("test_embedding_parity_against_reference_vectors", "[decode][test_meeting_diarize]") {
-    const auto runtime = fv::testkit::get_env("FIORIVOCE_TEST_ONNXRUNTIME");
-    const auto model = fv::testkit::get_env("FIORIVOCE_TEST_SPEAKER_MODEL");
+    const auto runtime = fv::testkit::get_env("OPENWHISPER_CPP_TEST_ONNXRUNTIME");
+    const auto model = fv::testkit::get_env("OPENWHISPER_CPP_TEST_SPEAKER_MODEL");
     if (!runtime || !model) {
-        SKIP("Set FIORIVOCE_TEST_ONNXRUNTIME and FIORIVOCE_TEST_SPEAKER_MODEL to run the "
+        SKIP("Set OPENWHISPER_CPP_TEST_ONNXRUNTIME and OPENWHISPER_CPP_TEST_SPEAKER_MODEL to run "
+             "the "
              "embedding parity gate.");
     }
     const fs::path runtime_path = fv::path_from_utf8(*runtime);

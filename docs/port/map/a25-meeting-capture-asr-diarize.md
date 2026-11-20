@@ -385,7 +385,7 @@ Existing installs depend on all of these names and JSON keys (recovery of meetin
 - `WindowSpeechPreview` calls `backend.preview_audio(samples, language, busy=)` -> `{text}`; port as a try-locked
   `Recognizer::transcribe` on <= 8 s.
 - Offline pass: `transcribe_offline_session` uses `backend.model`; replace with a window decoder over `Recognizer`.
-- Stop semantics: Python leaves a backend alive if a native decode outlives the 10 s join; FioriVoce never unloads the
+- Stop semantics: Python leaves a backend alive if a native decode outlives the 10 s join; OpenWhisper_CPP never unloads the
   runtime anyway, but the Recognizer object must not be destroyed mid-decode.
 
 **Undecided**: Nemotron streaming preview (`MeetingSpeechPreview`, `stream_audio`/`cancel_stream`), remote host

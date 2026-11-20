@@ -1,4 +1,4 @@
-// fiorivoce-cli --channel. It answers Claude Code's initialize before anything loads a speech
+// openwhisper-cpp-cli --channel. It answers Claude Code's initialize before anything loads a speech
 // runtime, opens the database or touches the data folder.
 
 #include "cli/channel_command.h"
@@ -63,7 +63,7 @@ int run_channel(std::span<const std::string> args) {
     if (!args.empty()) {
         const bool help_asked = args.front() == "-h" || args.front() == "--help";
         const std::string text =
-            help_asked ? automation::channel_usage("fiorivoce-cli")
+            help_asked ? automation::channel_usage("openwhisper-cpp-cli")
                        : std::string("Unexpected arguments. Run --channel --help for usage.\n");
         std::fputs(text.c_str(), stderr);
         return help_asked ? 0 : 2;

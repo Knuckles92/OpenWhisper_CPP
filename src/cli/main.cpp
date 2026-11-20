@@ -1,4 +1,4 @@
-// fiorivoce-cli: the speech engine and the checks that need no window. Qt-free.
+// openwhisper-cpp-cli: the speech engine and the checks that need no window. Qt-free.
 //
 // Dispatch is on the first argument only, as OpenWhisper's _handle_early_cli: --help and -h answer
 // whatever follows, --diagnostics, --api, --channel and --workflow-smoke take the rest of the
@@ -24,8 +24,8 @@
 #ifdef FV_CLI_ENGINE_ONLY
 // The engine-only configuration builds without fv_base, so identity() is not there.
 namespace {
-constexpr std::string_view kProduct = "FioriVoce";
-constexpr std::string_view kEnvPrefix = "FIORIVOCE_";
+constexpr std::string_view kProduct = "OpenWhisper_CPP";
+constexpr std::string_view kEnvPrefix = "OPENWHISPER_CPP_";
 } // namespace
 #else
 #include "base/identity.h"
@@ -49,7 +49,7 @@ bool is_installed_check(const std::vector<std::string>& args) {
 #ifdef FV_CLI_ENGINE_ONLY
 int not_in_this_build(std::string_view flag) {
     std::fprintf(stderr,
-                 "fiorivoce-cli: %s is not in the engine-only build. Configure with a vcpkg "
+                 "openwhisper-cpp-cli: %s is not in the engine-only build. Configure with a vcpkg "
                  "preset (see BUILDING.md).\n",
                  std::string(flag).c_str());
     return 1;
@@ -113,10 +113,10 @@ int main(int argc, char** argv) {
         }
         return fv::cli::transcribe(args, kEnvPrefix);
     } catch (const fv::cli::UsageError& error) {
-        std::fprintf(stderr, "fiorivoce-cli: %s\n\n%s", error.what(), usage.c_str());
+        std::fprintf(stderr, "openwhisper-cpp-cli: %s\n\n%s", error.what(), usage.c_str());
         return 2;
     } catch (const std::exception& error) {
-        std::fprintf(stderr, "fiorivoce-cli: %s\n", error.what());
+        std::fprintf(stderr, "openwhisper-cpp-cli: %s\n", error.what());
         return 1;
     }
 }

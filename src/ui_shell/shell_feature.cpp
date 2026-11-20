@@ -71,7 +71,7 @@ void registerTitleBarMenus(MenuRegistry& menus) {
     addItem(menus, menu_id::meetingDashboard, Menu::View, view_menu::open_meeting_dashboard,
             "Open Meeting Dashboard", kDefaultRole);
 
-    // NoRole: macOS's application-menu merge is not a platform FioriVoce builds for.
+    // NoRole: macOS's application-menu merge is not a platform OpenWhisper_CPP builds for.
     addItem(menus, menu_id::checkForUpdates, Menu::Help, help_menu::check_for_updates,
             "Check for Updates...", QAction::NoRole);
     addItem(menus, menu_id::about, Menu::Help, help_menu::about, "About", QAction::NoRole);

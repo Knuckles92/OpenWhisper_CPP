@@ -1,6 +1,6 @@
 // The OpenWhisper import's open items (sweep I2): discovery without a database copy, the saved
 // keys of speech and local servers, the identities a copy is made between, an unreadable store,
-// and OpenWhisper's settings or legacy history that cannot be read. FioriVoce only.
+// and OpenWhisper's settings or legacy history that cannot be read. OpenWhisper_CPP only.
 
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_string.hpp>
@@ -175,7 +175,7 @@ TEST_CASE("a copy names keys by the identities it is made between", "[import]") 
 
     CHECK(report.copied == std::vector<std::string>{"NEWAPP_ACTION_SECRET_a1"});
     CHECK(to.get("NEWAPP_ACTION_SECRET_a1") == "action-secret-0123");
-    CHECK_FALSE(to.get("FIORIVOCE_ACTION_SECRET_a1").has_value());
+    CHECK_FALSE(to.get("OPENWHISPER_CPP_ACTION_SECRET_a1").has_value());
 }
 
 TEST_CASE("a store that cannot be read fails every name instead of skipping it", "[import]") {
@@ -198,8 +198,9 @@ TEST_CASE("a store that cannot be read fails every name instead of skipping it",
         options.copy_credentials = true;
         options.credentials_from = &from;
         options.credentials_to = &to;
-        const auto result = fv::backup::stage_from_data_root(
-            fv::legacy_identity(), source, fv::identity(), temp.path() / "FioriVoce", options);
+        const auto result =
+            fv::backup::stage_from_data_root(fv::legacy_identity(), source, fv::identity(),
+                                             temp.path() / "OpenWhisper_CPP", options);
         CHECK(std::ranges::count(result.warnings, "Could not read the keys OpenWhisper saved") ==
               1);
         CHECK(std::ranges::none_of(result.warnings, [](const std::string& warning) {
@@ -223,19 +224,19 @@ TEST_CASE("settings OpenWhisper cannot read import as its defaults", "[import]")
         write_bytes(source / "openwhisper_settings.json", "{\"a\": \"\xff\"}");
     }
 
-    const auto result = fv::backup::stage_from_data_root(fv::legacy_identity(), source,
-                                                         fv::identity(), temp.path() / "FioriVoce");
+    const auto result = fv::backup::stage_from_data_root(
+        fv::legacy_identity(), source, fv::identity(), temp.path() / "OpenWhisper_CPP");
 
     REQUIRE_FALSE(result.warnings.empty());
     CHECK(result.warnings.front() ==
           "OpenWhisper's settings could not be read; the default settings were imported");
     const Json staged =
-        fv::py::loads(read_bytes(result.stage / "data" / "fiorivoce_settings.json"));
+        fv::py::loads(read_bytes(result.stage / "data" / "openwhisper_cpp_settings.json"));
     CHECK(staged.contains("fv_import"));
     CHECK_FALSE(staged.contains("selected_model"));
     // The history comes over all the same.
     fv::sql::Connection staged_db = fv::sql::Connection::open(
-        result.stage / "data" / "fiorivoce.db", fv::sql::OpenMode::ReadOnly);
+        result.stage / "data" / "openwhisper-cpp.db", fv::sql::OpenMode::ReadOnly);
     CHECK(std::get<std::int64_t>(staged_db.scalar("SELECT COUNT(*) FROM transcription_history")) ==
           2);
 }
@@ -246,7 +247,7 @@ TEST_CASE("a folder in place of OpenWhisper's settings still refuses the import"
     fs::create_directories(source / "openwhisper_settings.json");
 
     CHECK_THROWS_AS(fv::backup::stage_from_data_root(fv::legacy_identity(), source, fv::identity(),
-                                                     temp.path() / "FioriVoce"),
+                                                     temp.path() / "OpenWhisper_CPP"),
                     fv::backup::BackupError);
 }
 
@@ -255,13 +256,13 @@ TEST_CASE("a legacy history OpenWhisper cannot read is left out of the import", 
     const fs::path source = copy_fixture("legacy", temp.path() / "OpenWhisper");
     write_bytes(source / "transcription_history.json", "{\"entries\": \"not a list\"}");
 
-    const auto result = fv::backup::stage_from_data_root(fv::legacy_identity(), source,
-                                                         fv::identity(), temp.path() / "FioriVoce");
+    const auto result = fv::backup::stage_from_data_root(
+        fv::legacy_identity(), source, fv::identity(), temp.path() / "OpenWhisper_CPP");
 
     CHECK(std::ranges::any_of(result.warnings, [](const std::string& warning) {
         return warning.starts_with("Could not merge transcription_history.json: ");
     }));
-    fv::sql::Connection staged = fv::sql::Connection::open(result.stage / "data" / "fiorivoce.db",
-                                                           fv::sql::OpenMode::ReadOnly);
+    fv::sql::Connection staged = fv::sql::Connection::open(
+        result.stage / "data" / "openwhisper-cpp.db", fv::sql::OpenMode::ReadOnly);
     CHECK(std::get<std::int64_t>(staged.scalar("SELECT COUNT(*) FROM transcription_history")) == 0);
 }

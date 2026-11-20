@@ -260,7 +260,7 @@ private:
 };
 
 // A column (make_panel). Desktops whose compositor places windows (Wayland) get none in
-// OpenWhisper; FioriVoce runs on Windows only, where there always is one.
+// OpenWhisper; OpenWhisper_CPP runs on Windows only, where there always is one.
 std::unique_ptr<WalkthroughPanel> makePanel(const Clock& clock);
 
 } // namespace fv

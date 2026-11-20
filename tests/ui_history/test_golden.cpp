@@ -1,6 +1,6 @@
 // The History card's words against OpenWhisper's helpers
 // (tests/golden/ui_qt.widgets.history_sidebar.json, ui_qt.widgets.history_playback.json), and
-// FioriVoce's own badge for its Parakeet model strings.
+// OpenWhisper_CPP's own badge for its Parakeet model strings.
 #include <catch2/catch_test_macros.hpp>
 
 #include <optional>

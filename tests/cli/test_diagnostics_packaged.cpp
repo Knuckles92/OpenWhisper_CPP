@@ -46,7 +46,7 @@ Json report_for(const fv::update::InstallProbe& install, const fs::path& output)
 TEST_CASE("the cli diagnostics report is packaged only in its registered install folder",
           "[test_release_health]") {
     fv::testkit::TempDataRoot root;
-    const fs::path installed = root.path() / "Programs" / "FioriVoce";
+    const fs::path installed = root.path() / "Programs" / "OpenWhisper_CPP";
     const fs::path elsewhere = root.path() / "build" / "bin";
 
     CHECK(report_for(probe(true, installed, installed), root.path() / "a.json")["packaged"] ==
@@ -58,13 +58,13 @@ TEST_CASE("the cli diagnostics report is packaged only in its registered install
     CHECK(report_for(probe(false, {}, elsewhere), root.path() / "c.json")["packaged"] == false);
 }
 
-TEST_CASE("fiorivoce-cli in the build tree reports itself not packaged",
+TEST_CASE("openwhisper-cpp-cli in the build tree reports itself not packaged",
           "[platform][test_release_health]") {
     fv::testkit::TempDataRoot root;
     const fs::path output = root.path() / "support.json";
 
     const auto result =
-        run_cli({"--diagnostics", utf8(output)}, {{"FIORIVOCE_DATA_DIR", utf8(root.path())}});
+        run_cli({"--diagnostics", utf8(output)}, {{"OPENWHISPER_CPP_DATA_DIR", utf8(root.path())}});
 
     REQUIRE(result.exit_code == 0);
     // The test build runs from the build tree, never from a registered install folder.

@@ -564,7 +564,8 @@ TEST_CASE("the look preview's recorder uses the saved microphones and a scratch 
     // equivalent: Windows' temporary folder ends in a separator and may be spelled short.
     CHECK(std::filesystem::equivalent(fv::RecordingLookPreview::previewPath().parent_path(),
                                       std::filesystem::temp_directory_path()));
-    CHECK(fv::RecordingLookPreview::previewPath().filename() == "fiorivoce_overlay_preview.wav");
+    CHECK(fv::RecordingLookPreview::previewPath().filename() ==
+          "openwhisper_cpp_overlay_preview.wav");
 }
 
 // A11-49: the live preview text size as _build_appearance_page makes it: 10 to 48 pt, 16 by

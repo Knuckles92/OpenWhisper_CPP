@@ -238,7 +238,7 @@ void statsDialog(const std::string& variant, const std::string& theme, int scale
 // _export_entries of the builder.
 std::vector<Json> exportEntries() {
     const std::vector<std::array<const char*, 3>> entries = {
-        {"export-1", "Mar 15, 2026 03:00 PM", "Hello from FioriVoce."},
+        {"export-1", "Mar 15, 2026 03:00 PM", "Hello from OpenWhisper_CPP."},
         {"export-2", "Mar 14, 2026 08:05 PM", "Remember the birthday card."},
         {"export-3", "Mar 14, 2026 06:10 PM", "Pick up the bike from the shop."},
         {"export-4", "Mar 13, 2026 09:30 AM", "Send the invoice before Friday."},
@@ -260,7 +260,7 @@ void exportDialog(const std::string& variant, const std::string& theme, int scal
     const fvtest::AppTheme appTheme(QString::fromStdString(theme), scale);
     fv::ManualExecutor io;
     fv::HistoryExportDialog dialog([] { return exportEntries(); },
-                                   R"(C:\Users\Dana\AppData\Local\FioriVoce\recordings)", io);
+                                   R"(C:\Users\Dana\AppData\Local\OpenWhisper_CPP\recordings)", io);
     dialog.fromDate()->setDate(QDate(2026, 2, 15));
     dialog.toDate()->setDate(QDate(2026, 3, 15));
     if (variant == "selected") {

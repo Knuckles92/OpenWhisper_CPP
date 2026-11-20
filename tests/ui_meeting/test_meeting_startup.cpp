@@ -1,9 +1,9 @@
 // keep_separate_meeting_speech at startup (ui_qt/bootstrap.py:309-314): after the guided setup
 // state and keep_unchosen_engine, before the main window, an existing install whose meetings ran
 // on another engine than dictation keeps it as a separate engine, and every other install
-// follows dictation. In FioriVoce MeetingFeature::provide makes that call; here it runs through
-// Bootstrap with the features it needs, and a stand-in for the controller (which provides the
-// lifecycle) reads the settings when the main window is shown.
+// follows dictation. In OpenWhisper_CPP MeetingFeature::provide makes that call; here it runs
+// through Bootstrap with the features it needs, and a stand-in for the controller (which provides
+// the lifecycle) reads the settings when the main window is shown.
 #include <catch2/catch_test_macros.hpp>
 
 #include <filesystem>
@@ -108,13 +108,13 @@ fv::Json startUp(const fv::testkit::TempDataRoot& root, bool meeting) {
     hooks.errorBox = [&errors](const std::string& message) {
         errors.push_back(message);
     };
-    hooks.arguments = std::vector<std::string>{"fiorivoce"};
+    hooks.arguments = std::vector<std::string>{"openwhisper-cpp"};
     // No audio system is opened by a startup test.
     hooks.audioBackend = [] {
         return std::make_shared<fv::audio::testing::FakeBackend>();
     };
     int argc = 1;
-    char program[] = "fiorivoce";
+    char program[] = "openwhisper-cpp";
     char* argv[] = {program, nullptr};
     fv::Bootstrap bootstrap(std::move(hooks));
     const int code = bootstrap.run(argc, argv);

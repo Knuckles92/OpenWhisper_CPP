@@ -1,7 +1,7 @@
 """Curated inputs for services/update_contract.py (M3.2, update/update_contract.h).
 
 setup_asset_name carries OpenWhisper's prefix; the C++ replay compares it rebranded (the release
-identity's setup_prefix is FioriVoce's).
+identity's setup_prefix is OpenWhisper_CPP's).
 """
 
 VERSIONS = [

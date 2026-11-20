@@ -1,9 +1,9 @@
 """Writes tests/fixtures/meeting: a crashed meeting's spool written with OpenWhisper's own spool
 helpers, and what OpenWhisper's recovery makes of it.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
-        $env:FIORIVOCE_OW_PYTHON -I -B tests/fixtures/meeting/make_fixtures.py
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
+        $env:OPENWHISPER_CPP_OW_PYTHON -I -B tests/fixtures/meeting/make_fixtures.py
 
 OpenWhisper is imported through tools/parity/ow_isolation.py; the database and the working copy
 of the spool live under out/parity/ (git-ignored), and only the files below are written here.

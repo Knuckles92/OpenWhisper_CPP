@@ -187,9 +187,9 @@ def snap_overlay(variant):
         overlay.setParent(canvas)
         overlay.move(0, index * SNAP_IMAGE[1])
         overlay.show()
-        # FioriVoce's name for the hotkey-window marker.
+        # OpenWhisper_CPP's name for the hotkey-window marker.
         overlay.setProperty("openwhisperHotkeyWindow", None)
-        overlay.setProperty("fiorivoceHotkeyWindow", True)
+        overlay.setProperty("openwhisperCppHotkeyWindow", True)
 
     _mouse(selecting, QEvent.Type.MouseButtonPress, (200, 150), True)
     _mouse(selecting, QEvent.Type.MouseMove, (520, 390), True)

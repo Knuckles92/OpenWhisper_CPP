@@ -11,7 +11,7 @@ struct OrtEnv;
 
 namespace fv::diarize {
 
-// The ONNX Runtime API version FioriVoce asks for: the vendored header's (ONNX Runtime 1.29).
+// The ONNX Runtime API version OpenWhisper_CPP asks for: the vendored header's (ONNX Runtime 1.29).
 // A runtime that does not provide it is refused.
 inline constexpr unsigned kOrtApiVersion = 29;
 

@@ -202,7 +202,7 @@ void SnapOverlay::configure() {
     setAttribute(Qt::WA_MacAlwaysShowToolWindow);
     // The marker the Scratchpad sets: app hotkeys behave as they do in our other windows while
     // the overlay has focus.
-    ui::setStyleProperty(this, ui::prop::fiorivoceHotkeyWindow, true);
+    ui::setStyleProperty(this, ui::prop::openwhisperCppHotkeyWindow, true);
     setFocusPolicy(Qt::StrongFocus);
     setMouseTracking(true);
     setCursor(Qt::CrossCursor);

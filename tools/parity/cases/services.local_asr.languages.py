@@ -1,6 +1,6 @@
 """Curated inputs for services/local_asr/languages.py (fv_speech languages.h).
 
-Only the backend keys FioriVoce has ("parakeet", and "api" and "remote", which have no table)
+Only the backend keys OpenWhisper_CPP has ("parakeet", and "api" and "remote", which have no table)
 and unknown keys: the tables of the dropped engines (Qwen, Nemotron, Moonshine, MLX, Unified)
 are not ported.
 """

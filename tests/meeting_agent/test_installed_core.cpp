@@ -58,7 +58,7 @@ private:
 
 FakeDriver::Options driver_options() {
     FakeDriver::Options options;
-    options.tool_prefix = "mcp__fiorivoce__";
+    options.tool_prefix = "mcp__openwhisper_cpp__";
     options.calls = {
         {"patch_state", Json{{"ops", Json::array({Json{{"op", "set_topic"},
                                                        {"text", "Beta"},
@@ -164,7 +164,7 @@ TEST_CASE("test_a_pass_applies_the_agents_tool_calls", "[test_installed_agent_co
     CHECK(request.model == "haiku");
     CHECK(request.effort == "low");
     CHECK(request.system_prompt.starts_with("COPILOT CHARTER"));
-    CHECK(contains(request.system_prompt, "mcp__fiorivoce__patch_state"));
+    CHECK(contains(request.system_prompt, "mcp__openwhisper_cpp__patch_state"));
     std::set<std::string> kinds;
     for (const auto& tick : activity) {
         kinds.insert(tick.kind);

@@ -167,7 +167,7 @@ TEST_CASE("a backup through the provided coordinator records this build's versio
         }
     });
     const std::filesystem::path archive =
-        rig.paths().data_root() / "out" / "FioriVoce-backup.fvbackup";
+        rig.paths().data_root() / "out" / "OpenWhisper_CPP-backup.fvbackup";
     std::filesystem::create_directories(archive.parent_path());
 
     coordinator.create_backup(archive);

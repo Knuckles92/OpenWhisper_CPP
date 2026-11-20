@@ -63,23 +63,23 @@ TEST_CASE("PDFium is not found without the variable or the component", "[pdfium_
     CHECK_FALSE(locate_pdfium(rig.env, rig.store));
 }
 
-TEST_CASE("FIORIVOCE_PDFIUM names the library", "[pdfium_runtime]") {
+TEST_CASE("OPENWHISPER_CPP_PDFIUM names the library", "[pdfium_runtime]") {
     Rig rig;
     const fs::path library = rig.temp.path() / "pdf" / "pdfium.dll";
     write_file(library, "dll");
     const fs::path installed =
         rig.component() / "bin" / fv::base_utf8::path_from_utf8(kPdfiumLibrary);
     rig.install(installed);
-    rig.env.set("FIORIVOCE_PDFIUM", " " + utf8(library) + " ");
+    rig.env.set("OPENWHISPER_CPP_PDFIUM", " " + utf8(library) + " ");
     CHECK(locate_pdfium(rig.env, rig.store) == library);
 
     // A variable naming nothing is skipped for the component.
-    rig.env.set("FIORIVOCE_PDFIUM", utf8(rig.temp.path() / "missing.dll"));
+    rig.env.set("OPENWHISPER_CPP_PDFIUM", utf8(rig.temp.path() / "missing.dll"));
     CHECK(locate_pdfium(rig.env, rig.store) == installed);
     // Neither is a folder or an empty value.
-    rig.env.set("FIORIVOCE_PDFIUM", utf8(rig.temp.path() / "pdf"));
+    rig.env.set("OPENWHISPER_CPP_PDFIUM", utf8(rig.temp.path() / "pdf"));
     CHECK(locate_pdfium(rig.env, rig.store) == installed);
-    rig.env.set("FIORIVOCE_PDFIUM", "   ");
+    rig.env.set("OPENWHISPER_CPP_PDFIUM", "   ");
     CHECK(locate_pdfium(rig.env, rig.store) == installed);
 }
 

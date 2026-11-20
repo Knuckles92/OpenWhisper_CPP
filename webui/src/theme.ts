@@ -1,7 +1,7 @@
 /** Viewer's colour theme: follow the OS, or pin light/dark for this browser. */
 export type ThemeChoice = 'system' | 'light' | 'dark';
 
-const STORAGE_KEY = 'fiorivoce.meeting.theme';
+const STORAGE_KEY = 'openwhisper-cpp.meeting.theme';
 
 export function readTheme(): ThemeChoice {
   try {
@@ -39,7 +39,7 @@ export const DESIGN_THEMES = [
 ] as const;
 
 export type DesignTheme = (typeof DESIGN_THEMES)[number]['id'];
-const DESIGN_STORAGE_KEY = 'fiorivoce.meeting.design';
+const DESIGN_STORAGE_KEY = 'openwhisper-cpp.meeting.design';
 
 export function readDesignTheme(): DesignTheme {
   try {

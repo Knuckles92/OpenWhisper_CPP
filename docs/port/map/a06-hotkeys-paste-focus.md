@@ -34,7 +34,7 @@ All references are `file:symbol` or `file:line` relative to that root.
 
 Status: **port**, **drop** (engine-specific), **undecided** (backend not decided),
 **other-platform** (needed only for macOS/Linux; still port if those platforms are
-targeted; FioriVoce today targets Windows + Linux).
+targeted; OpenWhisper_CPP today targets Windows + Linux).
 
 | ID | Feature | Exact user-visible behavior | Source | Status |
 |---|---|---|---|---|
@@ -121,7 +121,7 @@ Behavior the table above left out (all verified in source; IDs continue the tabl
 | A06-74 | Omarchy extras | `start()` returns False (feature silently off) unless Hyprland is available and `gdbus` is on PATH and the D-Bus service name and object register. `Trigger("show", false)` restores the window from the tray; `Trigger` returns False for an action that is not in the manager's hotkeys (standard plus `ns:id` dynamic). Status strings published on `omarchyShortcutStatus`: "Starting desktop shortcuts", "Desktop shortcuts active", multiple issues joined by "; ", "Desktop shortcuts stopped" on close. Hyprland binds match by lowercase keysym and mod mask. Sync loop runs once more on shutdown to release binds. The bar's `language` chip text is empty when only one dictation language is configured. | `omarchy_controls.py:start,Trigger,_publish_status,_sync,close` | other-platform |
 | A06-75 | Selection-capture result codes | Callback receives text; "" when a capture is already running, no clipboard, snapshot failed (no copy is sent), copy send failed, nothing changed by the timeout; `None` only when the clipboard cannot see foreign copies. The original clipboard is written back only if the copy landed (or, with no counter, whenever a copy was sent); a restore failure emits `restore_failed(message)`. Afterwards the original is cached as the next prefetch if the counter is available. A capture is ended with "" by any `write_text`/`write_files`/`stage_text`. | `clipboard.py:_start_selection_capture,_finish_selection,_abort_selection_capture` | port |
 | A06-76 | Clipboard lifecycle extras | `schedule_restore` fails (and drops the lease) when the marker is no longer ours; `restore_now` stops the timer and restores immediately, returning RESTORED/SKIPPED/FAILED; `cleanup()` (app exit) restores any pending lease; prefetch is discarded at the start of each new recording request and replaced by a delayed one; `commit_text` leaves the transcript (with its html) on the clipboard after a failed paste. Snapshot formats: all MIME formats' bytes plus text, html, urls, image, color. | `clipboard.py:schedule_restore,restore_now,cleanup,commit_text,ClipboardSnapshot` | port |
-| A06-77 | Accessibility launcher env | `OPENWHISPER_MACOS_LAUNCH_APP` (path to the launching .app, set by the dev launcher) is used to name the app that needs Accessibility in `accessibility_permission_instructions`, `accessibility_app_bundle` and diagnostics; falls back to the executable's containing bundle. Not relevant to FioriVoce unless a macOS launcher exists. | `_hotkey_pynput.py:421-526` | other-platform |
+| A06-77 | Accessibility launcher env | `OPENWHISPER_MACOS_LAUNCH_APP` (path to the launching .app, set by the dev launcher) is used to name the app that needs Accessibility in `accessibility_permission_instructions`, `accessibility_app_bundle` and diagnostics; falls back to the executable's containing bundle. Not relevant to OpenWhisper_CPP unless a macOS launcher exists. | `_hotkey_pynput.py:421-526` | other-platform |
 | A06-78 | Environment variables read | `HYPRLAND_INSTANCE_SIGNATURE` (Hyprland detection), `XDG_RUNTIME_DIR` (status file folder `openwhisper`, mode 0700), `QT_WAYLAND_USE_DATA_CONTROL` (A06-38), `OPENWHISPER_MACOS_LAUNCH_APP` (A06-77). | various | other-platform |
 
 ## Modules
@@ -464,7 +464,7 @@ Clipboard paste is available." / "Open System Settings â†’ Privacy & Security â†
 `Trigger(s action, b released) -> b`, `Button(s) -> b`, `Status() -> s(JSON)`,
 `UpdateStatus() -> s`, `PrepareUpdate() -> s`, `CancelUpdate(s) -> b`. The Omarchy bar
 (external shell config) calls these and reads `$XDG_RUNTIME_DIR/openwhisper/status.json`.
-Hyprland binds carry description prefix `"OpenWhisper: "`. If FioriVoce keeps Omarchy support
+Hyprland binds carry description prefix `"OpenWhisper: "`. If OpenWhisper_CPP keeps Omarchy support
 under a new name, the bar config must change too; keeping the names keeps it compatible.
 
 **Window classes** `openwhisper`, `openwhisper-ui-qa` identify own windows on Linux
@@ -516,7 +516,7 @@ under a new name, the bar config must change too; keeping the names keeps it com
 
 None of this area is speech-engine specific: nothing to drop for non-Parakeet engines. The
 worker-process plumbing is not involved. Adaptations for in-process Parakeet:
-- Hotkey callbacks start/stop recording through the controller (a04); in FioriVoce they must
+- Hotkey callbacks start/stop recording through the controller (a04); in OpenWhisper_CPP they must
   reach the engine only via `EngineWorker` queued signals, never call a `Recognizer` from the
   hook threads or the GUI thread (CLAUDE.md).
 - Text read near the caret goes only to the AI cleanup provider (`focus_context/__init__.py`
@@ -632,7 +632,7 @@ Golden-vector candidates (pure, generate inputs/outputs from Python, replay in C
 - Qt layer: `TemporaryClipboard`, capture widgets, `BindingShortcuts`, `ReflowCard`,
   `AccessibilityDialog`, `OmarchyControls` (QtDBus), `HotkeyCaptureThread` equivalent.
 
-**Order of work** (Windows first, since FioriVoce builds there today): grammar + display +
+**Order of work** (Windows first, since OpenWhisper_CPP builds there today): grammar + display +
 golden vectors -> Windows LL keyboard hook + matcher + `keyboard` name table -> synthetic
 Ctrl+V/C + modifier wait -> `TemporaryClipboard` (stage/restore/prefetch/pre-render) ->
 foreground identity + catalog + join/prompt -> capture service + UIA reader -> mouse hook ->

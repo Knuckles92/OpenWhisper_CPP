@@ -15,7 +15,7 @@ namespace fv::update_native {
 inline constexpr std::uint64_t max_unpacked_bytes = 2ULL << 30;
 inline constexpr std::size_t max_members = 50'000;
 inline constexpr std::size_t max_manifest_bytes = 4U << 20;
-inline constexpr std::string_view updater_name = "fiorivoce-updater.exe";
+inline constexpr std::string_view updater_name = "openwhisper-cpp-updater.exe";
 
 // Declared in fv_update so the app side can tell them apart without knowing this module.
 using UpdateError = update::UpdateApplyError;
@@ -34,8 +34,8 @@ void check_topology(std::string_view name, bool directory);
 FileTable validate_manifest(const Json& manifest, std::string_view expected_version = {},
                             std::string_view updater_version = {});
 
-// The tree is the staged FioriVoce distribution. Its existing manifest and completion sentinel
-// do not become release payload. Building the manifest never changes the tree.
+// The tree is the staged OpenWhisper_CPP distribution. Its existing manifest and completion
+// sentinel do not become release payload. Building the manifest never changes the tree.
 Json build_manifest(const std::filesystem::path& tree, std::string_view version);
 void verify_tree(const std::filesystem::path& tree, const Json& manifest);
 

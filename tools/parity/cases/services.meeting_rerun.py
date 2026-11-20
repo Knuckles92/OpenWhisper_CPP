@@ -1,15 +1,15 @@
 """Curated inputs for services/meeting_rerun.py (M7.9 meeting-core).
 
-    rerun_options(meeting, settings) -> the fields FioriVoce's RerunOptions carries:
+    rerun_options(meeting, settings) -> the fields OpenWhisper_CPP's RerunOptions carries:
         {timeout_s, asr_model_name, language, speaker_id_backend, speaker_audio_consent,
          redecode_coverage_guard}
     resolve_speaker_pass(settings) -> {ok, reason, offered, has_key}
 
-Pins, so that OpenWhisper answers as FioriVoce's build does:
+Pins, so that OpenWhisper answers as OpenWhisper_CPP's build does:
 - every call is on a Parakeet platform (meeting model default "parakeet-v3",
   parakeet_default_supported() True), as in services.settings_meeting's cases;
 - the date is 2027-03-01, after OpenAI's shutdown, when OpenWhisper reads a stored "openai"
-  speaker backend as "local", which FioriVoce does on every date; so no key is ever looked up;
+  speaker backend as "local", which OpenWhisper_CPP does on every date; so no key is ever looked up;
 - a remote route never belongs to this computer (meeting/asr/remote.py _is_this_computer is
   False): the replay injects a reader with the same validation;
 - the agent route (provider, model, endpoint, agent core) is left out: it joins with the meeting

@@ -67,8 +67,8 @@ update::UpdateCheckResult makeResult(const Spec& spec = {}) {
     release.notes = spec.notes;
     release.prerelease = spec.prerelease;
     update::ReleaseAsset setup;
-    setup.url = "https://example.invalid/FioriVoce-Setup-" + spec.version + ".exe";
-    setup.name = "FioriVoce-Setup-" + spec.version + ".exe";
+    setup.url = "https://example.invalid/OpenWhisper_CPP-Setup-" + spec.version + ".exe";
+    setup.name = "OpenWhisper_CPP-Setup-" + spec.version + ".exe";
     setup.size_bytes = 90'000'000;
     setup.sha256 = std::string(64, 'a');
     release.setup_asset = setup;
@@ -113,7 +113,7 @@ TEST_CASE("test_source_primary_is_open_release_notes", "[ui_setup][widget]") {
     AppUpdateDialog dialog(makeResult(), {}, store, false);
     CHECK(dialog.primaryButton()->text() == qs("Open release notes"));
     CHECK(dialog.primaryButton()->property("buttonId").toString() == qs("updatePrimaryButton"));
-    // No git checkout runs FioriVoce, so there is no "git pull" hint to show.
+    // No git checkout runs OpenWhisper_CPP, so there is no "git pull" hint to show.
     CHECK(dialog.hintLabel()->text().isEmpty());
     CHECK(dialog.hintLabel()->isHidden());
 }
@@ -135,8 +135,8 @@ TEST_CASE("the body names the download size when the update can be applied", "[u
     AppUpdateDialog dialog(makeResult(installer()), {}, store, true);
     CHECK(dialog.bodyLabel()->text() ==
           qs("You have 0.1.0 (Windows installer).  Download size: 90 MB."));
-    CHECK(dialog.titleLabel()->text() == qs("FioriVoce 0.2.0 is available"));
-    CHECK(dialog.windowTitle() == qs("FioriVoce Updates"));
+    CHECK(dialog.titleLabel()->text() == qs("OpenWhisper_CPP 0.2.0 is available"));
+    CHECK(dialog.windowTitle() == qs("OpenWhisper_CPP Updates"));
     CHECK(dialog.isModal());
     CHECK(dialog.minimumWidth() == 520);
 }
@@ -268,7 +268,7 @@ TEST_CASE("test_up_to_date_has_no_primary", "[ui_setup][widget]") {
     AppUpdateDialog dialog(makeResult(spec), {}, store, false);
     CHECK(dialog.primaryButton()->isHidden());
     CHECK(dialog.laterButton()->text() == qs("Close"));
-    CHECK(dialog.titleLabel()->text() == qs("FioriVoce is up to date"));
+    CHECK(dialog.titleLabel()->text() == qs("OpenWhisper_CPP is up to date"));
     CHECK(dialog.bodyLabel()->text() ==
           qs("You have 0.1.0 (Source copy).  The latest release is 0.1.0."));
     CHECK(dialog.notesCard()->isHidden());
@@ -295,10 +295,10 @@ TEST_CASE("an unknown or opening phase keeps the body line and names the release
     run.dialog.setProgress(qs("verifying"), 1, 4);
     run.dialog.setProgress(qs("opening"), 0, 0);
     CHECK(run.dialog.bodyLabel()->text() == qs("Verifying the download…"));
-    CHECK(run.dialog.progressDetail()->text() == qs("FioriVoce 0.2.0"));
+    CHECK(run.dialog.progressDetail()->text() == qs("OpenWhisper_CPP 0.2.0"));
     run.dialog.setProgress(qs("no such phase"), 1, 4);
     CHECK(run.dialog.bodyLabel()->text() == qs("Verifying the download…"));
-    CHECK(run.dialog.progressDetail()->text() == qs("FioriVoce 0.2.0"));
+    CHECK(run.dialog.progressDetail()->text() == qs("OpenWhisper_CPP 0.2.0"));
     CHECK(run.dialog.progressPercent()->text() == qs("25%"));
 }
 
@@ -447,7 +447,7 @@ TEST_CASE("test_downloading_replaces_notes_with_progress", "[ui_setup][widget]")
     CHECK_FALSE(run.dialog.dontNotifyCheck()->isEnabled());
     CHECK_FALSE(run.dialog.dontCheckCheck()->isEnabled());
     CHECK(run.dialog.bodyLabel()->property("tone").toString().isEmpty());
-    CHECK(run.dialog.progressDetail()->text() == qs("FioriVoce 0.2.0"));
+    CHECK(run.dialog.progressDetail()->text() == qs("OpenWhisper_CPP 0.2.0"));
 }
 
 TEST_CASE("test_download_progress_shows_bytes_and_percent", "[ui_setup][widget]") {
@@ -479,7 +479,7 @@ TEST_CASE("test_member_counting_phases_do_not_report_bytes", "[ui_setup][widget]
 
     run.dialog.setProgress(qs("extracting"), 3, 10);
 
-    CHECK(run.dialog.progressDetail()->text() == qs("FioriVoce 0.2.0"));
+    CHECK(run.dialog.progressDetail()->text() == qs("OpenWhisper_CPP 0.2.0"));
     CHECK(run.dialog.progressPercent()->text() == qs("30%"));
 }
 
@@ -616,8 +616,8 @@ TEST_CASE("test_title_names_a_beta_release", "[ui_setup][widget]") {
     Spec spec;
     spec.prerelease = true;
     AppUpdateDialog beta(makeResult(spec), {}, store, false);
-    CHECK(stable.titleLabel()->text() == qs("FioriVoce 0.2.0 is available"));
-    CHECK(beta.titleLabel()->text() == qs("FioriVoce 0.2.0 beta is available"));
+    CHECK(stable.titleLabel()->text() == qs("OpenWhisper_CPP 0.2.0 is available"));
+    CHECK(beta.titleLabel()->text() == qs("OpenWhisper_CPP 0.2.0 beta is available"));
 }
 
 TEST_CASE("a development build says so", "[ui_setup][widget]") {

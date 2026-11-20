@@ -15,7 +15,7 @@ class KeyboardHook {
 public:
     // Returns true to let the event through to the focused app. It runs inside the hook, where
     // Windows removes a hook that answers too slowly (LowLevelHooksTimeout): it decides and hands
-    // work on, and never waits on a lock another thread holds for long. Keys FioriVoce sent
+    // work on, and never waits on a lock another thread holds for long. Keys OpenWhisper_CPP sent
     // itself (KeyEvent::own_input) pass without reaching it and are not recorded as pressed.
     using Callback = std::function<bool(const KeyEvent&)>;
 

@@ -151,8 +151,8 @@ private:
 };
 
 // Settings > Home (settings_home.py HomePage and settings_dialog.py _refresh_home): the "New in
-// FioriVoce" note, the where strip, the Dictation, Personalize, Meetings, App and Storage cards
-// and the footer.
+// OpenWhisper_CPP" note, the where strip, the Dictation, Personalize, Meetings, App and Storage
+// cards and the footer.
 //
 // Its rows are projections of the pages' own controls (bind): an edit builds the owning page,
 // sets that page's control so its handler, callbacks and confirmations run, re-reads Home, and

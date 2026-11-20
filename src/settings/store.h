@@ -18,7 +18,7 @@
 
 namespace fv {
 
-// fiorivoce_settings.json: one JSON object, indent 2, trailing newline, insertion order kept,
+// openwhisper_cpp_settings.json: one JSON object, indent 2, trailing newline, insertion order kept,
 // lines ended as Python's text mode ends them ("\r\n" on Windows), so the bytes are the ones
 // OpenWhisper writes. Writes are atomic (temporary file, flush, replace). The port of
 // services/settings.py's

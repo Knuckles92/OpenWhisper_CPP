@@ -5,8 +5,8 @@ fv_test(NO_MAIN QT Core Gui Widgets Network
 
 # The early command line is tested on the real executable, as a child process: --help and
 # --version must answer before the app takes its lease or writes its log.
-if(TARGET fv_ui_shell_tests AND TARGET fiorivoce)
-    add_dependencies(fv_ui_shell_tests fiorivoce)
+if(TARGET fv_ui_shell_tests AND TARGET openwhisper-cpp)
+    add_dependencies(fv_ui_shell_tests openwhisper-cpp)
     target_compile_definitions(fv_ui_shell_tests PRIVATE
-        "FV_GUI_EXECUTABLE=\"$<TARGET_FILE:fiorivoce>\"")
+        "FV_GUI_EXECUTABLE=\"$<TARGET_FILE:openwhisper-cpp>\"")
 endif()

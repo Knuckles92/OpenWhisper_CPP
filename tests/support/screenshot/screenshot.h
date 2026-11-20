@@ -38,9 +38,9 @@ struct Options {
 
 // Sizes the widget to the reference's logical size, shows it, pins focus, processes events
 // once, then checks the tree, the application stylesheet and the pixels. Pixels are skipped with
-// a message when the build has FIORIVOCE_SCREENSHOT_TESTS off or the kit is not one that renders
-// like the reference (qt_kit_matches_reference); the tree is compared either way. The skip is
-// Catch2's SKIP, which ends the running test case or section, so give each variant its own
+// a message when the build has OPENWHISPER_CPP_SCREENSHOT_TESTS off or the kit is not one that
+// renders like the reference (qt_kit_matches_reference); the tree is compared either way. The skip
+// is Catch2's SKIP, which ends the running test case or section, so give each variant its own
 // TEST_CASE or SECTION: a second call after a skip would not run. On a pixel difference the
 // widget's own grab and a magenta diff image are written to
 // <build>/test-artifacts/screenshots/<widget>/.

@@ -14,7 +14,7 @@ Also:
   lookup's fallback and holds real keys;
 - focus capture is the null service (no foreground-window or caret reads).
 
-The checkout comes from FIORIVOCE_OW_ROOT. Scratch folders are under out/parity/ of this
+The checkout comes from OPENWHISPER_CPP_OW_ROOT. Scratch folders are under out/parity/ of this
 repository (git-ignored). Call ``isolate()`` first, then ``after_import_guards()`` once
 OpenWhisper modules can be imported. Scripts that use it run with ``python -I -B``.
 """
@@ -29,8 +29,8 @@ REPO = Path(__file__).resolve().parents[2]
 TOOLS = REPO / "tools" / "parity"
 SCRATCH = REPO / "out" / "parity"
 REFERENCE_FILE = TOOLS / "reference.json"
-ROOT_ENV = "FIORIVOCE_OW_ROOT"
-PYTHON_ENV = "FIORIVOCE_OW_PYTHON"
+ROOT_ENV = "OPENWHISPER_CPP_OW_ROOT"
+PYTHON_ENV = "OPENWHISPER_CPP_OW_PYTHON"
 PROXY_VARIABLES = ("http_proxy", "https_proxy", "all_proxy")
 
 
@@ -100,7 +100,7 @@ def _inside(path: Path, folder: Path) -> bool:
 
 def real_openwhisper_appdata() -> Path | None:
     """The owner's %LOCALAPPDATA%\\OpenWhisper, as it was before isolation moved LOCALAPPDATA."""
-    base = os.environ.get("FIORIVOCE_REAL_LOCALAPPDATA") or os.environ.get("LOCALAPPDATA")
+    base = os.environ.get("OPENWHISPER_CPP_REAL_LOCALAPPDATA") or os.environ.get("LOCALAPPDATA")
     return Path(base) / "OpenWhisper" if base else None
 
 
@@ -134,7 +134,7 @@ def isolate(scratch: Path = SCRATCH) -> Path:
     if owner is not None and _inside(scratch, owner):
         raise IsolationError(f"The scratch folder {scratch} is inside {owner}.")
     if owner is not None:
-        os.environ.setdefault("FIORIVOCE_REAL_LOCALAPPDATA", str(owner.parent))
+        os.environ.setdefault("OPENWHISPER_CPP_REAL_LOCALAPPDATA", str(owner.parent))
     sys.dont_write_bytecode = True
     os.environ.update(scratch_environment(scratch))
     for name in list(os.environ):

@@ -1,5 +1,5 @@
-// The built fiorivoce-updater, run as a child process: the program the installer extracts and the
-// build scripts call. OpenWhisper checks its frozen helper the same way
+// The built openwhisper-cpp-updater, run as a child process: the program the installer extracts and
+// the build scripts call. OpenWhisper checks its frozen helper the same way
 // (tests/test_frozen_updater.py); what each command does is tested in process by
 // tests/update_native/test_updater_cli.cpp.
 
@@ -110,14 +110,14 @@ struct LocalFolder {
 
 TEST_CASE("the built updater writes a manifest, packs a release and verifies it", "[platform]") {
 #ifndef FV_UPDATER_EXECUTABLE
-    SKIP("fiorivoce-updater is not built in this configuration");
+    SKIP("openwhisper-cpp-updater is not built in this configuration");
 #else
     fv::testkit::TempDataRoot temp;
     const LocalFolder folder(temp.path() / "local");
     const auto tree = temp.path() / "stage";
     fs::create_directories(tree / "platforms");
-    fv::write_file_atomic(tree / "fiorivoce.exe", "app");
-    fv::write_file_atomic(tree / "fiorivoce-updater.exe", "helper");
+    fv::write_file_atomic(tree / "openwhisper-cpp.exe", "app");
+    fv::write_file_atomic(tree / "openwhisper-cpp-updater.exe", "helper");
     fv::write_file_atomic(tree / "platforms" / "qwindows.dll", "plugin");
     const auto zip = temp.path() / "release.zip";
     const auto stage = fv::path_to_utf8(tree);
@@ -146,13 +146,13 @@ TEST_CASE("the built updater writes a manifest, packs a release and verifies it"
     CHECK(updater({"--transaction-id", std::string(32, 'a')}, temp.path()).exit_code == 2);
     const auto help = updater({"--help"}, temp.path());
     CHECK(help.exit_code == 0);
-    CHECK(help.output.find("fiorivoce-updater --pack-archive") != std::string::npos);
+    CHECK(help.output.find("openwhisper-cpp-updater --pack-archive") != std::string::npos);
 #endif
 }
 
 TEST_CASE("the built updater writes updater.log in the product's local folder", "[platform]") {
 #ifndef FV_UPDATER_EXECUTABLE
-    SKIP("fiorivoce-updater is not built in this configuration");
+    SKIP("openwhisper-cpp-updater is not built in this configuration");
 #else
     fv::testkit::TempDataRoot temp;
     const auto local = temp.path() / "local";

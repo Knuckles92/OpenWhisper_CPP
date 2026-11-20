@@ -1,6 +1,6 @@
 # Parity harness
 
-Proves that FioriVoce behaves and looks like OpenWhisper (architecture section 9; the design and
+Proves that OpenWhisper_CPP behaves and looks like OpenWhisper (architecture section 9; the design and
 the trial that validated it are in `docs/port/map/a33-tests-and-parity-harness.md`). Two
 mechanisms, both replayed by C++ tests under `tests/`:
 
@@ -16,8 +16,8 @@ the Qt minors whose renders were measured equal to the PyQt6 references (`qt_com
 ## Environment
 
 ```powershell
-$env:FIORIVOCE_OW_ROOT = 'D:\coding\whisper_local'                         # the checkout, read-only
-$env:FIORIVOCE_OW_PYTHON = 'D:\coding\whisper_local\.venv\Scripts\python.exe' # Python 3.12.10, PyQt6 6.11.0
+$env:OPENWHISPER_CPP_OW_ROOT = 'D:\coding\whisper_local'                         # the checkout, read-only
+$env:OPENWHISPER_CPP_OW_PYTHON = 'D:\coding\whisper_local\.venv\Scripts\python.exe' # Python 3.12.10, PyQt6 6.11.0
 ```
 
 Every script runs with `-I -B` from the repository root. The scripts refuse to run when the
@@ -40,9 +40,9 @@ the scripts read its HEAD from `.git` directly.
 Check a run afterwards, or wrap it:
 
 ```powershell
-& $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
-    $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/golden_vectors.py --all
-& $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/check_isolation.py --since 2026-11-14T12:00:00
+& $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
+    $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/golden_vectors.py --all
+& $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/check_isolation.py --since 2026-11-14T12:00:00
 ```
 
 It lists every file and folder under the checkout and `%LOCALAPPDATA%\OpenWhisper` whose write
@@ -54,7 +54,7 @@ there is one. Run it from a shell whose `LOCALAPPDATA` is the real one.
 `parity_report.py` aggregates every `tests/<dir>/PARITY.json` into `docs/port/parity-report.md`
 (`--check` validates only, `--strict` also fails on anything pending, unlisted or unaudited). Two
 helpers work on the ledgers themselves; both read the OpenWhisper checkout named by
-`FIORIVOCE_OW_ROOT` and write nothing there:
+`OPENWHISPER_CPP_OW_ROOT` and write nothing there:
 
 ```bash
 python -I -B tools/parity/open_work.py                    # files with pending or unlisted functions
@@ -70,8 +70,8 @@ worker closing ledger entries from a cloud session.
 ## Golden vectors
 
 ```powershell
-& $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/golden_vectors.py --module services.format_utils
-& $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/golden_vectors.py --all
+& $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/golden_vectors.py --module services.format_utils
+& $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/golden_vectors.py --all
 ```
 
 Inputs come from `cases/<python.module>.py`, one file per module so packages never share one:
@@ -110,15 +110,15 @@ golden::for_each("services.format_utils", "format_audio_duration", [](const gold
 `std::string`, `std::optional<U>` (null), `std::vector<U>` or `Json`; `raises()` and
 `raises_type()` give the Python exception. Comparators: `equal` (Python `==` on JSON data),
 `near` and `matches` (absolute float tolerance), `equal_rebranded` with `rebrand()`, which maps
-OpenWhisper's product, file and variable names to FioriVoce's.
+OpenWhisper's product, file and variable names to OpenWhisper_CPP's.
 
 ## Reference screenshots
 
 ```powershell
-& $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/render_reference.py --builder a02_harness `
+& $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/render_reference.py --builder a02_harness `
     --widget empty_state_harness [--theme dark|light] [--style windows11] [--dpr 1] [--scale 100]
-& $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/render_reference.py --theme light --scale 130 --dump-stylesheet
-& $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/render_reference.py --builder a02_harness --check
+& $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/render_reference.py --theme light --scale 130 --dump-stylesheet
+& $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/render_reference.py --builder a02_harness --check
 ```
 
 Builders are `builders/aNN.py`, one per area, owned by the package that ports the area's widgets:
@@ -150,7 +150,7 @@ It sizes and shows the widget, compares its tree (`dump_tree`, the same schema a
 fonts compare across Qt minors' `QFont::toString` forms), checks that the installed application
 stylesheet has the sidecar's `stylesheet_sha1`, and then compares the pixels as ARGB32. On a
 difference, the grab and a magenta diff image go to `<build>/test-artifacts/screenshots/<widget>/`.
-Pixels are skipped, with a message, when the build has `FIORIVOCE_SCREENSHOT_TESTS` off (on in
+Pixels are skipped, with a message, when the build has `OPENWHISPER_CPP_SCREENSHOT_TESTS` off (on in
 `windows-ci`), off Windows (the references use Windows' fonts), or when the Qt kit's minor is not
 in `reference.json`'s `qt_compatible`; the tree is compared either way. The skip ends the test
 case, so give each variant its own `TEST_CASE` or `SECTION`. Until `fv_ui_theme` exists,
@@ -163,7 +163,7 @@ A widget test executable uses `fv_test(NO_MAIN DEPS fv_testkit_qt fv_screenshot 
 ## Test classification and parity tracking
 
 ```powershell
-& $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/classify_tests.py      # -> classification.json, .md
+& $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/classify_tests.py      # -> classification.json, .md
 python -I -B tools/parity/coverage_table.py                          # density per area
 python -I -B tools/parity/parity_report.py                           # -> docs/port/parity-report.md
 python -I -B tools/parity/parity_report.py --check                   # validate PARITY.json files

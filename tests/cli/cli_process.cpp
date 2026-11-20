@@ -32,9 +32,9 @@ namespace {
 class ScopedEnv {
 public:
     explicit ScopedEnv(const std::vector<EnvOverride>& overrides) {
-        std::vector<EnvOverride> wanted = {{"FIORIVOCE_RUNTIME_DIR", std::nullopt},
-                                           {"FIORIVOCE_MODEL", std::nullopt},
-                                           {"FIORIVOCE_LOG_LEVEL", std::nullopt}};
+        std::vector<EnvOverride> wanted = {{"OPENWHISPER_CPP_RUNTIME_DIR", std::nullopt},
+                                           {"OPENWHISPER_CPP_MODEL", std::nullopt},
+                                           {"OPENWHISPER_CPP_LOG_LEVEL", std::nullopt}};
         wanted.insert(wanted.end(), overrides.begin(), overrides.end());
         for (const auto& [name, value] : wanted) {
             saved_.emplace_back(name, testkit::get_env(name));

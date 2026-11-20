@@ -26,9 +26,9 @@ def rule(file: str, literal: str, replacement: str, count: int) -> dict:
 class Fixture(unittest.TestCase):
     """A repository root holding a webui/ with two source files, a dist and a map."""
 
-    RULES = [rule("src/a.ts", "OpenWhisper", "FioriVoce", 2),
-             rule("dist/index.html", "<b>OpenWhisper</b>", "<b>FioriVoce</b>", 1),
-             rule("dist/assets/app.js", "openwhisper.log", "fiorivoce.log", 1)]
+    RULES = [rule("src/a.ts", "OpenWhisper", "OpenWhisper_CPP", 2),
+             rule("dist/index.html", "<b>OpenWhisper</b>", "<b>OpenWhisper_CPP</b>", 1),
+             rule("dist/assets/app.js", "openwhisper.log", "openwhisper-cpp.log", 1)]
 
     def setUp(self) -> None:
         self.tmp = tempfile.TemporaryDirectory()
@@ -67,7 +67,7 @@ class Apply(Fixture):
         status, _ = self.run_main()
         self.assertEqual(status, 0)
         self.assertEqual((self.webui / "src/a.ts").read_bytes(),
-                         b"FioriVoce and FioriVoce\r\nmixed\n")
+                         b"OpenWhisper_CPP and OpenWhisper_CPP\r\nmixed\n")
         self.assertEqual((self.webui / "dist/assets/font.woff2").read_bytes(), bytes(range(256)))
 
     def test_second_run_changes_nothing(self) -> None:
@@ -113,10 +113,10 @@ class Apply(Fixture):
         self.assertEqual(self.run_main("--check")[0], 0)
 
     def test_half_applied_tree_resumes(self) -> None:
-        self.write("src/a.ts", b"FioriVoce and FioriVoce\r\nmixed\n")
+        self.write("src/a.ts", b"OpenWhisper_CPP and OpenWhisper_CPP\r\nmixed\n")
         status, _ = self.run_main()
         self.assertEqual(status, 0)
-        self.assertEqual((self.webui / "dist/index.html").read_bytes(), b"<b>FioriVoce</b>")
+        self.assertEqual((self.webui / "dist/index.html").read_bytes(), b"<b>OpenWhisper_CPP</b>")
 
 
 class MapRules(Fixture):
@@ -158,7 +158,7 @@ class Check(Fixture):
     def test_replacement_gone_is_reported(self) -> None:
         self.run_main()
         self.run_main("--manifest")
-        self.write("src/a.ts", b"FioriVoce\n")
+        self.write("src/a.ts", b"OpenWhisper_CPP\n")
         status, out = self.run_main("--check")
         self.assertEqual(status, 1)
         self.assertIn("is not in place 2 times", out)
@@ -177,7 +177,7 @@ class Manifest(Fixture):
         self.assertTrue(all(len(line.split("  ", 1)[0]) == 64 for line in lines))
 
     def test_tamper_extra_and_missing_files_are_found(self) -> None:
-        self.write("dist/index.html", b"<b>FioriVoce</b> ")
+        self.write("dist/index.html", b"<b>OpenWhisper_CPP</b> ")
         self.write("dist/assets/new.css", b"")
         (self.webui / "dist/assets/font.woff2").unlink()
         problems = rebrand.check_manifest(self.webui, self.snapshot())

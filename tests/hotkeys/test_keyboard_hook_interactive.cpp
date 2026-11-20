@@ -21,7 +21,7 @@ using namespace std::chrono_literals;
 namespace {
 
 // Untagged, the hook takes it for another program's input, which shortcuts match; with
-// kSyntheticInputTag, for FioriVoce's own, which passes unseen.
+// kSyntheticInputTag, for OpenWhisper_CPP's own, which passes unseen.
 void send_numpad_star(ULONG_PTR extra_info = 0) {
     INPUT inputs[2] = {};
     for (int i = 0; i < 2; ++i) {

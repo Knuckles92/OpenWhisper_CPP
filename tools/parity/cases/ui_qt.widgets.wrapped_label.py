@@ -17,7 +17,7 @@ CASES = {
         ["https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3/resolve/main/model.gguf"],
         # Backslash paths: a break point after every backslash, and the runs between them.
         ["C:\\Users\\someone\\Documents\\Recordings\\meeting-2026-11-14.wav"],
-        ["C:\\Users\\someone\\AppData\\Local\\FioriVoce\\speech-models\\parakeet-v3"],
+        ["C:\\Users\\someone\\AppData\\Local\\OpenWhisper_CPP\\speech-models\\parakeet-v3"],
         ["\\\\server\\share\\a_very_long_folder_name_without_breaks\\file.txt"],
         ["\\"], ["\\\\"], ["x" * 20 + "\\" + "y" * 20],
         # Existing break points count as separators.

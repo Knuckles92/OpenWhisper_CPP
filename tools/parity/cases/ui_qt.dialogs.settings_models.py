@@ -4,7 +4,7 @@ ui_downloads/model_assignments.h).
 ModelAssignments' methods run on a stub self: a plain object holding what the method reads (the
 settings snapshot, the page's built set, its engine combo and labels), so no Settings window is
 built and no cache, runtime or credential is read. Each wrapper says what it returns. Settings
-are the raw saved mappings; the engines are the three FioriVoce has (api, parakeet, remote).
+are the raw saved mappings; the engines are the three OpenWhisper_CPP has (api, parakeet, remote).
 
   voice_summary(settings)          the rail's text
   voice_detail(settings)           where dictation runs, for Home

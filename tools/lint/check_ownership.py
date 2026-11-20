@@ -2,10 +2,10 @@
 frozen file changed unless the package owns it by name, or owns the whole frozen folder
 (cmake/), as milestone-start packages do (architecture 9.5 and 10.1).
 
-The package's owned paths come from --owns or the FIORIVOCE_OWNS environment variable
+The package's owned paths come from --owns or the OPENWHISPER_CPP_OWNS environment variable
 (separated by ";" or new lines): a path ending in "/" owns that folder, anything else is a glob
 (fnmatch, "*" crosses "/"). Owning src/<dir>/ also owns tests/<dir>/. Changes are taken against
---base or FIORIVOCE_BASE_REF, by default the merge base of HEAD and port/parity, and include
+--base or OPENWHISPER_CPP_BASE_REF, by default the merge base of HEAD and port/parity, and include
 uncommitted and untracked files. Without owned paths there is no package to check, and the
 check passes.
 
@@ -107,16 +107,16 @@ def default_base(root: Path) -> str:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=fvlint.repo_root())
-    parser.add_argument("--base", default=os.environ.get("FIORIVOCE_BASE_REF"))
+    parser.add_argument("--base", default=os.environ.get("OPENWHISPER_CPP_BASE_REF"))
     parser.add_argument("--owns", nargs="*", default=None)
     args = parser.parse_args(argv)
 
     patterns = args.owns
     if patterns is None:
-        patterns = [p.strip() for p in re.split(r"[;\n]", os.environ.get("FIORIVOCE_OWNS", ""))]
+        patterns = [p.strip() for p in re.split(r"[;\n]", os.environ.get("OPENWHISPER_CPP_OWNS", ""))]
     patterns = [p for p in patterns if p]
     if not patterns:
-        print("lint.ownership: ok (no package declared: set FIORIVOCE_OWNS to check one)")
+        print("lint.ownership: ok (no package declared: set OPENWHISPER_CPP_OWNS to check one)")
         return 0
     if not (args.root / ".git").exists():
         print("lint.ownership: ok (not a git checkout)")

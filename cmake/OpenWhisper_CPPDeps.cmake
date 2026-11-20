@@ -17,7 +17,7 @@ include(Catch)
 
 find_package(Threads REQUIRED)
 
-if(NOT FIORIVOCE_ENGINE_ONLY)
+if(NOT OPENWHISPER_CPP_ENGINE_ONLY)
     find_package(nlohmann_json CONFIG REQUIRED)
     find_package(pcre2 CONFIG REQUIRED COMPONENTS 8BIT)
     find_package(unofficial-sqlite3 CONFIG REQUIRED)
@@ -78,16 +78,16 @@ endif()
 
 # Qt 6.8 LTS is the floor: QStyleHints::setColorScheme needs 6.8, and the windows11 style the
 # reference screenshots pin needs 6.7.
-set(FIORIVOCE_HAVE_QT OFF)
-if(NOT FIORIVOCE_ENGINE_ONLY AND NOT FIORIVOCE_BUILD_APP STREQUAL "OFF")
+set(OPENWHISPER_CPP_HAVE_QT OFF)
+if(NOT OPENWHISPER_CPP_ENGINE_ONLY AND NOT OPENWHISPER_CPP_BUILD_APP STREQUAL "OFF")
     set(qt_components Core Gui Widgets Svg SvgWidgets Network Test)
-    if(FIORIVOCE_BUILD_APP STREQUAL "AUTO")
+    if(OPENWHISPER_CPP_BUILD_APP STREQUAL "AUTO")
         find_package(Qt6 6.8 QUIET COMPONENTS ${qt_components})
     else()
         find_package(Qt6 6.8 REQUIRED COMPONENTS ${qt_components})
     endif()
     if(Qt6_FOUND)
-        set(FIORIVOCE_HAVE_QT ON)
+        set(OPENWHISPER_CPP_HAVE_QT ON)
     else()
         message(STATUS "Qt 6.8 or later not found: skipping the desktop app and every Qt module. "
                        "Point Qt6_ROOT or CMAKE_PREFIX_PATH at a Qt 6 install to build them.")
@@ -95,7 +95,7 @@ if(NOT FIORIVOCE_ENGINE_ONLY AND NOT FIORIVOCE_BUILD_APP STREQUAL "OFF")
 endif()
 
 # The lints and the build-system tests are Python 3.12 standard library scripts.
-if(FIORIVOCE_REQUIRE_LINT)
+if(OPENWHISPER_CPP_REQUIRE_LINT)
     find_package(Python3 3.12 REQUIRED COMPONENTS Interpreter)
 else()
     find_package(Python3 3.12 QUIET COMPONENTS Interpreter)
@@ -103,9 +103,9 @@ endif()
 
 # sccache is optional (nothing depends on it); it caches /Z7 objects only.
 if(NOT CMAKE_CXX_COMPILER_LAUNCHER)
-    find_program(FIORIVOCE_SCCACHE sccache)
-    if(FIORIVOCE_SCCACHE)
-        set(CMAKE_CXX_COMPILER_LAUNCHER "${FIORIVOCE_SCCACHE}")
+    find_program(OPENWHISPER_CPP_SCCACHE sccache)
+    if(OPENWHISPER_CPP_SCCACHE)
+        set(CMAKE_CXX_COMPILER_LAUNCHER "${OPENWHISPER_CPP_SCCACHE}")
         set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT Embedded)
     endif()
 endif()

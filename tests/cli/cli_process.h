@@ -21,9 +21,10 @@ struct CliResult {
 // An environment variable to set (a value) or remove (nullopt) for one run.
 using EnvOverride = std::pair<std::string, std::optional<std::string>>;
 
-// Runs fiorivoce-cli without a window and waits for it. FIORIVOCE_RUNTIME_DIR, FIORIVOCE_MODEL
-// and FIORIVOCE_LOG_LEVEL are removed unless `env` sets them, so a developer's own settings never
-// reach the run. The calling process's environment is restored afterwards.
+// Runs openwhisper-cpp-cli without a window and waits for it. OPENWHISPER_CPP_RUNTIME_DIR,
+// OPENWHISPER_CPP_MODEL and OPENWHISPER_CPP_LOG_LEVEL are removed unless `env` sets them, so a
+// developer's own settings never reach the run. The calling process's environment is restored
+// afterwards.
 CliResult run_cli(const std::vector<std::string>& args, const std::vector<EnvOverride>& env,
                   std::chrono::milliseconds timeout = std::chrono::seconds(60));
 

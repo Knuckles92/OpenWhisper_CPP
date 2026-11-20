@@ -235,15 +235,15 @@ std::string rebrand(std::string_view text) {
     // Every name AppIdentity holds, OpenWhisper's spelling first (architecture 3.1). At each
     // position the longest name wins, so ".openwhisper-data.lock" is not read as a product name.
     static constexpr std::array<std::pair<std::string_view, std::string_view>, 10> kNames{{
-        {"openwhisper_settings.json", "fiorivoce_settings.json"},
-        {".openwhisper-data.lock", ".fiorivoce-data.lock"},
-        {".openwhisper-restore", ".fiorivoce-restore"},
-        {"openwhisper-backup", "fiorivoce-backup"},
-        {"openwhisper.log", "fiorivoce.log"},
-        {"openwhisper.db", "fiorivoce.db"},
-        {"openwhisper-ui", "fiorivoce-ui"},
-        {"OPENWHISPER_", "FIORIVOCE_"},
-        {"OpenWhisper", "FioriVoce"},
+        {"openwhisper_settings.json", "openwhisper_cpp_settings.json"},
+        {".openwhisper-data.lock", ".openwhisper-cpp-data.lock"},
+        {".openwhisper-restore", ".openwhisper-cpp-restore"},
+        {"openwhisper-backup", "openwhisper-cpp-backup"},
+        {"openwhisper.log", "openwhisper-cpp.log"},
+        {"openwhisper.db", "openwhisper-cpp.db"},
+        {"openwhisper-ui", "openwhisper-cpp-ui"},
+        {"OPENWHISPER_", "OPENWHISPER_CPP_"},
+        {"OpenWhisper", "OpenWhisper_CPP"},
         {".owbackup", ".fvbackup"},
     }};
     std::string out;

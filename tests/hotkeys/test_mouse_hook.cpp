@@ -231,8 +231,8 @@ TEST_CASE("the fake mouse hook delivers a swallowed press and reports its latenc
 }
 
 // from tests/test_personalize_s6_backends.py::test_mouse_shortcut_support_by_desktop
-// The macOS, Wayland and X11 rows are other-platform; FioriVoce binds side buttons only through
-// the Windows hook.
+// The macOS, Wayland and X11 rows are other-platform; OpenWhisper_CPP binds side buttons only
+// through the Windows hook.
 TEST_CASE("test_mouse_shortcut_support_by_desktop", "[test_personalize_s6_backends]") {
 #ifdef _WIN32
     CHECK(mouse_shortcuts_supported());

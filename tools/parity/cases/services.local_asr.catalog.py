@@ -3,7 +3,7 @@
 The resolution functions read the host through services.components (platform tag, installed
 components), services.gpu_info (NVML's GPU) and CTranslate2's CUDA device count. Each case pins
 them: a platform tag, the installed component ids, and a GPU as [name, total MiB, [major, minor]
-or None] or None. FioriVoce asks NVML instead of CTranslate2, so the CUDA device count is 1
+or None] or None. OpenWhisper_CPP asks NVML instead of CTranslate2, so the CUDA device count is 1
 exactly when a GPU is given: the grid is the case where both agree.
 """
 
@@ -153,7 +153,7 @@ PINS = {
 
 
 # M2.5: gpu_runtime_offer(model, settings, platform, installed, gpu, vulkan_loader), with the
-# Vulkan loader probe patched to `vulkan_loader`. Nemotron is left out: FioriVoce has no such
+# Vulkan loader probe patched to `vulkan_loader`. Nemotron is left out: OpenWhisper_CPP has no such
 # model, so the port answers None where OpenWhisper offers it a runtime.
 def _gpu_runtime_offer(module, model, settings, platform, installed, gpu, vulkan_loader):
     saved = module._vulkan_loader_present

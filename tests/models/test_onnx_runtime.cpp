@@ -67,7 +67,7 @@ TEST_CASE("nothing is found without the variable or the component", "[onnx_runti
     CHECK_FALSE(locate_onnxruntime(rig.env, rig.store));
 }
 
-TEST_CASE("FIORIVOCE_ONNXRUNTIME names the library", "[onnx_runtime]") {
+TEST_CASE("OPENWHISPER_CPP_ONNXRUNTIME names the library", "[onnx_runtime]") {
     Rig rig;
     const fs::path library = rig.temp.path() / "ort" / "onnxruntime.dll";
     write_file(library, "dll");
@@ -75,17 +75,17 @@ TEST_CASE("FIORIVOCE_ONNXRUNTIME names the library", "[onnx_runtime]") {
     const fs::path installed =
         rig.component() / "lib" / fv::base_utf8::path_from_utf8(kOnnxRuntimeLibrary);
     rig.install(installed);
-    rig.env.set("FIORIVOCE_ONNXRUNTIME", " " + utf8(library) + " ");
+    rig.env.set("OPENWHISPER_CPP_ONNXRUNTIME", " " + utf8(library) + " ");
     CHECK(locate_onnxruntime(rig.env, rig.store) == library);
 
     // A variable naming nothing is skipped for the component.
-    rig.env.set("FIORIVOCE_ONNXRUNTIME", utf8(rig.temp.path() / "missing.dll"));
+    rig.env.set("OPENWHISPER_CPP_ONNXRUNTIME", utf8(rig.temp.path() / "missing.dll"));
     CHECK(locate_onnxruntime(rig.env, rig.store) == installed);
     // A folder is not a library.
-    rig.env.set("FIORIVOCE_ONNXRUNTIME", utf8(rig.temp.path() / "ort"));
+    rig.env.set("OPENWHISPER_CPP_ONNXRUNTIME", utf8(rig.temp.path() / "ort"));
     CHECK(locate_onnxruntime(rig.env, rig.store) == installed);
     // Neither is an empty value.
-    rig.env.set("FIORIVOCE_ONNXRUNTIME", "   ");
+    rig.env.set("OPENWHISPER_CPP_ONNXRUNTIME", "   ");
     CHECK(locate_onnxruntime(rig.env, rig.store) == installed);
 }
 

@@ -184,7 +184,7 @@ TEST_CASE("a setup served on loopback is found, downloaded, verified and handed 
     CHECK(read_bytes(handoff->setup_exe) == setup_bytes);
     CHECK(fv::sha256_hex(read_bytes(handoff->setup_exe)) == fv::sha256_hex(setup_bytes));
     const auto& args = handoff->args;
-    CHECK(std::ranges::find(args, "/FIORIVOCEUPDATE=1") != args.end());
+    CHECK(std::ranges::find(args, "/OPENWHISPER_CPPUPDATE=1") != args.end());
     CHECK(std::ranges::find(args, "/DIR=" + install.string()) != args.end());
 }
 #else

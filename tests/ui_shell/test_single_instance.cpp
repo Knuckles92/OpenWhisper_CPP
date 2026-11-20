@@ -1,5 +1,5 @@
 // One desktop UI per data folder. Ported from tests/test_ui_instance.py, which ran on Linux only;
-// FioriVoce locks on every platform (architecture 12.3), so the Linux cases run here, and the
+// OpenWhisper_CPP locks on every platform (architecture 12.3), so the Linux cases run here, and the
 // golden vectors of services.ui_instance._data_key pin the key.
 #include <catch2/catch_test_macros.hpp>
 
@@ -89,7 +89,7 @@ TEST_CASE("second launch asks the first to show and does not become primary",
     fv::log::remove_sink(log);
     CHECK(second == nullptr);
     CHECK(fvtest::waitUntil([&shown] { return shown == 1; }, 2000ms));
-    CHECK(std::ranges::find(log->lines, "FioriVoce is already running; bringing the existing "
+    CHECK(std::ranges::find(log->lines, "OpenWhisper_CPP is already running; bringing the existing "
                                         "window forward") != log->lines.end());
 }
 
@@ -184,9 +184,10 @@ TEST_CASE("lock holder without a socket blocks a second copy", "[test_ui_instanc
     fv::log::remove_sink(log);
     CHECK(second == nullptr);
     CHECK(std::chrono::steady_clock::now() - started >= 200ms);
-    CHECK(std::ranges::find(log->lines,
-                            "FioriVoce is already running but did not accept the show request") !=
-          log->lines.end());
+    CHECK(
+        std::ranges::find(
+            log->lines, "OpenWhisper_CPP is already running but did not accept the show request") !=
+        log->lines.end());
 }
 
 TEST_CASE("the server and lock are named from the identity and the key", "[platform]") {
@@ -197,8 +198,10 @@ TEST_CASE("the server and lock are named from the identity and the key", "[platf
     CHECK(key.size() == 16);
     const std::string user = fv::instanceUserPart();
     CHECK(!user.empty());
-    CHECK(primary->serverName() == QString::fromStdString("fiorivoce-ui-" + user + "-" + key));
-    CHECK(primary->lockPath() == scratch.locks / ("fiorivoce-ui-" + user + "-" + key + ".lock"));
+    CHECK(primary->serverName() ==
+          QString::fromStdString("openwhisper-cpp-ui-" + user + "-" + key));
+    CHECK(primary->lockPath() ==
+          scratch.locks / ("openwhisper-cpp-ui-" + user + "-" + key + ".lock"));
 }
 
 TEST_CASE("a lock that is a symbolic link is refused", "[platform]") {

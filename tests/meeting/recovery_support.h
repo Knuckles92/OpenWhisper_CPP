@@ -41,8 +41,8 @@ using meeting_state::MeetingRepository;
 // A fresh data folder with a SQL meeting repository (OpenWhisper's `repo` fixture).
 struct SqlRepo {
     SqlRepo()
-        : database(
-              std::make_unique<Database>(Database::open_or_create(root.path() / "fiorivoce.db"))),
+        : database(std::make_unique<Database>(
+              Database::open_or_create(root.path() / "openwhisper-cpp.db"))),
           repo(std::make_shared<meeting_state::SqlMeetingRepository>(*database, clock)) {}
 
     std::filesystem::path folder(const std::string& name) const {

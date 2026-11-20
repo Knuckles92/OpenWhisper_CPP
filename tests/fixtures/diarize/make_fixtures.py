@@ -2,8 +2,8 @@
 tests/test_meeting_diarize.py::_synthetic_speakers, which seeds numpy's default_rng (PCG64), so
 C++ cannot draw the same vectors itself.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tests/fixtures/diarize/make_fixtures.py
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tests/fixtures/diarize/make_fixtures.py
 
 Each set is little-endian float32, one row of `dim` values per embedding, in the order the
 function returns them. A call with fewer vectors and the same seed and speaker count returns a

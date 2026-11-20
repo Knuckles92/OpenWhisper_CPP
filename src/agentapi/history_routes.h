@@ -14,7 +14,7 @@
 // The authenticated, loopback-only v1 History API (services/agent_api/app.py) as one pure
 // function from request to answer: the gate, the routes of services/agent_api (GET only), FastAPI's
 // parameter validation (422) and the error envelope. Nothing here opens a socket: the in-app MCP
-// server mounts it (M5.9) and fiorivoce-cli --api serves it (M5.20).
+// server mounts it (M5.9) and openwhisper-cpp-cli --api serves it (M5.20).
 namespace fv::remote {
 class ClientHistorySource;
 }
@@ -28,8 +28,8 @@ class StandaloneHistory;
 } // namespace detail
 
 // _check_token: 32 to 512 printable ASCII characters without whitespace. Throws
-// std::invalid_argument("FIORIVOCE_API_TOKEN must be 32–512 printable ASCII characters without
-// whitespace.") otherwise.
+// std::invalid_argument("OPENWHISPER_CPP_API_TOKEN must be 32–512 printable ASCII characters
+// without whitespace.") otherwise.
 void check_token(std::string_view token);
 
 // Affinity: thread-safe; handle() blocks on SQLite, so it runs off the reactor and the GUI

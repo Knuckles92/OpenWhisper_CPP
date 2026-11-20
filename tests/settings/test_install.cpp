@@ -30,7 +30,7 @@ constexpr std::chrono::year_month_day kBeforeRetirement{
 
 TEST_CASE("api backend migration preserves model", "[test_settings]") {
     // from tests/test_settings.py::test_api_backend_migration_preserves_model
-    // OpenWhisper then saves "local_whisper" and "api" again; FioriVoce has no Local Whisper,
+    // OpenWhisper then saves "local_whisper" and "api" again; OpenWhisper_CPP has no Local Whisper,
     // so the round trip goes through "parakeet" instead.
     const std::vector<std::pair<std::string, std::string>> legacy{
         {"api_whisper", "whisper-1"},
@@ -58,7 +58,7 @@ TEST_CASE("api backend migration preserves model", "[test_settings]") {
 
 TEST_CASE("model selection falls back to platform default", "[test_settings]") {
     // from tests/test_settings.py::test_model_selection_falls_back_to_platform_default
-    // OpenWhisper saves and reads back "local_whisper"; FioriVoce's other engine is "remote".
+    // OpenWhisper saves and reads back "local_whisper"; OpenWhisper_CPP's other engine is "remote".
     TempDir temp;
     fv::SettingsStore store(temp.path() / "settings.json");
     CHECK(fv::load_model_selection(store) == "parakeet");
@@ -68,7 +68,7 @@ TEST_CASE("model selection falls back to platform default", "[test_settings]") {
     CHECK(fv::load_model_selection(store) == "remote");
 }
 
-TEST_CASE("a saved engine FioriVoce does not have reads as the default and stays saved") {
+TEST_CASE("a saved engine OpenWhisper_CPP does not have reads as the default and stays saved") {
     TempDir temp;
     const auto path = temp.path() / "settings.json";
     write_bytes(path, R"({"selected_model": "local_whisper"})");
@@ -77,7 +77,7 @@ TEST_CASE("a saved engine FioriVoce does not have reads as the default and stays
     CHECK(store.value("selected_model") == "local_whisper");
 }
 
-TEST_CASE("save model selection refuses an engine FioriVoce does not have") {
+TEST_CASE("save model selection refuses an engine OpenWhisper_CPP does not have") {
     fv::MemorySettingsStore store;
     try {
         fv::save_model_selection(store, "local_whisper");
@@ -102,7 +102,7 @@ TEST_CASE("the retirement date moves a migrated legacy model to the default API 
 TEST_CASE("a new install keeps the default it started with", "[test_settings]") {
     // from tests/test_settings.py::test_a_new_install_keeps_the_default_it_started_with
     TempDir temp;
-    fv::SettingsStore store(temp.path() / "fiorivoce_settings.json");
+    fv::SettingsStore store(temp.path() / "openwhisper_cpp_settings.json");
     CHECK(store.is_new_install());
     CHECK(fv::keep_unchosen_engine(store));
     CHECK(store.value("selected_model") == "parakeet");
@@ -114,12 +114,12 @@ TEST_CASE("a chosen engine is never replaced", "[test_settings]") {
     for (const char* saved : {"parakeet", "local_whisper", "api"}) {
         INFO(saved);
         TempDir temp;
-        const auto path = temp.path() / "fiorivoce_settings.json";
+        const auto path = temp.path() / "openwhisper_cpp_settings.json";
         write_bytes(path, Json{{"selected_model", saved}}.dump());
         fv::SettingsStore store(path);
         const auto stamp = std::filesystem::last_write_time(path);
         CHECK_FALSE(fv::keep_unchosen_engine(store));
-        // FioriVoce reads local_whisper as its default, and keeps it saved.
+        // OpenWhisper_CPP reads local_whisper as its default, and keeps it saved.
         CHECK(fv::load_model_selection(store) ==
               (std::string(saved) == "local_whisper" ? "parakeet" : saved));
         CHECK(std::filesystem::last_write_time(path) == stamp);
@@ -129,10 +129,10 @@ TEST_CASE("a chosen engine is never replaced", "[test_settings]") {
 
 TEST_CASE("existing installs elsewhere still follow the default", "[test_settings]") {
     // from tests/test_settings.py::test_existing_installs_elsewhere_still_follow_the_default
-    // Python runs it for win32, darwin and linux hosts; FioriVoce has the one rule on every
+    // Python runs it for win32, darwin and linux hosts; OpenWhisper_CPP has the one rule on every
     // platform: an existing install is never given an engine.
     TempDir temp;
-    const auto path = temp.path() / "fiorivoce_settings.json";
+    const auto path = temp.path() / "openwhisper_cpp_settings.json";
     write_bytes(path, "{}");
     fv::SettingsStore store(path);
     CHECK_FALSE(fv::keep_unchosen_engine(store));

@@ -48,7 +48,7 @@ struct Rig {
         Starter starter(*this);
         return fv::finishRun(
             code, opensApp, [this] { events.push_back("release"); },
-            std::filesystem::path("/apps/fv/fiorivoce"), starter,
+            std::filesystem::path("/apps/fv/openwhisper-cpp"), starter,
             [this](const std::string& message) { events.push_back("box " + message); });
     }
 };
@@ -59,7 +59,7 @@ TEST_CASE("a restart exit code starts the app again alone and exits 0", "[unit]"
     Rig rig;
     CHECK(rig.finish(fv::backup::restart_exit_code, true) == 0);
     // The gate's mutexes go first: the fresh process takes them without waiting.
-    CHECK(rig.events == std::vector<std::string>{"release", "start /apps/fv/fiorivoce"});
+    CHECK(rig.events == std::vector<std::string>{"release", "start /apps/fv/openwhisper-cpp"});
 }
 
 TEST_CASE("a restart that cannot start says so and exits 1", "[unit]") {
@@ -67,7 +67,7 @@ TEST_CASE("a restart that cannot start says so and exits 1", "[unit]") {
     rig.failure = "Access is denied.";
     CHECK(rig.finish(fv::backup::restart_exit_code, true) == 1);
     const std::string product(fv::identity().product);
-    CHECK(rig.events == std::vector<std::string>{"release", "start /apps/fv/fiorivoce",
+    CHECK(rig.events == std::vector<std::string>{"release", "start /apps/fv/openwhisper-cpp",
                                                  "box Could not restart " + product +
                                                      ": Access is denied. Please start " + product +
                                                      " again manually."});

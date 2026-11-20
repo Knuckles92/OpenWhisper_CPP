@@ -9,7 +9,7 @@
       },
       "TestDetectChannel::test_git_dir_is_git": {
         "status": "dropped",
-        "reason": "FioriVoce never runs from a Python git checkout; the git channel is dropped"
+        "reason": "OpenWhisper_CPP never runs from a Python git checkout; the git channel is dropped"
       },
       "TestDetectChannel::test_loose_tree_is_source": {
         "status": "ported",
@@ -119,7 +119,7 @@
       "TestFetchLatestRelease::test_requests_github_latest_not_the_website": {
         "status": "ported",
         "cpp": "tests/update/test_release_feed.cpp",
-        "note": "against a configured fake repository; FioriVoce has no update source by default"
+        "note": "against a configured fake repository; OpenWhisper_CPP has no update source by default"
       },
       "TestFetchLatestRelease::test_feed_override_replaces_github": {
         "status": "ported",
@@ -213,7 +213,7 @@
       },
       "TestCanApplyAndHints::test_git_hint_is_copy_paste": {
         "status": "dropped",
-        "reason": "the git-checkout update hint has no FioriVoce counterpart"
+        "reason": "the git-checkout update hint has no OpenWhisper_CPP counterpart"
       },
       "TestDualAssetsAndApplyMode::test_prefers_exact_archive_name": {
         "status": "ported",
@@ -474,10 +474,10 @@
         "cpp": "tests/update/test_version_channel.cpp"
       },
       "TestArchiveMemberNames::test_rejects_unsafe_names": {"status": "ported", "cpp": "tests/update_native/test_archive.cpp", "note": "case: only literal relative Windows names can appear in a release"},
-      "TestArchiveMemberNames::test_accepts_internal_file": {"status": "ported", "cpp": "tests/update_native/test_archive.cpp", "note": "case: only literal relative Windows names can appear in a release (platforms/qwindows.dll is FioriVoce's _internal/payload.txt)"},
-      "TestSafeExtract::test_round_trip_bundle": {"status": "ported", "cpp": "tests/update_native/test_archive.cpp", "note": "case: a FioriVoce release round-trips through its native archive manifest"},
+      "TestArchiveMemberNames::test_accepts_internal_file": {"status": "ported", "cpp": "tests/update_native/test_archive.cpp", "note": "case: only literal relative Windows names can appear in a release (platforms/qwindows.dll is OpenWhisper_CPP's _internal/payload.txt)"},
+      "TestSafeExtract::test_round_trip_bundle": {"status": "ported", "cpp": "tests/update_native/test_archive.cpp", "note": "case: a OpenWhisper_CPP release round-trips through its native archive manifest"},
       "TestSafeExtract::test_rejects_symlink": {"status": "ported", "cpp": "tests/update_native/test_archive.cpp", "note": "case: the archive is independently checked against every declared hash, section \"a declared file is a symbolic link\""},
-      "TestSafeExtract::test_rejects_hardlink": {"status": "dropped", "reason": "FioriVoce's update archive is a Zip64 file, which has no hard links (docs/port/differences.md a34-archive; docs/port/packages/M10.md change 2). The link a zip can carry is refused: tests/update_native/test_archive.cpp, section \"a declared file is a symbolic link\"."},
+      "TestSafeExtract::test_rejects_hardlink": {"status": "dropped", "reason": "OpenWhisper_CPP's update archive is a Zip64 file, which has no hard links (docs/port/differences.md a34-archive; docs/port/packages/M10.md change 2). The link a zip can carry is refused: tests/update_native/test_archive.cpp, section \"a declared file is a symbolic link\"."},
       "TestSafeExtract::test_rejects_duplicate_case": {"status": "ported", "cpp": "tests/update_native/test_archive.cpp", "note": "case: the archive is independently checked against every declared hash, section \"a second entry aliases the first\""},
       "TestSafeExtract::test_rejects_parent_member": {"status": "ported", "cpp": "tests/update_native/test_archive.cpp", "note": "case: the archive is independently checked against every declared hash, section \"a member climbs out of the candidate\""},
       "TestManifest::test_missing_exe_fails": {"status": "ported", "cpp": "tests/update_native/test_archive.cpp", "note": "case: manifest validation rejects incompatible releases or modified trees, section \"missing executable\""},
@@ -490,7 +490,7 @@
       "TestPreserveAndEligibility::test_elevated_process_is_not_native_eligible": {"status": "ported", "cpp": "tests/update_native/test_eligibility.cpp", "note": "case: an elevated process is not native eligible. The rule; reading the process token (standard_user_process in win/installed_transaction.cpp) is Windows glue no test fakes"},
       "TestCommitAndRecover::test_swap_and_cleanup": {"status": "ported", "cpp": "tests/update_native/test_native_platform.cpp", "note": "case: a prepared update is swapped in, confirmed by the new version and cleaned up (off Windows, with a script standing in for the new version); the swap alone is test_transaction.cpp \"native transaction persists intent before each rename and confirms health\""},
       "TestCommitAndRecover::test_injected_failure_after_old_moved_rolls_back": {"status": "ported", "cpp": "tests/update_native/test_transaction.cpp", "note": "case: faults before health restore a verified old installation; the message left for the next launch is test_transaction_runner.cpp \"a failed commit is reported and the old version returns to restored data\""},
-      "TestCommitAndRecover::test_recover_prepared_abandons_candidate": {"status": "ported", "cpp": "tests/update_native/test_transaction.cpp", "note": "case: recovering a prepared transaction retires it without touching the installation (FioriVoce's final state is superseded: nothing was moved); the candidate goes in test_startup_recovery.cpp \"a finished transaction is collected by the next start\""},
+      "TestCommitAndRecover::test_recover_prepared_abandons_candidate": {"status": "ported", "cpp": "tests/update_native/test_transaction.cpp", "note": "case: recovering a prepared transaction retires it without touching the installation (OpenWhisper_CPP's final state is superseded: nothing was moved); the candidate goes in test_startup_recovery.cpp \"a finished transaction is collected by the next start\""},
       "TestCommitAndRecover::test_recover_prepared_after_old_rename_restores_rollback": {"status": "ported", "cpp": "tests/update_native/test_transaction.cpp", "note": "case: recovery returns an old tree that was moved before the journal said so"},
       "TestCommitAndRecover::test_recover_old_moved_after_candidate_rename_rolls_back": {"status": "ported", "cpp": "tests/update_native/test_transaction.cpp", "note": "case: recovery after both renames puts the old tree back"},
       "TestCommitAndRecover::test_empty_health_file_is_not_success": {"status": "ported", "cpp": "tests/update_native/test_native_platform.cpp", "note": "case: native platform recovers an interrupted temporary installation, section \"an empty acknowledgement file is not a confirmation\""},
@@ -499,9 +499,9 @@
       "TestCommitAndRecover::test_damaged_healthy_tree_is_rolled_back": {"status": "ported", "cpp": "tests/update_native/test_native_platform.cpp", "note": "case: native platform recovers an interrupted temporary installation, section \"acknowledged activation with a damaged library or helper\""},
       "TestCommitAndRecover::test_unconfirmed_new_tree_without_rollback_keeps_recovery": {"status": "ported", "cpp": "tests/update_native/test_transaction.cpp", "note": "case: an unconfirmed new tree without a rollback keeps its recovery entry"},
       "TestLiveParent::test_running_parent_is_not_reported_as_a_failed_rollback": {"status": "ported", "cpp": "tests/update_native/test_transaction.cpp", "note": "case: invalid journal or a live parent cannot start a native swap, section \"the independently matched parent is still running\""},
-      "TestLiveParent::test_parent_that_never_exits_is_closed_and_the_update_lands": {"status": "dropped", "reason": "Deliberate difference a16-parent-exit (docs/port/differences.md): FioriVoce never ends a parent that outlasts the wait; the update stops and the application is left open. Its own rule: tests/update_native/test_transaction.cpp \"invalid journal or a live parent cannot start a native swap\" and test_transaction_runner.cpp \"a commit refused because the application is still open moves and starts nothing\"."},
-      "TestLiveParent::test_this_process_is_never_its_own_victim": {"status": "dropped", "reason": "Deliberate difference a16-parent-exit (docs/port/differences.md): FioriVoce never ends a parent that outlasts the wait; the update stops and the application is left open. The test pins _force_close_pid, which has no counterpart: no process is ever ended by its number; the only one the helper stops is the health-check child it created itself (src/update_native/detail/health_child.h)."},
-      "TestLiveParent::test_an_unidentified_parent_is_never_terminated": {"status": "dropped", "reason": "Deliberate difference a16-parent-exit (docs/port/differences.md): FioriVoce never ends a parent that outlasts the wait; the update stops and the application is left open. The test pins _force_close_pid, which has no counterpart. An unidentified parent is not even waited for: tests/update_native/test_parent_process.cpp \"parent process wait verifies current image and creation time\" and test_journal.cpp \"journal parent identity is bound to an independently trusted executable\"."},
+      "TestLiveParent::test_parent_that_never_exits_is_closed_and_the_update_lands": {"status": "dropped", "reason": "Deliberate difference a16-parent-exit (docs/port/differences.md): OpenWhisper_CPP never ends a parent that outlasts the wait; the update stops and the application is left open. Its own rule: tests/update_native/test_transaction.cpp \"invalid journal or a live parent cannot start a native swap\" and test_transaction_runner.cpp \"a commit refused because the application is still open moves and starts nothing\"."},
+      "TestLiveParent::test_this_process_is_never_its_own_victim": {"status": "dropped", "reason": "Deliberate difference a16-parent-exit (docs/port/differences.md): OpenWhisper_CPP never ends a parent that outlasts the wait; the update stops and the application is left open. The test pins _force_close_pid, which has no counterpart: no process is ever ended by its number; the only one the helper stops is the health-check child it created itself (src/update_native/detail/health_child.h)."},
+      "TestLiveParent::test_an_unidentified_parent_is_never_terminated": {"status": "dropped", "reason": "Deliberate difference a16-parent-exit (docs/port/differences.md): OpenWhisper_CPP never ends a parent that outlasts the wait; the update stops and the application is left open. The test pins _force_close_pid, which has no counterpart. An unidentified parent is not even waited for: tests/update_native/test_parent_process.cpp \"parent process wait verifies current image and creation time\" and test_journal.cpp \"journal parent identity is bound to an independently trusted executable\"."},
       "TestLiveParent::test_a_recycled_pid_is_not_the_victim": {"status": "ported", "cpp": "tests/update_native/test_parent_process.cpp", "note": "case: parent process wait verifies current image and creation time (adapted to a16-parent-exit: a recycled PID is never waited for, and nothing is ever terminated)"},
       "TestPrepareCandidate::test_stale_registered_version_is_repaired_by_native_update": {"status": "ported", "cpp": "tests/update_native/test_prepare.cpp", "note": "case: a stale registered version does not stop a native update; the commit's registry write is counted in test_native_platform.cpp \"a prepared update is swapped in, confirmed by the new version and cleaned up\" (the real DisplayVersion write is test_private_registry.cpp, Windows only, not run here)"},
       "TestPrepareCancel::test_cancel_after_extraction_still_cancels": {"status": "ported", "cpp": "tests/update_native/test_prepare.cpp", "note": "case: a cancel after the extraction still cancels and leaves nothing behind"},
@@ -509,8 +509,8 @@
       "TestLockedFiles::test_a_lock_that_never_clears_still_fails": {"status": "ported", "cpp": "tests/update_native/test_transaction_storage.cpp", "note": "case: a lock that never clears still fails the move"},
       "TestLockedFiles::test_an_ordinary_error_is_not_retried": {"status": "ported", "cpp": "tests/update_native/test_transaction_storage.cpp", "note": "case: an ordinary error is not retried"},
       "TestLockedFiles::test_hashing_the_app_it_just_closed_waits_for_the_handle": {"status": "ported", "cpp": "tests/update_native/test_native_platform.cpp", "note": "case: authenticating the installation waits out a lock on the application that just closed (off Windows the lock is simulated; the Windows branch, which holds the image without sharing, was not run here)"},
-      "TestLockedFiles::test_cleanup_waits_out_the_updater_that_asked_for_it": {"status": "dropped", "reason": "FioriVoce has no cleanup copy of the updater and no --cleanup-transaction mode: a finished transaction is collected in the helper's own run and by the application's next start, once the updater has released its gates (docs/port/differences.md a16-cleanup). tests/update_native/test_startup_recovery.cpp \"a finished transaction waits for the updater that still holds the update gate\"."},
-      "TestAbandonedTransactions::test_a_transaction_without_a_journal_is_collected": {"status": "dropped", "reason": "Deliberate difference a16-cleanup (docs/port/differences.md): FioriVoce never collects by age; a transaction folder without a journal is left for inspection. tests/update_native/test_startup_recovery.cpp \"a transaction folder that cannot be read or has no journal is left alone\"."},
+      "TestLockedFiles::test_cleanup_waits_out_the_updater_that_asked_for_it": {"status": "dropped", "reason": "OpenWhisper_CPP has no cleanup copy of the updater and no --cleanup-transaction mode: a finished transaction is collected in the helper's own run and by the application's next start, once the updater has released its gates (docs/port/differences.md a16-cleanup). tests/update_native/test_startup_recovery.cpp \"a finished transaction waits for the updater that still holds the update gate\"."},
+      "TestAbandonedTransactions::test_a_transaction_without_a_journal_is_collected": {"status": "dropped", "reason": "Deliberate difference a16-cleanup (docs/port/differences.md): OpenWhisper_CPP never collects by age; a transaction folder without a journal is left for inspection. tests/update_native/test_startup_recovery.cpp \"a transaction folder that cannot be read or has no journal is left alone\"."},
       "TestAbandonedTransactions::test_a_missing_transactions_directory_is_not_an_error": {"status": "ported", "cpp": "tests/update_native/test_startup_recovery.cpp", "note": "case: a start without any transaction has nothing to recover"},
       "TestAbandonedTransactions::test_a_finished_transaction_is_collected": {"status": "ported", "cpp": "tests/update_native/test_startup_recovery.cpp", "note": "case: a finished transaction is collected by the next start"},
       "TestAbandonedTransactions::test_a_transaction_recovery_may_still_need_is_kept": {"status": "ported", "cpp": "tests/update_native/test_startup_recovery.cpp", "note": "case: a transaction recovery may still need is kept"},
@@ -578,7 +578,7 @@
       "test_failed_commit_restores_settings_before_old_app_returns": {"status": "ported", "cpp": "tests/update_native/test_native_platform.cpp", "note": "case: a commit that fails after activation puts the user's settings back; that the old version starts only afterwards is test_transaction_runner.cpp \"a failed commit is reported and the old version returns to restored data\""},
       "test_completed_rollback_never_rewinds_later_user_work": {"status": "ported", "cpp": "tests/update_native/test_transaction.cpp", "note": "case: a finished rollback is never replayed over later work"},
       "test_bridge_policy_is_enforced_at_the_minimum_version": {"status": "ported", "cpp": "tests/update/test_version_channel.cpp", "note": "case: bridge policy is enforced at the minimum version"},
-      "test_recovery_collects_failed_tree_from_legacy_journal": {"status": "dropped", "reason": "FioriVoce has no legacy journals: cleanup_rollback is a required field (docs/port/packages/M10.md change 6). The tree a rollback moves aside is collected all the same: tests/update_native/test_native_platform.cpp \"a new version that exits fails its health check and the old one returns\"."},
+      "test_recovery_collects_failed_tree_from_legacy_journal": {"status": "dropped", "reason": "OpenWhisper_CPP has no legacy journals: cleanup_rollback is a required field (docs/port/packages/M10.md change 6). The tree a rollback moves aside is collected all the same: tests/update_native/test_native_platform.cpp \"a new version that exits fails its health check and the old one returns\"."},
       "test_valid_old_install_is_relaunched_even_when_cleanup_is_locked": {"status": "ported", "cpp": "tests/update_native/test_transaction_runner.cpp", "note": "case: a valid old installation is started again even when cleanup is locked"}
     },
     "tests/test_update_startup_gate.py": {
@@ -608,15 +608,15 @@
       },
       "test_a_new_commit_on_the_branch_is_a_change": {
         "status": "dropped",
-        "reason": "FioriVoce never runs from a git checkout; only the installed executable's identity is ported"
+        "reason": "OpenWhisper_CPP never runs from a git checkout; only the installed executable's identity is ported"
       },
       "test_packed_and_detached_heads_are_read": {
         "status": "dropped",
-        "reason": "FioriVoce never runs from a git checkout; only the installed executable's identity is ported"
+        "reason": "OpenWhisper_CPP never runs from a git checkout; only the installed executable's identity is ported"
       },
       "test_a_real_commit_counts_and_an_uncommitted_edit_does_not": {
         "status": "dropped",
-        "reason": "FioriVoce never runs from a git checkout; only the installed executable's identity is ported"
+        "reason": "OpenWhisper_CPP never runs from a git checkout; only the installed executable's identity is ported"
       }
     },
     "tests/test_application_controller.py": {

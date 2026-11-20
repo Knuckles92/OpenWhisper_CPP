@@ -7,4 +7,4 @@ fv_module(KIND core
 configure_file(version.h.in "${CMAKE_BINARY_DIR}/generated/engine/version.h" @ONLY)
 
 # The name src/app and src/cli link by.
-add_library(FioriVoce::engine ALIAS fv_engine)
+add_library(OpenWhisper_CPP::engine ALIAS fv_engine)

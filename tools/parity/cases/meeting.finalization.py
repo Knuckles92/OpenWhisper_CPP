@@ -11,7 +11,7 @@
         date. Result {ok, reason, offered, has_key}: the key itself is never recorded.
     speaker_step_outcome(result)        meeting/refinalize.py's, which EndRun reports with
 
-FioriVoce's redecode detail names Parakeet where OpenWhisper's names Whisper (lead decision);
+OpenWhisper_CPP's redecode detail names Parakeet where OpenWhisper's names Whisper (lead decision);
 the replay maps that one sentence.
 """
 

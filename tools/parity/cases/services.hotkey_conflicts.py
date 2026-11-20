@@ -1,7 +1,7 @@
 """Curated inputs for services/hotkey_conflicts.py (M1.5 hotkeys) over generated settings.
 
 The profiles, transforms and saved actions a conflict check compares against are loaded from the
-settings by their own modules (cleanup_profiles, text_transforms, actions.model), which FioriVoce
+settings by their own modules (cleanup_profiles, text_transforms, actions.model), which OpenWhisper_CPP
 ports later; the C++ check takes those lists from its caller. So the wrapper records, beside the
 answer, the bindings each loader made of the case's settings, and the replay hands exactly those
 to hotkey_conflict. The C++ replay is tests/hotkeys/test_golden.cpp.

@@ -1,10 +1,10 @@
 """Write src/agentapi/data/openapi.json: the OpenAPI document of OpenWhisper's History API.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/gen/agent_openapi.py [--check]
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/gen/agent_openapi.py [--check]
 
 FastAPI generates the document from services/agent_api/app.py's routes and models
-(app.openapi()); FioriVoce serves it unchanged at /openapi.json except for the title, which names
+(app.openapi()); OpenWhisper_CPP serves it unchanged at /openapi.json except for the title, which names
 the product (agentapi::HistoryApi puts identity().product in it again when it loads the file).
 The app is built under tools/parity/ow_isolation.py over an empty database in out/parity, so
 nothing of the owner's data is read. --check compares with the committed file instead of writing
@@ -23,7 +23,7 @@ sys.path.insert(0, str(ROOT / "tools" / "parity"))
 import ow_isolation  # noqa: E402
 
 OUTPUT = ROOT / "src" / "agentapi" / "data" / "openapi.json"
-OPENWHISPER, FIORIVOCE = "OpenWhisper", "FioriVoce"
+OPENWHISPER, OPENWHISPER_CPP = "OpenWhisper", "OpenWhisper_CPP"
 
 
 def document() -> str:
@@ -43,7 +43,7 @@ def document() -> str:
     title = schema["info"]["title"]
     if OPENWHISPER not in title:
         raise SystemExit(f"The title {title!r} no longer names {OPENWHISPER}; update this script.")
-    schema["info"]["title"] = title.replace(OPENWHISPER, FIORIVOCE)
+    schema["info"]["title"] = title.replace(OPENWHISPER, OPENWHISPER_CPP)
     text = json.dumps(schema, indent=2, ensure_ascii=False) + "\n"
     if OPENWHISPER in text:
         raise SystemExit(f"{OPENWHISPER} appears outside the title; decide how to rebrand it.")

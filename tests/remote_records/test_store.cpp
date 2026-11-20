@@ -53,7 +53,7 @@ TEST_CASE("a failed backup pause reopens the record gate") {
 TEST_CASE("a resumed dictation upload is badged with its authenticated owner") {
     testkit::TempDataRoot data;
     const auto path = data.path();
-    auto db = Database::open_or_create(path / "fiorivoce.db");
+    auto db = Database::open_or_create(path / "openwhisper-cpp.db");
     HistoryRepository history(db);
     FakeClock clock;
     HostRecordStore store(path / "transfers",
@@ -128,7 +128,7 @@ TEST_CASE("a resumed dictation upload is badged with its authenticated owner") {
 TEST_CASE("finished shared meetings retain owner-scoped rows and portable recordings") {
     testkit::TempDataRoot data;
     const auto root = data.path();
-    auto db = Database::open_or_create(root / "fiorivoce.db");
+    auto db = Database::open_or_create(root / "openwhisper-cpp.db");
     FakeClock clock;
     auto records = meeting_records(root / "meetings", db, clock);
     const remote::PairedDevice owner{.id = "laptop", .name = "Synthetic laptop"};

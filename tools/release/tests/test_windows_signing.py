@@ -21,9 +21,9 @@ import windows_signing as ws
 
 THUMB = "AB" * 20
 OTHER_THUMB = "CD" * 20
-SIGN_VARIABLES = ("FIORIVOCE_SIGN_CERT_SHA1", "FIORIVOCE_SIGN_PFX", "FIORIVOCE_SIGN_PASS",
-                  "FIORIVOCE_SIGN_DLIB", "FIORIVOCE_SIGN_METADATA", "FIORIVOCE_SIGN_TIMESTAMP_URL",
-                  "FIORIVOCE_SIGNTOOL")
+SIGN_VARIABLES = ("OPENWHISPER_CPP_SIGN_CERT_SHA1", "OPENWHISPER_CPP_SIGN_PFX", "OPENWHISPER_CPP_SIGN_PASS",
+                  "OPENWHISPER_CPP_SIGN_DLIB", "OPENWHISPER_CPP_SIGN_METADATA", "OPENWHISPER_CPP_SIGN_TIMESTAMP_URL",
+                  "OPENWHISPER_CPP_SIGNTOOL")
 
 
 class SigningFiles(rs.TempDirTestCase):
@@ -42,42 +42,42 @@ class TestSigningMode(SigningFiles):
         self.assertEqual(ws.signing_mode({}), ws.NONE)
 
     def test_each_method(self):
-        self.assertEqual(ws.signing_mode({"FIORIVOCE_SIGN_CERT_SHA1": THUMB}), ws.CERTIFICATE)
+        self.assertEqual(ws.signing_mode({"OPENWHISPER_CPP_SIGN_CERT_SHA1": THUMB}), ws.CERTIFICATE)
         self.assertEqual(ws.signing_mode({
-            "FIORIVOCE_SIGN_PFX": self.files["pfx"], "FIORIVOCE_SIGN_PASS": "pw"}), ws.PFX)
+            "OPENWHISPER_CPP_SIGN_PFX": self.files["pfx"], "OPENWHISPER_CPP_SIGN_PASS": "pw"}), ws.PFX)
         self.assertEqual(ws.signing_mode({
-            "FIORIVOCE_SIGN_DLIB": self.files["dlib"],
-            "FIORIVOCE_SIGN_METADATA": self.files["metadata"]}), ws.TRUSTED_SIGNING)
+            "OPENWHISPER_CPP_SIGN_DLIB": self.files["dlib"],
+            "OPENWHISPER_CPP_SIGN_METADATA": self.files["metadata"]}), ws.TRUSTED_SIGNING)
 
     def test_partial_configuration_fails(self):
-        for env in ({"FIORIVOCE_SIGN_CERT_SHA1": "not-a-thumbprint"},
-                    {"FIORIVOCE_SIGN_PASS": "password without a pfx"},
-                    {"FIORIVOCE_SIGN_PFX": "/nonexistent/cert.pfx"},
-                    {"FIORIVOCE_SIGN_DLIB": "/nonexistent/dlib.dll"}):
+        for env in ({"OPENWHISPER_CPP_SIGN_CERT_SHA1": "not-a-thumbprint"},
+                    {"OPENWHISPER_CPP_SIGN_PASS": "password without a pfx"},
+                    {"OPENWHISPER_CPP_SIGN_PFX": "/nonexistent/cert.pfx"},
+                    {"OPENWHISPER_CPP_SIGN_DLIB": "/nonexistent/dlib.dll"}):
             with self.subTest(env=env), self.assertRaises(ws.SigningError):
                 ws.signing_mode(env)
 
     def test_trusted_signing_needs_both_files(self):
         with self.assertRaisesRegex(ws.SigningError, "METADATA"):
-            ws.signing_mode({"FIORIVOCE_SIGN_DLIB": self.files["dlib"]})
+            ws.signing_mode({"OPENWHISPER_CPP_SIGN_DLIB": self.files["dlib"]})
 
     def test_two_methods_fail(self):
         with self.assertRaisesRegex(ws.SigningError, "one signing method"):
             ws.signing_mode({
-                "FIORIVOCE_SIGN_CERT_SHA1": THUMB,
-                "FIORIVOCE_SIGN_DLIB": self.files["dlib"],
-                "FIORIVOCE_SIGN_METADATA": self.files["metadata"],
+                "OPENWHISPER_CPP_SIGN_CERT_SHA1": THUMB,
+                "OPENWHISPER_CPP_SIGN_DLIB": self.files["dlib"],
+                "OPENWHISPER_CPP_SIGN_METADATA": self.files["metadata"],
             })
 
 
 class TestArguments(SigningFiles):
     def test_every_method_hashes_and_timestamps_with_sha256(self):
         envs = {
-            ws.CERTIFICATE: {"FIORIVOCE_SIGN_CERT_SHA1": THUMB},
-            ws.PFX: {"FIORIVOCE_SIGN_PFX": self.files["pfx"], "FIORIVOCE_SIGN_PASS": "pw"},
+            ws.CERTIFICATE: {"OPENWHISPER_CPP_SIGN_CERT_SHA1": THUMB},
+            ws.PFX: {"OPENWHISPER_CPP_SIGN_PFX": self.files["pfx"], "OPENWHISPER_CPP_SIGN_PASS": "pw"},
             ws.TRUSTED_SIGNING: {
-                "FIORIVOCE_SIGN_DLIB": self.files["dlib"],
-                "FIORIVOCE_SIGN_METADATA": self.files["metadata"],
+                "OPENWHISPER_CPP_SIGN_DLIB": self.files["dlib"],
+                "OPENWHISPER_CPP_SIGN_METADATA": self.files["metadata"],
             },
         }
         for mode, env in envs.items():
@@ -93,21 +93,21 @@ class TestArguments(SigningFiles):
                          ["/dlib", self.files["dlib"], "/dmdf", self.files["metadata"]])
 
     def test_timestamp_server_can_be_overridden(self):
-        env = rs.with_identity({"FIORIVOCE_SIGN_CERT_SHA1": THUMB,
-                                "FIORIVOCE_SIGN_TIMESTAMP_URL": "http://ts.example"})
+        env = rs.with_identity({"OPENWHISPER_CPP_SIGN_CERT_SHA1": THUMB,
+                                "OPENWHISPER_CPP_SIGN_TIMESTAMP_URL": "http://ts.example"})
         self.assertEqual(ws.sign_arguments(ws.CERTIFICATE, env)[4], "http://ts.example")
 
     def test_timestamp_server_defaults_to_the_release_identity(self):
-        env = rs.with_identity({"FIORIVOCE_SIGN_CERT_SHA1": THUMB})
+        env = rs.with_identity({"OPENWHISPER_CPP_SIGN_CERT_SHA1": THUMB})
         self.assertEqual(ws.sign_arguments(ws.CERTIFICATE, env)[4], "http://timestamp.fixture.test")
-        missing = {"FIORIVOCE_SIGN_CERT_SHA1": THUMB,
-                   "FIORIVOCE_RELEASE_IDENTITY": str(self.tmp / "absent.json")}
+        missing = {"OPENWHISPER_CPP_SIGN_CERT_SHA1": THUMB,
+                   "OPENWHISPER_CPP_RELEASE_IDENTITY": str(self.tmp / "absent.json")}
         self.assertEqual(ws.sign_arguments(ws.CERTIFICATE, missing)[4], ws.DEFAULT_TIMESTAMP_URL)
         broken = self.tmp / "broken.json"
         broken.write_text("{not json", encoding="utf-8")
         with self.assertRaises(ws.SigningError):
             ws.sign_arguments(ws.CERTIFICATE,
-                              {**missing, "FIORIVOCE_RELEASE_IDENTITY": str(broken)})
+                              {**missing, "OPENWHISPER_CPP_RELEASE_IDENTITY": str(broken)})
 
     def test_unsigned_build_has_no_sign_arguments(self):
         with self.assertRaises(ws.SigningError):
@@ -115,12 +115,12 @@ class TestArguments(SigningFiles):
         self.assertEqual(ws.inno_arguments(ws.NONE, None, {}), [])
 
     def test_inno_command_quotes_and_escapes(self):
-        env = rs.with_identity({"FIORIVOCE_SIGN_PFX": self.files["pfx"],
-                                "FIORIVOCE_SIGN_PASS": "pa$s word"})
+        env = rs.with_identity({"OPENWHISPER_CPP_SIGN_PFX": self.files["pfx"],
+                                "OPENWHISPER_CPP_SIGN_PASS": "pa$s word"})
         define, tool = ws.inno_arguments(ws.PFX, r"C:\Program Files (x86)\signtool.exe", env)
-        self.assertEqual(define, "/DSignToolName=fiorivoce")
+        self.assertEqual(define, "/DSignToolName=openwhisper-cpp")
         self.assertTrue(tool.startswith(
-            r"/Sfiorivoce=$qC:\Program Files (x86)\signtool.exe$q sign "))
+            r"/Sopenwhisper-cpp=$qC:\Program Files (x86)\signtool.exe$q sign "))
         self.assertIn("$qpa$$s word$q", tool)
         self.assertTrue(tool.endswith(" $f"))
 
@@ -143,9 +143,9 @@ class FindSigntool(rs.TempDirTestCase):
         named = self.tmp / "my-signtool.exe"
         named.write_bytes(b"")
         with mock.patch.object(ws.shutil, "which", lambda name: "from-path.exe"):
-            self.assertEqual(ws.find_signtool({"FIORIVOCE_SIGNTOOL": str(named)}), str(named))
+            self.assertEqual(ws.find_signtool({"OPENWHISPER_CPP_SIGNTOOL": str(named)}), str(named))
             with self.assertRaises(ws.SigningError):
-                ws.find_signtool({"FIORIVOCE_SIGNTOOL": str(self.tmp / "missing.exe")})
+                ws.find_signtool({"OPENWHISPER_CPP_SIGNTOOL": str(self.tmp / "missing.exe")})
             self.assertEqual(ws.find_signtool({}), "from-path.exe")
 
 
@@ -155,9 +155,9 @@ def _signed(name, *, status="Valid", thumb=THUMB, timestamped=True):
             "timestamped": timestamped}
 
 
-NAMES = ("fiorivoce.exe", "fiorivoce-cli.exe", rs.SETUP)
+NAMES = ("openwhisper-cpp.exe", "openwhisper-cpp-cli.exe", rs.SETUP)
 ALL_VERIFIED = {name: True for name in NAMES}
-CERT_ENV = {"FIORIVOCE_SIGN_CERT_SHA1": THUMB.lower()}
+CERT_ENV = {"OPENWHISPER_CPP_SIGN_CERT_SHA1": THUMB.lower()}
 
 
 class TestReport(rs.TempDirTestCase):
@@ -220,7 +220,7 @@ class TestReport(rs.TempDirTestCase):
                          [hashlib.sha256(name.encode()).hexdigest() for name in NAMES])
 
     def test_verify_command_writes_the_report_and_refuses_a_stray_signature(self):
-        target = self.tmp / "fiorivoce.exe"
+        target = self.tmp / "openwhisper-cpp.exe"
         target.write_bytes(b"exe")
         report = self.tmp / "out" / "windows-signing.json"
         unsigned = {"status": "NotSigned", "signer_subject": None, "signer_thumbprint": None,
@@ -307,7 +307,7 @@ class RealInspection(rs.TempDirTestCase):
     """``verify`` through the real Get-AuthenticodeSignature, on an unsigned executable."""
 
     def test_verify_passes_an_unsigned_executable_only_as_unsigned(self):
-        target = self.tmp / "fiorivoce.exe"
+        target = self.tmp / "openwhisper-cpp.exe"
         target.write_bytes(rs.minimal_pe())
         report = self.tmp / "windows-signing.json"
         with mock.patch.dict(os.environ):
@@ -326,7 +326,7 @@ class RealInspection(rs.TempDirTestCase):
         self.assertIsNone(entry["signer_thumbprint"])
 
     def test_a_file_that_is_not_an_executable_is_not_passed_as_unsigned(self):
-        target = self.tmp / "fiorivoce.exe"
+        target = self.tmp / "openwhisper-cpp.exe"
         target.write_bytes(b"MZ but not a PE")
         with mock.patch.dict(os.environ):
             for name in SIGN_VARIABLES:
@@ -340,7 +340,7 @@ class RealInspection(rs.TempDirTestCase):
 
 class UnsignedBuild(rs.TempDirTestCase):
     def test_unsigned_sign_command_is_a_visible_no_op(self):
-        target = self.tmp / "fiorivoce.exe"
+        target = self.tmp / "openwhisper-cpp.exe"
         target.write_bytes(b"exe")
         with mock.patch.dict(os.environ):
             for name in SIGN_VARIABLES:

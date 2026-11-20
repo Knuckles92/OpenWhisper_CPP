@@ -1,6 +1,6 @@
 """Write src/hotkeys/data/keyboard_names.json: the key names of Python's `keyboard` package.
 
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/gen/keyboard_names.py [--check]
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/gen/keyboard_names.py [--check]
 
 Saved Windows shortcuts spell their keys the way `keyboard` names hook events ("kp *" is the
 numpad "*", "page up", "!" for Shift+1 going down), so the C++ hook must name every event exactly

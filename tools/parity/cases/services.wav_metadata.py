@@ -2,7 +2,7 @@
 
 append_origination writes into an open file, so the wrapper builds the WAV Python's wave module
 writes for the given PCM, tags it, and returns the whole file as hex. ORIGINATOR and SOFTWARE are
-set to FioriVoce's product name while it runs (identity().product), which changes the LIST chunk
+set to OpenWhisper_CPP's product name while it runs (identity().product), which changes the LIST chunk
 size; a byte-for-byte rebrand of OpenWhisper's output could not.
 
 is_mono_pcm16 and the read_* helpers take a path, so their wrappers take the file's bytes as hex
@@ -19,7 +19,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[3]
 SCRATCH = REPO / "out" / "parity" / "wav_metadata"
-PRODUCT = "FioriVoce"
+PRODUCT = "OpenWhisper_CPP"
 
 
 def _scratch_file(data: bytes) -> str:

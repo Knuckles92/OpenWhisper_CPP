@@ -266,7 +266,7 @@
     "tests/ui_controller/test_wiring.cpp",
     "tests/ui_controller/test_settings_bindings.cpp"
    ],
-   "note": "Code right, refusal untested: added 'a new microphone order waits for the recording to finish' (refusal text while recording, then 'Audio device changed' once idle). FioriVoce applies the saved order to the same recorder (Recorder::set_device_priority on io) instead of rebuilding it, so the switch/level connections stay; 'test_the_recorder_comes_from_settings_and_reports_switches' pins that."
+   "note": "Code right, refusal untested: added 'a new microphone order waits for the recording to finish' (refusal text while recording, then 'Audio device changed' once idle). OpenWhisper_CPP applies the saved order to the same recorder (Recorder::set_device_priority on io) instead of rebuilding it, so the switch/level connections stay; 'test_the_recorder_comes_from_settings_and_reports_switches' pins that."
   },
   "A03-23": {
    "status": "verified",
@@ -961,7 +961,7 @@
     "tests/ui_controller/test_about_box.cpp",
     "tests/ui_controller/test_update_presenter.cpp"
    ],
-   "note": "FioriVoce wording (map decision 'port with FioriVoce wording'), product via identity(), version, install channel, optional update status; the website line is left out. 'Help > About shows the About box over the window' passes since the relink noted at A03-83; 'the About box shows the update status of the last check' fails on Linux only because installChannel() reads LOCALAPPDATA ('Install: Windows installer' expected)."
+   "note": "OpenWhisper_CPP wording (map decision 'port with OpenWhisper_CPP wording'), product via identity(), version, install channel, optional update status; the website line is left out. 'Help > About shows the About box over the window' passes since the relink noted at A03-83; 'the About box shows the update status of the last check' fails on Linux only because installChannel() reads LOCALAPPDATA ('Install: Windows installer' expected)."
   },
   "A03-86": {
    "status": "fixed",
@@ -1122,8 +1122,8 @@
    "id": "a03-cpu-runtime-offer-after-crash",
    "features": [],
    "openwhisper": "OpenWhisper makes no offer at start after its speech engine crashed in the previous session.",
-   "fiorivoce": "When the last session's crash log names a module in the speech runtime's folder and the runtime setting is not the CPU, the next start offers to switch to the CPU runtime. The offer is made once per crash, remembered in '<crash log>.offered' whether it is taken or declined; a later crash is offered again.",
-   "reason": "The runtime is loaded into FioriVoce's own process, so a GPU runtime that crashes ends the app; the CPU runtime is the way back, and a declined offer must not come back at every start.",
+   "openwhisper-cpp": "When the last session's crash log names a module in the speech runtime's folder and the runtime setting is not the CPU, the next start offers to switch to the CPU runtime. The offer is made once per crash, remembered in '<crash log>.offered' whether it is taken or declined; a later crash is offered again.",
+   "reason": "The runtime is loaded into OpenWhisper_CPP's own process, so a GPU runtime that crashes ends the app; the CPU runtime is the way back, and a declined offer must not come back at every start.",
    "source": "The shell sweep of 2026-11-19 (open item ui_controller/engine_setup.cpp); src/ui_controller/engine_setup.cpp, src/ui_controller/controller_feature.cpp; tests/ui_controller/test_sweep_crash_offer.cpp ('a declined crash offer does not come back at the next start', 'crashAlreadyOffered matches the time, code and module')"
   },
   {
@@ -1132,7 +1132,7 @@
     "A03-29"
    ],
    "openwhisper": "At quit OpenWhisper leaves requests, an installed-agent probe and a model adoption still running on its daemon threads; the process exits without waiting for them.",
-   "fiorivoce": "Quit's first cancellation step aborts every HTTP transfer (http::AbortableClient::abort_all), stops the installed-agent scan and kills its probe's process tree, and cancels an adoption of OpenWhisper's runtime or model, whose copy or hash stops and whose staging is removed; Quit still waits for the io task that ran each, so a request to a server that never answers holds Quit for about a second, not for its idle timeout.",
+   "openwhisper-cpp": "Quit's first cancellation step aborts every HTTP transfer (http::AbortableClient::abort_all), stops the installed-agent scan and kills its probe's process tree, and cancels an adoption of OpenWhisper's runtime or model, whose copy or hash stops and whose staging is removed; Quit still waits for the io task that ran each, so a request to a server that never answers holds Quit for about a second, not for its idle timeout.",
    "reason": "A C++ task that uses the application context cannot be abandoned while that context is destroyed, so Quit waits for running io work; cancelling that work bounds the wait.",
    "source": "The shell sweep of 2026-11-19 (open item ui_shell/bootstrap.cpp waitForRunningTasks); src/ui_shell/bootstrap.cpp (ShutdownStep::CancelRoot), src/http/abortable_client.cpp; tests/ui_shell/test_sweep_quit_http.cpp ('a request to a server that never answers does not hold Quit'), tests/http/test_sweep_abortable_client.cpp ('abort_all ends a request that waits on a silent server'); tests/ui_shell/test_sweep_quit_agent_scan.cpp ('an agent scan waiting on a probe that never answers does not hold Quit'), tests/ui_controller/test_sweep_adoption_quit.cpp ('sweep: Quit cancels the adoption the engine setup is running'), tests/models/test_sweep_adoption_cancel.cpp ('sweep: Quit during a model's adoption leaves nothing half adopted')"
   }

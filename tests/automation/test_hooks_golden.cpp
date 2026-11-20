@@ -216,7 +216,7 @@ TEST_CASE("golden: programs._run_event", "[golden][programs]") {
         CHECK(record.error == expected["error"].get<std::string>());
         CHECK(event.to_json() + "\n" == expected["stdin"].get<std::string>());
 
-        // OpenWhisper sets its own names; FioriVoce sets its own and those beside them.
+        // OpenWhisper sets its own names; OpenWhisper_CPP sets its own and those beside them.
         const auto env = event_environment(event);
         CHECK(env.size() == 2 * expected["env"].size());
         for (const auto& [name, value] : expected["env"].items()) {

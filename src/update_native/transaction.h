@@ -58,11 +58,11 @@ public:
 
 using TransactionHook = std::function<void(std::string_view point)>;
 
-// "FioriVoce did not close, so the update was not installed. Your current version is unchanged —
-// close FioriVoce completely and try the update again." (_PARENT_STILL_RUNNING): the app that
-// handed off is still there, and nothing has been moved.
+// "OpenWhisper_CPP did not close, so the update was not installed. Your current version is
+// unchanged — close OpenWhisper_CPP completely and try the update again." (_PARENT_STILL_RUNNING):
+// the app that handed off is still there, and nothing has been moved.
 std::string parent_still_running_message();
-// "FioriVoce is still running.": a recovery or rollback could not take the application gate.
+// "OpenWhisper_CPP is still running.": a recovery or rollback could not take the application gate.
 std::string application_running_message();
 
 // Input must have been parsed from a journal; each entry revalidates it against the independently

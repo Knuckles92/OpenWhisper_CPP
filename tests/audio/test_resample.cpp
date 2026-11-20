@@ -89,7 +89,7 @@ std::vector<std::int16_t> resample_in_blocks(const std::vector<std::int16_t>& pc
 
 TEST_CASE("golden resample16k", "[golden]") {
     // Exact unless the vector file states a tolerance for the file (pins.tolerance), where the
-    // FFmpeg FioriVoce builds with decodes differently from the one PyAV bundles.
+    // FFmpeg OpenWhisper_CPP builds with decodes differently from the one PyAV bundles.
     const fv::Json& pins = fv::golden::load("av.resample16k").at("pins");
     fv::golden::for_each("av.resample16k", "resample16k", [&](const fv::golden::Case& c) {
         const std::string name = c.arg<std::string>(0);

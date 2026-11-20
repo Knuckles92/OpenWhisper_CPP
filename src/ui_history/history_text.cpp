@@ -67,7 +67,7 @@ constexpr std::string_view kActionPrefix = "Action · ";
 // Python's `a · b`, with the middle dot.
 constexpr std::string_view kDot = " · ";
 
-// The FioriVoce engine whose stored model info names its own model.
+// The OpenWhisper_CPP engine whose stored model info names its own model.
 constexpr std::string_view kParakeetBase = "parakeet";
 
 template <std::size_t N>

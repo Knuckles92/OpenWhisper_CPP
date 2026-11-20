@@ -228,9 +228,9 @@ TEST_CASE("the settings rail has Home and six chapters of 27 pages in OpenWhispe
 
 TEST_CASE("under CTest each test case has a data folder of its own") {
     // fv_test's contract (architecture 9.1). Started by hand, the executable has no data folder.
-    const auto data_dir = fv::env_utf8("FIORIVOCE_DATA_DIR");
+    const auto data_dir = fv::env_utf8("OPENWHISPER_CPP_DATA_DIR");
     if (!data_dir) {
-        SKIP("Run through ctest, which sets FIORIVOCE_DATA_DIR per test case.");
+        SKIP("Run through ctest, which sets OPENWHISPER_CPP_DATA_DIR per test case.");
     }
     const std::filesystem::path folder = fv::path_from_utf8(*data_dir);
     CHECK(std::filesystem::is_directory(folder));
@@ -259,7 +259,7 @@ TEST_CASE("a test executable starts with per-user folders of its own") {
         CHECK(under_home(root));
     }
     for (const char* removed : {"OPENWHISPER_DATA_DIR", "OPENAI_API_KEY", "GROQ_API_KEY",
-                                "FIORIVOCE_RUNTIME_DIR", "CLAUDE_CONFIG_DIR"}) {
+                                "OPENWHISPER_CPP_RUNTIME_DIR", "CLAUDE_CONFIG_DIR"}) {
         CAPTURE(removed);
         CHECK_FALSE(fv::env_utf8(removed).has_value());
     }

@@ -1,6 +1,6 @@
 // The main window's chrome: tabs, footer, menus, tray-less desktops, geometry and edge resize.
 // Ported from tests/test_main_window_compact.py and tests/test_window_fits_tab.py, plus the
-// registry-driven parts FioriVoce adds.
+// registry-driven parts OpenWhisper_CPP adds.
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/generators/catch_generators.hpp>
 
@@ -506,7 +506,7 @@ TEST_CASE("restore from tray shows a hidden window normal", "[widget]") {
 TEST_CASE("the window carries the product name and its sizes", "[widget]") {
     ShellFixture shell;
     auto window = shell.window();
-    CHECK(window->windowTitle() == QStringLiteral("FioriVoce"));
+    CHECK(window->windowTitle() == QStringLiteral("OpenWhisper_CPP"));
     CHECK(window->minimumSize() == QSize(650, 660));
     CHECK(window->maximumWidth() == 1280);
     CHECK((window->windowFlags() & Qt::FramelessWindowHint));
@@ -622,11 +622,11 @@ TEST_CASE("a first Host Mode grows the window to 780 square and names it Host", 
 
     command->trigger();
     REQUIRE(window->isHostMode());
-    CHECK(window->titleBar()->titleLabel()->text() == QStringLiteral("FioriVoce Host"));
+    CHECK(window->titleBar()->titleLabel()->text() == QStringLiteral("OpenWhisper_CPP Host"));
     CHECK(window->geometry() == QRect(100, 120, 780, 780));
 
     command->trigger();
-    CHECK(window->titleBar()->titleLabel()->text() == QStringLiteral("FioriVoce"));
+    CHECK(window->titleBar()->titleLabel()->text() == QStringLiteral("OpenWhisper_CPP"));
 }
 
 // main_window.py _build_footer (map row A01-45): a 48 px bar, 34 px buttons with their minimum
@@ -650,7 +650,7 @@ TEST_CASE("the footer's buttons keep OpenWhisper's sizes, gaps and tooltips", "[
     }
     const std::vector<std::tuple<QPushButton*, QString, int, QString>> buttons{
         {footer.trayButton(), QStringLiteral("Minimize to Tray"), 140,
-         QStringLiteral("Hide FioriVoce in the system tray")},
+         QStringLiteral("Hide OpenWhisper_CPP in the system tray")},
         {footer.statsButton(), QStringLiteral("Stats"), 80,
          QStringLiteral("Your words, pace, streak and favorite apps")},
         {footer.settingsButton(), QStringLiteral("Settings"), 100,

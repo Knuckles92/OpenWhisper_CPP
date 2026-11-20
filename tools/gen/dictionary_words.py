@@ -1,7 +1,7 @@
 """Write src/text/data/common_words.json: the words dictionary learning never learns.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/gen/dictionary_words.py [--check]
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/gen/dictionary_words.py [--check]
 
 The list is services/dictionary.py's COMMON_WORDS, read by importing the module from the
 read-only checkout through tools/parity/ow_isolation.py, so fv_text refuses exactly the words

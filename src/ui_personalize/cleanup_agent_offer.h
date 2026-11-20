@@ -32,7 +32,7 @@ AgentConsentQuestion agentConsentQuestion(const QString& name);
 // (ui_qt/cleanup_agent_offer.py). llm::cleanup_agent_offer decides when the question is due and
 // saves the answer; this looks for the agents off the GUI thread and shows it.
 //
-// FioriVoce asks one more question than OpenWhisper: choosing an agent in the offer shows the
+// OpenWhisper_CPP asks one more question than OpenWhisper: choosing an agent in the offer shows the
 // same consent question the AI cleanup settings show for that runner (agentConsentQuestion).
 // Yes there selects the agent with consent recorded; No counts as declining the offer.
 // Affinity: GUI thread.

@@ -88,8 +88,8 @@ std::unique_ptr<speech::Backend> RemoteEngineService::make_backend() {
             // reports_recording stays false: OpenWhisper's client reserves each recording on the
             // host (recording_begin / recording_end) only so that a host's update hold
             // (prepare_host_update, called by the Linux Omarchy controls alone) waits for it.
-            // FioriVoce does not send reservations, so it does not advertise them: such a host
-            // counts this computer as untracked and holds its update while it is connected.
+            // OpenWhisper_CPP does not send reservations, so it does not advertise them: such a
+            // host counts this computer as untracked and holds its update while it is connected.
             return service->make_connection(
                 pairing, {}, false,
                 std::format("This computer's pairing with {} is missing its token. Pair again "
@@ -1057,7 +1057,7 @@ Json RemoteEngineService::remote_mcp_request(std::string_view op, const Json& fi
             "unsupported");
     }
     if (caps["mcp_control"] != true) {
-        // The host may be FioriVoce, which grants one computer a session ("Grant session MCP
+        // The host may be OpenWhisper_CPP, which grants one computer a session ("Grant session MCP
         // control to one paired computer"), or OpenWhisper, whose switch allows every paired
         // computer: the words fit both.
         throw remote::RemoteRequestError(

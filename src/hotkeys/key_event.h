@@ -34,12 +34,12 @@ struct KeyEvent {
     std::optional<std::uint8_t> os_modifiers;
     // LLKHF_INJECTED: SendInput or keybd_event made the event, in this program or another.
     bool llkhf_injected = false;
-    // KBDLLHOOKSTRUCT.dwExtraInfo: kSyntheticInputTag on the keys FioriVoce sends itself.
+    // KBDLLHOOKSTRUCT.dwExtraInfo: kSyntheticInputTag on the keys OpenWhisper_CPP sends itself.
     std::uintptr_t extra_info = 0;
 
     // keyboard's sign for virtual-key input: its modifiers are read from the OS.
     bool injected() const { return scan_code.value_or(0) < 0; }
-    // FioriVoce sent this key itself (a paste or a copy). The hook passes it on before any
+    // OpenWhisper_CPP sent this key itself (a paste or a copy). The hook passes it on before any
     // callback sees it and does not record it as pressed, as `keyboard`'s direct_callback does
     // while its own send() runs (is_replaying). Another program's injected keys are not ours and
     // go through the callback like typing.
@@ -81,8 +81,9 @@ public:
 
     // The event for the callback, or nullopt when `keyboard` passes the key on without asking:
     // VK_PACKET (SendInput of Unicode text), injected keys with Alt down, and the right Alt that
-    // follows AltGr's fake left Ctrl. FioriVoce's own keys come out as events (they still move
-    // the Shift and AltGr state, as in `keyboard`), marked own_input() for the hook to pass on.
+    // follows AltGr's fake left Ctrl. OpenWhisper_CPP's own keys come out as events (they still
+    // move the Shift and AltGr state, as in `keyboard`), marked own_input() for the hook to pass
+    // on.
     std::optional<KeyEvent> translate(const RawKey&, const LockState&, double t,
                                       std::optional<std::uint8_t> os_modifiers);
     // The callback let `event` through: record it as pressed or released.

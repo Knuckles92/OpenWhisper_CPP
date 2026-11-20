@@ -113,10 +113,10 @@ TEST_CASE("test_component_api_mismatch_is_rejected", "[test_components]") {
     const auto reason =
         check_compatibility(Json{{"component_api", kComponentApi + 1}}, host_for("win_amd64"));
     REQUIRE(reason);
-    // OpenWhisper names itself here; FioriVoce does.
-    CHECK_THAT(*reason, ContainsSubstring("FioriVoce"));
+    // OpenWhisper names itself here; OpenWhisper_CPP does.
+    CHECK_THAT(*reason, ContainsSubstring("OpenWhisper_CPP"));
     CHECK(*reason ==
-          "Built for a different version of FioriVoce (component API 2, this app uses 1)");
+          "Built for a different version of OpenWhisper_CPP (component API 2, this app uses 1)");
 }
 
 TEST_CASE("test_foreign_platform_is_rejected", "[test_components]") {

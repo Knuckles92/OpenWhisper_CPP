@@ -29,13 +29,14 @@ constexpr auto kErrorFile = "setup-error.txt";
 std::string usage(const UpdaterActions& actions) {
     std::string text;
     if (actions.setup_action)
-        text += "fiorivoce-updater --setup-action prepare|finish|rollback --app-dir <install>\n";
+        text +=
+            "openwhisper-cpp-updater --setup-action prepare|finish|rollback --app-dir <install>\n";
     if (actions.run_transaction)
-        text += "fiorivoce-updater --apply --transaction-id <id>\n"
-                "fiorivoce-updater --recover --transaction-id <id>\n";
-    text += "fiorivoce-updater --write-manifest <tree> --version <version>\n"
-            "fiorivoce-updater --pack-archive <tree> --version <version> --out <zip>\n"
-            "fiorivoce-updater --verify-archive <zip> [--version <version>]\n";
+        text += "openwhisper-cpp-updater --apply --transaction-id <id>\n"
+                "openwhisper-cpp-updater --recover --transaction-id <id>\n";
+    text += "openwhisper-cpp-updater --write-manifest <tree> --version <version>\n"
+            "openwhisper-cpp-updater --pack-archive <tree> --version <version> --out <zip>\n"
+            "openwhisper-cpp-updater --verify-archive <zip> [--version <version>]\n";
     return text;
 }
 
@@ -103,7 +104,7 @@ int run_updater(std::span<const std::string> args, const UpdaterActions& actions
         print_to(actions.err, stderr, text);
     };
     const auto failed = [&](const std::exception& error) {
-        err("fiorivoce-updater: " + std::string(error.what()) + "\n");
+        err("openwhisper-cpp-updater: " + std::string(error.what()) + "\n");
         return 1;
     };
     if (args.size() == 1 && (args[0] == "--help" || args[0] == "-h")) {

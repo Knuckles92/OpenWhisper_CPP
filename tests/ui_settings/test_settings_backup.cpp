@@ -1,6 +1,6 @@
 // The Backup & restore page and its calendar (OpenWhisper's tests/test_settings_backup.py), over
-// the real coordinator with a fake archive service (backup_support.h), plus what FioriVoce adds:
-// the import button, the lock that follows the coordinator, and the page's registration.
+// the real coordinator with a fake archive service (backup_support.h), plus what OpenWhisper_CPP
+// adds: the import button, the lock that follows the coordinator, and the page's registration.
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_string.hpp>
 
@@ -137,9 +137,9 @@ TEST_CASE("test_manual_backup_uses_selected_path_and_reports_progress",
     page->includeRecordingsCheck()->setChecked(false);
     page->createButton()->click();
     BackupRig::settle();
-    CHECK(choices.titles.back() == "Create FioriVoce backup");
-    CHECK(choices.filters.back() == "FioriVoce backups (*.fvbackup);;All files (*)");
-    CHECK(choices.starts.back() == "FioriVoce-backup.fvbackup");
+    CHECK(choices.titles.back() == "Create OpenWhisper_CPP backup");
+    CHECK(choices.filters.back() == "OpenWhisper_CPP backups (*.fvbackup);;All files (*)");
+    CHECK(choices.starts.back() == "OpenWhisper_CPP-backup.fvbackup");
     CHECK(rig.coordinator->busy());
     CHECK_FALSE(page->createButton()->isEnabled());
     CHECK_FALSE(page->cancelButton()->isHidden());
@@ -224,9 +224,9 @@ TEST_CASE("test_restore_requires_inspection_and_explicit_confirmation",
 
     page->inspectButton()->click();
     BackupRig::settle();
-    CHECK(choices.titles.back() == "Inspect FioriVoce backup");
+    CHECK(choices.titles.back() == "Inspect OpenWhisper_CPP backup");
     CHECK(choices.filters.back() ==
-          "FioriVoce backups (*.fvbackup *.owbackup *.zip);;All files (*)");
+          "OpenWhisper_CPP backups (*.fvbackup *.owbackup *.zip);;All files (*)");
     CHECK(text(page->inspectionLabel()) == "Inspecting backup\xE2\x80\xA6");
     CHECK_FALSE(page->restoreButton()->isEnabled());
     // Inspecting is not cancellable.
@@ -256,7 +256,7 @@ TEST_CASE("test_restore_requires_inspection_and_explicit_confirmation",
     page->restoreButton()->click();
     CHECK(choices.confirmations == 1);
     CHECK_THAT(fv::qt::toUtf8(choices.confirmText),
-               ContainsSubstring("Restore this backup and restart FioriVoce?"));
+               ContainsSubstring("Restore this backup and restart OpenWhisper_CPP?"));
     CHECK(choices.titles.back() == "Restore local data");
     rig.drain();
     CHECK(callsOf(rig, "restore").empty());
@@ -269,7 +269,7 @@ TEST_CASE("test_restore_requires_inspection_and_explicit_confirmation",
     CHECK(callsOf(rig, "restore") ==
           std::vector<FakeBackupService::Call>{{"restore", fv::path_to_utf8(archive)}});
     CHECK_THAT(text(page->statusLabel()), ContainsSubstring("restart"));
-    CHECK(text(page->statusLabel()) == "Restore staged. FioriVoce will restart to apply it.");
+    CHECK(text(page->statusLabel()) == "Restore staged. OpenWhisper_CPP will restart to apply it.");
 
     page->inspectButton()->click();
     BackupRig::settle();
@@ -373,7 +373,7 @@ TEST_CASE("test_schedule_rejects_missing_and_recording_destinations",
     CHECK(rig.coordinator->snapshot()["frequency"] == "off");
     CHECK_THAT(text(page->statusLabel()), ContainsSubstring("outside"));
     CHECK(text(page->statusLabel()) ==
-          "Choose a folder outside FioriVoce's recordings, meetings, and captures folders.");
+          "Choose a folder outside OpenWhisper_CPP's recordings, meetings, and captures folders.");
     for (const char* owned : {"meetings", "captures"}) {
         const fs::path folder = rig.data / owned;
         fs::create_directories(folder);
@@ -382,12 +382,12 @@ TEST_CASE("test_schedule_rejects_missing_and_recording_destinations",
         CHECK_THAT(text(page->statusLabel()), ContainsSubstring("outside"));
     }
     // The coordinator's own refusals reach the status line.
-    fs::create_directories(rig.data / ".fiorivoce-restore");
-    page->destinationEdit()->setText(BackupRig::text(rig.data / ".fiorivoce-restore"));
+    fs::create_directories(rig.data / ".openwhisper-cpp-restore");
+    page->destinationEdit()->setText(BackupRig::text(rig.data / ".openwhisper-cpp-restore"));
     page->saveScheduleButton()->click();
     CHECK(text(page->statusLabel()) ==
           "Could not save automatic backup settings: Choose a backup folder outside "
-          "FioriVoce's recording folders.");
+          "OpenWhisper_CPP's recording folders.");
     CHECK(rig.coordinator->snapshot()["frequency"] == "off");
 }
 

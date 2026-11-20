@@ -120,8 +120,8 @@ private:
             const std::optional<std::uint8_t> os =
                 raw.scan_code == 0 ? std::optional(os_modifiers()) : std::nullopt;
             const auto event = translator_->translate(raw, locks, clock_(), os);
-            // Our own paste and copy keys pass unseen: no shortcut fires on FioriVoce's Ctrl+V,
-            // and the user's held keys stay as they were.
+            // Our own paste and copy keys pass unseen: no shortcut fires on OpenWhisper_CPP's
+            // Ctrl+V, and the user's held keys stay as they were.
             if (!event || event->own_input()) {
                 return true;
             }

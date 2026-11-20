@@ -556,7 +556,7 @@
   },
   "A04-46": {
    "status": "other-platform",
-   "reason": "transcription.py prepare_host_update is called only by services/omarchy_controls.py (the Linux Omarchy desktop's update controls); the Windows product's updater never asks a sharing host to hold an update, so no desktop refusal '{product} is in use on this computer' exists. The client's recording reservations served only that hold: FioriVoce's dictation engine no longer advertises recording_activity it never sends (RemoteEngineService::make_backend, reports_recording false; tests/remote_host/test_runtime_links.cpp 'the dictation engine does not advertise recording reservations'), so an OpenWhisper host counts it as untracked and holds its update while it is connected. The host half (SpeechHost::prepare_update, the reservations from OpenWhisper clients) stays and is tested."
+   "reason": "transcription.py prepare_host_update is called only by services/omarchy_controls.py (the Linux Omarchy desktop's update controls); the Windows product's updater never asks a sharing host to hold an update, so no desktop refusal '{product} is in use on this computer' exists. The client's recording reservations served only that hold: OpenWhisper_CPP's dictation engine no longer advertises recording_activity it never sends (RemoteEngineService::make_backend, reports_recording false; tests/remote_host/test_runtime_links.cpp 'the dictation engine does not advertise recording reservations'), so an OpenWhisper host counts it as untracked and holds its update while it is connected. The host half (SpeechHost::prepare_update, the reservations from OpenWhisper clients) stays and is tested."
   },
   "A04-47": {
    "status": "verified",
@@ -720,7 +720,7 @@
     "tests/dictation/test_streaming_runtime.cpp",
     "tests/dictation/test_streaming_quit.cpp"
    ],
-   "note": "Reworded for FioriVoce as the row allows: 'Live preview needs Parakeet' / '... on {host}'; 'Stop recording before changing streaming mode' pinned. 'Failed to reconfigure streaming' had no test because nothing in configure can be made to throw (the settings reads are tolerant). StreamingRuntime now takes an optional PreviewFactory (default: the WindowPreview it always built), and 'a preview that fails to set up says so on reconfigure only' passes one that throws: setup() stays quiet and disabled, reconfigure() reports 'Failed to reconfigure streaming', as _configure_streaming's except clause does."
+   "note": "Reworded for OpenWhisper_CPP as the row allows: 'Live preview needs Parakeet' / '... on {host}'; 'Stop recording before changing streaming mode' pinned. 'Failed to reconfigure streaming' had no test because nothing in configure can be made to throw (the settings reads are tolerant). StreamingRuntime now takes an optional PreviewFactory (default: the WindowPreview it always built), and 'a preview that fails to set up says so on reconfigure only' passes one that throws: setup() stays quiet and disabled, reconfigure() reports 'Failed to reconfigure streaming', as _configure_streaming's except clause does."
   },
   "A04-63": {
    "status": "fixed",
@@ -784,7 +784,7 @@
   },
   "A04-68": {
    "status": "dropped",
-   "reason": "faster-whisper's CUDA fallback and its 'Use this GPU' offer belong to the Whisper engine; FioriVoce's GPU choice is the NeMo GPU runtime, offered by the missing-runtime prompt (A04-69)."
+   "reason": "faster-whisper's CUDA fallback and its 'Use this GPU' offer belong to the Whisper engine; OpenWhisper_CPP's GPU choice is the NeMo GPU runtime, offered by the missing-runtime prompt (A04-69)."
   },
   "A04-69": {
    "status": "verified",
@@ -1349,7 +1349,7 @@
     "A04-78"
    ],
    "openwhisper": "Turning on AI insights, at a meeting's start or with the toggle during it, asks once for informed consent and stores meeting_cloud_consent_given; later starts and toggles go ahead without asking, and the toggle reports 'AI insights on' / 'AI insights off' ('AI insights stay off' when declined).",
-   "fiorivoce": "AI insights consent is asked for every meeting and names its destination (the agent route and its backup); none is stored and an earlier answer approves nothing. A declined start runs transcript-only; during a meeting AI insights turn on only with a desktop approval for that meeting's destination. The guest link ('No guest link available yet') is unchanged.",
+   "openwhisper-cpp": "AI insights consent is asked for every meeting and names its destination (the agent route and its backup); none is stored and an earlier answer approves nothing. A declined start runs transcript-only; during a meeting AI insights turn on only with a desktop approval for that meeting's destination. The guest link ('No guest link available yet') is unchanged.",
    "reason": "Sending a meeting's transcript to a hosted model or an installed agent is authorized per meeting and per destination, never by a stored grant.",
    "source": "docs/port/open-items.md, the 'SSD integration branch' section (per-meeting external destinations); tests/meeting/test_runtime_consent.cpp ('every start with AI insights asks again and carries only its own approval', 'test_toggle_cloud_without_consent_reprompts')"
   },
@@ -1361,7 +1361,7 @@
     "MM-15"
    ],
    "openwhisper": "The post-meeting card offers a speaker re-run when the saved speaker backend is openai and audio-upload consent is stored (naming what blocks it otherwise), and retrying the speaker_id step uploads the meeting audio to OpenAI; the other retry gates (backup, local model first, one claim per generation, agent writes for the run, busy refusal) apply.",
-   "fiorivoce": "The retry gates are kept (tests/meeting/test_runtime_retry.cpp), but the card never offers a speaker re-run from saved settings and a retried speaker_id step uploads nothing; the optional OpenAI speaker pass runs only from the explicit Past Meetings action, approved for that one meeting each time, and sends only the system-audio recording.",
+   "openwhisper-cpp": "The retry gates are kept (tests/meeting/test_runtime_retry.cpp), but the card never offers a speaker re-run from saved settings and a retried speaker_id step uploads nothing; the optional OpenAI speaker pass runs only from the explicit Past Meetings action, approved for that one meeting each time, and sends only the system-audio recording.",
    "reason": "Saved settings, stored consent, End and retries must not start an upload of meeting audio; each upload needs the user's fresh, explicit action.",
    "source": "docs/port/open-items.md, the 'SSD integration branch' section and 'The optional OpenAI speaker pass runs from the desktop Past Meetings action'; tests/meeting/test_cloud_speakers.cpp ('each saved speaker pass asks again and sends only system audio after approval'), tests/meeting/test_runtime_consent.cpp ('the card never offers a speaker re-run from saved settings'), tests/meeting/test_runtime_retry.cpp ('test_desktop_speaker_retry_never_uploads_when_ineligible')"
   },
@@ -1371,7 +1371,7 @@
     "A04-10"
    ],
    "openwhisper": "A stop whose job claim is refused (a backup, a host update or another job holds the slot) publishes recording_canceled, reports the busy notice and returns with the live preview still streaming over the stopped recording. Nothing stops it later, so the next recording's start_streaming refuses ('Streaming worker is still active') while start_streaming_session still shows the preview overlay, which then follows the old worker and its text.",
-   "fiorivoce": "The refused stop also stops the window preview (StreamingRuntime::stop_session), so the next recording starts a preview of its own and its overlay shows only its own text. The busy notice, the recording_canceled event and the empty overlay state are unchanged.",
+   "openwhisper-cpp": "The refused stop also stops the window preview (StreamingRuntime::stop_session), so the next recording starts a preview of its own and its overlay shows only its own text. The busy notice, the recording_canceled event and the empty overlay state are unchanged.",
    "reason": "OpenWhisper's behaviour is a fault: no worker owns the refused recording, so its preview is never stopped and the next recording's preview is lost or shows the old text. No user relies on it.",
    "source": "The lead's decision of 2026-11-19 on the A04-10 audit note; src/dictation/transcription_runtime.cpp stop_recording (the commented stop_session on a refused claim); tests/dictation/test_streaming_quit.cpp ('a stop refused as busy stops the preview for the next recording') and tests/dictation/test_streaming_runtime.cpp ('a stop that claims no job leaves the next recording its preview')"
   },
@@ -1382,7 +1382,7 @@
     "A04-63"
    ],
    "openwhisper": "When a recording's live-preview start is refused because the previous recording's window is still decoding, an empty final transcript falls back to the preview text the previous recording kept and shows it with 'No speech detected — showing the live preview (not saved)'.",
-   "fiorivoce": "A recording whose preview never started has no preview to fall back on and gets the empty-transcript message; the previous recording keeps its own fallback.",
+   "openwhisper-cpp": "A recording whose preview never started has no preview to fall back on and gets the empty-transcript message; the previous recording keeps its own fallback.",
    "reason": "The kept text belongs to another recording.",
    "source": "The dictation sweep of 2026-11-19 (open item dictation/streaming_runtime.cpp); src/dictation/streaming_runtime.cpp; tests/dictation/test_sweep_refused_preview.cpp ('a recording whose preview start was refused has no preview to fall back on', 'a refused recording stopped as busy leaves the previous recording its fallback')"
   }

@@ -385,6 +385,6 @@ PINS = {
     "context_folder_path": "resolve_meeting_context_folder_path's second argument pins "
                            "USERPROFILE, HOMEDRIVE, HOMEPATH and USERNAME (null: unset); the "
                            "working directory reads <cwd>",
-    "voice_command_names": "OpenWhisper's defaults name OpenWhisper; FioriVoce's name "
+    "voice_command_names": "OpenWhisper's defaults name OpenWhisper; OpenWhisper_CPP's name "
                            "identity() (the replay passes legacy_identity())",
 }

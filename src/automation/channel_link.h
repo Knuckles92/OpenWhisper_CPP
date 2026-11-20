@@ -18,7 +18,7 @@
 #include "base/json.h"
 #include "http/client.h"
 
-// How the Claude Code channel (fiorivoce-cli --channel) reaches the running app
+// How the Claude Code channel (openwhisper-cpp-cli --channel) reaches the running app
 // (services/automation/channel_bridge.py: AppLink and EventStream): it follows the live API's
 // event stream (GET /v1/events?types=channel.message on the in-app MCP listener) and shows
 // Claude's replies with POST /v1/notify. Logs never carry dictated text, replies or the token.

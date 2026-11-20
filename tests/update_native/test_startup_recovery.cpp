@@ -1,8 +1,8 @@
 // What a normal start does with the transactions it finds (startup_recovery.h): collect the
 // finished ones, abandon a preparation whose application is gone, and leave everything it cannot
 // account for. From OpenWhisper's TestAbandonedTransactions (tests/test_app_update_apply.py) and
-// tests/test_update_resilience.py. FioriVoce collects only files it can authenticate and never
-// by age (docs/port/differences.md, a16-cleanup).
+// tests/test_update_resilience.py. OpenWhisper_CPP collects only files it can authenticate and
+// never by age (docs/port/differences.md, a16-cleanup).
 
 #include <catch2/catch_test_macros.hpp>
 
@@ -81,7 +81,7 @@ TEST_CASE("a finished transaction is collected by the next start", "[update_nati
     CHECK_FALSE(fs::exists(paths.transaction_dir));
     CHECK_FALSE(fs::exists(paths.candidate_dir));
     CHECK_FALSE(fs::exists(paths.rollback_dir));
-    CHECK(read_text(f.install / "fiorivoce.exe") == active);
+    CHECK(read_text(f.install / "openwhisper-cpp.exe") == active);
     CHECK(fs::is_regular_file(f.install / "unins000.exe"));
     // Every gate it took for the cleanup is given back before the application goes on.
     CHECK(mutex.owned().empty());
@@ -92,7 +92,7 @@ TEST_CASE("a finished transaction is collected by the next start", "[update_nati
 TEST_CASE("a transaction recovery may still need is kept", "[update_native]") {
     PrepareFixture f;
     FakeMutexApi mutex;
-    f.context.parent_exe = f.install / "fiorivoce.exe";
+    f.context.parent_exe = f.install / "openwhisper-cpp.exe";
     // Prepared by a process that is still there. Its image is not this installation's, so its
     // identity cannot be matched, and an unidentified process is never taken for a dead one.
     const auto handoff =
@@ -124,7 +124,7 @@ TEST_CASE("a transaction recovery may still need is kept", "[update_native]") {
     CHECK(u::recover_before_start(f.context, mutex, 1, 2, launch,
                                   [](const u::UpdateJournal&) { return true; }) == dispatched);
     CHECK(u::load_journal(f.context, id).state == state);
-    CHECK(fs::is_regular_file(paths.transaction_dir / "fiorivoce-updater.exe"));
+    CHECK(fs::is_regular_file(paths.transaction_dir / "openwhisper-cpp-updater.exe"));
     CHECK(fs::is_directory(dispatched && state == u::TransactionState::NewActive
                                ? paths.rollback_dir
                                : paths.candidate_dir));
@@ -132,7 +132,7 @@ TEST_CASE("a transaction recovery may still need is kept", "[update_native]") {
 
 // from
 // tests/test_app_update_apply.py::TestAbandonedTransactions::test_an_unreadable_journal_is_left_for_recovery
-// and, for FioriVoce's rule,
+// and, for OpenWhisper_CPP's rule,
 // TestAbandonedTransactions::test_a_transaction_without_a_journal_is_collected
 TEST_CASE("a transaction folder that cannot be read or has no journal is left alone",
           "[update_native]") {
@@ -144,14 +144,14 @@ TEST_CASE("a transaction folder that cannot be read or has no journal is left al
     fs::create_directories(odd);
     fs::create_directories(bare);
     fv::write_file_atomic(odd / "journal.json", "{not json");
-    fv::write_file_atomic(bare / "fiorivoce-updater.exe", "helper");
+    fv::write_file_atomic(bare / "openwhisper-cpp-updater.exe", "helper");
     // Age proves nothing about whose files these are: an old one stays too.
     const auto long_ago = fs::file_time_type::clock::now() - std::chrono::hours(24 * 365);
-    fs::last_write_time(bare / "fiorivoce-updater.exe", long_ago);
+    fs::last_write_time(bare / "openwhisper-cpp-updater.exe", long_ago);
     fs::last_write_time(bare, long_ago);
     CHECK_FALSE(start(f, mutex));
     CHECK(read_text(odd / "journal.json") == "{not json");
-    CHECK(read_text(bare / "fiorivoce-updater.exe") == "helper");
+    CHECK(read_text(bare / "openwhisper-cpp-updater.exe") == "helper");
     CHECK(mutex.owned().empty());
 }
 
@@ -186,10 +186,10 @@ TEST_CASE("a cleanup that cannot finish keeps its journal and is retried", "[upd
     CHECK_FALSE(start(f, mutex));
     CHECK_FALSE(fs::exists(paths.rollback_dir));
     CHECK_FALSE(fs::exists(paths.transaction_dir));
-    CHECK(read_text(f.install / "fiorivoce.exe") == "new app");
+    CHECK(read_text(f.install / "openwhisper-cpp.exe") == "new app");
 }
 
-// FioriVoce's counterpart of
+// OpenWhisper_CPP's counterpart of
 // tests/test_app_update_apply.py::TestLockedFiles::test_cleanup_waits_out_the_updater_that_asked_for_it:
 // there is no cleanup copy of the updater; the next start collects the transaction once the
 // updater has let go of its gates.
@@ -210,7 +210,7 @@ TEST_CASE("a finished transaction waits for the updater that still holds the upd
         return true;
     }));
     CHECK_FALSE(asked);
-    CHECK(fs::is_regular_file(paths.transaction_dir / "fiorivoce-updater.exe"));
+    CHECK(fs::is_regular_file(paths.transaction_dir / "openwhisper-cpp-updater.exe"));
     CHECK(fs::is_directory(paths.candidate_dir));
     mutex.held_elsewhere.erase(gate);
     CHECK_FALSE(start(f, mutex));
@@ -222,7 +222,7 @@ TEST_CASE("a finished transaction waits for the updater that still holds the upd
 TEST_CASE("a preparation whose application died is abandoned and collected", "[update_native]") {
     PrepareFixture f;
     FakeMutexApi mutex;
-    f.context.parent_exe = f.install / "fiorivoce.exe";
+    f.context.parent_exe = f.install / "openwhisper-cpp.exe";
     const auto id =
         u::prepare_update(f.context, f.archive, f.digest, "0.1.0", "0.1.1", kDeadPid, 12345)
             .transaction_id;
@@ -237,7 +237,7 @@ TEST_CASE("a preparation whose application died is abandoned and collected", "[u
     CHECK_FALSE(start(f, mutex));
     CHECK(u::load_journal(f.context, id).state == u::TransactionState::Superseded);
     CHECK_FALSE(fs::exists(paths.candidate_dir));
-    CHECK(read_text(f.install / "fiorivoce.exe") == "old app");
+    CHECK(read_text(f.install / "openwhisper-cpp.exe") == "old app");
     // The retired transaction itself goes with the start after.
     CHECK_FALSE(start(f, mutex));
     CHECK_FALSE(fs::exists(paths.transaction_dir));

@@ -12,6 +12,6 @@ TEST_CASE("agent cleanup closes its instructions with OpenWhisper's sentence", "
     const std::string_view closing = fv::agents::kCleanupClosing;
     REQUIRE(closing.starts_with("\n\n"));
     CHECK(closing.substr(2, python.size()) == python);
-    // FioriVoce's cleanup path sends no tool contract, so the tool-free statement follows.
+    // OpenWhisper_CPP's cleanup path sends no tool contract, so the tool-free statement follows.
     CHECK(closing.substr(2 + python.size()) == " No tools are available.");
 }

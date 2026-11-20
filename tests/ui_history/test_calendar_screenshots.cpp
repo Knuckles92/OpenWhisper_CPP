@@ -55,8 +55,8 @@ HistoryEntry entry(const char* id, const char* timestamp, const char* text, cons
 // and March.
 std::vector<hc::CalendarItem> calendarItems() {
     HistoryEntry dictation = entry("entry-dictation", "2026-03-15T15:00:00",
-                                   "Hello from FioriVoce.", "Quick Record", "dictation", 4.6);
-    dictation.raw_text = "hello from fiorivoce";
+                                   "Hello from OpenWhisper_CPP.", "Quick Record", "dictation", 4.6);
+    dictation.raw_text = "hello from openwhisper-cpp";
     dictation.audio_file = "recording_20260315_150000.wav";
     dictation.transcription_time = 0.42;
     dictation.file_size = 403200;

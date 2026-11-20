@@ -21,8 +21,8 @@ from unittest import mock
 from PyQt6 import sip
 
 DEVICE_INFO = "Parakeet TDT 0.6B v3 | CPU"
-TRANSCRIPT = "Hello from FioriVoce."
-RAW_TRANSCRIPT = "hello from fiorivoce"
+TRANSCRIPT = "Hello from OpenWhisper_CPP."
+RAW_TRANSCRIPT = "hello from openwhisper-cpp"
 
 
 def _settings():
@@ -384,7 +384,7 @@ def _scratchpad():
     pad = ScratchpadWindow()
     # The port names the marker of the application's own windows after the product.
     pad.setProperty("openwhisperHotkeyWindow", None)
-    pad.setProperty("fiorivoceHotkeyWindow", True)
+    pad.setProperty("openwhisperCppHotkeyWindow", True)
     pad.editor.setPlainText(SCRATCHPAD_TEXT)
     # The autosave and geometry timers would write into the isolated data root while the
     # render waits; the reference is the window as it stands.

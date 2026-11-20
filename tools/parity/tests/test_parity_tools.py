@@ -126,11 +126,11 @@ class Isolation(unittest.TestCase):
         (real / "OpenWhisper").mkdir()
         (moved / "OpenWhisper").mkdir()
         self.enterContext(mock.patch.dict(os.environ))
-        os.environ.pop("FIORIVOCE_OW_ROOT", None)
+        os.environ.pop("OPENWHISPER_CPP_OW_ROOT", None)
         os.environ["LOCALAPPDATA"] = str(moved)
-        os.environ["FIORIVOCE_REAL_LOCALAPPDATA"] = str(real)
+        os.environ["OPENWHISPER_CPP_REAL_LOCALAPPDATA"] = str(real)
         self.assertEqual(check_isolation.watched_roots(None), [real / "OpenWhisper"])
-        del os.environ["FIORIVOCE_REAL_LOCALAPPDATA"]
+        del os.environ["OPENWHISPER_CPP_REAL_LOCALAPPDATA"]
         self.assertEqual(check_isolation.watched_roots(None), [moved / "OpenWhisper"])
 
     def test_lists_only_entries_newer_than_the_start(self):

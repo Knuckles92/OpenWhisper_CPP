@@ -156,7 +156,7 @@ Json extract_archive(const fs::path& archive, const fs::path& destination,
         throw UpdateError("The update candidate directory already exists.");
     }
     // Only this operation knows this staging name, and only a fully verified tree is published.
-    const auto work = parent / (".fiorivoce-candidate-" + uuid4_hex());
+    const auto work = parent / (".openwhisper-cpp-candidate-" + uuid4_hex());
     if (!fs::create_directory(work)) {
         throw UpdateError("Could not create the update candidate directory.");
     }
@@ -195,7 +195,7 @@ void pack_archive(const fs::path& tree, std::string_view version, const fs::path
     }
     const auto manifest = build_manifest(tree, version);
     const auto bytes = manifest.dump(2) + "\n";
-    const auto temporary = parent / (".fiorivoce-pack-" + uuid4_hex());
+    const auto temporary = parent / (".openwhisper-cpp-pack-" + uuid4_hex());
     if (!fs::create_directory(temporary)) {
         throw UpdateError("Could not create a staging directory for the archive.");
     }

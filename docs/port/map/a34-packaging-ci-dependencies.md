@@ -128,8 +128,8 @@ Evidence column names the files that import the package (confirmed by `grep` of 
 
 | Artifact | Source | C++ answer | Status |
 |---|---|---|---|
-| NeMo-Speech.cpp v0.1.0 release archives (Windows CPU 4.7 MB zip, Windows CUDA 106 MB zip; Linux CPU, CUDA, Vulkan tar.gz; macOS CPU, Metal, Intel CPU) | `github.com/NVIDIA/NeMo-Speech.cpp/releases`, pinned by URL + SHA-256 in `services/local_asr/nvidia_*_runtime.json` | Same archives; FioriVoce already loads the C ABI at run time by path (`NemoApi::get`). | port |
-| `python-3.12.10-embed-amd64.zip` (11 MB download) shipped inside every Windows NeMo runtime component | python.org | Not needed: the Python worker is gone, so FioriVoce's runtime component is the NeMo archive alone. | drop |
+| NeMo-Speech.cpp v0.1.0 release archives (Windows CPU 4.7 MB zip, Windows CUDA 106 MB zip; Linux CPU, CUDA, Vulkan tar.gz; macOS CPU, Metal, Intel CPU) | `github.com/NVIDIA/NeMo-Speech.cpp/releases`, pinned by URL + SHA-256 in `services/local_asr/nvidia_*_runtime.json` | Same archives; OpenWhisper_CPP already loads the C ABI at run time by path (`NemoApi::get`). | port |
+| `python-3.12.10-embed-amd64.zip` (11 MB download) shipped inside every Windows NeMo runtime component | python.org | Not needed: the Python worker is gone, so OpenWhisper_CPP's runtime component is the NeMo archive alone. | drop |
 | Parakeet GGUF weights (`parakeet-tdt-0.6b-v3.q8_0.gguf`, commit-pinned Hugging Face URLs) | `models.json` | Same files, same pinning. | port |
 | Nemotron 3.5 streaming GGUF | `models.json` | Same runtime. | undecided |
 | Parakeet Unified EN, Orukeet, Qwen3-ASR, Moonshine, MLX runtimes and weights | `models.json`, `*_runtime.json` | None. | drop |
@@ -228,7 +228,7 @@ Licensing: `THIRD_PARTY_NOTICES.md` tells users that the OpenWhisper MIT license
 ### Release side
 
 - Assets per release: `OpenWhisper-Setup-<ver>.exe`, `OpenWhisper-<ver>-win64.tar.xz`, `OpenWhisper-<ver>-linux-amd64.deb`, `OpenWhisper-<ver>-linux-x86_64.pkg.tar.zst`, `OpenWhisper-<ver>-macos-arm64.dmg`, `SHA256SUMS.txt`, `BUILD-METADATA.json`. Tags are `vMAJOR.MINOR.PATCH`; the tag must equal `_version.py`.
-- Version is `major.minor.patch` only (`parse_strict_version`); suffixed tags are never offered or applied. Setup-only "bridge" releases (version <= `MINIMUM_UPDATER_VERSION` 2.5.2) omit the archive because old helpers cannot run the new protocol. This legacy exists only because OpenWhisper has an installed base; FioriVoce does not need it.
+- Version is `major.minor.patch` only (`parse_strict_version`); suffixed tags are never offered or applied. Setup-only "bridge" releases (version <= `MINIMUM_UPDATER_VERSION` 2.5.2) omit the archive because old helpers cannot run the new protocol. This legacy exists only because OpenWhisper has an installed base; OpenWhisper_CPP does not need it.
 
 ### Archive format (`pack_update_archive.py`, `app_update_apply.pack_tar_xz`, `build_update_manifest`)
 
@@ -293,18 +293,18 @@ Runs on source and on the frozen executable (and, on macOS, on the app copied ou
 
 Optional manual hardware checks (cold start, stop-to-result p95, cancel during decode and download, one-hour recording, mic removal, disk full, forced termination, GPU) are guidance, not release gates.
 
-## 6. Proposal for FioriVoce
+## 6. Proposal for OpenWhisper_CPP
 
-Constraints: FioriVoce has no installed base, so none of OpenWhisper's bridge-release, legacy-layout or Python-worker logic is needed. It must not reuse OpenWhisper's Inno `AppId`, mutex names, bundle id or `%LOCALAPPDATA%\OpenWhisper` folder (open question: branding and publisher name). The NeMo runtime is loaded by path and never linked.
+Constraints: OpenWhisper_CPP has no installed base, so none of OpenWhisper's bridge-release, legacy-layout or Python-worker logic is needed. It must not reuse OpenWhisper's Inno `AppId`, mutex names, bundle id or `%LOCALAPPDATA%\OpenWhisper` folder (open question: branding and publisher name). The NeMo runtime is loaded by path and never linked.
 
 ### 6.1 Layout
 
-Windows (`{app}` is `%LOCALAPPDATA%\Programs\FioriVoce`):
+Windows (`{app}` is `%LOCALAPPDATA%\Programs\OpenWhisper_CPP`):
 
 ```
-fiorivoce.exe               GUI, Qt + vcpkg DLLs beside it (loader requirement)
-fiorivoce-cli.exe           console companion (already built): --version, --self-test, --diagnostics
-fiorivoce-updater.exe       phase 2
+openwhisper-cpp.exe               GUI, Qt + vcpkg DLLs beside it (loader requirement)
+openwhisper-cpp-cli.exe           console companion (already built): --version, --self-test, --diagnostics
+openwhisper-cpp-updater.exe       phase 2
 Qt6*.dll, plugins\{platforms,styles,imageformats,iconengines,tls,networkinformation}
 avcodec-*.dll, avformat-*.dll, swresample-*.dll, sqlite3.dll, onnxruntime.dll, libssl/libcrypto, ...  (miniaudio is header-only)
 vcruntime140*.dll, msvcp140*.dll   app-local CRT (no redistributable prompt)
@@ -313,9 +313,9 @@ share\licenses\, THIRD_PARTY_NOTICES.md
 runtime\cpu\                optional: NeMo CPU runtime (see 6.5)
 ```
 
-QSS, fonts and Tabler SVGs go into a Qt resource file (`qt_add_resources`), not loose files, so there is no `bundle_root()` equivalent. A GUI-subsystem exe prints nothing to a console (OpenWhisper's windowed build has the same limit), so CI uses `fiorivoce-cli --self-test` (or the GUI calls `AttachConsole(ATTACH_PARENT_PROCESS)` for `--version`).
+QSS, fonts and Tabler SVGs go into a Qt resource file (`qt_add_resources`), not loose files, so there is no `bundle_root()` equivalent. A GUI-subsystem exe prints nothing to a console (OpenWhisper's windowed build has the same limit), so CI uses `openwhisper-cpp-cli --self-test` (or the GUI calls `AttachConsole(ATTACH_PARENT_PROCESS)` for `--version`).
 
-Linux: `/usr/lib/fiorivoce/{bin,lib,plugins}` with `RPATH=$ORIGIN/../lib`, launcher `/usr/bin/fiorivoce` (same `gdbus ... Trigger show` raise-existing trick if the Control interface is kept), `.desktop`, hicolor icon, docs, licenses. macOS: `FioriVoce.app` produced by `MACOSX_BUNDLE`, Qt via `macdeployqt` or the CMake deploy script.
+Linux: `/usr/lib/openwhisper-cpp/{bin,lib,plugins}` with `RPATH=$ORIGIN/../lib`, launcher `/usr/bin/openwhisper-cpp` (same `gdbus ... Trigger show` raise-existing trick if the Control interface is kept), `.desktop`, hicolor icon, docs, licenses. macOS: `OpenWhisper_CPP.app` produced by `MACOSX_BUNDLE`, Qt via `macdeployqt` or the CMake deploy script.
 
 ### 6.2 CMake install rules
 
@@ -327,7 +327,7 @@ set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP OFF)
 set(CMAKE_INSTALL_UCRT_LIBRARIES ON)          # app-local CRT on Windows
 include(InstallRequiredSystemLibraries)
 
-install(TARGETS fiorivoce fiorivoce-cli
+install(TARGETS openwhisper-cpp openwhisper-cpp-cli
         RUNTIME_DEPENDENCY_SET fv_runtime_deps
         BUNDLE DESTINATION . RUNTIME DESTINATION ${FV_BIN_DIR})
 install(RUNTIME_DEPENDENCY_SET fv_runtime_deps
@@ -335,40 +335,40 @@ install(RUNTIME_DEPENDENCY_SET fv_runtime_deps
         POST_EXCLUDE_REGEXES ".*[/\\\\]system32[/\\\\].*" "^/(lib|usr/lib)/.*"
         DIRECTORIES $<TARGET_FILE_DIR:Qt6::Core>)     # vcpkg DLLs resolved via vcpkg's bin dir
 
-qt_generate_deploy_app_script(TARGET fiorivoce OUTPUT_SCRIPT fv_deploy_script
+qt_generate_deploy_app_script(TARGET openwhisper-cpp OUTPUT_SCRIPT fv_deploy_script
         NO_TRANSLATIONS NO_UNSUPPORTED_PLATFORM_ERROR)
 install(SCRIPT ${fv_deploy_script})            # windeployqt / macdeployqt / Linux plugin copy
 
-install(DIRECTORY webui/dist/ DESTINATION share/fiorivoce/webui)          # if kept
-install(FILES LICENSE README.md DESTINATION share/doc/fiorivoce)
-install(FILES "${CMAKE_BINARY_DIR}/THIRD_PARTY_NOTICES.md" DESTINATION share/doc/fiorivoce)
-install(DIRECTORY "${CMAKE_BINARY_DIR}/licenses/" DESTINATION share/licenses/fiorivoce)
+install(DIRECTORY webui/dist/ DESTINATION share/openwhisper-cpp/webui)          # if kept
+install(FILES LICENSE README.md DESTINATION share/doc/openwhisper-cpp)
+install(FILES "${CMAKE_BINARY_DIR}/THIRD_PARTY_NOTICES.md" DESTINATION share/doc/openwhisper-cpp)
+install(DIRECTORY "${CMAKE_BINARY_DIR}/licenses/" DESTINATION share/licenses/openwhisper-cpp)
 ```
 
 `licenses/` and `THIRD_PARTY_NOTICES.md` are generated at install time from `vcpkg_installed/<triplet>/share/<port>/copyright` plus a hand-written fragment for Qt, Tabler, the NeMo runtime and model licenses, replacing the manually maintained OpenWhisper table. Use `windeployqt` flags (check `windeployqt --help` for the installed Qt version): `--no-translations`, no compiler-runtime flag (CRT comes from `InstallRequiredSystemLibraries`), and decide about `opengl32sw.dll` (OpenWhisper keeps it as insurance; a Widgets raster app normally never loads it; keep it at first for parity, then drop after a clean-VM test). Smoke-check that ICU (`icuuc.dll`) and the TLS plugin are present, because OpenWhisper had to patch the ICU omission by hand.
 
 Build the release with `cmake --preset windows` + `cmake --build --preset windows-release` (RelWithDebInfo; ship PDBs separately to a symbol store or release asset). Set `VCPKG_APPLOCAL_DEPS=ON` for development builds, and use the install rules above for packaging. A `package` CMake target runs `cmake --install --prefix stage` and then the platform script, so `ctest` and CI call one entry point.
 
-### 6.3 Windows installer: `installer/FioriVoce.iss` (Inno Setup 6)
+### 6.3 Windows installer: `installer/OpenWhisper_CPP.iss` (Inno Setup 6)
 
 Port `OpenWhisper.iss` nearly line for line, with these changes:
 
-- New `AppId` GUID, `AppName=FioriVoce`, new mutex names, new `%LOCALAPPDATA%\FioriVoce` data directory, version from `/DAppVersion` passed by the build script (read from CMake `project(VERSION)`, single source of truth).
+- New `AppId` GUID, `AppName=OpenWhisper_CPP`, new mutex names, new `%LOCALAPPDATA%\OpenWhisper_CPP` data directory, version from `/DAppVersion` passed by the build script (read from CMake `project(VERSION)`, single source of truth).
 - Keep per-user install, `PrivilegesRequiredOverridesAllowed=dialog`, `CloseApplications=force`, `AppMutex`, `taskkill`, `SetupMutex`, skipped pages on upgrade, desktop and sign-in tasks, post-install launch, the uninstall-time "also delete your data?" prompt (default No when silent), and `Compression=lzma2/max` + `SolidCompression=yes` (payload is much smaller without Python: expect tens of MB, so `lzma2/ultra64` and multiple block threads become viable).
-- Phase 1 stale-file strategy without a helper: `[InstallDelete]` entries for each managed name (`{app}\*.dll`, `{app}\fiorivoce*.exe`, `{app}\plugins`, `{app}\platforms`, `{app}\imageformats`, `{app}\iconengines`, `{app}\styles`, `{app}\tls`, `{app}\share`, `{app}\runtime`), never `{app}\unins*`. User data lives outside `{app}`, so this is safe. Test with an equivalent of `smoke_windows_setup.ps1`. (Phase 2 replaces this with the helper protocol and manifest verification.)
-- Drop the `dontcopy` helper embedding and the `prepare`/`finish`/`rollback` Code section in phase 1; reinstate it when `fiorivoce-updater.exe` exists.
-- Keep `/OPENWHISPERUPDATE=1`-style relaunch (`runasoriginaluser`) renamed to `/FIORIVOCEUPDATE=1`.
-- Signing: keep the `/DSignToolName` + `/S` mechanism (generated by `windows_signing.py inno-args`); sign `fiorivoce.exe`, `fiorivoce-cli.exe`, `fiorivoce-updater.exe`, the uninstaller and the setup exe. Consider signing our own DLLs too (a native app is a more visible SmartScreen and antivirus target than a PyInstaller bootloader; unsigned native binaries get less reputation). Reuse `windows_signing.py` unchanged apart from names (stdlib only, 349 lines), or port it to PowerShell to remove Python from CI; the Azure Trusted Signing action is a simpler alternative to the NuGet dlib dance. Test the first signed build by hand, as OpenWhisper's doc admits it never ran.
-- Output: `FioriVoce-Setup-<ver>.exe`, `FioriVoce-<ver>-win64.zip` or `.tar.xz` (update archive, phase 2).
+- Phase 1 stale-file strategy without a helper: `[InstallDelete]` entries for each managed name (`{app}\*.dll`, `{app}\openwhisper-cpp*.exe`, `{app}\plugins`, `{app}\platforms`, `{app}\imageformats`, `{app}\iconengines`, `{app}\styles`, `{app}\tls`, `{app}\share`, `{app}\runtime`), never `{app}\unins*`. User data lives outside `{app}`, so this is safe. Test with an equivalent of `smoke_windows_setup.ps1`. (Phase 2 replaces this with the helper protocol and manifest verification.)
+- Drop the `dontcopy` helper embedding and the `prepare`/`finish`/`rollback` Code section in phase 1; reinstate it when `openwhisper-cpp-updater.exe` exists.
+- Keep `/OPENWHISPERUPDATE=1`-style relaunch (`runasoriginaluser`) renamed to `/OPENWHISPER_CPPUPDATE=1`.
+- Signing: keep the `/DSignToolName` + `/S` mechanism (generated by `windows_signing.py inno-args`); sign `openwhisper-cpp.exe`, `openwhisper-cpp-cli.exe`, `openwhisper-cpp-updater.exe`, the uninstaller and the setup exe. Consider signing our own DLLs too (a native app is a more visible SmartScreen and antivirus target than a PyInstaller bootloader; unsigned native binaries get less reputation). Reuse `windows_signing.py` unchanged apart from names (stdlib only, 349 lines), or port it to PowerShell to remove Python from CI; the Azure Trusted Signing action is a simpler alternative to the NuGet dlib dance. Test the first signed build by hand, as OpenWhisper's doc admits it never ran.
+- Output: `OpenWhisper_CPP-Setup-<ver>.exe`, `OpenWhisper_CPP-<ver>-win64.zip` or `.tar.xz` (update archive, phase 2).
 
 ### 6.4 Linux and macOS packaging
 
-- Linux: keep the stage-then-pack pattern from `build_installer.sh` (one staged `/usr` tree, two packers), but drop PyInstaller verification steps and `xvfb` (use `QT_QPA_PLATFORM=offscreen`). With a Qt kit bundled under `/usr/lib/fiorivoce`, `dpkg-shlibdeps` will not see distro Qt, so keep an explicit `Depends` list (Qt's xcb platform plugin needs `libxcb-cursor0`, `libxcb-icccm4`, `libxcb-keysyms1`, `libxcb-shape0`, `libxcb-xkb1`, `libxkbcommon-x11-0`, plus `libportaudio2` becomes unnecessary with miniaudio, `libpulse0` only if linked). CPack's DEB generator can build the deb from the same install rules; keep the lintian gate. Keep the Arch package and the distro container smoke tests. Optional AppImage via `linuxdeploy` + Qt plugin. The package-time glibc computation (`readelf`) still applies and is cheap. The preflight in `install.sh` is unnecessary for packaged builds because Depends are enforced by dpkg/pacman.
+- Linux: keep the stage-then-pack pattern from `build_installer.sh` (one staged `/usr` tree, two packers), but drop PyInstaller verification steps and `xvfb` (use `QT_QPA_PLATFORM=offscreen`). With a Qt kit bundled under `/usr/lib/openwhisper-cpp`, `dpkg-shlibdeps` will not see distro Qt, so keep an explicit `Depends` list (Qt's xcb platform plugin needs `libxcb-cursor0`, `libxcb-icccm4`, `libxcb-keysyms1`, `libxcb-shape0`, `libxcb-xkb1`, `libxkbcommon-x11-0`, plus `libportaudio2` becomes unnecessary with miniaudio, `libpulse0` only if linked). CPack's DEB generator can build the deb from the same install rules; keep the lintian gate. Keep the Arch package and the distro container smoke tests. Optional AppImage via `linuxdeploy` + Qt plugin. The package-time glibc computation (`readelf`) still applies and is cheap. The preflight in `install.sh` is unnecessary for packaged builds because Depends are enforced by dpkg/pacman.
 - macOS: `MACOSX_BUNDLE` with an `Info.plist.in` carrying bundle id, `LSMinimumSystemVersion` 14.0 and the two usage strings; `qt_generate_deploy_app_script` or `macdeployqt` (without `-dmg`); keep `build_installer_macos.sh` almost verbatim (Info.plist checks, Mach-O audits, ad-hoc or Developer ID signing, notarization, DMG, mount-and-test). Entitlements shrink to `device.audio-input` and `cs.disable-library-validation` (the downloaded NeMo `.dylib` is signed by NVIDIA, not by us); `allow-jit` and `allow-unsigned-executable-memory` existed for Numba and ctypes and should not be carried over unless a library demands them. Apple Silicon arm64 first; Intel is an option because NeMo ships an Intel CPU runtime.
 
 ### 6.5 Components
 
-- NeMo runtime: keep the catalog model (JSON, `version`, `component_api`, `platform`, `install_bytes`, archives with URL, SHA-256, size, `extract`, optional `root`), the verified resumable downloader, staging + two-rename swap, `.installed` sentinel last, per-component validation (`bin/nemo_speech_asr_c.dll`, `nemo-speech/lib/libnemo_speech_asr_c.{so,dylib}`, Metal extra dylib), path-safe extraction (zip-slip, link and permission filter), 15 s Windows scanner retry. Port these to a small C++ module (area a14) that FioriVoce's `NemoApi::get` loads from `components/<id>/`. Drop the embedded Python zip: the Windows component is just the NeMo archive.
+- NeMo runtime: keep the catalog model (JSON, `version`, `component_api`, `platform`, `install_bytes`, archives with URL, SHA-256, size, `extract`, optional `root`), the verified resumable downloader, staging + two-rename swap, `.installed` sentinel last, per-component validation (`bin/nemo_speech_asr_c.dll`, `nemo-speech/lib/libnemo_speech_asr_c.{so,dylib}`, Metal extra dylib), path-safe extraction (zip-slip, link and permission filter), 15 s Windows scanner retry. Port these to a small C++ module (area a14) that OpenWhisper_CPP's `NemoApi::get` loads from `components/<id>/`. Drop the embedded Python zip: the Windows component is just the NeMo archive.
 - **Decision for the owner:** ship the NeMo CPU runtime inside the installer (Windows CPU zip is 4.7 MB; Linux CPU 4.6 MB; macOS CPU 3.3 MB) so dictation works the moment a model is downloaded, and keep CUDA/Vulkan/Metal as optional downloads. The `gpu-accel` component, `build_component.py gpu-accel` and all Python wheel pinning scripts are not needed.
 - Pin tooling: a small Python or CMake-script tool (`tools/pin-component`) that downloads an archive, computes SHA-256 and sizes, measures extracted bytes and emits the JSON entry (the `nvidia_*_runtime.json` files are currently hand-edited), plus a CI job that re-downloads every pinned URL and checks the digest weekly (OpenWhisper relies on the pins staying valid).
 - Meeting agent runtimes (Node/Bun) stay undecided; if kept, port the Node SHASUMS verification and the deterministic OpenCode zip builder as CI scripts unchanged (they only need Python and the network, not the app).
@@ -376,20 +376,20 @@ Port `OpenWhisper.iss` nearly line for line, with these changes:
 
 ### 6.6 Update flow (phased)
 
-- Phase 1 (release one): in-app check against GitHub Releases (same API, same API-free fallback, same host allow-list, same digest rules, beta track via prerelease), download the verified setup exe, run it silently with `/FIORIVOCEUPDATE=1`, quit. Linux and macOS notify only (macOS in-place swap is a later item, area a16). This needs no helper and about 700 lines of C++ in the app (a16).
-- Phase 2: port the native swap: `fiorivoce-updater.exe` (no Qt, Win32 + `std::filesystem`, `nlohmann-json`, `libarchive`+`liblzma` for `tar.xz`, CNG SHA-256), the transaction journal, mutexes, `RunOnce` recovery, health token, data snapshot (SQLite online backup of settings and DB), rollback; plus `fv-pack-update` (builds the manifest and archive from the install tree, then self-verifies). Share the manifest and journal code between the updater, the packer and the app in one static library `fv_update` so there is one definition of the topology and manifest schema. Replace the Inno stale-file `[InstallDelete]` with the helper's `prepare/finish/rollback` only if native updates prove worth their weight (it is about 3,500 lines in Python).
+- Phase 1 (release one): in-app check against GitHub Releases (same API, same API-free fallback, same host allow-list, same digest rules, beta track via prerelease), download the verified setup exe, run it silently with `/OPENWHISPER_CPPUPDATE=1`, quit. Linux and macOS notify only (macOS in-place swap is a later item, area a16). This needs no helper and about 700 lines of C++ in the app (a16).
+- Phase 2: port the native swap: `openwhisper-cpp-updater.exe` (no Qt, Win32 + `std::filesystem`, `nlohmann-json`, `libarchive`+`liblzma` for `tar.xz`, CNG SHA-256), the transaction journal, mutexes, `RunOnce` recovery, health token, data snapshot (SQLite online backup of settings and DB), rollback; plus `fv-pack-update` (builds the manifest and archive from the install tree, then self-verifies). Share the manifest and journal code between the updater, the packer and the app in one static library `fv_update` so there is one definition of the topology and manifest schema. Replace the Inno stale-file `[InstallDelete]` with the helper's `prepare/finish/rollback` only if native updates prove worth their weight (it is about 3,500 lines in Python).
 - Keep a rule that new archive formats use new `topology_revision` and `minimum_updater_version` so older helpers refuse rather than corrupt.
 
-### 6.7 CI for FioriVoce
+### 6.7 CI for OpenWhisper_CPP
 
 Workflows (GitHub Actions, pinned by SHA, `contents: read`, concurrency groups):
 
 1. `ci.yml` (PR, push, `workflow_call`): matrix `windows-2022` (MSVC, `cmake --workflow --preset windows-release`), `ubuntu-22.04` (`linux-release`), `macos-15`, plus `linux-asan` (Clang ASan+UBSan). Qt via a pinned install (`jurplel/install-qt-action` or `aqtinstall`) with `Qt6_ROOT`; vcpkg with `VCPKG_BINARY_SOURCES=clear;files,<cache>,readwrite` and `actions/cache` keyed on `vcpkg.json` + the baseline (vcpkg's `x-gha` source depends on GitHub's legacy cache service, which GitHub has been retiring; prefer the `files` source and verify before relying on `x-gha`). Steps: configure and build, `ctest` (engine tests, app tests under offscreen), `clang-format --dry-run -Werror`, `clang-tidy` on changed files, a separate job for the Qt-less engine build (compiler only) to enforce "Qt out of `src/engine`".
-2. Decode tests: nightly and on `src/engine` changes, set `FIORIVOCE_TEST_RUNTIME_DIR`, `FIORIVOCE_TEST_MODEL`, `FIORIVOCE_TEST_WAV`; cache the NeMo CPU runtime and the Q8 model keyed on their pinned SHA-256 (a few hundred MB).
+2. Decode tests: nightly and on `src/engine` changes, set `OPENWHISPER_CPP_TEST_RUNTIME_DIR`, `OPENWHISPER_CPP_TEST_MODEL`, `OPENWHISPER_CPP_TEST_WAV`; cache the NeMo CPU runtime and the Q8 model keyed on their pinned SHA-256 (a few hundred MB).
 3. `release-build.yml` (manual `release_tag`): `source` resolves one commit, `qualification` calls `ci.yml`, then `windows`, `linux`, `macos` build the installers (the same steps as section 5, minus Python), `bundle` writes `BUILD-METADATA.json` (restart at schema 1) and `SHA256SUMS.txt`. Windows job: install Inno Setup (pin 6.4.x), configure signing from secrets, `scripts/build-installer.ps1`, signature verification, smoke test upgrade-from-previous-release and uninstall on the runner. Linux job: deb + Arch, container smoke tests on Ubuntu 22.04, Debian 12 and Arch. macOS job: DMG, mount-and-run checks, optional notarization.
 4. `qualify-release.yml`: port as is (the Python script is generic; rename artifact patterns).
 5. Weekly: re-verify component URLs and digests, run Dependabot or Renovate for GitHub Actions and the vcpkg baseline, vcpkg license collection, SBOM export (`vcpkg` SPDX).
-6. Self-test and health gate: implement `fiorivoce-cli --self-test` (loads Qt offscreen, finds required resources and plugins, opens SQLite, resolves the runtime path, optionally decodes a bundled 1 s WAV if a runtime is present) and a C++ health harness mirroring the Python gate (exit within 45 s, startup, stop-to-result p95, cancel, restart, worker cleanup, RSS bounds, DB round-trip, backup and restore). Use a fake `Recognizer` for determinism, as the Python gate does, and run the real engine in the nightly job.
+6. Self-test and health gate: implement `openwhisper-cpp-cli --self-test` (loads Qt offscreen, finds required resources and plugins, opens SQLite, resolves the runtime path, optionally decodes a bundled 1 s WAV if a runtime is present) and a C++ health harness mirroring the Python gate (exit within 45 s, startup, stop-to-result p95, cancel, restart, worker cleanup, RSS bounds, DB round-trip, backup and restore). Use a fake `Recognizer` for determinism, as the Python gate does, and run the real engine in the nightly job.
 
 Not needed: `uv lock`, ruff, mypy, `pip check`, ASGI test-client compatibility, Python version matrix, the PyInstaller bundle checks (forbidden packages, PyAV DLL presence, `_internal` assets).
 
@@ -399,13 +399,13 @@ Retained only if the features stay: the `webui` job (npm, vitest, stale-bundle d
 
 | Item | Language | Approx. lines |
 |---|---|---|
-| `fiorivoce-updater.exe` + shared `fv_update` library (manifest, journal, mutexes, registry/ARP, tar.xz verify and extract, data snapshot, rollback, recovery) | C++ | 2,600 (OpenWhisper: about 3,450 Python lines across `app_update_apply.py`, `setup_update.py`, `update_data.py`, `updater_helper.py`) |
+| `openwhisper-cpp-updater.exe` + shared `fv_update` library (manifest, journal, mutexes, registry/ARP, tar.xz verify and extract, data snapshot, rollback, recovery) | C++ | 2,600 (OpenWhisper: about 3,450 Python lines across `app_update_apply.py`, `setup_update.py`, `update_data.py`, `updater_helper.py`) |
 | `fv-pack-update` packer and self-verifier | C++ | 450 |
 | `--self-test`, `--diagnostics` plumbing and release-health harness | C++ | 450 |
 | Windows glue shared with the app (named mutexes, health acknowledgement, startup recovery gate) | C++ | 300 |
 | **C++ implied by this proposal** | | **about 3,800** (about 900 if only phase 1 is built) |
 | CMake install, deploy, notice generation, package targets | CMake | about 350 |
-| `FioriVoce.iss` | Inno | about 220 (about 300 with the helper code) |
+| `OpenWhisper_CPP.iss` | Inno | about 220 (about 300 with the helper code) |
 | `build-installer.ps1`, `package-linux.sh`, `package-macos.sh`, smoke scripts, signing script | PowerShell / shell / Python | about 1,500 |
 | Workflows | YAML | about 900 |
 
@@ -448,7 +448,7 @@ a14 (component catalog, verified downloader, runtime manifests), a16 (in-app upd
 
 ## Open questions for the project owner
 
-1. Product naming and identity for FioriVoce: Inno `AppId`, publisher string, macOS bundle id, data folder name, update repository, website URL, and whether to keep a short command alias like `ow` (Linux packages symlink it; Windows never put it on PATH).
+1. Product naming and identity for OpenWhisper_CPP: Inno `AppId`, publisher string, macOS bundle id, data folder name, update repository, website URL, and whether to keep a short command alias like `ow` (Linux packages symlink it; Windows never put it on PATH).
 2. Bundle the NeMo CPU runtime in the installer, or keep it a first-run download like OpenWhisper (the CPU archive is only about 4 MB on Windows)?
 3. Native in-app update on Windows in release one, or setup-exe update first and the transactional helper later?
 4. Is the meeting dashboard staying a React web page served by a local HTTP server (needs Qt HttpServer or Boost.Beast, an npm build in CI, and WebSockets), or should it become native Qt widgets?

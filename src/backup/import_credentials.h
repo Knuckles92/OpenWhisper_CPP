@@ -43,7 +43,7 @@ std::vector<std::string> legacy_credential_names(const Json& legacy_settings,
                                                  const AppIdentity& from = legacy_identity());
 
 // The name a key takes here: a name with `from`'s environment prefix ("OPENWHISPER_") gets
-// `to`'s ("FIORIVOCE_"); any other name is kept.
+// `to`'s ("OPENWHISPER_CPP_"); any other name is kept.
 std::string imported_credential_name(std::string_view name,
                                      const AppIdentity& from = legacy_identity(),
                                      const AppIdentity& to = identity());

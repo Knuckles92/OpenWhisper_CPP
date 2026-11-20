@@ -903,7 +903,7 @@
     "SM-05"
    ],
    "openwhisper": "Settings > API & MCP shows 'Live events and automation' under the MCP cards: the Live API card (permissions, address, endpoints, curl), MCP Events (subscribe switch, count, Clear) and the Claude Code channel card.",
-   "fiorivoce": "The running app's MCP control is the local session (session_mcp.cpp, session_only() true), and McpSettingsView hides LiveAutomationSection over it; the section and its cards exist and are tested against a full listener (test_live_section.cpp, test_mcp_extras.cpp).",
+   "openwhisper-cpp": "The running app's MCP control is the local session (session_mcp.cpp, session_only() true), and McpSettingsView hides LiveAutomationSection over it; the section and its cards exist and are tested against a full listener (test_live_section.cpp, test_mcp_extras.cpp).",
    "reason": "The local MCP session serves saved content only: the live API is never mounted and no McpEvents is built, so the cards would offer switches that do nothing.",
    "source": "docs/port/audit/a19-actions-automation-services.json a19-live-api-not-served and docs/port/audit/a20-agent-api-mcp-services.json a20-local-mcp-saved-content (owner commit 8cf2b8e)"
   },
@@ -913,7 +913,7 @@
     "A21-58"
    ],
    "openwhisper": "When a host is paired, Settings > API & MCP shows a segmented 'This computer / <host>' bar (details 'MCP on/off', 'Host · not allowed', 'Host · needs update', 'Host · unreachable', 'Host · checking…'); the host tab is a second McpSettingsPage over HostMcpSettings/HostMcpServer/HostMcpLink that polls the host every 500 ms and changes its MCP settings, with a gate card ('<host> hasn't allowed this yet', '<host> needs an update', 'Can't reach <host>') and Check again, a note that the live cards are per computer, and it opens on the host tab when only the host's MCP runs.",
-   "fiorivoce": "McpSettingsView::bindRemote adds a 'Paired computer: <host>' frame (mcpPairedHost) below this computer's page, shown only while paired: 'Check host MCP status' reads the granted session's state once per click, 'Start the authorized host session…' asks first and sends only {enabled: true} for the fixed loopback session, 'End host session' disconnects (the host then revokes the grant). Refusals read '<host> hasn't allowed this yet.' (naming the host's grant), '<host> needs an update.' and 'Can't reach <host>.' in the frame's status line. There are no tabs, host page, gate card or note: this computer's page and cards never hide.",
+   "openwhisper-cpp": "McpSettingsView::bindRemote adds a 'Paired computer: <host>' frame (mcpPairedHost) below this computer's page, shown only while paired: 'Check host MCP status' reads the granted session's state once per click, 'Start the authorized host session…' asks first and sends only {enabled: true} for the fixed loopback session, 'End host session' disconnects (the host then revokes the grant). Refusals read '<host> hasn't allowed this yet.' (naming the host's grant), '<host> needs an update.' and 'Can't reach <host>.' in the frame's status line. There are no tabs, host page, gate card or note: this computer's page and cards never hide.",
    "reason": "A peer may not change the host's MCP configuration; it only starts and ends the read-only 15-minute session the host granted it, whose token stays on the host, so there is no host page to manage and nothing to poll.",
    "source": "docs/port/differences.md a17-paired-mcp; docs/port/audit/a20-agent-api-mcp-services.json a20-host-mcp-read-only; tests/ui_automation/test_mcp_paired_host.cpp, tests/remote_host/test_mcp_grant.cpp, tests/remote_host/test_mcp_session.cpp"
   },
@@ -924,7 +924,7 @@
     "SM-03"
    ],
    "openwhisper": "API & MCP has a 'Share this computer's history through the paired host's MCP' tile (mcpShareHistoryTile, disabled with ' Pair a host in Remote engine to enable this setting.' when unpaired) that persists remote_client_history through service.set_share_history, plus the gate bodies naming 'Allow paired computers to manage MCP', the per-computer host note and the tabs' 'Whose MCP to manage' name.",
-   "fiorivoce": "There is no persistent history-sharing consent: history is shared only in a session opened from Remote engine's 'Share history for this session…' (remote_history::Publication, at most 15 minutes, ended by closing it or disconnecting), which Settings search finds for 'share history'. RemoteEngineControl::set_share_history, which nothing called, was removed. The gate bodies and note belong to the replaced host tab (a21-paired-host-frame).",
+   "openwhisper-cpp": "There is no persistent history-sharing consent: history is shared only in a session opened from Remote engine's 'Share history for this session…' (remote_history::Publication, at most 15 minutes, ended by closing it or disconnecting), which Settings search finds for 'share history'. RemoteEngineControl::set_share_history, which nothing called, was removed. The gate bodies and note belong to the replaced host tab (a21-paired-host-frame).",
    "reason": "A named peer views this computer's latest dictations and meeting metadata only during an explicitly opened, time-limited session; a standing opt-in would expose history for as long as the pairing lasts.",
    "source": "docs/port/differences.md a17-direct-history; docs/port/audit/a20-agent-api-mcp-services.json a20-peer-history-session; tests/ui_remote/test_history_publication.cpp, tests/ui_settings/test_search_history_session.cpp"
   },
@@ -934,7 +934,7 @@
     "A21-35"
    ],
    "openwhisper": "Route by voice's status line is computed at once on the GUI thread, including the parts that depend on the judge's API key.",
-   "fiorivoce": "The status that needs no key (Route by voice off, for example) shows at once; a status that depends on the key is worked out on the io executor, and until that answer arrives the line is empty and the privacy caption shows.",
+   "openwhisper-cpp": "The status that needs no key (Route by voice off, for example) shows at once; a status that depends on the key is worked out on the io executor, and until that answer arrives the line is empty and the privacy caption shows.",
    "reason": "Reading the credential store must not block the GUI thread.",
    "source": "The lead's decision of 2026-11-19 on open item ui_automation (M5.13); src/ui_automation/actions_page.cpp requestStatus and automation::status_without_key (src/automation/routing.h); tests/ui_automation/test_sweep_relay_status.cpp ('the route by voice status that needs no key shows before the full answer')"
   }

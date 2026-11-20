@@ -10,8 +10,9 @@
 namespace fv {
 
 // Every settings key, with Python's spelling (keys::minimize_tray), generated from settings.py
-// by tools/gen/settings_keys.py: OpenWhisper's 186 keys in declaration order, then FioriVoce's
-// fv_ keys. keys::choices::<key> and keys::int_choices::<key> are a choice setting's values.
+// by tools/gen/settings_keys.py: OpenWhisper's 186 keys in declaration order, then
+// OpenWhisper_CPP's fv_ keys. keys::choices::<key> and keys::int_choices::<key> are a choice
+// setting's values.
 namespace keys {
 #include "settings/keys.inc" // e.g. inline constexpr BoolSetting minimize_tray{...};
 

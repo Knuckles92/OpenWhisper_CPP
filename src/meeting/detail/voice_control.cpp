@@ -136,7 +136,7 @@ bool MeetingEngine::refresh_live_highlights_status() {
     std::string status = "off";
     if (meeting_intel::resolve_typesafe_feature_enabled(deps_.settings(),
                                                         meeting_intel::kFeatureHighlights)) {
-        // FioriVoce asks only a judge on this computer, so a hosted one is unavailable rather
+        // OpenWhisper_CPP asks only a judge on this computer, so a hosted one is unavailable rather
         // than OpenWhisper's "needs_insights".
         const auto judge = deps_.local_fast_judge ? deps_.local_fast_judge() : nullptr;
         status = judge && judge->is_local() ? "on" : "unavailable";

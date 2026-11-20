@@ -234,7 +234,7 @@ TEST_CASE("connections run in WAL with OpenWhisper's pragmas, readers are query-
     database.read([&](Connection& conn) { first = &conn; });
     database.read([&](Connection& conn) { CHECK(&conn == first); });
 
-    SECTION("fv_schema_version holds FioriVoce's own version") {
+    SECTION("fv_schema_version holds OpenWhisper_CPP's own version") {
         CHECK(database.read([](Connection& conn) {
             return integer(conn, "SELECT version FROM fv_schema_version");
         }) == fv::schema::fv_schema_version);

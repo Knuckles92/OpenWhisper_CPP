@@ -1217,7 +1217,7 @@ TEST_CASE("test_empty_meeting_disables_open_report", "[widget]") {
     CHECK(tab->finalizationCard()->reportButton()->toolTip().contains(q("No report")));
 }
 
-// ---- FioriVoce's seams (no OpenWhisper test pins them) ----
+// ---- OpenWhisper_CPP's seams (no OpenWhisper test pins them) ----
 
 TEST_CASE("the empty stage reads its meetings off the GUI thread and keeps the newest read",
           "[widget]") {

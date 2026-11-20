@@ -40,10 +40,10 @@ using u::test::read_text;
 TEST_CASE("native platform recovers an interrupted temporary installation", "[update_native]") {
     fv::testkit::TempDataRoot temp;
     constexpr auto id = "0123456789abcdef0123456789abcdef";
-    u::JournalContext context{temp.path() / "data", temp.path() / "programs" / "FioriVoce",
+    u::JournalContext context{temp.path() / "data", temp.path() / "programs" / "OpenWhisper_CPP",
                               "{01234567-89AB-CDEF-0123-456789ABCDEF}"};
     fv::update::InstallRegistration reg;
-    reg.key_path = "Software\\FioriVoce\\Uninstall";
+    reg.key_path = "Software\\OpenWhisper_CPP\\Uninstall";
     reg.install_location = context.install_dir;
     context.expected_registration = reg;
     context.expected_runonce_key = "Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce";
@@ -51,16 +51,18 @@ TEST_CASE("native platform recovers an interrupted temporary installation", "[up
     fs::create_directories(paths.transaction_dir);
     fs::create_directories(paths.install_dir);
     fs::create_directories(paths.candidate_dir);
-    fv::write_file_atomic(paths.install_dir / "fiorivoce.exe", "old");
-    fv::write_file_atomic(paths.candidate_dir / "fiorivoce.exe", "new");
-    fv::write_file_atomic(paths.candidate_dir / "fiorivoce-updater.exe", "helper");
+    fv::write_file_atomic(paths.install_dir / "openwhisper-cpp.exe", "old");
+    fv::write_file_atomic(paths.candidate_dir / "openwhisper-cpp.exe", "new");
+    fv::write_file_atomic(paths.candidate_dir / "openwhisper-cpp-updater.exe", "helper");
     u::write_manifest(paths.candidate_dir, "0.1.1");
     fv::write_file_atomic(paths.candidate_dir / fv::update::sentinel_name(), "0.1.1");
     auto journal = u::make_journal(context, id);
     journal.old_version = journal.old_display_version = "0.1.0";
     journal.new_version = "0.1.1";
-    journal.old_exe_sha256 = fv::download::sha256_file(paths.install_dir / "fiorivoce.exe", true);
-    journal.new_exe_sha256 = fv::download::sha256_file(paths.candidate_dir / "fiorivoce.exe", true);
+    journal.old_exe_sha256 =
+        fv::download::sha256_file(paths.install_dir / "openwhisper-cpp.exe", true);
+    journal.new_exe_sha256 =
+        fv::download::sha256_file(paths.candidate_dir / "openwhisper-cpp.exe", true);
     {
         u::StorageActions actions(context, id);
         actions.storage().acquire_data_lease();
@@ -86,12 +88,12 @@ TEST_CASE("native platform recovers an interrupted temporary installation", "[up
     SECTION("acknowledged activation with a damaged library or helper") {
         fv::write_file_atomic(paths.transaction_dir / fv::update::kHealthName,
                               journal.health_token);
-        fv::write_file_atomic(paths.install_dir / "fiorivoce-updater.exe", "damaged");
+        fv::write_file_atomic(paths.install_dir / "openwhisper-cpp-updater.exe", "damaged");
     }
     CHECK(u::recover_transaction(context, journal, platform) == u::TransactionState::RolledBack);
     CHECK(registry.restores == 1);
     CHECK_FALSE(registry.recovery);
-    CHECK(fv::download::sha256_file(paths.install_dir / "fiorivoce.exe", true) ==
+    CHECK(fv::download::sha256_file(paths.install_dir / "openwhisper-cpp.exe", true) ==
           journal.old_exe_sha256);
 }
 
@@ -105,8 +107,8 @@ TEST_CASE("prepared Inno files survive activation and rollback", "[update_native
         fs::create_directories(dir);
     for (const auto& dir : {install, release_dir}) {
         const std::string prefix = dir == install ? "old" : "new";
-        fv::write_file_atomic(dir / "fiorivoce.exe", prefix + " app");
-        fv::write_file_atomic(dir / "fiorivoce-updater.exe", prefix + " helper");
+        fv::write_file_atomic(dir / "openwhisper-cpp.exe", prefix + " app");
+        fv::write_file_atomic(dir / "openwhisper-cpp-updater.exe", prefix + " helper");
         fv::write_file_atomic(dir / "libcrypto-3-x64.dll", prefix + " library");
     }
     u::write_manifest(install, "0.1.0");
@@ -167,10 +169,10 @@ TEST_CASE("terminal cleanup preserves unknown files and removes only a verified 
           "[update_native]") {
     fv::testkit::TempDataRoot temp;
     constexpr auto id = "0123456789abcdef0123456789abcdef";
-    u::JournalContext context{temp.path() / "data", temp.path() / "programs" / "FioriVoce",
+    u::JournalContext context{temp.path() / "data", temp.path() / "programs" / "OpenWhisper_CPP",
                               "{01234567-89AB-CDEF-0123-456789ABCDEF}"};
     fv::update::InstallRegistration reg;
-    reg.key_path = "Software\\FioriVoce\\Uninstall";
+    reg.key_path = "Software\\OpenWhisper_CPP\\Uninstall";
     reg.install_location = context.install_dir;
     context.expected_registration = reg;
     context.expected_runonce_key = "Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce";
@@ -179,15 +181,16 @@ TEST_CASE("terminal cleanup preserves unknown files and removes only a verified 
     fs::create_directories(paths.install_dir);
     fs::create_directories(paths.candidate_dir / "platforms");
     fv::write_file_atomic(paths.install_dir / "keep.txt", "user data");
-    fv::write_file_atomic(paths.candidate_dir / "fiorivoce.exe", "new");
-    fv::write_file_atomic(paths.candidate_dir / "fiorivoce-updater.exe", "helper");
+    fv::write_file_atomic(paths.candidate_dir / "openwhisper-cpp.exe", "new");
+    fv::write_file_atomic(paths.candidate_dir / "openwhisper-cpp-updater.exe", "helper");
     fv::write_file_atomic(paths.candidate_dir / "platforms" / "qwindows.dll", "plugin");
     u::write_manifest(paths.candidate_dir, "0.1.1");
     fv::write_file_atomic(paths.candidate_dir / fv::update::sentinel_name(), "0.1.1");
     auto journal = u::make_journal(context, id);
     journal.old_version = journal.old_display_version = "0.1.0";
     journal.new_version = "0.1.1";
-    journal.new_exe_sha256 = fv::download::sha256_file(paths.candidate_dir / "fiorivoce.exe", true);
+    journal.new_exe_sha256 =
+        fv::download::sha256_file(paths.candidate_dir / "openwhisper-cpp.exe", true);
     journal.state = u::TransactionState::Superseded;
     fv::write_file_atomic(paths.candidate_dir / "user.txt", "preserve");
     CHECK_THROWS(u::cleanup_terminal_candidate(context, journal));
@@ -221,7 +224,7 @@ TEST_CASE("a commit that fails after activation puts the user's settings back", 
     }));
     CHECK(journal.state == u::TransactionState::RolledBack);
     CHECK(read_text(settings) == R"({"original": true})");
-    CHECK(read_text(f.install / "fiorivoce.exe") == "old app");
+    CHECK(read_text(f.install / "openwhisper-cpp.exe") == "old app");
     CHECK(registry.restores == 1);
     CHECK_FALSE(registry.recovery);
     CHECK(mutex.owned().empty());
@@ -236,7 +239,7 @@ TEST_CASE("a candidate changed after its preparation is rejected before the swap
     const auto paths = u::journal_paths(f.context, id);
     auto journal = u::load_journal(f.context, id);
     SECTION("its executable") {
-        fv::write_file_atomic(paths.candidate_dir / "fiorivoce.exe", "tampered");
+        fv::write_file_atomic(paths.candidate_dir / "openwhisper-cpp.exe", "tampered");
     }
     SECTION("one of its libraries") {
         fv::write_file_atomic(paths.candidate_dir / "libcrypto-3-x64.dll", "tampered");
@@ -249,7 +252,7 @@ TEST_CASE("a candidate changed after its preparation is rejected before the swap
     fv::update::testing::FakeMutexApi mutex;
     u::NativePlatform platform(f.context, id, registry, mutex, fv::update::release_identity());
     CHECK_THROWS_AS(u::apply_prepared(f.context, journal, platform), u::UpdateError);
-    CHECK(read_text(f.install / "fiorivoce.exe") == "old app");
+    CHECK(read_text(f.install / "openwhisper-cpp.exe") == "old app");
     CHECK_FALSE(fs::exists(paths.rollback_dir));
     CHECK(u::load_journal(f.context, id).state == u::TransactionState::Prepared);
     // Nothing was snapshotted and no recovery entry was written: nothing had started.
@@ -275,12 +278,12 @@ TEST_CASE("recovery never overwrites an installation a later setup repaired", "[
         u::save_journal(f.context, journal);
     }
     // Neither the old nor the new release's program: somebody else installed this one.
-    fv::write_file_atomic(f.install / "fiorivoce.exe", "newer setup repair");
+    fv::write_file_atomic(f.install / "openwhisper-cpp.exe", "newer setup repair");
     FakeRegistry registry;
     fv::update::testing::FakeMutexApi mutex;
     u::NativePlatform platform(f.context, id, registry, mutex, fv::update::release_identity());
     CHECK(u::recover_transaction(f.context, journal, platform) == u::TransactionState::Superseded);
-    CHECK(read_text(f.install / "fiorivoce.exe") == "newer setup repair");
+    CHECK(read_text(f.install / "openwhisper-cpp.exe") == "newer setup repair");
     CHECK(registry.restores == 0);
     CHECK_FALSE(registry.recovery);
     // The old tree is not put back over it, and it is still there to inspect.
@@ -302,7 +305,7 @@ TEST_CASE("authenticating the installation waits out a lock on the application t
     retry.timeout = std::chrono::seconds(30);
 #ifdef _WIN32
     // The image is still open without sharing, as it is for a moment after its process ends.
-    std::FILE* held = _wfsopen((f.install / "fiorivoce.exe").c_str(), L"rb", _SH_DENYRW);
+    std::FILE* held = _wfsopen((f.install / "openwhisper-cpp.exe").c_str(), L"rb", _SH_DENYRW);
     REQUIRE(held != nullptr);
     const auto release = [&] {
         std::fclose(held);
@@ -348,10 +351,10 @@ TEST_CASE("a prepared update is swapped in, confirmed by the new version and cle
     f.context.expected_registration->display_version = "0.0.9";
     const auto id = f.prepare().transaction_id;
     const auto paths = u::journal_paths(f.context, id);
-    fs::permissions(paths.candidate_dir / "fiorivoce.exe", fs::perms::owner_exec,
+    fs::permissions(paths.candidate_dir / "openwhisper-cpp.exe", fs::perms::owner_exec,
                     fs::perm_options::add);
     auto journal = u::load_journal(f.context, id);
-    const auto new_app = read_text(paths.candidate_dir / "fiorivoce.exe");
+    const auto new_app = read_text(paths.candidate_dir / "openwhisper-cpp.exe");
     FakeRegistry registry;
     fv::update::testing::FakeMutexApi mutex;
     u::NativePlatform platform(f.context, id, registry, mutex, fv::update::release_identity());
@@ -365,7 +368,7 @@ TEST_CASE("a prepared update is swapped in, confirmed by the new version and cle
     };
     CHECK(u::run_transaction(f.context, journal, platform, false, actions) ==
           u::TransactionState::Healthy);
-    CHECK(read_text(f.install / "fiorivoce.exe") == new_app);
+    CHECK(read_text(f.install / "openwhisper-cpp.exe") == new_app);
     CHECK(read_text(f.install / "unins000.exe") == "Inno image");
     CHECK_FALSE(fs::exists(paths.candidate_dir));
     CHECK_FALSE(fs::exists(paths.rollback_dir));
@@ -387,7 +390,7 @@ TEST_CASE("a new version that exits fails its health check and the old one retur
     PrepareFixture f("#!/bin/sh\nexit 3\n");
     const auto id = f.prepare().transaction_id;
     const auto paths = u::journal_paths(f.context, id);
-    fs::permissions(paths.candidate_dir / "fiorivoce.exe", fs::perms::owner_exec,
+    fs::permissions(paths.candidate_dir / "openwhisper-cpp.exe", fs::perms::owner_exec,
                     fs::perm_options::add);
     auto journal = u::load_journal(f.context, id);
     FakeRegistry registry;
@@ -398,7 +401,7 @@ TEST_CASE("a new version that exits fails its health check and the old one retur
     // The health wait is two minutes; a process that is gone ends it at once.
     CHECK(std::chrono::steady_clock::now() - started < std::chrono::seconds(30));
     CHECK(journal.state == u::TransactionState::RolledBack);
-    CHECK(read_text(f.install / "fiorivoce.exe") == "old app");
+    CHECK(read_text(f.install / "openwhisper-cpp.exe") == "old app");
     // The new tree that failed was kept aside, then collected as this release's own files.
     CHECK(fs::is_directory(paths.failed_dir));
     CHECK(u::cleanup_terminal_candidate(f.context, journal));

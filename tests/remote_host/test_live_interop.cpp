@@ -13,7 +13,7 @@
 using namespace std::chrono_literals;
 
 TEST_CASE("live OpenWhisper client pairs and sends synthetic audio", "[platform][interop]") {
-    const auto scratch = fv::testkit::get_env("FIORIVOCE_LOOPBACK_INTEROP_DIR");
+    const auto scratch = fv::testkit::get_env("OPENWHISPER_CPP_LOOPBACK_INTEROP_DIR");
     if (!scratch) {
         SKIP("Run tools/parity/run_remote_interop.py to start an isolated OpenWhisper client.");
     }

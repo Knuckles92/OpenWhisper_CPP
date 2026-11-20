@@ -4,7 +4,7 @@
  "areas": [
   {
    "area": "a01-app-shell",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a01-app-shell.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a01-app-shell.md",
    "summary": "This area is the process entry and window chrome. It covers CLI dispatch, the native bootstrap order, the data directory and the AppConfig constants every area reads. It also holds logging, the crash log and privacy-safe diagnostics, plus the Linux single-instance lock. On the UI side it has the painted splash, the frameless main window and the system tray. The main window brings the title bar, menus, footer, lazy tabs, the History side panel, fit-to-page geometry, and the Compact and Host views. Suggested port: a Qt-free core (paths, config, diagnostics, process_env, app_styles, profiler, CLI) plus a Qt layer (Application, Bootstrap, SingleInstance, LoadingScreen, SystemTray, MainWindow split into title bar, geometry and footer). Page fitting is the fragile part and should come after the tab pages exist.",
    "featureCount": 67,
    "dependsOnAreas": [
@@ -61,7 +61,7 @@
     "AppConfig.TRANSCRIPT_CLEANUP_LEVEL_PROMPTS strings"
    ],
    "openQuestions": [
-    "Does FioriVoce use its own app name and data dir, or read/migrate an existing OpenWhisper data directory (settings, db, recordings)?",
+    "Does OpenWhisper_CPP use its own app name and data dir, or read/migrate an existing OpenWhisper data directory (settings, db, recordings)?",
     "Keep Host Mode (remote computer engine) in the main window?",
     "Extend single-instance enforcement to Windows/macOS, and how does it coexist with the updater's named mutex?",
     "Which crash reporting approach: plain native crash log or crashpad/minidumps?",
@@ -95,7 +95,7 @@
   },
   {
    "area": "a02-ui-foundation",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a02-ui-foundation.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a02-ui-foundation.md",
    "summary": "The UI foundation is a token-based theme pipeline plus about 40 shared widgets. theme.qss (6119 lines, 636 object names) uses @token colours. Palette (96 tokens, dark and light) is substituted, optionally rewritten for Omarchy, then font sizes are scaled (90/100/115/130%). Widget-local stylesheets are re-resolved from stored source on every theme or size change. Qt C++ uses the same QSS engine, so theme.qss and the 59 Tabler SVGs can be copied verbatim. Port the pipeline first, then pure utilities with Python golden vectors (fuzzy match, overlay maths, release notes, font scale), then the widgets. Omarchy, Wayland and macOS Dock code is other-platform only.",
    "featureCount": 66,
    "topFeatures": [
@@ -139,17 +139,17 @@
    "dropOrUndecided": [
     "engine_selection ENGINE_KEYS: drop WHISPER_*, CUSTOM_WHISPER_MODELS, LOCAL_ASR_* (other local engines); replace with Parakeet keys",
     "API_TRANSCRIPTION_* keys in the engine relay: undecided (cloud/own-server backends)",
-    "UpdateNoticeButton: undecided, depends on whether FioriVoce self-updates",
+    "UpdateNoticeButton: undecided, depends on whether OpenWhisper_CPP self-updates",
     "Omarchy palette, desktop header, DesktopWindowFilter and 2 s theme poll: Linux/Omarchy only, scope undecided",
     "macOS Dock sync and Wayland embedded help card/tooltip: other-platform only",
     "Meeting Mode tab gate and Meeting/Remote/Hooks QSS sections: depend on other areas' decisions"
    ],
    "openQuestions": [
-    "Rename OpenWhisper branding in this area (app icon file name, desktop header brand, hotkey hint text, update notice, OPENWHISPER_UI env var) to FioriVoce?",
+    "Rename OpenWhisper branding in this area (app icon file name, desktop header brand, hotkey hint text, update notice, OPENWHISPER_UI env var) to OpenWhisper_CPP?",
     "Are macOS and Linux (Omarchy/Wayland) targets in scope, or Windows only for now?",
-    "Should FioriVoce keep the 'Match system' and 'Omarchy desktop' theme choices, or ship only Dark, Light and Match system?",
+    "Should OpenWhisper_CPP keep the 'Match system' and 'Omarchy desktop' theme choices, or ship only Dark, Light and Match system?",
     "Keep the Segoe UI font on every platform or pick a per-platform default font family?",
-    "Will FioriVoce have an in-app updater (UpdateNoticeButton and release-notes rendering), or are those dropped?"
+    "Will OpenWhisper_CPP have an in-app updater (UpdateNoticeButton and release-notes rendering), or are those dropped?"
    ],
    "key": "a02-ui-foundation",
    "check": {
@@ -170,7 +170,7 @@
   },
   {
    "area": "a03-ui-controller",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a03-ui-controller.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a03-ui-controller.md",
    "summary": "This area is the glue between OpenWhisper's logic and its UI. ApplicationController (1.5k lines) builds the recorder, the five executors, every feature runtime and the backend table. It owns the debounced engine reload, warm-up and meeting-lease state machine, the refusal gates (meeting, backup, setup, library), the Cancel fall-through, and the startup and shutdown order. UIController (2.9k lines) owns the main window, overlay, tray and clipboard. It routes overlay states, status, transcripts and download progress, and handles Settings opening and staged building, meeting readiness, update hand-off with a hard-exit watchdog, and the restart prompt. Suggested port: a Qt-free core (state machine, gates, throttle, routing tables) under two QObject controllers, with the engine reached only through EngineWorker.",
    "featureCount": 90,
    "dependsOnAreas": [
@@ -225,7 +225,7 @@
     "Other-platform: macOS DMG helper update, dock icon sync; Wayland overlay parenting; D-Bus shell toggle"
    ],
    "risks": [
-    "Python runs engine loads on executor threads; FioriVoce requires EngineWorker, so the reload, lease and warm-up interleavings need re-deriving",
+    "Python runs engine loads on executor threads; OpenWhisper_CPP requires EngineWorker, so the reload, lease and warm-up interleavings need re-deriving",
     "Backup acquire takes three runtime locks together, and C++ needs a scoped_lock order",
     "Runtimes reach into controller privates (_job_lock, _capture_lock, _active_job), so explicit interfaces are needed",
     "The fan-out surface is very wide, and a missed connection silently breaks a feature",
@@ -234,10 +234,10 @@
    ],
    "openQuestions": [
     "Keep the 'code changed on disk' restart prompt in a compiled app?",
-    "What should the About box, website URL and install-channel wording be for FioriVoce?",
+    "What should the About box, website URL and install-channel wording be for OpenWhisper_CPP?",
     "Keep the native updater helper plus the Inno setup fallback flow as it is?",
     "Keep remote engine, API and Nemotron in the controller's backend table?",
-    "Should FioriVoce read the same settings keys and exit codes so an OpenWhisper install can be migrated in place?"
+    "Should OpenWhisper_CPP read the same settings keys and exit codes so an OpenWhisper install can be migrated in place?"
    ],
    "cppDependencies": [
     "Qt6 Core",
@@ -264,7 +264,7 @@
   },
   {
    "area": "a04-runtime-services",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a04-runtime-services.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a04-runtime-services.md",
    "summary": "The orchestration layer between the UI, hotkeys and the workers. It covers the single job slot and every job's lifecycle: recording, cancel, upload and batch, retranscribe, rewrite, walkthrough, delivery, history and failure retention. It also holds Command Mode and transforms, push-and-hold with the hands-free latch, the hook watchdog, live-preview setup, model and component installs, the updater schedule, the remote link watch, Meeting Mode lifecycle and finalization, and the walkthrough screenshot runtime including Auto Mode. It has no widgets. Suggested port: a Qt-free core (job slot, cancel tokens, hold state machine, status-string builders, URL and backoff helpers) under Qt QObject runtimes owned by the controller, with decoding posted to EngineWorker. It depends heavily on areas a05, a06, a09, a12, a19, a22 and a24-a31.",
    "featureCount": 95,
    "dependsOnAreas": [
@@ -324,7 +324,7 @@
     "Keep Nemotron Streaming (native preview) on the same NeMo runtime, or Parakeet window preview only?",
     "Keep the remote-computer engine (client watch, host switching, host update prep) at all?",
     "Keep cloud API transcription (OpenAI/Groq/own server), which brings large-file splitting and prepare threads?",
-    "User-facing product name in the many status strings: 'OpenWhisper' or 'FioriVoce'?",
+    "User-facing product name in the many status strings: 'OpenWhisper' or 'OpenWhisper_CPP'?",
     "Should meetings share the dictation Parakeet recognizer instead of the release/restore model lease?"
    ],
    "risks": [
@@ -364,7 +364,7 @@
   },
   {
    "area": "a05-recording-audio",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a05-recording-audio.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a05-recording-audio.md",
    "summary": "This area covers capture and everything that follows it. The PortAudio recorder records 44.1 kHz mono int16 from a ranked list of microphones, matches saved devices by name and host API, and moves to the next microphone if one is lost mid-recording. It ends the post-roll when the tail goes quiet, supports pause and cancel, journals audio to disk for crash recovery, and saves an atomic WAV with Explorer metadata. Around it sit the level meter, the live preview (re-decoded windows or native streaming), incremental decoding of long dictations, history playback, file preview and splitting, dictation languages, the dictation pipeline stages, Stats calculations, and two widgets (microphone check, capture delay). The port splits into a Qt-free core (PortAudio, FFmpeg, journal, stats math) and a Qt layer that sends decodes to EngineWorker.",
    "featureCount": 40,
    "dependsOnAreas": [
@@ -420,8 +420,8 @@
    ],
    "openQuestions": [
     "Use PortAudio (keeps OpenWhisper's device names so saved audio_input_priority still matches) or Qt Multimedia (the saved choices would no longer match)?",
-    "Should FioriVoce share OpenWhisper's data folder (recorded_audio.wav, recovery journals, openwhisper.db dictation_stats), or start fresh?",
-    "Should the WAV tags (ISFT, bext originator) say 'FioriVoce' or keep 'OpenWhisper'? The same question applies to user strings such as 'OpenWhisper isn't allowed to read this file.'",
+    "Should OpenWhisper_CPP share OpenWhisper's data folder (recorded_audio.wav, recovery journals, openwhisper.db dictation_stats), or start fresh?",
+    "Should the WAV tags (ISFT, bext originator) say 'OpenWhisper_CPP' or keep 'OpenWhisper'? The same question applies to user strings such as 'OpenWhisper isn't allowed to read this file.'",
     "Keep Nemotron native streaming preview and stream-final reuse?",
     "Keep OpenAI API file splitting (only that engine splits)?"
    ],
@@ -454,7 +454,7 @@
   },
   {
    "area": "a06-hotkeys-paste-focus",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a06-hotkeys-paste-focus.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a06-hotkeys-paste-focus.md",
    "summary": "This area covers the OS-level input and output layer. It has system-wide hotkeys: a suppressing low-level keyboard hook on Windows, X11 XRecord plus key grabs, Carbon on macOS, and compositor binds over D-Bus on Hyprland. It handles the mouse side buttons, synthetic Ctrl+C/V, the TemporaryClipboard (stage, restore, prefetch, selection capture, Windows pre-render) and the focus context (foreground app identity, the app catalogue, UIA caret text, prompt block and join-with-context). It also includes the shortcut capture widgets, the Hotkeys page rows and the macOS Accessibility dialog. To port it, put a Qt-free core in front: hotkey grammar, the dispatch state machine, the catalog and join logic, all checkable against golden vectors. Platform hook and identity layers go under it and Qt clipboard and widgets on top. Do Windows first.",
    "featureCount": 58,
    "dependsOnAreas": [
@@ -509,8 +509,8 @@
    ],
    "openQuestions": [
     "Which platforms ship: Windows only first, or Linux X11/Hyprland and macOS too?",
-    "Keep the D-Bus names org.openwhisper.* and window class openwhisper, so existing Omarchy bar configs keep working, or rename them for FioriVoce?",
-    "Must FioriVoce read an existing OpenWhisper settings file, so that hotkey strings in the keyboard-library naming must round-trip?",
+    "Keep the D-Bus names org.openwhisper.* and window class openwhisper, so existing Omarchy bar configs keep working, or rename them for OpenWhisper_CPP?",
+    "Must OpenWhisper_CPP read an existing OpenWhisper settings file, so that hotkey strings in the keyboard-library naming must round-trip?",
     "Keep the opt-in caret text reading (UIA) if no AI cleanup provider is kept?",
     "Unify the two Python hotkey backends into one C++ matcher, or keep them as two implementations?"
    ],
@@ -543,7 +543,7 @@
   },
   {
    "area": "a07-overlays",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a07-overlays.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a07-overlays.md",
    "summary": "The recording overlay is a custom-painted floating pill (300x80, grows with live preview words). It has a 15-state machine, 11 voice-reactive looks (default Bars), and one-shot moments (Canceled, Copied, notices, language, large-file split). It also has a badge and language chip, walkthrough Snap/Done buttons, drag and park placement, and an embedded Wayland mode. Supporting files: a Settings preview widget with a sample-voice loop, and the language menu. All drawing is QPainter and maps almost 1:1 to Qt 6 C++. Nothing is engine-specific except per-engine language reasons. Port as a Qt-free math/sim core plus a Qt widget layer, driven by golden vectors and the existing tests.",
    "featureCount": 47,
    "dependsOnAreas": [
@@ -621,7 +621,7 @@
   },
   {
    "area": "a08-record-upload-tabs",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a08-record-upload-tabs.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a08-record-upload-tabs.md",
    "summary": "Quick Record and Upload File tabs share a base class (engine card, collapsible Fixed/Raw transcript pane). Upload File adds a drop zone, a multi-file queue with relation presets (separate / sequential / custom), an inline progress panel, a Markdown reading window and a custom-description dialog. Also covers the floating Scratchpad (autosave, dictation insertion, AI transforms), the compact record controller, and Qt-free batch-upload types. The port splits into a Qt-free core with golden tests (batch text helpers, scratchpad spacing, progress model) and a Qt Widgets layer that keeps the object names and dynamic properties so the theme.qss rules still apply. The Remote and API engine UI, about 300+ lines of the base, is undecided; other local engine fields are dropped.",
    "featureCount": 57,
    "dependsOnAreas": [
@@ -662,7 +662,7 @@
     "Quick Record transcript editor sizeHint depends on style padding and layout signals",
     "Remote/API/Nemotron undecided affects a large part of the base class and the live preview reason",
     "Scratchpad window-flag recreation, Wayland positioning, and the focus rule for dictation insertion",
-    "OpenWhisper branding and typographic strings need FioriVoce decisions; settings key compatibility with existing installs"
+    "OpenWhisper branding and typographic strings need OpenWhisper_CPP decisions; settings key compatibility with existing installs"
    ],
    "dropOrUndecided": [
     "Drop: faster-whisper/Moonshine/Qwen/MLX model, device and quantization fields in LocalEngineControls",
@@ -677,7 +677,7 @@
     "Keep the cloud API backend (and its chunk-splitting UI) and the remote-computer engine UI in the tabs, or ship Parakeet-only first?",
     "Are AI cleanup, cleanup profiles and Scratchpad Transform/Command Mode in scope for the first port, given they need a rewrite provider?",
     "Which audio formats must upload accept (WMA/M4A need a decoder such as ffmpeg) and what decoder is acceptable?",
-    "Keep OpenWhisper wording in user-visible strings (e.g. error text naming OpenWhisper) or rebrand to FioriVoce?"
+    "Keep OpenWhisper wording in user-visible strings (e.g. error text naming OpenWhisper) or rebrand to OpenWhisper_CPP?"
    ],
    "key": "a08-record-upload-tabs",
    "check": {
@@ -700,7 +700,7 @@
   },
   {
    "area": "a09-history-stats",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a09-history-stats.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a09-history-stats.md",
    "summary": "History and stats area: a SQLite store (schema v18, migrations v6 to v18, WAL, FTS5 for meetings), a HistoryManager (save entries with retained WAV copies, count/size retention, Original/AI text versions, last dictation), pure logic for export (Markdown/txt/JSON) and calendar bucketing (local-day marks, streaks, milestones), and a large Qt UI: history sidebar and cards, entry dialog, playback control, export dialog, a hand-painted calendar with month picker and year strip, and a Stats window with painted charts. It ports as a Qt-free C++ core (sqlite3, chrono, golden-vector testable) plus a Qt Widgets layer. Paired-host record sync, Whisper model-name mapping and the Omarchy theme variant are the undecided or dropped parts.",
    "featureCount": 42,
    "dependsOnAreas": [
@@ -762,9 +762,9 @@
     "Catch2 (golden-vector tests)"
    ],
    "openQuestions": [
-    "Does FioriVoce share the existing openwhisper.db with OpenWhisper or use its own file with an optional import?",
+    "Does OpenWhisper_CPP share the existing openwhisper.db with OpenWhisper or use its own file with an optional import?",
     "Keep the paired-host record sync (Also on / Kept on, host audio fetch, calendar Where filter)?",
-    "Keep the .markdown per-entry extension and openwhisper_* default export names, or normalise to .md and fiorivoce_*?",
+    "Keep the .markdown per-entry extension and openwhisper_* default export names, or normalise to .md and openwhisper_cpp_*?",
     "Localise month/weekday/AM-PM names with the OS locale or keep English-only output?",
     "Make history search Unicode-aware or FTS5-backed (behavior change), or keep SQLite ASCII LIKE?"
    ],
@@ -787,7 +787,7 @@
   },
   {
    "area": "a10-settings-services",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a10-settings-services.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a10-settings-services.md",
    "summary": "Non-UI foundation services. A thread-safe, cached JSON settings store (atomic writes, tolerant reads, strict read-modify-write, watchers), about 190 typed setting declarations with exact validation fallbacks, plus resolvers and one-time install migrations. API keys go in the OS credential store (WinCred, Keychain, Secret Service with timeouts and lookup-only reads), resolved store, then env, then .env. Backups are portable .owbackup ZIPs with a checksummed manifest, a SQLite snapshot and settings sanitizing; restore is staged, then applied at startup under an exclusive data-root lease, with a journal and rollback. A Qt BackupCoordinator handles the worker, progress and daily/weekly schedules. Port it as a Qt-free core (settings, credentials, backup, lease) plus a thin Qt coordinator.",
    "featureCount": 49,
    "dependsOnAreas": [
@@ -819,7 +819,7 @@
     "Undecided: api backend keys, legacy API model migration, OpenAI retirement helpers",
     "Undecided: remote_* keys, host_mode, meeting_asr_source=remote, backup sanitizing of pairings",
     "Undecided: meeting_speaker_id_backend=openai and audio upload consent",
-    "Adapt: local_asr_models/devices[parakeet] plus a new runtime-dir key replace FioriVoce's QSettings engine keys"
+    "Adapt: local_asr_models/devices[parakeet] plus a new runtime-dir key replace OpenWhisper_CPP's QSettings engine keys"
    ],
    "goldenVectorCandidates": [
     "setting_types parse/stored for every key over the JUNK battery",
@@ -832,7 +832,7 @@
     "BackupCoordinator next_backup_at and prune selection"
    ],
    "openQuestions": [
-    "Keep byte-compatibility with OpenWhisper's data root, settings keys, credential service name and .owbackup format, or use FioriVoce names plus a one-time import?",
+    "Keep byte-compatibility with OpenWhisper's data root, settings keys, credential service name and .owbackup format, or use OpenWhisper_CPP names plus a one-time import?",
     "Replace the current QSettings storage in src/app/main_window.cpp with the ported JSON store?",
     "Which selected_model values survive (Parakeet only, or also Nemotron, API, remote)?",
     "Linux credentials: libsecret, QtDBus, or qtkeychain (which loses lookup-only reads)?",
@@ -875,7 +875,7 @@
   },
   {
    "area": "a11-settings-dialog-ui",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a11-settings-dialog-ui.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a11-settings-dialog-ui.md",
    "summary": "The Settings window: a frame with header search button, a collapsible-chapter NavRail of 28 lazily built scroll pages, a Home landing page, a Ctrl+K search palette, a SettingsBinder, and inline pages (General, Recording with retention and microphones, Appearance, Hotkeys, Walkthroughs, AI cleanup, Dashboard, Developer). Also API keys (OS credential store, test worker) and Backup and restore with a month calendar. Port as a Qt-free core (search ranking, mic priority rules, key status text, retention policy, date math, window fit) plus a Qt Widgets layer reusing theme.qss and its object names. Engine pages (Whisper runtime, voice model, local engines) are dropped or adapted to Parakeet.",
    "featureCount": 84,
    "topFeatures": [
@@ -943,7 +943,7 @@
     "Is Meeting Mode in scope (its pages, dashboard, and Home rows are hosted in this shell)?",
     "Which credential providers stay on the API keys page (cloud ASR undecided; text-LLM providers for cleanup)?",
     "Is Omarchy/Wayland UI mode a target, or Windows/Linux-X11/macOS only?",
-    "Rebrand strings ('OpenWhisper' to 'FioriVoce') in tiles, backup filenames and credential service name, or keep for compatibility?"
+    "Rebrand strings ('OpenWhisper' to 'OpenWhisper_CPP') in tiles, backup filenames and credential service name, or keep for compatibility?"
    ],
    "key": "a11-settings-dialog-ui",
    "check": {
@@ -968,7 +968,7 @@
   },
   {
    "area": "a12-text-ai-personalize-services",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a12-text-ai-personalize-services.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a12-text-ai-personalize-services.md",
    "summary": "Service layer (no widgets) for everything text-model and personalization: endpoint profiles (OpenAI, OpenRouter, 5 local servers, Groq, OpenCode, custom), model catalog/protocol routing with chat/Responses/Anthropic/Google adapters, AI cleanup with hard deadline and cancel, thinking levels, cleanup presets/profiles/transforms, rewrite/command mode, personal dictionary with correction learning, Unicode whole-word replacement, snippets with placeholder protection and light Markdown, TypeSafe/Jev fast judgments (direct, OpenRouter, or own text model) with keep-alive pool, and speech-server presets (undecided). Port as a Qt-free pure core (golden-vector testable) plus a Qt Network client layer and thin Qt services.",
    "featureCount": 50,
    "dependsOnAreas": [
@@ -1012,7 +1012,7 @@
    "openQuestions": [
     "Should dictionary terms steer Parakeet via NeMo speech contexts (needs verifying TDT honors boosts), or stay replacement/prompt only?",
     "Keep installed-agent cleanup runners (Claude Code, Codex, OpenCode CLI) and the first-run agent offer?",
-    "Branding: keep 'OpenWhisper' in X-Title/User-Agent headers, user copy and OPENWHISPER_LLM_API_KEY, or rename to FioriVoce; must FioriVoce read existing keyring entries and settings?",
+    "Branding: keep 'OpenWhisper' in X-Title/User-Agent headers, user copy and OPENWHISPER_LLM_API_KEY, or rename to OpenWhisper_CPP; must OpenWhisper_CPP read existing keyring entries and settings?",
     "Keep OpenCode Go/Zen catalogs and Anthropic/Google adapters, or limit to OpenAI-compatible chat/Responses?",
     "Keep the API transcription speech-server presets (depends on cloud backend decision)?"
    ],
@@ -1051,7 +1051,7 @@
   },
   {
    "area": "a13-personalize-ui",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a13-personalize-ui.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a13-personalize-ui.md",
    "summary": "Settings -> Personalize pages (Dictionary, Snippets, Apps & styles, Learned rules, Profiles, Commands/Transforms), the text-model picker with endpoint dialogs, the cleanup-prompt/rule/new-style dialogs, the Claude Code/Codex offer, and cleanup level copy. Mostly engine-independent Qt Widgets: port as a Qt-free core (dictionary, snippets, transforms, profiles, styles, validators, copy functions) plus a Qt layer. Shared pattern (library + editor + draft prompts + narrow reflow) can be one template. Speech-server and MLX picker files are backend-dependent or droppable. Rule dictation needs the recorder and an engine-thread transcribe call. Depends on the settings shell and shared tile widgets.",
    "featureCount": 62,
    "topFeatures": [
@@ -1104,12 +1104,12 @@
     "Dictionary 'steer the speech model' depends on whether NeMo-Speech.cpp accepts phrase hints",
     "cleanup_agent_offer depends on keeping Claude Code/Codex agent runners",
     "Read text near the cursor and learn-from-corrections are Windows-only",
-    "User-visible 'OpenWhisper' strings need the FioriVoce product name"
+    "User-visible 'OpenWhisper' strings need the OpenWhisper_CPP product name"
    ],
    "openQuestions": [
     "Keep cloud API transcription and the speech-server editor, or drop them (and Nemotron/remote branches of the dictionary engine copy)?",
-    "Should FioriVoce read OpenWhisper's existing settings JSON shapes directly, or import once into a new format?",
-    "What is the FioriVoce product name to substitute for 'OpenWhisper' in user-visible strings?",
+    "Should OpenWhisper_CPP read OpenWhisper's existing settings JSON shapes directly, or import once into a new format?",
+    "What is the OpenWhisper_CPP product name to substitute for 'OpenWhisper' in user-visible strings?",
     "Are the Claude Code/Codex agent runners for AI cleanup staying, i.e. is the cleanup agent offer ported?",
     "Should the services (dictionary, snippets, transforms, profiles, styles) be ported inside this area or by their own service areas?"
    ],
@@ -1134,7 +1134,7 @@
   },
   {
    "area": "a14-models-components-services",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a14-models-components-services.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a14-models-components-services.md",
    "summary": "The offline-pinned download and component system (catalog, verified resumable SHA-256 downloads, safe extraction, atomic install/swap/rollback, startup recovery, component state for Downloads), the speech-model cache and download-consent policy, NVIDIA GPU detection and CPU/CUDA/Vulkan/Metal runtime resolution, and the transcriber backends (local NeMo windows decoder, faster-whisper, OpenAI API, remote engine). Most of the code is for dropped engines or worker-process plumbing. The kept core is a Qt-free C++ module set: verified download, archive extraction, component store, model cache, GPU probe, runtime resolver, audio windowing, and the LocalSpeechBackend logic on EngineWorker. The API, remote and Nemotron streaming backends wait on decisions.",
    "featureCount": 63,
    "dependsOnAreas": [
@@ -1194,7 +1194,7 @@
     "Undecided: Remote engine backend (link, busy retry, host model switching)"
    ],
    "openQuestions": [
-    "Should FioriVoce share OpenWhisper's folders (%LOCALAPPDATA%\\OpenWhisper\\components and speech-models) to reuse downloaded runtimes and 700 MB models, or use its own app dir?",
+    "Should OpenWhisper_CPP share OpenWhisper's folders (%LOCALAPPDATA%\\OpenWhisper\\components and speech-models) to reuse downloaded runtimes and 700 MB models, or use its own app dir?",
     "Keep the Meeting Intelligence Agent (Node + Pi sidecar) and OpenCode components, or rebuild meeting intelligence natively?",
     "Keep Nemotron (streaming, same NeMo runtime), the OpenAI/compatible API backend, and the Remote engine?",
     "Since the runtime cannot be unloaded, is 'restart to finish updating/removing the speech runtime' acceptable UX?",
@@ -1229,7 +1229,7 @@
   },
   {
    "area": "a15-models-downloads-ui",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a15-models-downloads-ui.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a15-models-downloads-ui.md",
    "summary": "Settings -> Downloads page (Speech models tab plus Components tab, batch queue, side inspector that docks or floats), the Voice model page (engine combo, model/device/language fields, language chips, inventory line), and the dialogs around them: HF consent, required-runtime, GPU-runtime choice, batch confirm, component profile. Also the remote-engine widgets and the ModelAssignments controller that hosts meeting and text-model tiles. The port is a Qt-free core (catalog, model/component store, download queue and policy, message text) plus a Qt layer. Scope shrinks to 3 NeMo models and 4 NeMo runtimes. Whisper custom models, UseGpuDialog, Runtime page, Qwen, Moonshine and MLX are dropped. Device semantics must adapt to one in-process runtime that cannot be unloaded.",
    "featureCount": 52,
    "dependsOnAreas": [
@@ -1295,7 +1295,7 @@
     "Inspector docking math depends on row minimumSizeHint at large font scales"
    ],
    "openQuestions": [
-    "Share %LOCALAPPDATA%\\OpenWhisper speech-models/components with OpenWhisper, or use a separate FioriVoce dir with import?",
+    "Share %LOCALAPPDATA%\\OpenWhisper speech-models/components with OpenWhisper, or use a separate OpenWhisper_CPP dir with import?",
     "Keep Nemotron Streaming and Orukeet in the catalog?",
     "Keep Remote computer and cloud API engines on the Voice model page?",
     "Device control: Auto/CPU/GPU as today, or list of actual GPUs given the one-runtime-per-process limit?",
@@ -1320,7 +1320,7 @@
   },
   {
    "area": "a16-updater-setup-packaging",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a16-updater-setup-packaging.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a16-updater-setup-packaging.md",
    "summary": "Covers app update checks (GitHub releases, beta track, rate-limit fallback, URL trust), the update dialog, title-bar and tray notice, and verified download. Also the Windows native tar.xz swap/rollback transaction with its helper exe, the Inno setup fallback, macOS DMG in-place update, the code-changed restart prompt, first-run guided setup, the Linux library preflight and the frozen self-test. Port shape: a Qt-free src/update core (feed parsing, schedule, trust rules, verified download) plus a Qt controller and two dialogs. The Windows native updater is the biggest and riskiest piece and needs an owner decision on installer strategy first.",
    "featureCount": 47,
    "topFeatures": [
@@ -1375,10 +1375,10 @@
     "other-platform only: all Windows registry/mutex code, macOS DMG updater, Linux preflight"
    ],
    "openQuestions": [
-    "What GitHub repo, release asset names, Windows AppId GUID and mutex names will FioriVoce use (new product, or share OpenWhisper's)?",
+    "What GitHub repo, release asset names, Windows AppId GUID and mutex names will OpenWhisper_CPP use (new product, or share OpenWhisper's)?",
     "Keep the full Windows native tar.xz update transaction, or only a silent installer fallback plus notify-only elsewhere?",
     "Should macOS in-place updates and any Linux self-update be built, or stay notify-only as in Python?",
-    "Which installer technology will FioriVoce ship (Inno Setup, WiX/MSIX, Qt IFW)?",
+    "Which installer technology will OpenWhisper_CPP ship (Inno Setup, WiX/MSIX, Qt IFW)?",
     "Are cloud/remote engines and Meeting Mode kept, which changes guided-setup speech readiness and the Linux audio remediation text?"
    ],
    "key": "a16-updater-setup-packaging",
@@ -1401,7 +1401,7 @@
   },
   {
    "area": "a17-remote-engine-services",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a17-remote-engine-services.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a17-remote-engine-services.md",
    "summary": "This area lets one computer share its speech engine with paired computers. It has no UI and no Qt. It covers: a TLS WebSocket host and client with certificate pinning; three ways to pair (code, Tailscale owner, approval with a 6-digit SAS); UDP LAN discovery and a /24 sweep; following a host whose address changes; admission limits; model switching, runtime controls and model management from the client; recording reservations and an update hold; record storage on the host (resumable, verified uploads plus an outbox sync); direct history queries; MCP control; and LAN/VPN address classification. The whole area is an undecided backend, apart from lan_address, which must be ported because the meeting web server uses it. Suggested port: a Qt-free core (codecs, validation, record store) under a Qt WebSockets or Beast/OpenSSL transport, with every decode routed through EngineWorker.",
    "featureCount": 54,
    "dependsOnAreas": [
@@ -1458,7 +1458,7 @@
    ],
    "openQuestions": [
     "Keep the remote-computer engine at all, or drop the whole area except lan_address?",
-    "Must FioriVoce interoperate with OpenWhisper peers (byte-identical path /openwhisper/v1/engine, magics, SAS strings, credential name, settings keys)?",
+    "Must OpenWhisper_CPP interoperate with OpenWhisper peers (byte-identical path /openwhisper/v1/engine, magics, SAS strings, credential name, settings keys)?",
     "Keep record storage on the host and direct history sync, or only remote transcription?",
     "Keep remote model management, runtime install and MCP control for a Parakeet-only engine?",
     "Transport choice: Qt WebSockets event loop vs a blocking thread-per-connection library mirroring the Python?"
@@ -1491,7 +1491,7 @@
   },
   {
    "area": "a18-remote-engine-ui",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a18-remote-engine-ui.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a18-remote-engine-ui.md",
    "summary": "Qt face of RemoteEngineService (a17): a Settings page with two tabs (use another computer: find/pair/records location; share this computer: toggles, port, pairing code, device list, record recovery), a modeless app-wide pairing-request dialog with matching 6-digit number, and a Host Mode dashboard (animated beacon, stats, engine picker, connected clients, devices, MCP card, recent activity). All undecided backend (remote engine). Port is pure Qt Widgets with a Qt-free view-model/formatting layer; relies on a17 service contract, shared tile/segmented widgets (a02/a11), and a worker-thread relay-with-token pattern. About 4,000-4,800 C++ lines.",
    "featureCount": 45,
    "topFeatures": [
@@ -1551,10 +1551,10 @@
     "RemoteLinkGlyph is shared with the main window remote card"
    ],
    "openQuestions": [
-    "Keep the remote-computer engine (client and host) in FioriVoce at all?",
+    "Keep the remote-computer engine (client and host) in OpenWhisper_CPP at all?",
     "If kept, must it interoperate with existing OpenWhisper hosts and clients (wire protocol, pairing records)?",
     "Should the Host Mode dashboard MCP card ship if MCP stays undecided?",
-    "Rename product strings (OpenWhisper) to FioriVoce, accepting version-skew hints?",
+    "Rename product strings (OpenWhisper) to OpenWhisper_CPP, accepting version-skew hints?",
     "Keep Tailscale discovery and code-free pairing, or LAN-and-code only?"
    ],
    "key": "a18-remote-engine-ui",
@@ -1578,7 +1578,7 @@
   },
   {
    "area": "a19-actions-automation-services",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a19-actions-automation-services.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a19-actions-automation-services.md",
    "summary": "Engine-agnostic automation layer with no UI. It covers saved actions (7 kinds: link, agent handoff or ask, Claude Code channel, signed webhook, program, copy, scripts) and their runtime: a Qt-thread relay, a 4-worker pool, cancel handling and output routing. It also covers Route by voice (a pure tokenizer and phonetic gate plus a judge request with a 1.5 s budget), an in-process event bus with replay and gap reporting, Standard Webhooks signing, webhook delivery lanes with retries, program hooks with process-tree control, text filters with API leases, the live HTTP and SSE routes, AppControl, meeting events, and the stdio MCP Claude Code channel. The C++ port splits into a pure core (models, catalog, bus, routing, signing) plus platform process and launch layers, an HTTP client, and a Qt layer for the runtime and API. The bridge becomes its own console target.",
    "featureCount": 53,
    "dependsOnAreas": [
@@ -1635,7 +1635,7 @@
     "Windows update step-aside in the channel depends on the updater area's mutex names."
    ],
    "openQuestions": [
-    "Keep OpenWhisper-branded wire names (OPENWHISPER_* env vars, credential names, X-OpenWhisper-Client, MCP server 'openwhisper', event types) for script compatibility, or rename to FioriVoce?",
+    "Keep OpenWhisper-branded wire names (OPENWHISPER_* env vars, credential names, X-OpenWhisper-Client, MCP server 'openwhisper', event types) for script compatibility, or rename to OpenWhisper_CPP?",
     "Ship the Claude Code channel as a separate small executable or as a --channel mode of the main binary?",
     "Keep agent 'ask' and Route by voice (both need LLM backends) in the first parity milestone?",
     "Which HTTP stack for hooks and the live API: Qt Network/QHttpServer or libcurl plus a small custom server?"
@@ -1669,7 +1669,7 @@
   },
   {
    "area": "a20-agent-api-mcp-services",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a20-agent-api-mcp-services.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a20-agent-api-mcp-services.md",
    "summary": "Non-UI services: (1) a read-only, bearer-token, loopback History REST API over SQLite (headless --api mode and in-app), with keyset cursors, literal search, insights snapshot and optional paired-client federation; (2) an in-app MCP Streamable-HTTP server (22 tools, permission-gated writes, live tools, Tailscale listener, token in OS keyring); (3) MCP Events webhook subscriptions with Standard Webhooks signing, retries, SSRF guard, persistence; (4) copyable setup snippets and paired-computer MCP control; (5) installed coding-agent discovery (Claude Code, Codex, OpenCode) and process-tree ownership. Port as a Qt-free core (SQLite C API, hand-written JSON-RPC, libcurl) with a thin Qt runtime/listener layer; no MCP C++ SDK exists, so protocol parity is the main risk.",
    "featureCount": 45,
    "dependsOnAreas": [
@@ -1724,7 +1724,7 @@
     "OpenCode model listing relies on ACP code in a26"
    ],
    "openQuestions": [
-    "Should FioriVoce share OpenWhisper's data root, keyring service name and credential names (OPENWHISPER_MCP_TOKEN, event secrets) so existing MCP clients and subscriptions keep working?",
+    "Should OpenWhisper_CPP share OpenWhisper's data root, keyring service name and credential names (OPENWHISPER_MCP_TOKEN, event secrets) so existing MCP clients and subscriptions keep working?",
     "Keep the remote-computer engine (and thus history federation, HostMcpControl, Tailscale MCP listener)?",
     "Keep the headless --api mode as a separate process mode of the same executable?",
     "Is MCP Events (draft extension) in scope for parity, or deferred?",
@@ -1759,7 +1759,7 @@
   },
   {
    "area": "a21-actions-automation-ui",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a21-actions-automation-ui.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a21-actions-automation-ui.md",
    "summary": "Settings UI for the Automate group: Actions page (featured Agent hotkey card, up to 50 action cards, 10-preset gallery, full editor with Try it, Route by voice tiles/status/shortcut), Hooks page (webhooks, programs, text filters with inline editors, secrets, test sends, recent results, filter leases), API & MCP page (server bar, connection/permissions cards, live API, MCP Events, Claude Code channel, paired-host tabs) and the reusable AgentPicker (Claude Code/Codex/OpenCode tiles with scan shimmer, model row). Port as a Qt-free model/phrasing core (golden-vector testable) plus a Qt Widgets layer; most work is exact copy and responsive layout fidelity. Backends (runtime, hook engines, MCP server, agent scanner) are other areas; Route by voice and host tab depend on undecided features.",
    "featureCount": 64,
    "dependsOnAreas": [
@@ -1824,8 +1824,8 @@
    "openQuestions": [
     "Are Route by voice and Fast judgments (LLM judge) kept, given the cloud-API decision is open?",
     "Is the remote-computer / paired-host MCP management kept?",
-    "Should user-visible product copy, the MCP server name 'openwhisper', .mcp.json entries, ~/OpenWhisper Agent Tasks and OPENWHISPER_* credential names stay as OpenWhisper or become FioriVoce?",
-    "Must FioriVoce read existing OpenWhisper settings (actions, hooks, mcp keys) and credentials, or start fresh?",
+    "Should user-visible product copy, the MCP server name 'openwhisper', .mcp.json entries, ~/OpenWhisper Agent Tasks and OPENWHISPER_* credential names stay as OpenWhisper or become OpenWhisper_CPP?",
+    "Must OpenWhisper_CPP read existing OpenWhisper settings (actions, hooks, mcp keys) and credentials, or start fresh?",
     "Is the Claude Code channel (needs a --channel mode in the C++ binary) in scope, and which agent CLIs (Claude Code, Codex, OpenCode) stay?"
    ],
    "key": "a21-actions-automation-ui",
@@ -1849,7 +1849,7 @@
   },
   {
    "area": "a22-walkthrough-services-snap",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a22-walkthrough-services-snap.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a22-walkthrough-services-snap.md",
    "summary": "This area is the walkthrough backend plus Snap. The backend covers the recording-session board with screenshots, move/remove/undo and held notes, the quiet-point audio cutting that splits the recording into sections, and the Markdown, PDF, DOCX and JSON manifest documents with their PDF pagination. It also holds the AI write-up (prompts, look block, versions), write-up styles, and the library: review, recovery, retention and safe delete. Snap is the freeze-and-annotate overlay with 8 tools, the painted toolbar and live desktop drawing, plus per-OS capture, exclusion and focus plumbing. Two-step auto-paste is also here. For the port, split it into a Qt-free core (golden-testable), a QtGui-only document renderer (PDF; DOCX needs a hand-written OOXML writer) and the Widgets Snap UI, with Win32 and macOS backends. Section decoding maps onto Recognizer::transcribe over sample spans, so no temporary WAV files are needed.",
    "featureCount": 58,
    "dependsOnAreas": [
@@ -1905,8 +1905,8 @@
     "'Window under pointer' mode exists only on Windows/macOS"
    ],
    "openQuestions": [
-    "Should FioriVoce read and write OpenWhisper's existing captures folder and JSON formats (data root compatibility), or start its own?",
-    "Brand strings in documents and prompts ('transcribed by OpenWhisper', PDF creator, 'Made by OpenWhisper', window titles, MAC_REASON): replace with FioriVoce?",
+    "Should OpenWhisper_CPP read and write OpenWhisper's existing captures folder and JSON formats (data root compatibility), or start its own?",
+    "Brand strings in documents and prompts ('transcribed by OpenWhisper', PDF creator, 'Made by OpenWhisper', window titles, MAC_REASON): replace with OpenWhisper_CPP?",
     "Is the AI write-up (external coding-agent CLIs) in scope for parity now, given it depends on the meeting-agent runner port?",
     "Which platforms ship first: Windows only, or macOS and Hyprland Snap backends too?",
     "Is a hand-written OOXML writer acceptable for .docx, or should a third-party docx library be vendored?"
@@ -1940,7 +1940,7 @@
   },
   {
    "area": "a23-walkthrough-ui",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a23-walkthrough-ui.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a23-walkthrough-ui.md",
    "summary": "The Walkthrough UI area: a tab (320 px settings column beside a three-pane stage: storyboard review / recording card / empty state with recents), a frameless always-on-top live recording column that paints speech as ticks and drops numbered screenshot thumbnails (with a Snap menu and a flying-screenshot animation), a corner \"ready\" card, the editable storyboard (reorder, include, save/redo/copy/recover/delete off-thread behind an app gate), the side-panel Walkthroughs page, and the Saved Walkthroughs library dialog with retention. Port as a Qt-free model (tick/section logic, layout math, formatters) plus Qt Widgets UI; the heavy parts are the painted panel and the review widget. Everything depends on the a22 library/styles and a02 theme/widgets. No ASR-engine code; the AI write-up (external agent CLIs) is the undecided piece.",
    "featureCount": 85,
    "topFeatures": [
@@ -2005,7 +2005,7 @@
     "Keep Auto Mode and Capture delay (Windows/macOS) in scope?",
     "Reuse OpenWhisper's captures folder and retention.json unchanged, and rename in-app 'OpenWhisper' strings and the row-drag mime type?",
     "Keep Omarchy/compositor-managed no-column behavior or only Wayland detection?",
-    "May the tab depend on a02 shared widgets (studio split, segmented bar, badge, switch) ported first, or get FioriVoce-native replacements?"
+    "May the tab depend on a02 shared widgets (studio split, segmented bar, badge, switch) ported first, or get OpenWhisper_CPP-native replacements?"
    ],
    "key": "a23-walkthrough-ui",
    "check": {
@@ -2026,7 +2026,7 @@
   },
   {
    "area": "a24-meeting-engine",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a24-meeting-engine.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a24-meeting-engine.md",
    "summary": "The Qt-free orchestrator for one meeting. MeetingEngine handles start, pause and end, the heartbeat, the ASR and diarizer wiring, and the intelligence and backup-agent lifecycle. EndRun runs the ordered finalization steps (redecode, speaker id, polish, consolidation, finalize) with exact user-facing strings. Recovery finds dead sessions by heartbeat and pid, salvages orphan WAVs and raw PCM tails, and finalizes headless. Refinalize retries any step with one claim per meeting. The port is a Qt-free fv::meeting core of pure helpers, retry and recovery logic behind abstract repository, store, ASR and agent interfaces, plus a thin QObject bridge. Speech goes through the shared Parakeet Recognizer on EngineWorker. About 40% of engine.py is LLM, TypeSafe and voice plumbing whose backends are undecided. It can be stubbed so the core lands first.",
    "featureCount": 56,
    "dependsOnAreas": [
@@ -2087,7 +2087,7 @@
     "Keep LLM meeting intelligence (polish, report, backup agent), and with which providers?",
     "Keep the OpenAI speaker-identification pass, given it retires on 2027-02-26?",
     "Should the meeting share the dictation Parakeet Recognizer, or load its own copy (memory vs dictation during meeting finalization)?",
-    "Must FioriVoce read and recover meetings and spools written by the Python app (DB and file compatibility)?",
+    "Must OpenWhisper_CPP read and recover meetings and spools written by the Python app (DB and file compatibility)?",
     "Keep the TypeSafe live highlights and voice commands features?"
    ],
    "risks": [
@@ -2118,7 +2118,7 @@
   },
   {
    "area": "a25-meeting-capture-asr-diarize",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a25-meeting-capture-asr-diarize.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a25-meeting-capture-asr-diarize.md",
    "summary": "This area is the headless audio back end of Meeting Mode and has no Qt widgets. It records two channels: the microphone and system audio (WASAPI loopback, ScreenCaptureKit, or a Pulse monitor). A watchdog restarts a failed or stalled source within 12 s. Each channel is spooled crash-safely into 16 kHz WAV chunks plus a session PCM/WAV, and a background ASR worker transcribes the chunks with retries and a bounded backlog that refills from SQLite. Parakeet live preview decodes rolling windows, an optional offline pass re-decodes the session and drops mic echo, on-device diarization uses Kaldi fbank, a WeSpeaker ONNX model and online clustering, and a playback WAV is built for the dashboard. The port is a Qt-free core (DSP, spool, capture session, ASR worker over Recognizer, diarize, playback) plus per-OS capture sources.",
    "featureCount": 44,
    "dependsOnAreas": [
@@ -2209,7 +2209,7 @@
   },
   {
    "area": "a26-meeting-agent",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a26-meeting-agent.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a26-meeting-agent.md",
    "summary": "This area is the headless meeting-intelligence back end, with no widgets. It holds the prompt builders (copilot, note-taker, polish, consolidation, brief, compact state, spotlight) and the adaptive checkpoint scheduler (cadence, warm-up, topic shift, delivery ledger, guidance, note requests, backoff, consolidation and final polish). It also has the single tool policy with evidence-id repair (a difflib port), the tool schemas, the Pi and OpenCode SDK Node/Bun sidecar supervisor (NDJSON JSON-RPC), and drivers for installed agents: Claude Code and Codex headless, OpenCode over ACP. Those drivers get their tools from a loopback MCP HTTP server. The port splits into a Qt-free core (prompts, scheduler with injected clock and host, policy, evidence, JSON-RPC) and a platform layer (processes, MCP server, drivers). The direct agent is retired and gets dropped. Whether to keep the sidecars is undecided.",
    "featureCount": 45,
    "dependsOnAreas": [
@@ -2297,7 +2297,7 @@
   },
   {
    "area": "a27-meeting-sidecars-ts",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a27-meeting-sidecars-ts.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a27-meeting-sidecars-ts.md",
    "summary": "Two TypeScript child programs (Pi on Node, OpenCode v2 on Bun) that run the meeting LLM agent loop and bridge five tools (patch_state, ask_question, resolve_question, search_past_meetings, search_context_files) back to the Python host over NDJSON JSON-RPC. They hold no authority and have no UI. Real source is 2,675 lines (areas.json says 7,218, likely counting lockfiles). Suggested port: skip the processes and implement a native C++ agent loop over four streaming protocols (chat, responses, anthropic, google), keeping tool descriptions, request-scoped authority, serialized passes, cancel, progress vocabulary and bounded retry. Qt-free tool and provider-config cores are golden-vector testable.",
    "featureCount": 32,
    "dependsOnAreas": [
@@ -2373,7 +2373,7 @@
   },
   {
    "area": "a28-meeting-state-persist-export",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a28-meeting-state-persist-export.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a28-meeting-state-persist-export.md",
    "summary": "This area is the data core of Meeting Mode and has no widgets. It covers the MeetingState document and its JSON contract, the single op vocabulary every writer uses (with permissions, limits, protection rules and inverse ops for undo), and the single-writer store, which persists each change before it becomes visible, assigns seq numbers and fans changes out. It also holds the SQLite repository for every meeting_* table plus FTS, reversible transcript corrections, post-meeting repair, insight-review and custom-report ops, meeting and spool deletion with tombstones, history-row helpers and the Markdown/JSON/TXT/bulk exporters. Proposed port: a Qt-free fv::meeting core (structs, ops, corrections, exports), a sqlite3 repository that opens the existing database, and a thin Qt wrapper that turns store fan-out into queued signals.",
    "featureCount": 46,
    "dependsOnAreas": [
@@ -2426,7 +2426,7 @@
     "stored.meeting_endpoint uses services.text_llm: undecided"
    ],
    "openQuestions": [
-    "Must FioriVoce read and write the existing OpenWhisper openwhisper.db in place (identical schema, triggers, timestamp strings), or migrate to its own DB?",
+    "Must OpenWhisper_CPP read and write the existing OpenWhisper openwhisper.db in place (identical schema, triggers, timestamp strings), or migrate to its own DB?",
     "May the meeting core use QtCore (QRegularExpression, QString case folding, QJson), or must it stay Qt-free like src/engine (pulling in PCRE2 + ICU)?",
     "Keep the per-meeting bulk export quirk where Markdown files get a .markdown extension, or switch to .md?",
     "Are cloud features (insight review, custom reports, agent guidance) and the paired-computer sync kept? That decides about 25% of this area."
@@ -2460,7 +2460,7 @@
   },
   {
    "area": "a29-meeting-intelligence",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a29-meeting-intelligence.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a29-meeting-intelligence.md",
    "summary": "This area holds Qt-free meeting-intelligence services that are built on the meeting state store and on the LLM and Fast-judgment backends. They cover tailored Markdown reports (a bounded agent loop with tools for reading the transcript), a post-meeting insight review that asks the host ranked clarification questions, advisory citation checks, minute-level highlight pulses and the question radar, consent-gated past-meeting recall and knowledge-folder search (PDF, DOCX, PPTX and XLSX extraction), semantic history reranking, spoken voice commands with live feedback, and a headless re-run of insights. The area has no widgets; the web dashboard shows the results. For the port, the pure policy code and formatters go into a C++ core with golden vectors, the background workers keep the exact lock and consent re-check rules, and the judge, text-generation and agent backends sit behind interfaces.",
    "featureCount": 33,
    "dependsOnAreas": [
@@ -2515,7 +2515,7 @@
    ],
    "openQuestions": [
     "Are the Fast-judgment features (TypeSafe/OpenRouter/local text-model judge) and the LLM report/agent backends kept at all?",
-    "Should the default wake names and guide label still include 'OpenWhisper'/'open whisper', or switch to a FioriVoce name (or both)?",
+    "Should the default wake names and guide label still include 'OpenWhisper'/'open whisper', or switch to a OpenWhisper_CPP name (or both)?",
     "Is knowledge-folder search worth porting with PDF/Office extraction libraries, or limited to plain-text files?",
     "Are agent-core re-runs (Pi/OpenCode sidecars, installed agents) in scope, or only direct API calls?"
    ],
@@ -2548,7 +2548,7 @@
   },
   {
    "area": "a30-meeting-web-server-and-dashboard-contract",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a30-meeting-web-server-and-dashboard-contract.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a30-meeting-web-server-and-dashboard-contract.md",
    "summary": "This area is the meeting dashboard backend: a FastAPI/uvicorn server on its own thread that serves the prebuilt React bundle at /m/{token}, about 25 REST routes, and a /ws hub. The hub sends a hello snapshot, buffers patches that arrive during hello, fans out store patches (custom reports split onto host-only patches), tracks guest presence, and acknowledges client actions. Access uses a host and a guest capability token per meeting. There is also an archive adapter for past meetings. The recommended port keeps the React dashboard as a vendored static bundle, so the look matches for free, and rewrites only the server. That means a Qt-free core (auth, cursors, public projection, WS protocol, route handlers) under a Qt HttpServer/WebSockets or Beast transport, about 3k lines of C++. Contract replay against the Python server is the main parity check.",
    "featureCount": 48,
    "dependsOnAreas": [
@@ -2636,7 +2636,7 @@
   },
   {
    "area": "a31-meeting-qt-ui",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a31-meeting-qt-ui.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a31-meeting-qt-ui.md",
    "summary": "Meeting Mode Qt UI: a two-pane tab (320px control column plus empty/live/result stage with on-air clock and finalization checklist card), the Past Meetings sidebar panel (search, 100-card cap, context menus, host-merge, delete/clear/export), 11 modal dialogs (intro, consent x2, setup with 6s audio check, recovery, delete, export, plus macOS/Linux/unsupported platform dialogs), two Settings pages (After End, Fast judgments), and two services (setup readiness checks, shared re-run options). Port as a Qt-free core (formatters, finalization view model, setup checks, copy builders) plus a Qt Widgets layer reusing the QSS block. Windows first; platform dialogs and cloud/remote/TypeSafe parts are stubbed pending decisions.",
    "featureCount": 45,
    "topFeatures": [
@@ -2703,9 +2703,9 @@
    "openQuestions": [
     "Keep AI insights cloud/agent path, or transcript-only Meeting Mode first?",
     "Is Meeting Mode in the first Windows milestone, and are macOS/Linux dialogs wanted?",
-    "Read existing openwhisper_settings.json meeting keys, or a new FioriVoce settings file?",
+    "Read existing openwhisper_settings.json meeting keys, or a new OpenWhisper_CPP settings file?",
     "Keep re-decode and speaker identification (OpenAI speaker pass) for Parakeet?",
-    "Confirm renaming OpenWhisper wording and export stem to FioriVoce"
+    "Confirm renaming OpenWhisper wording and export stem to OpenWhisper_CPP"
    ],
    "key": "a31-meeting-qt-ui",
    "check": {
@@ -2728,7 +2728,7 @@
   },
   {
    "area": "a32-user-facing-features",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a32-user-facing-features.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a32-user-facing-features.md",
    "summary": "Parity checklist of 351 user-visible OpenWhisper features, built from README, CONTRIBUTING, every docs/*.md and design.md, the full CHANGELOG (through 2.8.92), the main-window menu code, tray menu and Settings chapter list. Grouped by location: window/menus/tray, Quick Record, Upload File, Walkthrough (tab, column, drawing, Auto Mode, documents, review, AI write-up), Meeting Mode and its web dashboard, History, Scratchpad, Stats, overlay, hotkeys, output, every Settings chapter and page, guided setup, updates, agent/MCP/live API/hooks, remote engine, engines, text providers, privacy, platforms. Lines are tagged DROP, UNDECIDED (nemotron, cloud, remote), MAC, LINUX, OMARCHY. The port is mostly Qt UI plus services; the Parakeet core already exists.",
    "featureCount": 351,
    "dependsOnAreas": [
@@ -2782,18 +2782,18 @@
     "macOS/Linux/Omarchy-only items are tagged but kept so nothing is lost"
    ],
    "openQuestions": [
-    "Should FioriVoce keep Nemotron Streaming (native streaming preview) and the cloud API engine, and the remote-computer engine?",
+    "Should OpenWhisper_CPP keep Nemotron Streaming (native streaming preview) and the cloud API engine, and the remote-computer engine?",
     "Is the browser meeting dashboard (React bundle plus local server) to be ported as-is, rebuilt in Qt, or served by a small C++ HTTP server?",
     "Are the agent-based features (Pi/Claude Code/Codex/OpenCode meeting insights, walkthrough AI write-up, agent hotkey, MCP) in scope for the first parity milestone?",
     "Windows-first, or must macOS and Linux (Wayland/Omarchy) parity be planned in the first pass?",
-    "Should FioriVoce import OpenWhisper's existing settings, database and backups (.owbackup), or start with its own data format?"
+    "Should OpenWhisper_CPP import OpenWhisper's existing settings, database and backups (.owbackup), or start with its own data format?"
    ],
    "key": "a32-user-facing-features",
    "check": null
   },
   {
    "area": "a33-tests-and-parity-harness",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a33-tests-and-parity-harness.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a33-tests-and-parity-harness.md",
    "summary": "OpenWhisper's suite has 548 flat pytest files (157k lines, about 7,770 tests). A conftest moves all data under OPENWHISPER_DATA_DIR and fakes the credential store, focus capture, network and agents. A script classified every file by area and kind: 111 pure-logic, 154 integration, 210 Qt, 36 platform, 37 dropped-engine. Both harness mechanisms work here. Golden vectors are dumped from curated inputs plus a pytest trace plugin, and a C++ replay caught a Python round-half-to-even divergence. Reference screenshots come from offscreen renders with the real theme.qss, plus dumps of the widget tree, stylesheet and palette. A C++ Qt 6.10.3 rebuild of those trees matched the PyQt6 6.11.0 references with 0 differing pixels across theme and DPR variants, once fonts, DPR, DPI and focus were pinned.",
    "featureCount": 34,
    "dependsOnAreas": [
@@ -2840,7 +2840,7 @@
     "36 platform files (macOS, X11, Wayland, Omarchy, Hyprland backends) wait until those platforms are ported"
    ],
    "openQuestions": [
-    "Move FioriVoce from Qt 6.10.3 to 6.11.x to match the PyQt6 6.11.0 references, or accept per-test tolerances?",
+    "Move OpenWhisper_CPP from Qt 6.10.3 to 6.11.x to match the PyQt6 6.11.0 references, or accept per-test tolerances?",
     "Should screenshot parity be a Windows-only gate (Segoe UI cannot be redistributed), or use a pinned free font in cross-platform CI at the cost of not showing the real look?",
     "Should reference PNGs, tree dumps and golden JSON be committed under tests/ (pinned to an OpenWhisper commit) or regenerated from the checkout on demand?",
     "Which base style is the parity target on Windows: windows11 (what the app runs) or Fusion (the offscreen default)?",
@@ -2849,7 +2849,7 @@
    "risks": [
     "Python semantics that a literal C++ port gets wrong: round half to even, len() counting code points, str.casefold (\u00df to ss), Unicode \\w, local-time astimezone",
     "Offscreen FreeType rendering is not the on-screen DirectWrite look, so pixel parity proves the port matches the reference, not that both match the real screen",
-    "Qt minor version difference between PyQt6 (6.11.0) and FioriVoce (6.10.3) can change stylesheet or text rendering",
+    "Qt minor version difference between PyQt6 (6.11.0) and OpenWhisper_CPP (6.10.3) can change stylesheet or text rendering",
     "Many Python tests patch module-level internals (monkeypatch targets), so they cannot be ported directly and need C++ seams designed in",
     "Classification is a file-level heuristic: pure tests inside Qt and integration files are undercounted, and some dropped-engine flags are false positives",
     "Setting the windows11 style before QApplication exists crashes the offscreen process. Animations, timers, clocks and random seeds must be pinned per widget."
@@ -2859,7 +2859,7 @@
   },
   {
    "area": "a34 packaging, installers, release CI and third-party dependencies",
-   "mapFile": "C:\\coding\\fiorivoce_cpp\\docs\\port\\map\\a34-packaging-ci-dependencies.md",
+   "mapFile": "C:\\coding\\OpenWhisper_CPP\\docs\\port\\map\\a34-packaging-ci-dependencies.md",
    "summary": "OpenWhisper ships through PyInstaller onedir freezes: an Inno Setup per-user installer plus a signed tar.xz update archive on Windows, deb and Arch packages on Linux, and a DMG on macOS. A transactional updater exe swaps directories with journal, health check and rollback. Components download with pinned URL and SHA-256, staged and swapped atomically. CI is 7 test jobs, 3 platform builds, then a verified draft upload. The C++ port drops PyInstaller, the Python wheel builders and the gpu-accel component, and replaces them with CMake install rules, Qt deploy scripts, a ported Inno script and shell packagers. The native updater is phased after a simpler setup-exe update. The doc includes a verified vcpkg and Qt dependency list.",
    "featureCount": 21,
    "topFeatures": [
@@ -2918,7 +2918,7 @@
     "Component catalog entry parser and path-safe extraction rules"
    ],
    "risks": [
-    "Windows code signing has never run end to end in OpenWhisper; the first signed FioriVoce build needs hand verification",
+    "Windows code signing has never run end to end in OpenWhisper; the first signed OpenWhisper_CPP build needs hand verification",
     "Inno leaves stale files on upgrade; without the helper protocol an InstallDelete list is the only guard and needs a smoke test",
     "Qt kit extra modules (HttpServer, WebSockets, Pdf) may not all be in the installed Qt; ICU and TLS plugin omissions need a clean-VM check",
     "miniaudio WASAPI loopback and ffmpeg codec coverage must be validated against sounddevice and PyAV parity for Meeting Mode and file transcription",
@@ -2935,7 +2935,7 @@
     "Undecided: Nemotron streaming (same NeMo runtime, shares the runtime component)"
    ],
    "openQuestions": [
-    "Product identity for FioriVoce: Inno AppId, publisher, macOS bundle id, data folder name, update repo, website, and whether to keep an ow-style alias",
+    "Product identity for OpenWhisper_CPP: Inno AppId, publisher, macOS bundle id, data folder name, update repo, website, and whether to keep an ow-style alias",
     "Bundle the NeMo CPU runtime (about 4 MB on Windows) in the installer, or keep it a first-run download",
     "Native transactional updater in release one, or setup-exe updates first and the helper later",
     "Meeting dashboard: keep the React web page served by a local HTTP server, or rebuild it as native Qt widgets",

@@ -137,7 +137,7 @@ void for_each(std::string_view module, std::string_view function,
 void for_each_in(const Json& document, std::string_view function,
                  const std::function<void(const Case&)>& body);
 
-// OpenWhisper's product, file and variable names as FioriVoce's, for comparing strings a
+// OpenWhisper's product, file and variable names as OpenWhisper_CPP's, for comparing strings a
 // vector recorded with strings the port builds from identity(). A literal map: M0.11 checks it
 // against identity() once fv_base implements it.
 std::string rebrand(std::string_view text);

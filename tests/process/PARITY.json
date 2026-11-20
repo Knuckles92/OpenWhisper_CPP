@@ -9,7 +9,7 @@
       "test_helper_requires_transaction_id": {"status": "ported", "cpp": "tests/update_native/test_updater_cli.cpp", "note": "case: the helper started without a transaction does nothing and exits 2. Exit code 2 as OpenWhisper; the notice is the usage on standard error, not a message box: the program is a console tool the build scripts run too"},
       "test_helper_commits_prepared_journal": {"status": "ported", "cpp": "tests/update_native/test_updater_cli.cpp", "note": "case: the helper leaves its launch directory and then commits the journal; the commit itself is test_transaction_runner.cpp \"the helper commits a prepared journal and then collects its leftovers\""},
       "test_helper_recover_path": {"status": "ported", "cpp": "tests/update_native/test_updater_cli.cpp", "note": "case: the helper recovers the transaction it is given; the recovery itself is test_transaction_runner.cpp \"the helper recovers an interrupted journal, says so and starts the old version\""},
-      "test_helper_cleanup_path": {"status": "dropped", "reason": "FioriVoce has no cleanup copy of the updater and no --cleanup-transaction mode: a finished transaction is collected in the helper's own run and by the application's next start, once the updater has released its gates (docs/port/differences.md a16-cleanup). tests/update_native/test_startup_recovery.cpp \"a finished transaction is collected by the next start\"."},
+      "test_helper_cleanup_path": {"status": "dropped", "reason": "OpenWhisper_CPP has no cleanup copy of the updater and no --cleanup-transaction mode: a finished transaction is collected in the helper's own run and by the application's next start, once the updater has released its gates (docs/port/differences.md a16-cleanup). tests/update_native/test_startup_recovery.cpp \"a finished transaction is collected by the next start\"."},
       "test_cleanup_failure_is_not_reported_as_an_update_failure": {"status": "ported", "cpp": "tests/update_native/test_transaction_runner.cpp", "note": "case: a cleanup failure is not reported as an update failure (cleanup is part of the helper's one run; there is no cleanup process)"},
       "test_helper_reports_apply_error": {"status": "ported", "cpp": "tests/update_native/test_updater_cli.cpp", "note": "case: the helper shows an update failure nobody else will show"},
       "test_helper_leaves_its_launch_directory_before_committing": {"status": "ported", "cpp": "tests/update_native/test_updater_cli.cpp", "note": "case: the helper leaves its launch directory and then commits the journal"},
@@ -270,7 +270,7 @@
       },
       "test_pywin32_is_a_declared_windows_dependency": {
         "status": "dropped",
-        "reason": "Python packaging: FioriVoce asks Explorer through COM with no extra library"
+        "reason": "Python packaging: OpenWhisper_CPP asks Explorer through COM with no extra library"
       },
       "test_a_failure_while_asking_explorer_reaches_the_caller": {
         "status": "ported",
@@ -428,11 +428,11 @@
       },
       "test_the_frozen_loader_environment_is_undone": {
         "status": "dropped",
-        "reason": "PyInstaller loader plumbing: FioriVoce is not a frozen Python build"
+        "reason": "PyInstaller loader plumbing: OpenWhisper_CPP is not a frozen Python build"
       },
       "test_the_apps_own_virtualenv_is_left_out": {
         "status": "dropped",
-        "reason": "virtualenv plumbing: FioriVoce runs in no virtualenv"
+        "reason": "virtualenv plumbing: OpenWhisper_CPP runs in no virtualenv"
       },
       "test_a_users_own_virtualenv_is_kept": {
         "status": "dropped",

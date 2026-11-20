@@ -287,8 +287,8 @@ private:
     log::Level previous_;
 };
 
-// OpenWhisper's names in a recorded string as FioriVoce's: golden::rebrand, plus the product in
-// lower case (the MCP server's name and the notices' origin).
+// OpenWhisper's names in a recorded string as OpenWhisper_CPP's: golden::rebrand, plus the product
+// in lower case (the MCP server's name and the notices' origin).
 inline std::string rebranded_text(std::string_view text) {
     const std::string legacy = py::lower(legacy_identity().product);
     const std::string current = py::lower(identity().product);

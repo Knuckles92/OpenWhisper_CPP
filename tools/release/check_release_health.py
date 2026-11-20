@@ -1,4 +1,4 @@
-"""Check the synthetic lifecycle report of ``fiorivoce-cli --workflow-smoke`` against the release
+"""Check the synthetic lifecycle report of ``openwhisper-cpp-cli --workflow-smoke`` against the release
 gate: every data-safety check passed, every metric present, finite and within its deadline.
 
 Give the report to check, or ``--executable`` to run the smoke into ``--output`` first under a
@@ -6,7 +6,7 @@ process exit deadline. ``--baseline`` rejects timing or RSS regressions against 
 accepted report from equivalent hardware; synthetic results are not ASR benchmarks::
 
     python tools/release/check_release_health.py out/smoke.json
-    python tools/release/check_release_health.py --executable <stage>/fiorivoce-cli.exe \\
+    python tools/release/check_release_health.py --executable <stage>/openwhisper-cpp-cli.exe \\
         --output out/release-health.json [--baseline previous-release-health.json]
 """
 
@@ -94,9 +94,9 @@ def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__,
                                       formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("report", nargs="?", type=Path,
-                        help="A report fiorivoce-cli --workflow-smoke saved")
+                        help="A report openwhisper-cpp-cli --workflow-smoke saved")
     parser.add_argument("--executable", type=Path,
-                        help="fiorivoce-cli to run the smoke with, instead of giving a report")
+                        help="openwhisper-cpp-cli to run the smoke with, instead of giving a report")
     parser.add_argument("--output", type=Path, default=Path("release-health.json"),
                         help="Where --executable's report goes (default: release-health.json)")
     parser.add_argument("--baseline", type=Path,

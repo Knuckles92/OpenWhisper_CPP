@@ -32,10 +32,10 @@ std::vector<std::string> names_in(const std::filesystem::path& folder) {
 
 TEST_CASE("an atomic write creates the file and leaves no temporary") {
     TempDir temp;
-    const auto target = temp.path() / "fiorivoce_settings.json";
+    const auto target = temp.path() / "openwhisper_cpp_settings.json";
     fv::write_file_atomic(target, "{\n  \"a\": 1\n}\n");
     CHECK(read_all(target) == "{\n  \"a\": 1\n}\n");
-    CHECK(names_in(temp.path()) == std::vector<std::string>{"fiorivoce_settings.json"});
+    CHECK(names_in(temp.path()) == std::vector<std::string>{"openwhisper_cpp_settings.json"});
 }
 
 TEST_CASE("an atomic write replaces the whole file, binary bytes included") {
@@ -52,7 +52,7 @@ TEST_CASE("an atomic write replaces the whole file, binary bytes included") {
 
 TEST_CASE("a failed replace leaves the original intact and no stray temporary") {
     TempDir temp;
-    const auto target = temp.path() / "fiorivoce_settings.json";
+    const auto target = temp.path() / "openwhisper_cpp_settings.json";
     fv::write_file_atomic(target, "original");
 #if defined(_WIN32)
     // An open handle without delete sharing (as std::ifstream opens it) makes MoveFileExW fail.
@@ -62,7 +62,7 @@ TEST_CASE("a failed replace leaves the original intact and no stray temporary") 
                     std::filesystem::filesystem_error);
     holder.close();
     CHECK(read_all(target) == "original");
-    CHECK(names_in(temp.path()) == std::vector<std::string>{"fiorivoce_settings.json"});
+    CHECK(names_in(temp.path()) == std::vector<std::string>{"openwhisper_cpp_settings.json"});
 #else
     // rename cannot put a file over a folder that holds something.
     const auto folder = temp.path() / "settings";
@@ -71,7 +71,8 @@ TEST_CASE("a failed replace leaves the original intact and no stray temporary") 
                     std::filesystem::filesystem_error);
     CHECK(std::filesystem::is_directory(folder / "inside"));
     CHECK(read_all(target) == "original");
-    CHECK(names_in(temp.path()) == std::vector<std::string>{"fiorivoce_settings.json", "settings"});
+    CHECK(names_in(temp.path()) ==
+          std::vector<std::string>{"openwhisper_cpp_settings.json", "settings"});
 #endif
 }
 

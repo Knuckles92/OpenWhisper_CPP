@@ -49,10 +49,10 @@ TEST_CASE("shared processes coexist and exclusive waits for exit", "[test_backup
     {
         auto shared = DataLease::acquire(temp.path(), identity(), LeaseMode::Shared);
         CHECK(shared.held());
-        CHECK_THROWS_MATCHES(DataLease::acquire(temp.path(), identity(), LeaseMode::Exclusive),
-                             DataLeaseBusy,
-                             Catch::Matchers::Message(
-                                 "The application data is in use by another FioriVoce process."));
+        CHECK_THROWS_MATCHES(
+            DataLease::acquire(temp.path(), identity(), LeaseMode::Exclusive), DataLeaseBusy,
+            Catch::Matchers::Message(
+                "The application data is in use by another OpenWhisper_CPP process."));
     }
     stop(*other);
 
@@ -99,7 +99,7 @@ TEST_CASE("the lease creates the data root and a one byte lock file") {
     const auto root = temp.path() / "nested" / "data";
     auto lease = DataLease::acquire(root, identity(), LeaseMode::Shared);
 
-    const auto lock = root / ".fiorivoce-data.lock";
+    const auto lock = root / ".openwhisper-cpp-data.lock";
     REQUIRE(std::filesystem::is_regular_file(lock));
     CHECK(std::filesystem::file_size(lock) == 1);
     lease.release();
@@ -111,16 +111,16 @@ TEST_CASE("the lease creates the data root and a one byte lock file") {
 
 TEST_CASE("the lease keeps an existing lock file's bytes") {
     TempDir temp;
-    std::ofstream(temp.path() / ".fiorivoce-data.lock", std::ios::binary) << "xyz";
+    std::ofstream(temp.path() / ".openwhisper-cpp-data.lock", std::ios::binary) << "xyz";
     DataLease::acquire(temp.path(), identity(), LeaseMode::Exclusive).release();
-    CHECK(std::filesystem::file_size(temp.path() / ".fiorivoce-data.lock") == 3);
+    CHECK(std::filesystem::file_size(temp.path() / ".openwhisper-cpp-data.lock") == 3);
 }
 
 TEST_CASE("a lock that is a folder cannot be opened") {
     // Python's os.open raises an OSError here (PermissionError on Windows, IsADirectoryError on
     // Linux), not the "not a file" StartupRestoreError, which a FIFO or device would get.
     TempDir temp;
-    std::filesystem::create_directories(temp.path() / ".fiorivoce-data.lock");
+    std::filesystem::create_directories(temp.path() / ".openwhisper-cpp-data.lock");
     CHECK_THROWS_AS(DataLease::acquire(temp.path(), identity(), LeaseMode::Shared),
                     std::filesystem::filesystem_error);
 }
@@ -129,8 +129,8 @@ TEST_CASE("a lock that is a symbolic link is refused") {
     TempDir temp;
     std::ofstream(temp.path() / "target", std::ios::binary) << "x";
     std::error_code error;
-    std::filesystem::create_symlink(temp.path() / "target", temp.path() / ".fiorivoce-data.lock",
-                                    error);
+    std::filesystem::create_symlink(temp.path() / "target",
+                                    temp.path() / ".openwhisper-cpp-data.lock", error);
     if (error) {
         SKIP("creating a symbolic link needs Developer Mode or elevation here");
     }
@@ -160,6 +160,7 @@ TEST_CASE("the busy message names the product of the identity it was asked for")
     CHECK_THROWS_MATCHES(
         DataLease::acquire(temp.path(), fv::legacy_identity(), LeaseMode::Shared), DataLeaseBusy,
         Catch::Matchers::Message("The application data is in use by another OpenWhisper process."));
-    // FioriVoce's own lease is a different file, so the two apps never block each other by it.
+    // OpenWhisper_CPP's own lease is a different file, so the two apps never block each other by
+    // it.
     CHECK_NOTHROW(DataLease::acquire(temp.path(), identity(), LeaseMode::Exclusive));
 }

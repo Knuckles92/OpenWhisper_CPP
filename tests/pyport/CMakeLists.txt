@@ -8,16 +8,16 @@ endif()
 
 # The committed Unicode tables must be what tools/gen/unicode_tables.py writes. The generator
 # refuses any unicodedata but Python 3.12's 15.0.0, and the interpreter the lints use may be a
-# newer Python, so the check looks for a 3.12 of its own: FIORIVOCE_PYTHON312 if set, else
-# FIORIVOCE_OW_PYTHON (OpenWhisper's interpreter, architecture 9), else the lints' Python when it
+# newer Python, so the check looks for a 3.12 of its own: OPENWHISPER_CPP_PYTHON312 if set, else
+# OPENWHISPER_CPP_OW_PYTHON (OpenWhisper's interpreter, architecture 9), else the lints' Python when it
 # is 3.12, else a registered or PATH Python 3.12.
 function(_fv_pyport_python312 out)
     set(candidates "")
-    if(FIORIVOCE_PYTHON312)
-        list(APPEND candidates "${FIORIVOCE_PYTHON312}")
+    if(OPENWHISPER_CPP_PYTHON312)
+        list(APPEND candidates "${OPENWHISPER_CPP_PYTHON312}")
     endif()
-    if(DEFINED ENV{FIORIVOCE_OW_PYTHON})
-        list(APPEND candidates "$ENV{FIORIVOCE_OW_PYTHON}")
+    if(DEFINED ENV{OPENWHISPER_CPP_OW_PYTHON})
+        list(APPEND candidates "$ENV{OPENWHISPER_CPP_OW_PYTHON}")
     endif()
     if(TARGET Python3::Interpreter)
         list(APPEND candidates "${Python3_EXECUTABLE}")
@@ -58,7 +58,7 @@ if(TARGET fv_pyport_tests)
                     "${PROJECT_SOURCE_DIR}/tools/gen/unicode_tables.py" --check)
         set_tests_properties(pyport.unicode_tables_are_current PROPERTIES LABELS "pyport;golden")
     else()
-        message(STATUS "No Python 3.12 found (set FIORIVOCE_PYTHON312 or FIORIVOCE_OW_PYTHON): "
+        message(STATUS "No Python 3.12 found (set OPENWHISPER_CPP_PYTHON312 or OPENWHISPER_CPP_OW_PYTHON): "
                        "pyport.unicode_tables_are_current is not registered")
     endif()
 endif()

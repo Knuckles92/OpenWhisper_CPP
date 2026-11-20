@@ -4,7 +4,7 @@
               [--cpp F] [--reason R] [--note N] [--owner O]
               (--all-unlisted | FUNCTION [FUNCTION ...])
 
-The OpenWhisper checkout is FIORIVOCE_OW_ROOT (read only; function names are checked against
+The OpenWhisper checkout is OPENWHISPER_CPP_OW_ROOT (read only; function names are checked against
 its test file).
 
 status: ported (needs --cpp), dropped / other-platform (need --reason), pending (needs --owner
@@ -24,7 +24,7 @@ from pathlib import Path
 
 TOOLS = Path(__file__).resolve().parent
 REPO = TOOLS.parents[1]
-OW = Path(os.environ.get("FIORIVOCE_OW_ROOT", ""))
+OW = Path(os.environ.get("OPENWHISPER_CPP_OW_ROOT", ""))
 sys.path.insert(0, str(TOOLS))
 import parity_report as pr  # noqa: E402
 
@@ -128,8 +128,8 @@ def main() -> int:
     args = ap.parse_args()
 
     path = (REPO / args.parity).resolve()
-    if not os.environ.get("FIORIVOCE_OW_ROOT") or not (OW / "tests").is_dir():
-        print("ledger: set FIORIVOCE_OW_ROOT to the OpenWhisper checkout")
+    if not os.environ.get("OPENWHISPER_CPP_OW_ROOT") or not (OW / "tests").is_dir():
+        print("ledger: set OPENWHISPER_CPP_OW_ROOT to the OpenWhisper checkout")
         return 2
     if not (OW / args.test_file).is_file():
         print(f"ledger: {args.test_file} is not an OpenWhisper test file")

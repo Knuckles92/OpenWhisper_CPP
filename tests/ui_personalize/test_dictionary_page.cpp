@@ -1,7 +1,7 @@
 // Settings > Personalize > Dictionary: adding, starring, editing, learning, the cleanup gate,
 // the Home row and the layout, inside a real Settings window over an in-memory settings file.
 // OpenWhisper's "local_whisper" engine (an engine that takes hints) is the API engine here:
-// FioriVoce has no local Whisper.
+// OpenWhisper_CPP has no local Whisper.
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/generators/catch_generators.hpp>
 
@@ -268,7 +268,7 @@ TEST_CASE("test_empty_dictionary", "[test_personalize_s4_settings_page][widget]"
 }
 
 // from tests/test_personalize_s4_settings_page.py::TestRecognitionAndLearning::test_engine_line
-// FioriVoce's engines; OpenWhisper's local_whisper row has no engine here.
+// OpenWhisper_CPP's engines; OpenWhisper's local_whisper row has no engine here.
 TEST_CASE("test_engine_line", "[test_personalize_s4_settings_page][unit]") {
     const auto line = [](const char* engine) {
         const Json settings{{"selected_model", engine}};
@@ -765,7 +765,8 @@ TEST_CASE("the page's own copy: subtitle, search fields and controls", "[widget]
     REQUIRE(spec != nullptr);
     CHECK(spec->title == QStringLiteral("Dictionary"));
     CHECK(spec->subtitle ==
-          QStringLiteral("Names, jargon, and spellings FioriVoce should get right every time."));
+          QStringLiteral(
+              "Names, jargon, and spellings OpenWhisper_CPP should get right every time."));
     REQUIRE(spec->searchFields.size() == 4);
     CHECK(spec->searchFields[0].target == "dictionary_composer_tile");
     CHECK(spec->searchFields[2].label == QStringLiteral("Steer the speech model"));

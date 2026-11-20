@@ -193,7 +193,7 @@ TEST_CASE("the update folder and the asset API come from the identity and the fe
     CHECK_FALSE(update::asset_api_url("example/app", 0));
     CHECK_FALSE(update::asset_api_url("example/app", std::nullopt));
     CHECK(update::cannot_install_message() ==
-          "This copy of FioriVoce cannot install the Windows setup package.");
+          "This copy of OpenWhisper_CPP cannot install the Windows setup package.");
 }
 
 // The updater's own wording for the shared downloader's failures (app_update.py:

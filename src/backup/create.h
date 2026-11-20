@@ -10,7 +10,7 @@
 namespace fv::backup {
 
 struct CreateOptions {
-    // The data root to back up; empty means the resolved FioriVoce data root.
+    // The data root to back up; empty means the resolved OpenWhisper_CPP data root.
     std::filesystem::path data_root;
     bool include_recordings = true;
     // The manifest's app_version (the running build's version).

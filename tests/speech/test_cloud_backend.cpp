@@ -641,10 +641,10 @@ TEST_CASE("an audio clip is refused: the api backend uploads files", "[cloud_bac
 
 TEST_CASE("Groq transcribes a fixture through its OpenAI-compatible route",
           "[cloud_backend][platform]") {
-    // Spends the owner's Groq credit: runs only when FIORIVOCE_TEST_GROQ_KEY is set.
-    const auto key = testkit::get_env("FIORIVOCE_TEST_GROQ_KEY");
+    // Spends the owner's Groq credit: runs only when OPENWHISPER_CPP_TEST_GROQ_KEY is set.
+    const auto key = testkit::get_env("OPENWHISPER_CPP_TEST_GROQ_KEY");
     if (!key || key->empty()) {
-        SKIP("FIORIVOCE_TEST_GROQ_KEY is not set");
+        SKIP("OPENWHISPER_CPP_TEST_GROQ_KEY is not set");
     }
     CloudRig rig;
     rig.credentials.set("GROQ_API_KEY", *key);

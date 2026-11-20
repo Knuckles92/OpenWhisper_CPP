@@ -1,7 +1,7 @@
 """Writes the audio fixtures of tests/fixtures/audio with PyAV, the library OpenWhisper decodes
 with, so FFmpeg's own encoders make every container the decoder tests read.
 
-    & $env:FIORIVOCE_OW_PYTHON -I -B tests/fixtures/audio/make_fixtures.py
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tests/fixtures/audio/make_fixtures.py
 
 Needs only numpy and av from OpenWhisper's interpreter; imports no OpenWhisper module and writes
 nothing outside this folder. The signal is deterministic (a seeded generator), so a rerun with the

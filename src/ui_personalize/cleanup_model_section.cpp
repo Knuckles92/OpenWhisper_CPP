@@ -271,7 +271,7 @@ void CleanupModelSection::showCleanupRunner(bool reveal) {
 }
 
 void CleanupModelSection::onAgentChoice(const QString& id) {
-    // _on_cleanup_agent_choice saves here; FioriVoce stages the tile until "Apply runner".
+    // _on_cleanup_agent_choice saves here; OpenWhisper_CPP stages the tile until "Apply runner".
     agents_->setChoice(id);
     staged_ = agents_->choice();
     showCleanupRunner();

@@ -3,14 +3,14 @@
 Entries are given as dicts of TranscriptionHistory columns (missing ones are None), plus the
 transient stored_on, also_on and remote_audio when a case names them. The cleanup helpers get
 settings={} so no settings file is read; a custom profile's name then falls back to its id,
-which is what FioriVoce shows until M4 ports the profile store.
+which is what OpenWhisper_CPP shows until M4 ports the profile store.
 
     _format_model_name(model)
     _format_cleanup_info(entry), _cleanup_tooltip(entry), _entry_was_cleaned(entry),
     _kind_label(entry), _location_chip(entry) -> [text, tooltip]
     _failed_recording_hint(has_audio)
 
-FioriVoce's own mapping of "parakeet (<label> | <device>)" model strings is not OpenWhisper's
+OpenWhisper_CPP's own mapping of "parakeet (<label> | <device>)" model strings is not OpenWhisper's
 and is tested in tests/ui_history/test_golden.cpp, so no case here has a "parakeet" base.
 """
 

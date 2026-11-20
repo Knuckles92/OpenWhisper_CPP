@@ -72,7 +72,7 @@ public:
     fv::Paths paths() const {
         // Every variable the per-user folder is read from on some platform: with LOCALAPPDATA
         // alone, the components this fixture writes and removes would be the real ones on Linux.
-        const fv::MapEnvReader env{{"FIORIVOCE_DATA_DIR", path_.string()},
+        const fv::MapEnvReader env{{"OPENWHISPER_CPP_DATA_DIR", path_.string()},
                                    {"LOCALAPPDATA", path_.string()},
                                    {"XDG_DATA_HOME", path_.string()},
                                    {"HOME", path_.string()},

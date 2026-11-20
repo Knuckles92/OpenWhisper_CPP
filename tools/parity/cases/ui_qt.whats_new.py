@@ -1,6 +1,6 @@
 """Curated inputs for ui_qt/whats_new.py (M2.2 appcore/whats_new.h).
 
-FioriVoce has its own note (lead amendment 16), so the vectors record is_seen against a stored
+OpenWhisper_CPP has its own note (lead amendment 16), so the vectors record is_seen against a stored
 value written relative to the current note: "<current>" stands for WHATS_NEW.updated, which the
 C++ replay replaces with its own note's date. Every other stored value is passed as it is.
 """

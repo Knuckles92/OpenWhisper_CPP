@@ -56,7 +56,8 @@ public:
 // data folder (CTest gives each test one), else in a temporary one.
 inline const HostIdentity& test_identity() {
     static const HostIdentity identity = [] {
-        if (const auto data = testkit::get_env("FIORIVOCE_DATA_DIR"); data && !data->empty()) {
+        if (const auto data = testkit::get_env("OPENWHISPER_CPP_DATA_DIR");
+            data && !data->empty()) {
             return ensure_host_identity(std::filesystem::path(*data) / "host", "studio");
         }
         static testkit::TempDataRoot root;

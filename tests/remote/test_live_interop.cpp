@@ -12,7 +12,7 @@ using namespace std::chrono_literals;
 using namespace fv::remote;
 
 TEST_CASE("live OpenWhisper host pairs and serves synthetic audio", "[platform][interop]") {
-    const auto peer = fv::testkit::get_env("FIORIVOCE_LOOPBACK_INTEROP");
+    const auto peer = fv::testkit::get_env("OPENWHISPER_CPP_LOOPBACK_INTEROP");
     if (!peer) {
         SKIP("Run tools/parity/run_remote_interop.py to start an isolated OpenWhisper host.");
     }

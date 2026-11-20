@@ -1,6 +1,6 @@
 // Settings > Home (settings_home.py, settings_dialog.py _refresh_home): the projections of the
 // pages' own controls, the cards and their reflow, the where strip, the Storage card, the footer,
-// the "New in FioriVoce" note and the HomeRows hook.
+// the "New in OpenWhisper_CPP" note and the HomeRows hook.
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/generators/catch_generators.hpp>
 
@@ -373,7 +373,7 @@ TEST_CASE("test_change_button_captures_and_saves_a_shortcut_inline",
 
 // from tests/test_settings_unified.py::TestHome::test_home_rows_fit_narrow_windows_and_large_fonts
 TEST_CASE("test_home_rows_fit_narrow_windows_and_large_fonts", "[test_settings_unified][widget]") {
-    // The Omarchy variant (460 px) is other-platform: no Omarchy desktop runs FioriVoce.
+    // The Omarchy variant (460 px) is other-platform: no Omarchy desktop runs OpenWhisper_CPP.
     const int width = GENERATE(940, 1315);
     INFO(width);
     fvtest::AppTheme theme(QStringLiteral("dark"), 130);
@@ -885,7 +885,7 @@ TEST_CASE("test_new_features_note_dismisses_and_stays_dismissed",
     const std::vector<fv::WhatsNewTile*> notes = introTiles(dialog);
     REQUIRE(notes.size() == 1);
     CHECK(notes[0]->descriptionLabel()->text() == qs(fv::appcore::whats_new().text));
-    CHECK(notes[0]->titleLabel()->text() == QStringLiteral("New in FioriVoce"));
+    CHECK(notes[0]->titleLabel()->text() == QStringLiteral("New in OpenWhisper_CPP"));
     CHECK(notes[0]->property("kind").toString() == QStringLiteral("intro"));
     CHECK(notes[0]->property("tileId").toString() == QStringLiteral("whatsNew"));
     CHECK(notes[0]->isVisible());

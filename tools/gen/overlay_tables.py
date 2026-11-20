@@ -1,7 +1,7 @@
 """Write src/uimath/data/overlay_tables.json: the Cleaning-up art's scribbled lines.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/gen/overlay_tables.py [--check]
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/gen/overlay_tables.py [--check]
 
 OpenWhisper lays out the three lines of word strokes with random.Random(7) when
 ui_qt/overlays/tidy_lines.py is imported. A Mersenne Twister seeded through std::mt19937 gives a

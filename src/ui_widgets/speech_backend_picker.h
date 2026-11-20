@@ -9,11 +9,11 @@ class QComboBox;
 
 namespace fv {
 
-// GUI names and ordering for the speech engines FioriVoce has: Parakeet, the API backend and a
-// paired computer ("Remote computer"). The ids are the selected_model values every setting
-// stores (config.MODEL_VALUE_MAP); the display names are what signals carry and what pickers
-// show. OpenWhisper's Apple-silicon annotations ("Parakeet MLX (recommended)", "Parakeet
-// (CPU)") are not here: the engines they describe are dropped.
+// GUI names and ordering for the speech engines OpenWhisper_CPP has: Parakeet, the API backend and
+// a paired computer ("Remote computer"). The ids are the selected_model values every setting stores
+// (config.MODEL_VALUE_MAP); the display names are what signals carry and what pickers show.
+// OpenWhisper's Apple-silicon annotations ("Parakeet MLX (recommended)", "Parakeet (CPU)") are not
+// here: the engines they describe are dropped.
 
 // The canonical display name of engine id; a value no engine has reads as the default engine's.
 // Affinity: any thread.

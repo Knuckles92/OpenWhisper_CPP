@@ -8,17 +8,17 @@ export const meta = {
 }
 
 const OW = 'D:\\coding\\whisper_local'
-const FV = 'C:\\coding\\fiorivoce_cpp'
+const FV = 'C:\\coding\\OpenWhisper_CPP'
 const PKG = FV + '\\docs\\port\\packages'
 
-const CONTEXT = `FioriVoce (${FV}) is a C++20 / Qt 6 Widgets rewrite of OpenWhisper (Python 3.12 + PyQt6, read-only checkout at ${OW}) aiming at full feature parity. The port is built by worker agents, each implementing one work package in its own git worktree with a fresh context. A worker cannot ask questions: its package spec, the architecture and the area maps are all it has, plus the Python source it is pointed to.
+const CONTEXT = `OpenWhisper_CPP (${FV}) is a C++20 / Qt 6 Widgets rewrite of OpenWhisper (Python 3.12 + PyQt6, read-only checkout at ${OW}) aiming at full feature parity. The port is built by worker agents, each implementing one work package in its own git worktree with a fresh context. A worker cannot ask questions: its package spec, the architecture and the area maps are all it has, plus the Python source it is pointed to.
 
 Read:
 - ${FV}\\docs\\port\\ARCHITECTURE.md in full, including the "Lead amendments" at the top. Its names (targets, directories, classes, headers) and its package cut in section 11 are binding.
 - ${FV}\\docs\\port\\map-summaries.json, and in full the area maps under ${FV}\\docs\\port\\map that your milestone touches (section 11's milestone table says which areas).
 - ${FV}\\docs\\port\\areas.json (the Python files of each area), and the Python itself wherever a map is not precise enough to scope a package.
 - ${FV}\\out\\parity-scratch\\classification.json and classification.md: every OpenWhisper test file classified by area and kind (pure logic, Qt widget, integration, platform, dropped engine).
-- The current FioriVoce source under ${FV}\\src and ${FV}\\tests.
+- The current OpenWhisper_CPP source under ${FV}\\src and ${FV}\\tests.
 Do not modify anything except the one file you are asked to write. Never write under ${OW}.`
 
 const SPEC_FORMAT = `Format of each package section (keep the headings exactly, so workers and tools can find them):

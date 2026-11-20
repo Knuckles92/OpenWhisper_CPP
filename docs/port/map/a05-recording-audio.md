@@ -56,7 +56,7 @@ Files: `services/recorder.py` (1135 lines), `services/audio_devices.py` (491), `
 | A05-14 | Crash-safe recording journal | Per recording dir `<parent>/.<stem>-recovery/<uuid hex>/` holding `active.lock` (OS lock), `session.json`, `audio.pcm`. Callback enqueues (queue 512 blocks, non-blocking); writer thread "dictation-writer" writes and fsyncs at most every 1.0 s. Queue full -> "Recording storage cannot keep up; recording stopped." Write failure -> "Recording could not be saved: <exc>". Finish timeout 3.0 s. | `recording_journal.py:RecordingJournal` | port |
 | A05-15 | Recovery of interrupted recordings | On startup (`TranscriptionRuntime.recover_recordings`, executor): each session dir not locked by a live process; `discarded` marker -> delete; else write `RECORDINGS_FOLDER/recording_<YYYYmmdd_HHMMSS>-recovered-<dirname>.wav` via `.wav.tmp` + rename (idempotent), then delete the session. Validates rate 8000..384000, channels 1/2, width 1..4. Empty session (folder without files) removed silently. | `recording_journal.py:recover_recordings,_recover_session` | port |
 | A05-16 | Save WAV | Atomic: temp file in the same dir, WAV header + journal PCM + 500 ms silence (`END_PADDING_MS`), then origination tags, fsync, `os.replace`. Refuses if journal did not finish ("Recording storage did not finish; audio kept for recovery.") or errored; dropped frames -> "Audio blocks were lost; the partial recording was kept."; an incomplete capture saves only with `allow_incomplete=True`. Previous output is kept until a new save succeeds. | `recorder.py:save_recording,_capture_saveable,_end_padding_bytes,_write_wav_file` | port |
-| A05-17 | WAV origination metadata | Appends `LIST/INFO` (ICRD "YYYY-MM-DD", ISFT "OpenWhisper") and 602-byte `bext` (originator "OpenWhisper" at 256..288, date 320..330, time 330..338) after the data chunk, fixes RIFF size; pads an odd-length file first; on failure truncates back to the untagged WAV; refuses > 4 GiB RIFF. Failure only logs a warning. | `wav_metadata.py:append_origination`; `recorder.py:_stamp_origination` | port (owner: rename to FioriVoce?) |
+| A05-17 | WAV origination metadata | Appends `LIST/INFO` (ICRD "YYYY-MM-DD", ISFT "OpenWhisper") and 602-byte `bext` (originator "OpenWhisper" at 256..288, date 320..330, time 330..338) after the data chunk, fixes RIFF size; pads an odd-length file first; on failure truncates back to the untagged WAV; refuses > 4 GiB RIFF. Failure only logs a warning. | `wav_metadata.py:append_origination`; `recorder.py:_stamp_origination` | port (owner: rename to OpenWhisper_CPP?) |
 | A05-18 | WAV helpers | `is_mono_pcm16(path)` (header walk, 16 chunks max), `read_info_icrd`, `read_info_isft`, `read_bext_origination`. | `wav_metadata.py` | port |
 | A05-19 | Level meter | Per block RMS/32767 (int16), exponential smoothing `level = 0.3*prev + 0.7*rms` (`WAVEFORM_LEVEL_SMOOTHING`=0.3), clamped 0..1, delivered on the audio thread to `audio_level_callback`. | `recorder.py:_calculate_and_report_level` | port |
 | A05-20 | Incremental reading of a recording | `read_recorded_bytes(offset)` returns PCM committed by the writer from `offset`, None if cleared/restarted. | `recorder.py:read_recorded_bytes`; `recording_journal.py:read_from` | port |
@@ -344,7 +344,7 @@ Files on disk:
 - `RECORDED_AUDIO_FILE` = `user_data_path("recorded_audio.wav")`: the last dictation (overwritten atomically per save).
 - Journal: `<dir of recorded_audio.wav>/.recorded_audio-recovery/<32 hex>/{active.lock, session.json, audio.pcm, discarded}`.
   `session.json` = `{"version":1,"rate":44100,"channels":1,"sample_width":2,"created":"<local ISO>"}`; `audio.pcm` raw
-  interleaved little-endian PCM. A FioriVoce install sharing the data folder must keep this layout to recover
+  interleaved little-endian PCM. A OpenWhisper_CPP install sharing the data folder must keep this layout to recover
   OpenWhisper journals (or ignore them; owner decision).
 - Recovered WAVs: `RECORDINGS_FOLDER` (`user_data_path("recordings")`) `recording_<YYYYmmdd_HHMMSS>-recovered-<hex>.wav`.
 - Split chunks: `%TEMP%/audio_chunks_*/chunk_000.wav`... mono s16 at the source rate.
@@ -405,7 +405,7 @@ Drop (non-Parakeet engines):
   faster-whisper shape `(segments, info)` and `beam_size/vad_filter` arguments (adapt to `Recognizer::transcribe`).
 - `config.STREAMING_PREVIEW_BACKENDS`/`INCREMENTAL_DICTATION_BACKENDS` entries other than parakeet (and nemotron, undecided).
 - The worker-process plumbing behind `backend.decode_window`, `transcribe_windows`, `generation`, `should_cancel`,
-  `is_transcribing` (another area); FioriVoce has `EngineWorker` + `Recognizer` in process.
+  `is_transcribing` (another area); OpenWhisper_CPP has `EngineWorker` + `Recognizer` in process.
 
 Undecided backends:
 - Nemotron Streaming: `NativeStreamingTranscriber`, `FinishedStream`, `stream_final_text`, `keep_stream_final`. Would map to
@@ -418,10 +418,10 @@ Must adapt to in-process Parakeet:
 - Window preview: decode on `EngineWorker`'s thread through queued signals (never GUI thread); preview windows and the
   final decode share one Recognizer and one thread, so the "stop never decodes" and lazy `finalize_preview` design is
   even more important (it frees the engine for the final pass immediately).
-- Incremental dictation: the resampler and window splitter become FioriVoce's own C++ code used by both the file path and
+- Incremental dictation: the resampler and window splitter become OpenWhisper_CPP's own C++ code used by both the file path and
   the live path, so bit identity holds by construction; keep the CRC/fingerprint verification anyway (cheap insurance).
   Parakeet's languages: en, ru, es, fr, pt (+ auto) from `services/local_asr/languages.py:12`.
-- `prepare_preview_audio` produces float32 16 kHz; FioriVoce's engine API takes what `wav.h`'s `AudioBuffer` holds:
+- `prepare_preview_audio` produces float32 16 kHz; OpenWhisper_CPP's engine API takes what `wav.h`'s `AudioBuffer` holds:
   align on one sample type.
 
 ## Dependencies on other areas

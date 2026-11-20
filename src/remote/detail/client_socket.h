@@ -109,8 +109,8 @@ bool compare_digest(std::string_view a, std::string_view b);
 // where Python raises ValueError.
 std::optional<std::vector<std::uint8_t>> from_hex(std::string_view text);
 
-// "a FioriVoce" or "an <product>", by the product name's first letter: the article OpenWhisper's
-// copy writes before its own name follows the name that replaces it.
+// "a OpenWhisper_CPP" or "an <product>", by the product name's first letter: the article
+// OpenWhisper's copy writes before its own name follows the name that replaces it.
 std::string a_product();
 
 // type(exc).__name__ for a log line that must not carry the exception's text.

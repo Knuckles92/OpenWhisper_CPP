@@ -17,7 +17,7 @@ test('timeout shows stage outcomes, recovery guidance and correlation details', 
     {id:'polish', name:'Transcript Cleanup', status:'failed', detail:'Timed out after 60s. Request ID: req-123.'},
     {id:'finalize', name:'State Finalization', status:'completed', detail:'Saved'},
   ]});
-  for (const text of ['60s', 'req-123', 'meeting-123', 'State Finalization: completed', 'faster meeting intelligence model', 'Retry failed steps', 'fiorivoce.log']) assert.ok(html.includes(text), text);
+  for (const text of ['60s', 'req-123', 'meeting-123', 'State Finalization: completed', 'faster meeting intelligence model', 'Retry failed steps', 'openwhisper-cpp.log']) assert.ok(html.includes(text), text);
 });
 test('legacy unavailable errors show actionable authentication guidance without steps', () => {
   const html = render({status:'unavailable', message:'Invalid API key'});

@@ -9,7 +9,7 @@
 #include "models/component_store.h"
 
 // Where ONNX Runtime (which runs the speaker model) is found. OpenWhisper installs it as a Python
-// package; FioriVoce loads its CPU build by path, from a downloadable component or a file the
+// package; OpenWhisper_CPP loads its CPU build by path, from a downloadable component or a file the
 // user names. Loading it is fv_diarize's.
 namespace fv::models {
 
@@ -31,9 +31,9 @@ inline constexpr std::string_view kOnnxRuntimeLibrary = "libonnxruntime.so";
 // Shared and immutable.
 const Json& onnxruntime_catalog();
 
-// The ONNX Runtime library to load, or nullopt: FIORIVOCE_ONNXRUNTIME when it names an existing
-// file (anything else is logged and skipped), then the installed onnxruntime-cpu component's
-// library (in the release archive's lib/ folder, or at the top of the component).
+// The ONNX Runtime library to load, or nullopt: OPENWHISPER_CPP_ONNXRUNTIME when it names an
+// existing file (anything else is logged and skipped), then the installed onnxruntime-cpu
+// component's library (in the release archive's lib/ folder, or at the top of the component).
 std::optional<std::filesystem::path> locate_onnxruntime(const EnvReader& env,
                                                         const ComponentStore& store);
 

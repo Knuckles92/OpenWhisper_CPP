@@ -423,7 +423,7 @@ TEST_CASE("tool round trip uses app endpoint, auth, headers, and charter", "[ada
         } else {
             profile = synthetic_profile(protocol, base, Json{{"max_output_tokens", 3000}});
         }
-        OpenAiCompatClient client = client_for(profile, {{"x-fiorivoce-test", "yes"}});
+        OpenAiCompatClient client = client_for(profile, {{"x-openwhisper-cpp-test", "yes"}});
         Json messages =
             Json::array({Json{{"role", "system"}, {"content", "Only the meeting host charter."}},
                          Json{{"role", "user"}, {"content", "Update"}}});
@@ -442,7 +442,7 @@ TEST_CASE("tool round trip uses app endpoint, auth, headers, and charter", "[ada
 
         const auto seen = provider.requests();
         REQUIRE(seen.size() == 2);
-        CHECK(seen[0].header("x-fiorivoce-test") == "yes");
+        CHECK(seen[0].header("x-openwhisper-cpp-test") == "yes");
         const std::string expected_path = protocol == "google"
                                               ? "/gateway/v1/models/synthetic:streamGenerateContent"
                                           : protocol == "chat"      ? "/gateway/v1/chat/completions"

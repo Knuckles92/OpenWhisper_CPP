@@ -58,7 +58,7 @@ std::unique_ptr<FakeClipboardBackend> rich_backend(const QColor& color, int side
     auto mime = std::make_unique<QMimeData>();
     mime->setText("previous text");
     mime->setHtml("<b>previous text</b>");
-    mime->setData("application/x-fiorivoce-test", QByteArray("payload"));
+    mime->setData("application/x-openwhisper-cpp-test", QByteArray("payload"));
     QImage image(side, side, QImage::Format_ARGB32);
     image.fill(color);
     mime->setImageData(image);
@@ -123,7 +123,7 @@ TEST_CASE("rich and custom formats are restored", "[test_clipboard]") {
     auto mime = std::make_unique<QMimeData>();
     mime->setText("previous text");
     mime->setHtml("<b>previous text</b>");
-    mime->setData("application/x-fiorivoce-test", QByteArray("payload"));
+    mime->setData("application/x-openwhisper-cpp-test", QByteArray("payload"));
     mime->setUrls({QUrl::fromLocalFile("/tmp/example.wav")});
     QImage image(2, 2, QImage::Format_ARGB32);
     image.fill(QColor("red"));
@@ -140,7 +140,7 @@ TEST_CASE("rich and custom formats are restored", "[test_clipboard]") {
     CHECK(outcome == RestoreOutcome::Restored);
     CHECK(restored.text() == "previous text");
     CHECK(restored.html() == "<b>previous text</b>");
-    CHECK(restored.data("application/x-fiorivoce-test") == QByteArray("payload"));
+    CHECK(restored.data("application/x-openwhisper-cpp-test") == QByteArray("payload"));
     REQUIRE_FALSE(restored.urls().isEmpty());
     CHECK(restored.urls()[0].toLocalFile() == "/tmp/example.wav");
     const QVariant restored_image = restored.imageData();
@@ -324,7 +324,7 @@ TEST_CASE("prefetch restores rich content", "[test_clipboard]") {
     CHECK(outcome == RestoreOutcome::Restored);
     CHECK(restored.text() == "previous text");
     CHECK(restored.html() == "<b>previous text</b>");
-    CHECK(restored.data("application/x-fiorivoce-test") == QByteArray("payload"));
+    CHECK(restored.data("application/x-openwhisper-cpp-test") == QByteArray("payload"));
     CHECK(restored.imageData().value<QImage>().pixelColor(0, 0) == QColor("blue"));
     CHECK_FALSE(restored.hasFormat(kAutoPasteMarkerFormat));
 }
@@ -652,7 +652,7 @@ TEST_CASE("the offscreen QClipboard stages, restores and keeps rich formats",
     auto original = std::make_unique<QMimeData>();
     original->setText("previous text");
     original->setHtml("<b>previous text</b>");
-    original->setData("application/x-fiorivoce-test", QByteArray("payload"));
+    original->setData("application/x-openwhisper-cpp-test", QByteArray("payload"));
     clipboard->setMimeData(original.release());
     TemporaryClipboard temporary(clipboard, {}, {}, nullptr, true);
 
@@ -665,13 +665,14 @@ TEST_CASE("the offscreen QClipboard stages, restores and keeps rich formats",
     CHECK(temporary.schedule_restore(*stage.lease, 0ms));
     REQUIRE(wait_for([&] { return clipboard->text() == "previous text"; }));
     CHECK(clipboard->mimeData()->html() == "<b>previous text</b>");
-    CHECK(clipboard->mimeData()->data("application/x-fiorivoce-test") == QByteArray("payload"));
+    CHECK(clipboard->mimeData()->data("application/x-openwhisper-cpp-test") ==
+          QByteArray("payload"));
     CHECK_FALSE(clipboard->mimeData()->hasFormat(kAutoPasteMarkerFormat));
     clipboard->clear();
 }
 
 TEST_CASE("the marker format is named after the product", "[temporary_clipboard]") {
-    CHECK(kAutoPasteMarkerFormat == "application/x-fiorivoce-auto-paste");
+    CHECK(kAutoPasteMarkerFormat == "application/x-openwhisper-cpp-auto-paste");
     CHECK(kPrefetchDelay == 100ms);
     CHECK(kSelectionPoll == 10ms);
     CHECK(kSelectionTextPolls == 5);

@@ -1,7 +1,7 @@
 // tests/test_voice_commands.py: wake names, topics, referents, the ops a command becomes and the
 // listener's feedback. OpenWhisper's FakeStore is the real MeetingStateStore here, its FakeJudge
-// is llm::FakeJudge marked device-local (FioriVoce sends spoken commands to no other judge), and
-// its ImmediateExecutor and ManualExecutor are the listener's own worker, ordered by waiting on
+// is llm::FakeJudge marked device-local (OpenWhisper_CPP sends spoken commands to no other judge),
+// and its ImmediateExecutor and ManualExecutor are the listener's own worker, ordered by waiting on
 // the feedback it says.
 
 #include <catch2/catch_test_macros.hpp>
@@ -402,7 +402,7 @@ TEST_CASE("preview consent and shutdown block network and mutations", "[voice_co
 
 TEST_CASE("missing key and service failure have visible feedback", "[voice_commands]") {
     // from tests/test_voice_commands.py::test_missing_key_and_service_failure_have_visible_feedback
-    // No device-local judge is FioriVoce's missing key: the message names what is missing.
+    // No device-local judge is OpenWhisper_CPP's missing key: the message names what is missing.
     auto state = store();
     Feedback feedback;
     std::shared_ptr<FakeJudge> judge;

@@ -1,6 +1,6 @@
 // Discovery and adoption of an OpenWhisper install's runtimes and models (architecture 7.6),
 // against OpenWhisper-style trees built in a temporary folder. The real install is only looked at
-// by the [platform] test, read-only, and only when FIORIVOCE_TEST_OW_DATA names it.
+// by the [platform] test, read-only, and only when OPENWHISPER_CPP_TEST_OW_DATA names it.
 
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_exception.hpp>
@@ -38,8 +38,8 @@ const std::string kWeights = "parakeet weights";
 struct Setup {
     TempDir temp;
     fs::path ow = temp.path() / "OpenWhisper";
-    fs::path components = temp.path() / "FioriVoce" / "components";
-    fs::path speech_models = temp.path() / "FioriVoce" / "speech-models";
+    fs::path components = temp.path() / "OpenWhisper_CPP" / "components";
+    fs::path speech_models = temp.path() / "OpenWhisper_CPP" / "speech-models";
     Json spec = testing::small_model_spec("parakeet.gguf", kWeights);
     AdopterOptions options;
     std::string platform = "win_amd64";
@@ -116,7 +116,7 @@ TEST_CASE("an OpenWhisper runtime and model are discovered and adopted by hard l
                              "_ctypes.pyd", "vcruntime140.dll", "LICENSE.txt"}) {
         CHECK_FALSE(fs::exists(runtime / name));
     }
-    // FioriVoce's own manifest (its catalog entry) and sentinel, not links to OpenWhisper's.
+    // OpenWhisper_CPP's own manifest (its catalog entry) and sentinel, not links to OpenWhisper's.
     const Json manifest = fv::py::loads(read_file(runtime / "manifest.json"));
     CHECK(manifest == *catalog_entry("asr-nvidia-cpu", "win_amd64"));
     CHECK(fs::hard_link_count(runtime / "manifest.json") == 1);
@@ -242,7 +242,7 @@ TEST_CASE("import_model_file takes a pinned model and refuses anything else", "[
     const auto wrong = setup.temp.path() / "picked" / "other.gguf";
     write_file(wrong, "not the model");
     CHECK_THROWS_WITH(adopter.import_model_file(wrong),
-                      "This file isn't a model FioriVoce knows. Pick Parakeet TDT 0.6B v3 or "
+                      "This file isn't a model OpenWhisper_CPP knows. Pick Parakeet TDT 0.6B v3 or "
                       "Orukeet TDT 0.6B.");
     std::string same_size(kWeights.size(), 'z');
     write_file(wrong, same_size);
@@ -292,10 +292,10 @@ TEST_CASE("adopt_missing takes the runtime the engine would use and the selected
 }
 
 #ifdef _WIN32
-TEST_CASE("OpenWhisper can delete its link of a runtime file FioriVoce has mapped",
+TEST_CASE("OpenWhisper can delete its link of a runtime file OpenWhisper_CPP has mapped",
           "[models][platform]") {
-    // Section 13 item 31: FioriVoce never unloads the runtime it loaded from its hard link, and
-    // OpenWhisper's swap and rollback must still remove their own link. The file mapped here is
+    // Section 13 item 31: OpenWhisper_CPP never unloads the runtime it loaded from its hard link,
+    // and OpenWhisper's swap and rollback must still remove their own link. The file mapped here is
     // a copy of this test executable in a temporary folder, mapped as an image (as the loader
     // maps a DLL) without running any of it.
     TempDir temp;
@@ -304,7 +304,7 @@ TEST_CASE("OpenWhisper can delete its link of a runtime file FioriVoce has mappe
     REQUIRE((length > 0 && length < MAX_PATH));
     self.resize(length);
     const auto ow_tree = temp.path() / "OpenWhisper" / "components" / "asr-nvidia-cpu";
-    const auto fv_tree = temp.path() / "FioriVoce" / "components" / "asr-nvidia-cpu";
+    const auto fv_tree = temp.path() / "OpenWhisper_CPP" / "components" / "asr-nvidia-cpu";
     fs::create_directories(ow_tree / "bin");
     fs::create_directories(fv_tree / "bin");
     const auto ow_link = ow_tree / "bin" / "fv_link_probe.dll";
@@ -333,9 +333,9 @@ TEST_CASE("the installed OpenWhisper runtime and model are found where they exis
           "[models][platform]") {
     // Read-only: discovery reads manifests and installed.json and checks sizes; nothing under
     // the real folder is opened for writing, linked or copied.
-    const auto real = fv::testkit::get_env("FIORIVOCE_TEST_OW_DATA");
+    const auto real = fv::testkit::get_env("OPENWHISPER_CPP_TEST_OW_DATA");
     if (!real || real->empty()) {
-        SKIP("FIORIVOCE_TEST_OW_DATA is not set");
+        SKIP("OPENWHISPER_CPP_TEST_OW_DATA is not set");
     }
     TempDir temp;
     OpenWhisperAdopter adopter(temp.path() / "components", temp.path() / "speech-models",

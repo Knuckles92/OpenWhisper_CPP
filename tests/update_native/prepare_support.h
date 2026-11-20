@@ -28,7 +28,7 @@ struct PrepareFixture {
     fs::path install = folder.path() / "installed app";
     fs::path data = folder.path() / "data";
     fs::path updates = data / "updates";
-    fs::path archive = updates / "FioriVoce-0.1.1-win64.zip";
+    fs::path archive = updates / "OpenWhisper_CPP-0.1.1-win64.zip";
     u::JournalContext context;
     std::string digest;
     // `new_app`: the bytes of the release's application, for a test that runs it.
@@ -38,9 +38,9 @@ struct PrepareFixture {
             fs::create_directories(dir);
         for (const auto& tree : {install, next}) {
             const auto prefix = tree == install ? std::string("old") : std::string("new");
-            fv::write_file_atomic(tree / "fiorivoce.exe",
+            fv::write_file_atomic(tree / "openwhisper-cpp.exe",
                                   tree == install ? std::string("old app") : new_app);
-            fv::write_file_atomic(tree / "fiorivoce-updater.exe", prefix + " helper");
+            fv::write_file_atomic(tree / "openwhisper-cpp-updater.exe", prefix + " helper");
             fv::write_file_atomic(tree / "libcrypto-3-x64.dll", prefix + " library");
         }
         u::write_manifest(install, "0.1.0");

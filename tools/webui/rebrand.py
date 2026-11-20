@@ -36,12 +36,12 @@ ROOT = HERE.parents[1]
 MAP_FILE = HERE / "rebrand_map.json"
 REFERENCE_FILE = ROOT / "tools" / "parity" / "reference.json"
 
-# Files of FioriVoce's own that sit in webui/ beside the vendored ones.
+# Files of OpenWhisper_CPP's own that sit in webui/ beside the vendored ones.
 OURS = frozenset({"SOURCE", "README.md", "dist.sha256", ".gitattributes", ".gitignore"})
 # Folders of OpenWhisper's webui that are not vendored. They are skipped on both sides, so the
 # owner's `npm ci` in webui/ (node_modules/) changes no result.
 NOT_VENDORED = frozenset({"node_modules", "mocks", "benchmarks"})
-BRAND = re.compile(rb"open[ ._-]?whisper", re.IGNORECASE)
+BRAND = re.compile(rb"open[ ._-]?whisper(?![-_]?cpp)", re.IGNORECASE)
 
 
 @dataclass(frozen=True)
@@ -78,6 +78,11 @@ def load_map(path: Path = MAP_FILE) -> tuple[list[Rule], list[Allowed]]:
     return rules, allowed
 
 
+def rule_pattern(rule: Rule) -> re.Pattern[bytes]:
+    # Match the replacement first when it contains the upstream literal.
+    return re.compile(re.escape(rule.replacement) + b"|(" + re.escape(rule.literal) + b")")
+
+
 def apply_rules(rules: list[Rule], files: dict[str, bytes]) -> tuple[dict[str, bytes], list[str], list[str]]:
     """Returns (new contents, a line per rule, problems). A rule whose literal is gone and whose
     replacement is present the expected number of times counts as already applied."""
@@ -90,9 +95,10 @@ def apply_rules(rules: list[Rule], files: dict[str, bytes]) -> tuple[dict[str, b
         # Counted on the text as the earlier rules left it, so a rule whose occurrence an earlier
         # replacement consumed is reported instead of replacing fewer than its count.
         data = out[rule.file]
-        found = data.count(rule.literal)
+        pattern = rule_pattern(rule)
+        found = pattern.findall(data).count(rule.literal)
         if found == rule.count:
-            out[rule.file] = out[rule.file].replace(rule.literal, rule.replacement)
+            out[rule.file] = pattern.sub(lambda _: rule.replacement, data)
             lines.append(f"{rule.file}: replaced {found} x {rule.literal.decode()!r}")
         elif found == 0 and data.count(rule.replacement) >= rule.count:
             lines.append(f"{rule.file}: already replaced {rule.literal.decode()!r}")
@@ -180,7 +186,7 @@ def check(webui: Path, rules: list[Rule], allowed: list[Allowed]) -> list[str]:
     problems = leftovers(files, allowed)
     for rule in rules:
         data = files.get(rule.file)
-        if data is None or data.count(rule.replacement) < rule.count or rule.literal in data:
+        if data is None or data.count(rule.replacement) < rule.count or any(rule_pattern(rule).findall(data)):
             problems.append(f"{rule.file}: {rule.replacement.decode()!r} is not in place "
                             f"{rule.count} times")
     return problems + check_manifest(webui, files)

@@ -185,7 +185,8 @@ TEST_CASE("test_device_change_reloads_same_model_and_adopts_host_precision",
     REQUIRE(backend.load({}).state == ReadyState::Ready);
     CHECK(fixture.controls.configured == 1);
 
-    // FioriVoce's Parakeet has no precision to choose: the host says so and keeps its runtime.
+    // OpenWhisper_CPP's Parakeet has no precision to choose: the host says so and keeps its
+    // runtime.
     backend.request_runtime("parakeet", "parakeet-v3", Json{{"compute_type", "int8"}});
     REQUIRE(backend.load({}).state == ReadyState::Ready);
     CHECK(backend.switch_error() == "This engine manages its own precision on the host.");

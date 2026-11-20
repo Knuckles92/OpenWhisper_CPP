@@ -9,10 +9,10 @@ namespace fv {
 
 class ScrollingBody;
 
-// The AI insights consent (ui_qt/dialogs/meeting_consent_dialog.py). FioriVoce asks it for each
-// meeting and names the destination each time; nothing is stored that would let a later meeting
-// send text without it. `backup` asks the same for the backup agent, which is authorized on its
-// own route.
+// The AI insights consent (ui_qt/dialogs/meeting_consent_dialog.py). OpenWhisper_CPP asks it for
+// each meeting and names the destination each time; nothing is stored that would let a later
+// meeting send text without it. `backup` asks the same for the backup agent, which is authorized on
+// its own route.
 class MeetingConsentDialog final : public QDialog {
 public:
     static constexpr const char* kResultCancel = "cancel";

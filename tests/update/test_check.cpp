@@ -248,7 +248,7 @@ TEST_CASE("without an update source a check fails before any request", "[update]
         update::check_for_update(feed, none, settings, registered_install(), clock, {}, true);
         FAIL("no exception");
     } catch (const update::AppUpdateError& error) {
-        CHECK(std::string(error.what()) == "This build of FioriVoce has no update source.");
+        CHECK(std::string(error.what()) == "This build of OpenWhisper_CPP has no update source.");
     }
     CHECK(feed.calls().empty());
     CHECK(settings.contents() == Json::object());
@@ -331,5 +331,5 @@ TEST_CASE("a check reads a loopback feed through the real HTTP client", "[update
 #endif
     REQUIRE(server.requests().size() == 1);
     CHECK(server.requests()[0].header("Accept") == "application/vnd.github+json");
-    CHECK(server.requests()[0].header("User-Agent").value_or("").starts_with("FioriVoce/"));
+    CHECK(server.requests()[0].header("User-Agent").value_or("").starts_with("OpenWhisper_CPP/"));
 }

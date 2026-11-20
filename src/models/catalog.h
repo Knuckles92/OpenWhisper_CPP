@@ -150,9 +150,9 @@ std::vector<std::string> available_component_ids(const Host& host);
 std::vector<std::string> available_component_ids(std::string_view tag, const Host& host);
 
 // Why a manifest (or catalog entry) cannot run here, or nullopt: "Built for a different version
-// of FioriVoce (component API {api}, this app uses 1)", "Built for {platform}, which this app
+// of OpenWhisper_CPP (component API {api}, this app uses 1)", "Built for {platform}, which this app
 // cannot use", "Requires macOS {min} or later". OpenWhisper's python_abi check is not ported: no
-// FioriVoce component carries Python.
+// OpenWhisper_CPP component carries Python.
 std::optional<std::string> check_compatibility(const Json& manifest, const Host& host);
 
 } // namespace fv::models

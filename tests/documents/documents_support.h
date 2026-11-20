@@ -155,7 +155,7 @@ inline std::optional<std::vector<std::string>> pdfiumPages(const std::filesystem
 }
 
 // The page texts a test checks: the painter's record always, and PDFium's reading of the file
-// when FIORIVOCE_TEST_PDFIUM names the library.
+// when OPENWHISPER_CPP_TEST_PDFIUM names the library.
 inline std::vector<std::pair<std::string, std::vector<std::string>>>
 readings(const WrittenPdf& pdf) {
     std::vector<std::pair<std::string, std::vector<std::string>>> all;

@@ -96,7 +96,7 @@ LiveCanvas::LiveCanvas(LiveAnnotations* live, QScreen* screen)
     setAttribute(Qt::WA_MacAlwaysShowToolWindow, true);
     // The marker the Scratchpad sets: app hotkeys behave as in our other windows while a canvas
     // has the focus.
-    ui::setStyleProperty(this, ui::prop::fiorivoceHotkeyWindow, true);
+    ui::setStyleProperty(this, ui::prop::openwhisperCppHotkeyWindow, true);
     setFocusPolicy(Qt::StrongFocus);
     connect(screen, &QScreen::geometryChanged, this, &LiveCanvas::geometryChanged);
     setGeometry(screen->geometry());

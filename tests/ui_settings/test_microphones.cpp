@@ -661,8 +661,9 @@ TEST_CASE("backup rows carry flat 28 px buttons and keep the space of a hidden o
     MicScene scene({{"audio_input_priority", Json::array({kUsb, kLapel, kSnowball})}});
     CHECK(scene.section().backupTile()->titleLabel()->text() ==
           QStringLiteral("If it's unplugged, use"));
-    CHECK(scene.section().backupTile()->descriptionLabel()->text() ==
-          QStringLiteral("FioriVoce moves down this list, even in the middle of a dictation."));
+    CHECK(
+        scene.section().backupTile()->descriptionLabel()->text() ==
+        QStringLiteral("OpenWhisper_CPP moves down this list, even in the middle of a dictation."));
     const auto rows = scene.rows();
     REQUIRE(rows.size() == 3);
     const std::vector<std::pair<const char*, QString>> tips{{"up", QStringLiteral("Move up")},

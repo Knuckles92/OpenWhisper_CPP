@@ -2,7 +2,7 @@
 
 The identity is ``src/update/data/release_identity.json`` (the file the application embeds), so
 the setup name, the executable names and the timestamp server are written in one place. A tool
-reads it by path at run time; ``--identity <file>`` or ``FIORIVOCE_RELEASE_IDENTITY`` names
+reads it by path at run time; ``--identity <file>`` or ``OPENWHISPER_CPP_RELEASE_IDENTITY`` names
 another copy, which is how the tests run without the source tree. Keys a tool does not know are
 ignored.
 """
@@ -17,7 +17,7 @@ from pathlib import Path
 from typing import Mapping, Optional, Sequence
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-IDENTITY_ENV = "FIORIVOCE_RELEASE_IDENTITY"
+IDENTITY_ENV = "OPENWHISPER_CPP_RELEASE_IDENTITY"
 DEFAULT_IDENTITY_PATH = REPO_ROOT / "src" / "update" / "data" / "release_identity.json"
 
 VERSION_RE = re.compile(r"\d+\.\d+\.\d+")
@@ -70,9 +70,9 @@ def load_identity(
 
 
 def product_name(identity: Mapping) -> str:
-    """The product's name as it begins the release file names (``FioriVoce``).
+    """The product's name as it begins the release file names (``OpenWhisper_CPP``).
 
-    ``setup_prefix`` may be spelled ``FioriVoce``, ``FioriVoce-Setup`` or ``FioriVoce-Setup-``;
+    ``setup_prefix`` may be spelled ``OpenWhisper_CPP``, ``OpenWhisper_CPP-Setup`` or ``OpenWhisper_CPP-Setup-``;
     all three give the same product.
     """
     prefix = str(identity.get("setup_prefix", "")).strip().rstrip("-")

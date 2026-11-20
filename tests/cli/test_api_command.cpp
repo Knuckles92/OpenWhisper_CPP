@@ -1,4 +1,4 @@
-// fiorivoce-cli --api, the headless History API, run as a child.
+// openwhisper-cpp-cli --api, the headless History API, run as a child.
 // from tests/test_agent_api.py (the two CLI tests; the API itself is tests/agentapi)
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_string.hpp>
@@ -113,7 +113,7 @@ TEST_CASE("test_cli_is_headless_and_requires_opt_in", "[platform][test_agent_api
 
     const CliResult help = run_cli({"--api", "--help"}, api_env(data));
     CHECK(help.exit_code == 0u);
-    CHECK_THAT(help.out, StartsWith("usage: fiorivoce-cli --api [-h] [--database DATABASE] "
+    CHECK_THAT(help.out, StartsWith("usage: openwhisper-cpp-cli --api [-h] [--database DATABASE] "
                                     "[--port PORT]"));
     CHECK_THAT(help.out,
                ContainsSubstring("Serve the read-only " + std::string(fv::identity().product) +

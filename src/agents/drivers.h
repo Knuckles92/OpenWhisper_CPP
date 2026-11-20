@@ -132,7 +132,7 @@ public:
     // Stops what runs and releases the agent; a pass still running ends.
     virtual void close() = 0;
     virtual PassOutcome run_pass(const PassRequest& request) = 0;
-    // How this agent names the app's MCP tools ("mcp__fiorivoce__", "fiorivoce_", "").
+    // How this agent names the app's MCP tools ("mcp__openwhisper_cpp__", "openwhisper_cpp_", "").
     virtual std::string tool_prefix() const { return {}; }
     // True for Claude Code, the one agent a pass can fence to one folder (Python's isinstance
     // check on ClaudeCodeDriver). supports_read_folder says whether this install can.

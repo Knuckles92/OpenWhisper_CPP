@@ -10,7 +10,7 @@ namespace fv {
 namespace {
 
 // ENGINE_KEYS without the four Whisper keys (whisper_model, whisper_device,
-// whisper_compute_type, custom_whisper_models), which FioriVoce does not have.
+// whisper_compute_type, custom_whisper_models), which OpenWhisper_CPP does not have.
 constexpr std::array<std::string_view, 9> kEngineKeys{
     "selected_model",
     "local_asr_models",

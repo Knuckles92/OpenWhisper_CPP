@@ -39,7 +39,7 @@ TEST_CASE("disabled never checks", "[test_app_update]") {
 }
 
 // from tests/test_app_update.py::TestSecondsUntilAutoCheck::test_git_checkout_never_checks (no
-// FioriVoce build is a git checkout; a build without an update source is what never checks)
+// OpenWhisper_CPP build is a git checkout; a build without an update source is what never checks)
 TEST_CASE("a build without an update source never checks", "[test_app_update]") {
     CHECK_FALSE(wait(Json::object(), InstallChannel::Installer, false).has_value());
     CHECK_FALSE(wait(Json::object(), InstallChannel::Source, false).has_value());

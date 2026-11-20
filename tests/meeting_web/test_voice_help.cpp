@@ -1,5 +1,6 @@
-// meeting_web/voice_help.h with FioriVoce's identity: the default wake names are the product's
-// own, and a wake name of either identity is shown as that product (lead amendments 19, 25).
+// meeting_web/voice_help.h with OpenWhisper_CPP's identity: the default wake names are the
+// product's own, and a wake name of either identity is shown as that product (lead amendments 19,
+// 25).
 
 #include <catch2/catch_test_macros.hpp>
 

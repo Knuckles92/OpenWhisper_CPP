@@ -141,8 +141,8 @@ TEST_CASE("test_reference_overlap_stats_counts_both_speakers", "[test_meeting_be
 
 TEST_CASE("test_benchmark_defaults_to_stable_production_profile", "[test_meeting_benchmark]") {
     // from tests/test_meeting_benchmark.py::test_benchmark_defaults_to_stable_production_profile
-    // OpenWhisper pins its Whisper draft-prompt length; Parakeet takes no prompt, so FioriVoce's
-    // production profile is the live spool's chunking with the offline pass on.
+    // OpenWhisper pins its Whisper draft-prompt length; Parakeet takes no prompt, so
+    // OpenWhisper_CPP's production profile is the live spool's chunking with the offline pass on.
     const fv::bench::MeetingArgs args = fv::bench::parse_meeting_args({});
 
     CHECK(args.target_sec == fv::meeting::DEFAULT_TARGET_SEC);

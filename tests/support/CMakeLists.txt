@@ -18,25 +18,25 @@ target_compile_features(fv_testkit PUBLIC cxx_std_23)
 target_compile_definitions(fv_testkit PRIVATE
     "FV_TESTKIT_SOURCE_DIR=\"${PROJECT_SOURCE_DIR}\""
     "FV_TESTKIT_BINARY_DIR=\"${CMAKE_BINARY_DIR}\"")
-fiorivoce_target_defaults(fv_testkit)
+openwhisper_cpp_target_defaults(fv_testkit)
 
 add_library(fv_golden STATIC golden/golden.h golden/golden.cpp)
 target_link_libraries(fv_golden PUBLIC fv_testkit nlohmann_json::nlohmann_json Catch2::Catch2)
-fiorivoce_target_defaults(fv_golden)
+openwhisper_cpp_target_defaults(fv_golden)
 
-if(FIORIVOCE_HAVE_QT)
+if(OPENWHISPER_CPP_HAVE_QT)
     add_library(fv_testkit_qt STATIC testkit/qt_main.cpp)
     target_link_libraries(fv_testkit_qt PUBLIC fv_testkit Qt6::Widgets Catch2::Catch2)
-    fiorivoce_target_defaults(fv_testkit_qt)
+    openwhisper_cpp_target_defaults(fv_testkit_qt)
 
     add_library(fv_screenshot STATIC screenshot/screenshot.h screenshot/screenshot.cpp
                                      screenshot/dumped_widgets.h)
     target_link_libraries(fv_screenshot PUBLIC fv_testkit Qt6::Widgets Catch2::Catch2)
     set_target_properties(fv_screenshot PROPERTIES AUTOMOC ON)
-    if(FIORIVOCE_SCREENSHOT_TESTS)
+    if(OPENWHISPER_CPP_SCREENSHOT_TESTS)
         target_compile_definitions(fv_screenshot PRIVATE FV_SCREENSHOT_PIXELS)
     endif()
-    fiorivoce_target_defaults(fv_screenshot)
+    openwhisper_cpp_target_defaults(fv_screenshot)
 
     # fv_test reads a dependency's Qt components from this property for the test environment
     # (offscreen platform, font folder) and the precompiled-header set.

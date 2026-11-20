@@ -264,7 +264,7 @@ TEST_CASE("a17 audit: a new port moves sharing only while it is on", "[audit]") 
     CHECK(remote::probe_host(env, "127.0.0.1", second).host_name == "Desk");
     CHECK_THROWS_AS(remote::probe_host(env, "127.0.0.1", first), remote::RemoteEngineError);
 
-    // FioriVoce's own check (OpenWhisper saves any int and fails to listen on it).
+    // OpenWhisper_CPP's own check (OpenWhisper saves any int and fails to listen on it).
     CHECK_THROWS_MATCHES(host.service->set_host_port(0), py::ValueError,
                          Message("Enter a port from 1 to 65535."));
     host.service->set_host_enabled(false);

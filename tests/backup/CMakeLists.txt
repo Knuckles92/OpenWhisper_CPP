@@ -7,7 +7,7 @@ if(TARGET fv_backup_tests)
     add_executable(fv_backup_lease_helper lease_helper/main.cpp)
     target_link_libraries(fv_backup_lease_helper PRIVATE fv_base)
     target_compile_features(fv_backup_lease_helper PRIVATE cxx_std_23)
-    fiorivoce_target_defaults(fv_backup_lease_helper)
+    openwhisper_cpp_target_defaults(fv_backup_lease_helper)
     add_dependencies(fv_backup_tests fv_backup_lease_helper)
     target_compile_definitions(fv_backup_tests PRIVATE
         "FV_BACKUP_LEASE_HELPER=\"$<TARGET_FILE:fv_backup_lease_helper>\"")

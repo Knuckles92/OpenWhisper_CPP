@@ -1,8 +1,8 @@
 // A chunk of the owner's recording through the real Parakeet engine on the Meeting lane. Skipped
 // unless these are set (README.md):
-//   FIORIVOCE_TEST_RUNTIME_DIR  an unpacked NeMo-Speech.cpp release
-//   FIORIVOCE_TEST_MODEL        a Parakeet .gguf
-//   FIORIVOCE_TEST_WAV          a recording with speech in it
+//   OPENWHISPER_CPP_TEST_RUNTIME_DIR  an unpacked NeMo-Speech.cpp release
+//   OPENWHISPER_CPP_TEST_MODEL        a Parakeet .gguf
+//   OPENWHISPER_CPP_TEST_WAV          a recording with speech in it
 
 #include <catch2/catch_test_macros.hpp>
 
@@ -35,8 +35,8 @@ namespace {
 using namespace std::chrono_literals;
 
 std::optional<fv::speech::BackendConfig> installed() {
-    const auto runtime = fv::env_utf8("FIORIVOCE_TEST_RUNTIME_DIR");
-    const auto model = fv::env_utf8("FIORIVOCE_TEST_MODEL");
+    const auto runtime = fv::env_utf8("OPENWHISPER_CPP_TEST_RUNTIME_DIR");
+    const auto model = fv::env_utf8("OPENWHISPER_CPP_TEST_MODEL");
     if (!runtime || !model) {
         return std::nullopt;
     }
@@ -57,9 +57,10 @@ std::optional<fv::speech::BackendConfig> installed() {
 TEST_CASE("a chunk of the test recording decodes on the meeting lane as the backend decodes it",
           "[decode]") {
     const auto config = installed();
-    const auto wav = fv::env_utf8("FIORIVOCE_TEST_WAV");
+    const auto wav = fv::env_utf8("OPENWHISPER_CPP_TEST_WAV");
     if (!config || !wav) {
-        SKIP("Set FIORIVOCE_TEST_RUNTIME_DIR, FIORIVOCE_TEST_MODEL and FIORIVOCE_TEST_WAV.");
+        SKIP("Set OPENWHISPER_CPP_TEST_RUNTIME_DIR, OPENWHISPER_CPP_TEST_MODEL and "
+             "OPENWHISPER_CPP_TEST_WAV.");
     }
     // The spool's chunk: up to ten seconds of the recording at 16 kHz mono.
     const auto [native, rate] = fv::meeting::load_wav_int16(fv::base_utf8::path_from_utf8(*wav));

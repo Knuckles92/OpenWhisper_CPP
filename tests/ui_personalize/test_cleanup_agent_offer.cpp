@@ -1,5 +1,5 @@
 // The one-time offer of a signed-in Claude Code or Codex for AI cleanup
-// (test_cleanup_agent_offer.py's UI half), with FioriVoce's consent question in front of the
+// (test_cleanup_agent_offer.py's UI half), with OpenWhisper_CPP's consent question in front of the
 // change: the offer and the question are answered by the test, the scan is scripted.
 #include <catch2/catch_test_macros.hpp>
 
@@ -90,7 +90,7 @@ TEST_CASE("test_yes_switches_and_refreshes", "[widget]") {
     processEvents();
     REQUIRE(rig.offered.size() == 1);
     CHECK(rig.currents.front() == "OpenRouter");
-    // FioriVoce: the same consent question the AI cleanup settings ask for that runner.
+    // OpenWhisper_CPP: the same consent question the AI cleanup settings ask for that runner.
     REQUIRE(rig.questions.size() == 1);
     CHECK(rig.questions.front().startsWith("Use Claude Code for AI cleanup?\n"));
     CHECK(rig.questions.front().contains("through the Claude Code CLI"));

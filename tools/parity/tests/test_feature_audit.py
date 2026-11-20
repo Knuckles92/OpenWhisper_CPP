@@ -66,7 +66,7 @@ class Audit(unittest.TestCase):
 
     def test_differences_sorted_by_area_and_id(self):
         def row(area, key):
-            return dict(area=area, id=key, openwhisper="Reference.", fiorivoce="Port.",
+            return dict(area=area, id=key, openwhisper="Reference.", openwhisper-cpp="Port.",
                         reason="Different platform.", source="Design")
         report = differences.render([row("b", "x"), row("a", "q"), row("a", "p")])
         self.assertLess(report.index("### p"), report.index("### q"))

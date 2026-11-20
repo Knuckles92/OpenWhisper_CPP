@@ -1,5 +1,5 @@
 """Curated inputs for services/component_catalog.py (M2.5): the NVIDIA speech-runtime rows, as
-the dataclass's fields. FioriVoce rewrites the fields that describe OpenWhisper's worker process
+the dataclass's fields. OpenWhisper_CPP rewrites the fields that describe OpenWhisper's worker process
 and portable Python (tests/models/test_component_details.cpp lists them)."""
 
 import dataclasses

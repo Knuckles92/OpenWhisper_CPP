@@ -806,9 +806,10 @@ TEST_CASE("TestFailure::test_core_that_fails_to_start_is_still_shut_down",
 }
 
 // Audit A24-42 (lead decision): OpenWhisper's rerun_polish and rerun_insights run whatever the
-// stored state's cloud_enabled says. In FioriVoce a re-run reaching AI steps needs fresh desktop
-// approval naming the meeting and destination (a30-dashboard-fresh-approval); that approval, not
-// the toggle recorded at the time, authorises it. Without one, the stored toggle still refuses.
+// stored state's cloud_enabled says. In OpenWhisper_CPP a re-run reaching AI steps needs fresh
+// desktop approval naming the meeting and destination (a30-dashboard-fresh-approval); that
+// approval, not the toggle recorded at the time, authorises it. Without one, the stored toggle
+// still refuses.
 TEST_CASE("a re-run of a meeting recorded with AI insights off runs only with fresh approval",
           "[test_meeting_reinsight]") {
     const std::string step_key = GENERATE("polish", "consolidation");

@@ -8,7 +8,8 @@ namespace {
 
 // sqlite_master.sql of a database OpenWhisper's Base.metadata.create_all made (SQLAlchemy 2 on
 // SQLite): tab indents, ", " before each line break, DEFAULT before NOT NULL. Byte for byte, so a
-// FioriVoce database and an OpenWhisper one hold the same schema text (tests/db/test_golden.cpp).
+// OpenWhisper_CPP database and an OpenWhisper one hold the same schema text
+// (tests/db/test_golden.cpp).
 
 constexpr std::string_view schema_version_create = "CREATE TABLE schema_version (\n"
                                                    "\tversion INTEGER NOT NULL, \n"

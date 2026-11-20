@@ -291,11 +291,12 @@ TEST_CASE("startup recovery turns an interrupted journal into a recording", "[di
 
 TEST_CASE("the test recording re-transcribed through Parakeet is pasted as Parakeet decodes it",
           "[decode]") {
-    const auto runtime_dir = fv::env_utf8("FIORIVOCE_TEST_RUNTIME_DIR");
-    const auto model = fv::env_utf8("FIORIVOCE_TEST_MODEL");
-    const auto wav = fv::env_utf8("FIORIVOCE_TEST_WAV");
+    const auto runtime_dir = fv::env_utf8("OPENWHISPER_CPP_TEST_RUNTIME_DIR");
+    const auto model = fv::env_utf8("OPENWHISPER_CPP_TEST_MODEL");
+    const auto wav = fv::env_utf8("OPENWHISPER_CPP_TEST_WAV");
     if (!runtime_dir || !model || !wav) {
-        SKIP("Set FIORIVOCE_TEST_RUNTIME_DIR, FIORIVOCE_TEST_MODEL and FIORIVOCE_TEST_WAV.");
+        SKIP("Set OPENWHISPER_CPP_TEST_RUNTIME_DIR, OPENWHISPER_CPP_TEST_MODEL and "
+             "OPENWHISPER_CPP_TEST_WAV.");
     }
     RigOptions options;
     options.config = fake_parakeet_config();

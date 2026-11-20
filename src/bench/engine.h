@@ -15,8 +15,8 @@
 // command line or the decode-test variables; nothing is ever downloaded.
 namespace fv::bench {
 
-inline constexpr std::string_view kRuntimeVariable = "FIORIVOCE_TEST_RUNTIME_DIR";
-inline constexpr std::string_view kModelVariable = "FIORIVOCE_TEST_MODEL";
+inline constexpr std::string_view kRuntimeVariable = "OPENWHISPER_CPP_TEST_RUNTIME_DIR";
+inline constexpr std::string_view kModelVariable = "OPENWHISPER_CPP_TEST_MODEL";
 
 struct EngineFiles {
     std::filesystem::path runtime_dir;
@@ -25,8 +25,8 @@ struct EngineFiles {
 };
 
 // The runtime and model: each given path, else its variable. On a gap, the sentence to print:
-// "Set FIORIVOCE_TEST_RUNTIME_DIR (or pass --runtime) to a NeMo-Speech.cpp runtime folder." or
-// "Set FIORIVOCE_TEST_MODEL (or pass --model) to a Parakeet .gguf model."
+// "Set OPENWHISPER_CPP_TEST_RUNTIME_DIR (or pass --runtime) to a NeMo-Speech.cpp runtime folder."
+// or "Set OPENWHISPER_CPP_TEST_MODEL (or pass --model) to a Parakeet .gguf model."
 struct EngineLookup {
     std::optional<EngineFiles> files;
     std::string missing;

@@ -1796,7 +1796,7 @@ TEST_CASE("backend switch preserves each model and locks api choice",
     ApiRig rig;
     auto tab = rig.tab();
     const QString localModel = tab->localEngine()->modelCombo()->currentText();
-    // MODEL_CHOICES that FioriVoce has, sorted by casefold.
+    // MODEL_CHOICES that OpenWhisper_CPP has, sorted by casefold.
     std::vector<QString> backends;
     for (int i = 0; i < tab->modelCombo()->count(); ++i) {
         backends.push_back(tab->modelCombo()->itemData(i).toString());

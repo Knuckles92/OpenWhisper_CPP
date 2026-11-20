@@ -73,7 +73,7 @@ def audit(root: Path, areas: set[str] | None = None, final: bool = False) -> dic
             key = item["id"]
             if key in differences:
                 errors.append(f"{key}: duplicate difference")
-            for field in ("id", "openwhisper", "fiorivoce", "reason", "source"):
+            for field in ("id", "openwhisper", "openwhisper-cpp", "reason", "source"):
                 require_text(item, field, key)
             refs = item.get("features")
             if not isinstance(refs, list) or any(not isinstance(r, str) or r not in known for r in refs):

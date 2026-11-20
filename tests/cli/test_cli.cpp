@@ -1,10 +1,10 @@
-// fiorivoce-cli, run as a child process the way OpenWhisper's tests run main.py.
+// openwhisper-cpp-cli, run as a child process the way OpenWhisper's tests run main.py.
 // from tests/test_main_entrypoint.py and tests/test_release_health.py
 //
 // The decode test is skipped unless these are set (see README.md):
-//   FIORIVOCE_TEST_RUNTIME_DIR  an unpacked NeMo-Speech.cpp release
-//   FIORIVOCE_TEST_MODEL        a Parakeet .gguf
-//   FIORIVOCE_TEST_WAV          a recording with speech in it
+//   OPENWHISPER_CPP_TEST_RUNTIME_DIR  an unpacked NeMo-Speech.cpp release
+//   OPENWHISPER_CPP_TEST_MODEL        a Parakeet .gguf
+//   OPENWHISPER_CPP_TEST_WAV          a recording with speech in it
 
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/generators/catch_generators.hpp>
@@ -93,7 +93,7 @@ std::string utf8(const fs::path& path) {
 }
 
 EnvOverride data_dir(const fs::path& path) {
-    return {"FIORIVOCE_DATA_DIR", utf8(path)};
+    return {"OPENWHISPER_CPP_DATA_DIR", utf8(path)};
 }
 
 // A runtime folder whose library is the decoy: find_runtime_library accepts it, and loading it
@@ -109,10 +109,10 @@ fs::path make_decoy_runtime(const fs::path& root) {
 // main.py's _USAGE, rebranded, without the GUI's line ("With no option, opens ...") and the
 // options of dropped platforms (OPENWHISPER_UI); with this executable's transcribe command and
 // its options and the installed check. The lines both share are _USAGE's word for word.
-constexpr std::string_view kUsage = R"(Usage: fiorivoce-cli COMMAND [OPTION]...
-       fiorivoce-cli [OPTION]
+constexpr std::string_view kUsage = R"(Usage: openwhisper-cpp-cli COMMAND [OPTION]...
+       openwhisper-cpp-cli [OPTION]
 
-Command-line tools of FioriVoce: the speech engine, and checks that need
+Command-line tools of OpenWhisper_CPP: the speech engine, and checks that need
 no window.
 
 Commands:
@@ -129,11 +129,11 @@ Options:
   --api [--database PATH] [--port N]
                           Serve the read-only History API on 127.0.0.1 (port
                           8766 by default) without opening the app. Set
-                          FIORIVOCE_API_TOKEN to a random token of at least
+                          OPENWHISPER_CPP_API_TOKEN to a random token of at least
                           32 characters first.
   --channel               Run as a Claude Code channel (an MCP server over
-                          stdio) that forwards FioriVoce actions into a
-                          running Claude Code session. FioriVoce must be
+                          stdio) that forwards OpenWhisper_CPP actions into a
+                          running Claude Code session. OpenWhisper_CPP must be
                           running with API & MCP on.
   --self-test             Check that the data folder, the settings and the
                           speech runtime are usable, run the workflow smoke,
@@ -146,9 +146,9 @@ Options:
                           optionally saving its report, and exit.
 
 Transcribe options:
-  --model FILE            The model's .gguf file. Default: $FIORIVOCE_MODEL.
+  --model FILE            The model's .gguf file. Default: $OPENWHISPER_CPP_MODEL.
   --runtime DIR           An unpacked NeMo-Speech.cpp release.
-                          Default: $FIORIVOCE_RUNTIME_DIR.
+                          Default: $OPENWHISPER_CPP_RUNTIME_DIR.
   --gpu N                 Decode on the runtime's GPU number N (0 is the
                           first). Default: CPU.
   --language CODE         The spoken language, such as en. Default: detect it.
@@ -156,11 +156,11 @@ Transcribe options:
                           time.
 
 Environment:
-  FIORIVOCE_DATA_DIR=PATH
+  OPENWHISPER_CPP_DATA_DIR=PATH
                           Keep settings, history and recordings in PATH.
-  FIORIVOCE_LOG_LEVEL=LEVEL
+  OPENWHISPER_CPP_LOG_LEVEL=LEVEL
                           Log at DEBUG, INFO (the default), WARNING or ERROR.
-  FIORIVOCE_RUNTIME_DIR=PATH
+  OPENWHISPER_CPP_RUNTIME_DIR=PATH
                           The speech runtime to use when none is given.
 )";
 
@@ -192,7 +192,7 @@ TEST_CASE("help prints usage and exits without opening the app",
 
     REQUIRE(result.exit_code == 0);
     CHECK(result.err.empty());
-    CHECK_THAT(result.out, StartsWith("Usage: fiorivoce-cli"));
+    CHECK_THAT(result.out, StartsWith("Usage: openwhisper-cpp-cli"));
     // The console's text mode ends lines with CRLF on Windows, as Python's print does.
     std::string text = result.out;
     std::erase(text, '\r');
@@ -200,8 +200,8 @@ TEST_CASE("help prints usage and exits without opening the app",
     for (const char* option :
          {"--version", "--diagnostics OUTPUT.json", "--api [--database PATH] [--port N]",
           "--channel", "--self-test", "--self-test --installed", "--workflow-smoke [REPORT.json]",
-          "transcribe AUDIO.wav", "FIORIVOCE_DATA_DIR=PATH", "FIORIVOCE_LOG_LEVEL=LEVEL",
-          "FIORIVOCE_RUNTIME_DIR=PATH"}) {
+          "transcribe AUDIO.wav", "OPENWHISPER_CPP_DATA_DIR=PATH",
+          "OPENWHISPER_CPP_LOG_LEVEL=LEVEL", "OPENWHISPER_CPP_RUNTIME_DIR=PATH"}) {
         CHECK_THAT(result.out, ContainsSubstring(option));
     }
     // OpenWhisper's internal modes are not listed.
@@ -216,7 +216,7 @@ TEST_CASE("help prints usage and exits without opening the app",
 TEST_CASE("help still answers when more arguments follow", "[platform][test_main_entrypoint]") {
     const CliResult result = run_cli({"--help", "--no-such-option"}, {});
     CHECK(result.exit_code == 0);
-    CHECK_THAT(result.out, StartsWith("Usage: fiorivoce-cli"));
+    CHECK_THAT(result.out, StartsWith("Usage: openwhisper-cpp-cli"));
 }
 
 TEST_CASE("help loads neither qt nor the speech runtimes", "[platform][test_main_entrypoint]") {
@@ -224,7 +224,7 @@ TEST_CASE("help loads neither qt nor the speech runtimes", "[platform][test_main
     const fs::path runtime = make_decoy_runtime(root.path());
     const fs::path marker = root.path() / "runtime-loaded";
     const std::vector<EnvOverride> env = {data_dir(root.path() / "data"),
-                                          {"FIORIVOCE_RUNTIME_DIR", utf8(runtime)},
+                                          {"OPENWHISPER_CPP_RUNTIME_DIR", utf8(runtime)},
                                           {"FV_CLI_DECOY_MARKER", utf8(marker)}};
 
     SECTION("the commands that answer at once leave the runtime alone") {
@@ -283,7 +283,7 @@ TEST_CASE("version is the product and the version, and only as the whole command
           "[platform][test_main_entrypoint]") {
     const CliResult version = run_cli({"--version"}, {});
     CHECK(version.exit_code == 0);
-    CHECK_THAT(version.out, StartsWith("FioriVoce "));
+    CHECK_THAT(version.out, StartsWith("OpenWhisper_CPP "));
     CHECK(version.out.find('\n') == version.out.size() - 1);
 
     const CliResult extra = run_cli({"--version", "extra"}, {});
@@ -296,7 +296,7 @@ TEST_CASE("an unknown or missing command is a usage error", "[platform][test_mai
     const CliResult unknown = run_cli({"--no-such-flag"}, {});
     CHECK(unknown.exit_code == 2);
     CHECK_THAT(unknown.err, ContainsSubstring("Unknown command --no-such-flag."));
-    CHECK_THAT(unknown.err, ContainsSubstring("Usage: fiorivoce-cli"));
+    CHECK_THAT(unknown.err, ContainsSubstring("Usage: openwhisper-cpp-cli"));
 
     const CliResult none = run_cli({}, {});
     CHECK(none.exit_code == 2);
@@ -315,12 +315,12 @@ TEST_CASE("transcribe reports a bad command line before it loads anything",
     const CliResult no_model = run_cli({"transcribe", "a.wav"}, env);
     CHECK(no_model.exit_code == 2);
     CHECK_THAT(no_model.err,
-               ContainsSubstring("No model given. Pass --model or set FIORIVOCE_MODEL."));
+               ContainsSubstring("No model given. Pass --model or set OPENWHISPER_CPP_MODEL."));
 
     const CliResult no_runtime = run_cli({"transcribe", "a.wav", "--model", "m.gguf"}, env);
     CHECK(no_runtime.exit_code == 2);
     CHECK_THAT(no_runtime.err, ContainsSubstring("No speech runtime given. Pass --runtime or set "
-                                                 "FIORIVOCE_RUNTIME_DIR."));
+                                                 "OPENWHISPER_CPP_RUNTIME_DIR."));
 
     const CliResult bad_gpu = run_cli({"transcribe", "a.wav", "--gpu", "x"}, env);
     CHECK(bad_gpu.exit_code == 2);
@@ -338,13 +338,13 @@ TEST_CASE("diagnostics entrypoint does not initialize gui or history",
     const Json report = Json::parse(read_text(output));
     CHECK_FALSE(report["app_version"].get<std::string>().empty());
     CHECK(report["schema"] == 1);
-    CHECK_FALSE(fs::exists(root.path() / "fiorivoce.db"));
+    CHECK_FALSE(fs::exists(root.path() / "openwhisper-cpp.db"));
 }
 
 TEST_CASE("the diagnostics report reads the settings file in the data folder",
           "[platform][test_release_health]") {
     fv::testkit::TempDataRoot root;
-    write_text(root.path() / "fiorivoce_settings.json", "{\"selected_model\": \"remote\"}\n");
+    write_text(root.path() / "openwhisper_cpp_settings.json", "{\"selected_model\": \"remote\"}\n");
     const fs::path output = root.path() / "support.json";
 
     REQUIRE(run_cli({"--diagnostics", utf8(output)}, {data_dir(root.path())}).exit_code == 0);
@@ -358,11 +358,11 @@ TEST_CASE("the diagnostics report lists catalog models and the installed speech 
     // Components live under LOCALAPPDATA (Windows) or XDG_DATA_HOME (Linux), which the run points
     // at the test's folder.
     const fs::path local = root.path() / "Local";
-    const fs::path runtime = local / "FioriVoce" / "components" / "asr-nvidia-cpu";
+    const fs::path runtime = local / "OpenWhisper_CPP" / "components" / "asr-nvidia-cpu";
     fs::create_directories(runtime);
     write_text(runtime / "manifest.json", "{\"version\": \"0.1.0-test\"}");
     write_text(runtime / ".installed", "0.1.0-test");
-    write_text(root.path() / "fiorivoce_settings.json",
+    write_text(root.path() / "openwhisper_cpp_settings.json",
                "{\"local_asr_models\": {\"parakeet\": \"parakeet-v3\", \"custom\": "
                "\"C:/models/mine.gguf\"}, \"local_asr_devices\": {\"parakeet\": \"cpu\"}, "
                "\"fv_speech_runtime\": \"cpu\"}");
@@ -398,7 +398,7 @@ TEST_CASE("diagnostics without a path prints usage and exits 2",
           "[platform][test_release_health]") {
     const CliResult missing = run_cli({"--diagnostics"}, {});
     CHECK(missing.exit_code == 2);
-    CHECK_THAT(missing.err, StartsWith("usage: fiorivoce-cli --diagnostics [-h] output"));
+    CHECK_THAT(missing.err, StartsWith("usage: openwhisper-cpp-cli --diagnostics [-h] output"));
     CHECK_THAT(missing.err, ContainsSubstring("the following arguments are required: output"));
 
     const CliResult surplus = run_cli({"--diagnostics", "a.json", "b.json", "--x"}, {});
@@ -417,7 +417,7 @@ TEST_CASE("diagnostics parses its command line as argparse does",
         const CliResult help = run_cli({"--diagnostics", "out.json", flag}, {});
         INFO(flag);
         CHECK(help.exit_code == 0);
-        CHECK_THAT(help.out, StartsWith("usage: fiorivoce-cli --diagnostics [-h] output"));
+        CHECK_THAT(help.out, StartsWith("usage: openwhisper-cpp-cli --diagnostics [-h] output"));
     }
     // "--helpx" is no abbreviation; "-" alone and a negative number are positionals.
     const CliResult unknown = run_cli({"--diagnostics", "out.json", "--helpx"}, {});
@@ -469,15 +469,15 @@ TEST_CASE("source self test does not recursively spawn", "[platform][test_releas
     fv::testkit::TempDataRoot root;
     const fs::path runtime = make_decoy_runtime(root.path());
 
-    const CliResult result =
-        run_cli({"--self-test"}, {data_dir(root.path()), {"FIORIVOCE_RUNTIME_DIR", utf8(runtime)}});
+    const CliResult result = run_cli(
+        {"--self-test"}, {data_dir(root.path()), {"OPENWHISPER_CPP_RUNTIME_DIR", utf8(runtime)}});
 
     REQUIRE(result.exit_code == 0);
-    CHECK_THAT(result.out, ContainsSubstring("FioriVoce package self-test passed"));
+    CHECK_THAT(result.out, ContainsSubstring("OpenWhisper_CPP package self-test passed"));
     // It ends with the workflow smoke, as main.py's does, whose report line comes first.
     CHECK_THAT(result.out, ContainsSubstring("\"kind\": \"synthetic_service_lifecycle\""));
     CHECK(result.out.find("synthetic_service_lifecycle") < result.out.find("self-test passed"));
-    CHECK_FALSE(fs::exists(root.path() / "fiorivoce.db"));
+    CHECK_FALSE(fs::exists(root.path() / "openwhisper-cpp.db"));
     // The process the test started is the only one: the self-test ran in it.
     if (result.processes) {
         CHECK(*result.processes == 1);
@@ -493,7 +493,7 @@ TEST_CASE("self test checks that the runtime folder holds a runtime",
     SECTION("a folder without the library fails") {
         const CliResult result =
             run_cli({"--self-test"},
-                    {data_dir(root.path()), {"FIORIVOCE_RUNTIME_DIR", utf8(empty_folder)}});
+                    {data_dir(root.path()), {"OPENWHISPER_CPP_RUNTIME_DIR", utf8(empty_folder)}});
         CHECK(result.exit_code == 1);
         CHECK_THAT(result.err, ContainsSubstring("self-test failed"));
         CHECK_THAT(result.err, ContainsSubstring("No speech runtime in"));
@@ -503,7 +503,7 @@ TEST_CASE("self test checks that the runtime folder holds a runtime",
     SECTION("the saved fv_runtime_dir is used when the environment names none") {
         const fs::path runtime = make_decoy_runtime(root.path());
         Json settings = {{"fv_runtime_dir", utf8(runtime)}};
-        write_text(root.path() / "fiorivoce_settings.json", settings.dump());
+        write_text(root.path() / "openwhisper_cpp_settings.json", settings.dump());
         const CliResult result = run_cli({"--self-test"}, {data_dir(root.path())});
         CHECK(result.exit_code == 0);
         CHECK_THAT(result.out, ContainsSubstring(fv::runtime_library_name()));
@@ -511,10 +511,10 @@ TEST_CASE("self test checks that the runtime folder holds a runtime",
 
     SECTION("the environment wins over the saved folder") {
         Json settings = {{"fv_runtime_dir", utf8(make_decoy_runtime(root.path()))}};
-        write_text(root.path() / "fiorivoce_settings.json", settings.dump());
+        write_text(root.path() / "openwhisper_cpp_settings.json", settings.dump());
         const CliResult result =
             run_cli({"--self-test"},
-                    {data_dir(root.path()), {"FIORIVOCE_RUNTIME_DIR", utf8(empty_folder)}});
+                    {data_dir(root.path()), {"OPENWHISPER_CPP_RUNTIME_DIR", utf8(empty_folder)}});
         CHECK(result.exit_code == 1);
     }
 
@@ -544,11 +544,12 @@ TEST_CASE("self test fails when the data folder cannot take a file",
 }
 
 TEST_CASE("transcribe decodes a recording through the command line", "[decode]") {
-    const auto runtime = fv::testkit::get_env("FIORIVOCE_TEST_RUNTIME_DIR");
-    const auto model = fv::testkit::get_env("FIORIVOCE_TEST_MODEL");
-    const auto wav = fv::testkit::get_env("FIORIVOCE_TEST_WAV");
+    const auto runtime = fv::testkit::get_env("OPENWHISPER_CPP_TEST_RUNTIME_DIR");
+    const auto model = fv::testkit::get_env("OPENWHISPER_CPP_TEST_MODEL");
+    const auto wav = fv::testkit::get_env("OPENWHISPER_CPP_TEST_WAV");
     if (!runtime || !model || !wav) {
-        SKIP("Set FIORIVOCE_TEST_RUNTIME_DIR, FIORIVOCE_TEST_MODEL and FIORIVOCE_TEST_WAV.");
+        SKIP("Set OPENWHISPER_CPP_TEST_RUNTIME_DIR, OPENWHISPER_CPP_TEST_MODEL and "
+             "OPENWHISPER_CPP_TEST_WAV.");
     }
     fv::testkit::TempDataRoot root;
 
@@ -560,10 +561,11 @@ TEST_CASE("transcribe decodes a recording through the command line", "[decode]")
     CHECK_THAT(plain.err, ContainsSubstring("runtime "));
 
     // The environment names the model and runtime when the options do not.
-    const CliResult from_env = run_cli(
-        {"transcribe", *wav, "--timestamps"},
-        {data_dir(root.path()), {"FIORIVOCE_MODEL", *model}, {"FIORIVOCE_RUNTIME_DIR", *runtime}},
-        std::chrono::minutes(5));
+    const CliResult from_env = run_cli({"transcribe", *wav, "--timestamps"},
+                                       {data_dir(root.path()),
+                                        {"OPENWHISPER_CPP_MODEL", *model},
+                                        {"OPENWHISPER_CPP_RUNTIME_DIR", *runtime}},
+                                       std::chrono::minutes(5));
     REQUIRE(from_env.exit_code == 0);
     CHECK_THAT(from_env.out, StartsWith("["));
 }

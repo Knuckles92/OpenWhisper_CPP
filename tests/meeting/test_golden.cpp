@@ -77,7 +77,7 @@ PlatformInfo platform_of(const golden::Case& c) {
     return {c.arg<std::string>(0), c.arg<std::string>(1), c.arg<std::string>(2)};
 }
 
-// OpenWhisper's redecode detail names Whisper; FioriVoce's names Parakeet (lead decision).
+// OpenWhisper's redecode detail names Whisper; OpenWhisper_CPP's names Parakeet (lead decision).
 Json parakeet_wording(Json value) {
     if (value.is_object() && value.contains("detail") &&
         value["detail"] == "High-accuracy full session Whisper decode") {
@@ -254,7 +254,7 @@ TEST_CASE("golden meeting.finalization speaker_pass_gate", "[meeting][golden]") 
                                                        key_present, iso_day(c.arg<std::string>(3)));
         Json expected = c.result<Json>();
         INFO(c.label());
-        // has_key is the Python gate carrying the key; FioriVoce's never does.
+        // has_key is the Python gate carrying the key; OpenWhisper_CPP's never does.
         CHECK(expected.at("has_key") == (gate.ok && key.has_value()));
         expected["has_key"] = false;
         CHECK(golden::equal(expected, gate_json(gate)));
@@ -268,7 +268,7 @@ TEST_CASE("golden meeting.end_run", "[meeting][golden]") {
         INFO(c.label());
         const Json actual = fv::meeting::testing::run_scenario(c.arg<Json>(0));
         Json expected = c.result<Json>();
-        // The redecode step's detail as FioriVoce words it.
+        // The redecode step's detail as OpenWhisper_CPP words it.
         for (auto& event : expected.at("events")) {
             if (event.at(0) != "set_finalization") {
                 continue;

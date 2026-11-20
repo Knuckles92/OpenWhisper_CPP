@@ -122,7 +122,7 @@ TEST_CASE("windows without a handler", "[test_automation_agents_launch]") {
 TEST_CASE("windows lookup answers for an unknown scheme",
           "[test_automation_agents_launch][platform]") {
     fv::set_launch_backend(nullptr);
-    const std::string scheme = "fiorivoce-no-such-scheme";
+    const std::string scheme = "openwhisper-cpp-no-such-scheme";
     CHECK(fv::launch_backend()->assoc_query(scheme, AssocString::command).result == kNoAssociation);
     CHECK(fv::handler_available(scheme) == false);
 }

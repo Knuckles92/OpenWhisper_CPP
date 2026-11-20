@@ -23,7 +23,7 @@ class AppContext;
 struct RuntimeSetupPorts {
     Executor* io = nullptr;
 
-    // What an OpenWhisper install offers that FioriVoce does not have yet.
+    // What an OpenWhisper install offers that OpenWhisper_CPP does not have yet.
     std::function<models::Discovery()> discover;
     // Throw models::AdoptionError or models::ComponentError with a sentence for the user;
     // models::ComponentCanceled when `cancel` fired.

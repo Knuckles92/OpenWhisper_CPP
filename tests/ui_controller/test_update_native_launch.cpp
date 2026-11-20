@@ -37,13 +37,13 @@ update::UpdateCheckResult nativeResult() {
     release.version = "0.2.0";
     release.tag_name = "v0.2.0";
     update::ReleaseAsset setup;
-    setup.name = "FioriVoce-Setup-0.2.0.exe";
+    setup.name = "OpenWhisper_CPP-Setup-0.2.0.exe";
     setup.url = "https://github.com/example/app/releases/download/v0.2.0/" + setup.name;
     setup.size_bytes = 4096;
     setup.sha256 = std::string(64, 'c');
     release.setup_asset = setup;
     update::ReleaseAsset archive = setup;
-    archive.name = "FioriVoce-0.2.0-win-x64.zip";
+    archive.name = "OpenWhisper_CPP-0.2.0-win-x64.zip";
     archive.sha256 = std::string(64, 'd');
     release.native_asset = archive;
     result.release = release;
@@ -92,7 +92,7 @@ struct NativeHarness {
             [this](const std::filesystem::path&, std::span<const std::string>,
                    const std::filesystem::path&) -> std::expected<std::uint32_t, std::string> {
             calls.push_back("start_detached");
-            return std::unexpected("Could not start fiorivoce-updater.exe.");
+            return std::unexpected("Could not start openwhisper-cpp-updater.exe.");
         };
         ports.armWatchdog = [this] {
             calls.push_back("watchdog");
@@ -121,7 +121,7 @@ TEST_CASE("an updater that cannot be started abandons the transaction and offers
           "[test_app_update_handoff][widget]") {
     NativeHarness harness;
     update::Handoff native;
-    native.setup_exe = "C:/User Data/updates/tx/fiorivoce-updater.exe";
+    native.setup_exe = "C:/User Data/updates/tx/openwhisper-cpp-updater.exe";
     native.args = {"--transaction", std::string(32, 'a')};
     native.transaction_id = std::string(32, 'a');
 

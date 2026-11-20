@@ -2,7 +2,7 @@
 
 // Where each feature's tab, side panel, menu item and tray item goes. Features register with
 // these constants, so the order is OpenWhisper's whichever feature installs first. Gaps of 100
-// leave room for FioriVoce-only items. A separator constant marks the separator that sits at
+// leave room for OpenWhisper_CPP-only items. A separator constant marks the separator that sits at
 // that position.
 
 namespace fv::order {

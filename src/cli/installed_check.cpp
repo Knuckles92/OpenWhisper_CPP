@@ -118,7 +118,8 @@ int run_installed_self_test() {
             std::printf("%s installed self-test passed\n", std::string(identity().product).c_str());
             return 0;
         }
-        std::fprintf(stderr, "fiorivoce-cli: installed self-test failed: %zu %s missing from %s:\n",
+        std::fprintf(stderr,
+                     "openwhisper-cpp-cli: installed self-test failed: %zu %s missing from %s:\n",
                      missing.size(), missing.size() == 1 ? "file is" : "files are",
                      path_to_utf8(folder).c_str());
         for (const MissingFile& file : missing) {
@@ -133,7 +134,7 @@ int run_installed_self_test() {
         }
         return 1;
     } catch (const std::exception& error) {
-        std::fprintf(stderr, "fiorivoce-cli: installed self-test failed: %s\n", error.what());
+        std::fprintf(stderr, "openwhisper-cpp-cli: installed self-test failed: %s\n", error.what());
         return 1;
     }
 }

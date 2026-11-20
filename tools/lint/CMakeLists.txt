@@ -55,7 +55,7 @@ foreach(entry IN ITEMS
 endforeach()
 
 # Two features in the generated registry, plus fv_embed, built and run for real.
-if(FIORIVOCE_HAVE_QT)
+if(OPENWHISPER_CPP_HAVE_QT)
     add_test(NAME cmake.feature_registry
         COMMAND "${CMAKE_COMMAND}" ${fixture_common} "-DQT6_DIR=${Qt6_DIR}"
                 "-DFIXTURE=${CMAKE_CURRENT_SOURCE_DIR}/tests/cmake/feature_registry"

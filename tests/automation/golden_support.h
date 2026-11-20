@@ -18,7 +18,7 @@ inline std::string text(const Json& value) {
     return value.is_string() ? value.get<std::string>() : std::string();
 }
 
-// The expected JSON with OpenWhisper's names as FioriVoce's.
+// The expected JSON with OpenWhisper's names as OpenWhisper_CPP's.
 inline Json rebranded(const Json& expected) {
     return py::loads(golden::rebrand(py::dumps(expected)));
 }

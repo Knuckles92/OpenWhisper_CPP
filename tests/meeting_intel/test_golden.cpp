@@ -172,9 +172,9 @@ TEST_CASE("Office text matches python-docx, python-pptx and openpyxl",
 }
 
 TEST_CASE("PDF text holds pypdf's words", "[golden][meeting.context_folder]") {
-    const auto library = fv::testkit::get_env("FIORIVOCE_TEST_PDFIUM");
+    const auto library = fv::testkit::get_env("OPENWHISPER_CPP_TEST_PDFIUM");
     if (!library || library->empty()) {
-        SKIP("FIORIVOCE_TEST_PDFIUM is not set: PDFs are not read");
+        SKIP("OPENWHISPER_CPP_TEST_PDFIUM is not set: PDFs are not read");
     }
     set_pdfium_path(fv::base_utf8::path_from_utf8(*library));
     // PDFium and pypdf lay text out differently; the words and their order must agree.

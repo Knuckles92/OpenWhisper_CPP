@@ -206,8 +206,8 @@ REFERENCE_CASE_130("quick_record_tab/idle", [] { return quickRecord([](fv::Quick
 REFERENCE_CASE_130("quick_record_tab/transcript", [] {
     return quickRecord([](fv::QuickRecordTab& tab) {
         tab.setTranscriptionCollapsed(false);
-        tab.setTranscript(QStringLiteral("Hello from FioriVoce."),
-                          QStringLiteral("hello from fiorivoce"));
+        tab.setTranscript(QStringLiteral("Hello from OpenWhisper_CPP."),
+                          QStringLiteral("hello from openwhisper-cpp"));
         tab.setTranscriptionStats(2.4, 12.7, 403200);
     });
 })

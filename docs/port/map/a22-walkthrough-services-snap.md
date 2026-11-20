@@ -277,7 +277,7 @@ See Platform-specific code.
 Also defined near these but read by other areas: `walkthrough_write_up` (bool false), `walkthrough_snap_mode`, `walkthrough_auto_mode`, `walkthrough_capture_delay`, `walkthrough_closed`, intro/minimize flags. Exact key names are an existing-install contract.
 
 ### Files on disk (contract with existing installs)
-- Root: `<data_root>/captures/` (`OPENWHISPER_DATA_DIR` override, else per-user dir). FioriVoce must decide whether to read OpenWhisper's folder (see open questions).
+- Root: `<data_root>/captures/` (`OPENWHISPER_DATA_DIR` override, else per-user dir). OpenWhisper_CPP must decide whether to read OpenWhisper's folder (see open questions).
 - Per walkthrough `captures/YYYY-MM-DD_HH-MM-SS[-N]/`: `shot-N.png`, `walkthrough.md`, `walkthrough.pdf`, `walkthrough.docx`, `walkthrough.json`, `walkthrough.original.json` (first Review), `write-up.md/.pdf/.docx`, `write-up-N.md/.pdf/.docx`, `draft.json` (while recording / unrecovered), `audio.wav`. Temp names: `.checkpoint-*`, `.audio.tmp`, `.review-*`, `.write-up-*`, `.previous/`.
 - `captures/retention.json` `{"days": N}`; `captures/screenshots/<stamp>[-N].png`.
 - Recovered recordings searched as `<recordings>/recording_*-recovered-<journal32hex>.wav`.
@@ -328,7 +328,7 @@ Also defined near these but read by other areas: `walkthrough_write_up` (bool fa
 - Nothing in this area exists only for a non-Parakeet engine. The decode seam is `finish.transcribe_sections(..., transcribe: Callable[[str], str])`, called from the runtime with `recognition_context.transcribe(incremental, backend, path, recognition)` (`services/runtime/transcription.py:1721-1725`); the worker-process / backend plumbing on that side is dropped with the other engines.
 - Adapt for in-process Parakeet: there is no need to write `section-N.wav` / `note-N.wav` temp files. Compute frame spans with the same algorithm, convert each span (minus note gaps) to mono float and call `Recognizer::transcribe(span, rate)` on `EngineWorker`'s thread, one call per clip, in order. Keep the 0.25 s minimum (skip decode, empty text) and the "decode whole file into section 0" fallback when the audio cannot be read/cut. Cancellation via the `before_each` equivalent between clips.
 - The cut search must run on the int16 samples as recorded (energy summed across channels); computing it on `fv::read_wav`'s averaged float would change stereo results. The recorder writes 16-bit PCM, so feed the int16 buffer.
-- If FioriVoce keeps cloud/remote engines (undecided), the same path-based seam is needed for them; design the C++ seam as "decode these sample spans" with an adapter that writes a WAV only when a backend needs a file.
+- If OpenWhisper_CPP keeps cloud/remote engines (undecided), the same path-based seam is needed for them; design the C++ seam as "decode these sample spans" with an adapter that writes a WAV only when a backend needs a file.
 
 ## Dependencies on other areas
 
@@ -364,7 +364,7 @@ Pure logic, good golden-vector sources:
 UI/integration (replay as Qt tests in `tests/app`, offscreen):
 - `tests/test_snap_overlay.py` (46), `tests/test_snap_session.py` (67, includes support reasons, grim command/timeout/output resolution, settle times, affinity), `tests/test_snap_live.py` (18), `tests/test_snap_macos_focus.py` (8), `tests/test_snap_macos_capture.py` (2), `tests/test_snap_click_screens.py` (2), `tests/test_capture_delay.py` (4, toolbar wrap), `tests/test_walkthrough_storyboard.py` (40, mostly the Review tab; first 5 are library logic), `tests/test_walkthrough_runtime.py`, `test_walkthrough_shortcuts.py`, `test_walkthrough_buttons.py`, `test_walkthrough_panel.py`, `test_past_walkthroughs.py`, `test_walkthrough_library_ui.py`, `test_walkthrough_write_up_notice.py` (other areas' UI driving this one).
 
-Golden vector plan: generate from Python with a script under FioriVoce `tests/golden/` (never writing in the OpenWhisper checkout): (1) `cut_frames` on synthetic int16 signals; (2) `_storyboard` from scripted board edits; (3) `markdown()` + `write_manifest` for fixed `Walkthrough` inputs; (4) `clock`, `_when`, `_escape_markers`, `_image_target`; (5) `document_text`/`_split_look`/`_notes`/prompts; (6) `write_up_parts`/`join_write_up`; (7) geometry functions (`snap_point`, `grab_at`, `resized`, `device_rect`, `place_toolbar`, `badge_rect`, `_wrap` layouts); (8) annotation `bounds()`, `meaningful()`, `extend_draft`, `arrow_shapes` points, `ink_for`. PDF output compared structurally (page count, text per page via a PDF text extractor, image frame positions) rather than byte-equal.
+Golden vector plan: generate from Python with a script under OpenWhisper_CPP `tests/golden/` (never writing in the OpenWhisper checkout): (1) `cut_frames` on synthetic int16 signals; (2) `_storyboard` from scripted board edits; (3) `markdown()` + `write_manifest` for fixed `Walkthrough` inputs; (4) `clock`, `_when`, `_escape_markers`, `_image_target`; (5) `document_text`/`_split_look`/`_notes`/prompts; (6) `write_up_parts`/`join_write_up`; (7) geometry functions (`snap_point`, `grab_at`, `resized`, `device_rect`, `place_toolbar`, `badge_rect`, `_wrap` layouts); (8) annotation `bounds()`, `meaningful()`, `extend_draft`, `arrow_shapes` points, `ink_for`. PDF output compared structurally (page count, text per page via a PDF text extractor, image frame positions) rather than byte-equal.
 
 ## Porting notes
 
@@ -383,7 +383,7 @@ Risks:
 - DOCX without python-docx: must emit a valid package Word accepts (pPr element order, relationships, inline picture XML with `a:ln`). Budget time for validation in Word and LibreOffice.
 - Markdown reading of agent replies relies on Qt's md4c-based reader; same in C++ Qt 6, but Qt version differences (e.g. blank first cell line bug) need the same fixes.
 - Platform window plumbing (Win32 affinity/foreground, macOS levels/Spaces/ScreenCaptureKit) is fiddly and only testable on real desktops.
-- JSON compatibility with existing installs (float formatting of `kept_at_s`, `null` ends, ISO times with offset) if FioriVoce reads OpenWhisper captures.
+- JSON compatibility with existing installs (float formatting of `kept_at_s`, `null` ends, ISO times with offset) if OpenWhisper_CPP reads OpenWhisper captures.
 - Write-up depends on the installed-agent runner area being ported first.
 
 Rough C++ size: core ~1.6k, documents ~2.2k (PDF 1.1k, DOCX 0.9k incl. OOXML templates), snap UI ~3.0k (overlay 0.6k, live 0.6k, toolbar 0.4k, annotations 0.5k, chrome/icons/geometry/export 0.6k, session/capture 0.4k), platform ~0.7k, paste 0.15k; total about 7.6k lines plus tests.

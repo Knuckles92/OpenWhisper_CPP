@@ -8,8 +8,8 @@
 
 #include "automation/channel_bridge.h"
 
-// The protocol streams of fiorivoce-cli --channel, over whatever reads and writes the platform
-// gives (win/channel_stdio.cpp, posix/channel_stdio.cpp).
+// The protocol streams of openwhisper-cpp-cli --channel, over whatever reads and writes the
+// platform gives (win/channel_stdio.cpp, posix/channel_stdio.cpp).
 namespace fv::automation::detail {
 
 // readline() over a function that reads: `read` fills up to `size` bytes, waiting until at least

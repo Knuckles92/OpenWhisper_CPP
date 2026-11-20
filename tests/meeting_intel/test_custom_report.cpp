@@ -626,7 +626,7 @@ TEST_CASE("a report from a missing agent says so", "[test_installed_agent_core]"
                    "not installed"));
 }
 
-// ---- FioriVoce's own ----
+// ---- OpenWhisper_CPP's own ----
 
 TEST_CASE("a two-round report is stored ready with the document's title and its tool use",
           "[custom_report]") {

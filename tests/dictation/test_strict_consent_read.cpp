@@ -1,6 +1,6 @@
 // test_strict_switch_reads.py::test_a_malformed_consent_is_not_consent: a saved consent that is
-// not a real true (a string, say) reads as no consent. FioriVoce authorizes meeting insights by
-// per-destination grants (MeetingPresenter::askIntelligenceConsent); the saved switch it still
+// not a real true (a string, say) reads as no consent. OpenWhisper_CPP authorizes meeting insights
+// by per-destination grants (MeetingPresenter::askIntelligenceConsent); the saved switch it still
 // writes is read strictly as well.
 #include <catch2/catch_test_macros.hpp>
 

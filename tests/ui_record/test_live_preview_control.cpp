@@ -133,7 +133,7 @@ TEST_CASE("api grays out unchecked and says why", "[test_live_preview_control][w
     QCheckBox* check = tab->livePreviewCheck();
     CHECK_FALSE(check->isEnabled());
     CHECK_FALSE(check->isChecked());
-    // Lead decision: FioriVoce names its one previewing engine.
+    // Lead decision: OpenWhisper_CPP names its one previewing engine.
     CHECK(check->toolTip().startsWith(QStringLiteral("Live preview needs Parakeet.")));
     CHECK(check->toolTip().contains(QStringLiteral("turns back on")));
     CHECK(tab.settings.file().writes() == writes);

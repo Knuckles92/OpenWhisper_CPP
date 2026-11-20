@@ -299,8 +299,9 @@ TEST_CASE("a factory that throws is shown as the reason and does not break setup
     MicrophoneCheck silent([]() -> std::unique_ptr<fv::Recorder> { throw std::runtime_error(""); });
     CHECK_FALSE(silent.start());
     CHECK(silent.status()->text() ==
-          QStringLiteral("Couldn't open the microphone. Pick another one, or check that FioriVoce "
-                         "is allowed to use it."));
+          QStringLiteral(
+              "Couldn't open the microphone. Pick another one, or check that OpenWhisper_CPP "
+              "is allowed to use it."));
 }
 
 TEST_CASE("a factory that makes no recorder fails with the plain text", "[widget]") {
@@ -309,8 +310,9 @@ TEST_CASE("a factory that makes no recorder fails with the plain text", "[widget
     CHECK_FALSE(check.start());
     CHECK_FALSE(check.isRunning());
     CHECK(check.status()->text() ==
-          QStringLiteral("Couldn't open the microphone. Pick another one, or check that FioriVoce "
-                         "is allowed to use it."));
+          QStringLiteral(
+              "Couldn't open the microphone. Pick another one, or check that OpenWhisper_CPP "
+              "is allowed to use it."));
     CHECK(toneOf(check) == QStringLiteral("attention"));
     CHECK(running.count() == 0);
     CHECK_FALSE(check.stopTimer()->isActive());

@@ -1,9 +1,9 @@
 """Curated inputs for services/components.py (M1.11).
 
 check_compatibility runs with the host's platform tag patched (no python_abi or macos_min case:
-FioriVoce drops the first, and the second needs a Mac). component_is_published and
-available_component_ids(tag) read the built-in catalog, whose NVIDIA Speech rows FioriVoce
-copies; available_component_ids gets the installed ids and the NVML GPU patched, and FioriVoce
+OpenWhisper_CPP drops the first, and the second needs a Mac). component_is_published and
+available_component_ids(tag) read the built-in catalog, whose NVIDIA Speech rows OpenWhisper_CPP
+copies; available_component_ids gets the installed ids and the NVML GPU patched, and OpenWhisper_CPP
 compares the NVIDIA Speech ids of its answer. read_manifest reads the given text as a component's
 manifest.json; describe builds the given component tree in a scratch components folder against
 the given catalog.

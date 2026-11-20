@@ -208,7 +208,7 @@ TEST_CASE("test_other_platforms_say_reading_text_is_windows_only",
     fv::StylesPage& page = rig.styles();
     CHECK_FALSE(page.readTextTile()->isEnabled());
     CHECK(page.privacy()->text().startsWith(QStringLiteral("Works on Windows for now")));
-    CHECK(page.privacy()->text().contains(QStringLiteral("FioriVoce only knows")));
+    CHECK(page.privacy()->text().contains(QStringLiteral("OpenWhisper_CPP only knows")));
 }
 
 // from tests/test_personalize_s1_settings_page.py::test_excluded_apps_add_and_remove

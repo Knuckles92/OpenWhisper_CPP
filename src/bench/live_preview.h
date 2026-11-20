@@ -65,7 +65,7 @@ std::optional<double> percentile(std::vector<double> values, double p);
 // (word-weighted, never a mean of clip WERs). Flush calls are not updates.
 Json aggregate(const std::vector<Json>& clips, double cadence);
 
-// The validated settings of `fiorivoce-bench live-preview` (parse_args): repeats and limit
+// The validated settings of `openwhisper-cpp-bench live-preview` (parse_args): repeats and limit
 // positive, chunk and overlap finite, chunk positive and overlap in [0, chunk).
 struct LivePreviewArgs {
     std::filesystem::path manifest;
@@ -99,9 +99,9 @@ Json run_live_preview(speech::SpeechService& service, const Json& manifest,
                       const std::vector<PreviewClip>& clips, const LivePreviewArgs& args,
                       const std::function<void(const std::string&)>& progress = {});
 
-// scripts/report_live_preview.py summarize: pools `fiorivoce-bench live-preview` reports of one
-// corpus and setup while keeping groups and exact counts. Throws std::invalid_argument "At least
-// one report is required", "Cannot pool runs with different <settings field, corpus or
+// scripts/report_live_preview.py summarize: pools `openwhisper-cpp-bench live-preview` reports of
+// one corpus and setup while keeping groups and exact counts. Throws std::invalid_argument "At
+// least one report is required", "Cannot pool runs with different <settings field, corpus or
 // source>", "Cannot pool runs with different hardware <platform, machine or cpu_count>" and
 // "Cannot pool parakeet-v3 with different <runtime, model, device_info or effective cadence>":
 // numbers from another engine build, model file or machine never mix. A report whose run failed

@@ -50,7 +50,7 @@ update::UpdateCheckResult setupResult() {
     release.tag_name = "v0.2.0";
     release.html_url = "https://github.com/example/app/releases/tag/v0.2.0";
     update::ReleaseAsset setup;
-    setup.name = "FioriVoce-Setup-0.2.0.exe";
+    setup.name = "OpenWhisper_CPP-Setup-0.2.0.exe";
     setup.url = "https://github.com/example/app/releases/download/v0.2.0/" + setup.name;
     setup.size_bytes = 4096;
     setup.sha256 = std::string(64, 'c');
@@ -64,8 +64,8 @@ update::UpdateCheckResult setupResult() {
 update::Handoff setupHandoff() {
     update::InstallProbe probe;
     probe.registered = true;
-    probe.install_dir = "C:/Custom Install/FioriVoce";
-    probe.running_dir = "C:/Custom Install/FioriVoce";
+    probe.install_dir = "C:/Custom Install/OpenWhisper_CPP";
+    probe.running_dir = "C:/Custom Install/OpenWhisper_CPP";
     return update::setup_command("C:/User Data/updates/verified-setup.exe", probe,
                                  "C:/User Data/updates");
 }
@@ -275,8 +275,8 @@ TEST_CASE("setup fallback skips wizard preserves install and restarts",
         update::InstallProbe probe;
         probe.registered = hive.registered;
         probe.all_users = hive.allUsers;
-        probe.install_dir = "C:/Custom Install/FioriVoce";
-        probe.running_dir = "C:/Custom Install/FioriVoce";
+        probe.install_dir = "C:/Custom Install/OpenWhisper_CPP";
+        probe.running_dir = "C:/Custom Install/OpenWhisper_CPP";
         const update::Handoff handoff =
             update::setup_command("verified-setup.exe", probe, "C:/User Data/updates");
 
@@ -291,7 +291,7 @@ TEST_CASE("setup fallback skips wizard preserves install and restarts",
         CHECK((has("/SILENT") || has("/VERYSILENT")));
         CHECK(has("/SP-"));
         CHECK(has("/NORESTART"));
-        CHECK(has("/FIORIVOCEUPDATE=1"));
+        CHECK(has("/OPENWHISPER_CPPUPDATE=1"));
         CHECK(has(hive.scope));
         CHECK_FALSE(has(hive.scope == "/ALLUSERS" ? "/CURRENTUSER" : "/ALLUSERS"));
         CHECK(std::ranges::any_of(launch, [](const std::string& arg) {
@@ -382,8 +382,9 @@ TEST_CASE("declining an update start while busy says it was not started", "[widg
     harness.handoff->requestDownload(setupResult());
 
     // busy_reasons order: transcription before a component install.
-    CHECK(harness.called("question:Install update?:FioriVoce is busy with transcription. Install "
-                         "the update anyway? Unsaved work in that task may be lost."));
+    CHECK(harness.called(
+        "question:Install update?:OpenWhisper_CPP is busy with transcription. Install "
+        "the update anyway? Unsaved work in that task may be lost."));
     CHECK_FALSE(harness.called("download"));
     CHECK(harness.dialog->bodyLabel()->text() == QStringLiteral("The update was not started."));
 
@@ -422,8 +423,8 @@ TEST_CASE("the controller releases and retakes the launch gate's mutexes", "[wid
     update::testing::FakeMutexApi mutexes(clock);
     update::InstallProbe installed;
     installed.registered = true;
-    installed.install_dir = "C:/Programs/FioriVoce";
-    installed.running_dir = "C:/Programs/FioriVoce";
+    installed.install_dir = "C:/Programs/OpenWhisper_CPP";
+    installed.running_dir = "C:/Programs/OpenWhisper_CPP";
     auto entered = update::LaunchGate::enter(update::release_identity(), installed, mutexes, clock);
     REQUIRE(entered.has_value());
     update::LaunchGate gate = std::move(*entered);

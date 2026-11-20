@@ -138,7 +138,7 @@ struct ControllerPlatform {
     // controller is built.
     std::function<update::InstallProbe()> installProbe;
     // update::feed_config(system_env()): the release identity's source, or the loopback feed of
-    // FIORIVOCE_UPDATE_FEED_URL.
+    // OPENWHISPER_CPP_UPDATE_FEED_URL.
     std::function<update::FeedConfig()> updateFeed;
     // sys.platform the update check, its downloads and the About box's install channel are
     // decided for ("win32"); empty: this build's. Tests of the Windows flow elsewhere set "win32".

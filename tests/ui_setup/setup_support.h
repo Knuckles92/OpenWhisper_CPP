@@ -98,15 +98,15 @@ private:
 
 inline const std::string kWeights = "parakeet weights";
 
-// An OpenWhisper install and a FioriVoce data folder in a temporary folder, and the ports of the
-// setup dialog wired to them: the adopter is the real one, over those folders; the engine
+// An OpenWhisper install and a OpenWhisper_CPP data folder in a temporary folder, and the ports of
+// the setup dialog wired to them: the adopter is the real one, over those folders; the engine
 // resolution and the settings are stand-ins, because the real model pin is a 714 MB file; the
 // pickers answer what the test queued. Work posted to the io executor waits for settle().
 struct Fixture {
     TempDir temp;
     fs::path ow = temp.path() / "OpenWhisper";
-    fs::path components = temp.path() / "FioriVoce" / "components";
-    fs::path speechModels = temp.path() / "FioriVoce" / "speech-models";
+    fs::path components = temp.path() / "OpenWhisper_CPP" / "components";
+    fs::path speechModels = temp.path() / "OpenWhisper_CPP" / "speech-models";
     fv::Json spec = fv::models::testing::small_model_spec("parakeet.gguf", kWeights);
     fv::ManualExecutor io;
 

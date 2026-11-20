@@ -1,6 +1,6 @@
 #pragma once
 
-// Helpers shared by the update tests: FioriVoce's names in place of OpenWhisper's in recorded
+// Helpers shared by the update tests: OpenWhisper_CPP's names in place of OpenWhisper's in recorded
 // payloads, results as the golden vectors spell them, and fixed times.
 
 #include <chrono>
@@ -16,7 +16,8 @@
 
 namespace fv::update::test {
 
-// rebrand(), then OpenWhisper's native archive suffix as FioriVoce's (architecture amendment 22).
+// rebrand(), then OpenWhisper's native archive suffix as OpenWhisper_CPP's (architecture amendment
+// 22).
 inline std::string rebrand_text(std::string_view text) {
     auto out = golden::rebrand(text);
     static constexpr std::string_view kFrom = "-win64.tar.xz";

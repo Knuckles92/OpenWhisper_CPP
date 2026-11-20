@@ -16,7 +16,7 @@ inline constexpr std::uintmax_t kUpdaterLogMaxBytes = 512 * 1024;
 inline constexpr int kUpdaterLogBackupCount = 1;
 
 // <local app dir>/updater.log: beside the application's own log, the parent of updates/
-// (identity().data_dir_name under %LOCALAPPDATA%). FIORIVOCE_DATA_DIR does not move it, as it
+// (identity().data_dir_name under %LOCALAPPDATA%). OPENWHISPER_CPP_DATA_DIR does not move it, as it
 // does not move updates/. Empty when the folder cannot be resolved.
 std::filesystem::path updater_log_path(const EnvReader&);
 

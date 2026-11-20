@@ -26,7 +26,7 @@ std::int64_t count_history(Database& database) {
 
 TEST_CASE("a deferred database touches nothing until it is used", "[db]") {
     fv::testkit::TempDataRoot root;
-    const auto file = root.path() / "fiorivoce.db";
+    const auto file = root.path() / "openwhisper-cpp.db";
     Database database = Database::deferred(file);
     CHECK_FALSE(database.is_open());
     CHECK_FALSE(std::filesystem::exists(file));
@@ -43,7 +43,7 @@ TEST_CASE("a deferred database touches nothing until it is used", "[db]") {
 TEST_CASE("a deferred database that will not open fails each use and opens once it can", "[db]") {
     fv::testkit::TempDataRoot root;
     // A folder where the database file goes, as test_bootstrap's broken database.
-    const auto file = root.path() / "fiorivoce.db";
+    const auto file = root.path() / "openwhisper-cpp.db";
     std::filesystem::create_directories(file / "x");
     Database database = Database::deferred(file);
 
@@ -64,7 +64,7 @@ TEST_CASE("a deferred database that will not open fails each use and opens once 
 
 TEST_CASE("a deferred database closed before it opened never opens", "[db]") {
     fv::testkit::TempDataRoot root;
-    const auto file = root.path() / "fiorivoce.db";
+    const auto file = root.path() / "openwhisper-cpp.db";
     Database database = Database::deferred(file);
     database.close();
     CHECK_THROWS_AS(database.ensure_open(), fv::sql::Error);

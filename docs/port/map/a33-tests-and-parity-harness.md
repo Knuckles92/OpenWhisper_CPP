@@ -1,13 +1,13 @@
 # a33 - OpenWhisper's tests and the parity harness
 
-How OpenWhisper's test suite and the Python app can prove that FioriVoce
+How OpenWhisper's test suite and the Python app can prove that OpenWhisper_CPP
 behaves and looks the same, with the two mechanisms (golden vectors and
 reference screenshots) built and run on this machine.
 
 Reference checkout: `D:\coding\whisper_local` at commit `768b559edd93`, run
 with `D:\coding\whisper_local\.venv\Scripts\python.exe` (Python 3.12.10,
 PyQt6 6.11.0, which bundles Qt 6.11.0). Everything created for this map is in
-`C:\coding\fiorivoce_cpp\out\parity-scratch\` (git-ignored by `/out/`):
+`C:\coding\OpenWhisper_CPP\out\parity-scratch\` (git-ignored by `/out/`):
 
 | File | What it is |
 |---|---|
@@ -527,14 +527,14 @@ The C++ side reads the same files. The Qt-free core uses nlohmann-json (add
 function with a `DYNAMIC_SECTION` per case; the proof below used Qt's
 `QJsonDocument` only because Qt was already installed.
 
-**Commands that worked** (PowerShell, cwd `C:\coding\fiorivoce_cpp\out\parity-scratch`):
+**Commands that worked** (PowerShell, cwd `C:\coding\OpenWhisper_CPP\out\parity-scratch`):
 
 ```powershell
 # curated vectors -> golden\*.json
-D:\coding\whisper_local\.venv\Scripts\python.exe -I -B golden_vectors.py D:\coding\whisper_local C:\coding\fiorivoce_cpp\out\parity-scratch
+D:\coding\whisper_local\.venv\Scripts\python.exe -I -B golden_vectors.py D:\coding\whisper_local C:\coding\OpenWhisper_CPP\out\parity-scratch
 
 # traced vectors from OpenWhisper's own tests -> golden\traced.json
-$sc = 'C:\coding\fiorivoce_cpp\out\parity-scratch'
+$sc = 'C:\coding\OpenWhisper_CPP\out\parity-scratch'
 $env:PYTHONPATH = $sc; $env:PYTHONPYCACHEPREFIX = "$sc\pycache"
 $env:LOCALAPPDATA = "$sc\ow-appdata"; $env:APPDATA = "$sc\ow-appdata"
 $env:QT_QPA_PLATFORM = 'offscreen'; $env:HF_HUB_OFFLINE = '1'
@@ -546,7 +546,7 @@ D:\coding\whisper_local\.venv\Scripts\python.exe -m pytest -q -p trace_plugin -p
   D:\coding\whisper_local\tests\test_format_utils.py D:\coding\whisper_local\tests\test_fuzzy_match.py
 
 # C++ replay
-. C:\coding\fiorivoce_cpp\scripts\vsenv.ps1
+. C:\coding\OpenWhisper_CPP\scripts\vsenv.ps1
 $q = 'D:\Qt\6.10.3\msvc2022_64'; cd replay
 cl /nologo /std:c++20 /EHsc /O2 /MD /Zc:__cplusplus /permissive- /utf-8 /I "$q\include" /I "$q\include\QtCore" replay_format_utils.cpp /link "$q\lib\Qt6Core.lib"
 $env:PATH = "$q\bin;$env:PATH"; .\replay_format_utils.exe ..\golden\services.format_utils.json
@@ -628,13 +628,13 @@ its own grab against the reference PNG (rendering).
 **Commands that worked** (cwd `out\parity-scratch`):
 
 ```powershell
-$py = 'D:\coding\whisper_local\.venv\Scripts\python.exe'; $ow = 'D:\coding\whisper_local'; $sc = 'C:\coding\fiorivoce_cpp\out\parity-scratch'
+$py = 'D:\coding\whisper_local\.venv\Scripts\python.exe'; $ow = 'D:\coding\whisper_local'; $sc = 'C:\coding\OpenWhisper_CPP\out\parity-scratch'
 & $py -I -B render_reference.py $ow $sc                       # dark, fusion, dpr 1, 100 %
 & $py -I -B render_reference.py $ow $sc --theme light
 & $py -I -B render_reference.py $ow $sc --dpr 2
 & $py -I -B render_reference.py $ow $sc --style windows11
 
-. C:\coding\fiorivoce_cpp\scripts\vsenv.ps1
+. C:\coding\OpenWhisper_CPP\scripts\vsenv.ps1
 $q = 'D:\Qt\6.10.3\msvc2022_64'; cd replay
 cl /nologo /std:c++20 /EHsc /O2 /MD /Zc:__cplusplus /permissive- /utf-8 /I "$q\include" /I "$q\include\QtCore" /I "$q\include\QtGui" /I "$q\include\QtWidgets" render_tree.cpp /link "$q\lib\Qt6Core.lib" "$q\lib\Qt6Gui.lib" "$q\lib\Qt6Widgets.lib"
 $env:PATH = "$q\bin;$env:PATH"; $env:QT_PLUGIN_PATH = "$q\plugins"
@@ -685,7 +685,7 @@ hashes, so the reference is deterministic.
 | Size | Fixed logical size for the grab. A port's natural size is checked separately against the tree dump's geometry. |
 | Animations and timers | No event loop after one `processEvents()`, so `QPropertyAnimation`/`QVariantAnimation` (collapse animations, agent picker hover/lift, action field arrival) stay at their start value and no `QTimer` fires (`SegmentedBar` reflow timer). OpenWhisper has no global "reduce motion" switch; for widgets whose first frame depends on an animation, drive the animation to its end value explicitly on both sides. |
 | Time and randomness | Widgets that show dates (history, meetings, stats, backups) need a pinned clock and time zone, injected on both sides (OpenWhisper's tests patch module-level `_today`/`now` functions). Particle and overlay looks (`particle_style.py`) use `animation_time` and `random`: render at a fixed time with a fixed seed. |
-| Qt version | References are PyQt6 6.11.0; FioriVoce builds against Qt 6.10.3. These renders matched exactly across the two versions, but stylesheet and text rendering do change between Qt minors. Keep both on one version (FioriVoce moving to 6.11.x is the cheap direction), and record the version in every sidecar (done). |
+| Qt version | References are PyQt6 6.11.0; OpenWhisper_CPP builds against Qt 6.10.3. These renders matched exactly across the two versions, but stylesheet and text rendering do change between Qt minors. Keep both on one version (OpenWhisper_CPP moving to 6.11.x is the cheap direction), and record the version in every sidecar (done). |
 | Image format | Compare after converting both to ARGB32; compare at the device pixel size. |
 | Class names | `theme.qss` selects only on Qt class names, `#objectName` and `[property=value]` (no selector names an OpenWhisper class), so C++ widgets can live in namespace `fv` as long as they derive from the same Qt class and set the same object names and dynamic properties (`tone`, `buttonId`, ...). Widget-local stylesheets need the same check before relying on it. |
 
@@ -772,7 +772,7 @@ manual comparison):
   what is left for the Parakeet/NeMo path there is component catalog,
   component runtime, downloads, GPU info and model catalog.
 
-## 7. Recommended test strategy for FioriVoce
+## 7. Recommended test strategy for OpenWhisper_CPP
 
 1. **Catch2 for the Qt-free core** (`src/engine` and any future
    `src/core`-style libraries). Port pure-logic and integration tests as direct

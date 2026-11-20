@@ -3,12 +3,12 @@
 Each builder returns (widget, (width, height), focus widget or None) with fixed fake data. The
 page is OpenWhisper's own, built by a SettingsDialog over a throwaway settings file in the
 isolated data folder (out/parity/ow-data), the way tests/fakes/personalize.py builds one, then
-taken out of the dialog: FioriVoce's HotkeysPage is the page body the Settings shell hosts.
+taken out of the dialog: OpenWhisper_CPP's HotkeysPage is the page body the Settings shell hosts.
 
-FioriVoce differs from OpenWhisper in three places these builders put FioriVoce's in:
+OpenWhisper_CPP differs from OpenWhisper in three places these builders put OpenWhisper_CPP's in:
 - the page body has no object name (settingsPage_<key> is the shell's wrapper);
 - the shortcut fields carry no `optional` property (no theme rule reads it; lead decision 7);
-- the product name in the last group's title and its Enable or disable row is FioriVoce's.
+- the product name in the last group's title and its Enable or disable row is OpenWhisper_CPP's.
 
 "No bindings" is an empty profile, transform and action library, so the three groups show their
 empty texts (profiles and transforms arrive with M4, actions with M5). Global captures are a
@@ -20,7 +20,7 @@ import os
 from contextlib import ExitStack
 from unittest.mock import MagicMock, patch
 
-PRODUCT = "FioriVoce"
+PRODUCT = "OpenWhisper_CPP"
 PAGE_WIDTH = 640
 NO_BINDINGS = {"transcript_cleanup_profiles": [], "text_transforms": [], "actions": []}
 
@@ -112,8 +112,8 @@ def _dialog(values):
     return dialog
 
 
-def _fiorivoce(page):
-    """The page as FioriVoce builds it (see the module docstring)."""
+def _openwhisper-cpp(page):
+    """The page as OpenWhisper_CPP builds it (see the module docstring)."""
     from PyQt6.QtWidgets import QLabel
 
     from ui_qt.widgets.hotkey_capture import HotkeyCaptureInput
@@ -136,7 +136,7 @@ def _page(values):
     page = dialog._pages[HOTKEYS]
     page.setParent(None)
     _keep(page)
-    _fiorivoce(page)
+    _openwhisper-cpp(page)
     return page, dialog
 
 

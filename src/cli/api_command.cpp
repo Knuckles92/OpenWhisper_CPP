@@ -1,4 +1,4 @@
-// fiorivoce-cli --api: the headless History API (services/agent_api/cli.py). No microphone,
+// openwhisper-cpp-cli --api: the headless History API (services/agent_api/cli.py). No microphone,
 // speech runtime or window; the database is read only.
 
 #include "cli/api_command.h"
@@ -35,7 +35,7 @@ namespace fv::cli {
 namespace {
 
 constexpr int kDefaultPort = 8766;
-constexpr std::string_view kProg = "fiorivoce-cli --api";
+constexpr std::string_view kProg = "openwhisper-cpp-cli --api";
 // uvicorn's request handlers ran in a thread pool of their own; SQLite reads block.
 constexpr int kWorkers = 4;
 // How long requests in progress may finish once the user stopped the server.

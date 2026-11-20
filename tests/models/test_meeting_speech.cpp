@@ -243,7 +243,7 @@ TEST_CASE("TestMeetingSettings::test_saved_choices_round_trip", "[test_settings]
     CHECK(keys::meeting_language.read(saved) == "en");
     CHECK(keys::meeting_llm_provider.read(saved) == "openai");
     CHECK(keys::meeting_agent_core.read(saved) == "pi");
-    // OpenWhisper keeps "openai" until OpenAI's shutdown day; FioriVoce has no OpenAI pass.
+    // OpenWhisper keeps "openai" until OpenAI's shutdown day; OpenWhisper_CPP has no OpenAI pass.
     CHECK(resolve_meeting_speaker_id_backend(saved, fv::FakeClock()) == "local");
     CHECK(resolve_meeting_speaker_id_backend(Json{{"meeting_speaker_id_backend", "off"}},
                                              fv::FakeClock()) == "off");

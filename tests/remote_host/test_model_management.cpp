@@ -473,7 +473,7 @@ TEST_CASE("test_install_accepts_only_bundled_model_device_requests") {
 }
 
 // tests/test_remote_dependencies.py::test_install_rejects_missing_or_older_gpu_and_unsupported_platform
-// (the Parakeet part: FioriVoce bundles no other engine and no Vulkan runtime).
+// (the Parakeet part: OpenWhisper_CPP bundles no other engine and no Vulkan runtime).
 TEST_CASE("test_install_rejects_missing_or_older_gpu_and_unsupported_platform") {
     ManagerRig rig;
     const Json cuda{{"family", "parakeet"}, {"model", "parakeet-v3"}, {"device", "cuda"}};

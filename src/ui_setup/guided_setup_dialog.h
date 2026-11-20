@@ -187,7 +187,7 @@ private:
 // control is a projection of a Settings control: the window re-syncs that control from the
 // saved settings, sets it, shows the Settings window's message line when it reports a failure,
 // then re-syncs again, so it always shows what was saved. Settings is built only once the user
-// leaves Welcome. Non-modal; the try-it box takes hotkey dictation (fiorivoceHotkeyWindow).
+// leaves Welcome. Non-modal; the try-it box takes hotkey dictation (openwhisperCppHotkeyWindow).
 // Affinity: GUI thread.
 class GuidedSetupDialog : public QDialog {
     Q_OBJECT

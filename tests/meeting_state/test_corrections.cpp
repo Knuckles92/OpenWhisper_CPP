@@ -82,10 +82,13 @@ TEST_CASE("TestCorrectText::test_whole_word_case_insensitive_replacement",
 TEST_CASE("TestCorrectText::test_single_pass_prevents_chaining_and_prefers_longest_match",
           "[test_meeting_corrections]") {
     // Python's test names its own product; the phrase here is this product's.
-    const TermRules chained =
-        rules({{"a", "b"}, {"b", "c"}, {"fiori voce", "FioriVoce"}, {"voce", "Voce"}});
+    const TermRules chained = rules({{"a", "b"},
+                                     {"b", "c"},
+                                     {"open whisper c p p", "OpenWhisper_CPP"},
+                                     {"whisper", "Whisper"}});
     CHECK(correct_text("a b", chained) == "b c");
-    CHECK(correct_text("fiori voce uses voce", chained) == "FioriVoce uses Voce");
+    CHECK(correct_text("open whisper c p p uses whisper", chained) ==
+          "OpenWhisper_CPP uses Whisper");
 }
 
 // from tests/test_meeting_corrections.py::TestCorrectText::test_regex_syntax_in_terms_is_literal

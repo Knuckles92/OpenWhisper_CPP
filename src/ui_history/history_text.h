@@ -15,7 +15,7 @@ namespace fv {
 // _format_model_name: a backend model identifier for a compact badge. Stored values may carry
 // device detail, "local_whisper (turbo | cuda (float16))" -> "Local · turbo".
 //
-// FioriVoce stores its Parakeet transcriptions as "parakeet (<model label> | <device>)"
+// OpenWhisper_CPP stores its Parakeet transcriptions as "parakeet (<model label> | <device>)"
 // (TranscriptionRuntime's model info), which OpenWhisper's table would show as
 // "parakeet · Parakeet TDT 0.6B v3". The label already names the engine, so a "parakeet" base
 // shows the label alone, and "Parakeet" when there is none.

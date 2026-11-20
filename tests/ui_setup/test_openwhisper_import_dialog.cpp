@@ -1,6 +1,6 @@
 // The OpenWhisper import window and its service (ui_setup/openwhisper_import*.h), and the
-// guided setup Welcome page's import row. FioriVoce only: there is no OpenWhisper test to port
-// and no OpenWhisper widget to take a reference from, so the committed references are widget
+// guided setup Welcome page's import row. OpenWhisper_CPP only: there is no OpenWhisper test to
+// port and no OpenWhisper widget to take a reference from, so the committed references are widget
 // trees generated from these widgets and reviewed by the lead (tests/reference/
 // openwhisper_import_dialog/, tests/reference/guided_setup/welcome-import-*). The data folder is
 // a copy of tests/fixtures/import/openwhisper; the backup coordinator runs over its fake
@@ -72,8 +72,8 @@ struct ImportRig {
         : ui(clock), store(settings) {
         fs::copy(fv::testkit::source_root() / "tests" / "fixtures" / "import" / "openwhisper",
                  source, fs::copy_options::recursive);
-        fv::MapEnvReader env{
-            {"FIORIVOCE_DATA_DIR", fv::base_utf8::path_to_utf8(temp.path() / "FioriVoce")}};
+        fv::MapEnvReader env{{"OPENWHISPER_CPP_DATA_DIR",
+                              fv::base_utf8::path_to_utf8(temp.path() / "OpenWhisper_CPP")}};
         fv::pin_per_user_folders(env, temp.path() / "per-user");
         if (withCoordinator) {
             coordinator = std::make_unique<fv::backup::BackupCoordinator>(
@@ -156,14 +156,14 @@ std::vector<QString> expectedLines(const fs::path& root) {
 }
 
 // The committed tree of a widget: generated from it and reviewed by the lead. With
-// FIORIVOCE_WRITE_UI_SETUP_REFERENCES set the test writes the file instead of reading it; review
-// the diff before committing it. Geometry and fonts are Windows' (the fonts of QT_QPA_FONTDIR),
-// so the comparison runs there only.
+// OPENWHISPER_CPP_WRITE_UI_SETUP_REFERENCES set the test writes the file instead of reading it;
+// review the diff before committing it. Geometry and fonts are Windows' (the fonts of
+// QT_QPA_FONTDIR), so the comparison runs there only.
 void compareWithReference(Json tree, const fs::path& relative) {
     tree["geometry"][0] = 0;
     tree["geometry"][1] = 0;
     const fs::path file = fv::testkit::reference_path() / relative;
-    if (fv::testkit::get_env("FIORIVOCE_WRITE_UI_SETUP_REFERENCES")) {
+    if (fv::testkit::get_env("OPENWHISPER_CPP_WRITE_UI_SETUP_REFERENCES")) {
         fs::create_directories(file.parent_path());
         std::ofstream out(file, std::ios::binary | std::ios::trunc);
         out << tree.dump(1) << '\n';

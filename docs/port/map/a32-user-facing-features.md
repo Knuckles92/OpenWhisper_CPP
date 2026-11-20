@@ -15,7 +15,7 @@ Tags used inside lines:
 
 Doc short names: README, CONTRIB, CL (CHANGELOG, with version), WT (docs/walkthrough.md), AUTO (docs/automation.md), AGENT (docs/agent-api.md), MCP (docs/mcp.md), PERS (docs/personalize.md), MINT (docs/meeting-intelligence.md), MREV (docs/meeting-insight-review.md), PROF (docs/cleanup-profiles.md), BKP (docs/backup-restore.md), EXP (docs/export-support.md), GS (docs/guided-setup.md), SPEECH (docs/speech-models.md), NET (docs/network-and-privacy.md), HUPD (docs/host-updates.md), BETA (docs/beta-releases.md), REL (docs/reliability.md), RH (docs/release-health.md), LSA (docs/linux-system-audio.md), PREV (docs/preview-optimizations.md), TSFJ (docs/typesafe-fast-judgments.md), TSLS (docs/typesafe-live-state.md), TSEX (docs/typesafe-experiments.md), WSIGN (docs/windows-signing.md), DAUTO/DPERS (docs/design/automation|personalize/design.md), MW-code (menu code).
 
-Cross-reference: what FioriVoce has today (about 3k lines) is the Parakeet engine wrapper, a CLI, and a one-window Qt app. Everything below is unchecked.
+Cross-reference: what OpenWhisper_CPP has today (about 3k lines) is the Parakeet engine wrapper, a CLI, and a one-window Qt app. Everything below is unchecked.
 
 ---
 
@@ -225,7 +225,7 @@ Cross-reference: what FioriVoce has today (about 3k lines) is the Parakeet engin
 - [ ] HI-09 Recordings retention: Keep all / By count / By folder size (Settings → Recording), tile with saved count and space; Quick Record WAVs carry origination date/time (LIST INFO and BWF tags) so Explorer sorts by Media created (CL 2.6.04, 2.6.05)
 - [ ] HI-10 Paste original / copy original of last dictation: optional shortcut `paste_last_original` pastes the last dictation as spoken at the caret and marks it original; tray "Copy original of last dictation" copies it without changing the entry version (PERS; CL 2.7.0)
 - [ ] HI-11 Timestamps stored as aware UTC and displayed in local time; older local entries and newer UTC entries land on the same local day (CL 2.0.0, 2.7.0)
-- [ ] HI-12 Legacy import: one-time migration from JSON history to SQLite (CL 2.0.0) — only if FioriVoce ever needs OpenWhisper data import (see open question)
+- [ ] HI-12 Legacy import: one-time migration from JSON history to SQLite (CL 2.0.0) — only if OpenWhisper_CPP ever needs OpenWhisper data import (see open question)
 - [ ] HI-13 Stored history fields: app id/name/category (no window titles or captured text), cleanup level/model, language, entry kind, cleaned_text vs raw text vs chosen text, display title (from MCP retitle), profile name (PERS; DPERS "Storage"; PROF)
 
 ## 9. Scratchpad
@@ -458,7 +458,7 @@ Cross-reference: what FioriVoce has today (about 3k lines) is the Parakeet engin
 
 ## 24. Speech engines and models (what to keep/drop)
 
-- [ ] SE-01 Parakeet TDT 0.6B v3 on NeMo-Speech.cpp: CPU/CUDA(Turing+)/Vulkan/Metal runtimes, loaded at run time by path; default engine (README; SPEECH) — core of FioriVoce
+- [ ] SE-01 Parakeet TDT 0.6B v3 on NeMo-Speech.cpp: CPU/CUDA(Turing+)/Vulkan/Metal runtimes, loaded at run time by path; default engine (README; SPEECH) — core of OpenWhisper_CPP
 - [ ] SE-02 Orukeet TDT 0.6B community adaptation, Q8 weights, same runtime, 25 languages, license attribution shown (SPEECH "Orukeet")
 - [ ] SE-03 Nemotron 3.5 ASR Streaming 0.6B on the same runtime: dictation with native streaming preview (text after ~1.6 s, interim words revised in place, finished at stop), meetings with native preview, Mandarin in its wider coverage tier [UNDECIDED:nemotron]
 - [ ] SE-04 Local Whisper (faster-whisper / CTranslate2; sizes, turbo, Distil, custom models, hotwords, GPU Acceleration component, tiny.en preview model, compute-type auto-selection, VRAM guidance) [DROP]
@@ -469,7 +469,7 @@ Cross-reference: what FioriVoce has today (about 3k lines) is the Parakeet engin
 - [ ] SE-09 API engine (OpenAI GPT-Transcribe etc., Groq, self-hosted OpenAI-compatible servers) [UNDECIDED:cloud]
 - [ ] SE-10 Remote computer engine [UNDECIDED:remote]
 - [ ] SE-11 Isolated worker processes (`isolated_worker`, optional backends, speech worker kill-on-stall, bundle sidecars): the Python plumbing that sandboxes engines [DROP]; the user-visible behaviour to keep is "cancel stops stalled native decoding and downloads, no late text or paste" (CL 2.6.11)
-- [ ] SE-12 Engine lifecycle visible to the user: engine loads after UI is ready, "Reloading speech engine…", lease/release when Meeting Mode runs, `FreeLibrary` never called (FioriVoce rule), error says why the engine stopped and points to the log (CL 2.7.1, 2.6.01)
+- [ ] SE-12 Engine lifecycle visible to the user: engine loads after UI is ready, "Reloading speech engine…", lease/release when Meeting Mode runs, `FreeLibrary` never called (OpenWhisper_CPP rule), error says why the engine stopped and points to the log (CL 2.7.1, 2.6.01)
 - [ ] SE-13 Language coverage statements: Parakeet 25 European languages (no Mandarin); language controls reflect the active engine; Auto where supported (SPEECH "Languages"; CL 2.6.12)
 
 ## 25. Text AI providers (cleanup, Command Mode, transforms, profiles, meetings, fast judgments)

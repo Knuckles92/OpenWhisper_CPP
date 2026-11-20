@@ -171,7 +171,7 @@ private:
 };
 
 // show_ready: shows `card` (made the first time) for `result`; the card. A desktop whose
-// compositor places windows would get none (OpenWhisper's Wayland rule); FioriVoce runs on
+// compositor places windows would get none (OpenWhisper's Wayland rule); OpenWhisper_CPP runs on
 // Windows only, where there is always a place.
 WalkthroughReadyCard* showReady(std::unique_ptr<WalkthroughReadyCard>& card,
                                 const walkthrough::WalkthroughResult& result, bool copied,

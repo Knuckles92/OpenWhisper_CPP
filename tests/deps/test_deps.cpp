@@ -295,7 +295,8 @@ TEST_CASE("minizip-ng writes a zip and reads it back") {
     // minizip-ng takes UTF-8 paths; path::string() would be the ANSI code page on Windows.
     const std::u8string zip_u8 = (folder.path / "test.zip").u8string();
     const std::string zip_path(zip_u8.begin(), zip_u8.end());
-    const std::string content = "Ciao, FioriVoce. Ciao, FioriVoce. Ciao, FioriVoce.";
+    const std::string content =
+        "Ciao, OpenWhisper_CPP. Ciao, OpenWhisper_CPP. Ciao, OpenWhisper_CPP.";
 
     void* writer = mz_zip_writer_create();
     REQUIRE(writer != nullptr);

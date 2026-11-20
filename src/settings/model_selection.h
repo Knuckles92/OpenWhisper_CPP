@@ -9,7 +9,7 @@
 
 namespace fv {
 
-// config.MODEL_VALUE_MAP's values that FioriVoce has, in OpenWhisper's order: "api",
+// config.MODEL_VALUE_MAP's values that OpenWhisper_CPP has, in OpenWhisper's order: "api",
 // "parakeet", "remote" (architecture 7.2; the other engines are dropped).
 std::span<const std::string_view> model_values();
 

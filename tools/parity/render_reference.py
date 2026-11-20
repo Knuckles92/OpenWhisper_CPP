@@ -1,7 +1,7 @@
 """Render OpenWhisper widgets offscreen, styled as the app styles them, as reference screenshots.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/render_reference.py --builder a02_harness
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/render_reference.py --builder a02_harness
         [--widget empty_state_harness ...] [--theme dark|light] [--style windows11]
         [--dpr 1] [--scale 100] [--dump-stylesheet] [--check] [--out tests/reference]
 

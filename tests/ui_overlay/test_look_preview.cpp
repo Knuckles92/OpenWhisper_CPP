@@ -315,6 +315,6 @@ TEST_CASE("the sample voice feeds the overlay while recording", "[widget]") {
 TEST_CASE("the preview's take is a throwaway temporary file", "[unit]") {
     const std::filesystem::path path = RecordingLookPreview::previewPath();
     const std::string name = fv::py::lower(fv::identity().product) + "_overlay_preview.wav";
-    CHECK(name == "fiorivoce_overlay_preview.wav");
+    CHECK(name == "openwhisper_cpp_overlay_preview.wav");
     CHECK(path == std::filesystem::temp_directory_path() / name);
 }

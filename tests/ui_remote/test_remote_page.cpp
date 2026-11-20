@@ -285,7 +285,7 @@ TEST_CASE("page blames the firewall when a found host wont connect", "[test_remo
         found);
     CHECK(message.startsWith(
         QStringLiteral("jed answered the search but didn't accept the connection")));
-    CHECK(message.contains(QStringLiteral("may be blocking FioriVoce")));
+    CHECK(message.contains(QStringLiteral("may be blocking OpenWhisper_CPP")));
     const fv::remote::RemoteUnreachable refused(
         "Couldn't reach 192.168.1.9:47821: nothing there...", true);
     CHECK(fv::RemoteEnginePage::pairErrorText(std::make_exception_ptr(refused), found) ==

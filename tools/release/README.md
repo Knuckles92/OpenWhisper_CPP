@@ -11,7 +11,7 @@ python -I -B -m unittest discover -s tools/release/tests -p "test_*.py"
 
 Every tool reads the release identity, `src/update/data/release_identity.json`, for the setup
 name, the executable names and the timestamp server. `--identity <file>` (or the environment
-variable `FIORIVOCE_RELEASE_IDENTITY`) names another copy; the tests use
+variable `OPENWHISPER_CPP_RELEASE_IDENTITY`) names another copy; the tests use
 `tests/fixtures/release_identity.json`. Keys a tool does not know are ignored.
 
 | Tool | What it does |
@@ -31,18 +31,18 @@ Nothing configured means unsigned, and every command says so. Configure exactly 
 
 | Method | Variables |
 |---|---|
-| Certificate in the Windows store | `FIORIVOCE_SIGN_CERT_SHA1` (40-digit thumbprint) |
-| PFX file (local builds) | `FIORIVOCE_SIGN_PFX` and `FIORIVOCE_SIGN_PASS` |
-| Azure Trusted Signing | `FIORIVOCE_SIGN_DLIB` and `FIORIVOCE_SIGN_METADATA` (credentials from `AZURE_TENANT_ID`, `AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET`) |
+| Certificate in the Windows store | `OPENWHISPER_CPP_SIGN_CERT_SHA1` (40-digit thumbprint) |
+| PFX file (local builds) | `OPENWHISPER_CPP_SIGN_PFX` and `OPENWHISPER_CPP_SIGN_PASS` |
+| Azure Trusted Signing | `OPENWHISPER_CPP_SIGN_DLIB` and `OPENWHISPER_CPP_SIGN_METADATA` (credentials from `AZURE_TENANT_ID`, `AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET`) |
 
-A partial or conflicting configuration is an error. `FIORIVOCE_SIGN_TIMESTAMP_URL` overrides the
+A partial or conflicting configuration is an error. `OPENWHISPER_CPP_SIGN_TIMESTAMP_URL` overrides the
 RFC 3161 server (default: the identity's `timestamp_url`; Trusted Signing uses Microsoft's).
-`FIORIVOCE_SIGNTOOL` names `signtool.exe`; otherwise it is found on `PATH`, then as the newest
+`OPENWHISPER_CPP_SIGNTOOL` names `signtool.exe`; otherwise it is found on `PATH`, then as the newest
 `Windows Kits\10\bin\<version>\x64\signtool.exe`. Every signature uses SHA-256 and a timestamp.
 
 ```
 windows_signing.py sign FILE...                      # signtool sign; unsigned: prints that and exits 0
-windows_signing.py inno-args                         # /DSignToolName=... /Sfiorivoce=... ($ escaped); nothing when unsigned
+windows_signing.py inno-args                         # /DSignToolName=... /Sopenwhisper-cpp=... ($ escaped); nothing when unsigned
 windows_signing.py verify --report R FILE...         # writes windows-signing.json; unsigned passes only as "unsigned"
 windows_signing.py metadata --report R --release DIR # BUILD-METADATA signing fields, bound to the setup exe's digest
 ```
@@ -78,11 +78,11 @@ never fetches it.
 
 ```
 check_release_health.py out/smoke.json [--baseline previous-release-health.json]
-check_release_health.py --executable <stage>/fiorivoce-cli.exe --output out/release-health.json \
+check_release_health.py --executable <stage>/openwhisper-cpp-cli.exe --output out/release-health.json \
     [--baseline previous-release-health.json] [--timeout 45]
 ```
 
-Checks the report of `fiorivoce-cli --workflow-smoke` (or runs the smoke into `--output` first,
+Checks the report of `openwhisper-cpp-cli --workflow-smoke` (or runs the smoke into `--output` first,
 under a process exit deadline): every data-safety check passed, every metric present, finite and
 within its deadline. `--baseline` rejects timing or RSS regressions against an accepted report
 from equivalent hardware. An unreadable report or baseline fails with a message.
@@ -120,7 +120,7 @@ extracted, member sizes are summed, and a member that escapes its folder is an e
 ## Update feed (`serve_update_feed.py`)
 
 ```
-serve_update_feed.py --setup out/installer/FioriVoce-Setup-0.1.1.exe --version 0.1.1 [--archive out/update/FioriVoce-0.1.1-win64.zip] [--prerelease] [--port 0]
+serve_update_feed.py --setup out/installer/OpenWhisper_CPP-Setup-0.1.1.exe --version 0.1.1 [--archive out/update/OpenWhisper_CPP-0.1.1-win64.zip] [--prerelease] [--port 0]
 ```
 
 Binds an IPv4 loopback address (127.0.0.1 by default). The setup and optional native update ZIP
@@ -128,6 +128,6 @@ must have their exact filenames for the given version. The GitHub-shaped feed at
 `/releases/latest` lists each supplied artifact with its size, SHA-256 digest and download URL.
 With `--prerelease`, `/releases?per_page=30` lists the same release. The exact
 `/download/<filename>` paths support `HEAD` and single byte ranges. It prints the URL to put in
-`FIORIVOCE_UPDATE_FEED_URL` and makes no outbound request.
+`OPENWHISPER_CPP_UPDATE_FEED_URL` and makes no outbound request.
 It serves until Ctrl+C: stop it when the soak is over. The tests that start it (in-process, or
 the command as a child process) stop it in their clean-up, so a failing test leaves no server.

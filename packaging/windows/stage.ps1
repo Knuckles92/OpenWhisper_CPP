@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Stage the FioriVoce install tree from a build tree.
+    Stage the OpenWhisper_CPP install tree from a build tree.
 
 .DESCRIPTION
     Copies the desktop, CLI and native archive helper with the vcpkg DLLs they load (followed through
@@ -52,7 +52,7 @@ $Stage = Assert-InsideFolder ([IO.Path]::Combine($RepoRoot, $Stage)) $OutRoot 'T
 
 $Bin = Join-Path $BinaryDir "bin\$Config"
 # The executables and DLLs the stage takes from the build tree, not from windeployqt.
-$Programs = @('fiorivoce.exe', 'fiorivoce-cli.exe', 'fiorivoce-updater.exe')
+$Programs = @('openwhisper-cpp.exe', 'openwhisper-cpp-cli.exe', 'openwhisper-cpp-updater.exe')
 foreach ($program in $Programs) {
     if (-not (Test-Path -LiteralPath (Join-Path $Bin $program))) {
         throw "$program is not in $Bin. Build the $Config configuration first."
@@ -114,7 +114,7 @@ Write-Step 'Deploying Qt with windeployqt'
 Invoke-Native $WinDeployQt @(
     '--release', '--no-translations', '--no-compiler-runtime', '--include-plugins', 'qoffscreen',
     '--verbose', '1',
-    (Join-Path $Stage 'fiorivoce.exe')
+    (Join-Path $Stage 'openwhisper-cpp.exe')
 ) -ErrorMessage 'windeployqt failed'
 
 Write-Step "Adding the app-local C++ runtime ($($Crt.Name))"
@@ -124,7 +124,7 @@ foreach ($dll in (Get-ChildItem -LiteralPath $Crt.FullName -Filter '*.dll')) {
 }
 
 Write-Step 'Adding the meeting dashboard bundle (webui\dist)'
-# The dashboard server serves <folder of fiorivoce.exe>\webui\dist. The committed bundle is
+# The dashboard server serves <folder of openwhisper-cpp.exe>\webui\dist. The committed bundle is
 # taken from the source tree, not the build's copy of it.
 $WebuiDist = Join-Path $RepoRoot 'webui\dist'
 if (-not (Test-Path -LiteralPath (Join-Path $WebuiDist 'index.html'))) {

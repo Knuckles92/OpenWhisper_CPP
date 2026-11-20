@@ -42,7 +42,7 @@ TEST_CASE("the instance name carries the account between the prefix and the key"
     CHECK(user.find_first_of("\\/:") == std::string::npos);
     CHECK(fv::instanceUserPart() == user);
     CHECK(fv::instanceName(folders.data, fv::identity()) ==
-          "fiorivoce-ui-" + user + "-" + fv::instanceKey(folders.data));
+          "openwhisper-cpp-ui-" + user + "-" + fv::instanceKey(folders.data));
 }
 
 TEST_CASE("another account's lock on the same data folder does not keep this one out",
@@ -50,7 +50,7 @@ TEST_CASE("another account's lock on the same data folder does not keep this one
     Folders folders;
     std::filesystem::create_directories(folders.locks);
     const std::string other =
-        "fiorivoce-ui-" + fv::instanceUserPart() + "x-" + fv::instanceKey(folders.data);
+        "openwhisper-cpp-ui-" + fv::instanceUserPart() + "x-" + fv::instanceKey(folders.data);
     QLockFile held(fv::qt::toQString(fv::path_to_utf8(folders.locks / (other + ".lock"))));
     held.setStaleLockTime(0);
     REQUIRE(held.tryLock(0));

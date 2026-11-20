@@ -1,7 +1,7 @@
 // The engine's side of the Fast judgments (meeting/engine.py _start_fast_features,
 // _finalize_highlights, the chunk feed, _voice_commands_allowed, _apply_spoken_action) from
 // tests/test_live_signals_lifecycle.py, tests/test_text_judge.py and
-// tests/test_meeting_fast_features.py. FioriVoce asks only a judge on this computer
+// tests/test_meeting_fast_features.py. OpenWhisper_CPP asks only a judge on this computer
 // (EngineDeps::local_fast_judge, looked up per judgment), so a hosted judge stands for
 // OpenWhisper's Jev and hosted text-model routes and is never asked, AI insights on or off.
 
@@ -160,9 +160,9 @@ TEST_CASE("empty committed audio advances pulse frontier", "[fast_features]") {
 
 TEST_CASE("fast-feature gate matrix", "[fast_features]") {
     // from tests/test_text_judge.py::test_gate_matrix. A model on this computer runs with or
-    // without AI insights ("on"); FioriVoce never sends meeting text to a hosted Fast judgments
-    // model, so where OpenWhisper says "needs_insights" or, with insights on, "on", the hosted
-    // model is "unavailable" and is never asked.
+    // without AI insights ("on"); OpenWhisper_CPP never sends meeting text to a hosted Fast
+    // judgments model, so where OpenWhisper says "needs_insights" or, with insights on, "on", the
+    // hosted model is "unavailable" and is never asked.
     const bool local = GENERATE(true, false);
     const bool consent = GENERATE(false, true);
     CAPTURE(local, consent);
@@ -572,7 +572,7 @@ TEST_CASE("voice listener can start after first chunk and reenable", "[fast_feat
 TEST_CASE("existing unkeyed voice listener uses key added later", "[fast_features]") {
     // from
     // tests/test_typesafe_meeting_runtime.py::test_existing_unkeyed_voice_listener_uses_key_added_later
-    // FioriVoce's missing key is a missing device-local judge.
+    // OpenWhisper_CPP's missing key is a missing device-local judge.
     const bool preview = GENERATE(false, true);
     CAPTURE(preview);
     LiveSettings settings;

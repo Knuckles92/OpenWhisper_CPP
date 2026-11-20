@@ -50,7 +50,7 @@ struct NoRegistry final : u::RegistryActions {
 TEST_CASE("a preparation needs room beside the install for both trees and room for the archive",
           "[update_native]") {
     fv::testkit::TempDataRoot temp;
-    const fs::path install = temp.path() / "programs" / "FioriVoce";
+    const fs::path install = temp.path() / "programs" / "OpenWhisper_CPP";
     const fs::path updates = temp.path() / "data" / "updates";
     fs::create_directories(install);
     fs::create_directories(updates);
@@ -92,7 +92,7 @@ TEST_CASE("the size of the installed tree counts every file below it", "[update_
     fv::testkit::TempDataRoot temp;
     const fs::path install = temp.path() / "app";
     fs::create_directories(install / "platforms");
-    fv::write_file_atomic(install / "fiorivoce.exe", std::string(300, 'a'));
+    fv::write_file_atomic(install / "openwhisper-cpp.exe", std::string(300, 'a'));
     fv::write_file_atomic(install / "platforms" / "qwindows.dll", std::string(100, 'b'));
     CHECK(u::tree_size_bytes(install) == 400);
     CHECK(u::tree_size_bytes(temp.path() / "missing") == 0);
@@ -131,7 +131,7 @@ TEST_CASE("a held gate names what holds it", "[update_native]") {
 
 TEST_CASE("the helper's commit refuses with the gate that is held", "[update_native]") {
     fv::testkit::TempDataRoot temp;
-    u::JournalContext context{temp.path() / "data", temp.path() / "programs" / "FioriVoce",
+    u::JournalContext context{temp.path() / "data", temp.path() / "programs" / "OpenWhisper_CPP",
                               "{01234567-89AB-CDEF-0123-456789ABCDEF}"};
     constexpr auto id = "0123456789abcdef0123456789abcdef";
     fs::create_directories(context.install_dir);

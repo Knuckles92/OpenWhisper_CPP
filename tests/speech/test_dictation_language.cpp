@@ -43,7 +43,7 @@ Json list(std::initializer_list<const char*> codes) {
 } // namespace
 
 // from tests/test_personalize_s8_language.py::TestChoices::test_only_languages_the_engine_takes
-// The rows of local_whisper, moonshine and parakeet_mlx are dropped engines: FioriVoce reads
+// The rows of local_whisper, moonshine and parakeet_mlx are dropped engines: OpenWhisper_CPP reads
 // those keys as its default engine, Parakeet.
 TEST_CASE("only languages the engine takes", "[test_personalize_s8_language]") {
     const auto [engine, expected] = GENERATE(table<std::string, Codes>({

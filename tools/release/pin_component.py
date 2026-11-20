@@ -32,7 +32,7 @@ from typing import Dict, Optional, Sequence, Tuple
 
 _CHUNK = 1 << 20
 _DEFAULT_MAX_BYTES = 8 << 30
-_USER_AGENT = "fiorivoce-pin-component"
+_USER_AGENT = "openwhisper-cpp-pin-component"
 _TAR_SUFFIXES = (".tar.gz", ".tgz", ".tar.xz", ".tar.bz2", ".tar")
 
 

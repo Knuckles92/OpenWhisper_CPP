@@ -44,8 +44,8 @@ MutexApi& system_mutex_api();
 inline constexpr std::chrono::seconds kSetupLaunchWait{120};
 inline constexpr std::chrono::milliseconds kLockPoll{250};
 
-// "FioriVoce Setup is still running, so FioriVoce did not start. Finish the installer, then start
-// FioriVoce again."
+// "OpenWhisper_CPP Setup is still running, so OpenWhisper_CPP did not start. Finish the installer,
+// then start OpenWhisper_CPP again."
 std::string setup_running_message();
 
 // Whether the first command-line argument skips the gate: a self test, the workflow smoke, the

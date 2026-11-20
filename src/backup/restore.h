@@ -19,8 +19,8 @@ namespace fv::backup {
 
 // prepare_restore: the bundle inspected in full, then its members extracted and verified into
 // <root>/<restore_dir>/stage-<32 hex>/data under identity()'s names (an OpenWhisper .owbackup's
-// openwhisper.db and openwhisper_settings.json land as fiorivoce.db and
-// fiorivoce_settings.json), the database's meeting paths rebased onto `root`, the settings
+// openwhisper.db and openwhisper_settings.json land as openwhisper-cpp.db and
+// openwhisper_cpp_settings.json), the database's meeting paths rebased onto `root`, the settings
 // sanitized again, the stage manifest written with the staged database's and settings' size and
 // SHA-256, and pending.json written last. Returns the stage folder. Progress reports "stage"
 // after each member. Nothing is left behind on failure. BackupError for every refusal ("A

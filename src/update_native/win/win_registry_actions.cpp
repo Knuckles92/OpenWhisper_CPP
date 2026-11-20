@@ -89,7 +89,7 @@ WinRegistryActions::WinRegistryActions(JournalContext context, std::string_view 
     : context_(std::move(context)), paths_(journal_paths(context_, id)) {
     if (context_.expected_runonce_key.empty())
         throw UpdateError("The trusted recovery key is missing.");
-    const auto updater = paths_.transaction_dir / L"fiorivoce-updater.exe";
+    const auto updater = paths_.transaction_dir / L"openwhisper-cpp-updater.exe";
     command_ = L"\"" + updater.native() + L"\" --recover --transaction-id " + wide(id);
 }
 void WinRegistryActions::verify(const UpdateJournal& j) {

@@ -13,7 +13,7 @@ the real method bound onto a minimal stand-in, as OpenWhisper's own tests do
   _start_initial_whisper_load, _reload_worker, _finish_speech_reload, release_local_engine,
   restore_local_engine) driven through scripted scenarios, one per controller test of
   tests/test_engine_warmup.py plus the debounce edges, recorded as the ordered list of inputs
-  and the commands they produced. Event names are FioriVoce's EngineReloadMachine names:
+  and the commands they produced. Event names are OpenWhisper_CPP's EngineReloadMachine names:
   busy_changed (engine_busy_changed), status (status_update), device_info (device_info_update),
   missing_runtime (models.runtime_consent_requested), streaming_setup_due
   (streaming_runtime.streaming_setup_requested), ensure_model_available

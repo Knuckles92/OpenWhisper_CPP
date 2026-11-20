@@ -46,7 +46,7 @@ std::optional<QString> readResource(const QString& path) {
     return universalNewlines(QString::fromUtf8(file.readAll()));
 }
 
-// FioriVoce-only rules: :/<dir>/<dir>.qss of every other ui directory, in sorted order.
+// OpenWhisper_CPP-only rules: :/<dir>/<dir>.qss of every other ui directory, in sorted order.
 QString featureSheets() {
     QString sheets;
     const QStringList dirs =

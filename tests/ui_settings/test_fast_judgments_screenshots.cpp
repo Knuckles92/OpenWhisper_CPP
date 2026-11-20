@@ -93,7 +93,8 @@ void pageShot(const std::string& theme, int scale, const char* name, const Json&
 
 // TypeSafe, Fast judgments off, no key set.
 void offNoKey(const std::string& theme, int scale) {
-    pageShot(theme, scale, "settings_fast_judgments_page/off-no-key-fiorivoce", Json::object());
+    pageShot(theme, scale, "settings_fast_judgments_page/off-no-key-openwhisper-cpp",
+             Json::object());
 }
 
 // "Your text model" on LM Studio, a local server that needs no key, with qwen3-4b, Live checks on.

@@ -461,7 +461,7 @@ GuidedSetupDialog::GuidedSetupDialog(SettingsStore& store, GuidedSetupPorts port
     setModal(false);
     // Dictation and the in-app shortcut fallback treat it as the app's own window, so the
     // try-it box on the last page takes dictation.
-    ui::setStyleProperty(this, ui::prop::fiorivoceHotkeyWindow, true);
+    ui::setStyleProperty(this, ui::prop::openwhisperCppHotkeyWindow, true);
     setMinimumSize(kMinimumSize);
     resize(kDefaultSize);
     setSizeGripEnabled(true);

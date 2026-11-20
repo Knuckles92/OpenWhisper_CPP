@@ -6,18 +6,18 @@ accident when signing was intended.
 
 Exactly one of:
 
-* ``FIORIVOCE_SIGN_CERT_SHA1``: thumbprint of a code-signing certificate whose private key is in
+* ``OPENWHISPER_CPP_SIGN_CERT_SHA1``: thumbprint of a code-signing certificate whose private key is in
   the Windows certificate store (an imported PFX, an OV/EV hardware token, or a cloud HSM that
   installs a key storage provider).
-* ``FIORIVOCE_SIGN_PFX`` and ``FIORIVOCE_SIGN_PASS``: a PFX file. Local builds only; CI imports
+* ``OPENWHISPER_CPP_SIGN_PFX`` and ``OPENWHISPER_CPP_SIGN_PASS``: a PFX file. Local builds only; CI imports
   the PFX and uses the thumbprint instead.
-* ``FIORIVOCE_SIGN_DLIB`` and ``FIORIVOCE_SIGN_METADATA``: Azure Trusted Signing through its
+* ``OPENWHISPER_CPP_SIGN_DLIB`` and ``OPENWHISPER_CPP_SIGN_METADATA``: Azure Trusted Signing through its
   SignTool dlib and the account/profile metadata JSON. Credentials come from
   ``AZURE_TENANT_ID``/``AZURE_CLIENT_ID``/``AZURE_CLIENT_SECRET``.
 
-``FIORIVOCE_SIGN_TIMESTAMP_URL`` overrides the RFC 3161 timestamp server (the default comes from
+``OPENWHISPER_CPP_SIGN_TIMESTAMP_URL`` overrides the RFC 3161 timestamp server (the default comes from
 the release identity). Every signature is timestamped, so it stays valid after the certificate
-expires. ``FIORIVOCE_SIGNTOOL`` names ``signtool.exe``; without it the tool is looked up on PATH
+expires. ``OPENWHISPER_CPP_SIGNTOOL`` names ``signtool.exe``; without it the tool is looked up on PATH
 and then in the newest Windows 10/11 SDK.
 
 Subcommands (standard library only; ``packaging/windows/build-installer.ps1`` and the release
@@ -52,7 +52,7 @@ TRUSTED_SIGNING = "trusted-signing"
 
 REPORT_NAME = common.SIGNING_REPORT_NAME
 REPORT_SCHEMA = 1
-INNO_SIGN_TOOL = "fiorivoce"
+INNO_SIGN_TOOL = "openwhisper-cpp"
 # Used when the release identity cannot be read; the identity's timestamp_url wins when present.
 DEFAULT_TIMESTAMP_URL = "http://timestamp.digicert.com"
 TRUSTED_SIGNING_TIMESTAMP_URL = "http://timestamp.acs.microsoft.com"
@@ -71,21 +71,21 @@ def _env(env: Mapping[str, str], name: str) -> str:
 
 def signing_mode(env: Mapping[str, str] = os.environ) -> str:
     """Return the configured signing mode, or raise on a partial setup."""
-    thumbprint = _env(env, "FIORIVOCE_SIGN_CERT_SHA1")
-    pfx = _env(env, "FIORIVOCE_SIGN_PFX")
-    dlib = _env(env, "FIORIVOCE_SIGN_DLIB")
-    metadata = _env(env, "FIORIVOCE_SIGN_METADATA")
+    thumbprint = _env(env, "OPENWHISPER_CPP_SIGN_CERT_SHA1")
+    pfx = _env(env, "OPENWHISPER_CPP_SIGN_PFX")
+    dlib = _env(env, "OPENWHISPER_CPP_SIGN_DLIB")
+    metadata = _env(env, "OPENWHISPER_CPP_SIGN_METADATA")
     modes = []
     if thumbprint:
         if not _SHA1_RE.fullmatch(thumbprint):
-            raise SigningError("FIORIVOCE_SIGN_CERT_SHA1 is not a 40-digit thumbprint")
+            raise SigningError("OPENWHISPER_CPP_SIGN_CERT_SHA1 is not a 40-digit thumbprint")
         modes.append(CERTIFICATE)
-    if pfx or _env(env, "FIORIVOCE_SIGN_PASS"):
+    if pfx or _env(env, "OPENWHISPER_CPP_SIGN_PASS"):
         if not pfx or not os.path.isfile(pfx):
-            raise SigningError("FIORIVOCE_SIGN_PFX must name an existing PFX file")
+            raise SigningError("OPENWHISPER_CPP_SIGN_PFX must name an existing PFX file")
         modes.append(PFX)
     if dlib or metadata:
-        for name, value in (("FIORIVOCE_SIGN_DLIB", dlib), ("FIORIVOCE_SIGN_METADATA", metadata)):
+        for name, value in (("OPENWHISPER_CPP_SIGN_DLIB", dlib), ("OPENWHISPER_CPP_SIGN_METADATA", metadata)):
             if not value or not os.path.isfile(value):
                 raise SigningError(f"{name} must name an existing file for Trusted Signing")
         modes.append(TRUSTED_SIGNING)
@@ -108,7 +108,7 @@ def _identity_timestamp_url(env: Mapping[str, str]) -> str:
 
 
 def timestamp_url(mode: str, env: Mapping[str, str] = os.environ) -> str:
-    override = _env(env, "FIORIVOCE_SIGN_TIMESTAMP_URL")
+    override = _env(env, "OPENWHISPER_CPP_SIGN_TIMESTAMP_URL")
     if override:
         return override
     if mode == TRUSTED_SIGNING:
@@ -120,13 +120,13 @@ def sign_arguments(mode: str, env: Mapping[str, str] = os.environ) -> List[str]:
     """SignTool ``sign`` arguments up to, not including, the file names."""
     args = ["sign", "/fd", "SHA256", "/tr", timestamp_url(mode, env), "/td", "SHA256"]
     if mode == CERTIFICATE:
-        args += ["/sha1", _env(env, "FIORIVOCE_SIGN_CERT_SHA1")]
+        args += ["/sha1", _env(env, "OPENWHISPER_CPP_SIGN_CERT_SHA1")]
     elif mode == PFX:
-        args += ["/f", _env(env, "FIORIVOCE_SIGN_PFX"), "/p", env.get("FIORIVOCE_SIGN_PASS", "")]
+        args += ["/f", _env(env, "OPENWHISPER_CPP_SIGN_PFX"), "/p", env.get("OPENWHISPER_CPP_SIGN_PASS", "")]
     elif mode == TRUSTED_SIGNING:
         args += [
-            "/dlib", _env(env, "FIORIVOCE_SIGN_DLIB"),
-            "/dmdf", _env(env, "FIORIVOCE_SIGN_METADATA"),
+            "/dlib", _env(env, "OPENWHISPER_CPP_SIGN_DLIB"),
+            "/dmdf", _env(env, "OPENWHISPER_CPP_SIGN_METADATA"),
         ]
     else:
         raise SigningError("Signing is not configured")
@@ -153,11 +153,11 @@ def inno_arguments(
 
 
 def find_signtool(env: Mapping[str, str] = os.environ) -> str:
-    """Return SignTool: ``FIORIVOCE_SIGNTOOL``, else PATH, else the newest Windows 10/11 SDK."""
-    named = _env(env, "FIORIVOCE_SIGNTOOL")
+    """Return SignTool: ``OPENWHISPER_CPP_SIGNTOOL``, else PATH, else the newest Windows 10/11 SDK."""
+    named = _env(env, "OPENWHISPER_CPP_SIGNTOOL")
     if named:
         if not os.path.isfile(named):
-            raise SigningError("FIORIVOCE_SIGNTOOL must name an existing signtool.exe")
+            raise SigningError("OPENWHISPER_CPP_SIGNTOOL must name an existing signtool.exe")
         return named
     found = shutil.which("signtool.exe") or shutil.which("signtool")
     if found:
@@ -222,7 +222,7 @@ def build_report(
     if len(thumbprints) != 1 or None in thumbprints:
         raise SigningError("Files are signed by different certificates")
     if mode == CERTIFICATE:
-        configured = _env(env, "FIORIVOCE_SIGN_CERT_SHA1").upper()
+        configured = _env(env, "OPENWHISPER_CPP_SIGN_CERT_SHA1").upper()
         if configured and thumbprints != {configured}:
             raise SigningError("Files are not signed by the configured certificate")
     method = "trusted-signing" if mode == TRUSTED_SIGNING else "certificate"

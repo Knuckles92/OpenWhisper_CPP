@@ -198,7 +198,7 @@ TEST_CASE("test_live_worker_resumes_pending_audio_after_host_returns") {
 
 TEST_CASE("test_remote_preview_emits_text_for_host_model") {
     // The Parakeet case; a Nemotron host (the test's other parameter) streams, which neither
-    // FioriVoce's host engine nor its meeting route has.
+    // OpenWhisper_CPP's host engine nor its meeting route has.
     RemoteMeeting meeting;
     REQUIRE(meeting.connect() == ReadyState::Ready);
     REQUIRE(meeting.asr.load_backend({}));

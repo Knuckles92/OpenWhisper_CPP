@@ -124,7 +124,7 @@ TEST_CASE("A29-17 a revised or reassigned segment invalidates only the checks ci
 namespace {
 
 // A29-28 and A29-36: the listener's phases and the exact words it says (voice_commands.py
-// L65-88 and L302-497; FioriVoce's unavailable message replaces NEEDS_CONSENT and the
+// L65-88 and L302-497; OpenWhisper_CPP's unavailable message replaces NEEDS_CONSENT and the
 // missing-key message, a29-local-meeting-judgments).
 struct Said {
     void operator()(const Json& event) {

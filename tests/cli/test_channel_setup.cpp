@@ -49,7 +49,7 @@ TEST_CASE("test_help_and_unexpected_arguments", "[platform][test_automation_chan
     CHECK(help.out.empty());
     const CliResult short_help = run_cli({"--channel", "-h"}, {});
     CHECK(short_help.exit_code == 0u);
-    CHECK_THAT(short_help.err, ContainsSubstring("Usage: fiorivoce-cli --channel"));
+    CHECK_THAT(short_help.err, ContainsSubstring("Usage: openwhisper-cpp-cli --channel"));
 
     const CliResult unexpected = run_cli({"--channel", "--port", "1"}, {});
     CHECK(unexpected.exit_code == 2u);

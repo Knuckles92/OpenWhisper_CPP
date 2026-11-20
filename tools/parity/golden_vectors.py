@@ -1,8 +1,8 @@
 """Write golden vectors from OpenWhisper's pure functions, for C++ replay with fv_golden.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/golden_vectors.py --module services.format_utils
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/golden_vectors.py --all
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/golden_vectors.py --module services.format_utils
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/golden_vectors.py --all
 
 Each module has a case file tools/parity/cases/<python.module>.py (one per module, so packages
 never edit the same file) exporting

@@ -28,7 +28,7 @@ using u::test::PrepareFixture;
 
 // A downloaded archive in the updates folder, named in the fixture's journal.
 fs::path download_for(Fixture& f) {
-    const auto archive = f.paths.updates_root / "FioriVoce-0.1.1-win64.zip";
+    const auto archive = f.paths.updates_root / "OpenWhisper_CPP-0.1.1-win64.zip";
     fv::write_file_atomic(archive, "zip bytes");
     f.journal.archive_path = archive;
     u::save_journal(f.context, f.journal);

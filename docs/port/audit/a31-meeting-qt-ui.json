@@ -385,7 +385,7 @@
    "tests": [
     "tests/ui_meeting/test_meeting_export_dialog.cpp"
    ],
-   "note": "Title, criteria, includes, item label, 'meetings_export' folder and the stem identity().product + '_meetings' ('fiorivoce_meetings.md'), host-kept rows left out ('the meetings an export offers leave out host-kept ones')."
+   "note": "Title, criteria, includes, item label, 'meetings_export' folder and the stem identity().product + '_meetings' ('openwhisper_cpp_meetings.md'), host-kept rows left out ('the meetings an export offers leave out host-kept ones')."
   },
   "A31-33": {
    "status": "fixed",
@@ -599,7 +599,7 @@
     "MR-03"
    ],
    "openwhisper": "The AI insights switch starts at meeting_cloud_last_enabled; the consent dialog is asked once, meeting_cloud_consent_given then lets later meetings send text without asking, and the dialog names the chosen backup agent in the same consent.",
-   "fiorivoce": "The switch starts off for every meeting. Turning it on for a meeting (at its start or live) shows the consent naming that meeting's destination, and the grant covers that route only; nothing stored lets a later meeting send text without asking. The backup agent is named in the consent and authorized by its own dialog for its own route.",
+   "openwhisper-cpp": "The switch starts off for every meeting. Turning it on for a meeting (at its start or live) shows the consent naming that meeting's destination, and the grant covers that route only; nothing stored lets a later meeting send text without asking. The backup agent is named in the consent and authorized by its own dialog for its own route.",
    "reason": "Installed agents and hosted models are destinations the user must have named to them before transcript text leaves the machine, every time.",
    "source": "tests/meeting/test_runtime_consent.cpp; tests/ui_meeting/test_meeting_presenter.cpp ('Meeting Mode starts and ends through the desktop presenter': a fresh live enable asks even when the grant store remembers the route); src/ui_meeting/meeting_presenter.cpp (buildTab, askIntelligenceConsent, askBackupConsent)"
   },
@@ -613,8 +613,8 @@
     "SMV-03"
    ],
    "openwhisper": "With Fast judgments on and a remote judge (TypeSafe, OpenRouter or a hosted text model), the consent dialog says short transcript excerpts also go to that judge, and the tab's line for a local model reads 'the model runs on this computer' instead of 'transcript text stays on this computer'.",
-   "fiorivoce": "Meetings use only a Fast judgments judge on this computer (local_fast_judge: the live topic judge, insight review and semantic search), so no judge is named in the consent and the local line keeps 'transcript text stays on this computer'.",
-   "reason": "A hosted judge never receives meeting excerpts in FioriVoce, so naming it would be untrue.",
+   "openwhisper-cpp": "Meetings use only a Fast judgments judge on this computer (local_fast_judge: the live topic judge, insight review and semantic search), so no judge is named in the consent and the local line keeps 'transcript text stays on this computer'.",
+   "reason": "A hosted judge never receives meeting excerpts in OpenWhisper_CPP, so naming it would be untrue.",
    "source": "src/ui_meeting/meeting_feature.cpp (deps.local_fast_judge returns a judge only for a local route); src/meeting/detail/live_intelligence.cpp (topic_judge uses only a local judge); docs/port/differences.md (review and semantic search only with local_fast_judge); tests/ui_meeting/test_ai_insights_copy.cpp ('test_local_fast_judgments_keep_the_privacy_claim', 'the consent names a local endpoint and says the text stays')"
   },
   {
@@ -624,7 +624,7 @@
     "NP-04"
    ],
    "openwhisper": "Choosing OpenAI for speaker identification in Settings shows MeetingAudioConsentDialog ('Upload system audio for speaker identification'); after it the system-audio recording is uploaded automatically after each meeting.",
-   "fiorivoce": "The OpenAI speaker pass runs only from Past Meetings' explicit 'Identify speakers with OpenAI' action, which asks each time, names the meeting and says what is sent (the system-audio track) and what stays (microphone track, transcript, names), with Cancel as the default.",
+   "openwhisper-cpp": "The OpenAI speaker pass runs only from Past Meetings' explicit 'Identify speakers with OpenAI' action, which asks each time, names the meeting and says what is sent (the system-audio track) and what stays (microphone track, transcript, names), with Cancel as the default.",
    "reason": "Meeting audio leaves the computer only on an action the user takes for that meeting.",
    "source": "tests/meeting/test_cloud_speakers.cpp; tests/ui_meeting/test_meeting_readiness.cpp ('the explicit speaker pass names what is sent to OpenAI and defaults to Cancel'); src/ui_meeting/meeting_presenter.cpp identifySavedSpeakers"
   },
@@ -634,7 +634,7 @@
     "A31-29"
    ],
    "openwhisper": "Open meetings folder creates the folder with os.makedirs; when that fails, the exception leaves the Qt slot unhandled and the folder is not opened.",
-   "fiorivoce": "A meetings folder that cannot be created is logged as 'Could not create the meetings folder <path>: <reason>' and nothing is opened; the user is shown no message.",
+   "openwhisper-cpp": "A meetings folder that cannot be created is logged as 'Could not create the meetings folder <path>: <reason>' and nothing is opened; the user is shown no message.",
    "reason": "A failure must not escape a Qt slot in C++. Whether the user should also see a message is left to the owner (docs/port/open-items.md, Waiting on the owner).",
    "source": "The meeting sweep of 2026-11-19 (open item ui_meeting (M7.15)); src/ui_meeting/past_meetings_panel.cpp openMeetingsFolder; tests/ui_meeting/test_sweep_meetings_folder.cpp ('a meetings folder that cannot be made is not opened')"
   }

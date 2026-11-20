@@ -282,7 +282,7 @@ TEST_CASE("a runtime change waits for the current activity", "[test_remote_runti
 // from
 // tests/test_personalize_s8_language_menu.py::TestControllerWiring::test_remote_engine_reports_reach_the_language_choices
 TEST_CASE("test_remote_engine_reports_reach_the_language_choices", "[test_remote_runtime]") {
-    // FioriVoce: the dictation slot's backend notes the host's languages when it adopts the
+    // OpenWhisper_CPP: the dictation slot's backend notes the host's languages when it adopts the
     // host (OpenWhisper's controller does it on refresh_remote_models).
     RuntimeHost fixture;
     ManualExecutor retries;

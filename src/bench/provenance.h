@@ -8,14 +8,14 @@
 #include "base/json.h"
 
 // benchmarks/provenance.py: content identities for reproducible benchmark reuse, and the
-// provenance block every fiorivoce-bench report carries. Nothing here touches the network.
+// provenance block every openwhisper-cpp-bench report carries. Nothing here touches the network.
 namespace fv::bench {
 
 // file_identity: the file's SHA-256, read in 1 MiB blocks. Throws std::runtime_error naming the
 // file when it cannot be read.
 std::string file_identity(const std::filesystem::path& path);
 
-// The source a result depends on, relative to a FioriVoce checkout: every .h, .cpp and .inc
+// The source a result depends on, relative to a OpenWhisper_CPP checkout: every .h, .cpp and .inc
 // under these directories, and these files (OpenWhisper's benchmarks, meeting, transcriber,
 // services and config.py). Dirty bytes count, as a commit hash alone misses local edits.
 const std::vector<std::string>& provenance_source_dirs();
@@ -45,7 +45,7 @@ Json report_provenance(const std::optional<std::filesystem::path>& source_root,
                        const std::optional<std::filesystem::path>& runtime_dir,
                        const std::optional<std::filesystem::path>& model_path);
 
-// {schema: 1, kind, metrics, provenance}: what fiorivoce-bench writes and tools/perf reads.
+// {schema: 1, kind, metrics, provenance}: what openwhisper-cpp-bench writes and tools/perf reads.
 Json make_report(std::string kind, Json metrics, Json provenance);
 
 // Writes `value` as JSON indented by 2, creating the folder; non-ASCII stays UTF-8. Throws
@@ -58,8 +58,8 @@ std::string read_text_file(const std::filesystem::path& path);
 // throws, or std::runtime_error naming an unreadable file.
 Json read_json(const std::filesystem::path& path);
 
-// The checkout fiorivoce-bench runs from: FIORIVOCE_SOURCE_ROOT, else the first parent of
-// `start` holding CMakePresets.json and src/bench; nullopt when neither exists.
+// The checkout openwhisper-cpp-bench runs from: OPENWHISPER_CPP_SOURCE_ROOT, else the first parent
+// of `start` holding CMakePresets.json and src/bench; nullopt when neither exists.
 std::optional<std::filesystem::path> find_source_root(const std::filesystem::path& start);
 
 } // namespace fv::bench

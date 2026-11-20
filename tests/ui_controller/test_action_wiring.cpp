@@ -64,7 +64,7 @@ TEST_CASE("an action shortcut asks before sending its dictated words", "[widget]
     press();
     REQUIRE(fvtest::waitUntil([&] { return confirmations == 1; }, std::chrono::seconds(30)));
     CHECK(disclosed.find("example.test") != std::string::npos);
-    CHECK(disclosed.find("Hello from FioriVoce") != std::string::npos);
+    CHECK(disclosed.find("Hello from OpenWhisper_CPP") != std::string::npos);
     CHECK(sends == 0);
 }
 

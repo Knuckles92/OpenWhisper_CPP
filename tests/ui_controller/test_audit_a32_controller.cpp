@@ -93,12 +93,13 @@ TEST_CASE("a32 MW-15: the quit question names the work it would stop", "[unit]")
     busy.component_installing = true;
     const std::optional<fv::QuitQuestion> question = fv::quitQuestion(busy);
     REQUIRE(question.has_value());
-    CHECK(question->title == QStringLiteral("Quit FioriVoce?"));
-    CHECK(question->text == QStringLiteral("FioriVoce is busy with a meeting. Quitting now stops "
-                                           "it before it finishes."));
+    CHECK(question->title == QStringLiteral("Quit OpenWhisper_CPP?"));
+    CHECK(question->text ==
+          QStringLiteral("OpenWhisper_CPP is busy with a meeting. Quitting now stops "
+                         "it before it finishes."));
     busy.meeting_active = false;
     CHECK(fv::quitQuestion(busy)->text ==
-          QStringLiteral("FioriVoce is busy with a component install. Quitting now stops it "
+          QStringLiteral("OpenWhisper_CPP is busy with a component install. Quitting now stops it "
                          "before it finishes."));
 }
 

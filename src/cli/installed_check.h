@@ -6,9 +6,9 @@
 #include <string_view>
 #include <vector>
 
-// `fiorivoce-cli --self-test --installed`: the install folder holds every file the programs need
-// (a staged or installed tree; windeployqt decides the Qt plugin set, so the ones the app cannot
-// start or look right without are checked by name).
+// `openwhisper-cpp-cli --self-test --installed`: the install folder holds every file the programs
+// need (a staged or installed tree; windeployqt decides the Qt plugin set, so the ones the app
+// cannot start or look right without are checked by name).
 namespace fv::cli {
 
 // What an install folder must hold. Paths are relative, with "/" separators.
@@ -23,10 +23,10 @@ struct InstalledLayout {
     std::vector<std::string> local_only_prefixes;
 };
 
-// The Windows install layout: fiorivoce.exe and fiorivoce-cli.exe, the Qt platform, style, image
-// format, icon engine and Schannel TLS plugins, the Qt6 Core, Gui, Widgets, Svg and Network DLLs,
-// the app-local C++ runtime and THIRD_PARTY_NOTICES.md. Elsewhere throws std::runtime_error (not
-// supported on this platform).
+// The Windows install layout: openwhisper-cpp.exe and openwhisper-cpp-cli.exe, the Qt platform,
+// style, image format, icon engine and Schannel TLS plugins, the Qt6 Core, Gui, Widgets, Svg and
+// Network DLLs, the app-local C++ runtime and THIRD_PARTY_NOTICES.md. Elsewhere throws
+// std::runtime_error (not supported on this platform).
 InstalledLayout installed_layout();
 
 // Whether the loader finds the DLL `name` in the system: an API set, or a library Windows itself

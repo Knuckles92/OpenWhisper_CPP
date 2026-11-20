@@ -1,7 +1,7 @@
 // What the built-in meeting agent's loop asks of a streamed turn beyond generate()'s reply:
 // a turn cut off at the output limit settles with what arrived (StreamOptions, Pi's "length"
 // stop), and a failed request carries the provider's own message, cleaned (provider_message,
-// M10.22's gain), never its body. The cleaning's vectors are FioriVoce's own: OpenWhisper's
+// M10.22's gain), never its body. The cleaning's vectors are OpenWhisper_CPP's own: OpenWhisper's
 // Python never showed a provider message, and OpenCode never surfaced one.
 #include <catch2/catch_test_macros.hpp>
 

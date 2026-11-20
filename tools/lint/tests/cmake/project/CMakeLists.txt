@@ -1,4 +1,4 @@
-# A project that reads the modules under FIXTURE_SRC with FioriVoce's real cmake/ files, so the
+# A project that reads the modules under FIXTURE_SRC with OpenWhisper_CPP's real cmake/ files, so the
 # build system's own rules can be tested on small trees (run_fixture.cmake drives it).
 cmake_minimum_required(VERSION 3.25...3.31)
 project(fv_fixture LANGUAGES CXX)
@@ -18,7 +18,7 @@ else()
     find_package(Qt6 6.8 REQUIRED COMPONENTS Core Gui Widgets Svg SvgWidgets)
 endif()
 
-include(FioriVoceModules)
+include(OpenWhisper_CPPModules)
 
 file(GLOB module_lists "${FIXTURE_SRC}/*/CMakeLists.txt")
 list(SORT module_lists)

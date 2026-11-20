@@ -7,7 +7,7 @@
 // Whether the program on disk is still the one this process started from
 // (services/code_identity.py). An upgrade that replaces the installed executable under a running
 // app leaves it mixing what it loaded with files from the new version; only a restart puts them
-// back in step. A FioriVoce build never runs from a Python checkout, so only the installed
+// back in step. A OpenWhisper_CPP build never runs from a Python checkout, so only the installed
 // executable counts.
 namespace fv::update {
 

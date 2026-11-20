@@ -9,7 +9,7 @@ second, consuming one follows. The result is both decisions.
 describe_model_download_error(model, chain): `chain` lists exceptions as [type name, constructor
 arguments...], each the __cause__ of the one before. The result is the facts the function reads
 of each link (str, an OSError's errno and winerror, whether it is a socket.gaierror,
-ConnectionError or TimeoutError) and the message. Only speech models are named: FioriVoce has no
+ConnectionError or TimeoutError) and the message. Only speech models are named: OpenWhisper_CPP has no
 Whisper sizes.
 """
 

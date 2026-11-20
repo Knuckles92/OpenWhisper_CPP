@@ -143,7 +143,7 @@ void WavWriter::write(std::span<const std::byte> frames) {
 }
 
 void WavWriter::write(std::span<const std::int16_t> samples) {
-    // WAV is little-endian, as every platform FioriVoce builds for.
+    // WAV is little-endian, as every platform OpenWhisper_CPP builds for.
     write(std::as_bytes(samples));
 }
 

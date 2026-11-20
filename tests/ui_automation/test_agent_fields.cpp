@@ -283,18 +283,19 @@ TEST_CASE("a new folder per request hides the working folder", "[widget]") {
     CHECK(fields.params()["folder"] == "C:\\Projects");
     CHECK(fields.params()["new_folder"] == true);
     CHECK(fields.newFolderRow()->detailLabel()->text() ==
-          QStringLiteral("A fresh folder per request in ~/FioriVoce Agent Tasks."));
+          QStringLiteral("A fresh folder per request in ~/OpenWhisper_CPP Agent Tasks."));
 
     fields.setParams(Json{{"agent", "codex"}, {"new_folder", 1}});
     CHECK_FALSE(fields.folderBox()->isVisible());
-    CHECK(fields.newFolderRow()->detailLabel()->text() ==
-          QStringLiteral("A fresh folder per request in ~/FioriVoce Agent Tasks. The Codex app "
-                         "adds it as a local project."));
+    CHECK(
+        fields.newFolderRow()->detailLabel()->text() ==
+        QStringLiteral("A fresh folder per request in ~/OpenWhisper_CPP Agent Tasks. The Codex app "
+                       "adds it as a local project."));
     CHECK(fields.newFolderRow()->switchButton()->accessibleDescription() ==
           fields.newFolderRow()->detailLabel()->text());
     fields.setParams(Json{{"agent", "codex"}, {"surface", "terminal"}});
     CHECK(fields.newFolderRow()->detailLabel()->text() ==
-          QStringLiteral("A fresh folder per request in ~/FioriVoce Agent Tasks."));
+          QStringLiteral("A fresh folder per request in ~/OpenWhisper_CPP Agent Tasks."));
 }
 
 TEST_CASE("a missing saved agent is named under the chooser", "[widget]") {

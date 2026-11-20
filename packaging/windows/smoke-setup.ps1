@@ -1,22 +1,22 @@
 <#
 .SYNOPSIS
-    Install, upgrade and uninstall FioriVoce silently, and check what each step leaves behind.
+    Install, upgrade and uninstall OpenWhisper_CPP silently, and check what each step leaves behind.
 
 .DESCRIPTION
     Installs the previous setup into a new temporary folder (/DIR, per user), plants a retired
     DLL in the install folder and a file in the user data folder, installs the new setup over
     it, then checks that the retired DLL is gone ([InstallDelete]), the user data is untouched,
-    the uninstall entry reports the new version and `fiorivoce-cli --self-test --installed`
+    the uninstall entry reports the new version and `openwhisper-cpp-cli --self-test --installed`
     passes in the upgraded folder. A silent uninstall must then remove the programs and keep the
     user data (its data prompt defaults to No).
 
     This runs setup programs and registers an uninstall entry under HKCU: it is meant for a
     disposable CI runner. On any other computer it refuses unless -OnThisComputer is passed, and
-    it refuses whenever FioriVoce is already installed for this user or the machine. Whatever
+    it refuses whenever OpenWhisper_CPP is already installed for this user or the machine. Whatever
     happens, it uninstalls what it installed and removes the file it planted.
 
 .PARAMETER PreviousSetup
-    The older FioriVoce-Setup-X.Y.Z.exe, installed first.
+    The older OpenWhisper_CPP-Setup-X.Y.Z.exe, installed first.
 
 .PARAMETER NewSetup
     The setup under test, installed over the previous one.
@@ -28,8 +28,8 @@
     Allow the run outside GitHub Actions (the owner's own check).
 
 .EXAMPLE
-    .\packaging\windows\smoke-setup.ps1 -PreviousSetup out\installer-previous\FioriVoce-Setup-0.1.0.exe `
-        -NewSetup out\installer\FioriVoce-Setup-0.1.1.exe -Version 0.1.1 -OnThisComputer
+    .\packaging\windows\smoke-setup.ps1 -PreviousSetup out\installer-previous\OpenWhisper_CPP-Setup-0.1.0.exe `
+        -NewSetup out\installer\OpenWhisper_CPP-Setup-0.1.1.exe -Version 0.1.1 -OnThisComputer
 #>
 [CmdletBinding()]
 param(
@@ -61,10 +61,10 @@ foreach ($hive in @('HKCU', 'HKLM')) {
 
 if ($OnRunner) { $Scratch = $env:RUNNER_TEMP } else { $Scratch = [IO.Path]::GetTempPath() }
 $RunId = [Guid]::NewGuid().ToString('N').Substring(0, 8)
-$Target = Join-Path $Scratch "FioriVoce-setup-smoke-$RunId"
-$Logs = Join-Path $Scratch 'fiorivoce-setup-logs'
+$Target = Join-Path $Scratch "OpenWhisper_CPP-setup-smoke-$RunId"
+$Logs = Join-Path $Scratch 'openwhisper-cpp-setup-logs'
 # The installed app's user data folder: the setup must never write it, and uninstall must keep it.
-# It is named after the product, which begins the setup's name ("FioriVoce-Setup-").
+# It is named after the product, which begins the setup's name ("OpenWhisper_CPP-Setup-").
 $Product = $Identity.setup_prefix -replace '-?Setup-?$', ''
 $Data = Join-Path $env:LOCALAPPDATA $Product
 $DataExisted = Test-Path -LiteralPath $Data

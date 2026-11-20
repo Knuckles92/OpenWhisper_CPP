@@ -1,8 +1,8 @@
 // Tests against a real runtime and model. They are skipped unless these are
 // set, since neither is in the repository:
-//   FIORIVOCE_TEST_RUNTIME_DIR  an unpacked NeMo-Speech.cpp release
-//   FIORIVOCE_TEST_MODEL        a Parakeet .gguf
-//   FIORIVOCE_TEST_WAV          a recording with speech in it
+//   OPENWHISPER_CPP_TEST_RUNTIME_DIR  an unpacked NeMo-Speech.cpp release
+//   OPENWHISPER_CPP_TEST_MODEL        a Parakeet .gguf
+//   OPENWHISPER_CPP_TEST_WAV          a recording with speech in it
 
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_string.hpp>
@@ -20,8 +20,8 @@ using Catch::Matchers::ContainsSubstring;
 namespace {
 
 std::optional<fv::RecognizerConfig> test_config() {
-    const auto runtime = fv::env_utf8("FIORIVOCE_TEST_RUNTIME_DIR");
-    const auto model = fv::env_utf8("FIORIVOCE_TEST_MODEL");
+    const auto runtime = fv::env_utf8("OPENWHISPER_CPP_TEST_RUNTIME_DIR");
+    const auto model = fv::env_utf8("OPENWHISPER_CPP_TEST_MODEL");
     if (!runtime || !model) {
         return std::nullopt;
     }
@@ -43,9 +43,10 @@ TEST_CASE("a missing model is reported before the runtime is touched") {
 
 TEST_CASE("a recording is transcribed with word timings", "[runtime][decode]") {
     const auto config = test_config();
-    const auto wav = fv::env_utf8("FIORIVOCE_TEST_WAV");
+    const auto wav = fv::env_utf8("OPENWHISPER_CPP_TEST_WAV");
     if (!config || !wav) {
-        SKIP("Set FIORIVOCE_TEST_RUNTIME_DIR, FIORIVOCE_TEST_MODEL and FIORIVOCE_TEST_WAV.");
+        SKIP("Set OPENWHISPER_CPP_TEST_RUNTIME_DIR, OPENWHISPER_CPP_TEST_MODEL and "
+             "OPENWHISPER_CPP_TEST_WAV.");
     }
     const fv::AudioBuffer audio = fv::read_wav(fv::path_from_utf8(*wav));
     fv::Recognizer recognizer(*config);
@@ -70,7 +71,7 @@ TEST_CASE("a recording is transcribed with word timings", "[runtime][decode]") {
 TEST_CASE("silence transcribes to nothing rather than failing", "[runtime][decode]") {
     const auto config = test_config();
     if (!config) {
-        SKIP("Set FIORIVOCE_TEST_RUNTIME_DIR and FIORIVOCE_TEST_MODEL.");
+        SKIP("Set OPENWHISPER_CPP_TEST_RUNTIME_DIR and OPENWHISPER_CPP_TEST_MODEL.");
     }
     fv::Recognizer recognizer(*config);
     const std::vector<float> silence(16000, 0.0f);

@@ -137,7 +137,7 @@ Json recorded(const http::Request& request) {
                 {"user-agent", header("User-Agent")}};
 }
 
-// The vector's recorded requests with OpenWhisper's product names as FioriVoce's.
+// The vector's recorded requests with OpenWhisper's product names as OpenWhisper_CPP's.
 Json rebranded(Json requests) {
     for (auto& request : requests) {
         for (const auto* name : {"x-title", "user-agent"}) {

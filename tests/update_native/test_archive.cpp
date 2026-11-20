@@ -20,14 +20,14 @@ struct Release {
     fs::path zip = temp.path() / "release.zip";
     Release() {
         fs::create_directories(tree / "platforms");
-        fv::write_file_atomic(tree / "fiorivoce.exe", "app");
-        fv::write_file_atomic(tree / "fiorivoce-updater.exe", "helper");
+        fv::write_file_atomic(tree / "openwhisper-cpp.exe", "app");
+        fv::write_file_atomic(tree / "openwhisper-cpp-updater.exe", "helper");
         fv::write_file_atomic(tree / "platforms" / "qwindows.dll", "plugin");
     }
 };
 } // namespace
 
-TEST_CASE("a FioriVoce release round-trips through its native archive manifest",
+TEST_CASE("a OpenWhisper_CPP release round-trips through its native archive manifest",
           "[update_native]") {
     Release r;
     u::write_manifest(r.tree, "0.1.1");
@@ -59,11 +59,11 @@ TEST_CASE("manifest validation rejects incompatible releases or modified trees",
         CHECK_THROWS_AS(u::validate_manifest(doc, {}, "0.1.1"), u::RequiresSetup);
     }
     SECTION("missing executable") {
-        fs::remove(r.tree / "fiorivoce.exe");
+        fs::remove(r.tree / "openwhisper-cpp.exe");
         CHECK_THROWS_AS(u::build_manifest(r.tree, "0.1.1"), u::UpdateError);
     }
     SECTION("changed bytes of the same length") {
-        fv::write_file_atomic(r.tree / "fiorivoce.exe", "bad");
+        fv::write_file_atomic(r.tree / "openwhisper-cpp.exe", "bad");
         CHECK_THROWS_AS(u::verify_tree(r.tree, doc), u::UpdateError);
     }
     SECTION("unmanaged root") {
@@ -71,8 +71,8 @@ TEST_CASE("manifest validation rejects incompatible releases or modified trees",
         CHECK_THROWS_AS(u::build_manifest(r.tree, "0.1.1"), u::RequiresSetup);
     }
     SECTION("case collision") {
-        doc["files"]["FioRiVoce.dll"] = doc["files"]["fiorivoce.exe"];
-        doc["files"]["fiorivoce.dll"] = doc["files"]["fiorivoce.exe"];
+        doc["files"]["OpenWhisper_CPP.dll"] = doc["files"]["openwhisper-cpp.exe"];
+        doc["files"]["openwhisper-cpp.dll"] = doc["files"]["openwhisper-cpp.exe"];
         doc["member_count"] = 6;
         doc["unpacked_bytes"] = 21;
         CHECK_THROWS_AS(u::validate_manifest(doc), u::UpdateError);
@@ -98,16 +98,16 @@ TEST_CASE("the archive is independently checked against every declared hash", "[
     };
     add(fv::update::manifest_name(), doc);
     SECTION("an altered payload has its original size") {
-        add("fiorivoce.exe", "bad");
-        add("fiorivoce-updater.exe", "helper");
+        add("openwhisper-cpp.exe", "bad");
+        add("openwhisper-cpp-updater.exe", "helper");
         add("platforms/qwindows.dll", "plugin");
     }
     SECTION("the archive omits a declared file") {
-        add("fiorivoce.exe", "app");
-        add("fiorivoce-updater.exe", "helper");
+        add("openwhisper-cpp.exe", "app");
+        add("openwhisper-cpp-updater.exe", "helper");
     }
     SECTION("a declared file is a symbolic link") {
-        add("fiorivoce.exe", "app", 0120777U << 16);
+        add("openwhisper-cpp.exe", "app", 0120777U << 16);
     }
     SECTION("a second entry aliases the first") {
         add("helper.dll", "a");
@@ -115,8 +115,8 @@ TEST_CASE("the archive is independently checked against every declared hash", "[
     }
     // from tests/test_app_update_apply.py::TestSafeExtract::test_rejects_parent_member
     SECTION("a member climbs out of the candidate") {
-        add("fiorivoce.exe", "app");
-        add("fiorivoce-updater.exe", "helper");
+        add("openwhisper-cpp.exe", "app");
+        add("openwhisper-cpp-updater.exe", "helper");
         add("platforms/qwindows.dll", "plugin");
         add("../escape.exe", "x");
     }
@@ -127,6 +127,6 @@ TEST_CASE("the archive is independently checked against every declared hash", "[
     CHECK_FALSE(fs::exists(candidate));
     CHECK_FALSE(fs::exists(r.temp.path() / "escape.exe"));
     for (const auto& entry : fs::directory_iterator(r.temp.path())) {
-        CHECK_FALSE(entry.path().filename().wstring().starts_with(L".fiorivoce-candidate-"));
+        CHECK_FALSE(entry.path().filename().wstring().starts_with(L".openwhisper-cpp-candidate-"));
     }
 }

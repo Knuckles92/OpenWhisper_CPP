@@ -20,8 +20,8 @@ import release_common as common  # noqa: E402
 
 IDENTITY = json.loads(IDENTITY_FILE.read_text(encoding="utf-8"))
 VERSION = "0.1.0"
-SETUP = f"FioriVoce-Setup-{VERSION}.exe"
-ARCHIVE = f"FioriVoce-{VERSION}-win64.zip"
+SETUP = f"OpenWhisper_CPP-Setup-{VERSION}.exe"
+ARCHIVE = f"OpenWhisper_CPP-{VERSION}-win64.zip"
 COMMIT = "a" * 40
 
 
@@ -67,9 +67,9 @@ def write_candidate(directory: Path, *, setup_only: bool = True, signed: bool = 
                     version: str = VERSION, **overrides) -> dict:
     """Hand-build a release candidate (setup, metadata, checksums); return its metadata."""
     directory.mkdir(parents=True, exist_ok=True)
-    (directory / f"FioriVoce-Setup-{version}.exe").write_bytes(b"candidate fixture")
+    (directory / f"OpenWhisper_CPP-Setup-{version}.exe").write_bytes(b"candidate fixture")
     if not setup_only:
-        (directory / f"FioriVoce-{version}-win64.zip").write_bytes(b"archive fixture")
+        (directory / f"OpenWhisper_CPP-{version}-win64.zip").write_bytes(b"archive fixture")
     metadata = {"schema_version": 1, "source_qualification": "passed", "version": version,
                 "commit_sha": COMMIT, "workflow_run_id": 123, "windows_setup_only": setup_only,
                 "windows_signed": signed, "built_at_utc": "2026-10-01T00:00:00Z"}

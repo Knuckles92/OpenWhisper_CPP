@@ -484,8 +484,9 @@ Json Dispatcher::mcp_request(const Json& id, const Request& request) const {
                              ? deps_.mcp_peer_allowed && deps_.mcp_peer_allowed(request.device_id)
                              : controls_mcp();
     if (!allowed && deps_.mcp_peer_request) {
-        // FioriVoce's host grants one paired computer a session (a17-paired-mcp); OpenWhisper's
-        // "Allow paired computers to manage MCP" switch is not on its Remote engine page.
+        // OpenWhisper_CPP's host grants one paired computer a session (a17-paired-mcp);
+        // OpenWhisper's "Allow paired computers to manage MCP" switch is not on its Remote engine
+        // page.
         return coded_reply(id, "forbidden",
                            deps_.host_name +
                                " hasn't granted this computer MCP control. Turn on \"Grant "

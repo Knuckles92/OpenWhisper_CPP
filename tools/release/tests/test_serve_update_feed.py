@@ -78,7 +78,7 @@ class SoakFeed(FeedTestCase):
         base = self.start(notes="Soak build for the demo.")
         payload = json.loads(fetch(base + "/releases/latest")[2])
         self.assertEqual(payload["body"], "Soak build for the demo.")
-        self.assertEqual(payload["name"], "FioriVoce " + rs.VERSION)
+        self.assertEqual(payload["name"], "OpenWhisper_CPP " + rs.VERSION)
         (asset,) = payload["assets"]
         self.assertEqual(asset["name"], rs.SETUP)
         self.assertEqual(asset["size"], len(self.SETUP_BYTES))
@@ -87,7 +87,7 @@ class SoakFeed(FeedTestCase):
         self.assertEqual(asset["browser_download_url"], f"{base}/download/{rs.SETUP}")
 
     def test_archive_metadata_and_downloads(self):
-        archive = self.tmp / f"FioriVoce-{rs.VERSION}-win64.zip"
+        archive = self.tmp / f"OpenWhisper_CPP-{rs.VERSION}-win64.zip"
         data = b"PK\x03\x04synthetic archive"
         archive.write_bytes(data)
         base = self.start(archive=archive, prerelease=True)
@@ -119,8 +119,8 @@ class SoakFeed(FeedTestCase):
         self.assertEqual(caught.exception.headers["Content-Range"], f"bytes */{len(data)}")
 
     def test_archive_requires_exact_name_and_never_serves_adjacent_or_replaced_files(self):
-        archive = self.tmp / f"FioriVoce-{rs.VERSION}-win64.zip"
-        wrong = self.tmp / "FioriVoce-99.99.99-win64.zip"
+        archive = self.tmp / f"OpenWhisper_CPP-{rs.VERSION}-win64.zip"
+        wrong = self.tmp / "OpenWhisper_CPP-99.99.99-win64.zip"
         wrong.write_bytes(b"unlisted")
         with self.assertRaises(ValueError):
             feed.make_server(self.setup, rs.VERSION, identity=rs.IDENTITY, archive=wrong)
@@ -203,14 +203,14 @@ class CommandLine(FeedTestCase):
             except queue.Empty:
                 break
             seen.append(line)
-            match = re.search(r'FIORIVOCE_UPDATE_FEED_URL = "(http://127\.0\.0\.1:\d+/releases/'
+            match = re.search(r'OPENWHISPER_CPP_UPDATE_FEED_URL = "(http://127\.0\.0\.1:\d+/releases/'
                               r'latest)"', line)
             if match:
                 return child, match.group(1), seen
         self.fail(f"the feed printed no URL: {''.join(seen)!r}")
 
     def test_command_accepts_explicit_archive(self):
-        archive = self.tmp / f"FioriVoce-{rs.VERSION}-win64.zip"
+        archive = self.tmp / f"OpenWhisper_CPP-{rs.VERSION}-win64.zip"
         archive.write_bytes(b"synthetic")
         _, url, _ = self.start_command("--archive", str(archive))
         setup, packed = json.loads(fetch(url)[2])["assets"]
@@ -220,7 +220,7 @@ class CommandLine(FeedTestCase):
 
     def test_the_command_serves_until_it_is_stopped(self):
         child, url, seen = self.start_command("--prerelease")
-        self.assertIn(f"Serving FioriVoce {rs.VERSION}", "".join(seen))
+        self.assertIn(f"Serving OpenWhisper_CPP {rs.VERSION}", "".join(seen))
         payload = json.loads(fetch(url)[2])
         self.assertIs(payload["prerelease"], True)
         self.assertEqual(payload["assets"][0]["browser_download_url"],

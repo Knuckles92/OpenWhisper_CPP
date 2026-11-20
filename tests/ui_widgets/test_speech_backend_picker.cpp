@@ -1,5 +1,5 @@
 // The engine picker's names and order. The Apple-silicon annotations of OpenWhisper's picker
-// describe engines FioriVoce does not have, so only the names, the order and the identities
+// describe engines OpenWhisper_CPP does not have, so only the names, the order and the identities
 // remain.
 #include <catch2/catch_test_macros.hpp>
 

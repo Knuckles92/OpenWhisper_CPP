@@ -193,7 +193,7 @@ def _chrome(hint):
 _OUTLOOK = _app("OUTLOOK.EXE", "Outlook")
 _NOTEPAD = _app("notepad.exe", "Notepad", pid=7, window="0x10")
 _SLACK = _app("slack.exe", "Slack")
-_SELF = _app("fiorivoce.exe", "FioriVoce", is_self=True)
+_SELF = _app("openwhisper-cpp.exe", "OpenWhisper_CPP", is_self=True)
 
 
 def _job_spec(mode="dictation", focus=None, target=None, recognition=None, source="hotkey",

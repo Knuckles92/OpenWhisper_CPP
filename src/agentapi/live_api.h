@@ -22,8 +22,8 @@
 // The live API on the in-app listener (services/automation/api.py): the app's state, its event
 // stream (GET /v1/events, server-sent events), its actions, recording, filter leases and notices.
 // Only the MCP listener serves these routes, behind its MCP-off check, its peer check and the
-// History API's token gate; the headless fiorivoce-cli --api never does, because no running app
-// is behind it. Every request rereads the user's permissions (Settings > API & MCP). Calls into
+// History API's token gate; the headless openwhisper-cpp-cli --api never does, because no running
+// app is behind it. Every request rereads the user's permissions (Settings > API & MCP). Calls into
 // the app go through the registered automation::AppControl, which may block for about four
 // seconds, so the routes run on the listener's io executor, never on the reactor.
 namespace fv {

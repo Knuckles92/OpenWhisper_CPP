@@ -577,7 +577,7 @@ TEST_CASE("snippet links with queries survive a backup and restore",
     CHECK(restored.at("transcript_cleanup_base_url") == "https://api.example.com/v1");
 }
 
-TEST_CASE("an OpenWhisper backup restores into FioriVoce's file names", "[backup]") {
+TEST_CASE("an OpenWhisper backup restores into OpenWhisper_CPP's file names", "[backup]") {
     // tests/fixtures/backup/openwhisper-sample.owbackup was made by OpenWhisper's create_backup.
     fv::testkit::TempDataRoot temp;
     const fs::path archive = fv::testkit::source_root() / "tests" / "fixtures" / "backup" /
@@ -585,7 +585,7 @@ TEST_CASE("an OpenWhisper backup restores into FioriVoce's file names", "[backup
     const fs::path target = temp.path() / "target";
     const fs::path stage = prepare_restore(archive, target);
 
-    // The stage is FioriVoce's: its manifest names FioriVoce's format and files.
+    // The stage is OpenWhisper_CPP's: its manifest names OpenWhisper_CPP's format and files.
     const Json manifest = read_json(stage / "manifest.json");
     CHECK(manifest.at("format") == names().format);
     std::vector<std::string> listed;

@@ -6,7 +6,7 @@ entries, newest first: a cleaned dictation with its recording, a failed recordin
 recording, and a file transcription without one. Timestamps are naive local wall time, which
 format_timestamp shows unchanged, and today is pinned to 2026-03-15 for the calendar button.
 
-FioriVoce differs from OpenWhisper in two places these builders put FioriVoce's in:
+OpenWhisper_CPP differs from OpenWhisper in two places these builders put OpenWhisper_CPP's in:
 - the model badge of a "parakeet (<label> | <device>)" model string shows the label alone
   (ui_history/history_text.cpp format_model_name), so _format_model_name is wrapped here;
 - the Past Meetings panel the sidebar builds hidden is M7's, so it is taken out of the tree.
@@ -28,7 +28,7 @@ _pinned = False
 
 
 def _pin():
-    """Pins today's date and FioriVoce's model badge, once per process."""
+    """Pins today's date and OpenWhisper_CPP's model badge, once per process."""
     global _pinned
     if _pinned:
         return
@@ -46,14 +46,14 @@ def _pin():
 
     original = history_sidebar._format_model_name
 
-    def fiorivoce_model_name(model):
+    def openwhisper_cpp_model_name(model):
         base, _, detail = model.partition("(")
         if base.strip() == "parakeet":
             return detail.rstrip(")").split("|")[0].strip() or "Parakeet"
         return original(model)
 
-    history_sidebar._format_model_name = fiorivoce_model_name
-    history_entry_dialog._format_model_name = fiorivoce_model_name
+    history_sidebar._format_model_name = openwhisper_cpp_model_name
+    history_entry_dialog._format_model_name = openwhisper_cpp_model_name
 
 
 def _recordings():
@@ -77,7 +77,7 @@ def _entries():
     _pin()
     _recordings()
     dictation = TranscriptionHistory(
-        id="entry-dictation", text="Hello from FioriVoce.", raw_text="hello from fiorivoce",
+        id="entry-dictation", text="Hello from OpenWhisper_CPP.", raw_text="hello from openwhisper-cpp",
         timestamp="2026-03-15T15:00:00", model=MODEL, audio_file=DICTATION_AUDIO,
         transcription_time=0.42, audio_duration=4.6, file_size=403200,
         cleanup_provider="openai", cleanup_model="gpt-4o-mini", source_name="Quick Record",
@@ -117,7 +117,7 @@ def _sidebar():
     from ui_qt.widgets.history_sidebar import HistorySidebar
 
     sidebar = HistorySidebar()
-    # Past Meetings is M7's page; it stays hidden here and has no FioriVoce widget yet.
+    # Past Meetings is M7's page; it stays hidden here and has no OpenWhisper_CPP widget yet.
     sidebar.meetings_content_widget.setParent(None)
     sidebar.meetings_content_widget.deleteLater()
     del sidebar.meetings_content_widget
@@ -349,19 +349,19 @@ def calendar_month_picker_months(variant):
 # (2026-03-15) in UTC, with dictations into several apps, a few files, a walkthrough, actions and
 # a command, written by dictation_stats.record into the isolated database after a reset. Its own
 # count (a worker started when it shows) is replaced by nothing, so the seeded summary stays. The
-# weeks of the charts start on the en_US locale's Sunday, pinned on both sides. FioriVoce's
+# weeks of the charts start on the en_US locale's Sunday, pinned on both sides. OpenWhisper_CPP's
 # product name replaces OpenWhisper's in the intro and the features heading.
 #
 # The export dialog lists five entries given as export dicts; its default output path sits in a
-# fixed folder under FioriVoce's file name, and its hidden date edits hold fixed dates.
+# fixed folder under OpenWhisper_CPP's file name, and its hidden date edits hold fixed dates.
 
 STATS_APPS = ("Slack", "Outlook", "Notes", "Word", "Chrome")
 STATS_CATEGORIES = ("work", "email", "personal", "")
 STATS_CLEANUP = ("light", "medium", "")
-EXPORT_ROOT = r"C:\Users\Dana\AppData\Local\FioriVoce"
+EXPORT_ROOT = r"C:\Users\Dana\AppData\Local\OpenWhisper_CPP"
 EXPORT_ENTRIES = (
     # id, formatted timestamp, preview
-    ("export-1", "Mar 15, 2026 03:00 PM", "Hello from FioriVoce."),
+    ("export-1", "Mar 15, 2026 03:00 PM", "Hello from OpenWhisper_CPP."),
     ("export-2", "Mar 14, 2026 08:05 PM", "Remember the birthday card."),
     ("export-3", "Mar 14, 2026 06:10 PM", "Pick up the bike from the shop."),
     ("export-4", "Mar 13, 2026 09:30 AM", "Send the invoice before Friday."),
@@ -442,10 +442,10 @@ def _stats_dialog(summary, variant):
     stats_dialog._run = lambda work, token: None
     dialog = stats_dialog.StatsDialog()
     dialog.findChild(QLabel, "statsIntro").setText(
-        "What you do with FioriVoce, counted and kept on this computer.")
+        "What you do with OpenWhisper_CPP, counted and kept on this computer.")
     for label in dialog.findChildren(QLabel, "statsSectionTitle"):
         if label.text() == "Across OpenWhisper":
-            label.setText("Across FioriVoce")
+            label.setText("Across OpenWhisper_CPP")
     dialog._apply(0, summary, "")
     scale = variant["scale"] / 100
     return dialog, (round(640 * scale), round(720 * scale)), None
@@ -473,9 +473,9 @@ def _export_dialog(variant):
     from ui_qt.dialogs.history_export_dialog import HistoryExportDialog
 
     entries = _export_entries()
-    # The default path is made as the dialog is built: FioriVoce's file name in a fixed folder.
+    # The default path is made as the dialog is built: OpenWhisper_CPP's file name in a fixed folder.
     with (
-        patch.object(HistoryExportDialog, "_DEFAULT_FILE_STEM", "fiorivoce_history"),
+        patch.object(HistoryExportDialog, "_DEFAULT_FILE_STEM", "openwhisper_cpp_history"),
         patch.object(HistoryExportDialog, "_export_root", lambda self: EXPORT_ROOT),
     ):
         dialog = HistoryExportDialog(entry_provider=lambda: entries)

@@ -361,7 +361,7 @@ std::optional<std::size_t> article_before(std::string_view text, std::size_t at,
     return at - 3;
 }
 
-// The recorded text as a FioriVoce peer writes it: product names in copy become `product`.
+// The recorded text as a OpenWhisper_CPP peer writes it: product names in copy become `product`.
 std::string expected_text(const Transcript& transcript, std::size_t index, std::string recorded,
                           std::string_view product) {
     const std::string prefix = std::to_string(index) + "/";
@@ -409,7 +409,7 @@ Transcript select(const Transcript& transcript, const std::function<bool(const W
 
 std::string with_product(std::string_view text, std::string_view product) {
     // The article before the name follows the name that replaces it: "The host is preparing an
-    // OpenWhisper update" is "preparing a FioriVoce update" (lead decision 2).
+    // OpenWhisper update" is "preparing a OpenWhisper_CPP update" (lead decision 2).
     const bool vowel = !product.empty() && std::string_view("AEIOUaeiou").find(product.front()) !=
                                                std::string_view::npos;
     std::string out;

@@ -119,7 +119,7 @@ bool valid_agent_model_id(std::string_view model);
 
 // What closes the cleanup instructions sent to an agent: OpenWhisper's closing sentence
 // (transcript_cleanup.py, _cleanup_with_agent), then the tool-free statement its tool contract
-// makes, since FioriVoce's cleanup path sends no tool contract.
+// makes, since OpenWhisper_CPP's cleanup path sends no tool contract.
 inline constexpr std::string_view kCleanupClosing =
     "\n\nReturn only the finished text requested by the instructions, without commentary. "
     "No tools are available.";

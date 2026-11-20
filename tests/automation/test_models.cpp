@@ -352,7 +352,7 @@ TEST_CASE("a refused permission says what to turn on in this product's Settings"
         FAIL("granted");
     } catch (const perms::PermissionDenied& denied) {
         CHECK(denied.permission() == "api_run_actions");
-        CHECK(denied.message() == "Allow running actions in FioriVoce Settings > API & MCP.");
+        CHECK(denied.message() == "Allow running actions in OpenWhisper_CPP Settings > API & MCP.");
     }
     try {
         perms::require(Json::object(), "nope");
@@ -363,8 +363,8 @@ TEST_CASE("a refused permission says what to turn on in this product's Settings"
 }
 
 TEST_CASE("secret names carry this product's variable prefix", "[models]") {
-    CHECK(action_secret_name("a1") == "FIORIVOCE_ACTION_SECRET_a1");
-    CHECK(webhook_secret_name("h1") == "FIORIVOCE_WEBHOOK_SECRET_h1");
+    CHECK(action_secret_name("a1") == "OPENWHISPER_CPP_ACTION_SECRET_a1");
+    CHECK(webhook_secret_name("h1") == "OPENWHISPER_CPP_WEBHOOK_SECRET_h1");
     CHECK(fv::automation::new_id().size() == 12);
     CHECK(fv::automation::hooks::new_id().size() == 12);
 }

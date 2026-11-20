@@ -23,7 +23,7 @@ constexpr std::string_view kRunOnce = "Software\\Microsoft\\Windows\\CurrentVers
 
 struct Fixture {
     fv::testkit::TempDataRoot temp;
-    u::JournalContext context{temp.path() / "data", temp.path() / "programs" / "FioriVoce",
+    u::JournalContext context{temp.path() / "data", temp.path() / "programs" / "OpenWhisper_CPP",
                               std::string(kAppId)};
     u::UpdateJournal journal = u::make_journal(context, kId);
     Fixture() {
@@ -31,7 +31,7 @@ struct Fixture {
         journal.new_version = "0.1.1";
         journal.old_display_version = "0.1.0";
         journal.registration.key_path =
-            "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\FioriVoce";
+            "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OpenWhisper_CPP";
         journal.runonce_key = kRunOnce;
         context.expected_registration = journal.registration;
         context.expected_runonce_key = journal.runonce_key;
@@ -51,7 +51,7 @@ std::string read(const fs::path& path) {
 TEST_CASE("journal parent identity is bound to an independently trusted executable",
           "[update_native]") {
     Fixture f;
-    f.context.parent_exe = f.context.install_dir / "fiorivoce.exe";
+    f.context.parent_exe = f.context.install_dir / "openwhisper-cpp.exe";
     f.journal.parent_pid = 42;
     f.journal.parent_creation_time = 1234;
     f.journal.parent_exe = f.context.parent_exe;
@@ -121,8 +121,8 @@ TEST_CASE("journal paths come only from the trusted roots and transaction id", "
     Fixture f;
     const auto trusted = u::validate_journal_binding(f.context, f.journal, kId);
     CHECK(trusted.install_dir == f.context.install_dir);
-    CHECK(trusted.candidate_dir.filename() == "FioriVoce.new-01234567");
-    CHECK(trusted.rollback_dir.filename() == "FioriVoce.old-01234567");
+    CHECK(trusted.candidate_dir.filename() == "OpenWhisper_CPP.new-01234567");
+    CHECK(trusted.rollback_dir.filename() == "OpenWhisper_CPP.old-01234567");
     SECTION("a journal cannot choose a different installation") {
         f.journal.app_dir = f.temp.path() / "other";
     }
@@ -167,7 +167,7 @@ TEST_CASE("journal registry binding and identity cannot escape their allowed sco
         f.journal.runonce_key = "Software\\Other\\RunOnce";
     }
     SECTION("different but allowed runonce key") {
-        f.journal.runonce_key = "Software\\FioriVoceTest\\case\\RunOnce";
+        f.journal.runonce_key = "Software\\OpenWhisper_CPPTest\\case\\RunOnce";
     }
     SECTION("no independently trusted registration") {
         f.context.expected_registration.reset();
@@ -181,14 +181,14 @@ TEST_CASE("journal registry binding and identity cannot escape their allowed sco
 TEST_CASE("a scoped test journal may use its own application id and RunOnce key",
           "[update_native]") {
     Fixture f;
-    f.journal.registration.key_path = "Software\\FioriVoceTest\\case-1\\Uninstall";
-    f.journal.runonce_key = "Software\\FioriVoceTest\\case-1\\RunOnce";
+    f.journal.registration.key_path = "Software\\OpenWhisper_CPPTest\\case-1\\Uninstall";
+    f.journal.runonce_key = "Software\\OpenWhisper_CPPTest\\case-1\\RunOnce";
     f.journal.app_id = kOtherId;
     f.context.expected_registration = f.journal.registration;
     f.context.expected_runonce_key = f.journal.runonce_key;
     CHECK(u::is_test_journal(f.journal));
     CHECK_NOTHROW(u::validate_journal_binding(f.context, f.journal, kId));
-    f.journal.registration.key_path = "Software\\FioriVoceTestOther\\case-1";
+    f.journal.registration.key_path = "Software\\OpenWhisper_CPPTestOther\\case-1";
     CHECK_FALSE(u::is_test_journal(f.journal));
     CHECK_THROWS_AS(u::validate_journal_binding(f.context, f.journal, kId), u::UpdateError);
 }

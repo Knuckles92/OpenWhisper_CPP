@@ -24,7 +24,7 @@ std::filesystem::path artifact_path();
 std::optional<std::string> get_env(std::string_view name);
 void set_env(std::string_view name, const std::optional<std::string>& value);
 
-// A fresh, empty data folder for the lifetime of the object, named by FIORIVOCE_DATA_DIR (the
+// A fresh, empty data folder for the lifetime of the object, named by OPENWHISPER_CPP_DATA_DIR (the
 // variable is spelled here, not taken from identity(), so testkit needs nothing fv_base
 // implements). The previous value comes back and the folder is removed on destruction.
 class TempDataRoot {

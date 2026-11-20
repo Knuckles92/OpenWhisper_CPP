@@ -2,8 +2,8 @@
 // (tools/parity/cases/meeting.agent.installed.drivers.py and .core.py): the tool contract, the
 // Claude Code and Codex command lines and event folding, the error texts, OpenCode's overlay,
 // permission answers and outcomes, and what installed_agent says, as OpenWhisper computes them.
-// OpenWhisper's names in the vectors are read as FioriVoce's (rebranded()), inputs and results
-// alike.
+// OpenWhisper's names in the vectors are read as OpenWhisper_CPP's (rebranded()), inputs and
+// results alike.
 
 #include <catch2/catch_test_macros.hpp>
 

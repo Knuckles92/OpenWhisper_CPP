@@ -178,26 +178,27 @@ TEST_CASE("golden comparators follow Python equality and tolerances", "[golden]"
     CHECK_FALSE(golden::matches(Json(0.1), Json(0.10001), 1e-6));
     CHECK(golden::near(INFINITY, INFINITY, 0.0));
     CHECK_FALSE(golden::near(INFINITY, -INFINITY, 1e9));
-    CHECK(golden::equal_rebranded("OpenWhisper is ready", "FioriVoce is ready"));
+    CHECK(golden::equal_rebranded("OpenWhisper is ready", "OpenWhisper_CPP is ready"));
 }
 
-TEST_CASE("rebrand maps every OpenWhisper name to FioriVoce's", "[golden]") {
-    CHECK(golden::rebrand("OpenWhisper") == "FioriVoce");
-    CHECK(golden::rebrand("Restart OpenWhisper to finish.") == "Restart FioriVoce to finish.");
-    CHECK(golden::rebrand("openwhisper_settings.json") == "fiorivoce_settings.json");
-    CHECK(golden::rebrand("data/openwhisper.db") == "data/fiorivoce.db");
-    CHECK(golden::rebrand("openwhisper.log") == "fiorivoce.log");
-    CHECK(golden::rebrand(".openwhisper-data.lock") == ".fiorivoce-data.lock");
-    CHECK(golden::rebrand(".openwhisper-restore") == ".fiorivoce-restore");
-    CHECK(golden::rebrand("openwhisper-backup") == "fiorivoce-backup");
+TEST_CASE("rebrand maps every OpenWhisper name to OpenWhisper_CPP's", "[golden]") {
+    CHECK(golden::rebrand("OpenWhisper") == "OpenWhisper_CPP");
+    CHECK(golden::rebrand("Restart OpenWhisper to finish.") ==
+          "Restart OpenWhisper_CPP to finish.");
+    CHECK(golden::rebrand("openwhisper_settings.json") == "openwhisper_cpp_settings.json");
+    CHECK(golden::rebrand("data/openwhisper.db") == "data/openwhisper-cpp.db");
+    CHECK(golden::rebrand("openwhisper.log") == "openwhisper-cpp.log");
+    CHECK(golden::rebrand(".openwhisper-data.lock") == ".openwhisper-cpp-data.lock");
+    CHECK(golden::rebrand(".openwhisper-restore") == ".openwhisper-cpp-restore");
+    CHECK(golden::rebrand("openwhisper-backup") == "openwhisper-cpp-backup");
     CHECK(golden::rebrand("x.owbackup") == "x.fvbackup");
-    CHECK(golden::rebrand("openwhisper-ui-1") == "fiorivoce-ui-1");
-    CHECK(golden::rebrand("OPENWHISPER_DATA_DIR") == "FIORIVOCE_DATA_DIR");
+    CHECK(golden::rebrand("openwhisper-ui-1") == "openwhisper-cpp-ui-1");
+    CHECK(golden::rebrand("OPENWHISPER_DATA_DIR") == "OPENWHISPER_CPP_DATA_DIR");
     CHECK(golden::rebrand("Whisper large-v3 é") == "Whisper large-v3 é");
 }
 
-TEST_CASE("TempDataRoot sets FIORIVOCE_DATA_DIR and restores it", "[support]") {
-    const auto before = testkit::get_env("FIORIVOCE_DATA_DIR");
+TEST_CASE("TempDataRoot sets OPENWHISPER_CPP_DATA_DIR and restores it", "[support]") {
+    const auto before = testkit::get_env("OPENWHISPER_CPP_DATA_DIR");
     std::filesystem::path folder;
     {
         testkit::TempDataRoot root;
@@ -205,12 +206,13 @@ TEST_CASE("TempDataRoot sets FIORIVOCE_DATA_DIR and restores it", "[support]") {
         CHECK(std::filesystem::is_directory(folder));
         CHECK(std::filesystem::is_empty(folder));
         const auto utf8 = folder.u8string();
-        CHECK(testkit::get_env("FIORIVOCE_DATA_DIR") == std::string(utf8.begin(), utf8.end()));
+        CHECK(testkit::get_env("OPENWHISPER_CPP_DATA_DIR") ==
+              std::string(utf8.begin(), utf8.end()));
         testkit::TempDataRoot other;
         CHECK(other.path() != folder);
     }
     CHECK_FALSE(std::filesystem::exists(folder));
-    CHECK(testkit::get_env("FIORIVOCE_DATA_DIR") == before);
+    CHECK(testkit::get_env("OPENWHISPER_CPP_DATA_DIR") == before);
 }
 
 TEST_CASE("testkit paths point into the checkout", "[support]") {

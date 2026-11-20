@@ -1,8 +1,8 @@
 // tests/test_host_backup_recovery.py's restored host: a host's data root carried by its own
 // .fvbackup into a second data root, a second host service over it, and the records the laptop
-// kept on the first offered back only by the host owner's assignment. A FioriVoce backup carries
-// the host database, recordings, meetings and remote_records folders but no paired devices or
-// tokens (backup/sanitize.cpp drops remote_host_devices; the keyring and the host's certificate
+// kept on the first offered back only by the host owner's assignment. A OpenWhisper_CPP backup
+// carries the host database, recordings, meetings and remote_records folders but no paired devices
+// or tokens (backup/sanitize.cpp drops remote_host_devices; the keyring and the host's certificate
 // are not in it), so the laptop pairs again under a new id, as in OpenWhisper.
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_string.hpp>

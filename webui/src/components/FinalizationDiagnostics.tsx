@@ -27,7 +27,7 @@ export default function FinalizationDiagnostics({ finalization, meetingId }: {
       </ul>
       {!failures.length && <p>{finalization.step_details || finalization.message || 'No detailed cause was recorded.'}</p>}
       <p>To retry cleanup, use Retry failed steps on the Meeting tab in the desktop app. In browser History, Re-run insights regenerates insights.</p>
-      <p>On the computer running FioriVoce, open <code>fiorivoce.log</code> (or rotated <code>fiorivoce.log.1</code>) and search for the meeting ID or request ID shown here. Installed Windows apps store logs in <code>%LOCALAPPDATA%\FioriVoce</code>; source runs store them in the working folder.</p>
+      <p>On the computer running OpenWhisper_CPP, open <code>openwhisper-cpp.log</code> (or rotated <code>openwhisper-cpp.log.1</code>) and search for the meeting ID or request ID shown here. Installed Windows apps store logs in <code>%LOCALAPPDATA%\OpenWhisper_CPP</code>; source runs store them in the working folder.</p>
       <p>Meeting ID: <code>{meetingId}</code>. Include the failed step and matching log lines when reporting the issue. Review logs before sharing; they may contain private meeting information.</p>
     </details>
   );

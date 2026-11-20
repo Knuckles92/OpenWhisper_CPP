@@ -13,8 +13,9 @@ struct ActivitySnapshot;
 
 // The question Quit asks while work is running (ui_controller.py:2616-2639).
 struct QuitQuestion {
-    QString title; // "Quit FioriVoce?"
-    QString text;  // "FioriVoce is busy with {work}. Quitting now stops it before it finishes."
+    QString title; // "Quit OpenWhisper_CPP?"
+    QString
+        text; // "OpenWhisper_CPP is busy with {work}. Quitting now stops it before it finishes."
 };
 
 // The question for the work that quitting would stop first (busy_reasons), or nullopt when

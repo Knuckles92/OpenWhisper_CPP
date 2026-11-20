@@ -12,7 +12,7 @@
         Claude Code's, images the others', each None for the other kind. A walkthrough.md of
         None is missing: {"error": the exception's type}.
 
-The system prompt names OpenWhisper, which FioriVoce's names itself: compare it rebranded.
+The system prompt names OpenWhisper, which OpenWhisper_CPP's names itself: compare it rebranded.
 """
 from __future__ import annotations
 

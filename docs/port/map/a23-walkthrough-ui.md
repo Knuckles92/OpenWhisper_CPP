@@ -276,13 +276,13 @@ Settings are the same keys Settings -> Walkthroughs edits; the tab re-reads on a
 
 ### In-process wire shapes
 
-- Drag-reorder mime: `application/x-openwhisper-walkthrough-row` (empty payload, intra-process only; rename for FioriVoce is safe as nothing else reads it). File chip drag: `text/uri-list`. Screenshot copy: urls + text path + image data.
+- Drag-reorder mime: `application/x-openwhisper-walkthrough-row` (empty payload, intra-process only; rename for OpenWhisper_CPP is safe as nothing else reads it). File chip drag: `text/uri-list`. Screenshot copy: urls + text path + image data.
 - Relay messages: `(token:int, summaries:list[Summary])`, `(token, (summaries, total))`.
 - Review host callbacks: see Modules.
 
 ### Theme tokens used (`@token` stylesheet syntax and `token_color`)
 
-accent, accent-hover, accent-pressed, accent-rgb, accent-soft, accent-tint, accent-tint-border, accent-tint-strong, bg, border, border-hover, border-strong, border-subtle, danger, danger-text-soft, on-accent, on-accent-rgb, overlay-rgb, purple, purple-rgb, purple-text, slate-border, slate-field, success, surface, surface-hover, surface-hover-rgb, surface-rgb, surface-sunken, text, text-faint, text-heading, text-muted, text-secondary, text-secondary-strong, text-soft, text-tertiary, warning-rgb, warning-text. These come from the a02 theme/palette layer (classic and Omarchy palettes, light/dark); FioriVoce needs the same token table before this UI can look right. `token_color(name, alpha)` is used for painted widgets.
+accent, accent-hover, accent-pressed, accent-rgb, accent-soft, accent-tint, accent-tint-border, accent-tint-strong, bg, border, border-hover, border-strong, border-subtle, danger, danger-text-soft, on-accent, on-accent-rgb, overlay-rgb, purple, purple-rgb, purple-text, slate-border, slate-field, success, surface, surface-hover, surface-hover-rgb, surface-rgb, surface-sunken, text, text-faint, text-heading, text-muted, text-secondary, text-secondary-strong, text-soft, text-tertiary, warning-rgb, warning-text. These come from the a02 theme/palette layer (classic and Omarchy palettes, light/dark); OpenWhisper_CPP needs the same token table before this UI can look right. `token_color(name, alpha)` is used for painted widgets.
 
 ### Object names / properties the stylesheets key on
 
@@ -367,7 +367,7 @@ Suggested C++ decomposition (namespace `fv`, camelCase in `src/app`; Qt-free log
    - Hit-testing is manual in the panel/menu (rects recorded at paint time): keep the hover/pressed/repaint ordering or buttons will miss clicks while the card is animating.
    - `QTextEdit` auto-height via `documentSizeChanged`; `Reflow`/`StudioSplit` size-policy tricks (`Ignored` width) are load-bearing for the narrow-window behaviour pinned by tests.
    - Locale: `%a/%b/%A/%B/%p` must be English regardless of system locale (use `QLocale::c()`).
-   - Strings mention "OpenWhisper" (draft banner, mime type): replace with "FioriVoce" and say so in the divergence notes.
+   - Strings mention "OpenWhisper" (draft banner, mime type): replace with "OpenWhisper_CPP" and say so in the divergence notes.
    - Time-dependent code (`time.monotonic`) must be injectable for tests.
    - The a22 library accepts `Path` and enforces folder/file name regexes; use the same rules (symlink refusal, 8 MB JSON cap) when C++ reads any manifest from this UI.
 5. **Rough C++ size**: model/logic ~900; Qt UI ~5,200 (tab 1,100; review 1,500; panel 1,300; ready card 420; past panel 450; library dialog 420; snap menu 220; flight 130; icons 100; write-up dialog 150; copy tips 60); plus a ~700-line QSS resource (the strings in the two stylesheets and theme.qss rules). Total about 6,000-6,500 lines plus resources.
@@ -378,6 +378,6 @@ Suggested C++ decomposition (namespace `fv`, camelCase in `src/app`; Qt-free log
 
 1. Keep the AI write-up (external Claude Code/Codex/OpenCode agents) in the first port, or drop the whole write-up UI and ship "as spoken" only?
 2. Keep the Auto Mode and Capture delay rows (need a22 global click monitor and a07 drawing toolbar), Windows and macOS only, in scope for the first release?
-3. Rename the in-app strings that say "OpenWhisper" and the row-drag mime type, and reuse OpenWhisper's `captures` folder and `retention.json` unchanged (shared data dir) or use a FioriVoce-specific data directory?
+3. Rename the in-app strings that say "OpenWhisper" and the row-drag mime type, and reuse OpenWhisper's `captures` folder and `retention.json` unchanged (shared data dir) or use a OpenWhisper_CPP-specific data directory?
 4. Keep the Omarchy/"compositor-managed" no-column behaviour, or port only Wayland detection?
-5. Is the Walkthrough tab allowed to depend on the shared a02 widgets (studio split, segmented bar, badge, switch) being ported first in the same style, or should it get FioriVoce-native replacements?
+5. Is the Walkthrough tab allowed to depend on the shared a02 widgets (studio split, segmented bar, badge, switch) being ported first in the same style, or should it get OpenWhisper_CPP-native replacements?

@@ -222,7 +222,7 @@ TEST_CASE("test_command_keys_and_transforms_reach_the_command_runtime", "[widget
     // The endpoint's key is in no environment, so Command Mode is not set up.
     ControllerRig rig(fvtest::personalizeOptions(
         keys, http.get(),
-        fvtest::customEndpoint("http://127.0.0.1:9/v1", "m", "FIORIVOCE_TEST_ABSENT_KEY")));
+        fvtest::customEndpoint("http://127.0.0.1:9/v1", "m", "OPENWHISPER_CPP_TEST_ABSENT_KEY")));
     REQUIRE(rig.startEngine());
     fv::PersonalizeWiring& wiring = *rig.feature().personalizeWiring();
     REQUIRE(wiring.commandRuntime() != nullptr);
@@ -243,7 +243,7 @@ TEST_CASE("test_commands_and_transforms_without_a_provider_say_how_to_start",
     }});
     ControllerRig rig(fvtest::personalizeOptions(
         keys, http.get(),
-        fvtest::customEndpoint("http://127.0.0.1:9/v1", "m", "FIORIVOCE_TEST_ABSENT_KEY")));
+        fvtest::customEndpoint("http://127.0.0.1:9/v1", "m", "OPENWHISPER_CPP_TEST_ABSENT_KEY")));
     REQUIRE(rig.startEngine());
 
     rig.hotkeys().transform_requested.emit("polish");
@@ -494,7 +494,7 @@ TEST_CASE("Quit stops Command Mode and transforms in the command runtime's step"
     // The endpoint's key is in no environment, so a transform says how to start.
     ControllerRig rig(fvtest::personalizeOptions(
         keys, http.get(),
-        fvtest::customEndpoint("http://127.0.0.1:9/v1", "m", "FIORIVOCE_TEST_ABSENT_KEY")));
+        fvtest::customEndpoint("http://127.0.0.1:9/v1", "m", "OPENWHISPER_CPP_TEST_ABSENT_KEY")));
     REQUIRE(rig.startEngine());
     fv::dictation::CommandRuntime& command = *rig.feature().personalizeWiring()->commandRuntime();
     const auto refusals = [&rig] {

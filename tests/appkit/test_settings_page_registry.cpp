@@ -37,14 +37,15 @@ std::vector<std::string> keys(const fv::SettingsPageRegistry& registry) {
 TEST_CASE("Settings pages are listed in rail order") {
     fv::SettingsPageRegistry registry;
     registry.addPage(page(destinations::advanced, "Developer options"));
-    registry.addPage(page("fiorivoce_only", "Extra"));
+    registry.addPage(page("openwhisper_cpp_only", "Extra"));
     registry.addPage(page(destinations::recording, "Recording"));
     registry.addPage(page(destinations::overview, "Home"));
     registry.addPage(page(destinations::voice_model, "Voice model"));
     registry.addPage(page(destinations::mcp, "API & MCP"));
     registry.addPage(page(destinations::hooks, "Hooks"));
     CHECK(keys(registry) == std::vector<std::string>{"overview", "recording", "voice_model",
-                                                     "hooks", "mcp", "advanced", "fiorivoce_only"});
+                                                     "hooks", "mcp", "advanced",
+                                                     "openwhisper_cpp_only"});
 }
 
 TEST_CASE("Settings pages are found by key or legacy alias") {

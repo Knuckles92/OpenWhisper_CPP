@@ -176,7 +176,7 @@ void pageShot(const std::string& theme, int scale, std::string_view key, const c
     options.ignore_keys = {"class"};
     if (stripEntries(reference) != reference) {
         // OpenWhisper keeps each backup row's entry token as a dynamic "entry" property on its
-        // buttons; FioriVoce keeps it in the section (no theme rule reads it, and dynamic
+        // buttons; OpenWhisper_CPP keeps it in the section (no theme rule reads it, and dynamic
         // properties are only the theme's). Every other property is compared here, and the
         // tree compared by expect_matches leaves properties out.
         const Json expected = stripEntries(reference);

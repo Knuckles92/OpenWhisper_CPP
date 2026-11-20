@@ -22,7 +22,7 @@ using fv::Json;
 TEST_CASE("sweep: Quit during a model's adoption leaves nothing half adopted", "[models]") {
     TempDir temp;
     const fs::path ow = temp.path() / "OpenWhisper";
-    const fs::path models = temp.path() / "FioriVoce" / "speech-models";
+    const fs::path models = temp.path() / "OpenWhisper_CPP" / "speech-models";
     const std::string weights(3 * 1024 * 1024, 'w');
     const Json spec = testing::small_model_spec("parakeet.gguf", weights);
     testing::write_openwhisper_model(ow, "parakeet-v3", spec, {{"parakeet.gguf", weights}});
@@ -40,8 +40,8 @@ TEST_CASE("sweep: Quit during a model's adoption leaves nothing half adopted", "
     Host host;
     host.platform = "win_amd64";
     {
-        OpenWhisperAdopter adopter(temp.path() / "FioriVoce" / "components", models, {ow}, host,
-                                   options);
+        OpenWhisperAdopter adopter(temp.path() / "OpenWhisper_CPP" / "components", models, {ow},
+                                   host, options);
         const AdoptionReport report = adopter.adopt_missing(Json::object(), quit.token());
         CHECK(report.models.empty());
     }
@@ -52,7 +52,7 @@ TEST_CASE("sweep: Quit during a model's adoption leaves nothing half adopted", "
     options.link_file = [](const fs::path&, const fs::path&) {
         throw std::runtime_error("another volume");
     };
-    OpenWhisperAdopter adopter(temp.path() / "FioriVoce" / "components", models, {ow}, host,
+    OpenWhisperAdopter adopter(temp.path() / "OpenWhisper_CPP" / "components", models, {ow}, host,
                                options);
     const AdoptionReport report = adopter.adopt_missing(Json::object(), fv::CancelToken());
     CHECK(report.models == std::vector<std::string>{"parakeet-v3"});

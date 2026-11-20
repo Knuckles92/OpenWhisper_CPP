@@ -27,7 +27,7 @@ inline constexpr std::uint32_t kCrashInvalidParameter = 0xE0465603; // CRT inval
 inline constexpr std::uint32_t kCrashAbort = 0xE0465604;            // abort(), SIGABRT
 
 // The native counterpart of OpenWhisper's faulthandler crash log: a hard crash appends one line
-// to <log file>.crash.log ("fiorivoce.crash.log", Path.with_suffix(".crash.log")) and, on
+// to <log file>.crash.log ("openwhisper-cpp.crash.log", Path.with_suffix(".crash.log")) and, on
 // Windows, writes a minidump of every thread to crashes\<UTC stamp>-<pid>.dmp under the data
 // root. On Windows it covers unhandled SEH exceptions (SetUnhandledExceptionFilter),
 // std::terminate on the installing thread, pure virtual calls, CRT invalid parameters and

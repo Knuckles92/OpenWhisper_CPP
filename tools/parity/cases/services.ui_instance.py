@@ -31,7 +31,7 @@ CASES = {
         ["c:/data/"],
         ["C:\\Data\\"],
         ["C:\\DATA"],
-        ["C:\\Users\\Some One\\AppData\\Local\\FioriVoce"],
+        ["C:\\Users\\Some One\\AppData\\Local\\OpenWhisper_CPP"],
         ["C:\\Users\\Zoë\\AppData\\Local\\Ünïcödé Daten"],
         ["C:\\Data\\sub\\..\\other"],
     ],

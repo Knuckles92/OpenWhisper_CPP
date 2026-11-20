@@ -296,7 +296,7 @@ TEST_CASE("the app's internal names are dropped too", "[test_automation_r3c_chil
     CHECK_FALSE(result.contains(std::string(fv::legacy_identity().env_prefix) + "SIDECAR_TOKEN"));
 }
 
-// -- FioriVoce's own -----------------------------------------------------------------------
+// -- OpenWhisper_CPP's own -----------------------------------------------------------------------
 
 TEST_CASE("adopting .env records only values the environment holds as the file has them",
           "[process]") {

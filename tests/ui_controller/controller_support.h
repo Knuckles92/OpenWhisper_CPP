@@ -160,7 +160,7 @@ struct RigOptions {
         fv::Json{{"auto_paste", true}, {"copy_clipboard", true}, {"restore_clipboard", true}};
     fv::speech::FakeScript script = [] {
         fv::speech::FakeScript heard;
-        heard.texts = {"Hello from FioriVoce."};
+        heard.texts = {"Hello from OpenWhisper_CPP."};
         return heard;
     }();
     // resolve_parakeet finds the runtime and the model.

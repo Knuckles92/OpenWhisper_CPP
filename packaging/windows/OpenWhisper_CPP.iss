@@ -1,4 +1,4 @@
-; Inno Setup script for FioriVoce.
+; Inno Setup script for OpenWhisper_CPP.
 ;
 ; packaging\windows\build-installer.ps1 compiles it. Every name the setup shares with the
 ; application (AppId, publisher, folders, executables, the named mutexes, the update switch)
@@ -46,7 +46,7 @@ SignTool={#SignToolName}
 SignedUninstaller=yes
 #endif
 
-; Per-user installation into %LOCALAPPDATA%\Programs\FioriVoce.
+; Per-user installation into %LOCALAPPDATA%\Programs\OpenWhisper_CPP.
 PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
 DefaultDirName={autopf}\{#InstallDirName}
@@ -108,9 +108,9 @@ Name: "startupicon"; Description: "Start {#AppName} when I sign in"; GroupDescri
 ; build when a staged top-level name is missing here.
 [InstallDelete]
 Type: files; Name: "{app}\*.dll"
-Type: files; Name: "{app}\fiorivoce*.exe"
-Type: files; Name: "{app}\.fiorivoce-update.json"
-Type: files; Name: "{app}\.fiorivoce-update-complete"
+Type: files; Name: "{app}\openwhisper-cpp*.exe"
+Type: files; Name: "{app}\.openwhisper-cpp-update.json"
+Type: files; Name: "{app}\.openwhisper-cpp-update-complete"
 Type: files; Name: "{app}\THIRD_PARTY_NOTICES.md"
 Type: filesandordirs; Name: "{app}\licenses"
 Type: filesandordirs; Name: "{app}\platforms"
@@ -124,9 +124,9 @@ Type: filesandordirs; Name: "{app}\share"
 Type: filesandordirs; Name: "{app}\webui"
 
 [Files]
-Source: "{#SourceDir}\fiorivoce-updater.exe"; DestDir: "{tmp}\fv-helper"; Flags: dontcopy noencryption
+Source: "{#SourceDir}\openwhisper-cpp-updater.exe"; DestDir: "{tmp}\fv-helper"; Flags: dontcopy noencryption
 Source: "{#SourceDir}\*.dll"; DestDir: "{tmp}\fv-helper"; Flags: dontcopy noencryption
-Source: "{#SourceDir}\.fiorivoce-update.json"; DestDir: "{tmp}\fv-helper"; Flags: dontcopy noencryption
+Source: "{#SourceDir}\.openwhisper-cpp-update.json"; DestDir: "{tmp}\fv-helper"; Flags: dontcopy noencryption
 Source: "{#SourceDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
@@ -136,7 +136,7 @@ Name: "{autodesktop}\{#AppName}"; Filename: "{app}\{#AppExeName}"; Tasks: deskto
 Name: "{userstartup}\{#AppName}"; Filename: "{app}\{#AppExeName}"; Tasks: startupicon
 
 ; The uninstaller removes only what setup logged. A native update swaps the
-; whole install tree (fiorivoce-updater), so after one the tree holds files no
+; whole install tree (openwhisper-cpp-updater), so after one the tree holds files no
 ; setup logged: the update sentinel, a DLL or plug-in a later version added.
 ; Without these entries they, and so {app} itself, would survive an uninstall
 ; (Inno removes {app} at the end only when it is empty, as OpenWhisper relies on).
@@ -147,9 +147,9 @@ Name: "{userstartup}\{#AppName}"; Filename: "{app}\{#AppExeName}"; Tasks: startu
 ; updater's .new-/.old-/.failed- siblings of {app} are never named here.
 [UninstallDelete]
 Type: files; Name: "{app}\*.dll"
-Type: files; Name: "{app}\fiorivoce*.exe"
-Type: files; Name: "{app}\.fiorivoce-update.json"
-Type: files; Name: "{app}\.fiorivoce-update-complete"
+Type: files; Name: "{app}\openwhisper-cpp*.exe"
+Type: files; Name: "{app}\.openwhisper-cpp-update.json"
+Type: files; Name: "{app}\.openwhisper-cpp-update-complete"
 Type: files; Name: "{app}\THIRD_PARTY_NOTICES.md"
 Type: filesandordirs; Name: "{app}\licenses"
 Type: filesandordirs; Name: "{app}\platforms"
@@ -213,7 +213,7 @@ begin
   HelperDir := ExpandConstant('{tmp}\fv-helper');
   ErrorFile := HelperDir + '\setup-error.txt';
   DeleteFile(ErrorFile);
-  if not Exec(HelperDir + '\fiorivoce-updater.exe',
+  if not Exec(HelperDir + '\openwhisper-cpp-updater.exe',
     '--setup-action ' + Action + ' --app-dir "' + ExpandConstant('{app}') + '"',
     HelperDir, SW_HIDE, ewWaitUntilTerminated, Code) then
     Result := 'Setup could not start the update helper.'
@@ -270,13 +270,13 @@ end;
   Uninstall: offer to delete user data.
 
   Settings, history database, saved recordings, and any downloaded components
-  live in %LOCALAPPDATA%\FioriVoce, outside the install directory, so they
+  live in %LOCALAPPDATA%\OpenWhisper_CPP, outside the install directory, so they
   survive an uninstall unless the user opts in here. Left unchecked by default
   because a reinstall should keep the user's transcription history; a silent
   uninstall (/SUPPRESSMSGBOXES) takes that default, No.
 
   OpenWhisper's last line says downloaded speech models "are stored separately
-  and are never removed". That is not true here: FioriVoce keeps its speech
+  and are never removed". That is not true here: OpenWhisper_CPP keeps its speech
   models in speech-models\ inside this folder, so the line says they go with it.
 }
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);

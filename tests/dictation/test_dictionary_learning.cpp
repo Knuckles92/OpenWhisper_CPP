@@ -227,7 +227,7 @@ TEST_CASE("needs the caret text of another app", "[test_personalize_s4_learning]
     const int which = GENERATE(0, 1, 2, 3, 4, 5);
     Learning learning(kKsenia);
     const DictionaryTextPreparer preparer(&learning.learner);
-    AppIdentity self = app("fiorivoce", "FioriVoce");
+    AppIdentity self = app("openwhisper-cpp", "OpenWhisper_CPP");
     self.is_self = true;
 
     switch (which) {

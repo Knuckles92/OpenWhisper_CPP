@@ -166,7 +166,7 @@ TEST_CASE("title bar stylesheet parses", "[test_window_fit_and_title_bar][widget
 TEST_CASE("the title bar names the product and the window buttons", "[widget]") {
     TitleBar bar;
     CHECK(bar.objectName() == QStringLiteral("customTitleBar"));
-    CHECK(bar.titleLabel()->text() == QStringLiteral("FioriVoce"));
+    CHECK(bar.titleLabel()->text() == QStringLiteral("OpenWhisper_CPP"));
     CHECK(bar.minimizeButton()->toolTip() == QStringLiteral("Minimize"));
     CHECK(bar.minimizeButton()->accessibleName() == QStringLiteral("Minimize window"));
     CHECK(bar.maximizeButton()->toolTip() == QStringLiteral("Maximize"));

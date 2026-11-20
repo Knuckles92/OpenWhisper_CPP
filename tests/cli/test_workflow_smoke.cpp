@@ -1,6 +1,6 @@
-// fiorivoce-cli --workflow-smoke: services/release_checks.py's synthetic lifecycle gate, run in a
-// fresh process the way OpenWhisper's release health check runs main.py.
-// from tests/test_release_health.py
+// openwhisper-cpp-cli --workflow-smoke: services/release_checks.py's synthetic lifecycle gate, run
+// in a fresh process the way OpenWhisper's release health check runs main.py. from
+// tests/test_release_health.py
 
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_string.hpp>
@@ -91,7 +91,7 @@ TEST_CASE("fresh process workflow exits and preserves user history",
     const fs::path temporary = root.path() / "tmp";
     fs::create_directories(temporary);
     const fs::path report_path = root.path() / "health.json";
-    const std::vector<EnvOverride> env = {{"FIORIVOCE_DATA_DIR", utf8(root.path())},
+    const std::vector<EnvOverride> env = {{"OPENWHISPER_CPP_DATA_DIR", utf8(root.path())},
                                           {"TMP", utf8(temporary)},
                                           {"TEMP", utf8(temporary)},
                                           {"TMPDIR", utf8(temporary)}};
@@ -103,7 +103,7 @@ TEST_CASE("fresh process workflow exits and preserves user history",
     INFO("stdout: " << result.out << "\nstderr: " << result.err);
     REQUIRE(result.exit_code == 0);
     CHECK(read_text(sentinel) == R"({"entries": [{"text": "private history"}]})");
-    CHECK_FALSE(fs::exists(root.path() / "fiorivoce.db"));
+    CHECK_FALSE(fs::exists(root.path() / "openwhisper-cpp.db"));
     CHECK(names_in(root.path()) ==
           std::vector<std::string>{"health.json", "tmp", "transcription_history.json"});
     CHECK(names_in(temporary).empty());
@@ -138,7 +138,7 @@ TEST_CASE("workflow smoke takes at most one report path", "[platform][test_relea
     const fs::path second = root.path() / "b.json";
 
     const CliResult result = run_cli({"--workflow-smoke", utf8(first), utf8(second)},
-                                     {{"FIORIVOCE_DATA_DIR", utf8(root.path())}});
+                                     {{"OPENWHISPER_CPP_DATA_DIR", utf8(root.path())}});
 
     CHECK(result.exit_code == 1);
     CHECK(result.out.empty());
@@ -152,7 +152,7 @@ TEST_CASE("workflow smoke without a path prints the report and saves nothing",
     fv::testkit::TempDataRoot root;
 
     const CliResult result =
-        run_cli({"--workflow-smoke"}, {{"FIORIVOCE_DATA_DIR", utf8(root.path())}},
+        run_cli({"--workflow-smoke"}, {{"OPENWHISPER_CPP_DATA_DIR", utf8(root.path())}},
                 std::chrono::seconds(45));
 
     INFO("stderr: " << result.err);

@@ -210,7 +210,7 @@ def text_endpoint_dialog_local_preset(variant):
 #
 # Each page body is OpenWhisper's own, built by a real SettingsDialog over a throwaway settings
 # file in the isolated data folder and taken out of the dialog at a11's PAGE_WIDTH, the way
-# builders/a11.py builds the App pages (its _app_page is reused here). FioriVoce's page class is
+# builders/a11.py builds the App pages (its _app_page is reused here). OpenWhisper_CPP's page class is
 # the body the Settings shell hosts. Fixed settings: Parakeet, AI cleanup on at Medium; the
 # dictionary "Ksenia" (starred, sounds like "Ksenya, Xenia"), "Kubernetes" (learned and new) and
 # "Alex Rivera" (learned, kept as said); the snippets "my calendar link" and "my sign-off"
@@ -287,7 +287,7 @@ def settings_snippets_empty(variant):
 # Built the same way, over these settings, with what the pages ask of the computer pinned: no app
 # seen this session (recent_apps), text near the cursor readable (text_reading_supported, true on
 # Windows), and a cleanup model ready (provider_readiness), so the Commands page shows no setup
-# notice. FioriVoce's pages are given the same answers.
+# notice. OpenWhisper_CPP's pages are given the same answers.
 #
 #     settings_styles/default            awareness on, read text off, cleanup on, Work messages
 #                                        Casual, "Notion" moved to Work messages, "1Password"

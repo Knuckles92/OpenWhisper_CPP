@@ -25,7 +25,7 @@ namespace {
 struct Places {
     TempDir temp;
     std::filesystem::path base = temp.path() / "per-user-base";
-    std::filesystem::path per_user = base / "FioriVoce";
+    std::filesystem::path per_user = base / "OpenWhisper_CPP";
     std::filesystem::path checkout = temp.path() / "checkout";
     std::filesystem::path elsewhere = temp.path() / "elsewhere";
     MapEnvReader env;
@@ -38,7 +38,7 @@ struct Places {
 #elif defined(__APPLE__)
         env.set("HOME", fv::path_to_utf8(temp.path()));
         base = temp.path() / "Library" / "Application Support";
-        per_user = base / "FioriVoce";
+        per_user = base / "OpenWhisper_CPP";
 #else
         env.set("XDG_DATA_HOME", fv::path_to_utf8(base));
 #endif
@@ -60,7 +60,8 @@ TEST_CASE("a source tree without git shares the per user directory", "[test_data
 
     CHECK(paths.data_root() == places.per_user);
     CHECK(std::filesystem::is_directory(places.per_user));
-    CHECK(paths.user_file(identity().settings_file) == places.per_user / "fiorivoce_settings.json");
+    CHECK(paths.user_file(identity().settings_file) ==
+          places.per_user / "openwhisper_cpp_settings.json");
 }
 
 TEST_CASE("it does not matter where it was started", "[test_data_root]") {
@@ -75,7 +76,7 @@ TEST_CASE("the environment variable wins", "[test_data_root]") {
     // from tests/test_data_root.py::test_the_environment_variable_wins
     Places places;
     write_text(places.checkout / identity().settings_file, "{}");
-    places.env.set("FIORIVOCE_DATA_DIR", fv::path_to_utf8(places.temp.path() / "chosen"));
+    places.env.set("OPENWHISPER_CPP_DATA_DIR", fv::path_to_utf8(places.temp.path() / "chosen"));
 
     const auto paths = Paths::resolve(identity(), places.env);
 
@@ -85,7 +86,7 @@ TEST_CASE("the environment variable wins", "[test_data_root]") {
 
 TEST_CASE("frozen builds use the per user directory", "[test_data_root]") {
     // from tests/test_data_root.py::test_frozen_builds_use_the_per_user_directory
-    // FioriVoce is always "frozen": settings in the working directory are never picked up.
+    // OpenWhisper_CPP is always "frozen": settings in the working directory are never picked up.
     Places places;
     write_text(places.elsewhere / identity().settings_file, "{}");
     ScopedCwd cwd(places.elsewhere);
@@ -106,12 +107,12 @@ TEST_CASE("the data directory variable is made absolute and an empty one is igno
     Places places;
     ScopedCwd cwd(places.elsewhere);
 
-    places.env.set("FIORIVOCE_DATA_DIR", "relative/./data/../chosen");
+    places.env.set("OPENWHISPER_CPP_DATA_DIR", "relative/./data/../chosen");
     const auto relative = Paths::resolve(identity(), places.env);
     CHECK(relative.data_root().is_absolute());
     CHECK(relative.data_root() == (places.elsewhere / "relative" / "chosen").make_preferred());
 
-    places.env.set("FIORIVOCE_DATA_DIR", "");
+    places.env.set("OPENWHISPER_CPP_DATA_DIR", "");
     CHECK(Paths::resolve(identity(), places.env).data_root() == places.per_user);
 }
 
@@ -122,7 +123,7 @@ TEST_CASE("a leading tilde in the data directory variable is the home folder") {
 #else
     places.env.set("HOME", fv::path_to_utf8(places.temp.path() / "home"));
 #endif
-    places.env.set("FIORIVOCE_DATA_DIR", "~/fv-data");
+    places.env.set("OPENWHISPER_CPP_DATA_DIR", "~/fv-data");
 
     const auto paths = Paths::resolve(identity(), places.env);
 
@@ -133,7 +134,7 @@ TEST_CASE("components and speech models stay in the per user directory") {
     // config.py components_root: never per data directory, so multi-gigabyte downloads are not
     // duplicated.
     Places places;
-    places.env.set("FIORIVOCE_DATA_DIR", fv::path_to_utf8(places.temp.path() / "chosen"));
+    places.env.set("OPENWHISPER_CPP_DATA_DIR", fv::path_to_utf8(places.temp.path() / "chosen"));
 
     const auto paths = Paths::resolve(identity(), places.env);
 
@@ -173,7 +174,7 @@ TEST_CASE("without LOCALAPPDATA the per user directory is in the home folder") {
     TempDir temp;
     MapEnvReader env{{"USERPROFILE", fv::path_to_utf8(temp.path())}};
 
-    CHECK(Paths::resolve(identity(), env).data_root() == temp.path() / "FioriVoce");
+    CHECK(Paths::resolve(identity(), env).data_root() == temp.path() / "OpenWhisper_CPP");
 }
 #endif
 
@@ -183,7 +184,7 @@ TEST_CASE("an environment pinned without a home never resolves to the real user'
     TempDir temp;
     ScopedCwd cwd(temp.path());
     MapEnvReader env;
-    env.set("FIORIVOCE_DATA_DIR", fv::path_to_utf8(temp.path() / "data"));
+    env.set("OPENWHISPER_CPP_DATA_DIR", fv::path_to_utf8(temp.path() / "data"));
     CHECK_FALSE(env.is_process());
     CHECK(fv::system_env().is_process());
 
@@ -203,20 +204,20 @@ TEST_CASE("an environment pinned without a home never resolves to the real user'
     }
 }
 
-TEST_CASE("identity names every FioriVoce file and OpenWhisper's for import") {
+TEST_CASE("identity names every OpenWhisper_CPP file and OpenWhisper's for import") {
     const auto& app = fv::identity();
-    CHECK(app.product == "FioriVoce");
-    CHECK(app.data_dir_name == "FioriVoce");
-    CHECK(app.env_prefix == "FIORIVOCE_");
-    CHECK(app.settings_file == "fiorivoce_settings.json");
-    CHECK(app.database_file == "fiorivoce.db");
-    CHECK(app.log_file == "fiorivoce.log");
-    CHECK(app.lease_file == ".fiorivoce-data.lock");
-    CHECK(app.restore_dir == ".fiorivoce-restore");
-    CHECK(app.credential_service == "FioriVoce");
-    CHECK(app.backup_format == "fiorivoce-backup");
+    CHECK(app.product == "OpenWhisper_CPP");
+    CHECK(app.data_dir_name == "OpenWhisper_CPP");
+    CHECK(app.env_prefix == "OPENWHISPER_CPP_");
+    CHECK(app.settings_file == "openwhisper_cpp_settings.json");
+    CHECK(app.database_file == "openwhisper-cpp.db");
+    CHECK(app.log_file == "openwhisper-cpp.log");
+    CHECK(app.lease_file == ".openwhisper-cpp-data.lock");
+    CHECK(app.restore_dir == ".openwhisper-cpp-restore");
+    CHECK(app.credential_service == "OpenWhisper_CPP");
+    CHECK(app.backup_format == "openwhisper-cpp-backup");
     CHECK(app.backup_extension == ".fvbackup");
-    CHECK(app.instance_key_prefix == "fiorivoce-ui");
+    CHECK(app.instance_key_prefix == "openwhisper-cpp-ui");
 
     const auto& legacy = fv::legacy_identity();
     CHECK(legacy.product == "OpenWhisper");
@@ -232,8 +233,8 @@ TEST_CASE("identity names every FioriVoce file and OpenWhisper's for import") {
     CHECK(legacy.backup_extension == ".owbackup");
     CHECK(legacy.instance_key_prefix == "openwhisper-ui");
 
-    CHECK(app.wake_name == "fiorivoce");
-    CHECK(app.wake_name_spaced == "fiori voce");
+    CHECK(app.wake_name == "openwhispercpp");
+    CHECK(app.wake_name_spaced == "open whisper c p p");
     CHECK(legacy.wake_name == "openwhisper");
     CHECK(legacy.wake_name_spaced == "open whisper");
     // A stored value keeps OpenWhisper's spelling in both apps.
@@ -250,11 +251,11 @@ TEST_CASE("a pinned environment with its per-user folders names nothing outside 
     // keep components and speech models in local_app_dir(). A pinned environment that sets only
     // the data folder leaves "~" as written, so the test rigs pin the per-user folders too.
     fv::test::TempDir temp;
-    MapEnvReader bare{{"FIORIVOCE_DATA_DIR", fv::path_to_utf8(temp.path() / "data")}};
+    MapEnvReader bare{{"OPENWHISPER_CPP_DATA_DIR", fv::path_to_utf8(temp.path() / "data")}};
     const auto loose = Paths::resolve(identity(), bare);
     CHECK_FALSE(loose.components_root().is_absolute()); // "~/..." below the working directory
 
-    MapEnvReader env{{"FIORIVOCE_DATA_DIR", fv::path_to_utf8(temp.path() / "data")}};
+    MapEnvReader env{{"OPENWHISPER_CPP_DATA_DIR", fv::path_to_utf8(temp.path() / "data")}};
     fv::pin_per_user_folders(env, temp.path() / "per-user");
     const auto paths = Paths::resolve(identity(), env);
 

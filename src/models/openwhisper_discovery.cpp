@@ -36,7 +36,7 @@ namespace {
 constexpr log::Logger kLog("models.adoption");
 
 // The files python-3.12.10-embed-amd64.zip puts at the top of OpenWhisper's Windows runtime
-// (plus the .pyd modules), and OpenWhisper's own markers: FioriVoce writes its own.
+// (plus the .pyd modules), and OpenWhisper's own markers: OpenWhisper_CPP writes its own.
 constexpr std::array<std::string_view, 16> kSkippedTopLevel{
     "python.exe",       "pythonw.exe",        "python3.dll",   "python312.dll",
     "python312.zip",    "python312._pth",     "python.cat",    "LICENSE.txt",
@@ -47,7 +47,7 @@ fs::path from_utf8(std::string_view text) {
     return fv::base_utf8::path_from_utf8(text);
 }
 
-// The OpenWhisper speaker model that failed its integrity check, beside FioriVoce's
+// The OpenWhisper speaker model that failed its integrity check, beside OpenWhisper_CPP's
 // speaker-model folder (never in it: that folder holds only the model): {"path", "size",
 // "mtime"} (mtime in the file clock's ticks). One file at a time.
 constexpr std::string_view kRejectedSpeakerModel = ".adopted-speaker-model-rejected.json";

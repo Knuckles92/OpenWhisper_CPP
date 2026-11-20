@@ -3,7 +3,7 @@
 _title_text(model) and _body_text(model, policy, env_blocked, runtime, gpu_runtime) run on a stub
 dialog. The body reads missing_runtime and gpu_runtime_offer of services.local_asr.catalog,
 patched here to answer `runtime` and `gpu_runtime` (the latter is asked only when a runtime is
-missing). FioriVoce's models are Parakeet's; "unknown-model" stands for a name outside the
+missing). OpenWhisper_CPP's models are Parakeet's; "unknown-model" stands for a name outside the
 catalog that is not a custom source."""
 
 from types import SimpleNamespace

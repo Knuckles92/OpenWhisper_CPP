@@ -6,7 +6,7 @@ if(TARGET fv_agents_tests)
     # comment). A pass calls the app's tools back over loopback HTTP, hence the socket library.
     add_executable(fv_fake_agent fake_agent/fake_agent.cpp)
     target_compile_features(fv_fake_agent PRIVATE cxx_std_23)
-    fiorivoce_target_defaults(fv_fake_agent)
+    openwhisper_cpp_target_defaults(fv_fake_agent)
     target_link_libraries(fv_fake_agent PRIVATE nlohmann_json::nlohmann_json
                                                 $<$<PLATFORM_ID:Windows>:ws2_32>)
     add_dependencies(fv_agents_tests fv_fake_agent)

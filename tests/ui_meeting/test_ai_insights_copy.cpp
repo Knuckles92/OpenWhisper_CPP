@@ -148,8 +148,9 @@ TEST_CASE("test_local_fast_judgments_keep_the_privacy_claim", "[unit]") {
                      {"typesafe_enabled", true},
                      {"typesafe_provider", "text_model"}};
     CHECK(fv::ai_insights_destination(local).second == "transcript text stays on this computer");
-    // FioriVoce's meetings judge only on this computer: a hosted judge (the cleanup model here,
-    // or TypeSafe) receives nothing from a meeting, so the claim stands where OpenWhisper drops it.
+    // OpenWhisper_CPP's meetings judge only on this computer: a hosted judge (the cleanup model
+    // here, or TypeSafe) receives nothing from a meeting, so the claim stands where OpenWhisper
+    // drops it.
     Json hosted = local;
     hosted["transcript_cleanup_provider"] = "openrouter";
     hosted["transcript_cleanup_model"] = "vendor/model";
@@ -183,11 +184,12 @@ TEST_CASE("the tooltip explains the switch", "[unit]") {
 
 TEST_CASE("Home's AI insights line names the model, then who runs it", "[unit]") {
     NoAgentConfig config;
-    CHECK(fv::meeting_intelligence_home_line(
-              {{"meeting_llm_provider", "openrouter"},
-               {"meeting_llm_model", "deepseek/deepseek-v4.1-flash"}}) ==
-          "deepseek/deepseek-v4.1-flash \xC2\xB7 OpenRouter \xC2\xB7 FioriVoce. Turn it on for "
-          "each meeting when you start it.");
+    CHECK(
+        fv::meeting_intelligence_home_line(
+            {{"meeting_llm_provider", "openrouter"},
+             {"meeting_llm_model", "deepseek/deepseek-v4.1-flash"}}) ==
+        "deepseek/deepseek-v4.1-flash \xC2\xB7 OpenRouter \xC2\xB7 OpenWhisper_CPP. Turn it on for "
+        "each meeting when you start it.");
     CHECK(fv::meeting_intelligence_home_line(
               claudeSettings({{"meeting_agent_models", {{"claude_code", "haiku"}}}}),
               scanned(ScanResult{{"claude_code", claude()}})) ==
@@ -220,7 +222,7 @@ TEST_CASE("TestConsentForAnAgent::test_agent_copy_names_the_agent_not_the_endpoi
     CHECK(text.contains(QStringLiteral("no files, no shell")));
     CHECK_FALSE(text.contains(QStringLiteral("OpenRouter")));
     CHECK(text.contains(QStringLiteral("AI insights do not upload audio")));
-    CHECK(text.contains(QStringLiteral("FioriVoce's meeting tools")));
+    CHECK(text.contains(QStringLiteral("OpenWhisper_CPP's meeting tools")));
     CHECK(dialog.remote());
     CHECK(dialog.agentId() == QStringLiteral("claude_code"));
     CHECK(dialog.accessibleDescription().contains(QStringLiteral("Claude Code")));
@@ -273,7 +275,7 @@ TEST_CASE("the consent names a local endpoint and says the text stays", "[widget
     CHECK(body(dialog).contains(QStringLiteral("127.0.0.1:1234")));
     CHECK(body(dialog).contains(QStringLiteral("does not leave this machine")));
     CHECK_FALSE(body(dialog).contains(QStringLiteral("OpenRouter")));
-    // FioriVoce's meetings use no hosted judge, so Fast judgments never weaken the claim.
+    // OpenWhisper_CPP's meetings use no hosted judge, so Fast judgments never weaken the claim.
     fv::MeetingConsentDialog judged(copyFor({{"meeting_llm_provider", "ollama"},
                                              {"meeting_llm_model", "qwen3:4b"},
                                              {"typesafe_enabled", true}}));

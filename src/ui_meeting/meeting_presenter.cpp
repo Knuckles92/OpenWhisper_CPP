@@ -701,7 +701,7 @@ void MeetingPresenter::end() {
         QMessageBox::question(
             &window_, QStringLiteral("End meeting?"),
             QStringLiteral("End this meeting now? Audio capture will stop immediately. "
-                           "FioriVoce will keep working in the background to finish "
+                           "OpenWhisper_CPP will keep working in the background to finish "
                            "the transcript and report."),
             QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes) {
         runtime_.end();

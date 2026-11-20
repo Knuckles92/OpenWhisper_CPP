@@ -1,7 +1,8 @@
 // The speech engine's startup (architecture 5.7, 7.6): component recovery and adoption before
 // any runtime loads, the setup dialog only when something is missing, the crash offer, and the
 // loaded runtime's lease. Adoption runs against an OpenWhisper-style tree in the test's own
-// temporary folder; nothing under the owner's OpenWhisper or FioriVoce folders is read or changed.
+// temporary folder; nothing under the owner's OpenWhisper or OpenWhisper_CPP folders is read or
+// changed.
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/generators/catch_generators.hpp>
 

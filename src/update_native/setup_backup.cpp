@@ -18,7 +18,7 @@ constexpr auto marker = "setup.json";
 
 bool managed(std::string_view name) {
     const auto root = py::lower(name.substr(0, name.find('/')));
-    if (root == "share" || (root.starts_with("fiorivoce") && root.ends_with(".exe")))
+    if (root == "share" || (root.starts_with("openwhisper-cpp") && root.ends_with(".exe")))
         return true;
     try {
         check_topology(name, false);

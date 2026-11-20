@@ -147,7 +147,7 @@ public:
 };
 
 // The per-user folder (components, speech models) moved under the temporary data folder for the
-// rig's life: Paths takes it from LOCALAPPDATA or XDG_DATA_HOME, not FIORIVOCE_DATA_DIR, so
+// rig's life: Paths takes it from LOCALAPPDATA or XDG_DATA_HOME, not OPENWHISPER_CPP_DATA_DIR, so
 // without this a test would scan, and write into, the owner's real folders.
 class ScopedPerUserFolder {
 public:

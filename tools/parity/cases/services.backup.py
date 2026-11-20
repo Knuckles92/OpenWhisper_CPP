@@ -229,7 +229,7 @@ CASES = {
     ]] + [[None], [5], [["data", "x"]]],
     "_safe_member": [[name] for name in [
         "manifest.json", "data/openwhisper_settings.json", "data/openwhisper.db",
-        "data/fiorivoce.db", "data/recordings/a.wav", "data/recordings/devices/peer/r.wav",
+        "data/openwhisper-cpp.db", "data/recordings/a.wav", "data/recordings/devices/peer/r.wav",
         "data/meetings/m1/mic-000.wav", "data/captures/2026/shot.png",
         "data/.recorded_audio-recovery/x/session.json", "data/recorded_audio.wav",
         "data/scratchpad.txt", "data/meetings.json", "data/meetings.json.bak",
@@ -316,7 +316,7 @@ CASES["_check_staged_file"] = [
         ({"path": "manifest.json", "size": 4}, []),
         ({"path": "data/../x", "size": 4}, []),
         ({"path": "data/remote_records/x", "size": 4}, []),
-        ({"path": "data/fiorivoce.db", "size": 3}, []),
+        ({"path": "data/openwhisper-cpp.db", "size": 3}, []),
         ({"path": "data/openwhisper.db-wal", "size": 3}, []),
         ("data/recordings/a.wav", []),
         (None, []),

@@ -1,6 +1,6 @@
-// The restart offer after FioriVoce's program changed under the running app, the restart itself,
-// and the previous launch's update error. Ported from tests/test_code_change_restart.py (5 of 6;
-// the meeting error's offer waits for M7's meeting runtime), with the offer's box answered by
+// The restart offer after OpenWhisper_CPP's program changed under the running app, the restart
+// itself, and the previous launch's update error. Ported from tests/test_code_change_restart.py (5
+// of 6; the meeting error's offer waits for M7's meeting runtime), with the offer's box answered by
 // clicking its buttons where Python patched QMessageBox.exec.
 #include <catch2/catch_test_macros.hpp>
 
@@ -157,9 +157,10 @@ TEST_CASE("an error offer has no dont show again", "[test_code_change_restart][w
     REQUIRE(controller.hadCheckBox.size() == 1);
     CHECK_FALSE(controller.hadCheckBox[0]);
     CHECK(controller.details[0] == QStringLiteral("boom"));
-    CHECK(controller.texts[0] ==
-          QStringLiteral("FioriVoce was updated while it was running, which likely caused this "
-                         "error."));
+    CHECK(
+        controller.texts[0] ==
+        QStringLiteral("OpenWhisper_CPP was updated while it was running, which likely caused this "
+                       "error."));
 }
 
 // from tests/test_code_change_restart.py::test_restart_now_confirms_running_work_before_restarting
@@ -219,14 +220,14 @@ TEST_CASE("the controller polls for a changed program and restarts on Restart no
 TEST_CASE("a leftover update error is shown once in an Update failed box", "[widget]") {
     fv::testkit::TempDataRoot root;
     const std::filesystem::path updates = root.path() / "updates";
-    fv::update::write_apply_error(updates, "The setup could not replace FioriVoce.");
+    fv::update::write_apply_error(updates, "The setup could not replace OpenWhisper_CPP.");
     std::vector<std::string> boxes;
     const auto warning = [&boxes](QWidget*, const QString& title, const QString& text) {
         boxes.push_back(title.toStdString() + ":" + text.toStdString());
     };
     CHECK(fv::showApplyErrorIfAny(updates, nullptr, warning));
     CHECK(boxes ==
-          std::vector<std::string>{"Update failed:The setup could not replace FioriVoce."});
+          std::vector<std::string>{"Update failed:The setup could not replace OpenWhisper_CPP."});
     CHECK_FALSE(fv::showApplyErrorIfAny(updates, nullptr, warning));
     CHECK(boxes.size() == 1);
 }

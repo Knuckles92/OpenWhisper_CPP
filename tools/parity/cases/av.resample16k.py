@@ -72,7 +72,7 @@ PINS = {
     "ffmpeg": {name: ".".join(str(part) for part in version)
                for name, version in sorted(_av.library_versions.items())
                if name in ("libavcodec", "libavformat", "libavutil", "libswresample")},
-    # Measured against FFmpeg 9.0.2 (vcpkg; libavcodec 63.1), which FioriVoce links. Every other
+    # Measured against FFmpeg 9.0.2 (vcpkg; libavcodec 63.1), which OpenWhisper_CPP links. Every other
     # fixture matches exactly. Keys: decoded_frames and length (how far the native frame count
     # and the 16 kHz length may be apart), differing_samples and max_delta (within the common
     # length), differing_tail (differences only within that many samples of the common end).

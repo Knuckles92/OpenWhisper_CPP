@@ -208,7 +208,7 @@ public:
 
 struct RuntimeRig {
     fv::walkthrough::test::TempFolder folder;
-    fv::MapEnvReader env{{"FIORIVOCE_DATA_DIR", fv::path_to_utf8(folder.path())}};
+    fv::MapEnvReader env{{"OPENWHISPER_CPP_DATA_DIR", fv::path_to_utf8(folder.path())}};
     fv::Paths paths = fv::Paths::resolve(fv::identity(), env);
     fv::SettingsStore settings{folder / "settings.json"};
     fv::FakeClock clock;

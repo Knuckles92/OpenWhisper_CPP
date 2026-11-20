@@ -199,9 +199,9 @@ Hook limits and validation (`services/automation/models.py`): 20 webhooks, 20 pr
 
 Secrets: credential store entries `OPENWHISPER_ACTION_SECRET_<id>` and `OPENWHISPER_WEBHOOK_SECRET_<id>` (not in settings; the backup scrub drops secret-looking keys). The signing scheme is Standard Webhooks (`webhook-id`, `webhook-timestamp`, `webhook-signature` headers) from `services/automation/signing.py`.
 
-MCP setup formats (`services/agent_mcp/setup.py`): `client_config` (Cursor JSON `{"mcpServers":{"openwhisper":{"url","headers":{"Authorization":"Bearer <token>"}}}}`, indent 2, `ensure_ascii=False`), `claude_command` (`claude mcp add --transport http --scope user openwhisper <url> --header "Authorization: Bearer <token>"`), `chatgpt_config` (TOML `[mcp_servers.openwhisper]`, `url = ...`, `http_headers = { Authorization = "Bearer ..." }`), `agent_prompt(url, host_name, token)` (local vs Tailscale wording, long fixed paragraph), `claude_channel_config()` (`.mcp.json` entry `{"mcpServers":{"openwhisper":{"command","args":[exe,("main.py",)"--channel"],"env"?}}}`, env only when the data dir is non-standard: `OPENWHISPER_DATA_DIR`), `claude_channel_command()` (`claude --dangerously-load-development-channels server:openwhisper`), `TOKEN_PLACEHOLDER = "<PASTE_TOKEN>"`. The channel and CLI launching `--channel` and the data-dir env contract are what an existing Claude Code install depends on; FioriVoce must keep `server name = "openwhisper"` unless the project owner decides to rename (see open questions).
+MCP setup formats (`services/agent_mcp/setup.py`): `client_config` (Cursor JSON `{"mcpServers":{"openwhisper":{"url","headers":{"Authorization":"Bearer <token>"}}}}`, indent 2, `ensure_ascii=False`), `claude_command` (`claude mcp add --transport http --scope user openwhisper <url> --header "Authorization: Bearer <token>"`), `chatgpt_config` (TOML `[mcp_servers.openwhisper]`, `url = ...`, `http_headers = { Authorization = "Bearer ..." }`), `agent_prompt(url, host_name, token)` (local vs Tailscale wording, long fixed paragraph), `claude_channel_config()` (`.mcp.json` entry `{"mcpServers":{"openwhisper":{"command","args":[exe,("main.py",)"--channel"],"env"?}}}`, env only when the data dir is non-standard: `OPENWHISPER_DATA_DIR`), `claude_channel_command()` (`claude --dangerously-load-development-channels server:openwhisper`), `TOKEN_PLACEHOLDER = "<PASTE_TOKEN>"`. The channel and CLI launching `--channel` and the data-dir env contract are what an existing Claude Code install depends on; OpenWhisper_CPP must keep `server name = "openwhisper"` unless the project owner decides to rename (see open questions).
 
-MCP Settings controls (`services/agent_mcp/controls.py:SETTING_CONTROLS`, 26 rows in groups Dictation, Appearance, Cleanup, Meetings, History, Updates) are keyed by Python setting names; the FioriVoce set must mirror whichever of those settings exist.
+MCP Settings controls (`services/agent_mcp/controls.py:SETTING_CONTROLS`, 26 rows in groups Dictation, Appearance, Cleanup, Meetings, History, Updates) are keyed by Python setting names; the OpenWhisper_CPP set must mirror whichever of those settings exist.
 
 Live API listeners: `events.bus().subscribers("sse")` and `("claude-channel")`. Remote MCP link strings (`mcp_link.READY/FORBIDDEN/UNSUPPORTED/OFFLINE`) are protocol states from `services/remote_asr/mcp_link.py`.
 
@@ -252,17 +252,17 @@ Exact phrasing tables from `ui_qt/widgets/action_copy.py` (the golden-vector sou
   - Hotkey capture and display (`format_hotkey_display`, `ProfileHotkeyInput`, `CommandShortcutField`) come from the hotkeys area and are platform-specific (Win32 hooks vs evdev/Wayland portals); this area only calls their public API and must pause app hotkeys while capturing.
   - Tailscale access (MCP): a Tailscale interface is needed; the UI is the same everywhere, the address detection in `agent_mcp.runtime` is not here.
   - Monospace stack `"Cascadia Mono", "Consolas", "SF Mono", "Menlo", monospace`.
-  - The Claude Code channel command line uses the interpreter or frozen exe path (`channel_command_line`); FioriVoce's C++ binary must provide its own `--channel` mode (open question).
+  - The Claude Code channel command line uses the interpreter or frozen exe path (`channel_command_line`); OpenWhisper_CPP's C++ binary must provide its own `--channel` mode (open question).
 
 ## Engine-specific code
 
 - No code here exists for faster-whisper, Moonshine, Qwen3-ASR, Parakeet MLX or the worker-process plumbing. Nothing to drop.
 - What must adapt to the in-process Parakeet engine:
-  - `try_action` / Try it runs the action runtime, which may run a dictation job with `shaping` = cleanup/profile/transform; AI cleanup/profile/transform paths use the text-LLM area, not the engine. In FioriVoce the engine runs on `EngineWorker`'s thread and is reached only via queued signals; Try it takes already-transcribed words so it does not touch the recognizer.
+  - `try_action` / Try it runs the action runtime, which may run a dictation job with `shaping` = cleanup/profile/transform; AI cleanup/profile/transform paths use the text-LLM area, not the engine. In OpenWhisper_CPP the engine runs on `EngineWorker`'s thread and is reached only via queued signals; Try it takes already-transcribed words so it does not touch the recognizer.
   - Route by voice and the "Fast judgments" judge (typesafe route) are a cloud/local LLM feature (not Parakeet): treat as "undecided backend" until the project owner decides about cloud API support; if dropped, the Route tiles, status line, privacy caption and `route_record` shortcut go away.
   - The Agent picker's "Pi / OpenCode SDK" built-in tile and its AI insights purpose belong to Meeting Mode intelligence (cloud or local LLM), "AI cleanup" purpose belongs to the text-LLM area. The agent scan, tiles and model rows (Claude Code/Codex/OpenCode CLIs) are engine-independent and portable.
   - `meeting.*` event types in the hooks list exist only if Meeting Mode is ported; keep the chips conditional on the event catalog the C++ app publishes.
-  - `transcription.preview` events ("Live preview text") map to the in-process streaming-by-windows preview in FioriVoce (Parakeet TDT is offline-only; preview = decoded windows).
+  - `transcription.preview` events ("Live preview text") map to the in-process streaming-by-windows preview in OpenWhisper_CPP (Parakeet TDT is offline-only; preview = decoded windows).
   - Remote-computer / paired-host MCP management (A21-58) depends on the remote engine decision.
 
 ## Dependencies on other areas
@@ -357,4 +357,4 @@ Rough C++ size: ~12,000 lines including headers (Python 8,337; C++ will be large
 - MCP status/counters: replace the 500 ms polling with signals from the MCP runtime and event bus.
 
 ## Open questions for the project owner (summary)
-See the structured summary; they cover Route by voice / Fast judgments, cloud and remote engines for the MCP host tab, the MCP server and channel executable name, the product name in copy (OpenWhisper vs FioriVoce in user-visible text and `.mcp.json` server name, `~/OpenWhisper Agent Tasks`, `OPENWHISPER_*` secret names), and whether existing OpenWhisper settings/credentials must be readable.
+See the structured summary; they cover Route by voice / Fast judgments, cloud and remote engines for the MCP host tab, the MCP server and channel executable name, the product name in copy (OpenWhisper vs OpenWhisper_CPP in user-visible text and `.mcp.json` server name, `~/OpenWhisper Agent Tasks`, `OPENWHISPER_*` secret names), and whether existing OpenWhisper settings/credentials must be readable.

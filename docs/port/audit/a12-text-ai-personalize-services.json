@@ -209,7 +209,7 @@
     "tests/agents/test_cleanup_closing.cpp",
     "tests/llm/test_transcript_cleanup.cpp"
    ],
-   "note": "agents::kCleanupClosing (used by ask_for_cleanup and the OpenCode cleanup) is Python's closing again, 'Return only the finished text requested by the instructions, without commentary.', followed by ' No tools are available.' as FioriVoce's addition (its cleanup path sends no tool contract). Pinned by tests/agents/test_cleanup_closing.cpp 'agent cleanup closes its instructions with OpenWhisper's sentence'. The runner, the 60 s budget and stopping the CLI stay pinned by test_transcript_cleanup.cpp; what the CLI receives is difference a04-agent-cleanup-scope."
+   "note": "agents::kCleanupClosing (used by ask_for_cleanup and the OpenCode cleanup) is Python's closing again, 'Return only the finished text requested by the instructions, without commentary.', followed by ' No tools are available.' as OpenWhisper_CPP's addition (its cleanup path sends no tool contract). Pinned by tests/agents/test_cleanup_closing.cpp 'agent cleanup closes its instructions with OpenWhisper's sentence'. The runner, the 60 s budget and stopping the CLI stay pinned by test_transcript_cleanup.cpp; what the CLI receives is difference a04-agent-cleanup-scope."
   },
   "A12-18": {
    "status": "verified",
@@ -585,7 +585,7 @@
     "tests/llm/test_cleanup_agent_offer.cpp",
     "tests/ui_personalize/test_cleanup_agent_offer.cpp"
    ],
-   "note": "Ported: llm/cleanup_agent_offer (pending, offerable, accept, decline) and the dialog in ui_personalize/cleanup_agent_offer, connected by PersonalizeWiring to the cleanup toggles. Accepting selects the agent only after the same consent question the AI cleanup settings ask; that consent step is FioriVoce's (difference a04-agent-cleanup-scope), and declining it declines the offer. Pinned by tests/llm/test_cleanup_agent_offer.cpp 'test_pending', 'test_only_signed_in_claude_code_and_codex_are_offered_claude_first', 'accepting the offer with consent authorizes the agent with its remembered model' and tests/ui_personalize/test_cleanup_agent_offer.cpp 'test_yes_switches_and_refreshes', 'declining the consent question declines the offer'."
+   "note": "Ported: llm/cleanup_agent_offer (pending, offerable, accept, decline) and the dialog in ui_personalize/cleanup_agent_offer, connected by PersonalizeWiring to the cleanup toggles. Accepting selects the agent only after the same consent question the AI cleanup settings ask; that consent step is OpenWhisper_CPP's (difference a04-agent-cleanup-scope), and declining it declines the offer. Pinned by tests/llm/test_cleanup_agent_offer.cpp 'test_pending', 'test_only_signed_in_claude_code_and_codex_are_offered_claude_first', 'accepting the offer with consent authorizes the agent with its remembered model' and tests/ui_personalize/test_cleanup_agent_offer.cpp 'test_yes_switches_and_refreshes', 'declining the consent question declines the offer'."
   },
   "A12-49": {
    "status": "dropped",
@@ -840,7 +840,7 @@
    "tests": [
     "tests/llm/test_transcript_cleanup.cpp"
    ],
-   "note": "A failed agent run now sets last_error 'Agent cleanup failed' (Python's case) for a run that returned nothing and for one that threw; 'empty response', 'not run' and 'canceled' as before. Pinned by tests/llm/test_transcript_cleanup.cpp 'installed agent failure and empty output preserve raw transcript'. Python would carry the runner's own outcome.error when it had one; FioriVoce's runner reports none (its message could hold transcript text), so the fallback text is always used, as the map row (no detail) describes."
+   "note": "A failed agent run now sets last_error 'Agent cleanup failed' (Python's case) for a run that returned nothing and for one that threw; 'empty response', 'not run' and 'canceled' as before. Pinned by tests/llm/test_transcript_cleanup.cpp 'installed agent failure and empty output preserve raw transcript'. Python would carry the runner's own outcome.error when it had one; OpenWhisper_CPP's runner reports none (its message could hold transcript text), so the fallback text is always used, as the map row (no detail) describes."
   },
   "A12-71": {
    "status": "verified",
@@ -961,7 +961,7 @@
    "tests": [
     "tests/llm/test_cleanup_agent_offer.cpp"
    ],
-   "note": "pending/accept/decline are ported in llm/cleanup_agent_offer.cpp: the stored-provider check, ids limited to claude_code/codex, the remembered model written back with the provider in one mutation, decline setting cleanup_agent_offer_answered. Accept selects the agent only after the AI cleanup consent question (FioriVoce's step, difference a04-agent-cleanup-scope). Pinned by tests/llm/test_cleanup_agent_offer.cpp 'test_accept_switches_cleanup_to_the_agent', 'accepting the offer with consent authorizes the agent with its remembered model', 'test_decline_keeps_the_default_and_is_not_asked_again', 'test_pending'."
+   "note": "pending/accept/decline are ported in llm/cleanup_agent_offer.cpp: the stored-provider check, ids limited to claude_code/codex, the remembered model written back with the provider in one mutation, decline setting cleanup_agent_offer_answered. Accept selects the agent only after the AI cleanup consent question (OpenWhisper_CPP's step, difference a04-agent-cleanup-scope). Pinned by tests/llm/test_cleanup_agent_offer.cpp 'test_accept_switches_cleanup_to_the_agent', 'accepting the offer with consent authorizes the agent with its remembered model', 'test_decline_keeps_the_default_and_is_not_asked_again', 'test_pending'."
   }
  },
  "differences": []

@@ -1,5 +1,5 @@
 // The download consent coordinator, the download error text and the inventory snapshot: the 26
-// tests of OpenWhisper's tests/test_hf_access.py that FioriVoce keeps, and the vectors of
+// tests of OpenWhisper's tests/test_hf_access.py that OpenWhisper_CPP keeps, and the vectors of
 // services.hf_access.
 
 #include <catch2/catch_test_macros.hpp>
@@ -385,7 +385,7 @@ TEST_CASE("TestClaimBatch::test_requests_in_flight_counts_claimed_slots", "[test
     CHECK(c.coordinator.requests_in_flight() == 1);
 }
 
-// --- FioriVoce's own ---
+// --- OpenWhisper_CPP's own ---
 
 TEST_CASE("the policy is the saved one and set_policy saves it", "[test_hf_access]") {
     Coordinator c;

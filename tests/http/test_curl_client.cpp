@@ -214,7 +214,7 @@ TEST_CASE("a response comes back with its status line, headers and body", "[curl
     CHECK(seen[0].header("User-Agent") == fv::http::user_agent());
     CHECK(seen[0].header("X-Empty") == "");
     CHECK_FALSE(seen[0].header("Range"));
-    CHECK(fv::http::user_agent().starts_with("FioriVoce/"));
+    CHECK(fv::http::user_agent().starts_with("OpenWhisper_CPP/"));
 }
 
 TEST_CASE("range_from asks for the rest of the file", "[curl_client]") {
@@ -449,13 +449,13 @@ TEST_CASE("request bodies are sent as bytes or from a file", "[curl_client]") {
 TEST_CASE("a pinned address connects there and keeps the host name", "[curl_client]") {
     LoopbackServer server(reply_with(LoopbackServer::response(200, "OK", {}, "pinned")));
     auto request =
-        get("http://fiorivoce-test.invalid:" + std::to_string(server.port()) + "/pinned");
+        get("http://openwhisper-cpp-test.invalid:" + std::to_string(server.port()) + "/pinned");
     request.pinned_address = "127.0.0.1";
     const auto response = direct_client()->send(request, {});
     REQUIRE(response.has_value());
     CHECK(response->body == "pinned");
     CHECK(server.requests().at(0).header("Host") ==
-          "fiorivoce-test.invalid:" + std::to_string(server.port()));
+          "openwhisper-cpp-test.invalid:" + std::to_string(server.port()));
 }
 
 TEST_CASE("requests go through the proxy the resolver names", "[curl_client]") {
@@ -467,11 +467,11 @@ TEST_CASE("requests go through the proxy the resolver names", "[curl_client]") {
         return std::optional<std::string>(proxy.url(""));
     };
     const auto client = fv::http::make_curl_client(options);
-    const auto response = client->send(get("http://fiorivoce-test.invalid/through"), {});
+    const auto response = client->send(get("http://openwhisper-cpp-test.invalid/through"), {});
     REQUIRE(response.has_value());
     CHECK(response->body == "via proxy");
-    CHECK(asked == std::vector<std::string>{"http://fiorivoce-test.invalid/through"});
-    CHECK(proxy.requests().at(0).target == "http://fiorivoce-test.invalid/through");
+    CHECK(asked == std::vector<std::string>{"http://openwhisper-cpp-test.invalid/through"});
+    CHECK(proxy.requests().at(0).target == "http://openwhisper-cpp-test.invalid/through");
 
     // bypass_proxy skips the resolver altogether.
     LoopbackServer direct(reply_with(LoopbackServer::response(200, "OK", {}, "direct")));

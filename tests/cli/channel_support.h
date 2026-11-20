@@ -23,8 +23,8 @@
 
 // The Claude Code channel against an app on real sockets, as
 // tests/test_automation_channel_e2e.py runs it: FakeApp serves the two routes the channel uses
-// the way the live API describes them, and ChannelProcess runs fiorivoce-cli --channel (or
-// fiorivoce --channel) on pipes, as Claude Code starts it.
+// the way the live API describes them, and ChannelProcess runs openwhisper-cpp-cli --channel (or
+// openwhisper-cpp --channel) on pipes, as Claude Code starts it.
 namespace fv::clitest {
 
 inline const std::string kChannelToken = "t0ken-for-the-channel-tests-0123456789abcdef";
@@ -98,7 +98,7 @@ private:
 // starts can show a window.
 std::map<std::string, std::string> child_env(const std::map<std::string, std::string>& values);
 
-// fiorivoce-cli --channel (or another program) on pipes, speaking JSON-RPC over them.
+// openwhisper-cpp-cli --channel (or another program) on pipes, speaking JSON-RPC over them.
 class ChannelProcess {
 public:
     ChannelProcess(const std::filesystem::path& program, std::vector<std::string> args,
@@ -136,7 +136,8 @@ private:
     int next_id_ = 100;
 };
 
-// fiorivoce.exe beside fiorivoce-cli (the forwarding tests); empty where the build has no app.
+// openwhisper-cpp.exe beside openwhisper-cpp-cli (the forwarding tests); empty where the build has
+// no app.
 std::filesystem::path app_executable();
 #ifdef __linux__
 std::vector<std::string> mapped_modules(std::uint32_t pid);

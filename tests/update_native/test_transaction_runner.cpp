@@ -208,7 +208,7 @@ TEST_CASE("a failure the application was not told about stays the helper's to re
 TEST_CASE("a commit refused because the application is still open moves and starts nothing",
           "[update_native]") {
     Fixture f;
-    f.context.parent_exe = f.paths.install_dir / "fiorivoce.exe";
+    f.context.parent_exe = f.paths.install_dir / "openwhisper-cpp.exe";
     f.journal.parent_exe = f.context.parent_exe;
     f.journal.parent_pid = 17;
     f.journal.parent_creation_time = 123;
@@ -276,11 +276,11 @@ TEST_CASE("the application is started again only from an authenticated tree", "[
         return true;
     };
     u::relaunch_verified(f.context, journal, start);
-    CHECK(started == std::vector<fs::path>{f.install / "fiorivoce.exe"});
+    CHECK(started == std::vector<fs::path>{f.install / "openwhisper-cpp.exe"});
     CHECK_THROWS_AS(u::relaunch_verified(f.context, journal, [](const fs::path&) { return false; }),
                     u::UpdateError);
     // An executable that is neither release's is never started.
-    fv::write_file_atomic(f.install / "fiorivoce.exe", "something else");
+    fv::write_file_atomic(f.install / "openwhisper-cpp.exe", "something else");
     CHECK_THROWS_AS(u::relaunch_verified(f.context, journal, start), u::UpdateError);
     CHECK(started.size() == 1);
 }
@@ -290,7 +290,7 @@ TEST_CASE("a helper started in the install folder leaves it for the updates root
           "[update_native]") {
     fv::testkit::TempDataRoot temp;
     const WorkingDirectory restore;
-    const auto install = temp.path() / "programs" / "fiorivoce";
+    const auto install = temp.path() / "programs" / "openwhisper-cpp";
     const auto updates = temp.path() / "appdata" / "updates";
     fs::create_directories(install);
     fs::current_path(install);

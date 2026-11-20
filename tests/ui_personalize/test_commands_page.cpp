@@ -566,7 +566,7 @@ TEST_CASE("test_commands_page_field_never_overlaps_clear",
 }
 
 // from tests/test_personalize_fix_f4_command_field.py::test_home_row_field_never_overlaps_change
-// At the test's widths and 130 %, in the one look FioriVoce has.
+// At the test's widths and 130 %, in the one look OpenWhisper_CPP has.
 TEST_CASE("test_home_row_field_never_overlaps_change",
           "[test_personalize_fix_f4_command_field][widget]") {
     for (const int width : {560, 460}) {

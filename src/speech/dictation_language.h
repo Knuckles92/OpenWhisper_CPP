@@ -12,7 +12,7 @@
 // local_asr_language; the active language is read when a dictation's final pass starts.
 //
 // Every function takes a settings mapping (a SettingsStore snapshot); the mutators change it in
-// place, for SettingsStore::mutate. The engines are FioriVoce's: "parakeet", "api" and
+// place, for SettingsStore::mutate. The engines are OpenWhisper_CPP's: "parakeet", "api" and
 // "remote". The paired host's own languages arrive with the remote engine; until then "remote"
 // reads as a host that has not reported in (every Whisper language, auto as its own).
 // Affinity: thread-safe. Remote capability reports are in memory only.

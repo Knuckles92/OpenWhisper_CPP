@@ -1,8 +1,8 @@
 ## Speech runtime and models (not part of the setup)
 
-The setup does not contain a speech runtime or a speech model. FioriVoce loads a runtime and a
+The setup does not contain a speech runtime or a speech model. OpenWhisper_CPP loads a runtime and a
 model from files you install or download, at run time and by path. Their licences are not
-relicensed by FioriVoce; read the notices that come with each download before you redistribute
+relicensed by OpenWhisper_CPP; read the notices that come with each download before you redistribute
 it.
 
 | Artifact | Upstream project / model card | Licence |
@@ -13,9 +13,9 @@ it.
 
 Attribution (CC-BY-4.0): "Parakeet TDT 0.6B v3" is by NVIDIA Corporation, licensed under
 Creative Commons Attribution 4.0 International
-(<https://creativecommons.org/licenses/by/4.0/>). FioriVoce downloads the GGUF form of the
+(<https://creativecommons.org/licenses/by/4.0/>). OpenWhisper_CPP downloads the GGUF form of the
 weights, quantized to 8 bits, and uses them for inference without retraining. NVIDIA does not
-endorse FioriVoce.
+endorse OpenWhisper_CPP.
 
-The exact versions, URLs, sizes and SHA-256 digests of what FioriVoce downloads are in its model
+The exact versions, URLs, sizes and SHA-256 digests of what OpenWhisper_CPP downloads are in its model
 and component catalog. Pins establish the identity of an artifact, not a security certification.

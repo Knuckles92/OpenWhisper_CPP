@@ -106,7 +106,7 @@
     "tests/ui_personalize/test_dictionary_focus.cpp",
     "tests/text/test_personalize_copy.cpp"
    ],
-   "note": "engine_line and cannot_steer replay the settings_dictionary golden; test_steering_switch, test_the_steer_switch_says_why_it_does_nothing, test_engines_that_take_hints_keep_the_switch. The engine table covers FioriVoce's Parakeet/API/remote engines."
+   "note": "engine_line and cannot_steer replay the settings_dictionary golden; test_steering_switch, test_the_steer_switch_says_why_it_does_nothing, test_engines_that_take_hints_keep_the_switch. The engine table covers OpenWhisper_CPP's Parakeet/API/remote engines."
   },
   "A13-09": {
    "status": "verified",
@@ -614,7 +614,7 @@
     "tests/ui_personalize/test_cleanup_agent_offer.cpp",
     "tests/llm/test_cleanup_agent_offer.cpp"
    ],
-   "note": "Ported in ui_personalize/cleanup_agent_offer.{h,cpp}: after cleanup is turned on, maybeOffer is queued (never inside the toggle), the signed-in Claude Code / Codex are taken from the cached scan or looked for off the GUI thread, and the 'AI cleanup' question offers 'Use <Agent>' / 'Keep <provider>' (Escape keeps). Accepting switches the provider and remembered model only after the same consent question the AI cleanup settings ask (FioriVoce's step, difference a04-agent-cleanup-scope); declining either question sets cleanup_agent_offer_answered. Pinned by tests/ui_personalize/test_cleanup_agent_offer.cpp 'test_yes_switches_and_refreshes', 'test_no_declines', 'declining the consent question declines the offer', 'test_nothing_is_asked_without_an_agent_or_when_not_due', 'without a cached scan the agents are looked for off the GUI thread'. The tests answer the box through a seam, so its button texts are read in code."
+   "note": "Ported in ui_personalize/cleanup_agent_offer.{h,cpp}: after cleanup is turned on, maybeOffer is queued (never inside the toggle), the signed-in Claude Code / Codex are taken from the cached scan or looked for off the GUI thread, and the 'AI cleanup' question offers 'Use <Agent>' / 'Keep <provider>' (Escape keeps). Accepting switches the provider and remembered model only after the same consent question the AI cleanup settings ask (OpenWhisper_CPP's step, difference a04-agent-cleanup-scope); declining either question sets cleanup_agent_offer_answered. Pinned by tests/ui_personalize/test_cleanup_agent_offer.cpp 'test_yes_switches_and_refreshes', 'test_no_declines', 'declining the consent question declines the offer', 'test_nothing_is_asked_without_an_agent_or_when_not_due', 'without a cached scan the agents are looked for off the GUI thread'. The tests answer the box through a seam, so its button texts are read in code."
   },
   "A13-50": {
    "status": "verified",
@@ -649,7 +649,7 @@
    "tests": [
     "tests/ui_widgets/test_speech_server_controls.cpp"
    ],
-   "note": "'the editor shows the server and saves its fields', 'dialog reports a bad address'. FioriVoce keeps the API speech backend, so the dialog is ported."
+   "note": "'the editor shows the server and saves its fields', 'dialog reports a bad address'. OpenWhisper_CPP keeps the API speech backend, so the dialog is ported."
   },
   "A13-53": {
    "status": "verified",
@@ -671,7 +671,7 @@
    "tests": [
     "tests/ui_widgets/test_speech_backend_picker.cpp"
    ],
-   "note": "backend_display_name and populate_backend_combo for FioriVoce's engines (API, Parakeet, Remote computer): alphabetical by casefold, id as data, unknown -> default. The Apple-silicon labels ('Parakeet MLX (recommended)', 'Parakeet (CPU)', the MLX tooltips, speech_model_picker_label's suffixes) are macOS-only and their engines are dropped, as the row and M2.15 say."
+   "note": "backend_display_name and populate_backend_combo for OpenWhisper_CPP's engines (API, Parakeet, Remote computer): alphabetical by casefold, id as data, unknown -> default. The Apple-silicon labels ('Parakeet MLX (recommended)', 'Parakeet (CPU)', the MLX tooltips, speech_model_picker_label's suffixes) are macOS-only and their engines are dropped, as the row and M2.15 say."
   },
   "A13-55": {
    "status": "verified",
@@ -782,7 +782,7 @@
     "A11-51"
    ],
    "openwhisper": "In Settings > AI cleanup the agent tiles are always shown above the Cleanup model tile, and clicking a tile saves that agent, or the built-in model, at once.",
-   "fiorivoce": "The tiles appear after choosing Installed agent… in the provider dropdown, or while an agent is saved. A click only stages a tile; Apply runner commits it, and an agent is saved only after a confirmation that names it as the destination. Applying the built-in API / local model tile clears the approval, and a model picked for a staged agent is saved with Apply.",
+   "openwhisper-cpp": "The tiles appear after choosing Installed agent… in the provider dropdown, or while an agent is saved. A click only stages a tile; Apply runner commits it, and an agent is saved only after a confirmation that names it as the destination. Applying the built-in API / local model tile clears the approval, and a model picked for a staged agent is saved with Apply.",
    "reason": "An installed agent receives the dictated words, so choosing one is confirmed for the named agent before anything is saved or sent.",
    "source": "README.md, AI cleanup for dictation (the flow of commit 139a97b); src/ui_personalize/cleanup_model_section.cpp; tests/ui_personalize/test_cleanup_agent_choice.cpp and tests/ui_controller/test_agent_cleanup_consent.cpp"
   },
@@ -792,7 +792,7 @@
     "A13-32"
    ],
    "openwhisper": "Rule dictation ends each take with clear_recording_data(), which leaves one recording journal folder per rule dictation under the temporary folder.",
-   "fiorivoce": "Rule dictation ends each take with clear_recording_data(true), which discards the take's journal, so no folder is left behind.",
+   "openwhisper-cpp": "Rule dictation ends each take with clear_recording_data(true), which discards the take's journal, so no folder is left behind.",
    "reason": "A rule's spoken words are not a dictation to recover.",
    "source": "The final sweep of 2026-11-19 (open item ui_personalize/cleanup_page.cpp addCleanupHomeRows); src/ui_personalize/rule_dictation.cpp; tests/ui_personalize/test_sweep_rule_journal.cpp ('sweep: a rule dictation leaves no recording journal behind')"
   }

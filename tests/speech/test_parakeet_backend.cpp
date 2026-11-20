@@ -301,7 +301,7 @@ TEST_CASE("the first load names the runtime it loaded, once") {
 
 TEST_CASE("a crashed engine's sentence names the log file") {
     CHECK(fv::speech::engine_stopped_message() ==
-          "The speech engine stopped unexpectedly. Details are in fiorivoce.log.");
+          "The speech engine stopped unexpectedly. Details are in openwhisper-cpp.log.");
 }
 
 TEST_CASE("a missing model or runtime says what to download") {

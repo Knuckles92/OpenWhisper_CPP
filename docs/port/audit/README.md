@@ -4,4 +4,4 @@
 
 Each JSON document names its `area` and `package`. Its `features` and optional `checklist` objects map inventory IDs to evidence. A `verified` or `fixed` entry names existing implementation and test files in the `cpp` and `tests` arrays. A fix includes a `note`. A `dropped` or `other-platform` entry records its `reason`. A `handoff` names its destination in `to` and describes the work in `note`.
 
-A `difference` entry references an ID in a document's `differences` array. That record identifies the affected `features` and gives `openwhisper`, `fiorivoce`, `reason` and `source`. Run `tools/parity/differences.py` to render the collected differences. The strict parity report checks both the behavior audit and the merged upstream test mappings.
+A `difference` entry references an ID in a document's `differences` array. That record identifies the affected `features` and gives `openwhisper`, `openwhisper-cpp`, `reason` and `source`. Run `tools/parity/differences.py` to render the collected differences. The strict parity report checks both the behavior audit and the merged upstream test mappings.

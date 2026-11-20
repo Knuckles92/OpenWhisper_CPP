@@ -1,1 +1,0 @@
-FioriVoce variant of the upstream off-no-key reference. The three PNGs retain the upstream layout and differ only in the Fast Judgments destination disclosure text; their corresponding trees change that label alone. The original OpenWhisper references remain in ../off-no-key.

@@ -840,7 +840,7 @@ TEST_CASE("explorer answering in time opens the link once", "[test_automation_r4
 }
 
 // from tests/test_automation_r4b_launch.py::test_without_pywin32_a_link_opens_from_here
-// FioriVoce asks Explorer with no extra library; what stands for a missing pywin32 is an
+// OpenWhisper_CPP asks Explorer with no extra library; what stands for a missing pywin32 is an
 // Explorer that can't be asked.
 TEST_CASE("when explorer can't be asked a link opens from here", "[test_automation_r4b_launch]") {
     auto backend = undecided_backend();

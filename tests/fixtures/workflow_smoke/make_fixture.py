@@ -2,11 +2,11 @@
 (services/release_checks.py run_workflow_smoke) writes and decodes, made the same way, with
 numpy and the standard wave module of OpenWhisper's interpreter.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
-        $env:FIORIVOCE_OW_PYTHON -I -B tests/fixtures/workflow_smoke/make_fixture.py
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
+        $env:OPENWHISPER_CPP_OW_PYTHON -I -B tests/fixtures/workflow_smoke/make_fixture.py
 
-No OpenWhisper module is imported; only fixture.wav in this folder is written. fiorivoce-cli's
+No OpenWhisper module is imported; only fixture.wav in this folder is written. openwhisper-cpp-cli's
 smoke writes its own copy at run time (an installed build has no tests folder), and the cli
 tests compare its bytes with this file.
 """

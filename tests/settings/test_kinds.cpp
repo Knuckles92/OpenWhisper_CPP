@@ -169,7 +169,7 @@ TEST_CASE("an optional kind reads null unset and an empty container when malform
 }
 
 TEST_CASE("selected model reads a dropped engine as the default") {
-    // Architecture 7.2: FioriVoce's choices are parakeet, api and remote.
+    // Architecture 7.2: OpenWhisper_CPP's choices are parakeet, api and remote.
     for (const char* dropped : {"local_whisper", "qwen_asr", "nemotron", "moonshine",
                                 "parakeet_mlx", "parakeet_unified"}) {
         CHECK(keys::selected_model.read(with("selected_model", dropped)) == "parakeet");
@@ -197,7 +197,7 @@ TEST_CASE("the keys of dropped engines are declared, dropped and still read as P
     CHECK(dropped == 6);
 }
 
-TEST_CASE("the FioriVoce keys are declared after OpenWhisper's and outside the table") {
+TEST_CASE("the OpenWhisper_CPP keys are declared after OpenWhisper's and outside the table") {
     CHECK(keys::fv_speech_runtime.read(Json::object()) == "");
     CHECK(keys::fv_speech_runtime.read(with("fv_speech_runtime", "cuda")) == "cuda");
     CHECK(keys::fv_speech_runtime.read(with("fv_speech_runtime", "gpu")) == "");

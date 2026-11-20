@@ -21,14 +21,14 @@ TEST_CASE("the application carries the product's names, icon, tooltip style and 
     fv::SettingsStore settings(root.path() / std::string(fv::identity().settings_file));
     settings.update(fv::Json{{"ui_theme", "light"}, {"ui_font_scale", 130}});
     int argc = 1;
-    char program[] = "fiorivoce";
+    char program[] = "openwhisper-cpp";
     char* argv[] = {program, nullptr};
 
     fv::Application application(settings, argc, argv);
 
-    CHECK(QApplication::applicationName() == QStringLiteral("FioriVoce"));
-    CHECK(QApplication::applicationDisplayName() == QStringLiteral("FioriVoce"));
-    CHECK(QApplication::organizationName() == QStringLiteral("FioriVoce"));
+    CHECK(QApplication::applicationName() == QStringLiteral("OpenWhisper_CPP"));
+    CHECK(QApplication::applicationDisplayName() == QStringLiteral("OpenWhisper_CPP"));
+    CHECK(QApplication::organizationName() == QStringLiteral("OpenWhisper_CPP"));
     CHECK_FALSE(QApplication::windowIcon().isNull());
     // Wrapped, so tooltips show at once (SnappyTooltipStyle), over the platform's style; the
     // theme's stylesheet style answers the hint from it.

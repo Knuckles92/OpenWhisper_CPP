@@ -262,7 +262,7 @@ TEST_CASE("the remote speech backend decodes windows through the saved paired se
         .end = sample_count,
     };
     job.options.language = "fr";
-    job.phrases = {"FioriVoce"};
+    job.phrases = {"OpenWhisper_CPP"};
     const auto decoded = speech.run(job);
     const auto calls = engine->calls();
     REQUIRE(calls.size() == 2);

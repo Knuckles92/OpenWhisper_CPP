@@ -1,6 +1,6 @@
 // tests/test_settings_models.py::TestCleanupAgents, through the AI cleanup page's agent picker
-// ("Who runs AI cleanup") and the Cleanup model card. FioriVoce stages a tile until "Apply runner"
-// and saves an agent only after the consent question that names it (difference
+// ("Who runs AI cleanup") and the Cleanup model card. OpenWhisper_CPP stages a tile until "Apply
+// runner" and saves an agent only after the consent question that names it (difference
 // a04-agent-cleanup-scope); the rig answers Yes, so what is saved and shown is OpenWhisper's.
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/generators/catch_generators.hpp>

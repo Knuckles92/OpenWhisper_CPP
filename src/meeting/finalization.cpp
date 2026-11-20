@@ -21,8 +21,8 @@ struct StepText {
     std::string_view detail;
 };
 
-// STEP_NAMES and STEP_DETAILS. The redecode detail names FioriVoce's engine where OpenWhisper's
-// names Whisper.
+// STEP_NAMES and STEP_DETAILS. The redecode detail names OpenWhisper_CPP's engine where
+// OpenWhisper's names Whisper.
 constexpr std::array<StepText, 5> kSteps{{
     {"redecode", "Audio Re-transcription", "High-accuracy full session Parakeet decode"},
     {"speaker_id", "Speaker Identification", "OpenAI labels on the system-audio recording"},

@@ -34,7 +34,7 @@ WIDGET_PROPERTIES = ("checked", "unset")
 INTERNAL_PROPERTIES = {
     "unscaledStyleSheet": "the token source of a widget-local sheet (setLocalStyleSheet)",
     "scaledStyleSheet": "the sheet last resolved from unscaledStyleSheet",
-    "fiorivoceHotkeyWindow": "marks a top-level window the in-app hotkeys belong to",
+    "openwhisperCppHotkeyWindow": "marks a top-level window the in-app hotkeys belong to",
 }
 
 CXX_KEYWORDS = {

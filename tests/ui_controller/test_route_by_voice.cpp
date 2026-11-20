@@ -1,7 +1,8 @@
 // Route by voice in the running app (application_controller.py toggle_route_recording and
-// services/actions/routing.py decide), with the confirmation FioriVoce asks first: the shortcut
-// records only when Route by voice is ready and says what it still needs otherwise; a judge that
-// does not answer in time is published as route.decided's fallback and the paste says why.
+// services/actions/routing.py decide), with the confirmation OpenWhisper_CPP asks first: the
+// shortcut records only when Route by voice is ready and says what it still needs otherwise; a
+// judge that does not answer in time is published as route.decided's fallback and the paste says
+// why.
 #include <catch2/catch_test_macros.hpp>
 
 #include <chrono>

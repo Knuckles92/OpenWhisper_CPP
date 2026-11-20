@@ -526,7 +526,7 @@
     "tests/meeting_web/test_webui_bundle.cpp",
     "webui/dist.sha256"
    ],
-   "note": "Client code of the vendored bundle (webui/src, built into webui/dist). Checked here: every file of webui/ equals OpenWhisper's at the reference commit after the literal replacements of tools/webui/rebrand_map.json (compared file by file; the map changes only the product name, the log name and three storage keys). test_webui_bundle.cpp pins dist/ to dist.sha256 and the served page to the product name. The 22 node tests of webui/tests that exercise this code were not run (no npm ci here). The theme and design keys read 'fiorivoce.meeting.theme' and 'fiorivoce.meeting.design' (webui/README.md 'Product name'), so a FioriVoce tab never shares OpenWhisper's choice on the same origin; the values and behaviour are unchanged."
+   "note": "Client code of the vendored bundle (webui/src, built into webui/dist). Checked here: every file of webui/ equals OpenWhisper's at the reference commit after the literal replacements of tools/webui/rebrand_map.json (compared file by file; the map changes only the product name, the log name and three storage keys). test_webui_bundle.cpp pins dist/ to dist.sha256 and the served page to the product name. The 22 node tests of webui/tests that exercise this code were not run (no npm ci here). The theme and design keys read 'openwhisper-cpp.meeting.theme' and 'openwhisper-cpp.meeting.design' (webui/README.md 'Product name'), so a OpenWhisper_CPP tab never shares OpenWhisper's choice on the same origin; the values and behaviour are unchanged."
   },
   "A30-46": {
    "status": "verified",
@@ -575,7 +575,7 @@
     "MD-14"
    ],
    "openwhisper": "Once the desktop consent was given, the host dashboard can turn on AI insights, start a custom report or re-run insights, and the request reaches the hosted model or installed agent at once.",
-   "fiorivoce": "A dashboard request that would send meeting text to a hosted model or an installed agent (turning on AI insights, a custom report, a re-run that reaches saved AI steps) waits for fresh approval on the desktop naming the meeting and the destination; loopback and device-local work, deletes, downloads and local-only retry steps do not ask.",
+   "openwhisper-cpp": "A dashboard request that would send meeting text to a hosted model or an installed agent (turning on AI insights, a custom report, a re-run that reaches saved AI steps) waits for fresh approval on the desktop naming the meeting and the destination; loopback and device-local work, deletes, downloads and local-only retry steps do not ask.",
    "reason": "A browser tab holding the host link must not be able to send meeting text off the device on a consent given earlier, possibly in another session.",
    "source": "docs/port/open-items.md ('The host dashboard supports ...', 'A desktop or dashboard retry that reaches saved AI steps needs fresh native approval ...'); pinned by tests/meeting_web/test_dashboard_api.cpp ('host browser opt-in requests local approval and opt-out cancels it', 'host report requests claim persisted work before the report worker completes') and tests/meeting/test_runtime_retry.cpp ('a restarted runtime requires a fresh saved-meeting approval for every retry', 'saved report destinations ask for fresh consent before starting their writer'); routes in src/meeting_web/detail/routes_control.cpp and routes_meeting.cpp, approval in src/meeting/detail/runtime_retry.cpp post_meeting_passes."
   },
@@ -589,7 +589,7 @@
     "MM-17"
    ],
    "openwhisper": "Insight review and semantic history search from the dashboard call the configured cloud LLM judge.",
-   "fiorivoce": "Both run only on a device-local judge: without one, review answers 409 'Turn on AI insights in an active meeting first.' and semantic search returns the keyword results with the settings' message. The review route keeps OpenWhisper's op check (400 'invalid review action'), host rule and 'Wait for final insights to finish' claim.",
+   "openwhisper-cpp": "Both run only on a device-local judge: without one, review answers 409 'Turn on AI insights in an active meeting first.' and semantic search returns the keyword results with the settings' message. The review route keeps OpenWhisper's op check (400 'invalid review action'), host rule and 'Wait for final insights to finish' claim.",
    "reason": "History review and search read every past meeting, which the port keeps on the device; the dashboard offers them only where no text leaves it.",
    "source": "docs/port/open-items.md ('The host dashboard supports local semantic search and local insight review ...'); src/meeting/detail/runtime_retry.cpp post_meeting_passes (review and semantic_search only with local_fast_judge); pinned by tests/meeting_web/test_dashboard_api.cpp ('the review route admits a host to review and skip a saved question', 'only a host semantic search reaches the configured meeting ranker', 'semantic search falls back to keyword results with the settings' message', 'the intelligence routes refuse in plain words without the extensions') and tests/meeting_web/test_audit_a30.cpp."
   },
@@ -599,7 +599,7 @@
     "A30-18"
    ],
    "openwhisper": "POST /api/meetings/{id}/respeakers uploads the meeting's system audio to OpenAI for speaker identification when the backend is openai, upload consent was given and a key is set.",
-   "fiorivoce": "The route keeps its guards and wording (409 active, 400 no system audio, the gate's refusal, 409 busy), but the gate reads a saved openai backend as local, so the dashboard never starts an upload; the OpenAI pass runs only from the desktop Past Meetings action with fresh confirmation.",
+   "openwhisper-cpp": "The route keeps its guards and wording (409 active, 400 no system audio, the gate's refusal, 409 busy), but the gate reads a saved openai backend as local, so the dashboard never starts an upload; the OpenAI pass runs only from the desktop Past Meetings action with fresh confirmation.",
    "reason": "End-of-meeting processing, dashboard retries and stored grants must not start an upload of meeting audio on their own (the a30 half of a10-openai-speakers-read-local).",
    "source": "docs/port/packages/M7.md 'Changes to the cut' item 4 and docs/port/open-items.md ('The optional OpenAI speaker pass runs from the desktop Past Meetings action ...'); src/meeting/rerun_options.cpp resolve_speaker_pass; pinned by tests/meeting/test_rerun_options.cpp, tests/meeting_web/test_dashboard_api.cpp (test_non_openai_backend_is_400, test_meeting_without_system_audio_is_400) and the transcript tests/fixtures/transcripts/meeting_api.json."
   }

@@ -1,8 +1,8 @@
 """Record HTTP transcripts of OpenWhisper's FastAPI apps, for C++ replay against pure handlers.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/record_transcripts.py --scenario agent_api
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/record_transcripts.py --all
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/record_transcripts.py --scenario agent_api
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/record_transcripts.py --all
 
 A scenario is tools/parity/transcripts/<name>.py (one file per scenario, so packages never share
 one) exporting

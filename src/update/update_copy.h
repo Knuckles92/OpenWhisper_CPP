@@ -12,8 +12,8 @@
 // failed; the dialog widget only shows what these return.
 namespace fv::update {
 
-// "Could not check for updates", "FioriVoce 0.2.0 is available" (" beta" before "is" for a
-// prerelease), "This is a development build" or "FioriVoce is up to date".
+// "Could not check for updates", "OpenWhisper_CPP 0.2.0 is available" (" beta" before "is" for a
+// prerelease), "This is a development build" or "OpenWhisper_CPP is up to date".
 std::string title_text(const UpdateCheckResult* result);
 
 // The failure (or "The update server could not be reached."), else "You have <version>
@@ -29,7 +29,7 @@ std::string body_text(const UpdateCheckResult* result, std::string_view error);
 std::int64_t download_size_bytes(const UpdateCheckResult* result);
 
 // Extra guidance under the notes. No Windows apply mode has any, so it is always "" here (the
-// macOS and git-checkout hints have no FioriVoce counterpart).
+// macOS and git-checkout hints have no OpenWhisper_CPP counterpart).
 std::string hint_text(const UpdateCheckResult* result);
 
 // "Open releases page" after a failure, "Download and install" when the release can be
@@ -38,7 +38,8 @@ std::string primary_label(const UpdateCheckResult* result);
 // "Later" while an update is offered, else "Close".
 std::string later_label(const UpdateCheckResult* result);
 
-// "<done> of <total>" while downloading with a known size, else "FioriVoce <version>", else "".
+// "<done> of <total>" while downloading with a known size, else "OpenWhisper_CPP <version>", else
+// "".
 std::string progress_detail_text(const UpdateCheckResult* result, DownloadPhase phase,
                                  std::int64_t done, std::int64_t total);
 

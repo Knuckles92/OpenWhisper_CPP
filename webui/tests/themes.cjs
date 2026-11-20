@@ -28,7 +28,7 @@ afterEach(async () => {
 });
 
 test('design selection preserves an existing color-mode preference and survives a reload', () => {
-  localStorage.setItem('fiorivoce.meeting.theme', 'dark');
+  localStorage.setItem('openwhisper-cpp.meeting.theme', 'dark');
   assert.equal(readTheme(), 'dark');
   for (const {id} of DESIGN_THEMES) {
     saveDesignTheme(id);
@@ -45,7 +45,7 @@ test('design selection preserves an existing color-mode preference and survives 
 
 test('missing or unrecognized designs fall back to Studio without altering color mode', () => {
   assert.equal(readDesignTheme(), 'studio');
-  localStorage.setItem('fiorivoce.meeting.design', 'retired-design');
+  localStorage.setItem('openwhisper-cpp.meeting.design', 'retired-design');
   assert.equal(readDesignTheme(), 'studio');
   applyDesignTheme(readDesignTheme());
   assert.equal(document.documentElement.dataset.design, 'studio');

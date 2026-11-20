@@ -1,8 +1,8 @@
 """The meeting dashboard's REST routes (meeting/web/api.py) over tests/fixtures/meeting_web/meetings.db.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
-        $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/record_transcripts.py --scenario meeting_api
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
+        $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/record_transcripts.py --scenario meeting_api
 
 OpenWhisper's create_app over a copy of the fixture database (SqlMeetingRepository) and an
 engine whose store is a write-through store over the current meeting, as the live engine's is.

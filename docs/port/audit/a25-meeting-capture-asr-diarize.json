@@ -182,7 +182,7 @@
   },
   "A25-16": {
    "status": "other-platform",
-   "reason": "Linux-only probe of PulseAudio/PipeWire monitors for the pre-start dialog; FioriVoce captures system audio through WASAPI loopback on Windows (M7.md change 5)."
+   "reason": "Linux-only probe of PulseAudio/PipeWire monitors for the pre-start dialog; OpenWhisper_CPP captures system audio through WASAPI loopback on Windows (M7.md change 5)."
   },
   "A25-17": {
    "status": "other-platform",
@@ -355,7 +355,7 @@
   },
   "A25-35": {
    "status": "dropped",
-   "reason": "Streaming preview for Nemotron Streaming, an engine FioriVoce does not keep; Parakeet TDT is offline-only (CLAUDE.md engine rules)."
+   "reason": "Streaming preview for Nemotron Streaming, an engine OpenWhisper_CPP does not keep; Parakeet TDT is offline-only (CLAUDE.md engine rules)."
   },
   "A25-36": {
    "status": "verified",
@@ -416,7 +416,7 @@
     "tests/diarize/test_embedder.cpp",
     "tests/golden/meeting.diarize.embedder.json"
    ],
-   "note": "Below 0.8 s, CMN, L2 norm, failures and a missing runtime are tested with a fake model. The ONNX session half (1 intra + 1 inter thread, the optional input whose name contains 'len', the 'embs' output) is reached only by test_embedding_parity_against_reference_vectors, which skips here because FIORIVOCE_TEST_ONNXRUNTIME and FIORIVOCE_TEST_SPEAKER_MODEL are not set; it was read against embedder.py."
+   "note": "Below 0.8 s, CMN, L2 norm, failures and a missing runtime are tested with a fake model. The ONNX session half (1 intra + 1 inter thread, the optional input whose name contains 'len', the 'embs' output) is reached only by test_embedding_parity_against_reference_vectors, which skips here because OPENWHISPER_CPP_TEST_ONNXRUNTIME and OPENWHISPER_CPP_TEST_SPEAKER_MODEL are not set; it was read against embedder.py."
   },
   "A25-42": {
    "status": "verified",
@@ -478,7 +478,7 @@
     "tests/meeting/test_runtime_remote_connect.cpp",
     "tests/remote_host/test_runtime_links.cpp"
    ],
-   "note": "(1) AsrCallbacks::connected_message: the meeting engine sets 'Transcribing on <host>' for a remote route, reported when the host decodes again after an outage (test_live_worker_resumes_pending_audio_after_host_returns) and seeded at the start (A24-11). (2) 'Cannot connect to <host>.' when the host gave no reason ('a remote meeting whose host cannot be reached names the host'). (3) make_meeting_backend's pairing check says 'Pair with <host> again to transcribe this meeting. Its audio will not be sent to a different computer.' when the pairing was forgotten or replaced ('a meeting whose host is no longer paired asks to pair with it again'); the FioriVoce-only refusal when meeting speech no longer selects that host stays (a25-remote-meeting-consent)."
+   "note": "(1) AsrCallbacks::connected_message: the meeting engine sets 'Transcribing on <host>' for a remote route, reported when the host decodes again after an outage (test_live_worker_resumes_pending_audio_after_host_returns) and seeded at the start (A24-11). (2) 'Cannot connect to <host>.' when the host gave no reason ('a remote meeting whose host cannot be reached names the host'). (3) make_meeting_backend's pairing check says 'Pair with <host> again to transcribe this meeting. Its audio will not be sent to a different computer.' when the pairing was forgotten or replaced ('a meeting whose host is no longer paired asks to pair with it again'); the OpenWhisper_CPP-only refusal when meeting speech no longer selects that host stays (a25-remote-meeting-consent)."
   },
   "A25-47": {
    "status": "fixed",
@@ -553,7 +553,7 @@
     "RE-11"
    ],
    "openwhisper": "Can follow the dictation engine for meeting audio and reuse a saved host route to transcribe recorded meeting audio during recovery.",
-   "fiorivoce": "Keeps dictation and meeting routing separate. Each live remote meeting requires confirmation of the named, paired host. The worker verifies that host and model before capture and on reconnect. Automatic recovery leaves saved remote audio on this computer.",
+   "openwhisper-cpp": "Keeps dictation and meeting routing separate. Each live remote meeting requires confirmation of the named, paired host. The worker verifies that host and model before capture and on reconnect. Automatic recovery leaves saved remote audio on this computer.",
    "reason": "A dictation preference or a grant for live microphone audio does not authorize retransmitting stored meeting recordings.",
    "source": "src/remote/meeting_route.cpp, src/meeting/detail/runtime_engine.cpp, tests/remote/test_meeting_route.cpp and tests/remote_host/test_service.cpp"
   },
@@ -565,8 +565,8 @@
     "A25-15"
    ],
    "openwhisper": "Tries a PortAudio WASAPI '[Loopback]' input matched to the default render device by name, then ScreenCaptureKit on macOS, then the SoundCard library (the Windows fallback and the Linux main path).",
-   "fiorivoce": "Opens the default render endpoint (else the first) through one native WASAPI loopback stream that takes the mix format or asks the engine to convert, converting float to int16; ScreenCaptureKit, PulseAudio and SoundCard are not built.",
-   "reason": "vcpkg's PortAudio has no loopback devices, and FioriVoce is a Windows product with one capture path.",
+   "openwhisper-cpp": "Opens the default render endpoint (else the first) through one native WASAPI loopback stream that takes the mix format or asks the engine to convert, converting float to int16; ScreenCaptureKit, PulseAudio and SoundCard are not built.",
+   "reason": "vcpkg's PortAudio has no loopback devices, and OpenWhisper_CPP is a Windows product with one capture path.",
    "source": "docs/port/packages/M7.md 'Changes from section 11 and earlier specs' item 5 (One Windows loopback path)"
   },
   {
@@ -576,7 +576,7 @@
     "MM-12"
    ],
    "openwhisper": "After End (and from dashboard and desktop re-runs) the system-audio recording is uploaded as MP3 to gpt-4o-transcribe-diarize when the speaker backend is openai, and the returned turns relabel the transcript.",
-   "fiorivoce": "The same pass runs only from the desktop Past Meetings action with a fresh confirmation for one saved meeting; End, dashboard retries and stored grants never upload, and the audio goes as FLAC/AAC because the FFmpeg build has no MP3 encoder. When the transcription request fails inside, the pass reports FioriVoce's own sentence 'OpenAI speaker identification could not finish.' rather than the error's text (OpenWhisper shows str(exc)), since a provider's error body can quote what was sent.",
+   "openwhisper-cpp": "The same pass runs only from the desktop Past Meetings action with a fresh confirmation for one saved meeting; End, dashboard retries and stored grants never upload, and the audio goes as FLAC/AAC because the FFmpeg build has no MP3 encoder. When the transcription request fails inside, the pass reports OpenWhisper_CPP's own sentence 'OpenAI speaker identification could not finish.' rather than the error's text (OpenWhisper shows str(exc)), since a provider's error body can quote what was sent.",
    "reason": "Meeting audio leaves the computer only on an explicit, current request (decision 4 of M7, re-scoped by lead amendment 19 and M7.21).",
    "source": "docs/port/packages/M7.md 'Changes from section 11 and earlier specs' item 4 and section M7.21; docs/port/open-items.md (The optional OpenAI speaker pass runs from the desktop Past Meetings action); tests/meeting/test_cloud_speakers.cpp; src/meeting/detail/cloud_pass_run.cpp (tests/meeting/test_cloud_speakers.cpp 'a decoder that fails inside is asked once and the pass fails')"
   },
@@ -587,7 +587,7 @@
     "A25-15"
    ],
    "openwhisper": "The WASAPI '[Loopback]' stream is mixed to mono by averaging every channel; the SoundCard fallback records at most two channels.",
-   "fiorivoce": "A quad, 5.1 or 7.1 loopback is mixed with ITU-R BS.775 weights: the front pair averaged, the centre and the surrounds added at -3 dB, the LFE dropped. A loopback with any other channel count is mixed from its front pair.",
+   "openwhisper-cpp": "A quad, 5.1 or 7.1 loopback is mixed with ITU-R BS.775 weights: the front pair averaged, the centre and the surrounds added at -3 dB, the LFE dropped. A loopback with any other channel count is mixed from its front pair.",
    "reason": "Averaging the six channels of a 5.1 endpoint cuts stereo content to a third, below the quiet and signal thresholds, and the front pair alone loses speech played only from the centre.",
    "source": "The meeting sweep of 2026-11-19 (open item meeting_capture (M7.8)); src/meeting_capture/sources.cpp loopback_mix_weights; tests/meeting_capture/test_mic_source.cpp ('stereo content on a surround loopback keeps its level', 'a surround loopback mixes its centre and surrounds in at -3 dB')"
   },
@@ -597,7 +597,7 @@
     "A25-03"
    ],
    "openwhisper": "When the WASAPI '[Loopback]' input does not open, OpenWhisper tries SoundCard's loopback of the default speaker at up to two channels, whatever the endpoint's channel count.",
-   "fiorivoce": "The same endpoint is opened again as stereo only when it has more than two channels; a stereo or mono endpoint that does not open has no second path, and the watchdog retries it.",
+   "openwhisper-cpp": "The same endpoint is opened again as stereo only when it has more than two channels; a stereo or mono endpoint that does not open has no second path, and the watchdog retries it.",
    "reason": "On an endpoint of two channels or fewer the fallback would be the same open again, which the watchdog already repeats.",
    "source": "The meeting sweep of 2026-11-19 (open item meeting_capture (M7.8)); src/meeting_capture/capture_session.cpp start_fallback_loopback; tests/meeting_capture/test_capture_session.cpp ('a surround loopback that does not open is opened again as stereo', 'a stereo loopback that does not open has no second path')"
   }

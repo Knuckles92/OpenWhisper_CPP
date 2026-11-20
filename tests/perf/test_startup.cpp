@@ -9,7 +9,7 @@
 // measures entry into the GUI bootstrap through the main window appearing"); it never claims a
 // model is ready. The QApplication already exists in a test process (fv_testkit_qt's main), so
 // its construction is not in the number, and the features are the ones ControllerRig installs,
-// not every feature the generated registry links into fiorivoce.exe. idle_rss_mb is the
+// not every feature the generated registry links into openwhisper-cpp.exe. idle_rss_mb is the
 // process's resident set after two seconds of idle event loop with the window shown, the fake
 // engine loaded and no model.
 #include <catch2/catch_test_macros.hpp>
@@ -93,7 +93,7 @@ TEST_CASE("startup to the main window and idle footprint", "[perf]") {
     hooks.errorBox = [](const std::string& message) {
         FAIL_CHECK(message);
     };
-    hooks.arguments = std::vector<std::string>{"fiorivoce"};
+    hooks.arguments = std::vector<std::string>{"openwhisper-cpp"};
     hooks.audioBackend = [] {
         auto audio = std::make_shared<fv::audio::testing::FakeBackend>();
         audio->set_layout({{"MME"}}, {{"Microphone (Test)", 0, 1, 0, 44100.0}}, 0);
@@ -131,7 +131,7 @@ TEST_CASE("startup to the main window and idle footprint", "[perf]") {
     };
 
     int argc = 1;
-    char program[] = "fiorivoce";
+    char program[] = "openwhisper-cpp";
     char* argv[] = {program, nullptr};
     int result = -1;
     {

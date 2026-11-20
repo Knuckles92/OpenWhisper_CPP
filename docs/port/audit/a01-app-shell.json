@@ -5,7 +5,7 @@
   "A01-01": {
    "status": "difference",
    "difference": "a01-no-checkout-data-root",
-   "note": "The rest of the row is verified: FIORIVOCE_DATA_DIR wins when set and not empty, expanded (~), made absolute and created; else %LOCALAPPDATA%\\FioriVoce (home folder without it), ~/Library/Application Support or $XDG_DATA_HOME (a set but empty one used as is) or ~/.local/share. src/base/paths.cpp Paths::resolve; tests/base/test_paths.cpp ('the environment variable wins', 'the data directory variable is made absolute and an empty one is ignored', 'a leading tilde ...', 'frozen builds use the per user directory', 'a git checkout as the working directory is not the data root'). Folder and variable names are identity() (FioriVoce, FIORIVOCE_DATA_DIR) by the identity rule."
+   "note": "The rest of the row is verified: OPENWHISPER_CPP_DATA_DIR wins when set and not empty, expanded (~), made absolute and created; else %LOCALAPPDATA%\\OpenWhisper_CPP (home folder without it), ~/Library/Application Support or $XDG_DATA_HOME (a set but empty one used as is) or ~/.local/share. src/base/paths.cpp Paths::resolve; tests/base/test_paths.cpp ('the environment variable wins', 'the data directory variable is made absolute and an empty one is ignored', 'a leading tilde ...', 'frozen builds use the per user directory', 'a git checkout as the working directory is not the data root'). Folder and variable names are identity() (OpenWhisper_CPP, OPENWHISPER_CPP_DATA_DIR) by the identity rule."
   },
   "A01-02": {
    "status": "verified",
@@ -15,7 +15,7 @@
    "tests": [
     "tests/base/test_paths.cpp"
    ],
-   "note": "components_root() and speech_models_root() are under local_app_dir() whatever FIORIVOCE_DATA_DIR says ('components and speech models stay in the per user directory')."
+   "note": "components_root() and speech_models_root() are under local_app_dir() whatever OPENWHISPER_CPP_DATA_DIR says ('components and speech models stay in the per user directory')."
   },
   "A01-03": {
    "status": "difference",
@@ -114,7 +114,7 @@
     "tests/ui_shell/test_early_cli.cpp",
     "tests/cli/test_cli.cpp"
    ],
-   "note": "-h/--help as the first argument prints the usage (main.py's layout, FioriVoce's options: 'the usage names this executable's options in OpenWhisper's layout') and exits 0 before the lease, the log, Qt or a runtime. fiorivoce-cli's half ran here ('help loads neither qt nor the speech runtimes'); the fiorivoce.exe child-process test 'help prints usage and exits without opening the app' is [platform], Windows only, not run here."
+   "note": "-h/--help as the first argument prints the usage (main.py's layout, OpenWhisper_CPP's options: 'the usage names this executable's options in OpenWhisper's layout') and exits 0 before the lease, the log, Qt or a runtime. openwhisper-cpp-cli's half ran here ('help loads neither qt nor the speech runtimes'); the openwhisper-cpp.exe child-process test 'help prints usage and exits without opening the app' is [platform], Windows only, not run here."
   },
   "A01-11": {
    "status": "verified",
@@ -126,7 +126,7 @@
     "tests/ui_shell/test_early_cli.cpp",
     "tests/cli/test_cli.cpp"
    ],
-   "note": "Prints '<product> <version>' (FioriVoce 0.x, identity rule) and exits 0, only as the whole command line ('version is the product and the version, and only as the whole command line'; dispatch test: '--version extra' opens the app). The fiorivoce.exe child-process test is Windows only, not run here."
+   "note": "Prints '<product> <version>' (OpenWhisper_CPP 0.x, identity rule) and exits 0, only as the whole command line ('version is the product and the version, and only as the whole command line'; dispatch test: '--version extra' opens the app). The openwhisper-cpp.exe child-process test is Windows only, not run here."
   },
   "A01-12": {
    "status": "verified",
@@ -155,11 +155,11 @@
     "tests/cli/channel_posix_fixture.cpp",
     "tests/cli/test_api_command.cpp"
    ],
-   "note": "fiorivoce.exe forwards --api and --channel to fiorivoce-cli beside it, with its own standard handles, before any window, instance check or launch gate, and exits with the CLI's code. cli.test_windowed_interpreter_speaks_over_inherited_pipes failed on Linux only because the POSIX test fixture (PosixCli in channel_posix_fixture.cpp) refused to start any program but fiorivoce-cli; it now also starts the app executable, so the test drives main.cpp's POSIX forwarder end to end and passes here. The servers themselves are a19/a20's."
+   "note": "openwhisper-cpp.exe forwards --api and --channel to openwhisper-cpp-cli beside it, with its own standard handles, before any window, instance check or launch gate, and exits with the CLI's code. cli.test_windowed_interpreter_speaks_over_inherited_pipes failed on Linux only because the POSIX test fixture (PosixCli in channel_posix_fixture.cpp) refused to start any program but openwhisper-cpp-cli; it now also starts the app executable, so the test drives main.cpp's POSIX forwarder end to end and passes here. The servers themselves are a19/a20's."
   },
   "A01-14": {
    "status": "dropped",
-   "reason": "--local-asr-worker, --isolated-worker and multiprocessing.freeze_support are the Python speech workers' plumbing; FioriVoce decodes in process on fv-speech (M0.md Scope row A01-14)."
+   "reason": "--local-asr-worker, --isolated-worker and multiprocessing.freeze_support are the Python speech workers' plumbing; OpenWhisper_CPP decodes in process on fv-speech (M0.md Scope row A01-14)."
   },
   "A01-15": {
    "status": "verified",
@@ -175,7 +175,7 @@
     "tests/cli/test_workflow_smoke.cpp",
     "tests/ui_shell/test_early_cli.cpp"
    ],
-   "note": "Rewritten as the row allows (M0.md Scope row A01-15): fiorivoce-cli --self-test checks the data folder, the settings and the runtime folder, runs the workflow smoke and prints '<product> package self-test passed'; fiorivoce.exe --self-test-gui checks the platform plugin, the SVG icon engine and image format, the theme and the windows11 style. --workflow-smoke is fiorivoce-cli's ('workflow smoke takes at most one report path'); fiorivoce.exe refuses it with its usage line (M3.md change 6). 'the GUI self-test passes offscreen' fails on this Linux machine only because Qt here has no windows11 style plugin; the executable tests are Windows only."
+   "note": "Rewritten as the row allows (M0.md Scope row A01-15): openwhisper-cpp-cli --self-test checks the data folder, the settings and the runtime folder, runs the workflow smoke and prints '<product> package self-test passed'; openwhisper-cpp.exe --self-test-gui checks the platform plugin, the SVG icon engine and image format, the theme and the windows11 style. --workflow-smoke is openwhisper-cpp-cli's ('workflow smoke takes at most one report path'); openwhisper-cpp.exe refuses it with its usage line (M3.md change 6). 'the GUI self-test passes offscreen' fails on this Linux machine only because Qt here has no windows11 style plugin; the executable tests are Windows only."
   },
   "A01-16": {
    "status": "other-platform",
@@ -262,7 +262,7 @@
     "tests/log/test_sinks.cpp",
     "tests/base/test_log.cpp"
    ],
-   "note": "Format, UTF-8 file, 5 MiB x 3 rotation, the console sink and FIORIVOCE_LOG_LEVEL (default INFO) were tested; nothing tested that install_app_logging puts httpx and httpcore at WARNING. The logging helper now logs httpx/httpcore INFO lines and a warning, and 'after install_app_logging, lines read ...' checks only the warning reaches the file."
+   "note": "Format, UTF-8 file, 5 MiB x 3 rotation, the console sink and OPENWHISPER_CPP_LOG_LEVEL (default INFO) were tested; nothing tested that install_app_logging puts httpx and httpcore at WARNING. The logging helper now logs httpx/httpcore INFO lines and a warning, and 'after install_app_logging, lines read ...' checks only the warning reaches the file."
   },
   "A01-25": {
    "status": "verified",
@@ -274,7 +274,7 @@
    "tests": [
     "tests/log/test_crash_handler.cpp"
    ],
-   "note": "Ported as the row says, as a native handler: <log>.crash.log (fiorivoce.crash.log, with_suffix) gets one line per crash (UTC, code, module, dump) and Windows writes a minidump of every thread to crashes\\ from fv-crash-watch; faulthandler's Python traceback has no native counterpart. The file name and the line format are tested here; the access-violation, terminate and watcher-gone tests are [platform] Windows tests, not run here."
+   "note": "Ported as the row says, as a native handler: <log>.crash.log (openwhisper-cpp.crash.log, with_suffix) gets one line per crash (UTC, code, module, dump) and Windows writes a minidump of every thread to crashes\\ from fv-crash-watch; faulthandler's Python traceback has no native counterpart. The file name and the line format are tested here; the access-violation, terminate and watcher-gone tests are [platform] Windows tests, not run here."
   },
   "A01-26": {
    "status": "fixed",
@@ -323,7 +323,7 @@
     "tests/cli/test_diagnostics_packaged.cpp",
     "tests/ui_shell/test_early_cli.cpp"
    ],
-   "note": "'packaged' (Python's sys.frozen, true for every installed build) is now update::detect_channel(probe_install(release_identity())) == Installer in both executables: the copy runs from the folder its Inno registration names. The install probe answers 'am I an installed copy'; the installed-layout check of src/cli only checks a folder's files and lives in the CLI, which fiorivoce.exe cannot link. runDiagnostics/run_diagnostics take an InstallProbe overload, so the tests make their probes by hand and read no registry: registered and running there -> true, registered elsewhere (a build tree beside an install) -> false, no registration -> false ('the diagnostics report is packaged only in its registered install folder', 'the cli diagnostics report is packaged only in its registered install folder'); the real executables in the build tree report false ('fiorivoce-cli in the build tree reports itself not packaged'; fiorivoce.exe's 'the executable in the build tree reports itself not packaged' is Windows-only and was not run here, and 'the diagnostics report of a build tree copy is not packaged' runs the probing overload in process). The registry is read only for a command line that writes a report. Difference: an unregistered copy (unpacked by hand) reports false where a frozen OpenWhisper reported true; FioriVoce ships through the setup only."
+   "note": "'packaged' (Python's sys.frozen, true for every installed build) is now update::detect_channel(probe_install(release_identity())) == Installer in both executables: the copy runs from the folder its Inno registration names. The install probe answers 'am I an installed copy'; the installed-layout check of src/cli only checks a folder's files and lives in the CLI, which openwhisper-cpp.exe cannot link. runDiagnostics/run_diagnostics take an InstallProbe overload, so the tests make their probes by hand and read no registry: registered and running there -> true, registered elsewhere (a build tree beside an install) -> false, no registration -> false ('the diagnostics report is packaged only in its registered install folder', 'the cli diagnostics report is packaged only in its registered install folder'); the real executables in the build tree report false ('openwhisper-cpp-cli in the build tree reports itself not packaged'; openwhisper-cpp.exe's 'the executable in the build tree reports itself not packaged' is Windows-only and was not run here, and 'the diagnostics report of a build tree copy is not packaged' runs the probing overload in process). The registry is read only for a command line that writes a report. Difference: an unregistered copy (unpacked by hand) reports false where a frozen OpenWhisper reported true; OpenWhisper_CPP ships through the setup only."
   },
   "A01-30": {
    "status": "verified",
@@ -408,7 +408,7 @@
   },
   "A01-38": {
    "status": "dropped",
-   "reason": "HF_HUB_OFFLINE is the Hugging Face Python library's switch; FioriVoce's downloads follow hf_access_policy (a14). M0.md Scope row A01-38."
+   "reason": "HF_HUB_OFFLINE is the Hugging Face Python library's switch; OpenWhisper_CPP's downloads follow hf_access_policy (a14). M0.md Scope row A01-38."
   },
   "A01-39": {
    "status": "verified",
@@ -581,7 +581,7 @@
    "tests": [
     "tests/ui_shell/test_main_window.cpp"
    ],
-   "note": "A first Host Mode window (no saved host_window_geometry on a screen) was set to 680x680, where _restore_host_geometry grows it from where it is to max(current, 780) in each direction (config.MAIN_WINDOW_HOST_DEFAULT_WIDTH/HEIGHT; M9.md Scope row A01-53 says at least 780x780). MainWindow::setHostMode now uses kHostDefaultSize 780; added 'a first Host Mode grows the window to 780 square and names it Host', which also pins the 'FioriVoce Host' title. The swap, the disabled History and Compact items, the persisted keys and the own geometry were tested ('View Host Mode lazily replaces the recording tabs and keeps its own geometry'); leaving compact mode first was read (setHostMode calls setCompactMode(false))."
+   "note": "A first Host Mode window (no saved host_window_geometry on a screen) was set to 680x680, where _restore_host_geometry grows it from where it is to max(current, 780) in each direction (config.MAIN_WINDOW_HOST_DEFAULT_WIDTH/HEIGHT; M9.md Scope row A01-53 says at least 780x780). MainWindow::setHostMode now uses kHostDefaultSize 780; added 'a first Host Mode grows the window to 780 square and names it Host', which also pins the 'OpenWhisper_CPP Host' title. The swap, the disabled History and Compact items, the persisted keys and the own geometry were tested ('View Host Mode lazily replaces the recording tabs and keeps its own geometry'); leaving compact mode first was read (setHostMode calls setCompactMode(false))."
   },
   "A01-54": {
    "status": "verified",
@@ -647,7 +647,7 @@
     "tests/ui_meeting/test_meeting_feature.cpp",
     "tests/ui_meeting/test_meeting_intro_dialog.cpp"
    ],
-   "note": "MeetingPresenter::scheduleIntro matches main_window.py _schedule_meeting_mode_intro/_maybe_show_meeting_mode_intro (queued on the next turn on window or tab show; skipped while hidden, locked, seen or a meeting is live), plus a FioriVoce guard for open meeting setup. Pinned: test_meeting_presenter_flow.cpp 'the first visit to the unlocked Meeting tab shows the intro once, never over meeting setup' (no intro while the tray's first-start setup is open, then once on the next visit, not again on later visits or a re-show) and 'a meeting started from the tray or the hotkey brings Meeting Mode forward' (no intro over a live meeting); test_meeting_feature.cpp test_first_visit_shows_intro_after_tab_opens, test_seen_intro_does_not_show_again, test_active_meeting_does_not_block_on_intro, test_restored_meeting_tab_shows_intro_on_first_show, test_locked_tab_waits_for_platform_ack."
+   "note": "MeetingPresenter::scheduleIntro matches main_window.py _schedule_meeting_mode_intro/_maybe_show_meeting_mode_intro (queued on the next turn on window or tab show; skipped while hidden, locked, seen or a meeting is live), plus a OpenWhisper_CPP guard for open meeting setup. Pinned: test_meeting_presenter_flow.cpp 'the first visit to the unlocked Meeting tab shows the intro once, never over meeting setup' (no intro while the tray's first-start setup is open, then once on the next visit, not again on later visits or a re-show) and 'a meeting started from the tray or the hotkey brings Meeting Mode forward' (no intro over a live meeting); test_meeting_feature.cpp test_first_visit_shows_intro_after_tab_opens, test_seen_intro_does_not_show_again, test_active_meeting_does_not_block_on_intro, test_restored_meeting_tab_shows_intro_on_first_show, test_locked_tab_waits_for_platform_ack."
   },
   "A01-60": {
    "status": "verified",
@@ -695,7 +695,7 @@
     "tests/appcore/test_whats_new.cpp",
     "tests/ui_settings/test_home.cpp"
    ],
-   "note": "FioriVoce's own note, as the row says: release_line equals the version's major.minor, updated a real date not in the future, text <= 280 code points, seen only when whats_new_seen equals updated (golden is_seen vectors). The Home tile is a11's."
+   "note": "OpenWhisper_CPP's own note, as the row says: release_line equals the version's major.minor, updated a real date not in the future, text <= 280 code points, seen only when whats_new_seen equals updated (golden is_seen vectors). The Home tile is a11's."
   },
   "A01-64": {
    "status": "verified",
@@ -718,7 +718,7 @@
     "tests/process/test_process_env.cpp",
     "tests/ui_shell/test_bootstrap.cpp"
    ],
-   "note": "set_for_app, prepend_for_app, load_for_app, external_env, drop and child_env were ported and tested (golden external_env/agent_child_env vectors, test_process_env.cpp); the PyInstaller and venv branches drop. Missing was the startup half (open item 'Nothing calls ProcessEnv::instance().adopt_dotenv...'): Python copies .env into os.environ on the first credential lookup that misses (credentials._load_dotenv_into_environ -> load_for_app), recording each key it added and each one already set to the file's value as the app's, so external_env keeps both from children. FioriVoce reads .env directly (DotEnv) and never copies it, so only the second case needs recording; Bootstrap::run now calls ProcessEnv::instance().adopt_dotenv(*state.dotenv) right after the DotEnv is built. Added 'startup keeps .env values an editor also set away from programs it starts' (a value equal to the file's is dropped for children, a different user value stays, a file-only key never enters the process)."
+   "note": "set_for_app, prepend_for_app, load_for_app, external_env, drop and child_env were ported and tested (golden external_env/agent_child_env vectors, test_process_env.cpp); the PyInstaller and venv branches drop. Missing was the startup half (open item 'Nothing calls ProcessEnv::instance().adopt_dotenv...'): Python copies .env into os.environ on the first credential lookup that misses (credentials._load_dotenv_into_environ -> load_for_app), recording each key it added and each one already set to the file's value as the app's, so external_env keeps both from children. OpenWhisper_CPP reads .env directly (DotEnv) and never copies it, so only the second case needs recording; Bootstrap::run now calls ProcessEnv::instance().adopt_dotenv(*state.dotenv) right after the DotEnv is built. Added 'startup keeps .env values an editor also set away from programs it starts' (a value equal to the file's is dropped for children, a different user value stays, a file-only key never enters the process)."
   },
   "A01-66": {
    "status": "other-platform",
@@ -726,7 +726,7 @@
   },
   "A01-67": {
    "status": "dropped",
-   "reason": "An asyncio Proactor exception handler; FioriVoce has no asyncio. The intent (no error log for a peer reset at close) belongs to the HTTP server layer (M0.md Scope row A01-67)."
+   "reason": "An asyncio Proactor exception handler; OpenWhisper_CPP has no asyncio. The intent (no error log for a peer reset at close) belongs to the HTTP server layer (M0.md Scope row A01-67)."
   },
   "A01-68": {
    "status": "verified",
@@ -739,7 +739,7 @@
     "tests/ui_shell/test_early_cli.cpp",
     "tests/cli/test_cli.cpp"
    ],
-   "note": "fiorivoce.exe: -h/--help and --diagnostics on the first argument, --version and --self-test-gui only as the whole line, --api/--channel forwarded and --workflow-smoke refused first; anything else, '--version extra' included, opens the app ('dispatch is on the first argument only'). fiorivoce-cli does the same for its modes, with unknown words a usage error of its transcribe command ('help still answers when more arguments follow', 'version is the product and the version, and only as the whole command line'). --diagnostics is argparse's (missing path: usage, exit 2; 'diagnostics parses its command line as argparse does'); an existing file gets a sentence and exit 1, the gain the row allows. --self-test is fiorivoce-cli's (A01-15), so the windowed executable opens the app for it."
+   "note": "openwhisper-cpp.exe: -h/--help and --diagnostics on the first argument, --version and --self-test-gui only as the whole line, --api/--channel forwarded and --workflow-smoke refused first; anything else, '--version extra' included, opens the app ('dispatch is on the first argument only'). openwhisper-cpp-cli does the same for its modes, with unknown words a usage error of its transcribe command ('help still answers when more arguments follow', 'version is the product and the version, and only as the whole command line'). --diagnostics is argparse's (missing path: usage, exit 2; 'diagnostics parses its command line as argparse does'); an existing file gets a sentence and exit 1, the gain the row allows. --self-test is openwhisper-cpp-cli's (A01-15), so the windowed executable opens the app for it."
   },
   "A01-69": {
    "status": "verified",
@@ -750,7 +750,7 @@
    "tests": [
     "tests/cli/test_workflow_smoke.cpp"
    ],
-   "note": "fiorivoce-cli --workflow-smoke [report.json]: the report as indented JSON in text mode, at most one path ('workflow smoke takes at most one report path', 'the saved report is indented json with text-mode line ends', 'workflow smoke without a path prints the report and saves nothing'). The smoke's content is a16's."
+   "note": "openwhisper-cpp-cli --workflow-smoke [report.json]: the report as indented JSON in text mode, at most one path ('workflow smoke takes at most one report path', 'the saved report is indented json with text-mode line ends', 'workflow smoke without a path prints the report and saves nothing'). The smoke's content is a16's."
   },
   "A01-70": {
    "status": "verified",
@@ -761,7 +761,7 @@
    "tests": [
     "tests/update/test_gates.cpp"
    ],
-   "note": "update::skips_launch_gate: --self-test-gui, --workflow-smoke, --version, --help and --diagnostics as the first argument skip the gate ('the first argument decides whether the gate runs'); the worker modes are gone and --self-test is fiorivoce-cli's, which has no gate. a16 owns the function."
+   "note": "update::skips_launch_gate: --self-test-gui, --workflow-smoke, --version, --help and --diagnostics as the first argument skip the gate ('the first argument decides whether the gate runs'); the worker modes are gone and --self-test is openwhisper-cpp-cli's, which has no gate. a16 owns the function."
   },
   "A01-71": {
    "status": "fixed",
@@ -793,7 +793,7 @@
    "tests": [
     "tests/ui_shell/test_bootstrap.cpp"
    ],
-   "note": "'main runs startup flow and cleans up controller' checks 'Starting FioriVoce' between '='*60 rules (four rules with the shutdown's), the profiler summary, 'Application initialization complete' and 'Starting event loop'; the run-error and early-failure tests check 'Application startup failed' and the rethrow."
+   "note": "'main runs startup flow and cleans up controller' checks 'Starting OpenWhisper_CPP' between '='*60 rules (four rules with the shutdown's), the profiler summary, 'Application initialization complete' and 'Starting event loop'; the run-error and early-failure tests check 'Application startup failed' and the rethrow."
   },
   "A01-74": {
    "status": "verified",
@@ -851,7 +851,7 @@
   },
   "A01-79": {
    "status": "dropped",
-   "reason": "pkg_resources warning filters, check_multiprocessing and importing Python packages are Python plumbing; the replacement checks the row asks for are fiorivoce.exe --self-test-gui (platform plugin, SVG icon engine and image format, the theme, the bundled icons) and fiorivoce-cli --self-test --installed (every file and library of the install), see A01-15. M0.md Scope row A01-79."
+   "reason": "pkg_resources warning filters, check_multiprocessing and importing Python packages are Python plumbing; the replacement checks the row asks for are openwhisper-cpp.exe --self-test-gui (platform plugin, SVG icon engine and image format, the theme, the bundled icons) and openwhisper-cpp-cli --self-test --installed (every file and library of the install), see A01-15. M0.md Scope row A01-79."
   }
  },
  "differences": [
@@ -863,7 +863,7 @@
     "SS-09"
    ],
    "openwhisper": "A source run keeps its data in the working directory or the checkout when that holds openwhisper_settings.json or .git, and .env falls back to <checkout>/.env.",
-   "fiorivoce": "The data root is FIORIVOCE_DATA_DIR or the per-user folder however the program was started, and .env is only <data_root>/.env.",
+   "openwhisper-cpp": "The data root is OPENWHISPER_CPP_DATA_DIR or the per-user folder however the program was started, and .env is only <data_root>/.env.",
    "reason": "The checkout rule exists for `python main.py`; a compiled program has no checkout, and a working-directory rule would let a launch from another folder open different data.",
    "source": "docs/port/ARCHITECTURE.md 3.1 'A source checkout never becomes the data root (... deliberate difference)'; docs/port/packages/M0.md Scope rows A01-01 and A01-03"
   },
@@ -874,7 +874,7 @@
     "MW-14"
    ],
    "openwhisper": "Only Linux enforces one UI per data folder (flock in $XDG_RUNTIME_DIR plus an abstract socket, both named with the uid); Windows and macOS get a no-op primary and rely on the frozen build's mutex or the Dock.",
-   "fiorivoce": "Every platform enforces it with a QLockFile in the temporary folder and a QLocalServer (a named pipe on Windows) keyed by the same data-folder hash; a second launch brings the first window forward. The lock and server names carry the account between the prefix and the key: the uid on POSIX, as OpenWhisper's Linux names do, and on Windows the first eight hex digits of the SHA-256 of the lower-case account name, so two accounts sharing one data folder do not collide.",
+   "openwhisper-cpp": "Every platform enforces it with a QLockFile in the temporary folder and a QLocalServer (a named pipe on Windows) keyed by the same data-folder hash; a second launch brings the first window forward. The lock and server names carry the account between the prefix and the key: the uid on POSIX, as OpenWhisper's Linux names do, and on Windows the first eight hex digits of the SHA-256 of the lower-case account name, so two accounts sharing one data folder do not collide.",
    "reason": "The updater's application mutex does not bring the running window forward and does not separate data folders; one mechanism serves every platform. Windows has no uid, and its pipe names are one namespace for the whole machine.",
    "source": "docs/port/packages/M0.md Scope row A01-31 ('M0.11 (all platforms, deliberate difference)') and the map's porting note for services/ui_instance.py; the shell sweep of 2026-11-19 (open item ui_shell/single_instance.cpp): src/ui_shell/posix/instance_user_posix.cpp, src/ui_shell/win/instance_user_win.cpp (not yet compiled on Windows), tests/ui_shell/test_sweep_instance_user.cpp ('the instance name carries the account between the prefix and the key', \"another account's lock on the same data folder does not keep this one out\")"
   },
@@ -884,9 +884,9 @@
     "A01-29"
    ],
    "openwhisper": "The diagnostics report's 'packaged' is sys.frozen: true for every frozen build, installed or unpacked by hand.",
-   "fiorivoce": "'packaged' is true only for a copy that runs from the folder its installer registration names; a copy unpacked by hand or run from a build tree reports false.",
-   "reason": "A native executable has no frozen flag, and FioriVoce ships through its setup only, so the registration is what marks an installed copy.",
-   "source": "docs/port/audit/a01-app-shell.json A01-29's note; src/update/install_probe.cpp, src/ui_shell/early_cli.cpp, src/cli/commands.cpp; tests/ui_shell/test_diagnostics_packaged.cpp ('the diagnostics report is packaged only in its registered install folder'), tests/cli/test_diagnostics_packaged.cpp ('fiorivoce-cli in the build tree reports itself not packaged')"
+   "openwhisper-cpp": "'packaged' is true only for a copy that runs from the folder its installer registration names; a copy unpacked by hand or run from a build tree reports false.",
+   "reason": "A native executable has no frozen flag, and OpenWhisper_CPP ships through its setup only, so the registration is what marks an installed copy.",
+   "source": "docs/port/audit/a01-app-shell.json A01-29's note; src/update/install_probe.cpp, src/ui_shell/early_cli.cpp, src/cli/commands.cpp; tests/ui_shell/test_diagnostics_packaged.cpp ('the diagnostics report is packaged only in its registered install folder'), tests/cli/test_diagnostics_packaged.cpp ('openwhisper-cpp-cli in the build tree reports itself not packaged')"
   }
  ]
 }

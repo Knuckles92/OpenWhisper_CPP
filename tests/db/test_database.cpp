@@ -342,8 +342,8 @@ TEST_CASE("test_concurrent_first_access_creates_schema_once", "[test_database]")
 
 // from tests/test_database.py::test_suite_keeps_the_database_out_of_the_checkout
 TEST_CASE("test_suite_keeps_the_database_out_of_the_checkout", "[test_database]") {
-    // Every test here opens its files under a testkit data root, which FIORIVOCE_DATA_DIR names
-    // for the test's lifetime; the app's own database resolves into it too.
+    // Every test here opens its files under a testkit data root, which OPENWHISPER_CPP_DATA_DIR
+    // names for the test's lifetime; the app's own database resolves into it too.
     const fv::testkit::TempDataRoot root;
     const auto paths = fv::Paths::resolve(fv::identity(), fv::system_env());
     const auto database_file = paths.user_file(fv::identity().database_file);

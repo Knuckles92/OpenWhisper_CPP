@@ -1,8 +1,8 @@
-// Compiled into every test executable by fv_test (FioriVoceModules.cmake). Before main() it
+// Compiled into every test executable by fv_test (OpenWhisper_CPPModules.cmake). Before main() it
 // points the per-user folders of this process at a private temporary folder, and removes the
 // variables that lead to the user's real data, installed tools and API keys. A test that
 // resolves fv::Paths from the process environment, or starts a child process, then cannot reach
-// the real %LOCALAPPDATA%\FioriVoce or OpenWhisper folders by accident (lead amendment 25).
+// the real %LOCALAPPDATA%\OpenWhisper_CPP or OpenWhisper folders by accident (lead amendment 25).
 //
 // It does not cover an environment a test pins itself (fv::MapEnvReader never reads the
 // process), the credential store or the registry: those are injected or sandboxed by the test.
@@ -88,19 +88,19 @@ int process_id() {
 
 #endif
 
-// Removed by exact name, never by prefix: FIORIVOCE_DATA_DIR is CTest's folder for the test
-// case, and the FIORIVOCE_TEST_* variables name what a test was explicitly given.
+// Removed by exact name, never by prefix: OPENWHISPER_CPP_DATA_DIR is CTest's folder for the test
+// case, and the OPENWHISPER_CPP_TEST_* variables name what a test was explicitly given.
 constexpr std::array kRemoved = {
     // Another data folder, speech runtime or model than the test builds for itself.
     "OPENWHISPER_DATA_DIR",
-    "FIORIVOCE_RUNTIME_DIR",
-    "FIORIVOCE_MODEL",
-    "FIORIVOCE_SPEAKER_MODEL",
+    "OPENWHISPER_CPP_RUNTIME_DIR",
+    "OPENWHISPER_CPP_MODEL",
+    "OPENWHISPER_CPP_SPEAKER_MODEL",
     "OPENWHISPER_SPEAKER_MODEL",
-    "FIORIVOCE_ONNXRUNTIME",
+    "OPENWHISPER_CPP_ONNXRUNTIME",
     // Settings of the user's session that change what the app does.
-    "FIORIVOCE_UI",
-    "FIORIVOCE_UPDATE_FEED_URL",
+    "OPENWHISPER_CPP_UI",
+    "OPENWHISPER_CPP_UPDATE_FEED_URL",
     "OMARCHY_PATH",
     // Where the user's coding agents keep their sign-in and configuration.
     "CLAUDE_CONFIG_DIR",
@@ -117,10 +117,10 @@ constexpr std::array kRemoved = {
     "ANTHROPIC_API_KEY",
     "HF_TOKEN",
     "HUGGING_FACE_HUB_TOKEN",
-    "FIORIVOCE_API_TOKEN",
-    "FIORIVOCE_MCP_TOKEN",
-    "FIORIVOCE_REMOTE_ENGINE_TOKEN",
-    "FIORIVOCE_TOKEN",
+    "OPENWHISPER_CPP_API_TOKEN",
+    "OPENWHISPER_CPP_MCP_TOKEN",
+    "OPENWHISPER_CPP_REMOTE_ENGINE_TOKEN",
+    "OPENWHISPER_CPP_TOKEN",
     "OPENWHISPER_API_TOKEN",
     "OPENWHISPER_MCP_TOKEN",
     "OPENWHISPER_REMOTE_ENGINE_TOKEN",

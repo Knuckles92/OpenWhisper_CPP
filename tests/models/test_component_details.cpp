@@ -1,5 +1,5 @@
 // The bundled speech-runtime profiles: four tests of OpenWhisper's tests/test_component_catalog.py
-// and the vectors of services.component_catalog, with FioriVoce's rewrites spelled out.
+// and the vectors of services.component_catalog, with OpenWhisper_CPP's rewrites spelled out.
 
 #include <catch2/catch_test_macros.hpp>
 
@@ -30,20 +30,20 @@ std::string replaced(std::string text, std::string_view from, std::string_view t
     return text;
 }
 
-// OpenWhisper's row as FioriVoce words it: only Parakeet among the engines, the runtime loaded
-// in process (no worker process, no portable Python, no Python licence or download link), and
-// the product renamed.
-Json fiorivoce_row(Json row) {
+// OpenWhisper's row as OpenWhisper_CPP words it: only Parakeet among the engines, the runtime
+// loaded in process (no worker process, no portable Python, no Python licence or download link),
+// and the product renamed.
+Json openwhisper_cpp_row(Json row) {
     const auto engines = [](const Json& text) {
         return replaced(text.get<std::string>(), "Parakeet and Nemotron", "Parakeet models");
     };
     row["summary"] = engines(row.at("summary"));
     row["best_for"] = engines(row.at("best_for"));
     row["description"] = replaced(engines(row.at("description")), " Runs in a dedicated process.",
-                                  " Runs inside FioriVoce.");
+                                  " Runs inside OpenWhisper_CPP.");
     row["payload"] = "Verified native libraries";
     CHECK(row.at("local_format") == "Isolated worker process");
-    row["local_format"] = "Native libraries loaded by FioriVoce";
+    row["local_format"] = "Native libraries loaded by OpenWhisper_CPP";
     row["license"] = replaced(row.at("license").get<std::string>(), "; Python PSF", "");
     Json urls = Json::array();
     for (const Json& url : row.at("source_urls")) {
@@ -75,7 +75,7 @@ Json details_json(const ComponentDetails& d) {
 TEST_CASE("TestComponentCatalog::test_catalog_covers_every_component_id",
           "[test_component_catalog]") {
     // from tests/test_component_catalog.py: the speech runtimes (GPU Acceleration and the
-    // meeting agents are not FioriVoce components).
+    // meeting agents are not OpenWhisper_CPP components).
     std::set<std::string> expected(runtime_ids().begin(), runtime_ids().end());
     std::set<std::string> described;
     for (const ComponentDetails& details : component_catalog()) {
@@ -99,7 +99,7 @@ TEST_CASE("TestComponentCatalog::test_every_entry_is_complete_and_uses_https_sou
         }
         CHECK_FALSE(details.limitations.empty());
         // OpenWhisper's rows have two links: the project and the portable Python's download
-        // page, which FioriVoce does not install.
+        // page, which OpenWhisper_CPP does not install.
         CHECK(details.source_urls.size() == 1);
         CHECK(details.origin_url.starts_with("https://"));
         CHECK(details.source_url.starts_with("https://"));
@@ -143,7 +143,7 @@ TEST_CASE("services.component_catalog.get_component_details vectors", "[golden]"
                              CHECK_THROWS_AS(get_component_details(id), std::out_of_range);
                              return;
                          }
-                         CHECK(golden::equal(fiorivoce_row(c.result<Json>()),
+                         CHECK(golden::equal(openwhisper_cpp_row(c.result<Json>()),
                                              details_json(get_component_details(id))));
                      });
 }

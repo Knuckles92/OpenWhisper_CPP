@@ -326,7 +326,7 @@ TEST_CASE("test_ready_page_shows_the_shortcut_and_takes_dictation", "[test_guide
         qs(fv::hotkeys::format_hotkey_display("ctrl+alt+j", fv::hotkeys::platform_vocabulary()));
     CHECK(setup.keycap()->text() == shown);
     CHECK(setup.tryBox()->placeholderText().contains(shown));
-    CHECK(setup.property(fv::ui::prop::fiorivoceHotkeyWindow).toBool());
+    CHECK(setup.property(fv::ui::prop::openwhisperCppHotkeyWindow).toBool());
     CHECK(setup.tryBox()->hasFocus());
     CHECK(setup.nextButton()->text() == QStringLiteral("Done"));
     CHECK(setup.skipButton()->isHidden());

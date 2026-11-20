@@ -90,7 +90,7 @@ TEST_CASE("kp * dictation pastes the Parakeet text, saves it to History and list
     // Pasted once, while the clipboard held the transcript; then the user's clipboard returns.
     CHECK(rig.keys().sent() == std::vector<std::string>{"paste"});
     REQUIRE(heldAtPaste.size() == 1);
-    CHECK(heldAtPaste[0] == QStringLiteral("Hello from FioriVoce."));
+    CHECK(heldAtPaste[0] == QStringLiteral("Hello from OpenWhisper_CPP."));
     CHECK(waitUntil(
         [clipboard] { return clipboard->text() == QStringLiteral("the user's own clipboard"); }));
     CHECK(rig.statuses().back() == "Ready (Pasted)");
@@ -98,7 +98,7 @@ TEST_CASE("kp * dictation pastes the Parakeet text, saves it to History and list
     // One History row and one stats row.
     const auto rows = historyRows(rig.database());
     REQUIRE(rows.size() == 1);
-    CHECK(rows[0].text == "Hello from FioriVoce.");
+    CHECK(rows[0].text == "Hello from OpenWhisper_CPP.");
     CHECK(rows[0].source_name == "Quick Record");
     CHECK(rows[0].entry_kind == "dictation");
     CHECK(rows[0].app_id == "notepad.exe");
@@ -116,7 +116,7 @@ TEST_CASE("kp * dictation pastes the Parakeet text, saves it to History and list
     // Quick Record shows the text and the stats strip.
     fv::QuickRecordTab* tab = rig.quickRecord();
     REQUIRE(tab != nullptr);
-    CHECK(tab->transcriptText()->toPlainText() == QStringLiteral("Hello from FioriVoce."));
+    CHECK(tab->transcriptText()->toPlainText() == QStringLiteral("Hello from OpenWhisper_CPP."));
     CHECK(tab->statsWidget()->isVisibleTo(tab));
 
     // The History panel's first card.
@@ -126,7 +126,7 @@ TEST_CASE("kp * dictation pastes the Parakeet text, saves it to History and list
     REQUIRE(waitUntil([&panel] { return panel.sidebar()->renderedCardCount() == 1; }));
     const auto cards = panel.sidebar()->findChildren<fv::HistoryItemWidget*>();
     REQUIRE_FALSE(cards.empty());
-    CHECK(cards.front()->entry().text == "Hello from FioriVoce.");
+    CHECK(cards.front()->entry().text == "Hello from OpenWhisper_CPP.");
 
     // The overlay's trace: OverlayRouter showed recording, then processing, then transcribing
     // (stateChanged), and hid it: the hide fades out, then the overlay is idle and hidden

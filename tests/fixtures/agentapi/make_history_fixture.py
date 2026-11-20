@@ -1,7 +1,7 @@
 """Write tests/fixtures/agentapi/history.db through OpenWhisper's own database code.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tests/fixtures/agentapi/make_history_fixture.py
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tests/fixtures/agentapi/make_history_fixture.py
 
 The History API reads this database (tools/parity/transcripts/agent_api.py records OpenWhisper's
 answers over it, tests/agentapi replays them). Rows are inserted with OpenWhisper's

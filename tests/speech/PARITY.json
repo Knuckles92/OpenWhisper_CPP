@@ -34,9 +34,9 @@
     "status": "ported",
     "cpp": "tests/speech/test_warmup.cpp"
    },
-   "test_engines_outside_the_warmup_list_are_not_warmed": {"status": "dropped", "reason": "dropped engine: Moonshine is not ported; FioriVoce's one local engine, Parakeet, is always warmed after it loads (tests/appcore/test_engine_reload.cpp)"},
-   "test_a_loaded_engine_has_its_recording_reader_ready": {"status": "dropped", "reason": "Python plumbing: the reload preloads PyAV (import av) so the first recording read pays no import; FioriVoce's recording reader is compiled in and has nothing to preload"},
-   "test_recording_reader_is_not_loaded_for_an_engine_that_did_not_load": {"status": "dropped", "reason": "Python plumbing: the reload preloads PyAV (import av) so the first recording read pays no import; FioriVoce's recording reader is compiled in and has nothing to preload"}
+   "test_engines_outside_the_warmup_list_are_not_warmed": {"status": "dropped", "reason": "dropped engine: Moonshine is not ported; OpenWhisper_CPP's one local engine, Parakeet, is always warmed after it loads (tests/appcore/test_engine_reload.cpp)"},
+   "test_a_loaded_engine_has_its_recording_reader_ready": {"status": "dropped", "reason": "Python plumbing: the reload preloads PyAV (import av) so the first recording read pays no import; OpenWhisper_CPP's recording reader is compiled in and has nothing to preload"},
+   "test_recording_reader_is_not_loaded_for_an_engine_that_did_not_load": {"status": "dropped", "reason": "Python plumbing: the reload preloads PyAV (import av) so the first recording read pays no import; OpenWhisper_CPP's recording reader is compiled in and has nothing to preload"}
   },
   "tests/test_local_asr.py": {
    "test_cancel_during_load_cannot_publish_stale_model": {
@@ -75,15 +75,15 @@
    },
    "test_moonshine_model_change_cannot_preserve_russian": {
     "status": "dropped",
-    "reason": "dropped engine: Moonshine is not ported (FioriVoce keeps only Parakeet)"
+    "reason": "dropped engine: Moonshine is not ported (OpenWhisper_CPP keeps only Parakeet)"
    },
    "test_worker_passes_qwen_language_names_to_sdk": {
     "status": "dropped",
-    "reason": "dropped engine: Qwen is not ported (FioriVoce keeps only Parakeet)"
+    "reason": "dropped engine: Qwen is not ported (OpenWhisper_CPP keeps only Parakeet)"
    },
    "test_worker_uses_nemotron_mandarin_prompt_for_file_and_stream": {
     "status": "dropped",
-    "reason": "dropped engine: Nemotron is not ported (FioriVoce keeps only Parakeet)"
+    "reason": "dropped engine: Nemotron is not ported (OpenWhisper_CPP keeps only Parakeet)"
    },
    "test_remote_mandarin_uses_label_and_transmits_code": {"status": "ported", "cpp": "tests/ui_widgets/test_remote_engine_mandarin.cpp", "note": "case of the same name in tests/ui_widgets"}
   },
@@ -781,11 +781,11 @@
    },
    "test_isolated_client_forwards_only_the_hints_given": {
     "status": "dropped",
-    "reason": "they test the request OpenWhisper's isolated upload worker process passes on; FioriVoce uploads in-process with no worker, and the fields each request carries are pinned by TestRequests and the loopback tests"
+    "reason": "they test the request OpenWhisper's isolated upload worker process passes on; OpenWhisper_CPP uploads in-process with no worker, and the fields each request carries are pinned by TestRequests and the loopback tests"
    },
    "test_worker_op_passes_hints_to_the_sdk": {
     "status": "dropped",
-    "reason": "they test the request OpenWhisper's isolated upload worker process passes on; FioriVoce uploads in-process with no worker, and the fields each request carries are pinned by TestRequests and the loopback tests"
+    "reason": "they test the request OpenWhisper's isolated upload worker process passes on; OpenWhisper_CPP uploads in-process with no worker, and the fields each request carries are pinned by TestRequests and the loopback tests"
    }
   },
   "tests/test_openai_retirement.py": {
@@ -902,11 +902,11 @@
    },
    "test_readying_the_real_worker_sends_nothing_until_the_upload": {
     "status": "dropped",
-    "reason": "they start OpenWhisper's upload worker process; FioriVoce uploads in-process, and test_isolated_upload_reaches_a_local_server sends a real upload to a loopback server"
+    "reason": "they start OpenWhisper's upload worker process; OpenWhisper_CPP uploads in-process, and test_isolated_upload_reaches_a_local_server sends a real upload to a loopback server"
    },
    "test_the_real_worker_answers_prepare_then_uploads_on_the_same_client": {
     "status": "dropped",
-    "reason": "they start OpenWhisper's upload worker process; FioriVoce uploads in-process, and test_isolated_upload_reaches_a_local_server sends a real upload to a loopback server"
+    "reason": "they start OpenWhisper's upload worker process; OpenWhisper_CPP uploads in-process, and test_isolated_upload_reaches_a_local_server sends a real upload to a loopback server"
    }
   },
   "tests/test_speech_endpoints.py": {
@@ -1120,35 +1120,35 @@
    },
    "test_native_stream_pushes_each_interval_and_finishes_on_stop": {
     "status": "dropped",
-    "reason": "Native streaming (Nemotron, Parakeet Unified) and Moonshine's line ledger are dropped engines; FioriVoce previews with windows only"
+    "reason": "Native streaming (Nemotron, Parakeet Unified) and Moonshine's line ledger are dropped engines; OpenWhisper_CPP previews with windows only"
    },
    "test_native_stop_wakes_the_worker_instead_of_waiting_out_its_poll": {
     "status": "dropped",
-    "reason": "Native streaming (Nemotron, Parakeet Unified) and Moonshine's line ledger are dropped engines; FioriVoce previews with windows only"
+    "reason": "Native streaming (Nemotron, Parakeet Unified) and Moonshine's line ledger are dropped engines; OpenWhisper_CPP previews with windows only"
    },
    "test_native_stream_keeps_silence_flowing_to_the_engine": {
     "status": "dropped",
-    "reason": "Native streaming (Nemotron, Parakeet Unified) and Moonshine's line ledger are dropped engines; FioriVoce previews with windows only"
+    "reason": "Native streaming (Nemotron, Parakeet Unified) and Moonshine's line ledger are dropped engines; OpenWhisper_CPP previews with windows only"
    },
    "test_native_stream_without_audio_never_opens_a_session": {
     "status": "dropped",
-    "reason": "Native streaming (Nemotron, Parakeet Unified) and Moonshine's line ledger are dropped engines; FioriVoce previews with windows only"
+    "reason": "Native streaming (Nemotron, Parakeet Unified) and Moonshine's line ledger are dropped engines; OpenWhisper_CPP previews with windows only"
    },
    "test_native_stream_failure_cancels_the_session_and_stops_pushing": {
     "status": "dropped",
-    "reason": "Native streaming (Nemotron, Parakeet Unified) and Moonshine's line ledger are dropped engines; FioriVoce previews with windows only"
+    "reason": "Native streaming (Nemotron, Parakeet Unified) and Moonshine's line ledger are dropped engines; OpenWhisper_CPP previews with windows only"
    },
    "test_native_restart_drops_a_session_the_engine_still_holds": {
     "status": "dropped",
-    "reason": "Native streaming (Nemotron, Parakeet Unified) and Moonshine's line ledger are dropped engines; FioriVoce previews with windows only"
+    "reason": "Native streaming (Nemotron, Parakeet Unified) and Moonshine's line ledger are dropped engines; OpenWhisper_CPP previews with windows only"
    },
    "test_native_ledger_replaces_interims_and_commits_finals_once": {
     "status": "dropped",
-    "reason": "Native streaming (Nemotron, Parakeet Unified) and Moonshine's line ledger are dropped engines; FioriVoce previews with windows only"
+    "reason": "Native streaming (Nemotron, Parakeet Unified) and Moonshine's line ledger are dropped engines; OpenWhisper_CPP previews with windows only"
    },
    "test_native_ledger_orders_moonshine_lines_by_start_without_duplicates": {
     "status": "dropped",
-    "reason": "Native streaming (Nemotron, Parakeet Unified) and Moonshine's line ledger are dropped engines; FioriVoce previews with windows only"
+    "reason": "Native streaming (Nemotron, Parakeet Unified) and Moonshine's line ledger are dropped engines; OpenWhisper_CPP previews with windows only"
    },
    "test_overlap_join_is_bounded_and_preserves_ambiguous_repetitions": {
     "status": "ported",
@@ -1334,7 +1334,7 @@
    }
   },
   "tests/test_personalize_s4_recognition.py": {
-   "TestLocalSpeech::test_an_engine_without_languages_keeps_the_code": {"status": "dropped", "reason": "dropped engine: a remote host's local Whisper as the engine the host runs; FioriVoce's host engine is Parakeet, which lists its languages (an unlisted code becomes auto, TestLocalSpeech::test_language_comes_from_the_context_per_request)"}
+   "TestLocalSpeech::test_an_engine_without_languages_keeps_the_code": {"status": "dropped", "reason": "dropped engine: a remote host's local Whisper as the engine the host runs; OpenWhisper_CPP's host engine is Parakeet, which lists its languages (an unlisted code becomes auto, TestLocalSpeech::test_language_comes_from_the_context_per_request)"}
   }
  }
 }

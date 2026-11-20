@@ -52,7 +52,7 @@ public:
                 fv::backup::BackupPreferences::from_json(preferences);
             fv::backup::save_preferences(data, loaded);
         }
-        fv::MapEnvReader env{{"FIORIVOCE_DATA_DIR", fv::path_to_utf8(data)}};
+        fv::MapEnvReader env{{"OPENWHISPER_CPP_DATA_DIR", fv::path_to_utf8(data)}};
         fv::pin_per_user_folders(env, data.parent_path() / "per-user");
         const fv::Paths paths = fv::Paths::resolve(fv::identity(), env);
         coordinator = std::make_shared<fv::backup::BackupCoordinator>(

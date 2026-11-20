@@ -30,11 +30,11 @@ using namespace fv::update::test;
 TEST_CASE("a registration makes a probe", "[update]") {
     update::InstallRegistration registration;
     registration.hive = update::RegistryHive::LocalMachine;
-    registration.install_location = "C:/Program Files/FioriVoce";
-    const auto probe = update::make_install_probe(registration, "C:/Program Files/FioriVoce");
+    registration.install_location = "C:/Program Files/OpenWhisper_CPP";
+    const auto probe = update::make_install_probe(registration, "C:/Program Files/OpenWhisper_CPP");
     CHECK(probe.registered);
     CHECK(probe.all_users);
-    CHECK(probe.install_dir == "C:/Program Files/FioriVoce");
+    CHECK(probe.install_dir == "C:/Program Files/OpenWhisper_CPP");
     CHECK(update::detect_channel(probe) == update::InstallChannel::Installer);
 
     const auto none = update::make_install_probe(std::nullopt, "D:/build/bin");
@@ -57,12 +57,12 @@ std::wstring wide(const std::string& text) {
     return std::filesystem::path(text).wstring();
 }
 
-// HKCU and HKLM redirected to two empty keys under HKCU\Software\FioriVoceTest\<pid>, for this
-// process only, and the whole tree removed afterwards.
+// HKCU and HKLM redirected to two empty keys under HKCU\Software\OpenWhisper_CPPTest\<pid>, for
+// this process only, and the whole tree removed afterwards.
 class RegistrySandbox {
 public:
     RegistrySandbox() {
-        base_ = L"Software\\FioriVoceTest\\" + std::to_wstring(GetCurrentProcessId());
+        base_ = L"Software\\OpenWhisper_CPPTest\\" + std::to_wstring(GetCurrentProcessId());
         REQUIRE(RegCreateKeyExW(HKEY_CURRENT_USER, (base_ + L"\\hkcu").c_str(), 0, nullptr, 0,
                                 KEY_ALL_ACCESS, nullptr, &user_, nullptr) == ERROR_SUCCESS);
         REQUIRE(RegCreateKeyExW(HKEY_CURRENT_USER, (base_ + L"\\hklm").c_str(), 0, nullptr, 0,
@@ -76,7 +76,7 @@ public:
         RegCloseKey(user_);
         RegCloseKey(machine_);
         RegDeleteTreeW(HKEY_CURRENT_USER, base_.c_str());
-        RegDeleteKeyW(HKEY_CURRENT_USER, L"Software\\FioriVoceTest");
+        RegDeleteKeyW(HKEY_CURRENT_USER, L"Software\\OpenWhisper_CPPTest");
     }
     RegistrySandbox(const RegistrySandbox&) = delete;
     RegistrySandbox& operator=(const RegistrySandbox&) = delete;
@@ -117,22 +117,22 @@ TEST_CASE("an HKCU registration is found with its values", "[update][platform]")
     const auto& identity = update::release_identity();
     CHECK_FALSE(update::discover_install_registration(identity).has_value());
     registry.write(HKEY_CURRENT_USER, identity.uninstall_key_path(),
-                   L"C:\\Users\\u\\AppData\\Local\\Programs\\FioriVoce\\",
-                   L"\"C:\\Users\\u\\AppData\\Local\\Programs\\FioriVoce\\unins000.exe\"", L"0.1.0",
-                   51200);
+                   L"C:\\Users\\u\\AppData\\Local\\Programs\\OpenWhisper_CPP\\",
+                   L"\"C:\\Users\\u\\AppData\\Local\\Programs\\OpenWhisper_CPP\\unins000.exe\"",
+                   L"0.1.0", 51200);
     const auto found = update::discover_install_registration(identity);
     REQUIRE(found.has_value());
     CHECK(found->hive == update::RegistryHive::CurrentUser);
     CHECK(found->key_path == identity.uninstall_key_path());
     CHECK(found->install_location ==
-          std::filesystem::path(L"C:\\Users\\u\\AppData\\Local\\Programs\\FioriVoce"));
+          std::filesystem::path(L"C:\\Users\\u\\AppData\\Local\\Programs\\OpenWhisper_CPP"));
     CHECK(found->display_version == "0.1.0");
     CHECK(found->estimated_size_kb == 51200);
     CHECK(found->install_date == "20261115");
     CHECK(found->view == 0);
 
     const auto probe = update::make_install_probe(
-        found, std::filesystem::path(L"C:\\Users\\u\\AppData\\Local\\Programs\\FioriVoce"));
+        found, std::filesystem::path(L"C:\\Users\\u\\AppData\\Local\\Programs\\OpenWhisper_CPP"));
     CHECK(probe.registered);
     CHECK_FALSE(probe.all_users);
     CHECK(update::detect_channel(probe) == update::InstallChannel::Installer);
@@ -152,11 +152,11 @@ TEST_CASE("hklm registration uses setup, read from the registry", "[test_app_upd
     RegistrySandbox registry;
     const auto& identity = update::release_identity();
     registry.write(HKEY_LOCAL_MACHINE, identity.uninstall_key_path(),
-                   L"C:\\Program Files\\FioriVoce", L"C:\\Program Files\\FioriVoce\\unins000.exe",
-                   L"0.1.0", 1);
+                   L"C:\\Program Files\\OpenWhisper_CPP",
+                   L"C:\\Program Files\\OpenWhisper_CPP\\unins000.exe", L"0.1.0", 1);
     const auto probe =
         update::make_install_probe(update::discover_install_registration(identity),
-                                   std::filesystem::path(L"C:\\Program Files\\FioriVoce"));
+                                   std::filesystem::path(L"C:\\Program Files\\OpenWhisper_CPP"));
     REQUIRE(probe.registered);
     CHECK(probe.all_users);
     const auto channel = update::detect_channel(probe);
@@ -164,8 +164,8 @@ TEST_CASE("hklm registration uses setup, read from the registry", "[test_app_upd
     // A machine-wide install updates only through its setup, run for all users.
     CHECK(update::resolve_release_apply_mode(channel, release_with(setup_asset()), "win32") ==
           update::ApplyMode::Setup);
-    const auto handoff =
-        update::setup_command("C:/u/updates/FioriVoce-Setup-2.8.6.exe", probe, "C:/u/updates");
+    const auto handoff = update::setup_command("C:/u/updates/OpenWhisper_CPP-Setup-2.8.6.exe",
+                                               probe, "C:/u/updates");
     CHECK(std::ranges::find(handoff.args, "/ALLUSERS") != handoff.args.end());
     CHECK(std::ranges::find(handoff.args, "/CURRENTUSER") == handoff.args.end());
 }

@@ -17,7 +17,7 @@
 #include "bench/meeting_run.h"
 #include "process/process_env.h"
 
-// fiorivoce-bench's commands, here rather than in the executable so their exit texts are
+// openwhisper-cpp-bench's commands, here rather than in the executable so their exit texts are
 // testable:
 //
 //   live-preview <manifest> [--output P] [--chunk S] [--overlap S] [--repeats N] [--limit N]
@@ -29,9 +29,10 @@
 //   asr <audio>... [--reference TXT]... [--runs N] [--output P]
 //   asr-corpus <manifest> [--output P]
 //
-// The decoding commands also take --runtime DIR, --model GGUF (else FIORIVOCE_TEST_RUNTIME_DIR
-// and FIORIVOCE_TEST_MODEL) and --device cpu|cuda. Exit codes: 0 done, 1 a measured run failed,
-// 2 a usage error, a missing engine or provider, or no matching case.
+// The decoding commands also take --runtime DIR, --model GGUF (else
+// OPENWHISPER_CPP_TEST_RUNTIME_DIR and OPENWHISPER_CPP_TEST_MODEL) and --device cpu|cuda. Exit
+// codes: 0 done, 1 a measured run failed, 2 a usage error, a missing engine or provider, or no
+// matching case.
 namespace fv::bench {
 
 // A bad command line (argparse's parser.error): the message, printed after the usage line.
@@ -72,7 +73,7 @@ struct CommandContext {
 LivePreviewArgs parse_live_preview_args(const std::vector<std::string>& args);
 MeetingArgs parse_meeting_args(const std::vector<std::string>& args);
 
-// Runs `fiorivoce-bench <args>` (argv without the program name) and returns the exit code.
+// Runs `openwhisper-cpp-bench <args>` (argv without the program name) and returns the exit code.
 // Never throws: an error is printed to err as one line.
 int run_command(const std::vector<std::string>& args, CommandContext& context);
 

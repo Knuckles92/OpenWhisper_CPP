@@ -13,7 +13,7 @@
 // cleanup is on and no runner was ever chosen, the UI asks once whether to use the agent instead.
 // Nothing here switches without that answer.
 //
-// FioriVoce differs in one respect: the person dictating approves a named CLI before speech
+// OpenWhisper_CPP differs in one respect: the person dictating approves a named CLI before speech
 // reaches it (fv_cleanup_agent_consent). accept() records that consent only when the caller says
 // the person approved it; the offer's UI asks for that approval before it accepts.
 namespace fv {

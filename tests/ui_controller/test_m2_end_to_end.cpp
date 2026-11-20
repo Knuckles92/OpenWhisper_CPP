@@ -413,7 +413,8 @@ TEST_CASE("M2 end to end: the guided setup offers itself and its try box takes a
     REQUIRE(waitUntil([&rig] { return historyCount(rig) == 1 && !rig.runtime().has_active_job(); },
                       30s));
     CHECK(waitUntil([&dialog] {
-        return dialog.tryBox()->toPlainText().contains(QStringLiteral("Hello from FioriVoce."));
+        return dialog.tryBox()->toPlainText().contains(
+            QStringLiteral("Hello from OpenWhisper_CPP."));
     }));
     dialog.hide();
 }

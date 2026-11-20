@@ -23,8 +23,8 @@ setAiInsightsAvailable(true) with the same destination.
 
 The Fast judgments page body is OpenWhisper's own, built by a real SettingsDialog over a
 throwaway settings file in the isolated data folder (as builders/a11.py builds the App pages),
-then taken out of the dialog at PAGE_WIDTH: FioriVoce's page class is the body the Settings shell
-hosts, and the shell around it is settings_dialog/shell's. FioriVoce differs where this builder
+then taken out of the dialog at PAGE_WIDTH: OpenWhisper_CPP's page class is the body the Settings shell
+hosts, and the shell around it is settings_dialog/shell's. OpenWhisper_CPP differs where this builder
 puts its own in: the body has no object name (settingsPage_<key> is the shell's wrapper).
 
     settings_fast_judgments_page/off-no-key   TypeSafe, Fast judgments off, no key set
@@ -33,7 +33,7 @@ puts its own in: the body has no object name (settingsPage_<key> is the shell's 
 
 The Past Meetings widgets (M7.15, fv_ui_meeting) are OpenWhisper's own. Today is pinned to
 2026-03-15 for the calendar button, as in a09.py, and every timestamp is naive, so it reads as
-wall time in any zone. Where the copy names the product, FioriVoce's name is put in.
+wall time in any zone. Where the copy names the product, OpenWhisper_CPP's name is put in.
 
     past_meetings_panel/list             the panel at the History sidebar's width with six rows
                                          in the provider (ready, saved for later, failed start,
@@ -51,7 +51,7 @@ wall time in any zone. Where the copy names the product, FioriVoce's name is put
 from contextlib import ExitStack
 from unittest.mock import patch
 
-PRODUCT = "FioriVoce"
+PRODUCT = "OpenWhisper_CPP"
 #: Two tile columns at every font scale, as the page has inside the window at its default size.
 PAGE_WIDTH = 900
 
@@ -116,8 +116,8 @@ def _app_dialog(values):
     return _keep(settings_dialog_module.SettingsDialog(background_cache_scan=False))
 
 
-def _fiorivoce(page):
-    """The page body as FioriVoce builds it (see above)."""
+def _openwhisper-cpp(page):
+    """The page body as OpenWhisper_CPP builds it (see above)."""
     from PyQt6.QtWidgets import QLabel
 
     from ui_qt.widgets.wrapped_label import WrappedLabel
@@ -152,7 +152,7 @@ def _app_page(key, values=None):
     page = dialog._pages[key]
     page.setParent(None)
     _keep(page)
-    _fiorivoce(page)
+    _openwhisper-cpp(page)
     return page, (PAGE_WIDTH, _settled_height(page, PAGE_WIDTH)), None
 
 
@@ -289,7 +289,7 @@ def _meeting_builder(state):
 #: The History sidebar's width; the panel is that wide beside the tabs.
 PAST_PANEL_SIZE = (380, 900)
 PAST_TODAY = (2026, 3, 15)
-EXPORT_ROOT = r"C:\Users\Dana\AppData\Local\FioriVoce"
+EXPORT_ROOT = r"C:\Users\Dana\AppData\Local\OpenWhisper_CPP"
 
 
 def _past_state(**fields):
@@ -352,7 +352,7 @@ def _pin_today():
     history_calendar.date = PinnedDate
 
 
-def _fiorivoce_labels(dialog):
+def _openwhisper_cpp_labels(dialog):
     from PyQt6.QtWidgets import QLabel
 
     for label in dialog.findChildren(QLabel):
@@ -403,7 +403,7 @@ def meeting_recovery_dialog_two_rows(variant):
         {"id": "m_crash_1", "title": "Weekly design review", "started_at": "2026-03-14T15:30:12"},
         {"id": "m_crash_2", "title": "", "started_at": "2026-03-13T09:00:00"},
     ]))
-    _fiorivoce_labels(dialog)
+    _openwhisper_cpp_labels(dialog)
     dialog.findChildren(PrimaryButton)[0].click()
     return dialog, _dialog_size(dialog), None
 
@@ -431,9 +431,9 @@ def meeting_export_dialog_three_meetings(variant):
     meetings = [{"id": meeting_id, "title": title, "status": "ended", "started_at": started,
                  "content_summary": {"has_transcript": True}}
                 for meeting_id, title, started in EXPORT_MEETINGS]
-    # The default path is made as the dialog is built: FioriVoce's file name in a fixed folder.
+    # The default path is made as the dialog is built: OpenWhisper_CPP's file name in a fixed folder.
     with (
-        patch.object(MeetingExportDialog, "_DEFAULT_FILE_STEM", "fiorivoce_meetings"),
+        patch.object(MeetingExportDialog, "_DEFAULT_FILE_STEM", "openwhisper_cpp_meetings"),
         patch.object(MeetingExportDialog, "_export_root", lambda self: EXPORT_ROOT),
     ):
         dialog = _keep(MeetingExportDialog(meeting_provider=lambda: meetings))
@@ -457,7 +457,7 @@ def meeting_export_dialog_three_meetings(variant):
 #                                       silent: "Start anyway" is offered
 #
 # The After the meeting and Dashboard page bodies are OpenWhisper's own, taken out of a real
-# SettingsDialog as the Fast judgments page is above. FioriVoce's re-transcription runs
+# SettingsDialog as the Fast judgments page is above. OpenWhisper_CPP's re-transcription runs
 # Parakeet, so its tile says so where OpenWhisper's says Whisper.
 #
 #   settings_meeting_after/report-on        every default: the final report and its views on
@@ -513,7 +513,7 @@ def _setup_builder(state):
 
 
 def _parakeet(page):
-    """FioriVoce's re-transcription runs Parakeet, where OpenWhisper's runs Whisper."""
+    """OpenWhisper_CPP's re-transcription runs Parakeet, where OpenWhisper's runs Whisper."""
     from ui_qt.widgets.wrapped_label import WrappedLabel
 
     for label in page.findChildren(WrappedLabel):

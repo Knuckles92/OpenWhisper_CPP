@@ -1,5 +1,5 @@
-// The "New in FioriVoce" note (ui_qt/whats_new.py): OpenWhisper's tests of tests/test_whats_new.py
-// and the golden vectors of ui_qt.whats_new.
+// The "New in OpenWhisper_CPP" note (ui_qt/whats_new.py): OpenWhisper's tests of
+// tests/test_whats_new.py and the golden vectors of ui_qt.whats_new.
 #include <catch2/catch_test_macros.hpp>
 
 #include <chrono>
@@ -57,7 +57,8 @@ TEST_CASE("is_seen replays the golden vectors", "[golden][whats_new]") {
 
 TEST_CASE("the note is the lead's text and fits the tile's limit", "[whats_new]") {
     CHECK(whats_new().text ==
-          "FioriVoce 0.1 is the C++ rewrite of OpenWhisper: the same dictation, uploads, history "
+          "OpenWhisper_CPP 0.1 is the C++ rewrite of OpenWhisper: the same dictation, uploads, "
+          "history "
           "and settings, with Parakeet running in-process for faster starts and lower memory.");
     CHECK(fv::appcore::kWhatsNewMaxTextLength == 280);
 }

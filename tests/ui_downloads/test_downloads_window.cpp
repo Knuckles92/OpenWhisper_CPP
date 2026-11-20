@@ -560,8 +560,8 @@ TEST_CASE("component events reach the page's rows and message", "[widget]") {
         fvtest::runtimeInfo(fvtest::kCudaRuntime, fv::models::ComponentState::Installed)};
     harness.presenter.onComponentInstallFinished(
         q(fvtest::kCudaRuntime), true,
-        QStringLiteral("Restart FioriVoce to switch to the GPU runtime."));
-    CHECK(page->messageText() == "Restart FioriVoce to switch to the GPU runtime.");
+        QStringLiteral("Restart OpenWhisper_CPP to switch to the GPU runtime."));
+    CHECK(page->messageText() == "Restart OpenWhisper_CPP to switch to the GPU runtime.");
     CHECK(page->tabs()->buttons()[1]->titleLabel()->text() == "Components · 1 of 2 installed");
     CHECK(finished == std::vector<QString>{q(fvtest::kCudaRuntime)});
 

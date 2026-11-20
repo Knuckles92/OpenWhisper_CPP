@@ -34,8 +34,8 @@ class RecorderPort;
 
 // The dictation's live preview: when it is set up, started, muted, stopped, finished and
 // canceled (services/runtime/streaming.py StreamingRuntime), over one speech::WindowPreview that
-// decodes windows of the recorder's tape on the dictation engine. FioriVoce previews only with
-// Parakeet (and the paired host's engine, M9): the engine's own preview shares its decoder, so
+// decodes windows of the recorder's tape on the dictation engine. OpenWhisper_CPP previews only
+// with Parakeet (and the paired host's engine, M9): the engine's own preview shares its decoder, so
 // the preview loads nothing of its own. Native streams and the tiny.en preview are not ported.
 //
 // The preview exists while `streaming_enabled` is on and the dictation engine can preview; while

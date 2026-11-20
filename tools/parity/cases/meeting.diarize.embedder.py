@@ -1,7 +1,7 @@
 """Speaker embeddings of three synthetic voice clips through meeting/diarize/embedder.py, for the
 [decode] parity test of tests/diarize/test_embedder.cpp (cosine >= 0.999).
 
-Needs the WeSpeaker model the embedder runs, named by FIORIVOCE_TEST_SPEAKER_MODEL (read only;
+Needs the WeSpeaker model the embedder runs, named by OPENWHISPER_CPP_TEST_SPEAKER_MODEL (read only;
 on the reference machine the owner's %LOCALAPPDATA%\\OpenWhisper\\models\\speaker-id\\
 voxceleb_resnet34_LM.onnx), and OpenWhisper's interpreter's onnxruntime. Without the model the
 committed vectors are written back unchanged, so a run of every case file gives no diff on a
@@ -25,12 +25,12 @@ _RATE = 16000
 _MASK64 = (1 << 64) - 1
 _REPO = Path(__file__).resolve().parents[3]
 _COMMITTED = _REPO / "tests" / "golden" / "meeting.diarize.embedder.json"
-_MODEL = os.environ.get("FIORIVOCE_TEST_SPEAKER_MODEL", "")
+_MODEL = os.environ.get("OPENWHISPER_CPP_TEST_SPEAKER_MODEL", "")
 
 
 def _committed():
     if not _COMMITTED.is_file():
-        raise SystemExit("meeting.diarize.embedder: set FIORIVOCE_TEST_SPEAKER_MODEL to the "
+        raise SystemExit("meeting.diarize.embedder: set OPENWHISPER_CPP_TEST_SPEAKER_MODEL to the "
                          "speaker model; there are no committed vectors to keep.")
     return json.loads(_COMMITTED.read_text(encoding="utf-8"))
 

@@ -6,13 +6,13 @@
 
 // OpenWhisper's database schema v18 (services/models.py and the raw SQL of
 // services/database.py): table and column names for the repositories, and the DDL text exactly
-// as SQLAlchemy emits it for SQLite, so a FioriVoce database and an OpenWhisper one hold the same
-// sqlite_master. FioriVoce never alters these tables; its own go in fv_* tables.
+// as SQLAlchemy emits it for SQLite, so a OpenWhisper_CPP database and an OpenWhisper one hold the
+// same sqlite_master. OpenWhisper_CPP never alters these tables; its own go in fv_* tables.
 namespace fv::schema {
 
 // services/database.py SCHEMA_VERSION.
 inline constexpr int schema_version = 18;
-// The version of the FioriVoce-only fv_* tables, kept in fv_schema_version.
+// The version of the OpenWhisper_CPP-only fv_* tables, kept in fv_schema_version.
 inline constexpr int fv_schema_version = 1;
 
 namespace schema_version_table {

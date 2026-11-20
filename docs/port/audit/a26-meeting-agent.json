@@ -395,7 +395,7 @@
   },
   "A26-33": {
    "status": "dropped",
-   "reason": "The OpenCode SDK sidecar is a Bun process with a component, lease, isolation root and platform gate; FioriVoce has no sidecar (M8.md 'The native agent loop', change 2; ARCHITECTURE 'One agent loop (M8)'). A stored 'opencode' runs the built-in loop (test_native_core.cpp 'meeting agent factory routes built-in and installed kinds explicitly'; test_native_core_passes.cpp 'the OpenCode core runs every meeting pass with fresh history')."
+   "reason": "The OpenCode SDK sidecar is a Bun process with a component, lease, isolation root and platform gate; OpenWhisper_CPP has no sidecar (M8.md 'The native agent loop', change 2; ARCHITECTURE 'One agent loop (M8)'). A stored 'opencode' runs the built-in loop (test_native_core.cpp 'meeting agent factory routes built-in and installed kinds explicitly'; test_native_core_passes.cpp 'the OpenCode core runs every meeting pass with fresh history')."
   },
   "A26-34": {
    "status": "verified",
@@ -636,7 +636,7 @@
     "SMV-02"
    ],
    "openwhisper": "The packaged Pi (Node) and OpenCode SDK (Bun) agents run as sidecar processes supervised from Python: payload checks with their own install messages, hello handshake, ping, restarts within a budget, and timeouts that read \"RPC 'checkpoint' timed out after Ns\" or \"... stalled after Ns without agent progress\"; a missing key reads \"... meeting sidecar agent offline\".",
-   "fiorivoce": "pi, opencode and the legacy direct all build the in-process NativeAgentCore, which keeps the key resolution, pass budgets, stall clock, cancel and request-scoped authority; there is no process to supervise or install, a pass that fails fails only itself, and the messages read \"Agent pass timed out after Ns\", \"Agent pass stalled after Ns without agent progress\" and \"No {provider} API key found; meeting agent offline\".",
+   "openwhisper-cpp": "pi, opencode and the legacy direct all build the in-process NativeAgentCore, which keeps the key resolution, pass budgets, stall clock, cancel and request-scoped authority; there is no process to supervise or install, a pass that fails fails only itself, and the messages read \"Agent pass timed out after Ns\", \"Agent pass stalled after Ns without agent progress\" and \"No {provider} API key found; meeting agent offline\".",
    "reason": "The owner chose a native agent loop (amendment 1); everything that only supervised a sidecar process goes with the process.",
    "source": "docs/port/packages/M8.md 'The native agent loop (owner decision, amendment 1)' and changes 2 and 6; docs/port/ARCHITECTURE.md 'One agent loop (M8)'; tests/meeting_agent/test_native_core.cpp, test_native_core_budgets.cpp, test_native_core_passes.cpp"
   }

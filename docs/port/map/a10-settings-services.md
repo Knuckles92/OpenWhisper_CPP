@@ -60,7 +60,7 @@ No UI lives in this area. The Settings "Backup" and "API keys" pages that drive 
 | A10-15 | API model retirement | Before 2027-02-26 picker shows `"<model> (retiring Feb 26, 2027)"` for gpt-4o-transcribe, gpt-4o-mini-transcribe, whisper-1; after, they are hidden and resolve to `gpt-transcribe` | `settings.py:api_model_choices`, `api_model_label`, `serving_api_model`, `resolve_api_transcription_model` (55-92) | undecided backend (cloud API) |
 | A10-16 | Hugging Face access policy | `ask`/`always`/`never`; legacy `hf_hub_offline:true` -> `never`, else `ask`; migration persisted and legacy key removed; env `HF_HUB_OFFLINE` in {1,on,true,yes} is a hard override | `settings.py:load_hf_access_policy`, `save_hf_access_policy`, `is_hf_hub_offline_env_set` (1341-1395) | port (Parakeet model download) |
 | A10-17 | New-install seeding | Only on a new install, once: writes `app_style_tones = services.app_styles.NEW_INSTALL_TONES` | `settings.py:seed_new_install_settings` (1401-1424) | port |
-| A10-18 | Keep unchosen engine | New install saves `config.DEFAULT_BACKEND`; existing Linux install with no saved engine and default `parakeet` saves `local_whisper` | `settings.py:keep_unchosen_engine` (1427-1460) | adapt (FioriVoce only has Parakeet) |
+| A10-18 | Keep unchosen engine | New install saves `config.DEFAULT_BACKEND`; existing Linux install with no saved engine and default `parakeet` saves `local_whisper` | `settings.py:keep_unchosen_engine` (1427-1460) | adapt (OpenWhisper_CPP only has Parakeet) |
 | A10-19 | Meeting speech resolution | `resolve_meeting_speech` -> {source, model, separate, note}; note text `"<name> can't transcribe meetings, so meetings use <label>."` | `settings.py:MeetingSpeech`, `resolve_meeting_speech`, `own_meeting_speech`, `_own_meeting_model`, `meeting_model_label` (1774-1916) | port, simplified to Parakeet/remote |
 | A10-20 | Keep separate meeting speech | One-time: existing install whose own meeting engine differs from dictation's keeps `meeting_speech_separate=true`; new installs false | `settings.py:keep_separate_meeting_speech` (1847-1880) | port (simplified) |
 | A10-21 | Text-LLM provider/model pair resolution | Provider kept only if a known profile (built-in or `custom_*`) and model non-blank; installed agents (claude_code, codex, opencode_cli) accept empty model; else defaults; `openai` + `gpt-4o-mini` reads as `gpt-6-luna` | `settings.py:_resolve_text_llm_assignment`, `resolve_transcript_cleanup_provider/model`, `resolve_meeting_llm_*`, `default_transcript_cleanup_model` (1664-1971) | port |
@@ -81,7 +81,7 @@ No UI lives in this area. The Settings "Backup" and "API keys" pages that drive 
 | A10-36 | Create backup | `.owbackup` ZIP: manifest + sanitized settings + SQLite online-backup snapshot + owned files; atomic publish; progress phases `scan`, `archive`; cancellable | `backup.py:create_backup` (766-843) | port |
 | A10-37 | Settings sanitizing for backup/import | Removes pairings, context folder path; forces network/automation opt-ins off; disables saved webhooks/programs/filters and webhook/program/agent actions; drops secret-named keys; strips userinfo/query/fragment from http(s) URLs except in `dictation_snippets` and link-action templates | `backup.py:_scrub`, `_sanitize_actions`, `_sanitize_settings` (263-360) | port |
 | A10-38 | Database sanitizing | Meeting spool/chunk paths rewritten to `__OW_BACKUP_DATA__/meetings/...`; host/guest tokens regenerated; remote/agent endpoint, pid, heartbeat cleared; `record_sync` emptied; text-only drops audio chunks and history `audio_file`; warnings `"History entry <id> refers to external audio"`, `"History entry <id> has no local audio file"` | `backup.py:_DatabaseSanitizer` (449-583) | port |
-| A10-39 | Legacy history merge | If DB history table empty and `transcription_history.json` exists, its entries are inserted into the snapshot | `backup.py:_merge_legacy_history` (586-626) | port (only if FioriVoce imports OpenWhisper data) |
+| A10-39 | Legacy history merge | If DB history table empty and `transcription_history.json` exists, its entries are inserted into the snapshot | `backup.py:_merge_legacy_history` (586-626) | port (only if OpenWhisper_CPP imports OpenWhisper data) |
 | A10-40 | Inspect backup | Validates ZIP structure, names, sizes, ratios, checksums, manifest, settings JSON, SQLite integrity and every path reference | `backup.py:inspect_backup`, `_inspect_backup`, `_validate_manifest` (852-1067) | port |
 | A10-41 | Stage restore | Validates, extracts to `.openwhisper-restore/stage-<32hex>/data`, rebases DB paths to this root, re-sanitizes settings, writes stage manifest and `pending.json` | `backup.py:prepare_restore` (1145-1198) | port |
 | A10-42 | Apply restore at startup | Journaled move of owned names into `previous-<UTCstamp>-<8hex>`, staged in; rollback on failure; crash recovery from journal; `last_restore.json` records previous | `backup.py:apply_pending_restore`, `_resume_journal`, `_install_stage`, `_rollback` (1311-1426) | port |
@@ -211,7 +211,7 @@ Credentials (`services/credentials.py`):
   empty")`. Applied to every store call's variable name. Unlike `validate_api_key` it does no charset check.
 - `mask_key` threshold is `_MIN_MASK_SUFFIX_LEN = 12` (line 31): keys under 12 characters mask to `••••` alone.
 - `DEFAULT_BACKEND` (consumed by `selected_model`, A10-14/18) is platform dependent: `parakeet_mlx` on Apple Silicon
-  macOS 14+, `parakeet` on Windows x64 / Linux x86_64, else `local_whisper` (config.py:804-808). FioriVoce fixes it to
+  macOS 14+, `parakeet` on Windows x64 / Linux x86_64, else `local_whisper` (config.py:804-808). OpenWhisper_CPP fixes it to
   `parakeet`.
 - Secret Service writes (`set_password`) are expected to prompt (create or unlock a keyring) and call `_note_prompt()`
   so the 120 s window applies; reads and deletes never create a keyring (credentials.py:225-255).
@@ -391,7 +391,7 @@ Database columns touched by backup (tables owned by a09 history / a28 meeting pe
 (`audio_file` relative to `recordings/`, or absolute legacy); `record_sync` (emptied). Legacy history JSON:
 `{"entries":[{id,text,raw_text,timestamp,model,audio_file,transcription_time,audio_duration,file_size}]}`.
 
-Compatibility: if FioriVoce should read an existing OpenWhisper data root or `.owbackup`, keep every name, key and
+Compatibility: if OpenWhisper_CPP should read an existing OpenWhisper data root or `.owbackup`, keep every name, key and
 format above byte-compatible. This is an owner decision (Open questions).
 
 ### Credential store entries
@@ -623,11 +623,11 @@ Undecided: `nemotron` (same NeMo runtime) as a `selected_model` value; `api` + `
 `LEGACY_API_MODELS` + retirement helpers (cloud API); `remote` + all `remote_*` keys + `host_mode` + `meeting_asr_source`
 remote branch (remote engine); `meeting_speaker_id_backend=openai` and audio upload consent.
 
-Adapt for in-process Parakeet: `local_asr_models["parakeet"]` / `local_asr_devices["parakeet"]` become FioriVoce's model
-and CPU/GPU device choice (today FioriVoce stores `engine/runtimeDir`, `engine/modelPath`, `engine/gpu` in QSettings,
+Adapt for in-process Parakeet: `local_asr_models["parakeet"]` / `local_asr_devices["parakeet"]` become OpenWhisper_CPP's model
+and CPU/GPU device choice (today OpenWhisper_CPP stores `engine/runtimeDir`, `engine/modelPath`, `engine/gpu` in QSettings,
 `src/app/main_window.cpp:194-213`; these should move into the ported store). The NeMo runtime directory has no
 OpenWhisper equivalent: add a new key. `resolve_meeting_speech` collapses to "dictation's Parakeet model, or the remote
-host". `config.DEFAULT_BACKEND` becomes a constant `parakeet`. `hf_access_policy` stays if FioriVoce downloads Parakeet
+host". `config.DEFAULT_BACKEND` becomes a constant `parakeet`. `hf_access_policy` stays if OpenWhisper_CPP downloads Parakeet
 models from Hugging Face.
 
 ## Dependencies on other areas
@@ -722,7 +722,7 @@ Risks:
 - Backup safety logic is long and security-relevant (zip-slip, symlinks/junctions, ratio bombs, rollback): port it
   line by line and port the tests; do not simplify.
 - `.owbackup` contains the SQLite DB whose schema belongs to a09; schema version and table names must align, or
-  FioriVoce must declare its own format id.
+  OpenWhisper_CPP must declare its own format id.
 - Watcher callbacks run on the saving thread (often a worker); Qt consumers must queue to the GUI thread.
 - Abandoned D-Bus worker threads on timeout: in C++ a detached thread touching a destroyed object is a crash; keep the
   backend and its connection alive with `shared_ptr`.
@@ -737,7 +737,7 @@ need no interpreter start.
 
 ## Open questions (owner decisions)
 
-1. Must FioriVoce read and write OpenWhisper's data root and files as-is (same `openwhisper_settings.json`, keys,
+1. Must OpenWhisper_CPP read and write OpenWhisper's data root and files as-is (same `openwhisper_settings.json`, keys,
    credential service name `OpenWhisper`, `.owbackup` format id), or use its own names and offer a one-time import?
 2. Replace the current `QSettings` storage in `src/app/main_window.cpp` with the ported JSON store?
 3. Which `selected_model` values survive (Parakeet only, plus Nemotron, API, remote)? Determines which keys and

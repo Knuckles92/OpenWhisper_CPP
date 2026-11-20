@@ -17,7 +17,7 @@ export default function JoinGate({ meetingTitle, onJoin }: JoinGateProps) {
     <div className="join-gate">
       <div className="join-card">
         <p className="brand">
-          FioriVoce <em>Meeting</em>
+          OpenWhisper_CPP <em>Meeting</em>
         </p>
         <h1>Join meeting</h1>
         <p>

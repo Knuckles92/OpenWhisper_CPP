@@ -598,13 +598,13 @@ TEST_CASE("cancel during a transfer keeps or discards the partial", "[verified_d
 
 TEST_CASE("a pinned file downloads over HTTPS through the system proxy settings",
           "[verified_download][platform]") {
-    // Reaches the internet, so it runs only when FIORIVOCE_TEST_DOWNLOAD_URL, _SIZE and _SHA256
-    // name a file to fetch.
-    const auto url = fv::testkit::get_env("FIORIVOCE_TEST_DOWNLOAD_URL");
-    const auto size = fv::testkit::get_env("FIORIVOCE_TEST_DOWNLOAD_SIZE");
-    const auto sha256 = fv::testkit::get_env("FIORIVOCE_TEST_DOWNLOAD_SHA256");
+    // Reaches the internet, so it runs only when OPENWHISPER_CPP_TEST_DOWNLOAD_URL, _SIZE and
+    // _SHA256 name a file to fetch.
+    const auto url = fv::testkit::get_env("OPENWHISPER_CPP_TEST_DOWNLOAD_URL");
+    const auto size = fv::testkit::get_env("OPENWHISPER_CPP_TEST_DOWNLOAD_SIZE");
+    const auto sha256 = fv::testkit::get_env("OPENWHISPER_CPP_TEST_DOWNLOAD_SHA256");
     if (!url || !size || !sha256) {
-        SKIP("FIORIVOCE_TEST_DOWNLOAD_URL, _SIZE and _SHA256 are not set");
+        SKIP("OPENWHISPER_CPP_TEST_DOWNLOAD_URL, _SIZE and _SHA256 are not set");
     }
     const fv::testkit::TempDataRoot root;
     const auto client = fv::http::make_curl_client();

@@ -156,8 +156,8 @@ TEST_CASE("a24 audit: a pause or resume that cannot be saved rolls the clock bac
 TEST_CASE("a24 audit: the status event and its dashboard copy carry the same fields",
           "[test_meeting_engine]") {
     // A24-07 (engine.py _emit_status): the listener payload may carry `note`, the WebSocket
-    // message never does. FioriVoce adds cloud_enabled, which the desktop's AI insights switch
-    // follows (insights turn on per meeting after approval).
+    // message never does. OpenWhisper_CPP adds cloud_enabled, which the desktop's AI insights
+    // switch follows (insights turn on per meeting after approval).
     EngineRig rig;
     MeetingEngine& engine = rig.make(transcript_only());
     engine.start();

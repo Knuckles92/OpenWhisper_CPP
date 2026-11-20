@@ -7,8 +7,8 @@
 #include "net/types.h"
 
 // What the History API answers (services/agent_api/app.py), as values: the handlers are pure
-// functions, so the in-app MCP server and fiorivoce-cli --api serve them over net::HttpServer and
-// the tests call them directly. The MCP server and the live API reuse error_response for their
+// functions, so the in-app MCP server and openwhisper-cpp-cli --api serve them over net::HttpServer
+// and the tests call them directly. The MCP server and the live API reuse error_response for their
 // own errors, as OpenWhisper reuses app.py's _error.
 namespace fv::agentapi {
 

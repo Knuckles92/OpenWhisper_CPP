@@ -1,8 +1,8 @@
 """Record OpenWhisper's loopback MCP server (meeting/agent/installed/mcp_server.py) for C++ replay.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
-        $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/transcripts/loopback_mcp.py
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
+        $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/transcripts/loopback_mcp.py
 
 The server is a ThreadingHTTPServer, not a FastAPI app, so this scenario runs on its own rather
 than through Starlette's TestClient: it starts LoopbackMcpServer on 127.0.0.1 inside this

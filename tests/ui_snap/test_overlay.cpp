@@ -835,11 +835,11 @@ TEST_CASE("the overlay window is this desktop's snap window", "[test_snap_overla
     SnapOverlay* overlay = overlays.make();
     CHECK(overlay->windowFlags() == snapWindowFlags());
     CHECK(overlay->objectName() == QStringLiteral("snapOverlay"));
-    CHECK(overlay->windowTitle() == QStringLiteral("FioriVoce Snap"));
+    CHECK(overlay->windowTitle() == QStringLiteral("OpenWhisper_CPP Snap"));
     CHECK(overlay->testAttribute(Qt::WA_OpaquePaintEvent));
     CHECK(overlay->testAttribute(Qt::WA_NoSystemBackground));
     CHECK_FALSE(overlay->testAttribute(Qt::WA_QuitOnClose));
-    CHECK(overlay->property("fiorivoceHotkeyWindow").toBool());
+    CHECK(overlay->property("openwhisperCppHotkeyWindow").toBool());
     CHECK(overlay->cursor().shape() == Qt::CrossCursor);
     CHECK(overlay->focusPolicy() == Qt::StrongFocus);
 }

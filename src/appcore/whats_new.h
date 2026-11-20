@@ -5,7 +5,7 @@
 
 #include "base/json.h"
 
-// The "New in FioriVoce" note on Settings → Home (ui_qt/whats_new.py). whats_new.cpp is the
+// The "New in OpenWhisper_CPP" note on Settings → Home (ui_qt/whats_new.py). whats_new.cpp is the
 // only place the note lives. To refresh it: rewrite `text` (one or two sentences naming the
 // headline features of the current release line), set `updated` to today's date (anyone who
 // dismissed the previous note sees the new one once, because dismissal remembers the `updated` it

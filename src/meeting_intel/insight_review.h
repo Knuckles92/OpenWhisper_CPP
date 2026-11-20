@@ -24,7 +24,7 @@ struct InsightReviewDeps {
     const Clock* clock = nullptr;
 };
 
-// insight_review._default_reviewer over FioriVoce's rule that meeting judgments stay on this
+// insight_review._default_reviewer over OpenWhisper_CPP's rule that meeting judgments stay on this
 // computer (a29-local-meeting-judgments): null unless Fast judgments are on and `route` (the
 // chosen one) is device-local; else `build` with a per-question budget of
 // max(at_least_s, route.timeout_s).

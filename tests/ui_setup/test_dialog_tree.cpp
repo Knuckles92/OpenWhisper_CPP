@@ -119,16 +119,16 @@ void checkTree(const Json& tree) {
 
 // The committed tree for a theme: generated from this widget (there is no OpenWhisper
 // counterpart) and reviewed by the lead, as the spec's "Reference screenshots" asks. With
-// FIORIVOCE_WRITE_UI_SETUP_REFERENCES set the test writes the file instead of reading it; review
-// the diff before committing it. Geometry and fonts are Windows' (the fonts of QT_QPA_FONTDIR), so
-// the comparison runs there only.
+// OPENWHISPER_CPP_WRITE_UI_SETUP_REFERENCES set the test writes the file instead of reading it;
+// review the diff before committing it. Geometry and fonts are Windows' (the fonts of
+// QT_QPA_FONTDIR), so the comparison runs there only.
 void compareWithReference(Json tree, std::string_view theme) {
     // Where the window system put the top-level window is not the dialog's; its size is.
     tree["geometry"][0] = 0;
     tree["geometry"][1] = 0;
     const auto file = fv::testkit::source_root() / "tests" / "ui_setup" / "reference" /
                       ("runtime_setup_dialog-" + std::string(theme) + ".json");
-    if (fv::testkit::get_env("FIORIVOCE_WRITE_UI_SETUP_REFERENCES")) {
+    if (fv::testkit::get_env("OPENWHISPER_CPP_WRITE_UI_SETUP_REFERENCES")) {
         std::filesystem::create_directories(file.parent_path());
         std::ofstream out(file, std::ios::binary | std::ios::trunc);
         out << tree.dump(1) << '\n';

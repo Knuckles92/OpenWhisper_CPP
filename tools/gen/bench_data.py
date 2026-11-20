@@ -9,7 +9,7 @@ the primary composites as (first, second) -> composite pairs. Run it with Python
 unicodedata.unidata_version is 15.0.0, as OpenWhisper's; another version is refused.
 
 src/bench/data/cleanup_golden.jsonl is OpenWhisper's benchmarks/cleanup_levels/golden.jsonl,
-copied byte for byte from the checkout FIORIVOCE_OW_ROOT names (read only, nothing imported).
+copied byte for byte from the checkout OPENWHISPER_CPP_OW_ROOT names (read only, nothing imported).
 
 --check compares with the committed files instead of writing them, and fails on a difference.
 """
@@ -84,9 +84,9 @@ def nfkc_tables() -> str:
 
 
 def golden_bytes() -> bytes:
-    root = os.environ.get("FIORIVOCE_OW_ROOT")
+    root = os.environ.get("OPENWHISPER_CPP_OW_ROOT")
     if not root:
-        sys.exit("Set FIORIVOCE_OW_ROOT to the OpenWhisper checkout.")
+        sys.exit("Set OPENWHISPER_CPP_OW_ROOT to the OpenWhisper checkout.")
     return (Path(root) / GOLDEN_SOURCE).read_bytes()
 
 

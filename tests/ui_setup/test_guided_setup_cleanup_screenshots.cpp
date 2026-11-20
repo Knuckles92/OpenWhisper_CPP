@@ -47,7 +47,7 @@ void shot(const std::string& theme, int scale) {
     REQUIRE(expected.at("properties").contains("openwhisperHotkeyWindow"));
     Json properties = Json::object();
     for (const auto& [key, value] : expected.at("properties").items()) {
-        properties[key == "openwhisperHotkeyWindow" ? "fiorivoceHotkeyWindow" : key] = value;
+        properties[key == "openwhisperHotkeyWindow" ? "openwhisperCppHotkeyWindow" : key] = value;
     }
     expected["properties"] = std::move(properties);
     for (const auto& difference :

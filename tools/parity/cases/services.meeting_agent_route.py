@@ -2,7 +2,7 @@
 
     resolve_meeting_agent_route(settings, meeting)
         {kind, provider, model, endpoint, installed}: the route without payload_dir, which
-        FioriVoce does not have (its built-in loop has no packaged payload). The packaged
+        OpenWhisper_CPP does not have (its built-in loop has no packaged payload). The packaged
         payload lookup answers None and a server the user runs is not asked about its models
         (the C++ function compared is the one that asks nothing).
 """

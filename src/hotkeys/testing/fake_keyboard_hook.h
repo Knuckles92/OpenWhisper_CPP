@@ -17,9 +17,8 @@ namespace fv::hotkeys {
 // calling thread, as the hook thread would, and says whether it reached the focused app.
 // send_raw() first runs the hook data through `keyboard`'s bookkeeping (KeyEventTranslator over
 // the generated names), so modifiers, names and numpad flags come out as on Windows. Either way
-// an event FioriVoce sent itself (own_input()) passes without reaching the callback and without
-// being recorded as pressed, as in the Windows hook.
-// Affinity: thread-safe.
+// an event OpenWhisper_CPP sent itself (own_input()) passes without reaching the callback and
+// without being recorded as pressed, as in the Windows hook. Affinity: thread-safe.
 class FakeKeyboardHook final : public KeyboardHook {
 public:
     FakeKeyboardHook() : translator_(KeyNameTable::generated()) {}

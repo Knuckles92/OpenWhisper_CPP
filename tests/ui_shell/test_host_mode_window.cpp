@@ -71,7 +71,7 @@ TEST_CASE("test_host_mode_swaps_the_tabs_for_the_dashboard_and_back", "[widget]"
     CHECK_FALSE(window.tabbedContent()->isVisibleTo(&window));
     CHECK_FALSE(host.panel->isVisibleTo(&window));
     CHECK_FALSE(host.edgeTab->isVisibleTo(&window));
-    CHECK(window.titleBar()->titleLabel()->text() == QStringLiteral("FioriVoce Host"));
+    CHECK(window.titleBar()->titleLabel()->text() == QStringLiteral("OpenWhisper_CPP Host"));
     CHECK(menus.action(fv::menu_id::hostMode)->isChecked());
     CHECK_FALSE(menus.action(fv::menu_id::sidePanel)->isEnabled());
     CHECK_FALSE(menus.action(fv::menu_id::compactMode)->isEnabled());
@@ -84,7 +84,7 @@ TEST_CASE("test_host_mode_swaps_the_tabs_for_the_dashboard_and_back", "[widget]"
     CHECK(host.edgeTab->isVisibleTo(&window));
     CHECK_FALSE(host.dashboard->isVisibleTo(&window));
     CHECK(window.geometry() == normal);
-    CHECK(window.titleBar()->titleLabel()->text() == QStringLiteral("FioriVoce"));
+    CHECK(window.titleBar()->titleLabel()->text() == QStringLiteral("OpenWhisper_CPP"));
     CHECK(menus.action(fv::menu_id::sidePanel)->isEnabled());
     CHECK(menus.action(fv::menu_id::compactMode)->isEnabled());
     CHECK_FALSE(menus.action(fv::menu_id::hostMode)->isChecked());

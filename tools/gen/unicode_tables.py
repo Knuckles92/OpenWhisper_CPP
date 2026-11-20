@@ -2,7 +2,7 @@
 
     python -I -B tools/gen/unicode_tables.py [--check]
 
-Run it with Python 3.12 (FIORIVOCE_OW_PYTHON): every table is read back from the running
+Run it with Python 3.12 (OPENWHISPER_CPP_OW_PYTHON): every table is read back from the running
 interpreter's own str methods and unicodedata, so the C++ side reproduces exactly what
 OpenWhisper's Python does, including where it differs from newer Unicode versions. The
 interpreter must report unicodedata.unidata_version 15.0.0; another version is refused.

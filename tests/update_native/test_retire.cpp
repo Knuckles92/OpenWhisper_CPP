@@ -53,7 +53,7 @@ TEST_CASE("a transaction retired for setup can no longer run", "[update_native]"
                                u::SetupGate::HeldByInstaller);
     CHECK(u::recover_transaction(f.context, journal, platform) == u::TransactionState::Superseded);
     CHECK_THROWS_AS(u::apply_prepared(f.context, journal, platform), u::UpdateError);
-    CHECK(read_text(f.install / "fiorivoce.exe") == "old app");
+    CHECK(read_text(f.install / "openwhisper-cpp.exe") == "old app");
     CHECK(registry.restores == 0);
     // Retiring again changes nothing.
     u::retire_transactions(f.context, mutex, release, {});
@@ -91,7 +91,7 @@ TEST_CASE("setup puts a half-swapped update back before it replaces any file", "
         (void)u::recover_transaction(f.context, interrupted, platform);
     });
     CHECK(u::load_journal(f.context, id).state == u::TransactionState::RolledBack);
-    CHECK(read_text(f.install / "fiorivoce.exe") == "old app");
+    CHECK(read_text(f.install / "openwhisper-cpp.exe") == "old app");
     CHECK(read_text(settings) == "before the update");
     CHECK(registry.restores == 1);
     CHECK_FALSE(registry.recovery);

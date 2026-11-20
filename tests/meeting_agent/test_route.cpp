@@ -46,7 +46,7 @@ TEST_CASE("test_a_text_endpoint_meeting_rerun_on_a_newly_chosen_agent",
 
 // from
 // tests/test_installed_agent_core.py::test_the_archive_ignores_a_recorded_endpoint_for_an_agent
-// FioriVoce's archive dashboard carries no agent options of its own: its re-runs and reports
+// OpenWhisper_CPP's archive dashboard carries no agent options of its own: its re-runs and reports
 // resolve the destination here from the settings and the saved row (MeetingRuntime's
 // approve_saved_agent), so the row's recorded text endpoint is what must be ignored.
 TEST_CASE("test_the_archive_ignores_a_recorded_endpoint_for_an_agent",

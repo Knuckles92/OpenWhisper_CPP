@@ -1,5 +1,6 @@
-// fiorivoce-cli --self-test --installed: the install folder holds every file its programs need.
-// No OpenWhisper test: the frozen build's self-test imported modules instead (a34 6.7 item 6).
+// openwhisper-cpp-cli --self-test --installed: the install folder holds every file its programs
+// need. No OpenWhisper test: the frozen build's self-test imported modules instead (a34 6.7 item
+// 6).
 
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_string.hpp>
@@ -202,14 +203,14 @@ TEST_CASE("the windows layout lists the programs, qt, the runtime and the notice
         CHECK(file.imported_by.empty());
         paths.push_back(file.path);
     }
-    CHECK(paths == std::vector<std::string>{
-                       "fiorivoce.exe", "fiorivoce-cli.exe", "fiorivoce-updater.exe",
-                       "webui\\dist\\index.html", "platforms\\qwindows.dll",
-                       "platforms\\qoffscreen.dll", "styles\\qmodernwindowsstyle.dll",
-                       "imageformats\\qsvg.dll", "iconengines\\qsvgicon.dll",
-                       "tls\\qschannelbackend.dll", "Qt6Core.dll", "Qt6Gui.dll", "Qt6Widgets.dll",
-                       "Qt6Svg.dll", "Qt6Network.dll", "vcruntime140.dll", "vcruntime140_1.dll",
-                       "msvcp140.dll", "THIRD_PARTY_NOTICES.md"});
+    CHECK(paths ==
+          std::vector<std::string>{
+              "openwhisper-cpp.exe", "openwhisper-cpp-cli.exe", "openwhisper-cpp-updater.exe",
+              "webui\\dist\\index.html", "platforms\\qwindows.dll", "platforms\\qoffscreen.dll",
+              "styles\\qmodernwindowsstyle.dll", "imageformats\\qsvg.dll",
+              "iconengines\\qsvgicon.dll", "tls\\qschannelbackend.dll", "Qt6Core.dll", "Qt6Gui.dll",
+              "Qt6Widgets.dll", "Qt6Svg.dll", "Qt6Network.dll", "vcruntime140.dll",
+              "vcruntime140_1.dll", "msvcp140.dll", "THIRD_PARTY_NOTICES.md"});
 }
 
 TEST_CASE("system libraries are found in the system folder", "[platform][installed_check]") {
@@ -246,9 +247,9 @@ TEST_CASE("every library the built programs import is beside them in the build f
     // real executables must find each of them.
     const fs::path folder = fv::clitest::cli_executable().parent_path();
     InstalledLayout layout;
-    layout.import_roots = {"fiorivoce-cli.exe"};
-    if (fs::exists(folder / "fiorivoce.exe")) {
-        layout.import_roots.emplace_back("fiorivoce.exe");
+    layout.import_roots = {"openwhisper-cpp-cli.exe"};
+    if (fs::exists(folder / "openwhisper-cpp.exe")) {
+        layout.import_roots.emplace_back("openwhisper-cpp.exe");
     }
     const std::optional<std::vector<std::string>> imports =
         pe_imports(fv::clitest::cli_executable());

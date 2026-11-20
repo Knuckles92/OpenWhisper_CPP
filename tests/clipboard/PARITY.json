@@ -6,7 +6,7 @@
       "test_through_data_control_the_copy_is_read_and_the_url_goes_back": {"status": "ported", "cpp": "tests/clipboard/test_selection.cpp", "note": "case: with the change count another apps copy is read and undone (kept: a clipboard that sees the copy reads it and puts the user's URL back; Wayland's data-control is not used)"},
       "test_the_users_own_text_handed_over_again_is_not_taken_for_the_selection": {"status": "ported", "cpp": "tests/clipboard/test_selection_handover.cpp", "note": "case: the user's own text handed over again is not taken for the selection (no counter, as Python's)"},
       "test_a_selection_equal_to_the_clipboard_still_arrives_by_the_deadline": {"status": "ported", "cpp": "tests/clipboard/test_selection_handover.cpp", "note": "case: a selection equal to the clipboard still arrives by the deadline (with Windows' change counter)"},
-      "test_only_wayland_without_data_control_hides_other_apps_copies": {"status": "ported", "cpp": "tests/clipboard/test_selection_handover.cpp", "note": "case: only wayland hides other apps' copies (kept: the non-Wayland rows; FioriVoce never uses data-control, so every Wayland row hides)"},
+      "test_only_wayland_without_data_control_hides_other_apps_copies": {"status": "ported", "cpp": "tests/clipboard/test_selection_handover.cpp", "note": "case: only wayland hides other apps' copies (kept: the non-Wayland rows; OpenWhisper_CPP never uses data-control, so every Wayland row hides)"},
       "test_the_clipboard_checks_the_desktop_itself": {
         "status": "other-platform",
         "reason": "Wayland data-control capability and Linux Qt startup configuration."
@@ -19,7 +19,7 @@
         "status": "other-platform",
         "reason": "Wayland data-control capability and Linux Qt startup configuration."
       },
-      "test_other_systems_are_left_alone": {"status": "other-platform", "reason": "prefer_wayland_data_control sets QT_WAYLAND_USE_DATA_CONTROL on Linux only; FioriVoce does not use Wayland data-control and sets nothing on Windows"},
+      "test_other_systems_are_left_alone": {"status": "other-platform", "reason": "prefer_wayland_data_control sets QT_WAYLAND_USE_DATA_CONTROL on Linux only; OpenWhisper_CPP does not use Wayland data-control and sets nothing on Windows"},
       "test_the_app_asks_before_qt_starts": {
         "status": "other-platform",
         "reason": "Wayland data-control capability and Linux Qt startup configuration."
@@ -29,7 +29,7 @@
       "test_blank_clipboard_leaves_transcript": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
       "test_nonblank_text_is_restored": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
       "test_stage_without_restore_leaves_transcript_and_keeps_no_lease": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
-      "test_rich_and_custom_formats_are_restored": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp", "note": "the custom format is application/x-fiorivoce-test (lint.brand)"},
+      "test_rich_and_custom_formats_are_restored": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp", "note": "the custom format is application/x-openwhisper-cpp-test (lint.brand)"},
       "test_user_clipboard_change_is_not_overwritten": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
       "test_consecutive_stages_restore_the_original_clipboard": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
       "test_cleanup_restores_pending_clipboard": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},

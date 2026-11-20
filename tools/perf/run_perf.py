@@ -1,4 +1,4 @@
-"""Measure FioriVoce's performance metrics and write the report.
+"""Measure OpenWhisper_CPP's performance metrics and write the report.
 
     python tools/perf/run_perf.py [--preset NAME] [--metric NAME ...] [--cold-runs N]
                                   [--openwhisper] [--skip-build] [--ignore-load]
@@ -7,17 +7,17 @@
 1. Refuses to start while the machine is busy (a measurement made while builds run is noise):
    the one-minute load average per core above 30 % (Linux, macOS), or the processor time over
    3 s above 30 % (Windows). --ignore-load overrides it, for a smoke run only.
-2. Builds fv_perf_tests and fiorivoce-cli with the build preset (default: the platform's
+2. Builds fv_perf_tests and openwhisper-cpp-cli with the build preset (default: the platform's
    release preset, windows-release or linux-release).
 3. Runs the measuring tests, one at a time, through the platform's perf test preset
    (`ctest --preset windows-perf -C <configuration> -R '^perf\\.' -L perf -j1`), each
    writing out/perf/<metric>.json. The tests that measure a cold start (first construction,
    startup) run --cold-runs times in all (default 5), each in a fresh process, and their samples
    are merged.
-4. Runs `fiorivoce-cli --workflow-smoke` 5 times for the stop_to_result, cancel, restart and peak
+4. Runs `openwhisper-cpp-cli --workflow-smoke` 5 times for the stop_to_result, cancel, restart and peak
    RSS metrics.
 5. Reads M10.4's benchmark reports out/perf/bench-*.json when present.
-6. With --openwhisper (lead decision 5 only: FIORIVOCE_OW_APPROVED=1 and FIORIVOCE_OW_ROOT
+6. With --openwhisper (lead decision 5 only: OPENWHISPER_CPP_OW_APPROVED=1 and OPENWHISPER_CPP_OW_ROOT
    set), runs OpenWhisper's probes under tools/parity/ow_isolation.py and check_isolation.py and
    writes out/perf/openwhisper-measured.json.
 7. Writes out/perf/performance-report.md (perf_report.py), or --report-to.
@@ -46,7 +46,7 @@ import perf_report  # noqa: E402
 REPO = perf_lib.REPO
 LOAD_LIMIT_PERCENT = 30.0
 SMOKE_RUNS = 5
-WORKFLOW_SMOKE = "fiorivoce-cli --workflow-smoke (5 runs)"
+WORKFLOW_SMOKE = "openwhisper-cpp-cli --workflow-smoke (5 runs)"
 # --workflow-smoke's metrics (seconds) and the metric each one is recorded as (milliseconds).
 SMOKE_METRICS = {
     "stop_to_result_p95_s": ("stop_to_result_p95_ms", 1000.0, "ms"),
@@ -155,7 +155,7 @@ def perf_test_preset(preset: str) -> tuple[str, list[str]]:
 
 
 def find_cli(binary_dir: Path, configuration: str) -> Path | None:
-    names = ("fiorivoce-cli.exe", "fiorivoce-cli")
+    names = ("openwhisper-cpp-cli.exe", "openwhisper-cpp-cli")
     for folder in (binary_dir / "bin" / configuration, binary_dir / "bin", binary_dir):
         for name in names:
             if (folder / name).is_file():
@@ -229,8 +229,8 @@ def machine() -> dict:
         cpu = os.environ.get("PROCESSOR_IDENTIFIER", cpu)
     if cpu:
         made["cpu"] = cpu
-    if os.environ.get("FIORIVOCE_PERF_MACHINE"):
-        made["label"] = os.environ["FIORIVOCE_PERF_MACHINE"]
+    if os.environ.get("OPENWHISPER_CPP_PERF_MACHINE"):
+        made["label"] = os.environ["OPENWHISPER_CPP_PERF_MACHINE"]
     return made
 
 
@@ -245,14 +245,14 @@ def record_from_samples(metric: str, unit: str, samples: list[float], commit: st
 
 def build(preset: str) -> None:
     command = ["cmake", "--build", "--preset", preset, "--target", "fv_perf_tests",
-               "fiorivoce-cli"]
+               "openwhisper-cpp-cli"]
     print("run_perf:", " ".join(command))
     if subprocess.run(command, check=False).returncode != 0:
         raise SystemExit("run_perf: the build failed.")
 
 
 def run_ctest(preset: str, regex: str, out_dir: Path, commit: str) -> bool:
-    env = dict(os.environ, FIORIVOCE_PERF_OUT=str(out_dir), FIORIVOCE_PERF_COMMIT=commit)
+    env = dict(os.environ, OPENWHISPER_CPP_PERF_OUT=str(out_dir), OPENWHISPER_CPP_PERF_COMMIT=commit)
     test_preset, configuration = perf_test_preset(preset)
     command = ["ctest", "--preset", test_preset, *configuration, "-R", regex, "-L", "perf",
                "-j1", "--output-on-failure"]
@@ -271,7 +271,7 @@ def run_workflow_smoke(cli: Path, out: Path, commit: str, build_name: str) -> bo
     samples: dict[str, list[float]] = {}
     ok = True
     with tempfile.TemporaryDirectory(prefix="fv-perf-smoke-") as scratch:
-        env = dict(os.environ, FIORIVOCE_DATA_DIR=str(Path(scratch) / "data"))
+        env = dict(os.environ, OPENWHISPER_CPP_DATA_DIR=str(Path(scratch) / "data"))
         for run in range(SMOKE_RUNS):
             report = Path(scratch) / f"smoke-{run}.json"
             result = subprocess.run([str(cli), "--workflow-smoke", str(report)], env=env,
@@ -295,7 +295,7 @@ def run_workflow_smoke(cli: Path, out: Path, commit: str, build_name: str) -> bo
 
 
 def ingest_bench_reports(out: Path, commit: str) -> list[str]:
-    """M10.4's `fiorivoce-bench ... --output out/perf/bench-<kind>.json` reports: each numeric
+    """M10.4's `openwhisper-cpp-bench ... --output out/perf/bench-<kind>.json` reports: each numeric
     metric becomes <kind>_<name> (one sample)."""
     written = []
     for path in sorted(out.glob("bench-*.json")):
@@ -311,7 +311,7 @@ def ingest_bench_reports(out: Path, commit: str) -> list[str]:
             metric = f"{kind}_{name}"
             record = record_from_samples(metric, "", [float(value)],
                                          str(provenance.get("commit") or commit),
-                                         "bench", f"fiorivoce-bench ({path.name})",
+                                         "bench", f"openwhisper-cpp-bench ({path.name})",
                                          {"provenance": provenance})
             if isinstance(provenance.get("machine"), dict):
                 record["machine"] = provenance["machine"]
@@ -321,11 +321,11 @@ def ingest_bench_reports(out: Path, commit: str) -> list[str]:
 
 
 def run_openwhisper(out: Path) -> bool:
-    if os.environ.get("FIORIVOCE_OW_APPROVED") != "1":
+    if os.environ.get("OPENWHISPER_CPP_OW_APPROVED") != "1":
         raise SystemExit(
             "run_perf: --openwhisper runs OpenWhisper's code, which needs lead decision 5. Set "
-            "FIORIVOCE_OW_APPROVED=1 once it is approved, with FIORIVOCE_OW_ROOT (the read-only "
-            "checkout) and FIORIVOCE_OW_PYTHON (its Python 3.12).")
+            "OPENWHISPER_CPP_OW_APPROVED=1 once it is approved, with OPENWHISPER_CPP_OW_ROOT (the read-only "
+            "checkout) and OPENWHISPER_CPP_OW_PYTHON (its Python 3.12).")
     probes = Path(__file__).resolve().parent / "ow_probes"
     command = [sys.executable, "-I", "-B", str(probes / "run_probes.py"), "--out", str(out)]
     print("run_perf:", " ".join(command))
@@ -397,7 +397,7 @@ def main(argv: list[str] | None = None) -> int:
     if wants_smoke:
         cli = find_cli(binary_dir, configuration)
         if cli is None:
-            print(f"run_perf: no fiorivoce-cli under {binary_dir}; the workflow smoke is skipped")
+            print(f"run_perf: no openwhisper-cpp-cli under {binary_dir}; the workflow smoke is skipped")
             ok = False
         else:
             ok &= run_workflow_smoke(cli, out, commit, configuration)

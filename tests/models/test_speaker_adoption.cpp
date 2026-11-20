@@ -35,7 +35,7 @@ const std::string kModelBytes(64, 's');
 struct Setup {
     TempDir temp;
     fs::path ow = temp.path() / "OpenWhisper";
-    fs::path speaker_dir = temp.path() / "FioriVoce" / "models" / "speaker-id";
+    fs::path speaker_dir = temp.path() / "OpenWhisper_CPP" / "models" / "speaker-id";
     AdopterOptions options;
     std::vector<std::pair<fs::path, fs::path>> links;
 
@@ -50,9 +50,10 @@ struct Setup {
     }
 
     OpenWhisperAdopter adopter() {
-        return OpenWhisperAdopter(
-            temp.path() / "FioriVoce" / "components", temp.path() / "FioriVoce" / "speech-models",
-            {temp.path() / "missing", ow}, host_for(std::string("win_amd64")), options);
+        return OpenWhisperAdopter(temp.path() / "OpenWhisper_CPP" / "components",
+                                  temp.path() / "OpenWhisper_CPP" / "speech-models",
+                                  {temp.path() / "missing", ow}, host_for(std::string("win_amd64")),
+                                  options);
     }
 
     fs::path openwhisper_model(const std::string& bytes = kModelBytes) {
@@ -88,7 +89,7 @@ TEST_CASE("OpenWhisper's speaker model is discovered and adopted by hard link", 
         left.push_back(entry.path().filename());
     }
     CHECK(left == std::vector<fs::path>{"voxceleb_resnet34_LM.onnx"});
-    // Once FioriVoce has one, there is nothing more to discover.
+    // Once OpenWhisper_CPP has one, there is nothing more to discover.
     CHECK_FALSE(adopter.discover().speaker_model);
 }
 
@@ -100,7 +101,7 @@ TEST_CASE("a speaker model of another size, or none, is not offered", "[models]"
     CHECK_THROWS_AS(setup.adopter().adopt_speaker_model(), AdoptionError);
 }
 
-TEST_CASE("FioriVoce's own speaker model is never replaced", "[models]") {
+TEST_CASE("OpenWhisper_CPP's own speaker model is never replaced", "[models]") {
     Setup setup;
     setup.openwhisper_model();
     write_file(setup.speaker_dir / "mine.onnx", "mine");
@@ -202,7 +203,8 @@ TEST_CASE("the app's adopter puts the speaker model where speaker_model_path loo
                "too small");
     CHECK_FALSE(discover_openwhisper(paths).speaker_model);
     CHECK_THROWS_AS(adopt_speaker_model(paths), AdoptionError);
-    CHECK(speaker_model_cache_dir(paths) == temp.path() / "FioriVoce" / "models" / "speaker-id");
+    CHECK(speaker_model_cache_dir(paths) ==
+          temp.path() / "OpenWhisper_CPP" / "models" / "speaker-id");
 }
 
 TEST_CASE("a speaker model that failed its digest is not offered again until it changes",

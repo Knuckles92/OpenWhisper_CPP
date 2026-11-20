@@ -619,7 +619,7 @@ struct FakeAgents {
         const auto text = read_text(helper_pid);
         return text.empty() ? 0 : std::stoul(text);
     }
-    // No fiorivoce-ask-* folder is left in the temporary folder.
+    // No openwhisper-cpp-ask-* folder is left in the temporary folder.
     bool ask_folders_removed() const {
         const auto prefix = py::lower(identity().product) + "-ask-";
         for (const auto& entry : std::filesystem::directory_iterator(tmp)) {

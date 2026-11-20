@@ -557,9 +557,10 @@ void expect_matches(QWidget& widget, std::string_view name, std::string_view var
     }
 
     if (!pixel_comparison_enabled()) {
-        SKIP(name << "/" << variant
-                  << ": pixels are not compared (FIORIVOCE_SCREENSHOT_TESTS is OFF); the tree "
-                     "was");
+        SKIP(
+            name << "/" << variant
+                 << ": pixels are not compared (OPENWHISPER_CPP_SCREENSHOT_TESTS is OFF); the tree "
+                    "was");
     }
     std::string why_not;
     if (!qt_kit_matches_reference(&why_not)) {

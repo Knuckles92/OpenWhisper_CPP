@@ -2,8 +2,8 @@
 // the engine on this computer, the rail value it reports, and its place in the Settings window.
 // Ported from tests/test_settings_models.py (TestRail, TestOnDemandEngine, TestApiModelSelection,
 // TestOptionalSpeechSummary) and tests/test_settings_unified.py (TestRouting). OpenWhisper's Local
-// Whisper picker is not here (FioriVoce has none), so the tests that drive it drive Parakeet's
-// Model field instead.
+// Whisper picker is not here (OpenWhisper_CPP has none), so the tests that drive it drive
+// Parakeet's Model field instead.
 #include <catch2/catch_test_macros.hpp>
 
 #include <filesystem>
@@ -128,7 +128,7 @@ TEST_CASE("cloud engine reports itself instead of a whisper size",
 TEST_CASE("rail reports optional family and meeting model", "[test_settings_models][widget]") {
     // The dictation half: the rail names the selected model; a model of the family chosen in the
     // Model field replaces it. (The meeting half, Moonshine and the engine combo's other
-    // families are not FioriVoce's.)
+    // families are not OpenWhisper_CPP's.)
     PageRig rig(parakeet());
     auto page = rig.page();
     page->refresh(false);

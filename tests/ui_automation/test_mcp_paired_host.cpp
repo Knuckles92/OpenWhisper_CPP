@@ -1,5 +1,5 @@
 // The API & MCP page's paired-host frame (McpSettingsView::bindRemote) over FakeRemoteEngine:
-// what FioriVoce shows in place of OpenWhisper's This computer / host tabs
+// what OpenWhisper_CPP shows in place of OpenWhisper's This computer / host tabs
 // (tests/test_mcp_host_tabs.py, tests/test_remote_mcp_link.py and the host-tab cases of
 // tests/test_automation_ui_api_page.py). The peer only checks, starts and ends the session its
 // host granted (differences a17-paired-mcp); it never changes the host's MCP settings.

@@ -169,12 +169,12 @@ void startUp(const fv::testkit::TempDataRoot& root, Events& events,
     hooks.errorBox = [&errors](const std::string& message) {
         errors.push_back(message);
     };
-    hooks.arguments = std::vector<std::string>{"fiorivoce"};
+    hooks.arguments = std::vector<std::string>{"openwhisper-cpp"};
     hooks.audioBackend = [] {
         return std::make_shared<fv::audio::testing::FakeBackend>();
     };
     int argc = 1;
-    char program[] = "fiorivoce";
+    char program[] = "openwhisper-cpp";
     char* argv[] = {program, nullptr};
     fv::Bootstrap bootstrap(std::move(hooks));
     REQUIRE(bootstrap.run(argc, argv) == 0);

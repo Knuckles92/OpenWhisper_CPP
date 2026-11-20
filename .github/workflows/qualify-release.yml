@@ -1,6 +1,6 @@
 # Verify a release candidate kept by release-build.yml and upload it to an existing draft
 # release. Started by hand only, and every job is skipped unless the repository variable
-# FIORIVOCE_RELEASE_REPO names this repository (Settings > Secrets and variables > Actions >
+# OPENWHISPER_CPP_RELEASE_REPO names this repository (Settings > Secrets and variables > Actions >
 # Variables): until the owner sets it, nothing here runs. Written for M10.17 and never run.
 #
 # qualify: the candidate run must be a successful, hand-started release-build.yml run of this
@@ -39,7 +39,7 @@ concurrency:
 jobs:
   qualify:
     name: Verify the candidate
-    if: vars.FIORIVOCE_RELEASE_REPO != ''
+    if: vars.OPENWHISPER_CPP_RELEASE_REPO != ''
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     permissions:
@@ -48,12 +48,12 @@ jobs:
     steps:
       - name: Check the release repository
         env:
-          RELEASE_REPO: ${{ vars.FIORIVOCE_RELEASE_REPO }}
+          RELEASE_REPO: ${{ vars.OPENWHISPER_CPP_RELEASE_REPO }}
           REPOSITORY: ${{ github.repository }}
         run: |
           # The workflow token can only write to this repository.
           test "$RELEASE_REPO" = "$REPOSITORY" || {
-            echo "FIORIVOCE_RELEASE_REPO is $RELEASE_REPO, not this repository ($REPOSITORY)." >&2
+            echo "OPENWHISPER_CPP_RELEASE_REPO is $RELEASE_REPO, not this repository ($REPOSITORY)." >&2
             exit 1
           }
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
@@ -81,7 +81,7 @@ jobs:
           PY
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4 (OpenWhisper's pin)
         with:
-          name: fiorivoce-release-candidate
+          name: openwhisper-cpp-release-candidate
           path: release
           run-id: ${{ inputs.candidate_run_id }}
           github-token: ${{ github.token }}
@@ -102,7 +102,7 @@ jobs:
   upload:
     name: Upload the verified candidate to the draft
     needs: qualify
-    if: vars.FIORIVOCE_RELEASE_REPO != ''
+    if: vars.OPENWHISPER_CPP_RELEASE_REPO != ''
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     permissions:
@@ -117,14 +117,14 @@ jobs:
           python-version: "3.12"
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4 (OpenWhisper's pin)
         with:
-          name: fiorivoce-release-candidate
+          name: openwhisper-cpp-release-candidate
           path: release
           run-id: ${{ inputs.candidate_run_id }}
           github-token: ${{ github.token }}
       - name: Upload the verified candidate to the existing draft
         env:
           GH_TOKEN: ${{ github.token }}
-          RELEASE_REPO: ${{ vars.FIORIVOCE_RELEASE_REPO }}
+          RELEASE_REPO: ${{ vars.OPENWHISPER_CPP_RELEASE_REPO }}
           RELEASE_TAG: ${{ inputs.release_tag }}
           CANDIDATE_RUN: ${{ inputs.candidate_run_id }}
           REQUIRE_WINDOWS_SIGNED: ${{ inputs.require_windows_signed }}

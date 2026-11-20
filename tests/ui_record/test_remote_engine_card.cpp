@@ -38,7 +38,7 @@ Json pairedWithDevbox() {
 }
 
 // tests/test_remote_runtime.py RuntimeEngine.describe(): an OpenWhisper host running Whisper on
-// its CPU (FioriVoce's client pairs with such hosts; its own hosts run Parakeet).
+// its CPU (OpenWhisper_CPP's client pairs with such hosts; its own hosts run Parakeet).
 Json whisperEngine() {
     return Json{{"family", "local_whisper"}, {"model", "turbo"},       {"label", "Whisper turbo"},
                 {"device", "cpu"},           {"compute_type", "int8"}, {"available", true}};
@@ -161,7 +161,7 @@ TEST_CASE("test_legacy_runtime_fields_are_read_only", "[test_remote_runtime][wid
 }
 
 // from tests/test_remote_runtime.py::test_missing_gpu_runtime_has_setup_route_in_main_card:
-// FioriVoce's host reports the GPU runtime it could install as an installable dependency
+// OpenWhisper_CPP's host reports the GPU runtime it could install as an installable dependency
 // (remote_host::runtime_state), so the card offers its setup without asking this computer.
 TEST_CASE("test_missing_gpu_runtime_has_setup_route_in_main_card",
           "[test_remote_runtime][widget]") {
@@ -213,7 +213,7 @@ TEST_CASE("test_missing_gpu_runtime_has_setup_route_in_main_card",
 
 // from tests/test_remote_runtime.py::test_optional_card_shows_language_and_only_host_devices: a
 // non-Whisper engine shows its language rather than a precision, and a host with one device and
-// one language leaves nothing to choose. (OpenWhisper's case is Moonshine; FioriVoce's is
+// one language leaves nothing to choose. (OpenWhisper's case is Moonshine; OpenWhisper_CPP's is
 // Parakeet, the only other family it knows.)
 TEST_CASE("test_optional_card_shows_language_and_only_host_devices",
           "[test_remote_runtime][widget]") {

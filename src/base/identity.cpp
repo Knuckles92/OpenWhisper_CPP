@@ -4,20 +4,20 @@ namespace fv {
 
 const AppIdentity& identity() {
     static constexpr AppIdentity value{
-        .product = "FioriVoce",
-        .data_dir_name = "FioriVoce",
-        .env_prefix = "FIORIVOCE_",
-        .settings_file = "fiorivoce_settings.json",
-        .database_file = "fiorivoce.db",
-        .log_file = "fiorivoce.log",
-        .lease_file = ".fiorivoce-data.lock",
-        .restore_dir = ".fiorivoce-restore",
-        .credential_service = "FioriVoce",
-        .backup_format = "fiorivoce-backup",
+        .product = "OpenWhisper_CPP",
+        .data_dir_name = "OpenWhisper_CPP",
+        .env_prefix = "OPENWHISPER_CPP_",
+        .settings_file = "openwhisper_cpp_settings.json",
+        .database_file = "openwhisper-cpp.db",
+        .log_file = "openwhisper-cpp.log",
+        .lease_file = ".openwhisper-cpp-data.lock",
+        .restore_dir = ".openwhisper-cpp-restore",
+        .credential_service = "OpenWhisper_CPP",
+        .backup_format = "openwhisper-cpp-backup",
         .backup_extension = ".fvbackup",
-        .instance_key_prefix = "fiorivoce-ui",
-        .wake_name = "fiorivoce",
-        .wake_name_spaced = "fiori voce",
+        .instance_key_prefix = "openwhisper-cpp-ui",
+        .wake_name = "openwhispercpp",
+        .wake_name_spaced = "open whisper c p p",
     };
     return value;
 }

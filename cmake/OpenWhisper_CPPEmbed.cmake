@@ -1,10 +1,10 @@
-# cmake -DINPUT=<file> -DOUTPUT=<header> -DSYMBOL=<name> -P FioriVoceEmbed.cmake
+# cmake -DINPUT=<file> -DOUTPUT=<header> -DSYMBOL=<name> -P OpenWhisper_CPPEmbed.cmake
 # Writes a header holding INPUT's bytes as fv::embedded::<SYMBOL>, a constexpr std::string_view.
 # The bytes are char literals rather than one string literal: MSVC caps a string literal at
 # 64 KiB, and a char literal never narrows whatever the signedness of char.
 foreach(variable IN ITEMS INPUT OUTPUT SYMBOL)
     if(NOT DEFINED ${variable})
-        message(FATAL_ERROR "FioriVoceEmbed.cmake needs -D${variable}=...")
+        message(FATAL_ERROR "OpenWhisper_CPPEmbed.cmake needs -D${variable}=...")
     endif()
 endforeach()
 
@@ -20,7 +20,7 @@ string(REPLACE "@" "\n    " bytes "${bytes}")
 
 get_filename_component(input_name "${INPUT}" NAME)
 file(CONFIGURE OUTPUT "${OUTPUT}" @ONLY CONTENT
-"// Generated from @input_name@ by cmake/FioriVoceEmbed.cmake. Do not edit.
+"// Generated from @input_name@ by cmake/OpenWhisper_CPPEmbed.cmake. Do not edit.
 #pragma once
 
 #include <string_view>

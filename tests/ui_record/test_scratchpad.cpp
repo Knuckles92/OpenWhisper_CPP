@@ -88,7 +88,7 @@ TEST_CASE("the classic Scratchpad floats above without quitting the app", "[widg
     CHECK(flags.testFlag(Qt::WindowStaysOnTopHint));
     CHECK_FALSE(pad.testAttribute(Qt::WA_QuitOnClose));
     CHECK(pad.testAttribute(Qt::WA_TranslucentBackground));
-    CHECK(pad.property("fiorivoceHotkeyWindow").toBool());
+    CHECK(pad.property("openwhisperCppHotkeyWindow").toBool());
     CHECK(pad.header() != nullptr);
     CHECK(pad.sizeGrip() != nullptr);
     CHECK(pad.editor()->placeholderText() == QStringLiteral("Dictate or type notes…"));

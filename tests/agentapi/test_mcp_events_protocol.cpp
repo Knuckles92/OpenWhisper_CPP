@@ -120,7 +120,7 @@ std::vector<std::string> strings(const Json& array) {
 }
 
 // The subscription id a recorded events/subscribe or events/unsubscribe names, under OpenWhisper's
-// principal and under FioriVoce's; nullopt when the request is refused before an id exists.
+// principal and under OpenWhisper_CPP's; nullopt when the request is refused before an id exists.
 std::optional<std::pair<std::string, std::string>> ids_of(const std::string& body) {
     Json message;
     try {
@@ -215,7 +215,7 @@ TEST_CASE("MCP Events answers every recorded request as OpenWhisper did", "[gold
     auto main_app = make({});
     auto tailscale_app = make(strings(context.at("tailscale_hosts")));
 
-    // OpenWhisper's subscription ids -> FioriVoce's, learned from the requests.
+    // OpenWhisper's subscription ids -> OpenWhisper_CPP's, learned from the requests.
     std::map<std::string, std::string> ids;
     static const fv::py::Regex refresh_before(R"re("refreshBefore":"([^"]*)")re");
     static const fv::py::Regex stamp(R"(\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ)");

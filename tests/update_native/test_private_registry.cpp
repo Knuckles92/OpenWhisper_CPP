@@ -52,9 +52,9 @@ TEST_CASE("native registry actions apply and roll back inside a private applicat
     redirect.installed = true;
 
     const auto& release = fv::update::release_identity();
-    const auto install = root.path() / "Programs" / "FioriVoce";
+    const auto install = root.path() / "Programs" / "OpenWhisper_CPP";
     std::filesystem::create_directories(install);
-    fv::write_file_atomic(install / "fiorivoce.exe", std::string(2048, 'x'));
+    fv::write_file_atomic(install / "openwhisper-cpp.exe", std::string(2048, 'x'));
     fv::update::InstallRegistration registration;
     registration.key_path = release.uninstall_key_path();
     registration.install_location = install;
@@ -87,9 +87,9 @@ TEST_CASE("native registry actions apply and roll back inside a private applicat
     REQUIRE(RegOpenKeyExW(hive.value, fv::path_from_utf8(runonce).c_str(), 0, KEY_ALL_ACCESS,
                           &recovery.value) == ERROR_SUCCESS);
     const auto recovery_command = get_value(recovery.value, recovery_name.c_str());
-    CHECK(recovery_command == L"\"" + (paths.transaction_dir / "fiorivoce-updater.exe").native() +
-                                  L"\" --recover --transaction-id " +
-                                  fv::path_from_utf8(id).native());
+    CHECK(recovery_command ==
+          L"\"" + (paths.transaction_dir / "openwhisper-cpp-updater.exe").native() +
+              L"\" --recover --transaction-id " + fv::path_from_utf8(id).native());
     actions.update(journal);
     CHECK(get_value(registered.value, L"DisplayVersion") == L"0.1.1");
     CHECK(get_value(registered.value, L"InstallDate").size() == 8);

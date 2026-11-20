@@ -136,9 +136,9 @@ Nemotron, cloud API, remote engine), **other-platform** (macOS/Linux only).
 | A03-80 | Update hand-off | Download finished: error -> dialog error (offer setup if native result with verified setup asset) / status "Update canceled" if canceled and closed / warning box "Update failed"; canceled -> abandon "The update was canceled."; busy declined -> abandon "The update was not installed. Your work is still open."; macOS DMG -> helper or open disk image ("The Mac update disk image could not be opened."); native transaction -> journal helper exe/argv (dialog phase RESTARTING) or error (offer setup); else setup installer `/SP- /SILENT /NORESTART /OPENWHISPERUPDATE=1 /ALLUSERS|/CURRENTUSER /DIR=<app> /LOG=<updates>/setup.log` after releasing app mutex. Launch failure: "The updater could not be started." / "The installer could not be started." (reacquire mutex for setup). Success -> `exit_for_update`. | 133-239, 2655-2714 | port (Windows installer flavour decided in a16) |
 | A03-81 | macOS update helper | start helper; poll every 100 ms until `helper_ready` or process exit / `READY_WAIT_S` deadline -> "The updater could not be started.". | `_start_macos_update` (2716-2748) | other-platform |
 | A03-82 | Exit for update + watchdog | Mark dialog handed off, `_force_quit`, arm 10 s (`HANDOFF_EXIT_GRACE_S`) daemon timer that logs "Still running %.0fs after handing off to the updater; exiting hard" and `os._exit(0)`; `QApplication.exit(0)` (cannot be vetoed). | `exit_for_update`, `arm_handoff_watchdog`, `_hard_exit` (64-97, 2750-2767) | port |
-| A03-83 | Code-changed restart prompt | Timer every 10 000 ms (`CODE_CHANGE_POLL_MS`). Setting `update_restart_prompt_enabled` false -> stop. If `changed_since_launch()` and not busy -> offer (stops timer: asked once per run). Box title "Restart OpenWhisper"; info text "OpenWhisper was updated while it was running." + "Restart to finish the update. Until you do, parts of the app that haven't loaded yet may not work." + checkbox "Don't show this again" (saves setting false); failure variant warning "OpenWhisper was updated while it was running, which likely caused this error." + "Restart to finish the update, then try again." + details = error, no checkbox. Buttons "Restart now" (Accept, default) / "Later". Restart confirms busy work, saves geometry, `_force_quit`, `exit(RESTART_EXIT_CODE)`. | 2769-2830 | port only if FioriVoce has a source-run/self-update case; otherwise drop (see open questions) |
+| A03-83 | Code-changed restart prompt | Timer every 10 000 ms (`CODE_CHANGE_POLL_MS`). Setting `update_restart_prompt_enabled` false -> stop. If `changed_since_launch()` and not busy -> offer (stops timer: asked once per run). Box title "Restart OpenWhisper"; info text "OpenWhisper was updated while it was running." + "Restart to finish the update. Until you do, parts of the app that haven't loaded yet may not work." + checkbox "Don't show this again" (saves setting false); failure variant warning "OpenWhisper was updated while it was running, which likely caused this error." + "Restart to finish the update, then try again." + details = error, no checkbox. Buttons "Restart now" (Accept, default) / "Later". Restart confirms busy work, saves geometry, `_force_quit`, `exit(RESTART_EXIT_CODE)`. | 2769-2830 | port only if OpenWhisper_CPP has a source-run/self-update case; otherwise drop (see open questions) |
 | A03-84 | Leftover apply error | On launch, `consume_apply_error()` -> warning "Update failed". | 2832-2837 | port (with a16) |
-| A03-85 | About box | `QMessageBox.about` title "About OpenWhisper"; HTML with bold product line, "Version {VERSION}<br>Install: {channel}", optional "Update status: Update available: X / Development build, newer than X / Development build / Up to date", description, five bullets, website link `https://openwhisper.fiorilabs.tech/`. | `show_about_dialog` (2839-2879) | port with FioriVoce wording |
+| A03-85 | About box | `QMessageBox.about` title "About OpenWhisper"; HTML with bold product line, "Version {VERSION}<br>Install: {channel}", optional "Update status: Update available: X / Development build, newer than X / Development build / Up to date", description, five bullets, website link `https://openwhisper.fiorilabs.tech/`. | `show_about_dialog` (2839-2879) | port with OpenWhisper_CPP wording |
 | A03-86 | Retranscribe | history panel -> `on_retranscribe(path)` (meeting/backup gates). | 2884-2890 | port |
 | A03-87 | UI cleanup | cancel walkthrough paste; clipboard cleanup (restore); stop settings-build, code-change, cancel-animation timers; stop overlay timer, close overlay; hide tray and unparent; `_force_quit` then close main window. | `UIController.cleanup` (2892-2930) | port |
 | A03-88 | Overlay parent on Wayland | Overlay parented to main window on Wayland (top-level elsewhere). | 264-266 | other-platform |
@@ -408,7 +408,7 @@ config `CANCELLATION_ANIMATION_DURATION_MS = 1200`, `CANCELLATION_GRACE_MS = 200
 ## Data and formats
 
 Settings keys read or written directly by this area (file `openwhisper_settings.json`,
-via `services.settings.settings_manager`; FioriVoce must read the same names if it is to
+via `services.settings.settings_manager`; OpenWhisper_CPP must read the same names if it is to
 import an existing install):
 
 | Key | Type | Default | Where |
@@ -489,7 +489,7 @@ Drop (non-Parakeet or Python-process specific):
 
 Must adapt to in-process Parakeet:
 - Reload worker calls `Recognizer` load on `EngineWorker`'s thread, not on the shared
-  executor: FioriVoce's rule is that the engine is reached only through queued signals to
+  executor: OpenWhisper_CPP's rule is that the engine is reached only through queued signals to
   `EngineWorker`. The reload state machine stays in the controller; the actual load,
   warm-up and transcribe are queued requests to the worker, completion comes back as
   signals. `_engine_lock` becomes "only the engine thread touches the Recognizer".
@@ -630,7 +630,7 @@ Golden-vector candidates (pure logic, replayable):
 7. Undecided backends behind flags.
 
 **Risks.**
-- Thread model mismatch: Python runs loads on executor threads; FioriVoce mandates the
+- Thread model mismatch: Python runs loads on executor threads; OpenWhisper_CPP mandates the
   engine thread. The reload/lease/warm-up interleavings (test_engine_warmup.py) must be
   re-derived for queued requests, especially "lease returned during warm-up".
 - Lock order in `_acquire_backup` across three runtime locks; C++ needs `std::scoped_lock`
@@ -662,9 +662,9 @@ core logic + overlay enum ~400), excluding dropped engine paths; plus ~800 lines
 ## Open questions for the owner
 
 - Keep the "code changed on disk" restart prompt (A03-83) in a compiled app, or drop it?
-- Keep the About text and website, or new FioriVoce wording/URL; and the install-channel
+- Keep the About text and website, or new OpenWhisper_CPP wording/URL; and the install-channel
   line?
 - Updater: keep native helper + Inno setup fallback flow as-is (a16), or simpler?
 - Remote engine / API / Nemotron: needed for the controller's backend table at all?
-- Should FioriVoce read/write the same settings keys and exit codes so an OpenWhisper
+- Should OpenWhisper_CPP read/write the same settings keys and exit codes so an OpenWhisper
   install can be migrated in place?

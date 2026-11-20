@@ -4,7 +4,7 @@ Each builder returns (widget, (width, height), focus widget or None) with fixed 
 picker's blocking seams are replaced while it is built, so no agent is looked for or started:
 
     scan    Claude Code 2.1.3 signed in as "Claude Max"; Codex 0.100.0, too old ("Update needed",
-            with FioriVoce's wording of the problem, as the port's scanner writes it); OpenCode
+            with OpenWhisper_CPP's wording of the problem, as the port's scanner writes it); OpenCode
             not installed. The scan is the cached one, so every tile shows its result at once,
             with no shimmer or arrival to wait for.
     models  Claude Code lists "Claude Code default", Haiku and Sonnet.
@@ -18,7 +18,7 @@ that width and hidden again to learn its height (_fit), and the C++ tests repeat
     agent_picker/cleanup-claude     purpose "AI cleanup", Claude Code chosen, its model row
 """
 
-PRODUCT = "FioriVoce"
+PRODUCT = "OpenWhisper_CPP"
 
 WIDTH = 760
 MEASURE_HEIGHT = 900

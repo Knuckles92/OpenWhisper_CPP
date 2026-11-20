@@ -9,7 +9,7 @@
 
 namespace fv {
 
-// What fiorivoce.exe was asked to do before anything loads Qt's application object, the data
+// What openwhisper-cpp.exe was asked to do before anything loads Qt's application object, the data
 // lease or the NeMo runtime (main.py's _handle_early_cli).
 enum class EarlyCommand {
     Gui,         // no recognised option: open the app
@@ -32,7 +32,7 @@ struct EarlyCli {
 EarlyCli parseEarlyCli(std::span<const std::string> args);
 
 // What --help prints: main.py's _USAGE with the options this executable has. `executable` is
-// the program's name ("fiorivoce"), `product` identity().product, `envPrefix`
+// the program's name ("openwhisper-cpp"), `product` identity().product, `envPrefix`
 // identity().env_prefix.
 std::string guiUsageText(std::string_view executable, std::string_view product,
                          std::string_view envPrefix);

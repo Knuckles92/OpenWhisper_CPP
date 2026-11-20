@@ -1,8 +1,8 @@
 // The Walkthrough tab, its side panel page and the library in the running window
 // (tests/test_main_window_compact.py, tests/test_past_walkthroughs.py and
 // tests/test_walkthrough_storyboard.py's window cases). Python's MainWindow owns the tab and
-// relays its signals; FioriVoce's walkthrough feature registers the tab and connects it, so these
-// run over the controller rig with the feature in it.
+// relays its signals; OpenWhisper_CPP's walkthrough feature registers the tab and connects it, so
+// these run over the controller rig with the feature in it.
 #include <catch2/catch_test_macros.hpp>
 
 #include <chrono>

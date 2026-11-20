@@ -1,4 +1,4 @@
-"""Print the ISCC /D arguments FioriVoce.iss is compiled with, one per line.
+"""Print the ISCC /D arguments OpenWhisper_CPP.iss is compiled with, one per line.
 
 The AppId, the publisher, the folder names, the executable names and the named mutexes come
 from the release identity (src/update/data/release_identity.json), the same file the application
@@ -95,7 +95,7 @@ def iscc_arguments(values: Mapping[str, str]) -> List[str]:
     return [f"/D{name}={value}" for name, value in values.items()]
 
 
-SCRIPT = Path(__file__).resolve().with_name("FioriVoce.iss")
+SCRIPT = Path(__file__).resolve().with_name("OpenWhisper_CPP.iss")
 _INSTALL_DELETE = re.compile(r"^\[InstallDelete\][ \t]*$(.*?)(?=^\[|\Z)", re.M | re.S)
 _DELETE_ENTRY = re.compile(r'^\s*Type:\s*(files|filesandordirs)\s*;\s*Name:\s*"\{app\}\\([^"\\]+)"',
                            re.I)

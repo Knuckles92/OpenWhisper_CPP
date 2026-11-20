@@ -127,7 +127,7 @@ TEST_CASE("test_speaker_model_path_honors_env_file", "[test_components]") {
     // The variable wins over the cache.
     CHECK(speaker_model_path(rig.paths, rig.env) == model);
 
-    // FioriVoce's own variable comes first.
+    // OpenWhisper_CPP's own variable comes first.
     const fs::path own = rig.temp.path() / "own.ONNX";
     write_file(own, "onnx");
     rig.env.set(env_name(fv::identity()), "  " + utf8(own) + "  ");
@@ -145,7 +145,7 @@ TEST_CASE("test_speaker_model_path_honors_env_directory", "[test_components]") {
 
 TEST_CASE("test_speaker_model_path_uses_cache_dir", "[test_components]") {
     Rig rig;
-    CHECK(rig.cache() == rig.temp.path() / "FioriVoce" / "models" / "speaker-id");
+    CHECK(rig.cache() == rig.temp.path() / "OpenWhisper_CPP" / "models" / "speaker-id");
     write_file(rig.destination(), "onnx");
     CHECK(speaker_model_path(rig.paths, rig.env) == rig.destination());
 }
@@ -421,7 +421,7 @@ TEST_CASE("each download failure reads as its sentence", "[test_components]") {
     }
     SECTION("a folder that cannot be made") {
         // A file where the models folder should be.
-        write_file(rig.temp.path() / "FioriVoce" / "models", "not a folder");
+        write_file(rig.temp.path() / "OpenWhisper_CPP" / "models", "not a folder");
         LoopbackServer server(serve(kModelBytes));
         auto deps = rig.deps(server.url("/voxceleb_resnet34_LM.onnx"));
         const std::string message = message_of([&] { ensure_speaker_model(deps); });

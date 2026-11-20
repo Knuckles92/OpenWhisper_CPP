@@ -39,7 +39,7 @@ work. It has no widgets of its own. What the user experiences through it:
 ## Feature inventory
 
 Disposition key: **port**; **drop** (engine-specific); **undecided** (Nemotron / cloud API /
-remote-computer backends, not decided); **other-platform** (only macOS/Linux; FioriVoce is
+remote-computer backends, not decided); **other-platform** (only macOS/Linux; OpenWhisper_CPP is
 Windows-first but keep the seams).
 
 | ID | Feature | Exact user-visible behavior | Source | Disposition |
@@ -105,7 +105,7 @@ Windows-first but keep the seams).
 | A04-59 | STT enable/disable overlay | Status "STT Enabled"/"STT Disabled" toggles overlay state | hotkeys.py:`update_status_with_auto_hide` 709 | port |
 | A04-60 | Omarchy (Hyprland) controls | Started on Wayland+Omarchy | hotkeys.py 310-317 | other-platform |
 | A04-61 | Live preview setup | Enabled by `streaming_enabled`; window preview (chunk 3 s, overlap 0.75 s) sharing the loaded engine; native stream (0.75 s updates) for Nemotron/Parakeet Unified; dedicated tiny.en for Whisper | streaming.py:`_configure_streaming` 224, `_preview_backend` 246 | port (window over Parakeet); Nemotron native undecided; tiny.en drop |
-| A04-62 | Preview unavailable status | "Live preview needs Local Whisper, Parakeet, Parakeet Unified, or Nemotron Streaming"; remote "...on {host}"; "Stop recording before changing streaming mode"; "Failed to reconfigure streaming" | streaming.py 29-50, 108-113, 244 | port (reword for FioriVoce) |
+| A04-62 | Preview unavailable status | "Live preview needs Local Whisper, Parakeet, Parakeet Unified, or Nemotron Streaming"; remote "...on {host}"; "Stop recording before changing streaming mode"; "Failed to reconfigure streaming" | streaming.py 29-50, 108-113, 244 | port (reword for OpenWhisper_CPP) |
 | A04-63 | Preview session | Start feeds recorder blocks; skips when previous still finishing (no empty overlay); stop returns text; finalize decodes kept tail only for empty result; cancel hides overlay | streaming.py 125-219 | port |
 | A04-64 | Audio level meter | Recorder level → `update_audio_levels([level]*20)` | streaming.py:`setup_audio_level_callback` 81 | port |
 | A04-65 | HF consent & download | Consent dialog (once / always / open settings / cancel); "Model '{m}' unavailable — downloads disabled by HF_HUB_OFFLINE"; "...is unavailable — download declined"; "Downloading model '{m}'..."; "Whisper engine ready"/"Model failed to load"; throttled progress (≤10/s) | models.py 120-216, 312-354, 590-646 | port (adapt to Parakeet model files) |
@@ -525,7 +525,7 @@ context fields)`, `complete_failed_recording(id, **fields)`, `failed_recording_f
 | itertools.count | recording end counter | `std::atomic<uint64_t>` |
 | time.monotonic/time.time | timing | `std::chrono::steady_clock` / `system_clock` |
 | os.path, os.getsize | file checks | `std::filesystem` (UTF-8 via `path_from_utf8`) |
-| wave | walkthrough recovery duration | FioriVoce `engine/wav.h` reader |
+| wave | walkthrough recovery duration | OpenWhisper_CPP `engine/wav.h` reader |
 | webbrowser | open dashboard | `QDesktopServices::openUrl` |
 | urllib.parse | URL query edits/redaction | `QUrl`, `QUrlQuery` |
 | socket.gethostname | host name in remote messages | `QSysInfo::machineHostName()` |
@@ -562,7 +562,7 @@ context fields)`, `complete_failed_recording(id, **fields)`, `failed_recording_f
   per-engine runtimes (Moonshine, Qwen3, ...).
 - remote.py `_whisper_already_serves`, Whisper branches of `_save_engine_model/_save_engine_device`.
 
-**Adapt to in-process Parakeet** (FioriVoce `Recognizer` on `EngineWorker`):
+**Adapt to in-process Parakeet** (OpenWhisper_CPP `Recognizer` on `EngineWorker`):
 - `current_backend` becomes the Parakeet engine facade on the EngineWorker thread; `is_transcribing`,
   `cancel_transcription`, `is_available`, `is_model_missing`, `device_info` must exist on it. Cancel of
   an in-flight `transcribe` needs a runtime-level abort or a chunked decode with a cancel check (NeMo C
@@ -713,7 +713,7 @@ calls `switch_engine_for_client`, `configure_engine_for_client`, `prepare_host_u
   for rewrites, generation/claim filtering of meeting retry events) are easy to lose; port the tests.
 - Large dependency fan-out: this area cannot be finished before a05, a06, a09, a12, a19, a22, a24+ exist;
   stub interfaces early.
-- Many exact user strings; product name "OpenWhisper" appears in messages (decide FioriVoce wording).
+- Many exact user strings; product name "OpenWhisper" appears in messages (decide OpenWhisper_CPP wording).
 
 **Rough C++ size**: ~8,500 lines (transcription ~3,000; meeting ~2,000; walkthrough ~800; hotkeys ~600;
 models+components ~700 after drops; command ~450; streaming ~250; updater ~250; remote ~450 if kept;

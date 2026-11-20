@@ -115,7 +115,7 @@ std::pair<std::string, std::string> ai_insights_destination(const Json& settings
     if (profile->is_local()) {
         where = profile->name + " on this PC";
         // OpenWhisper drops the claim while Fast judgments use Jev or a hosted model, which
-        // receive excerpts. FioriVoce's meetings use only a judge on this computer, so the
+        // receive excerpts. OpenWhisper_CPP's meetings use only a judge on this computer, so the
         // claim holds whatever Fast judgments are set to.
         privacy = "transcript text stays on this computer";
     } else {

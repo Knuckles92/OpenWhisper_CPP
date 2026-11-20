@@ -1,32 +1,32 @@
 <#
 .SYNOPSIS
-    Build the FioriVoce Windows installer.
+    Build the OpenWhisper_CPP Windows installer.
 
 .DESCRIPTION
     Configures and builds the release configuration, stages the install tree (stage.ps1:
     programs, vcpkg DLLs, windeployqt, app-local C++ runtime, notices), checks the stage with
-    `fiorivoce-cli --self-test --installed` and the workflow smoke against the release health
+    `openwhisper-cpp-cli --self-test --installed` and the workflow smoke against the release health
     gate, signs the executables when a signing method is configured, compiles the setup with
     Inno Setup, verifies the signatures and writes BUILD-METADATA.json and SHA256SUMS.txt.
 
     Output, in out\installer:
-        FioriVoce-Setup-<version>.exe, FioriVoce-<version>-win64.zip, BUILD-METADATA.json,
+        OpenWhisper_CPP-Setup-<version>.exe, OpenWhisper_CPP-<version>-win64.zip, BUILD-METADATA.json,
         SHA256SUMS.txt, windows-signing.json
     A setup of another version found there is moved to out\installer-previous first, because a
     release candidate folder holds exactly one version.
 
     Prerequisites:
         Visual Studio 2022 with the C++ tools, vcpkg and the Qt kit (scripts\setup-windows.ps1)
-        Python 3.12 (the release tools; FIORIVOCE_PYTHON names another interpreter)
-        Inno Setup 6 (winget install -e --id JRSoftware.InnoSetup); found through FIORIVOCE_ISCC,
+        Python 3.12 (the release tools; OPENWHISPER_CPP_PYTHON names another interpreter)
+        Inno Setup 6 (winget install -e --id JRSoftware.InnoSetup); found through OPENWHISPER_CPP_ISCC,
         then PATH, then %LOCALAPPDATA%\Programs\Inno Setup 6, then %ProgramFiles(x86)%\Inno Setup 6
 
     Code signing is optional and off by default; tools\release\README.md lists the
-    FIORIVOCE_SIGN_* variables. Unsigned, every signing step says so and passes.
+    OPENWHISPER_CPP_SIGN_* variables. Unsigned, every signing step says so and passes.
 
 .PARAMETER Version
     The product version, X.Y.Z (default: the one in CMakeLists.txt). It reaches CMake as
-    -DFIORIVOCE_VERSION, so the executables report it.
+    -DOPENWHISPER_CPP_VERSION, so the executables report it.
 
 .PARAMETER Clean
     Delete the stage and out\installer, and rebuild the configuration from scratch.
@@ -79,7 +79,7 @@ $ReleaseTools = Join-Path $RepoRoot 'tools\release'
 # previous -Version run configured does not keep that version in its cache.
 if (-not $Version) {
     $line = Select-String -LiteralPath (Join-Path $RepoRoot 'CMakeLists.txt') `
-        -Pattern 'set\(FIORIVOCE_VERSION "(\d+\.\d+\.\d+)" CACHE' | Select-Object -First 1
+        -Pattern 'set\(OPENWHISPER_CPP_VERSION "(\d+\.\d+\.\d+)" CACHE' | Select-Object -First 1
     if (-not $line) { throw 'Could not read the default version from CMakeLists.txt' }
     $Version = $line.Matches[0].Groups[1].Value
 }
@@ -106,14 +106,14 @@ $ArchiveName = "$($names[2])".Trim()
 $Iscc = $null
 if (-not $SkipInstaller) {
     $candidates = @()
-    if ($env:FIORIVOCE_ISCC) { $candidates += $env:FIORIVOCE_ISCC }
+    if ($env:OPENWHISPER_CPP_ISCC) { $candidates += $env:OPENWHISPER_CPP_ISCC }
     $onPath = Get-Command ISCC.exe -ErrorAction SilentlyContinue
     if ($onPath) { $candidates += $onPath.Source }
     $candidates += "$env:LOCALAPPDATA\Programs\Inno Setup 6\ISCC.exe"
     if (${env:ProgramFiles(x86)}) { $candidates += "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" }
     $Iscc = $candidates | Where-Object { $_ -and (Test-Path -LiteralPath $_) } | Select-Object -First 1
-    if ($env:FIORIVOCE_ISCC -and $Iscc -ne $env:FIORIVOCE_ISCC) {
-        throw "FIORIVOCE_ISCC does not name ISCC.exe: $env:FIORIVOCE_ISCC"
+    if ($env:OPENWHISPER_CPP_ISCC -and $Iscc -ne $env:OPENWHISPER_CPP_ISCC) {
+        throw "OPENWHISPER_CPP_ISCC does not name ISCC.exe: $env:OPENWHISPER_CPP_ISCC"
     }
     if ($Iscc) { Write-Host "    Inno Setup: $Iscc" }
 }
@@ -128,12 +128,12 @@ if ($Clean) {
     }
 }
 
-Write-Step "Configuring ($Preset, FIORIVOCE_VERSION=$Version)"
-Invoke-Native cmake @('--preset', $Preset, "-DFIORIVOCE_VERSION=$Version") `
+Write-Step "Configuring ($Preset, OPENWHISPER_CPP_VERSION=$Version)"
+Invoke-Native cmake @('--preset', $Preset, "-DOPENWHISPER_CPP_VERSION=$Version") `
     -ErrorMessage 'CMake configure failed'
 
-Write-Step "Building fiorivoce and fiorivoce-cli ($BuildPreset)"
-$build = @('--build', '--preset', $BuildPreset, '--target', 'fiorivoce', 'fiorivoce-cli', 'fiorivoce-updater')
+Write-Step "Building openwhisper-cpp and openwhisper-cpp-cli ($BuildPreset)"
+$build = @('--build', '--preset', $BuildPreset, '--target', 'openwhisper-cpp', 'openwhisper-cpp-cli', 'openwhisper-cpp-updater')
 if ($Clean) { $build += '--clean-first' }
 Invoke-Native cmake $build -ErrorMessage 'Build failed'
 
@@ -142,11 +142,11 @@ if ($RequireQtLicenses) { $stageArgs.RequireQtLicenses = $true }
 & (Join-Path $PSScriptRoot 'stage.ps1') @stageArgs
 
 Write-Step 'Verifying the stage'
-$Cli = Join-Path $Stage 'fiorivoce-cli.exe'
-$App = Join-Path $Stage 'fiorivoce.exe'
+$Cli = Join-Path $Stage 'openwhisper-cpp-cli.exe'
+$App = Join-Path $Stage 'openwhisper-cpp.exe'
 $reported = (& $Cli --version | Out-String).Trim()
 if ($LASTEXITCODE -ne 0 -or $reported -ne "$Product $Version") {
-    throw "fiorivoce-cli --version reports '$reported', not '$Product $Version'"
+    throw "openwhisper-cpp-cli --version reports '$reported', not '$Product $Version'"
 }
 Write-Host "    $reported"
 # Every file the programs need is in the stage: the import walk, the Qt platform, windows11
@@ -156,7 +156,7 @@ Invoke-Native $App @('--self-test-gui') -ErrorMessage 'Staged offscreen Qt self-
 # Every top-level name the setup will install is one [InstallDelete] clears on an upgrade, so a
 # file or plugin folder a later version stops shipping cannot outlive it.
 Invoke-Native $Python @('-I', '-B', (Join-Path $PSScriptRoot 'inno_defines.py'), '--check-stage', '--source', $Stage) `
-    -ErrorMessage 'The stage holds a name FioriVoce.iss does not manage'
+    -ErrorMessage 'The stage holds a name OpenWhisper_CPP.iss does not manage'
 # The headless lifecycle against the release health gate, from the staged programs. It works in
 # a temporary folder of its own and never touches the data folder.
 Invoke-Native $Python @(
@@ -165,7 +165,7 @@ Invoke-Native $Python @(
 ) -ErrorMessage 'Release health gate failed'
 Write-Host "    release health passed ($HealthReport)" -ForegroundColor Green
 
-$Updater = Join-Path $Stage 'fiorivoce-updater.exe'
+$Updater = Join-Path $Stage 'openwhisper-cpp-updater.exe'
 # Signing changes the image digest, so generate the installed manifest afterwards.
 Write-Step 'Code signing the executables'
 Invoke-Native $Python @('-I', '-B', (Join-Path $ReleaseTools 'windows_signing.py'), 'sign', $App, $Cli, $Updater) `
@@ -183,7 +183,7 @@ if ($SkipInstaller -or -not $Iscc) {
     if ($SkipInstaller) { exit 0 }
     Write-Host ''
     Write-Host '    Inno Setup was not found, so the installer step was skipped. Install it with' -ForegroundColor Yellow
-    Write-Host '    winget install -e --id JRSoftware.InnoSetup, set FIORIVOCE_ISCC, or pass -SkipInstaller.' -ForegroundColor Yellow
+    Write-Host '    winget install -e --id JRSoftware.InnoSetup, set OPENWHISPER_CPP_ISCC, or pass -SkipInstaller.' -ForegroundColor Yellow
     exit 1
 }
 
@@ -200,7 +200,7 @@ Write-Step 'Building the installer with Inno Setup'
 $Defines = @(& $Python -I -B (Join-Path $PSScriptRoot 'inno_defines.py') `
         --version $Version --source $Stage --output-dir $InstallerDir)
 if ($LASTEXITCODE -ne 0 -or $Defines.Count -eq 0) { throw 'Could not read the release identity for Inno Setup' }
-Invoke-Native $Iscc (@('/Q') + $Defines + $InnoSignArgs + @((Join-Path $PSScriptRoot 'FioriVoce.iss'))) `
+Invoke-Native $Iscc (@('/Q') + $Defines + $InnoSignArgs + @((Join-Path $PSScriptRoot 'OpenWhisper_CPP.iss'))) `
     -ErrorMessage 'Inno Setup failed'
 $SetupPath = Join-Path $InstallerDir $SetupName
 if (-not (Test-Path -LiteralPath $SetupPath)) { throw "Installer not found at $SetupPath" }

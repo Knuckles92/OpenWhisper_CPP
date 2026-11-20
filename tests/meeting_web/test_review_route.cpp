@@ -1,7 +1,7 @@
 // The archive dashboard's insight review route: tests/test_meeting_insight_review.py's
 // test_archive_api_host_action_survives_restart. The question is the one the review worker
-// publishes (a system review_finish); FioriVoce serves the route only where a device-local judge
-// exists (a30-dashboard-local-judgments), so the passes carry a review.
+// publishes (a system review_finish); OpenWhisper_CPP serves the route only where a device-local
+// judge exists (a30-dashboard-local-judgments), so the passes carry a review.
 
 #include <catch2/catch_test_macros.hpp>
 

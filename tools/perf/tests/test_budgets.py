@@ -269,7 +269,7 @@ def test_benchmark_reports_become_metrics(tmp_path):
 
 
 def test_openwhisper_runs_need_lead_decision_5(tmp_path, monkeypatch):
-    monkeypatch.delenv("FIORIVOCE_OW_APPROVED", raising=False)
+    monkeypatch.delenv("OPENWHISPER_CPP_OW_APPROVED", raising=False)
     with pytest.raises(SystemExit, match="lead decision 5"):
         run_perf.run_openwhisper(tmp_path)
 

@@ -2,10 +2,10 @@
 // across it, the AI insights toggle of a running meeting, and what the card says about a speaker
 // re-run.
 //
-// OpenWhisper stores one consent and asks only while it is missing. FioriVoce asks before every
-// meeting whose text would leave for a hosted model or an installed agent, and the answer names
-// the destination: the gate (set_consent_gate) is consulted on each start with AI insights, and
-// a running meeting's insights turn on only with an approval in hand.
+// OpenWhisper stores one consent and asks only while it is missing. OpenWhisper_CPP asks before
+// every meeting whose text would leave for a hosted model or an installed agent, and the answer
+// names the destination: the gate (set_consent_gate) is consulted on each start with AI insights,
+// and a running meeting's insights turn on only with an approval in hand.
 
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/generators/catch_generators.hpp>
@@ -254,9 +254,9 @@ TEST_CASE("test_second_start_during_consent_is_blocked", "[test_meeting_runtime]
 
 TEST_CASE("every start with AI insights asks again and carries only its own approval",
           "[meeting][runtime]") {
-    // FioriVoce's rule where OpenWhisper's test_start_with_consent_already_given_launches_cloud
-    // launches without a prompt: consent is per meeting and destination, so an earlier grant
-    // answers nothing.
+    // OpenWhisper_CPP's rule where OpenWhisper's
+    // test_start_with_consent_already_given_launches_cloud launches without a prompt: consent is
+    // per meeting and destination, so an earlier grant answers nothing.
     RuntimeRig rig;
     Gate gate(*rig.rt);
     const MeetingAgentRoute route{"pi", "openrouter", "test/model", Json{{"profile_id", "x"}}};
@@ -400,8 +400,8 @@ TEST_CASE("test_toggle_cloud_without_consent_reprompts", "[test_meeting_runtime]
 
 TEST_CASE("the card never offers a speaker re-run from saved settings", "[meeting][runtime]") {
     // Where OpenWhisper's test_content_summary_names_what_blocks_a_speaker_rerun offers the
-    // re-run and names the missing consent: FioriVoce uploads a saved meeting's audio only from
-    // the explicit Past Meetings action, approved for that meeting each time, so a saved
+    // re-run and names the missing consent: OpenWhisper_CPP uploads a saved meeting's audio only
+    // from the explicit Past Meetings action, approved for that meeting each time, so a saved
     // "openai" backend reads as on-device labels and no saved consent unlocks anything.
     RuntimeRig rig;
     const Json not_offered{

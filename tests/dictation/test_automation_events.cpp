@@ -139,7 +139,7 @@ TEST_CASE("test_a_failure_publishes_its_category_not_the_exception",
     const auto job = make_job(JobMode::Dictation);
     REQUIRE(rig.runtime->claim_job(job));
     rig.runtime->on_transcription_error(
-        R"([Errno 2] No such file: 'C:\Users\sam\AppData\Local\FioriVoce\audio.wav')");
+        R"([Errno 2] No such file: 'C:\Users\sam\AppData\Local\OpenWhisper_CPP\audio.wav')");
 
     const auto failed = rig.events.of("transcription.failed");
     REQUIRE(failed.size() == 1);

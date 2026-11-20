@@ -1,6 +1,6 @@
 """Curated inputs for services/recognition_context.py (M4.4 text-prompts): the engine support
-of every dictation engine FioriVoce has, language codes, OpenAI keywords and the vocabulary
-prompt. Local Whisper and Nemotron are not FioriVoce engines, and hotwords (faster-whisper) are
+of every dictation engine OpenWhisper_CPP has, language codes, OpenAI keywords and the vocabulary
+prompt. Local Whisper and Nemotron are not OpenWhisper_CPP engines, and hotwords (faster-whisper) are
 not ported, so neither has cases.
 """
 

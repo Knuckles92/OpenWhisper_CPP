@@ -19,7 +19,7 @@
 namespace fv::update {
 
 // <local_app_dir>/updates: verified downloads and update transactions. Not moved by
-// FIORIVOCE_DATA_DIR, as OpenWhisper's is not.
+// OPENWHISPER_CPP_DATA_DIR, as OpenWhisper's is not.
 std::filesystem::path updates_root(const Paths&);
 
 // What a download needs. `platform` is sys.platform's value ("win32" on Windows).
@@ -34,7 +34,7 @@ struct DownloadContext {
 DownloadContext download_context(http::Client&, const FeedConfig&, const InstallProbe&,
                                  std::filesystem::path updates_dir);
 
-// "This copy of FioriVoce cannot install the Windows setup package."
+// "This copy of OpenWhisper_CPP cannot install the Windows setup package."
 std::string cannot_install_message();
 
 // The asset's lower-case SHA-256 after checking it, its file name and its size: AppUpdateError

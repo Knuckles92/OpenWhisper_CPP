@@ -1,9 +1,9 @@
-// fiorivoce.exe. The early command line (--help, --version, --diagnostics, --self-test-gui)
+// openwhisper-cpp.exe. The early command line (--help, --version, --diagnostics, --self-test-gui)
 // answers before any Qt application, lease or speech runtime exists; anything else passes the
 // update launch gate and opens the app (ui_shell/bootstrap.h). An app that exits with
 // backup::restart_exit_code (a restore or import was staged, or the code-change offer) is started
-// again here, once it has released everything. --api and --channel are fiorivoce-cli's: they are
-// forwarded to it before anything else happens.
+// again here, once it has released everything. --api and --channel are openwhisper-cpp-cli's: they
+// are forwarded to it before anything else happens.
 #include <array>
 #include <cstdio>
 #include <cstdlib>
@@ -108,9 +108,10 @@ private:
     fv::update::LaunchGate& gate_;
 };
 
-// fiorivoce.exe --api and --channel run fiorivoce-cli from this executable's folder with the same
-// arguments and this process's standard handles, and end with its exit code, so a configuration
-// that names this executable keeps working. Nothing here creates a window, a lease or a Qt object.
+// openwhisper-cpp.exe --api and --channel run openwhisper-cpp-cli from this executable's folder
+// with the same arguments and this process's standard handles, and end with its exit code, so a
+// configuration that names this executable keeps working. Nothing here creates a window, a lease or
+// a Qt object.
 #if defined(_WIN32)
 bool usableHandle(HANDLE handle) {
     if (handle == nullptr || handle == INVALID_HANDLE_VALUE) {
@@ -188,9 +189,9 @@ int forwardToCli(const std::filesystem::path& exe, std::span<const std::string> 
         }
     };
 
-    const std::filesystem::path cli = exe.parent_path() / L"fiorivoce-cli.exe";
+    const std::filesystem::path cli = exe.parent_path() / L"openwhisper-cpp-cli.exe";
     // The program is passed apart, so its quoted name only has to read back as argv[0].
-    std::vector<std::string> argv{"fiorivoce-cli.exe"};
+    std::vector<std::string> argv{"openwhisper-cpp-cli.exe"};
     argv.insert(argv.end(), options.begin(), options.end());
     const std::string line = fv::list2cmdline(argv);
     std::wstring command(static_cast<std::size_t>(MultiByteToWideChar(
@@ -231,7 +232,7 @@ int forwardToCli(const std::filesystem::path& exe, std::span<const std::string> 
     }
     closeHandles();
     if (!created) {
-        const std::string message = "Could not start fiorivoce-cli.exe.\n";
+        const std::string message = "Could not start openwhisper-cpp-cli.exe.\n";
         DWORD written = 0;
         if (usableHandle(err)) {
             WriteFile(err, message.data(), static_cast<DWORD>(message.size()), &written, nullptr);
@@ -259,7 +260,7 @@ int forwardToCli(const std::filesystem::path& exe, std::span<const std::string> 
 }
 #else
 int forwardToCli(const std::filesystem::path& exe, std::span<const std::string> options) {
-    const std::filesystem::path cli = exe.parent_path() / "fiorivoce-cli";
+    const std::filesystem::path cli = exe.parent_path() / "openwhisper-cpp-cli";
     std::vector<std::string> argv{cli.string()};
     argv.insert(argv.end(), options.begin(), options.end());
     std::vector<char*> raw;
@@ -298,14 +299,14 @@ int main(int argc, char** argv) {
     const std::span<const std::string> options =
         args.empty() ? std::span<const std::string>() : std::span(args).subspan(1);
 
-    // main.py's --api and --channel, which fiorivoce-cli runs: before any window, tray icon,
+    // main.py's --api and --channel, which openwhisper-cpp-cli runs: before any window, tray icon,
     // single-instance check or launch gate.
     if (!options.empty() && (options.front() == "--api" || options.front() == "--channel")) {
         leave(forwardToCli(executablePath(), options));
     }
 
-    // The workflow smoke lives in fiorivoce-cli (Qt-free); this executable refuses it with its
-    // usage line.
+    // The workflow smoke lives in openwhisper-cpp-cli (Qt-free); this executable refuses it with
+    // its usage line.
     if (!options.empty() && options.front() == "--workflow-smoke") {
         fv::attachParentConsole();
         const fv::AppIdentity& id = fv::identity();

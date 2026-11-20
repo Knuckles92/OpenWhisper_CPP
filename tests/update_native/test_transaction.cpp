@@ -126,7 +126,7 @@ TEST_CASE("invalid journal or a live parent cannot start a native swap", "[updat
     }
     SECTION("the independently matched parent is still running") {
         Fixture f;
-        f.context.parent_exe = f.paths.install_dir / "fiorivoce.exe";
+        f.context.parent_exe = f.paths.install_dir / "openwhisper-cpp.exe";
         f.journal.parent_exe = f.context.parent_exe;
         f.journal.parent_pid = 17;
         f.journal.parent_creation_time = 123;

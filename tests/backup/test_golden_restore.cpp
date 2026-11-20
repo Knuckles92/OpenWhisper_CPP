@@ -175,12 +175,12 @@ TEST_CASE("_AUTO_NAME matches OpenWhisper's names", "[golden]") {
     });
 }
 
-TEST_CASE("automatic archive names carry FioriVoce's product and extension", "[backup]") {
+TEST_CASE("automatic archive names carry OpenWhisper_CPP's product and extension", "[backup]") {
     const auto at = std::chrono::sys_days{std::chrono::year{2026} / 11 / 15} +
                     std::chrono::hours(13) + std::chrono::minutes(4) +
                     std::chrono::milliseconds(5'999);
     const std::string name = fv::backup::auto_backup_name(fv::identity(), at, "0123456789ab");
-    CHECK(name == "FioriVoce-auto-20261115T130405Z-0123456789ab.fvbackup");
+    CHECK(name == "OpenWhisper_CPP-auto-20261115T130405Z-0123456789ab.fvbackup");
     CHECK(fv::backup::is_auto_backup_name(name, fv::identity()));
     CHECK_FALSE(fv::backup::is_auto_backup_name(name, fv::legacy_identity()));
 }

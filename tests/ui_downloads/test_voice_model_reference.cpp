@@ -3,9 +3,9 @@
 // among stand-ins for every other destination, at 1315x850. The widget tree first, then the
 // pixels, with the application styled as OpenWhisper styles it.
 //
-// OpenWhisper builds the page's controls straight into the Settings page's column; FioriVoce's
-// page is one widget (voiceModelPage) that holds them. The tree is compared with that wrapper
-// taken out, which is the same widgets at the same geometry.
+// OpenWhisper builds the page's controls straight into the Settings page's column;
+// OpenWhisper_CPP's page is one widget (voiceModelPage) that holds them. The tree is compared with
+// that wrapper taken out, which is the same widgets at the same geometry.
 #include <catch2/catch_test_macros.hpp>
 
 #include <algorithm>

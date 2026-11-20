@@ -1,6 +1,6 @@
 include_guard(GLOBAL)
 
-# fv_qt_runtime: copies the Qt DLLs and plugins that FioriVoce's executables load into the
+# fv_qt_runtime: copies the Qt DLLs and plugins that OpenWhisper_CPP's executables load into the
 # runtime output folder, once per build instead of once per executable, so every executable runs
 # from the build tree without Qt on PATH. Other platforms find Qt through the rpath, so there the
 # target does nothing.
@@ -56,9 +56,9 @@ function(fv_add_qt_runtime)
         VERBATIM)
 endfunction()
 
-# fiorivoce_deploy_qt(<target>): the target runs from the build tree. Kept for the CMake files
+# openwhisper_cpp_deploy_qt(<target>): the target runs from the build tree. Kept for the CMake files
 # written before fv_module; it only adds the dependency on fv_qt_runtime.
-function(fiorivoce_deploy_qt target)
+function(openwhisper_cpp_deploy_qt target)
     fv_add_qt_runtime()
     add_dependencies(${target} fv_qt_runtime)
 endfunction()

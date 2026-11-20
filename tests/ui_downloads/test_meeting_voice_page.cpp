@@ -564,8 +564,8 @@ TEST_CASE("test_use_for_meetings_gives_meetings_the_paired_computer",
     MeetingRig rig({{"remote_engine_client", pairedStudio()}, {"selected_model", "parakeet"}});
     rig.remoteMeetingSupported = true;
     auto& page = rig.page();
-    // FioriVoce: the paired computer receives meeting audio only once its owner confirms it for
-    // this host (a25-remote-meeting-consent).
+    // OpenWhisper_CPP: the paired computer receives meeting audio only once its owner confirms it
+    // for this host (a25-remote-meeting-consent).
     page.runRemoteConfirmation = [](QMessageBox&) {
         return QMessageBox::Yes;
     };
@@ -619,8 +619,8 @@ TEST_CASE("test_meeting_remote_settings_link_and_unpaired_connection_check",
     auto& page = rig.page();
     page.findChild<QPushButton*>(QStringLiteral("meetingConfigureRemoteButton"))->click();
     CHECK(rig.remoteOpened == 1);
-    // Unpaired, the page says so at once: FioriVoce offers Test connection only for a confirmed
-    // host, so there is no handshake to run first.
+    // Unpaired, the page says so at once: OpenWhisper_CPP offers Test connection only for a
+    // confirmed host, so there is no handshake to run first.
     CHECK(page.remoteTestButton()->isHidden());
     CHECK(page.remoteStatus()->text().contains(QStringLiteral("Pair a computer")));
     CHECK_FALSE(page.remoteStatus()->isHidden());

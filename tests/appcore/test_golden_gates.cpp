@@ -119,8 +119,9 @@ TEST_CASE("dictation refusals name the backup first, then setup, then the meetin
 TEST_CASE("the product name in the startup refusals comes from the identity", "[activity]") {
     ActivitySnapshot activity; // startup not ready
     CHECK(fv::backup_refusal(activity) ==
-          "Wait for FioriVoce to finish starting before backing up or restoring.");
-    CHECK(fv::walkthrough_library_refusal(activity) == "Wait for FioriVoce to finish starting.");
+          "Wait for OpenWhisper_CPP to finish starting before backing up or restoring.");
+    CHECK(fv::walkthrough_library_refusal(activity) ==
+          "Wait for OpenWhisper_CPP to finish starting.");
 }
 
 // from ui_qt/ui_controller.py _update_work_is_busy (2616-2625): the confirmations name the first

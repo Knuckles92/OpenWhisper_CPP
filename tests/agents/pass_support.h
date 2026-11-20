@@ -64,7 +64,7 @@ inline std::string legacy_server() {
 }
 
 // golden::rebrand, then the server name in lower case (mcp__openwhisper__ ->
-// mcp__fiorivoce__), which golden::rebrand leaves alone.
+// mcp__openwhisper_cpp__), which golden::rebrand leaves alone.
 inline std::string rebrand_text(std::string_view text) {
     auto out = golden::rebrand(text);
     const auto from = legacy_server();
@@ -338,7 +338,7 @@ struct PassAgents {
         const auto text = read_all(helper_pid);
         return text.empty() ? 0 : std::stoul(text);
     }
-    // No fiorivoce-pass-* folder is left in the temporary folder.
+    // No openwhisper-cpp-pass-* folder is left in the temporary folder.
     bool pass_folders_removed() const {
         const auto prefix = py::lower(identity().product) + "-pass-";
         for (const auto& entry : std::filesystem::directory_iterator(tmp)) {

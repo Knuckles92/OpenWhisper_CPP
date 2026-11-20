@@ -27,7 +27,8 @@ bool update_tree_left(const fs::path& parent) {
     for (const auto& entry : fs::directory_iterator(parent)) {
         const auto name = fv::path_to_utf8(entry.path().filename());
         if (name.find(".new-") != std::string::npos || name.find(".old-") != std::string::npos ||
-            name.find(".failed-") != std::string::npos || name.starts_with(".fiorivoce-candidate-"))
+            name.find(".failed-") != std::string::npos ||
+            name.starts_with(".openwhisper-cpp-candidate-"))
             return true;
     }
     return false;
@@ -47,8 +48,8 @@ TEST_CASE("native preparation preserves Inno metadata and stages the installed h
     const auto paths = u::journal_paths(f.context, handoff.args[2]);
     const auto journal = u::load_journal(f.context, handoff.args[2]);
     REQUIRE(journal.state == u::TransactionState::Prepared);
-    CHECK(handoff.setup_exe == paths.transaction_dir / "fiorivoce-updater.exe");
-    for (const auto* name : {"fiorivoce-updater.exe", "libcrypto-3-x64.dll"})
+    CHECK(handoff.setup_exe == paths.transaction_dir / "openwhisper-cpp-updater.exe");
+    for (const auto* name : {"openwhisper-cpp-updater.exe", "libcrypto-3-x64.dll"})
         CHECK(fv::download::sha256_file(paths.transaction_dir / name) ==
               fv::download::sha256_file(f.install / name));
     for (const auto* name : {"unins000.exe", "unins000.dat"}) {
@@ -57,8 +58,8 @@ TEST_CASE("native preparation preserves Inno metadata and stages the installed h
               journal.compatibility_files[name]["sha256"].get<std::string>());
     }
     CHECK(fs::is_regular_file(paths.candidate_dir / fv::update::sentinel_name()));
-    CHECK(fv::download::sha256_file(f.install / "fiorivoce.exe") == journal.old_exe_sha256);
-    CHECK(fv::download::sha256_file(paths.candidate_dir / "fiorivoce.exe") ==
+    CHECK(fv::download::sha256_file(f.install / "openwhisper-cpp.exe") == journal.old_exe_sha256);
+    CHECK(fv::download::sha256_file(paths.candidate_dir / "openwhisper-cpp.exe") ==
           journal.new_exe_sha256);
     CHECK_FALSE(fs::exists(paths.rollback_dir));
 }
@@ -123,7 +124,7 @@ TEST_CASE("abandoned preparation leaves the installed application alone at start
     const auto id = f.prepare().transaction_id;
     CHECK_FALSE(u::recover_before_start(f.context, mutex, 1, 2, {}));
     CHECK(u::load_journal(f.context, id).state == u::TransactionState::Superseded);
-    CHECK(fs::is_regular_file(f.install / "fiorivoce.exe"));
+    CHECK(fs::is_regular_file(f.install / "openwhisper-cpp.exe"));
 }
 
 TEST_CASE("a healthy update retires only the authenticated previous installation",
@@ -145,7 +146,7 @@ TEST_CASE("a healthy update retires only the authenticated previous installation
         CHECK_THROWS(u::cleanup_healthy_rollback(f.context, journal));
         CHECK(fs::exists(paths.rollback_dir / "my-document.txt"));
     }
-    CHECK(fs::exists(f.install / "fiorivoce.exe"));
+    CHECK(fs::exists(f.install / "openwhisper-cpp.exe"));
 }
 
 TEST_CASE("discarded transaction releases only known staged helper and snapshot files",
@@ -166,7 +167,7 @@ TEST_CASE("discarded transaction releases only known staged helper and snapshot 
         CHECK(u::cleanup_finished_transaction(f.context, journal));
         CHECK_FALSE(fs::exists(paths.transaction_dir));
     }
-    CHECK(fs::exists(f.install / "fiorivoce.exe"));
+    CHECK(fs::exists(f.install / "openwhisper-cpp.exe"));
 }
 
 TEST_CASE("native preparation refuses changed inputs before any handoff", "[update_native]") {
@@ -184,7 +185,7 @@ TEST_CASE("native preparation refuses changed inputs before any handoff", "[upda
         f.context.expected_registration->uninstall_string = "cmd.exe";
     }
     REQUIRE_THROWS(f.prepare());
-    CHECK(fs::is_regular_file(f.install / "fiorivoce.exe"));
+    CHECK(fs::is_regular_file(f.install / "openwhisper-cpp.exe"));
 }
 // from tests/test_app_update_apply.py::TestPreserveAndEligibility::test_hklm_is_not_native_eligible
 TEST_CASE("an all-users registration is sent to the setup before anything is staged",
@@ -194,7 +195,7 @@ TEST_CASE("an all-users registration is sent to the setup before anything is sta
     CHECK_THROWS_AS(f.prepare(), u::RequiresSetup);
     CHECK_FALSE(transaction_left(f));
     CHECK_FALSE(update_tree_left(f.folder.path()));
-    CHECK(read_text(f.install / "fiorivoce.exe") == "old app");
+    CHECK(read_text(f.install / "openwhisper-cpp.exe") == "old app");
 }
 
 // from
@@ -239,7 +240,7 @@ TEST_CASE("a cancel after the extraction still cancels and leaves nothing behind
         CHECK_FALSE(update_tree_left(f.folder.path()));
         CHECK_FALSE(transaction_left(f));
         CHECK_FALSE(fs::exists(f.archive));
-        CHECK(read_text(f.install / "fiorivoce.exe") == "old app");
+        CHECK(read_text(f.install / "openwhisper-cpp.exe") == "old app");
         CHECK(fs::is_regular_file(f.install / "unins000.exe"));
     }
     // A later attempt downloads again and prepares as if nothing had happened.
@@ -259,14 +260,14 @@ TEST_CASE("a preparation that fails part way removes what it wrote", "[update_na
     CHECK_FALSE(update_tree_left(f.folder.path()));
     CHECK_FALSE(transaction_left(f));
     CHECK_FALSE(fs::exists(f.archive));
-    CHECK(read_text(f.install / "fiorivoce.exe") == "old app");
+    CHECK(read_text(f.install / "openwhisper-cpp.exe") == "old app");
     f.download_again();
     CHECK(u::load_journal(f.context, f.prepare().transaction_id).state ==
           u::TransactionState::Prepared);
 }
 
-// app_update_apply.py _discard_preparation ends the journal rolled_back; FioriVoce's name for a
-// transaction that never reached the commit is superseded. A transaction that cannot be collected
+// app_update_apply.py _discard_preparation ends the journal rolled_back; OpenWhisper_CPP's name for
+// a transaction that never reached the commit is superseded. A transaction that cannot be collected
 // (here: a file nobody knows in it) keeps its journal, which shows that end state, and the archive
 // is removed all the same.
 TEST_CASE("a discarded preparation ends superseded and loses its archive even when its "
@@ -293,7 +294,7 @@ TEST_CASE("a discarded preparation ends superseded and loses its archive even wh
     CHECK(fs::exists(paths.transaction_dir / "my-recording.wav"));
     CHECK_FALSE(fs::exists(paths.candidate_dir));
     CHECK_FALSE(fs::exists(f.archive));
-    CHECK(read_text(f.install / "fiorivoce.exe") == "old app");
+    CHECK(read_text(f.install / "openwhisper-cpp.exe") == "old app");
 }
 
 // A failure before the journal exists is OpenWhisper's first except clause: only the transaction
@@ -312,13 +313,13 @@ TEST_CASE("an abandoned hand-off releases its candidate and transaction", "[upda
     REQUIRE(fs::is_directory(paths.candidate_dir));
     // A hand-off that names another program is not this installation's.
     auto foreign = handoff;
-    foreign.setup_exe = f.folder.path() / "fiorivoce-updater.exe";
+    foreign.setup_exe = f.folder.path() / "openwhisper-cpp-updater.exe";
     CHECK_THROWS_AS(u::abandon_prepared_update(f.context, foreign), u::UpdateError);
     CHECK(fs::is_directory(paths.candidate_dir));
     u::abandon_prepared_update(f.context, handoff);
     CHECK_FALSE(fs::exists(paths.candidate_dir));
     CHECK_FALSE(fs::exists(paths.transaction_dir));
-    CHECK(read_text(f.install / "fiorivoce.exe") == "old app");
+    CHECK(read_text(f.install / "openwhisper-cpp.exe") == "old app");
     // app_update_apply.py abandon_prepared_update: the archive goes too, and the next attempt
     // downloads again.
     CHECK_FALSE(fs::exists(f.archive));

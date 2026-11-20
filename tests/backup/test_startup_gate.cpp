@@ -99,9 +99,10 @@ TEST_CASE("pending restore never runs while another process uses data",
         CHECK_THROWS_MATCHES(
             acquire_startup_data_lease(temp.path(), identity(), restore.steps()),
             StartupRestoreError,
-            Message("A backup restore is pending, but another FioriVoce process is still using "
-                    "this data. Close every FioriVoce window and History API process, then "
-                    "launch again to finish the restore."));
+            Message(
+                "A backup restore is pending, but another OpenWhisper_CPP process is still using "
+                "this data. Close every OpenWhisper_CPP window and History API process, then "
+                "launch again to finish the restore."));
         CHECK(fs::exists(restore.marker));
         CHECK(restore.applied.empty());
         stop(*other);
@@ -146,7 +147,7 @@ TEST_CASE("the gate's refusals", "[backup]") {
         DataLease restoring = DataLease::acquire(temp.path(), identity(), LeaseMode::Exclusive);
         CHECK_THROWS_MATCHES(acquire_startup_data_lease(temp.path(), identity(), restore.steps()),
                              StartupRestoreError,
-                             Message("Another FioriVoce process is restoring this data. Wait "
+                             Message("Another OpenWhisper_CPP process is restoring this data. Wait "
                                      "for it to finish, then launch again."));
     }
     SECTION("a restore is pending while another user shares the data") {
@@ -154,9 +155,10 @@ TEST_CASE("the gate's refusals", "[backup]") {
         CHECK_THROWS_MATCHES(
             acquire_startup_data_lease(temp.path(), identity(), restore.steps()),
             StartupRestoreError,
-            Message("A backup restore is pending, but another FioriVoce process is still using "
-                    "this data. Close every FioriVoce window and History API process, then "
-                    "launch again to finish the restore."));
+            Message(
+                "A backup restore is pending, but another OpenWhisper_CPP process is still using "
+                "this data. Close every OpenWhisper_CPP window and History API process, then "
+                "launch again to finish the restore."));
     }
     SECTION("the restore was not applied") {
         restore.apply_result = false;
@@ -206,7 +208,7 @@ TEST_CASE("the gate admits one data root per process", "[backup]") {
     CHECK(checks == 1);
     CHECK_THROWS_MATCHES(acquire_startup_data_lease(temp.path() / "two", identity(), steps),
                          StartupRestoreError,
-                         Message("FioriVoce already holds a different data directory."));
+                         Message("OpenWhisper_CPP already holds a different data directory."));
     release_startup_data_lease();
     CHECK_NOTHROW(acquire_startup_data_lease(temp.path() / "two", identity(), steps));
 }
@@ -240,8 +242,8 @@ TEST_CASE("the gate applies a staged restore before handing out the shared lease
 
 TEST_CASE("restart command drops update and restore args", "[test_backup_startup]") {
     // from tests/test_backup_startup.py::test_restart_command_drops_update_and_restore_args
-    // (FioriVoce always runs an installed or built executable: the frozen branch)
-    const fs::path exe = fs::absolute("fiorivoce.exe");
+    // (OpenWhisper_CPP always runs an installed or built executable: the frozen branch)
+    const fs::path exe = fs::absolute("openwhisper-cpp.exe");
     CHECK(fv::backup::restart_command(exe) == std::vector<std::string>{fv::path_to_utf8(exe)});
 }
 
@@ -258,7 +260,7 @@ TEST_CASE("spawn_restart starts the executable alone and passes a failure on", "
             return {};
         }
     } starter;
-    const fs::path exe = fs::absolute("FioriVoce") / "fiorivoce.exe";
+    const fs::path exe = fs::absolute("OpenWhisper_CPP") / "openwhisper-cpp.exe";
     CHECK(fv::backup::spawn_restart(exe, starter).has_value());
     REQUIRE(starter.starts.size() == 1);
     CHECK(starter.starts[0].first == exe);

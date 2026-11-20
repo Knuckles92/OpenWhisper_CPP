@@ -31,8 +31,8 @@ namespace fv::agents {
 using ToolHandler = std::function<std::pair<std::string, bool>(std::string_view name,
                                                                const Json& args, const Json& meta)>;
 
-// The MCP server's name: identity().product in lower case ("fiorivoce"). Claude Code names our
-// tools mcp__<name>__<tool>, OpenCode <name>_<tool>.
+// The MCP server's name: identity().product in lower case ("openwhisper-cpp"). Claude Code names
+// our tools mcp__<name>__<tool>, OpenCode <name>_<tool>.
 std::string server_name();
 
 // A flag threads wait on (threading.Event).

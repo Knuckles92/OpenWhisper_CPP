@@ -37,7 +37,7 @@ class TailscaleProbe;
 
 inline constexpr int DEFAULT_PORT = 8767;
 // The credential the token is kept under: identity().env_prefix + "MCP_TOKEN"
-// (FIORIVOCE_MCP_TOKEN). The Claude Code channel reads it by this name.
+// (OPENWHISPER_CPP_MCP_TOKEN). The Claude Code channel reads it by this name.
 std::string credential_name();
 
 // Affinity: value type.

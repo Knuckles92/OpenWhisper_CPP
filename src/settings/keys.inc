@@ -248,7 +248,7 @@ inline constexpr StrSetting fv_meeting_remote_fingerprint{"fv_meeting_remote_fin
 // The installed CLI approved on this computer for live dictation cleanup.
 inline constexpr StrSetting fv_cleanup_agent_consent{"fv_cleanup_agent_consent", spec::text("").not_in_table()};
 
-// Every setting, in declaration order (ALL_SETTINGS, then FioriVoce's).
+// Every setting, in declaration order (ALL_SETTINGS, then OpenWhisper_CPP's).
 inline constexpr const SettingBase* declared[] = {
     &hotkeys,
     &selected_model,

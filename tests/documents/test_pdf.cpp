@@ -1,5 +1,5 @@
 // from tests/test_walkthrough_document.py (the PDF half). Page text and metadata are read back
-// with PDFium when FIORIVOCE_TEST_PDFIUM names it; which line and frame went on which page is
+// with PDFium when OPENWHISPER_CPP_TEST_PDFIUM names it; which line and frame went on which page is
 // always checked through the painter's own PageRecord.
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>

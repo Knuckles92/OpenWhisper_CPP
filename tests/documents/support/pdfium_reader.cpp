@@ -138,7 +138,7 @@ PdfiumReader* PdfiumReader::get() {
     static PdfiumReader* reader = nullptr;
     static std::string failure;
     std::call_once(once, [] {
-        const auto path = testkit::get_env("FIORIVOCE_TEST_PDFIUM");
+        const auto path = testkit::get_env("OPENWHISPER_CPP_TEST_PDFIUM");
         if (!path || path->empty()) {
             return;
         }
@@ -264,7 +264,7 @@ QImage PdfiumReader::render(const std::filesystem::path& pdf, int index, double 
 PdfiumReader& pdfiumOrSkip() {
     PdfiumReader* reader = PdfiumReader::get();
     if (reader == nullptr) {
-        SKIP("FIORIVOCE_TEST_PDFIUM is not set: the PDF is not read back with PDFium");
+        SKIP("OPENWHISPER_CPP_TEST_PDFIUM is not set: the PDF is not read back with PDFium");
     }
     return *reader;
 }

@@ -1,7 +1,7 @@
 # tools/webui
 
 `rebrand.py` replaces the product name in the vendored dashboard (`webui/`) by exact text
-substitution, so the page says FioriVoce without Node ever running. The replacements are in
+substitution, so the page says OpenWhisper_CPP without Node ever running. The replacements are in
 `rebrand_map.json`: per file, an exact literal, its replacement and how many times the literal
 occurs there. A run whose count differs from the map refuses before it writes anything (a minified
 name that merely contains the product name must not be touched).

@@ -165,7 +165,7 @@ TEST_CASE("test_only_a_real_custom_prompt_counts", "[test_personalize_foundation
 TEST_CASE("test_a_brand_new_install_is_seeded_once", "[test_personalize_foundation_settings]") {
     // from tests/test_personalize_foundation_settings.py::test_a_brand_new_install_is_seeded_once
     TempDir temp;
-    const auto path = temp.path() / "fiorivoce_settings.json";
+    const auto path = temp.path() / "openwhisper_cpp_settings.json";
     fv::SettingsStore manager(path);
     CHECK(manager.is_new_install());
 
@@ -184,7 +184,7 @@ TEST_CASE("test_an_existing_install_keeps_todays_output",
     // from
     // tests/test_personalize_foundation_settings.py::test_an_existing_install_keeps_todays_output
     TempDir temp;
-    const auto path = temp.path() / "fiorivoce_settings.json";
+    const auto path = temp.path() / "openwhisper_cpp_settings.json";
     {
         std::ofstream out(path, std::ios::binary);
         out << R"({"ui_theme": "dark"})";

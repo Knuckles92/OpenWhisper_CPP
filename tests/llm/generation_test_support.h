@@ -99,8 +99,8 @@ inline Json request_body(const http::Request& request) {
     return Json();
 }
 
-// A request as the vectors record it. FioriVoce's own User-Agent stands where the SDK sends its
-// own, so it is left out as the SDK's is; a uuid4 OpenCode session becomes "<uuid4>" with
+// A request as the vectors record it. OpenWhisper_CPP's own User-Agent stands where the SDK sends
+// its own, so it is left out as the SDK's is; a uuid4 OpenCode session becomes "<uuid4>" with
 // `uuid_session`.
 inline Json recorded_request(const http::Request& request, bool uuid_session = false,
                              bool with_query = true) {

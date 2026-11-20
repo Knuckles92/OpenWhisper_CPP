@@ -11,7 +11,7 @@
 // _SOURCE_NOTE, _SPEECH_RUNTIME_SOURCE_NOTE and the NVIDIA rows). Install URLs, sizes and digests
 // stay in catalog.h; this is copy and links only.
 //
-// Where FioriVoce differs: the runtime is a set of native libraries loaded into the app's own
+// Where OpenWhisper_CPP differs: the runtime is a set of native libraries loaded into the app's own
 // process, so the rows say so instead of "Runs in a dedicated process" and "Isolated worker
 // process", carry no portable Python (payload, licence and the Python download link go), and
 // name only Parakeet among the engines that share them. The CPU and CUDA rows are offered on

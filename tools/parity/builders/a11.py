@@ -3,18 +3,18 @@
 Each builder returns (widget, (width, height), focus widget or None) with fixed fake data.
 
 The shell is OpenWhisper's SettingsDialog as it is, with every page replaced by the same
-stand-in FioriVoce's test registers (tests/ui_settings/settings_support.h): the page's own
+stand-in OpenWhisper_CPP's test registers (tests/ui_settings/settings_support.h): the page's own
 container holding a group title and two tiles, added through _add_page and _tile_group. The
 pages, their loads, the rail values and Home's refresh are OpenWhisper's real code otherwise, so
 the builder switches off what reads a page that is not there:
 - _load_settings, _render_rail_values, _refresh_home, refresh_models and
   _refresh_recordings_usage do nothing (the stand-ins bind no setting);
-- the rail's set_value does nothing, so the rail shows no values, as FioriVoce's stand-ins have
+- the rail's set_value does nothing, so the rail shows no values, as OpenWhisper_CPP's stand-ins have
   none (the model assignments write Voice model's value themselves);
-- the search palette, which FioriVoce builds with Home (M2.24), is taken out of the tree;
-- the stack holds the pages in rail order, as FioriVoce adds them, not in _add_page order.
+- the search palette, which OpenWhisper_CPP builds with Home (M2.24), is taken out of the tree;
+- the stack holds the pages in rail order, as OpenWhisper_CPP adds them, not in _add_page order.
 
-FioriVoce's product name is in the header, and its app mark, which it draws, where OpenWhisper
+OpenWhisper_CPP's product name is in the header, and its app mark, which it draws, where OpenWhisper
 shows its bundled .ico. The screen is pinned (a fake one), so the first-show fit sizes the window
 the same way on both sides: 1920x1080 for the shell, and for the narrow variant a screen whose
 room after the 32 px margins is the window itself, which lowers the 940 px minimum to 780.
@@ -23,7 +23,7 @@ room after the 32 px margins is the window itself, which lowers the 940 px minim
 from contextlib import ExitStack
 from unittest.mock import patch
 
-PRODUCT = "FioriVoce"
+PRODUCT = "OpenWhisper_CPP"
 GROUP_TITLE = "Stand-in group"
 TILES = (
     ("First tile", "A tile of the page that registers here."),
@@ -113,10 +113,10 @@ def narrow(variant):
 #
 # Each page body is OpenWhisper's own, built by a real SettingsDialog over a throwaway settings
 # file in the isolated data folder (as builders/a06.py builds the Hotkeys page), then taken out
-# of the dialog at PAGE_WIDTH: FioriVoce's page class is the body the Settings shell hosts, and
-# the shell around it is settings_dialog/shell's. FioriVoce differs where these builders put its
+# of the dialog at PAGE_WIDTH: OpenWhisper_CPP's page class is the body the Settings shell hosts, and
+# the shell around it is settings_dialog/shell's. OpenWhisper_CPP differs where these builders put its
 # own in: the body has no object name (settingsPage_<key> is the shell's wrapper), the product
-# name in copy is FioriVoce's, and the live-preview tile names Parakeet's preview only. The
+# name in copy is OpenWhisper_CPP's, and the live-preview tile names Parakeet's preview only. The
 # system tray is present, as on Windows.
 
 #: Two tile columns at every font scale, as the page has inside the window at its default size.
@@ -184,8 +184,8 @@ def _app_dialog(values, **options):
     return _keep(settings_dialog_module.SettingsDialog(background_cache_scan=False, **options))
 
 
-def _fiorivoce(page):
-    """The page body as FioriVoce builds it (see above)."""
+def _openwhisper-cpp(page):
+    """The page body as OpenWhisper_CPP builds it (see above)."""
     from PyQt6.QtWidgets import QLabel
 
     from ui_qt.widgets.wrapped_label import WrappedLabel
@@ -222,7 +222,7 @@ def _app_page(key, values=None, prepare=None):
     page = dialog._pages[key]
     page.setParent(None)
     _keep(page)
-    _fiorivoce(page)
+    _openwhisper-cpp(page)
     return page, (PAGE_WIDTH, _settled_height(page, PAGE_WIDTH)), None
 
 
@@ -262,7 +262,7 @@ def _walkthroughs_page(values, found):
 
     with patch.object(agent_picker, "cached_agents", lambda: found):
         page, size, focus = _app_page(WALKTHROUGHS, values)
-    # As the Hotkeys page's builder (a06) does: FioriVoce's shortcut fields carry no `optional`
+    # As the Hotkeys page's builder (a06) does: OpenWhisper_CPP's shortcut fields carry no `optional`
     # property, which no theme rule reads (lead decision 7).
     for field in page.findChildren(HotkeyCaptureInput):
         field.setProperty("optional", None)
@@ -323,7 +323,7 @@ MICROPHONES = [
 ]
 #: Two saved recordings, 806 KB in all.
 RECORDINGS_USAGE = (2, 825344)
-#: The live-preview tile names Parakeet's preview only (FioriVoce has no Nemotron or Whisper).
+#: The live-preview tile names Parakeet's preview only (OpenWhisper_CPP has no Nemotron or Whisper).
 LIVE_PREVIEW_DESCRIPTION = (
     "Shows text as you speak on the near-cursor overlay. Parakeet transcribes short audio "
     "chunks with the loaded model. The final transcript uses your selected model and follows "
@@ -434,24 +434,24 @@ def settings_appearance_bars(variant):
 # --- Settings > Home (M2.24) ---
 #
 # Home's body is OpenWhisper's own HomePage, built by a real SettingsDialog (as the App pages
-# above), taken out of its page at HOME_WIDE or HOME_NARROW, and cut to what FioriVoce's Home
+# above), taken out of its page at HOME_WIDE or HOME_NARROW, and cut to what OpenWhisper_CPP's Home
 # shows with the M2 pages registered:
 # - the Dictation card loses the AI cleanup rows and status line (the AI cleanup page, M4, adds
 #   them through HomeRows);
 # - the Personalize and Meetings cards keep their header and closing link, both hidden: they have
 #   no rows and their pages (M4, M7) are not registered;
-# - the where strip, the Storage card and the footer show the summary FioriVoce composes from the
+# - the where strip, the Storage card and the footer show the summary OpenWhisper_CPP composes from the
 #   test's fixed sources (Parakeet downloaded, 714 MB; the CPU runtime installed, the CUDA one
 #   not; no API key), not OpenWhisper's model manager;
-# - the voice combo lists FioriVoce's engines only;
-# - the note is FioriVoce's, under "New in FioriVoce".
+# - the voice combo lists OpenWhisper_CPP's engines only;
+# - the note is OpenWhisper_CPP's, under "New in OpenWhisper_CPP".
 # Home is not refreshed after that (its refresh would read the rows taken out).
 
 #: Two card columns at 100 % text; one at 130 %.
 HOME_WIDE = 1000
 #: One card column, the where strip stacked.
 HOME_NARROW = 700
-#: FioriVoce's engines (settings keys.inc choices of selected_model).
+#: OpenWhisper_CPP's engines (settings keys.inc choices of selected_model).
 HOME_ENGINES = ("api", "parakeet", "remote")
 #: The where strip with the default settings: OpenRouter, the default cleanup provider, is a cloud
 #: one, and cleanup and reading text near the cursor are off. Learned rules and Recordings close
@@ -461,11 +461,11 @@ HOME_LOCAL = ["Dictation voice", "Text near the cursor (off)", "Learned rules", 
 HOME_CLOUD = ["AI cleanup (off)"]
 HOME_STORAGE = (1, 3, 714_000_000, {"Parakeet": 714_000_000})
 HOME_COMPONENTS = [("NVIDIA speech runtime (CPU)", True), ("NVIDIA speech runtime (CUDA)", False)]
-#: FioriVoce's footer: API keys counts the text-model and speech-endpoint keys and TypeSafe's (six
+#: OpenWhisper_CPP's footer: API keys counts the text-model and speech-endpoint keys and TypeSafe's (six
 #: rows), and the runtime is model_assignments' runtime_summary for the saved CPU build.
 HOME_FOOTER = ("API keys: 0 of 6 set  ·  Runtime: Auto · CPU runtime not loaded  ·  "
                "Missing models: ask first")
-HOME_NOTE = ("FioriVoce 0.1 is the C++ rewrite of OpenWhisper: the same dictation, uploads, "
+HOME_NOTE = ("OpenWhisper_CPP 0.1 is the C++ rewrite of OpenWhisper: the same dictation, uploads, "
              "history and settings, with Parakeet running in-process for faster starts and "
              "lower memory.")
 
@@ -562,7 +562,7 @@ def _home(width):
     home.cleanup_status.deleteLater()
     _empty_home_card(home.cards["personalize"])
     _empty_home_card(home.cards["meetings"])
-    # The voice combo lists FioriVoce's engines only (the Whisper, Moonshine, Qwen and Nemotron
+    # The voice combo lists OpenWhisper_CPP's engines only (the Whisper, Moonshine, Qwen and Nemotron
     # ones are dropped); its width at large text follows its longest name.
     from PyQt6.QtCore import QSignalBlocker, Qt
 
@@ -608,9 +608,9 @@ def settings_home_narrow(variant):
 # --- The search palette (M2.24) ---
 #
 # OpenWhisper's SearchPalette over a plain host of PALETTE_SIZE, opened on "mic". Its index is
-# what FioriVoce's Settings window finds for that query with the M2 pages registered (Recording's
+# what OpenWhisper_CPP's Settings window finds for that query with the M2 pages registered (Recording's
 # registered "Preferred microphone" field and its heading), so the palette draws the same rows;
-# OpenWhisper's own window would also list its pages FioriVoce does not have yet.
+# OpenWhisper's own window would also list its pages OpenWhisper_CPP does not have yet.
 
 PALETTE_SIZE = (900, 520)
 PALETTE_QUERY = "mic"
@@ -650,23 +650,23 @@ def settings_search_palette_microphone(variant):
 #
 # The page is OpenWhisper's own BackupSettingsPage in the _SettingsPage container of a real
 # SettingsDialog built with a fake coordinator, taken out of the dialog at BACKUP_WIDE or
-# BACKUP_NARROW_WIDTH (the container is what FioriVoce's dialog builds around the page too). The
+# BACKUP_NARROW_WIDTH (the container is what OpenWhisper_CPP's dialog builds around the page too). The
 # coordinator's snapshot is fixed: the last backup of 2026-10-04T12:30:00Z, 734,003,200 bytes, in
 # BACKUP_FOLDER; a daily schedule keeping 5, next due 2026-10-05 12:30 UTC; nothing inspected;
 # idle. The local zone is pinned to UTC and today to 2026-10-04: the page and the calendar read
 # datetime and date through their modules' globals, so those are replaced by subclasses.
 #
-# FioriVoce differs where these builders put its own in:
-# - the product name in copy is FioriVoce's;
+# OpenWhisper_CPP differs where these builders put its own in:
+# - the product name in copy is OpenWhisper_CPP's;
 # - the restore tile has a hidden "Import from OpenWhisper..." button after "Restore and
 #   restart" (offered only when OpenWhisper data is found, which the reference has none of).
 
 BACKUP_WIDE = (900, 1100)
 BACKUP_NARROW_WIDTH = 360
-BACKUP_FOLDER = "C:\\Backups\\FioriVoce"
+BACKUP_FOLDER = "C:\\Backups\\OpenWhisper_CPP"
 BACKUP_TODAY = (2026, 10, 4)
 BACKUP_LAST = {
-    "path": BACKUP_FOLDER + "\\FioriVoce-backup.fvbackup",
+    "path": BACKUP_FOLDER + "\\OpenWhisper_CPP-backup.fvbackup",
     "created_at": "2026-10-04T12:30:00Z",
     "app_version": "0.1.0",
     "schema_version": 1,
@@ -779,12 +779,12 @@ def backup_settings_page_narrow(variant):
 #
 # The page body as _app_page builds it: AI cleanup on, the cleanup model OpenRouter's
 # openrouter/free with its key found (the picker's credential_status is replaced by the answer a
-# host that found OpenRouter's key gives, as builders/a13.py does for the picker alone; FioriVoce
-# reads the key off the GUI thread and the test waits for it), thinking Off. FioriVoce's page has
+# host that found OpenRouter's key gives, as builders/a13.py does for the picker alone; OpenWhisper_CPP
+# reads the key off the GUI thread and the test waits for it), thinking Off. OpenWhisper_CPP's page has
 # no installed-agent runners until the agents arrive (M8), so the agent picker above the Cleanup
 # model card and its model card inside it are taken out of the tree; nothing else is. No catalog
 # is loaded (the page is never shown here), so the picker says it is loading. OpenWhisper elides
-# the endpoint address with the label's font before the theme has styled the page, FioriVoce
+# the endpoint address with the label's font before the theme has styled the page, OpenWhisper_CPP
 # once it is styled (its page is styled as it is built), which at 130 % elides
 # "https://openrouter.ai/api/v1": the endpoint is shown again once the page is styled, as any
 # later choice of endpoint shows it in OpenWhisper too.
@@ -827,7 +827,7 @@ def _without_agents(dialog):
 
 
 def cleanup_dialog(values):
-    """A Settings dialog over `values` with the AI cleanup page built as FioriVoce builds it."""
+    """A Settings dialog over `values` with the AI cleanup page built as OpenWhisper_CPP builds it."""
     from ui_qt.dialogs.settings_destinations import CLEANUP
     from ui_qt.widgets import text_model_picker
 
@@ -849,7 +849,7 @@ def _cleanup_page(values):
     page = dialog._pages[CLEANUP]
     page.setParent(None)
     _keep(page)
-    _fiorivoce(page)
+    _openwhisper-cpp(page)
     return page, (PAGE_WIDTH, _settled_height(page, PAGE_WIDTH)), None
 
 

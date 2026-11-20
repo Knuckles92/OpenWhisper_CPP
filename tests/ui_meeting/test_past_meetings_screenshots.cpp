@@ -246,8 +246,8 @@ void exportDialog(const std::string& theme) {
     const fvtest::AppTheme appTheme(QString::fromStdString(theme));
     fvtest::Io io;
     fv::MeetingExportDialog dialog([] { return exportMeetings(); },
-                                   R"(C:\Users\Dana\AppData\Local\FioriVoce\meetings)", nullptr,
-                                   io.executor());
+                                   R"(C:\Users\Dana\AppData\Local\OpenWhisper_CPP\meetings)",
+                                   nullptr, io.executor());
     dialog.fromDate()->setDate(QDate(2026, 2, 15));
     dialog.toDate()->setDate(QDate(2026, 3, 15));
     check(dialog, "meeting_export_dialog/three-meetings", variantOf(theme, 100));

@@ -46,7 +46,7 @@ QString text(const std::string& utf8) {
 }
 
 constexpr const char* kUnknownModel =
-    "This file isn't a model FioriVoce knows. Pick Parakeet TDT 0.6B v3 or Orukeet TDT 0.6B.";
+    "This file isn't a model OpenWhisper_CPP knows. Pick Parakeet TDT 0.6B v3 or Orukeet TDT 0.6B.";
 
 } // namespace
 
@@ -230,7 +230,7 @@ TEST_CASE("a runtime folder chosen after a runtime was loaded asks for a restart
 
     CHECK(fx.saves == 1);
     CHECK_THAT(dialog.resultText().toStdString(),
-               ContainsSubstring("Restart FioriVoce to switch to it."));
+               ContainsSubstring("Restart OpenWhisper_CPP to switch to it."));
 }
 
 TEST_CASE("a cancelled picker changes nothing", "[ui_setup][widget]") {
@@ -505,7 +505,7 @@ TEST_CASE("setRuntimeLoaded reaches the dialogs ensureEngine opens", "[ui_setup]
     // The model is still missing, so the setup is not finished.
     CHECK_FALSE(setup.ensureEngine(nullptr));
     CHECK(fx.saves == 1);
-    CHECK_THAT(shown.toStdString(), ContainsSubstring("Restart FioriVoce to switch to it."));
+    CHECK_THAT(shown.toStdString(), ContainsSubstring("Restart OpenWhisper_CPP to switch to it."));
     CHECK_THAT(shown.toStdString(),
                ContainsSubstring("Download Parakeet TDT 0.6B v3 in Downloads."));
 }
@@ -519,7 +519,7 @@ TEST_CASE("SetupFeature provides RuntimeSetup and registers nothing", "[ui_setup
     CHECK(context.find<fv::RuntimeSetup>() != nullptr);
 }
 
-TEST_CASE("the app's ports adopt into FioriVoce's folders and save the runtime folder",
+TEST_CASE("the app's ports adopt into OpenWhisper_CPP's folders and save the runtime folder",
           "[ui_setup][widget]") {
     const auto tag = fv::models::platform_tag();
     if (!tag) {

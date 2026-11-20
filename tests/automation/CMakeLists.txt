@@ -10,7 +10,7 @@ if(TARGET fv_automation_tests)
     if(WIN32)
         target_link_libraries(fv_automation_hook_child PRIVATE shell32)
     endif()
-    fiorivoce_target_defaults(fv_automation_hook_child)
+    openwhisper_cpp_target_defaults(fv_automation_hook_child)
     add_dependencies(fv_automation_tests fv_automation_hook_child)
     target_compile_definitions(fv_automation_tests PRIVATE
         "FV_HOOK_CHILD=\"$<TARGET_FILE:fv_automation_hook_child>\"")

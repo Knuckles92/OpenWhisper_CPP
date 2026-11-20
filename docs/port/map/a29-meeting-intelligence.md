@@ -492,4 +492,4 @@ size+mtime can stay); voice-command wake regex on every preview is cheap either 
 ASR callback thread and judge workers; startup not affected (all lazy).
 
 Deliberate differences to decide: the wake name "openwhisper"/"open whisper" and guide label "OpenWhisper" belong to
-the old product name — FioriVoce likely wants its own name (keep the old ones for muscle memory?).
+the old product name — OpenWhisper_CPP likely wants its own name (keep the old ones for muscle memory?).

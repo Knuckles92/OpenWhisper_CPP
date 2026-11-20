@@ -18,8 +18,9 @@
 #include <windows.h>
 #endif
 
-// fiorivoce-updater: what the command line means is update_native/updater_cli.h. This file only
-// connects it to the installed product: the registry, the named mutexes and the real processes.
+// openwhisper-cpp-updater: what the command line means is update_native/updater_cli.h. This file
+// only connects it to the installed product: the registry, the named mutexes and the real
+// processes.
 namespace {
 
 #ifdef _WIN32

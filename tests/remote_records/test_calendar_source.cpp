@@ -62,7 +62,7 @@ private:
 
 TEST_CASE("test_source_merges_host_kept_records_and_copies", "[test_history_calendar]") {
     testkit::TempDataRoot data;
-    auto db = Database::open_or_create(data.path() / "fiorivoce.db");
+    auto db = Database::open_or_create(data.path() / "openwhisper-cpp.db");
     const FakeClock clock(FakeClock::default_utc(), "America/Los_Angeles");
     FakeClock sync_clock;
     ManualExecutor io;

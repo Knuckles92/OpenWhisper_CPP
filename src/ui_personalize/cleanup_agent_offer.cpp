@@ -82,12 +82,13 @@ std::optional<std::string> askUser(QWidget* parent,
 } // namespace
 
 AgentConsentQuestion agentConsentQuestion(const QString& name) {
-    return {QStringLiteral("Use %1 for AI cleanup?").arg(name),
-            QStringLiteral("While AI cleanup is enabled, FioriVoce will send future dictation "
-                           "transcripts and cleanup instructions through the %1 CLI to the AI "
-                           "provider signed in there. This applies to live dictation you start "
-                           "on this computer, including when you use a cleanup profile.")
-                .arg(name)};
+    return {
+        QStringLiteral("Use %1 for AI cleanup?").arg(name),
+        QStringLiteral("While AI cleanup is enabled, OpenWhisper_CPP will send future dictation "
+                       "transcripts and cleanup instructions through the %1 CLI to the AI "
+                       "provider signed in there. This applies to live dictation you start "
+                       "on this computer, including when you use a cleanup profile.")
+            .arg(name)};
 }
 
 CleanupAgentOffer::CleanupAgentOffer(SettingsStore& settings, Executor& io, Executor& ui,

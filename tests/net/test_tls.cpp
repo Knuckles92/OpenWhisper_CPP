@@ -137,7 +137,7 @@ TEST_CASE("PEM_cert_to_DER_cert's refusals throw", "[platform]") {
 
 TEST_CASE("generate_self_signed_p256 makes OpenWhisper's host certificate", "[platform]") {
     const std::time_t before = std::time(nullptr);
-    const TlsIdentity identity = generate_self_signed_p256("FioriVoce host x");
+    const TlsIdentity identity = generate_self_signed_p256("OpenWhisper_CPP host x");
     const std::time_t after = std::time(nullptr);
 
     CHECK(identity.cert_pem.starts_with("-----BEGIN CERTIFICATE-----\n"));
@@ -155,7 +155,7 @@ TEST_CASE("generate_self_signed_p256 makes OpenWhisper's host certificate", "[pl
     CHECK(X509_NAME_cmp(X509_get_subject_name(certificate.get()),
                         X509_get_issuer_name(certificate.get())) == 0);
     CHECK(X509_NAME_entry_count(X509_get_subject_name(certificate.get())) == 1);
-    CHECK(common_name(X509_get_subject_name(certificate.get())) == "FioriVoce host x");
+    CHECK(common_name(X509_get_subject_name(certificate.get())) == "OpenWhisper_CPP host x");
     CHECK(X509_get_ext_count(certificate.get()) == 0);
 
     // EC P-256, signed with ECDSA SHA-256.
@@ -193,23 +193,23 @@ TEST_CASE("generate_self_signed_p256 makes OpenWhisper's host certificate", "[pl
 }
 
 TEST_CASE("two identities have different keys and serials", "[platform]") {
-    const auto first = generate_self_signed_p256("FioriVoce host x");
-    const auto second = generate_self_signed_p256("FioriVoce host x");
+    const auto first = generate_self_signed_p256("OpenWhisper_CPP host x");
+    const auto second = generate_self_signed_p256("OpenWhisper_CPP host x");
     CHECK(first.key_pem != second.key_pem);
     CHECK(certificate_sha256_from_pem(first.cert_pem) !=
           certificate_sha256_from_pem(second.cert_pem));
 }
 
 TEST_CASE("the common name is cut to 64 code points, as tls.py slices it", "[platform]") {
-    // "FioriVoce host " and a host name of 60 two-byte characters: 75 code points.
+    // "OpenWhisper_CPP host " and a host name of 60 two-byte characters: 75 code points.
     std::string host;
     for (int i = 0; i < 60; ++i) {
         host += "\xC3\xA9"; // e acute
     }
-    const auto identity = generate_self_signed_p256("FioriVoce host " + host);
+    const auto identity = generate_self_signed_p256("OpenWhisper_CPP host " + host);
     const auto certificate = read_certificate(identity.cert_pem);
     REQUIRE(certificate);
-    std::string expected = "FioriVoce host ";
+    std::string expected = "OpenWhisper_CPP host ";
     for (int i = 0; i < 64 - 15; ++i) {
         expected += "\xC3\xA9";
     }

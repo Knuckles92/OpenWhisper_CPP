@@ -96,8 +96,8 @@ TEST_CASE("a selection equal to the clipboard still arrives by the deadline",
 
 // from
 // tests/test_personalize_fix2_g4_wayland_selection.py::test_only_wayland_without_data_control_hides_other_apps_copies
-// The rows that are not Wayland's: every other platform sees other apps' copies. FioriVoce does
-// not use Wayland's data-control, so every Wayland row is hidden (docs/port: the clipboard's
+// The rows that are not Wayland's: every other platform sees other apps' copies. OpenWhisper_CPP
+// does not use Wayland's data-control, so every Wayland row is hidden (docs/port: the clipboard's
 // foreign_copies_visible).
 TEST_CASE("only wayland hides other apps' copies", "[test_personalize_fix2_g4_wayland_selection]") {
     REQUIRE_FALSE(QGuiApplication::platformName().startsWith(QStringLiteral("wayland")));

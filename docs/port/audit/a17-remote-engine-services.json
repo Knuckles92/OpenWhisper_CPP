@@ -15,7 +15,7 @@
    "tests": [
     "tests/remote_host/test_service.cpp"
    ],
-   "note": "Kept 'keep its dictations and finished meetings here' as part of a17-retention: the host keeps only ended or failed meetings, whole, never a meeting in progress, so 'finished' is true of what FioriVoce shares. The MCP grant stays out (a17-paired-mcp). Tested: 'a pairing request names what the computer may keep here'."
+   "note": "Kept 'keep its dictations and finished meetings here' as part of a17-retention: the host keeps only ended or failed meetings, whole, never a meeting in progress, so 'finished' is true of what OpenWhisper_CPP shares. The MCP grant stays out (a17-paired-mcp). Tested: 'a pairing request names what the computer may keep here'."
   },
   "A17-46": {
    "status": "fixed",
@@ -38,7 +38,7 @@
     "tests/remote_records/test_kinds.cpp",
     "tests/remote_records/test_store.cpp"
    ],
-   "note": "Dictation entry + entry_ext + one WAV, host audio under recordings/devices/<id>/, device retention; meetings only ended/failed. FioriVoce sends whole finished meetings (manifest update:false; import refuses update:true, meeting_records.cpp:358), so 'update sends only changed files' is not ported: that follows the user-chosen transfer of a17-retention."
+   "note": "Dictation entry + entry_ext + one WAV, host audio under recordings/devices/<id>/, device retention; meetings only ended/failed. OpenWhisper_CPP sends whole finished meetings (manifest update:false; import refuses update:true, meeting_records.cpp:358), so 'update sends only changed files' is not ported: that follows the user-chosen transfer of a17-retention."
   },
   "A17-49": {
    "status": "fixed",
@@ -55,7 +55,7 @@
     "tests/ui_history/test_host_records.cpp",
     "tests/remote_records/test_sync.cpp"
    ],
-   "note": "HistoryServices::find_record_sync: the controller hands History the RecordSyncControl RemoteFeature provides (history_manager._record_sync); 'History tells the provided record sync what changed' checks saves, edits, deletes and clears reach it. list_remote: 8 s list timeout, no pairing lists nothing, '<host> isn't reachable right now.' with a 30 s quiet period ('list_remote answers quietly for a while after the host was unreachable'). 'Bringing back N…' is A17-61. FioriVoce's RecordSync does nothing on those hooks by decision (a17-retention)."
+   "note": "HistoryServices::find_record_sync: the controller hands History the RecordSyncControl RemoteFeature provides (history_manager._record_sync); 'History tells the provided record sync what changed' checks saves, edits, deletes and clears reach it. list_remote: 8 s list timeout, no pairing lists nothing, '<host> isn't reachable right now.' with a 30 s quiet period ('list_remote answers quietly for a while after the host was unreachable'). 'Bringing back N…' is A17-61. OpenWhisper_CPP's RecordSync does nothing on those hooks by decision (a17-retention)."
   },
   "A17-50": {
    "status": "fixed",
@@ -79,7 +79,7 @@
   },
   "A17-54": {
    "status": "dropped",
-   "reason": "faster-whisper host engine: FioriVoce's only engine is Parakeet (map 'Engine-specific code'; a host serves Parakeet catalog models only)."
+   "reason": "faster-whisper host engine: OpenWhisper_CPP's only engine is Parakeet (map 'Engine-specific code'; a host serves Parakeet catalog models only)."
   },
   "A17-55": {
    "status": "verified",
@@ -102,7 +102,7 @@
    "tests": [
     "tests/remote_host/test_audit_a17.cpp"
    ],
-   "note": "set_host_port had no test. Added 'a17 audit: a new port moves sharing only while it is on': saved while off without starting, the running host moves to the new port and leaves the old one. FioriVoce adds 'Enter a port from 1 to 65535.' (Python saves any int)."
+   "note": "set_host_port had no test. Added 'a17 audit: a new port moves sharing only while it is on': saved while off without starting, the running host moves to the new port and leaves the old one. OpenWhisper_CPP adds 'Enter a port from 1 to 65535.' (Python saves any int)."
   },
   "A17-57": {
    "status": "fixed",
@@ -300,7 +300,7 @@
    "tests": [
     "tests/remote_host/test_model_management.cpp"
    ],
-   "note": "The three refusals now read as OpenWhisper's ('... Wait for it to finish.', 'This model is already being downloaded or managed on the host.', the consent sentence naming ‘Always allow downloads’ in Settings → Downloads). can_select stays true: Python sets it from whether the service has switch_engine, which FioriVoce's HostModelManager always has. Tests: test_only_bundled_family_model_pairs_can_be_downloaded, test_catalog_is_safe_and_reports_missing_runtime_separately, test_cached_download_is_noop_and_local_claim_prevents_remote_work, test_download_respects_host_policy_and_releases_claim, test_worker_start_failure_releases_claim_and_does_not_stay_busy (a dropped job no longer stays 'downloading'), 'a host that needs download consent says where to give it'. A download's progress and failure on the network are still untested (pending in tests/remote_host/PARITY.json)."
+   "note": "The three refusals now read as OpenWhisper's ('... Wait for it to finish.', 'This model is already being downloaded or managed on the host.', the consent sentence naming ‘Always allow downloads’ in Settings → Downloads). can_select stays true: Python sets it from whether the service has switch_engine, which OpenWhisper_CPP's HostModelManager always has. Tests: test_only_bundled_family_model_pairs_can_be_downloaded, test_catalog_is_safe_and_reports_missing_runtime_separately, test_cached_download_is_noop_and_local_claim_prevents_remote_work, test_download_respects_host_policy_and_releases_claim, test_worker_start_failure_releases_claim_and_does_not_stay_busy (a dropped job no longer stays 'downloading'), 'a host that needs download consent says where to give it'. A download's progress and failure on the network are still untested (pending in tests/remote_host/PARITY.json)."
   },
   "A17-30": {
    "status": "fixed",
@@ -456,7 +456,7 @@
    "tests": [
     "tests/remote_host/test_audit_a17.cpp"
    ],
-   "note": "RemoteEngineService::remote_model_request and remote_mcp_request were tested only through UI fakes. Added 'a17 audit: a model request names what keeps it from the host': unknown op, unpaired, model management off, the changed-pairing sentence, and MCP 'unsupported'. FioriVoce also routes configure_runtime here (250 s like select_model); the 250 s / 30 s timeouts are not asserted."
+   "note": "RemoteEngineService::remote_model_request and remote_mcp_request were tested only through UI fakes. Added 'a17 audit: a model request names what keeps it from the host': unknown op, unpaired, model management off, the changed-pairing sentence, and MCP 'unsupported'. OpenWhisper_CPP also routes configure_runtime here (250 s like select_model); the 250 s / 30 s timeouts are not asserted."
   },
   "A17-01": {
    "status": "verified",
@@ -513,7 +513,7 @@
     "tests/net/test_tls.cpp",
     "tests/net/test_ws_client.cpp"
    ],
-   "note": "EC P-256, ECDSA SHA-256, now-1d + 7300 d, PKCS#8 unencrypted, CN cut to 64 code points, key mode 0600 (checked off Windows), regenerated when unreadable, no TLS 1.3 tickets, TLS 1.1 refused. CN is '<product> host <name>' and the files are in FioriVoce's own data root (wire.h). The test_tls/test_ws_client cases are tagged [platform] and ran here."
+   "note": "EC P-256, ECDSA SHA-256, now-1d + 7300 d, PKCS#8 unencrypted, CN cut to 64 code points, key mode 0600 (checked off Windows), regenerated when unreadable, no TLS 1.3 tickets, TLS 1.1 refused. CN is '<product> host <name>' and the files are in OpenWhisper_CPP's own data root (wire.h). The test_tls/test_ws_client cases are tagged [platform] and ran here."
   },
   "A17-05": {
    "status": "verified",
@@ -748,7 +748,7 @@
     "A17-44"
    ],
    "openwhisper": "HostMcpLink polls the host's MCP state every 2 s (5 s when not ready) and HostMcpSettings/HostMcpServer let the client's MCP page change the host's settings optimistically.",
-   "fiorivoce": "There is no link or facade: the MCP page's paired-computer frame asks remote_mcp_request for the state and starts or ends the host's read-only, 15-minute session.",
+   "openwhisper-cpp": "There is no link or facade: the MCP page's paired-computer frame asks remote_mcp_request for the state and starts or ends the host's read-only, 15-minute session.",
    "reason": "Pairing does not let a client change the host's MCP settings, so there is nothing to edit remotely; follows a17-paired-mcp.",
    "source": "docs/port/differences.md a17-paired-mcp (docs/port/map/a17-remote-engine-services.md, A17-43); src/remote_host/mcp_session.cpp"
   },
@@ -759,7 +759,7 @@
     "RE-06"
    ],
    "openwhisper": "The client worker waits until backup releases its transfer lock and resumes automatically.",
-   "fiorivoce": "The desktop backup holds both client and host record gates. A new manual transfer receives a busy response during backup and can be retried when the backup finishes. The gates release on cancellation and failure.",
+   "openwhisper-cpp": "The desktop backup holds both client and host record gates. A new manual transfer receives a busy response during backup and can be retried when the backup finishes. The gates release on cancellation and failure.",
    "reason": "The native client transfers the specific records requested in the current session.",
    "source": "docs/port/map/a17-remote-engine-services.md, A17-51"
   },
@@ -769,7 +769,7 @@
     "A17-52"
    ],
    "openwhisper": "Upstream supports searching a connected client's open history channel.",
-   "fiorivoce": "A named peer can view the latest 20 local dictations and meeting metadata during an explicitly opened 15-minute session. Disconnecting or closing the session revokes the grant.",
+   "openwhisper-cpp": "A named peer can view the latest 20 local dictations and meeting metadata during an explicitly opened 15-minute session. Disconnecting or closing the session revokes the grant.",
    "reason": "Time and record limits bound the data exposed by a live pairing.",
    "source": "docs/port/map/a17-remote-engine-services.md, A17-52"
   },
@@ -779,8 +779,8 @@
     "A17-28"
    ],
    "openwhisper": "A paired computer can change the host engine's precision (compute_type) with its device and language through configure_runtime.",
-   "fiorivoce": "A FioriVoce host refuses a compute_type change with 'This engine manages its own precision on the host.' and keeps its runtime; device and language changes are applied as in OpenWhisper.",
-   "reason": "FioriVoce's one local engine, Parakeet on NeMo-Speech.cpp, has no precision setting to change.",
+   "openwhisper-cpp": "A OpenWhisper_CPP host refuses a compute_type change with 'This engine manages its own precision on the host.' and keeps its runtime; device and language changes are applied as in OpenWhisper.",
+   "reason": "OpenWhisper_CPP's one local engine, Parakeet on NeMo-Speech.cpp, has no precision setting to change.",
    "source": "src/remote_host/runtime_state.cpp validate_runtime; tests/remote_host/test_remote_runtime_client.cpp ('test_device_change_reloads_same_model_and_adopts_host_precision')"
   },
   {
@@ -789,7 +789,7 @@
     "A17-43"
    ],
    "openwhisper": "A paired operator can request changes to the host's MCP configuration, including network settings.",
-   "fiorivoce": "A host can grant one paired connection a read-only local listener for 15 minutes. Its bearer token is visible on the host and is omitted from responses to the peer. A computer without the grant is refused with '<host> hasn't granted this computer MCP control. Turn on \"Grant session MCP control to one paired computer\" in Settings → Remote engine there and choose this computer.'; a host built with OpenWhisper's opt-in keeps OpenWhisper's sentence.",
+   "openwhisper-cpp": "A host can grant one paired connection a read-only local listener for 15 minutes. Its bearer token is visible on the host and is omitted from responses to the peer. A computer without the grant is refused with '<host> hasn't granted this computer MCP control. Turn on \"Grant session MCP control to one paired computer\" in Settings → Remote engine there and choose this computer.'; a host built with OpenWhisper's opt-in keeps OpenWhisper's sentence.",
    "reason": "Granting access to one paired device does not authorize changes to the host's usual settings or exposing a reusable credential. The refusal names the switch the host's Remote engine page shows.",
    "source": "docs/port/map/a17-remote-engine-services.md, A17-43; the remote sweep of 2026-11-19 (open item remote and remote_host: remote_client_history): src/remote_host/dispatch.cpp, tests/remote_host/test_sweep_mcp_refusal.cpp ('sweep A38: a host that grants MCP by session names the grant when it refuses', 'sweep A38: a host with OpenWhisper's MCP opt-in keeps its refusal')"
   },
@@ -801,7 +801,7 @@
     "RE-08"
    ],
    "openwhisper": "Upstream can enqueue records for host retention and deliver them on reconnect.",
-   "fiorivoce": "A user selects a finished meeting, destination and whether to include its audio before a transfer. Reconnecting does not replay the transfer. Bring back returns dictations only: a meeting is shared as a copy and never leaves this computer, so the host holds none to return. A record checked out or shared is marked done, and nothing sends it back automatically.",
+   "openwhisper-cpp": "A user selects a finished meeting, destination and whether to include its audio before a transfer. Reconnecting does not replay the transfer. Bring back returns dictations only: a meeting is shared as a copy and never leaves this computer, so the host holds none to return. A record checked out or shared is marked done, and nothing sends it back automatically.",
    "reason": "An existing pairing does not identify which finished meeting the user wants to share.",
    "source": "docs/port/map/a17-remote-engine-services.md, A17-48; src/remote_records/sync.cpp RecordSync::bring_back; tests/remote_records/test_host_restore.cpp ('test_restored_host_recovery_requires_local_assignment_and_preserves_both_owners')"
   }

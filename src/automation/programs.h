@@ -17,8 +17,8 @@
 #include "settings/store.h"
 
 // Running saved programs on events, Settings > Hooks (services/automation/programs.py). A program
-// receives the event's wire JSON and a newline on stdin, and FIORIVOCE_EVENT_TYPE, _ID and _SEQ
-// (with the legacy-prefixed names beside them, for scripts written for OpenWhisper) in the
+// receives the event's wire JSON and a newline on stdin, and OPENWHISPER_CPP_EVENT_TYPE, _ID and
+// _SEQ (with the legacy-prefixed names beside them, for scripts written for OpenWhisper) in the
 // user's environment without this app's secrets, through run_once: no shell, no window, its own
 // process group, stopped with everything it started when its time limit passes. Each program
 // runs one event at a time; up to MAX_QUEUED more wait and the oldest is dropped beyond that.

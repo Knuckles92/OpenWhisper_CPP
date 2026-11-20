@@ -49,8 +49,8 @@ update::InstallProbe installed(bool all_users = false) {
     update::InstallProbe probe;
     probe.registered = true;
     probe.all_users = all_users;
-    probe.install_dir = "C:/Users/me/AppData/Local/Programs/FioriVoce";
-    probe.running_dir = "C:/Users/me/AppData/Local/Programs/FioriVoce/";
+    probe.install_dir = "C:/Users/me/AppData/Local/Programs/OpenWhisper_CPP";
+    probe.running_dir = "C:/Users/me/AppData/Local/Programs/OpenWhisper_CPP/";
     return probe;
 }
 
@@ -60,7 +60,7 @@ update::InstallProbe installed(bool all_users = false) {
 TEST_CASE("a registered install is the installer channel", "[test_app_update]") {
     CHECK(update::detect_channel(installed()) == InstallChannel::Installer);
     auto probe = installed();
-    probe.running_dir = "c:\\users\\ME\\appdata\\local\\programs\\fiorivoce\\.";
+    probe.running_dir = "c:\\users\\ME\\appdata\\local\\programs\\openwhisper-cpp\\.";
 #ifdef _WIN32
     CHECK(update::detect_channel(probe) == InstallChannel::Installer);
 #endif
@@ -70,13 +70,13 @@ TEST_CASE("a registered install is the installer channel", "[test_app_update]") 
 TEST_CASE("loose tree is source", "[test_app_update]") {
     CHECK(update::detect_channel({}) == InstallChannel::Source);
     update::InstallProbe probe;
-    probe.running_dir = "D:/coding/fiorivoce/out/build/bin";
+    probe.running_dir = "D:/coding/openwhisper-cpp/out/build/bin";
     CHECK(update::detect_channel(probe) == InstallChannel::Source);
 }
 
 TEST_CASE("a build tree beside a registered install is the source channel", "[update]") {
     auto probe = installed();
-    probe.running_dir = "D:/coding/fiorivoce/out/build/bin";
+    probe.running_dir = "D:/coding/openwhisper-cpp/out/build/bin";
     CHECK(update::detect_channel(probe) == InstallChannel::Source);
     probe.install_dir.clear();
     probe.running_dir.clear();

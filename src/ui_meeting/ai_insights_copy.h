@@ -28,8 +28,8 @@ struct MeetingConsentCopy {
 // The copy for `route` alone: the destination, whether it is remote, and the installed agent.
 MeetingConsentCopy meetingConsentCopy(const meeting_agent::MeetingAgentRoute&);
 // The same, with the backup agent read from `settings` (_backup_agent_name). OpenWhisper also
-// names a Fast judgments judge elsewhere (_fast_judgments_elsewhere); FioriVoce's meetings use
-// only a judge on this computer, which sends nothing, so there is none to name.
+// names a Fast judgments judge elsewhere (_fast_judgments_elsewhere); OpenWhisper_CPP's meetings
+// use only a judge on this computer, which sends nothing, so there is none to name.
 MeetingConsentCopy meetingConsentCopy(const meeting_agent::MeetingAgentRoute&,
                                       const Json& settings);
 std::string meetingIntelligenceSummary(const Json&);

@@ -33,8 +33,8 @@ bool apple_silicon(const Host& host);
 std::string runtime_id(std::string_view backend, std::string_view device, const Host& host);
 
 // The device Auto runs on once its runtime is installed (not Apple Silicon). OpenWhisper counted
-// CUDA devices through CTranslate2, which needs its GPU Acceleration component; FioriVoce asks
-// NVML whether an NVIDIA GPU is present. A card the Vulkan runtime serves also means "cuda".
+// CUDA devices through CTranslate2, which needs its GPU Acceleration component; OpenWhisper_CPP
+// asks NVML whether an NVIDIA GPU is present. A card the Vulkan runtime serves also means "cuda".
 std::string auto_device(std::string_view backend, const Host& host);
 
 // (component, device) for a requested device ("auto", "cpu", "cuda"). Auto falls back to the CPU

@@ -1,9 +1,9 @@
 """Writes tests/fixtures/backup: a bundle made by OpenWhisper's own create_backup, and what
 OpenWhisper reports for it.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
-        $env:FIORIVOCE_OW_PYTHON -I -B tests/fixtures/backup/make_fixtures.py
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
+        $env:OPENWHISPER_CPP_OW_PYTHON -I -B tests/fixtures/backup/make_fixtures.py
 
 OpenWhisper is imported through tools/parity/ow_isolation.py; its data root and the source data
 root built here live under out/parity/ (git-ignored), and only the two files below are written

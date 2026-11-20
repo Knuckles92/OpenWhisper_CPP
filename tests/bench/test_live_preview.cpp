@@ -68,7 +68,7 @@ TEST_CASE("test_window_replay_includes_overlap_and_excludes_post_stop_text",
           "[test_live_preview_benchmark]") {
     // from
     // tests/test_live_preview_benchmark.py::test_window_replay_includes_overlap_and_excludes_post_stop_text
-    // A tone, not zeros: FioriVoce's preview never sends digital silence to the engine.
+    // A tone, not zeros: OpenWhisper_CPP's preview never sends digital silence to the engine.
     auto speech = std::make_shared<ScriptedSpeech>();
     speech->text = [](std::size_t call) {
         return std::vector<std::string>{"one", "two", "three"}.at(call - 1);
@@ -202,18 +202,20 @@ TEST_CASE("the live-preview command exits 2 naming a missing engine variable", "
     std::ostringstream err;
     fv::bench::CommandContext context{out, err, reader, env};
     CHECK(fv::bench::run_command({"live-preview", "manifest.json"}, context) == 2);
-    CHECK_THAT(err.str(), Catch::Matchers::ContainsSubstring("Set FIORIVOCE_TEST_RUNTIME_DIR"));
+    CHECK_THAT(err.str(),
+               Catch::Matchers::ContainsSubstring("Set OPENWHISPER_CPP_TEST_RUNTIME_DIR"));
     CHECK(fv::bench::run_command({"live-preview", "manifest.json", "--chunk", "0"}, context) == 2);
     CHECK_THAT(err.str(), Catch::Matchers::ContainsSubstring(
                               "error: chunk must be positive and overlap must be in [0, chunk)"));
 }
 
 TEST_CASE("the live-preview command measures the real engine on the test recording", "[decode]") {
-    const auto runtime = fv::env_utf8("FIORIVOCE_TEST_RUNTIME_DIR");
-    const auto model = fv::env_utf8("FIORIVOCE_TEST_MODEL");
-    const auto wav = fv::env_utf8("FIORIVOCE_TEST_WAV");
+    const auto runtime = fv::env_utf8("OPENWHISPER_CPP_TEST_RUNTIME_DIR");
+    const auto model = fv::env_utf8("OPENWHISPER_CPP_TEST_MODEL");
+    const auto wav = fv::env_utf8("OPENWHISPER_CPP_TEST_WAV");
     if (!runtime || !model || !wav) {
-        SKIP("Set FIORIVOCE_TEST_RUNTIME_DIR, FIORIVOCE_TEST_MODEL and FIORIVOCE_TEST_WAV.");
+        SKIP("Set OPENWHISPER_CPP_TEST_RUNTIME_DIR, OPENWHISPER_CPP_TEST_MODEL and "
+             "OPENWHISPER_CPP_TEST_WAV.");
     }
     fv::testkit::TempDataRoot root;
     const auto manifest = root.path() / "manifest.json";

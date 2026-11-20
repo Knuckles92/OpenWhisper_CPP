@@ -286,7 +286,7 @@ export default function HeaderBar({
   return (
     <header className="header-bar">
       <div className="meeting-masthead">
-        <span className="cb-brand">FioriVoce<span className="brand-period">.</span></span>
+        <span className="cb-brand">OpenWhisper_CPP<span className="brand-period">.</span></span>
         <div className="masthead-tools">
           <span className="masthead-caption">A space for the conversation</span>
           <ThemePicker />

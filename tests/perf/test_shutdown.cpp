@@ -8,7 +8,7 @@
 // main window's Quit (MainWindow::requestQuit) asks the busy question through the controller's
 // QuitPrompt, which answers Yes. Two times are taken from that confirmed Quit: to the end of the
 // shutdown plan (the moment ShutdownPlan records shutdown_s), and to Bootstrap::run returning
-// with every service released, which is the last thing fiorivoce.exe's main() does; the C
+// with every service released, which is the last thing openwhisper-cpp.exe's main() does; the C
 // runtime's and Qt's own teardown after it is not in the number, as QApplication's construction
 // is not in startup_to_window_s. shutdown_s is the plan's own metric, as the app records it.
 //
@@ -235,7 +235,7 @@ QuitTimes quitWhileBusy(const std::function<bool(Busy&)>& startBusy,
     hooks.errorBox = [](const std::string& message) {
         FAIL_CHECK(message);
     };
-    hooks.arguments = std::vector<std::string>{"fiorivoce"};
+    hooks.arguments = std::vector<std::string>{"openwhisper-cpp"};
     auto audio = std::make_shared<fv::audio::testing::FakeBackend>();
     audio->set_layout({{"MME"}}, {{"Microphone (Test)", 0, 1, 0, 44100.0}}, 0);
     hooks.audioBackend = [audio] {
@@ -293,7 +293,7 @@ QuitTimes quitWhileBusy(const std::function<bool(Busy&)>& startBusy,
     };
 
     int argc = 1;
-    char program[] = "fiorivoce";
+    char program[] = "openwhisper-cpp";
     char* argv[] = {program, nullptr};
     int result = -1;
     {

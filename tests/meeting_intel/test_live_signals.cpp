@@ -3,9 +3,9 @@
 // OpenWhisper's Queue / ManualExecutor is the worker's own thread, made to wait by a judge that
 // holds its answer and observed through busy(); LiveSignals._run(minute) is a live check of the
 // completed minute, and window_request / window_ops are reached through the judge's request and
-// the published pulses. The judge is llm::FakeJudge marked device-local: FioriVoce sends meeting
-// text to no other Fast judgments judge, so OpenWhisper's cloud consent has no counterpart and
-// `allowed` and the feature switch are one Deps::enabled.
+// the published pulses. The judge is llm::FakeJudge marked device-local: OpenWhisper_CPP sends
+// meeting text to no other Fast judgments judge, so OpenWhisper's cloud consent has no counterpart
+// and `allowed` and the feature switch are one Deps::enabled.
 
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>

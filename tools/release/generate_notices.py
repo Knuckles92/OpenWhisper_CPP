@@ -29,7 +29,7 @@ import sys
 from pathlib import Path
 from typing import List, NamedTuple, Optional, Sequence, Tuple
 
-PRODUCT = "FioriVoce"
+PRODUCT = "OpenWhisper_CPP"
 NOTICES_DIR = Path(__file__).resolve().parent / "notices"
 QT_SOURCE_LICENSES = Path(__file__).resolve().parents[2] / "packaging/windows/qt-licenses"
 

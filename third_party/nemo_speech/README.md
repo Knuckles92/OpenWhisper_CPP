@@ -12,4 +12,4 @@ binaries.
 When moving to a newer runtime, replace the header with the one from that
 release's `include/nemo_speech/` folder. The v1 ABI is append-only, so a newer
 header still describes older runtimes; `src/engine/nemo_api.h` lists the
-functions FioriVoce binds.
+functions OpenWhisper_CPP binds.

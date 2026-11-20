@@ -177,14 +177,14 @@ TEST_CASE("test_markdown_toggles_disable_for_json", "[test_meeting_export_dialog
 // tests/test_meeting_export_dialog.py::TestMeetingExportDialog::test_default_path_is_absolute_and_follows_format
 TEST_CASE("test_default_path_is_absolute_and_follows_format",
           "[test_meeting_export_dialog][widget]") {
-    // FioriVoce's single-file name is "<product in lower case>_meetings" (the Python test reads
-    // openwhisper_meetings.md), beside the meetings folder.
+    // OpenWhisper_CPP's single-file name is "<product in lower case>_meetings" (the Python test
+    // reads openwhisper_meetings.md), beside the meetings folder.
     Dialog dialog({meeting("m_a")});
     std::filesystem::create_directories(dialog.meetingsFolder());
 
     const std::filesystem::path path = fv::path_from_utf8(fv::qt::toUtf8(dialog->defaultPath()));
     CHECK(path.is_absolute());
-    CHECK(fv::path_to_utf8(path.filename()) == "fiorivoce_meetings.md");
+    CHECK(fv::path_to_utf8(path.filename()) == "openwhisper_cpp_meetings.md");
     CHECK(path.parent_path().lexically_normal() == dialog.root.path().lexically_normal());
     dialog->perItemCheck()->setChecked(true);
     CHECK(dialog->defaultPath().endsWith(q("meetings_export")));
@@ -244,7 +244,7 @@ TEST_CASE("exporting all meetings writes every transcript on io and skips a vani
     Dialog dialog({alpha, beta, gone}, {{"m_a", exportEntry(alpha, "Alpha says hello")},
                                         {"m_b", exportEntry(beta, "Beta says goodbye")}});
     const std::filesystem::path target = fv::path_from_utf8(fv::qt::toUtf8(dialog->defaultPath()));
-    CHECK(fv::path_to_utf8(target.filename()) == "fiorivoce_meetings.md");
+    CHECK(fv::path_to_utf8(target.filename()) == "openwhisper_cpp_meetings.md");
     std::vector<int> finished;
     QObject::connect(dialog.dialog.get(), &fv::ExportDialogBase::exportFinished,
                      [&finished](int count, const QString&) { finished.push_back(count); });

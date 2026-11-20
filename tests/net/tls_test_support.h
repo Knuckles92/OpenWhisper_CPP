@@ -39,7 +39,7 @@ namespace fv::net::testing {
 
 // One identity for the whole test binary: generating a key per test adds nothing.
 inline const TlsIdentity& test_identity() {
-    static const TlsIdentity identity = generate_self_signed_p256("FioriVoce host test");
+    static const TlsIdentity identity = generate_self_signed_p256("OpenWhisper_CPP host test");
     return identity;
 }
 

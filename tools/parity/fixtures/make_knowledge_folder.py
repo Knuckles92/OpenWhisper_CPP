@@ -1,9 +1,9 @@
 """Writes tests/fixtures/meeting_intel/knowledge: the Office and PDF files the knowledge-folder
 tests read, made by the libraries OpenWhisper reads them with.
 
-    $env:FIORIVOCE_OW_ROOT = 'D:\\coding\\whisper_local'
-    & $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
-        $env:FIORIVOCE_OW_PYTHON -I -B tools/parity/fixtures/make_knowledge_folder.py
+    $env:OPENWHISPER_CPP_OW_ROOT = 'D:\\coding\\whisper_local'
+    & $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/check_isolation.py -- `
+        $env:OPENWHISPER_CPP_OW_PYTHON -I -B tools/parity/fixtures/make_knowledge_folder.py
 
 OpenWhisper's environment is entered through tools/parity/ow_isolation.py (its data root lives
 under out/parity/); only the files below are written, into the fixture folder.

@@ -79,7 +79,7 @@
     "tests/meeting/test_audit_a24.cpp",
     "tests/meeting/test_engine_events.cpp"
    ],
-   "note": "Added 'a24 audit: the status event and its dashboard copy carry the same fields' (the field set; `note` only on the listener copy, also pinned in test_engine_events). FioriVoce adds cloud_enabled to both copies; the runtime keeps the desktop AI insights switch in step from it (src/meeting/detail/runtime_bridge.cpp), part of difference a04-meeting-insights-per-meeting."
+   "note": "Added 'a24 audit: the status event and its dashboard copy carry the same fields' (the field set; `note` only on the listener copy, also pinned in test_engine_events). OpenWhisper_CPP adds cloud_enabled to both copies; the runtime keeps the desktop AI insights switch in step from it (src/meeting/detail/runtime_bridge.cpp), part of difference a04-meeting-insights-per-meeting."
   },
   "A24-08": {
    "status": "verified",
@@ -749,7 +749,7 @@
     "A24-17"
    ],
    "openwhisper": "MeetingEngine.set_cloud_enabled(True/False) toggles AI insights while the meeting is active or paused: on restarts the agent with the send cursor seeded (forward-only), off stops the scheduler and core and sets finalization disabled.",
-   "fiorivoce": "set_cloud_enabled(true) is refused ('Start the meeting with AI insights to authorize its destination.'); turning insights on mid-meeting is enable_live_intelligence(route, backup) after the provider authorizes that exact destination, with the delivery cursors advanced to the high water so nothing spoken while off is sent. Turning off is set_cloud_enabled(false).",
+   "openwhisper-cpp": "set_cloud_enabled(true) is refused ('Start the meeting with AI insights to authorize its destination.'); turning insights on mid-meeting is enable_live_intelligence(route, backup) after the provider authorizes that exact destination, with the delivery cursors advanced to the high water so nothing spoken while off is sent. Turning off is set_cloud_enabled(false).",
    "reason": "Sending a meeting's transcript to a hosted model or an installed agent needs approval of that meeting's destination each time; no stored or browser-side toggle can grant it.",
    "source": "Differences a04-meeting-insights-per-meeting (docs/port/audit/a04-runtime-services.json) and a30-dashboard-fresh-approval (docs/port/audit/a30-meeting-web-server-and-dashboard-contract.json); src/meeting/detail/live_intelligence.cpp set_cloud_enabled, enable_live_intelligence; tests/meeting/test_engine_end.cpp ('live intelligence can resume only with the approved exact destination', 'live note requests share the approved scheduler and refuse after opt-out'), tests/meeting/test_engine_intelligence.cpp ('test_backup_only_gets_transcript_since_insights_were_turned_back_on')."
   },
@@ -759,8 +759,8 @@
     "A24-23"
    ],
    "openwhisper": "The Audio Re-transcription step's default detail reads 'High-accuracy full session Whisper decode'.",
-   "fiorivoce": "It reads 'High-accuracy full session Parakeet decode'; every other step name, detail, headline and progress string is OpenWhisper's.",
-   "reason": "FioriVoce keeps only the Parakeet engine, so the card names the engine that runs.",
+   "openwhisper-cpp": "It reads 'High-accuracy full session Parakeet decode'; every other step name, detail, headline and progress string is OpenWhisper's.",
+   "reason": "OpenWhisper_CPP keeps only the Parakeet engine, so the card names the engine that runs.",
    "source": "docs/port/packages/M7.md lead decision 6 ('Wording that names Whisper') and the M7.9 traps; src/meeting/finalization.cpp kSteps; pinned by tests/meeting/test_golden.cpp ('golden meeting.finalization steps') and tests/meeting/test_end_run.cpp."
   },
   {
@@ -770,7 +770,7 @@
     "A24-44"
    ],
    "openwhisper": "With the speaker backend openai, consent and a key, End and the dashboard/desktop speaker re-run upload the system-audio recording ('Uploading system audio for speaker labels…') and report 'Updated N speaker label(s)'.",
-   "fiorivoce": "The gate and its skip sentences are kept, but End and rerun_speakers never upload: an open gate reports the pass unavailable and a stored openai backend reads as local. The upload runs only from the desktop Past Meetings action with fresh confirmation for one meeting.",
+   "openwhisper-cpp": "The gate and its skip sentences are kept, but End and rerun_speakers never upload: an open gate reports the pass unavailable and a stored openai backend reads as local. The upload runs only from the desktop Past Meetings action with fresh confirmation for one meeting.",
    "reason": "Meeting audio leaves the computer only on an explicit, current request.",
    "source": "Differences a25-openai-speakers-desktop-only and a04-meeting-speaker-pass-desktop-only; docs/port/packages/M7.md change 4; src/meeting/refinalize.cpp run_speaker_pass, rerun_speakers; tests/meeting/test_refinalize.cpp ('TestRespeaker::test_refused_gate_uploads_nothing', 'TestSpeakerGate::*'), tests/meeting/test_engine_end.cpp ('test_refused_gate_never_uploads_or_claims_to'), tests/meeting/test_cloud_speakers.cpp."
   },
@@ -781,7 +781,7 @@
     "MD-09"
    ],
    "openwhisper": "Live highlights, citations and the topic-shift judge ask the configured Fast judgments model, local or hosted; with a hosted judge and AI insights off the status is 'needs_insights'.",
-   "fiorivoce": "They ask only a judge on this computer: without one the status is 'unavailable' and nothing is sent; with one they run with or without AI insights. Status values, the heartbeat retry and the final highlights after End are otherwise OpenWhisper's.",
+   "openwhisper-cpp": "They ask only a judge on this computer: without one the status is 'unavailable' and nothing is sent; with one they run with or without AI insights. Status values, the heartbeat retry and the final highlights after End are otherwise OpenWhisper's.",
    "reason": "Background judgments of meeting text stay on the device; sending text off it is reserved for the per-meeting AI insights destination.",
    "source": "Difference a29-local-meeting-judgments (docs/port/audit/a29-meeting-intelligence.json); src/meeting/detail/voice_control.cpp refresh_live_highlights_status; tests/meeting/test_fast_features.cpp ('fast-feature gate matrix', 'local workers start without ai insights and stop sending after a switch', 'heartbeat retries workers and updates the highlight status without new speech', 'highlight status reaches snapshots and live clients')."
   },
@@ -791,7 +791,7 @@
     "A24-60"
    ],
    "openwhisper": "The meeting agent is a TypeScript sidecar (Pi or OpenCode); End reuses the live scheduler and core for the cleanup and report passes, then _wrap_up_end stops the scheduler and shuts the core down.",
-   "fiorivoce": "The agent is the native in-process loop. The live core and scheduler are shut down when End drains capture; when the live agent was online and healthy, each final pass runs through a throwaway core of the provider, otherwise the card reads 'Meeting intelligence is offline; final cloud insights could not run. <why>' as OpenWhisper does. Wrap-up keeps final highlights (complete meetings only) and the optional insight review.",
+   "openwhisper-cpp": "The agent is the native in-process loop. The live core and scheduler are shut down when End drains capture; when the live agent was online and healthy, each final pass runs through a throwaway core of the provider, otherwise the card reads 'Meeting intelligence is offline; final cloud insights could not run. <why>' as OpenWhisper does. Wrap-up keeps final highlights (complete meetings only) and the optional insight review.",
    "reason": "The sidecars are replaced by a native agent loop, and a live core is not kept open past the meeting.",
    "source": "docs/port/packages/M8.md 'Changes from section 11' item 2; the class comment of src/meeting/engine.h and MeetingEngine::end_worker (src/meeting/detail/engine_end.cpp); tests/meeting/test_engine_end.cpp ('an opted-in meeting schedules committed transcript and stops the live core at End', 'End routes opt-in meetings to the injected final intelligence provider'), tests/meeting/test_engine_intelligence.cpp ('End runs the final passes when checkpoints failed and the live core is healthy', 'End runs cleanup and the report through the app's provider and repairs the record', 'test_final_highlights_run_after_transcript_edits')."
   }

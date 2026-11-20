@@ -5,7 +5,7 @@ import './pocket.css';
 export type PocketTab = 'live' | 'notes' | 'transcript' | 'captured' | 'people';
 
 const POCKET_QUERY = '(max-width: 639.98px)';
-const TAB_KEY = 'fiorivoce.pocketTab';
+const TAB_KEY = 'openwhisper-cpp.pocketTab';
 
 /** True on phone-width viewports; false wherever matchMedia is unavailable. */
 export function usePocketLayout(): boolean {

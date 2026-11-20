@@ -121,7 +121,7 @@ void set_env(std::string_view name, const std::optional<std::string>& value) {
 #endif
 }
 
-TempDataRoot::TempDataRoot() : previous_(get_env("FIORIVOCE_DATA_DIR")) {
+TempDataRoot::TempDataRoot() : previous_(get_env("OPENWHISPER_CPP_DATA_DIR")) {
     // The long form: on Windows %TEMP% may hold 8.3 short names (C:\Users\FIRSTN~1\...), and code
     // that resolves its folders (weakly_canonical, as Python's resolve()) gets the long ones, so
     // paths it stores would not sit under a data root spelled the short way.
@@ -140,12 +140,12 @@ TempDataRoot::TempDataRoot() : previous_(get_env("FIORIVOCE_DATA_DIR")) {
         throw std::runtime_error("TempDataRoot: cannot create a temporary data folder");
     }
     const auto utf8 = path_.u8string();
-    set_env("FIORIVOCE_DATA_DIR", std::string(utf8.begin(), utf8.end()));
+    set_env("OPENWHISPER_CPP_DATA_DIR", std::string(utf8.begin(), utf8.end()));
 }
 
 TempDataRoot::~TempDataRoot() {
     try {
-        set_env("FIORIVOCE_DATA_DIR", previous_);
+        set_env("OPENWHISPER_CPP_DATA_DIR", previous_);
     } catch (const std::exception&) {
         // A destructor must not throw; the next test's fixture sets its own value anyway.
     }

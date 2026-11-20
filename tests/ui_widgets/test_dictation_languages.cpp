@@ -1,7 +1,7 @@
 // "Languages I dictate in": the chips, the Add menu, what they save and how they sit beside the
 // engine card's own Language field. OpenWhisper's tests reach the field through the Settings
 // dialog's Voice model page; here a stand-in page wires the field and the engine fields the way
-// that page does, and the engine switch goes between the engines FioriVoce has.
+// that page does, and the engine switch goes between the engines OpenWhisper_CPP has.
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/generators/catch_generators.hpp>
 
@@ -161,8 +161,8 @@ TEST_CASE("TestField::test_languages_the_engine_cannot_use_stay_saved_but_muted"
 TEST_CASE("TestField::test_engine_switch_on_the_page_updates_the_field",
           "[test_personalize_s8_voice_languages][widget]") {
     // OpenWhisper switches to Moonshine, which takes English only, and the chips give way to the
-    // reason. The engines FioriVoce has all take several languages, so what the switch changes
-    // is which saved languages the engine can use.
+    // reason. The engines OpenWhisper_CPP has all take several languages, so what the switch
+    // changes is which saved languages the engine can use.
     fv::MemorySettingsStore settings(Json{{"selected_model", "parakeet"},
                                           {"dictation_languages", {"en", "de"}},
                                           {"dictation_active_language", "en"}});

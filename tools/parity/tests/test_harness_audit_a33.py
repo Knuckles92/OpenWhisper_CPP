@@ -1,7 +1,7 @@
 """Checks of the parity harness tools that had none (a33 map, A33-H1, A33-H3, A33-H9).
 
 trace_plugin.py is run as pytest runs it on OpenWhisper's suite, against a two-line module; the
-classification is rebuilt from the OpenWhisper checkout when FIORIVOCE_OW_ROOT names one.
+classification is rebuilt from the OpenWhisper checkout when OPENWHISPER_CPP_OW_ROOT names one.
 """
 from __future__ import annotations
 
@@ -96,15 +96,15 @@ class Isolation(unittest.TestCase):
         else:
             print(json.dumps({"data": str(data), "env": {k: os.environ.get(k) for k in (
                 "OPENWHISPER_DATA_DIR", "LOCALAPPDATA", "APPDATA", "XDG_DATA_HOME",
-                "HF_HUB_OFFLINE", "https_proxy", "FIORIVOCE_REAL_LOCALAPPDATA")},
+                "HF_HUB_OFFLINE", "https_proxy", "OPENWHISPER_CPP_REAL_LOCALAPPDATA")},
                 "bytecode": sys.dont_write_bytecode, "path0": sys.path[0]}))
         """)
 
     def probe(self, checkout: Path, scratch: Path, appdata: Path) -> dict:
         env = {k: v for k, v in os.environ.items() if k.lower() not in ("https_proxy",)}
-        env.update(FIORIVOCE_OW_ROOT=str(checkout), LOCALAPPDATA=str(appdata),
+        env.update(OPENWHISPER_CPP_OW_ROOT=str(checkout), LOCALAPPDATA=str(appdata),
                    https_proxy="http://127.0.0.1:9")
-        env.pop("FIORIVOCE_REAL_LOCALAPPDATA", None)
+        env.pop("OPENWHISPER_CPP_REAL_LOCALAPPDATA", None)
         run = subprocess.run([sys.executable, "-I", "-B", "-c", self.PROBE, str(TOOLS),
                               str(scratch)], env=env, capture_output=True, text=True,
                              timeout=60)
@@ -126,7 +126,7 @@ class Isolation(unittest.TestCase):
             self.assertEqual(env["HF_HUB_OFFLINE"], "1")
             self.assertIsNone(env["https_proxy"])
             # The owner's real folder is remembered for check_isolation, never written.
-            self.assertEqual(env["FIORIVOCE_REAL_LOCALAPPDATA"], str(appdata))
+            self.assertEqual(env["OPENWHISPER_CPP_REAL_LOCALAPPDATA"], str(appdata))
             self.assertTrue(result["bytecode"])
             self.assertEqual(Path(result["path0"]), checkout.resolve())
 
@@ -145,13 +145,13 @@ class Isolation(unittest.TestCase):
             self.assertIn("not an OpenWhisper checkout", missing["refused"])
 
 
-@unittest.skipUnless(os.environ.get("FIORIVOCE_OW_ROOT"), "FIORIVOCE_OW_ROOT is not set")
+@unittest.skipUnless(os.environ.get("OPENWHISPER_CPP_OW_ROOT"), "OPENWHISPER_CPP_OW_ROOT is not set")
 class Classification(unittest.TestCase):
     def test_a_rerun_on_the_reference_checkout_gives_the_committed_bytes(self):
         with tempfile.TemporaryDirectory() as temp:
             run = subprocess.run(
                 [sys.executable, "-I", "-B", str(TOOLS / "classify_tests.py"),
-                 os.environ["FIORIVOCE_OW_ROOT"], str(REPO / "docs/port/areas.json"), temp],
+                 os.environ["OPENWHISPER_CPP_OW_ROOT"], str(REPO / "docs/port/areas.json"), temp],
                 capture_output=True, text=True, timeout=600)
             self.assertEqual(run.returncode, 0, run.stderr)
             for name in ("classification.json", "classification.md"):

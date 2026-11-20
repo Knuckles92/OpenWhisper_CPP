@@ -84,8 +84,8 @@ WireFrame http_frame(std::string dir, int status, std::string body);
 // token in `paired` and the next `hello`), and a commit must be the SHA-256 commitment of the
 // nonce the transcript names. `bindings` maps placeholders to the values seen so far (strings);
 // a test may bind some first (its own fingerprint). Strings that held OpenWhisper's product
-// name must hold `product` instead (identity().product by default: a FioriVoce host's copy). An
-// actual http frame with an empty body is compared by status only. Returns a readable
+// name must hold `product` instead (identity().product by default: a OpenWhisper_CPP host's copy).
+// An actual http frame with an empty body is compared by status only. Returns a readable
 // difference, empty when equal.
 std::string compare(const Transcript&, std::size_t index, const WireFrame& actual, Json& bindings);
 std::string compare(const Transcript&, std::size_t index, const WireFrame& actual, Json& bindings,
@@ -101,7 +101,7 @@ std::vector<std::byte> wire_bytes(const WireFrame&);
 
 // Recorded copy as a host named `product` writes it: each "OpenWhisper" becomes `product`, and
 // an "an"/"An" right before it becomes the article `product` takes ("an OpenWhisper update" is
-// "a FioriVoce update"). compare applies it to the strings the transcript lists as product.
+// "a OpenWhisper_CPP update"). compare applies it to the strings the transcript lists as product.
 std::string with_product(std::string_view text, std::string_view product);
 
 // The placeholders of a recorded frame's text or header, in order ("<token#1>", ...).

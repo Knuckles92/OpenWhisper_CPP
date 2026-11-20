@@ -2,7 +2,7 @@
 // reviewer's policy, the ops it publishes and their store behaviour. Python's `Reviewer` (scores
 // handed back for whatever is asked) is a FakeJudge answering each asked question; Python's
 // `prepare` (review_begin, then run_review) is one run_insight_review call, which claims the run
-// itself. FioriVoce asks only a judge on this computer (a29-local-meeting-judgments), so
+// itself. OpenWhisper_CPP asks only a judge on this computer (a29-local-meeting-judgments), so
 // Python's TypeSafe and OpenRouter HTTP clients have no counterpart here.
 
 #include <catch2/catch_test_macros.hpp>
@@ -240,8 +240,8 @@ TEST_CASE("test_master_switch_revocation_prevents_the_next_http_request",
 
 TEST_CASE("insight review without a local judge names what to choose",
           "[test_meeting_insight_review]") {
-    // What FioriVoce does for Python's route-key tests (a29-local-meeting-judgments): no hosted
-    // route and no key are asked for; without a judge on this computer the review says so.
+    // What OpenWhisper_CPP does for Python's route-key tests (a29-local-meeting-judgments): no
+    // hosted route and no key are asked for; without a judge on this computer the review says so.
     Fixture f;
     const bool hosted = GENERATE(false, true);
     if (hosted) {

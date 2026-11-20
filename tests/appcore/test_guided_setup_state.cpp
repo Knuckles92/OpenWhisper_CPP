@@ -40,7 +40,7 @@ std::string read_text(const std::filesystem::path& path) {
 }
 
 // The fixture of a vector: a trailing "/" makes an empty folder, anything else an empty file;
-// OpenWhisper's database name is FioriVoce's here.
+// OpenWhisper's database name is OpenWhisper_CPP's here.
 void make_files(const std::filesystem::path& root, const std::vector<std::string>& files) {
     std::filesystem::create_directories(root);
     for (std::string name : files) {

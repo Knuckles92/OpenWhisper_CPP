@@ -140,8 +140,8 @@ AsrRun run_asr(const AsrArgs& args, const AsrBackendLoader& load) {
 
 int run_asr_corpus(const CorpusArgs& args, const AsrBackendLoader& load, MutableEnv& env,
                    const std::function<double(const std::filesystem::path&)>& duration_of) {
-    // FioriVoce's model lookups honour HF_HUB_OFFLINE as OpenWhisper's did: a corpus run never
-    // downloads, and the caller's own setting comes back afterwards.
+    // OpenWhisper_CPP's model lookups honour HF_HUB_OFFLINE as OpenWhisper's did: a corpus run
+    // never downloads, and the caller's own setting comes back afterwards.
     const ScopedVariable offline(env, kOfflineVariable, "1");
     const Json manifest = read_json(args.manifest);
     struct Clip {

@@ -5,20 +5,20 @@
 
 .DESCRIPTION
     Written for M10.17 and never run by the workers who wrote it (no Windows there). It needs a
-    person at the desktop: FioriVoce shows its window, and each update starts from the app's
+    person at the desktop: OpenWhisper_CPP shows its window, and each update starts from the app's
     "Download and install".
 
-    1. Installs <Artifacts>\FioriVoce-Setup-<From>.exe silently into a new temporary folder
+    1. Installs <Artifacts>\OpenWhisper_CPP-Setup-<From>.exe silently into a new temporary folder
        (/DIR, /CURRENTUSER) and starts it with LOCALAPPDATA pointing at a temporary folder too,
        so its settings, history and update work folder are not the user's (a data root from
-       FIORIVOCE_DATA_DIR would make the install ineligible for a native update, A16-16).
-    2. Serves FioriVoce-Setup-<To>.exe and FioriVoce-<To>-win64.zip with
+       OPENWHISPER_CPP_DATA_DIR would make the install ineligible for a native update, A16-16).
+    2. Serves OpenWhisper_CPP-Setup-<To>.exe and OpenWhisper_CPP-<To>-win64.zip with
        tools\release\serve_update_feed.py on 127.0.0.1. After the owner chooses "Download and
        install", it waits for the updated tree (its manifest names <To>), the uninstall entry's
        DisplayVersion <To>, the RunOnce recovery value cleared, the transaction folder removed,
        no apply_error.txt and the new app running.
     3. Asks the owner to quit, serves <Failing> and starts <To> again with
-       FIORIVOCE_TEST_FAIL_HEALTH=1, which the updater passes on to the health launch of
+       OPENWHISPER_CPP_TEST_FAIL_HEALTH=1, which the updater passes on to the health launch of
        <Failing> (M10.12). After "Download and install" it waits for apply_error.txt, then for
        the tree, the uninstall entry and the running app to be <To> again.
     4. Asks the owner to quit, uninstalls silently and checks that the install folder is gone
@@ -27,11 +27,11 @@
 
     It installs software and registers the setup's uninstall entry under HKCU, so it refuses
     without -OnThisComputer, refuses on a CI runner (nobody is there to click), refuses when
-    elevated (an elevated app is never offered a native update), refuses whenever FioriVoce is
+    elevated (an elevated app is never offered a native update), refuses whenever OpenWhisper_CPP is
     installed for this user or the machine, is running, or has an update recovery pending.
     Whatever happens it stops the feed and the apps it started, uninstalls what it installed,
     removes a RunOnce value only when it names its own temporary folder, and deletes that
-    folder. As every uninstall does, the uninstall also empties %LOCALAPPDATA%\FioriVoce\updates
+    folder. As every uninstall does, the uninstall also empties %LOCALAPPDATA%\OpenWhisper_CPP\updates
     (Inno resolves {localappdata} itself, not from the environment).
 
 .PARAMETER Artifacts
@@ -79,7 +79,7 @@ foreach ($version in @($From, $To, $Failing)) {
 }
 $principal = [Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()
 if ($principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    throw 'Run this from a shell that is not elevated: an elevated FioriVoce is never offered a native update.'
+    throw 'Run this from a shell that is not elevated: an elevated OpenWhisper_CPP is never offered a native update.'
 }
 $Artifacts = (Resolve-Path -LiteralPath $Artifacts).Path
 
@@ -132,12 +132,12 @@ function Test-FailHealthSwitch([string]$Archive) {
     } finally {
         $zip.Dispose()
     }
-    $name = 'FIORIVOCE_TEST_FAIL_HEALTH'
+    $name = 'OPENWHISPER_CPP_TEST_FAIL_HEALTH'
     return ([Text.Encoding]::ASCII.GetString($bytes).Contains($name) -or
             [Text.Encoding]::Unicode.GetString($bytes).Contains($name))
 }
 if (-not $SkipRollback -and -not (Test-FailHealthSwitch $Releases[$Failing].Archive)) {
-    throw "$Product $Failing does not know FIORIVOCE_TEST_FAIL_HEALTH (M10.12), so its health launch cannot be made to fail. Build it from a tree that has the switch, or pass -SkipRollback."
+    throw "$Product $Failing does not know OPENWHISPER_CPP_TEST_FAIL_HEALTH (M10.12), so its health launch cannot be made to fail. Build it from a tree that has the switch, or pass -SkipRollback."
 }
 
 $Scratch = [IO.Path]::GetTempPath()
@@ -150,13 +150,13 @@ $LocalRoot = Join-Path $Root 'LocalAppData'
 $DataRoot = Join-Path $LocalRoot $Product
 $Updates = Join-Path $DataRoot 'updates'
 $ApplyError = Join-Path $Updates 'apply_error.txt'
-$Logs = Join-Path $Scratch 'fiorivoce-update-logs'
+$Logs = Join-Path $Scratch 'openwhisper-cpp-update-logs'
 New-Item -ItemType Directory -Force -Path $Root, $LocalRoot, $Logs | Out-Null
 $Python = Find-Python
 $FeedScript = Join-Path $PSScriptRoot '..\..\tools\release\serve_update_feed.py'
 
 $SavedEnvironment = @{}
-foreach ($name in @('LOCALAPPDATA', 'FIORIVOCE_DATA_DIR', 'FIORIVOCE_UPDATE_FEED_URL', 'FIORIVOCE_TEST_FAIL_HEALTH')) {
+foreach ($name in @('LOCALAPPDATA', 'OPENWHISPER_CPP_DATA_DIR', 'OPENWHISPER_CPP_UPDATE_FEED_URL', 'OPENWHISPER_CPP_TEST_FAIL_HEALTH')) {
     $SavedEnvironment[$name] = [Environment]::GetEnvironmentVariable($name, 'Process')
 }
 function Restore-Environment {
@@ -168,9 +168,9 @@ function Restore-Environment {
 # launch) inherit this: their data root is $DataRoot, the default for that LOCALAPPDATA.
 function Use-SmokeEnvironment([string]$FeedUrl, [bool]$FailHealth) {
     $env:LOCALAPPDATA = $LocalRoot
-    Remove-Item Env:FIORIVOCE_DATA_DIR -ErrorAction SilentlyContinue
-    if ($FeedUrl) { $env:FIORIVOCE_UPDATE_FEED_URL = $FeedUrl } else { Remove-Item Env:FIORIVOCE_UPDATE_FEED_URL -ErrorAction SilentlyContinue }
-    if ($FailHealth) { $env:FIORIVOCE_TEST_FAIL_HEALTH = '1' } else { Remove-Item Env:FIORIVOCE_TEST_FAIL_HEALTH -ErrorAction SilentlyContinue }
+    Remove-Item Env:OPENWHISPER_CPP_DATA_DIR -ErrorAction SilentlyContinue
+    if ($FeedUrl) { $env:OPENWHISPER_CPP_UPDATE_FEED_URL = $FeedUrl } else { Remove-Item Env:OPENWHISPER_CPP_UPDATE_FEED_URL -ErrorAction SilentlyContinue }
+    if ($FailHealth) { $env:OPENWHISPER_CPP_TEST_FAIL_HEALTH = '1' } else { Remove-Item Env:OPENWHISPER_CPP_TEST_FAIL_HEALTH -ErrorAction SilentlyContinue }
 }
 
 function Wait-Exit([Diagnostics.Process]$Process, [int]$Milliseconds, [string]$Name) {

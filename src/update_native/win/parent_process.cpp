@@ -69,7 +69,7 @@ bool wait_for_parent(std::uint32_t pid, const std::filesystem::path& expected_ex
 std::int64_t current_process_creation_time() {
     FILETIME created{}, exited{}, kernel{}, user{};
     if (!GetProcessTimes(GetCurrentProcess(), &created, &exited, &kernel, &user))
-        throw UpdateError("Could not identify the running FioriVoce process.");
+        throw UpdateError("Could not identify the running OpenWhisper_CPP process.");
     ULARGE_INTEGER ticks;
     ticks.LowPart = created.dwLowDateTime;
     ticks.HighPart = created.dwHighDateTime;

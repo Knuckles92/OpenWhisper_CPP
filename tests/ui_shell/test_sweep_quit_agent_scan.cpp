@@ -103,7 +103,7 @@ TEST_CASE("an agent scan waiting on a probe that never answers does not hold Qui
     hooks.processEvents = [] {
         QApplication::processEvents();
     };
-    hooks.arguments = std::vector<std::string>{"fiorivoce"};
+    hooks.arguments = std::vector<std::string>{"openwhisper-cpp"};
     hooks.audioBackend = [] {
         return std::make_shared<fv::audio::testing::FakeBackend>();
     };
@@ -119,7 +119,7 @@ TEST_CASE("an agent scan waiting on a probe that never answers does not hold Qui
         return 0;
     };
     int argc = 1;
-    char programName[10] = "fiorivoce";
+    char programName[10] = "openwhisper-cpp";
     char* argv[2] = {programName, nullptr};
     {
         fv::Bootstrap bootstrap(std::move(hooks));

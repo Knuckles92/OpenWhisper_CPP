@@ -52,7 +52,7 @@ inline constexpr const char* unscaledStyleSheet = "unscaledStyleSheet";
 // The sheet last resolved from unscaledStyleSheet.
 inline constexpr const char* scaledStyleSheet = "scaledStyleSheet";
 // Marks a top-level window the in-app hotkeys belong to.
-inline constexpr const char* fiorivoceHotkeyWindow = "fiorivoceHotkeyWindow";
+inline constexpr const char* openwhisperCppHotkeyWindow = "openwhisperCppHotkeyWindow";
 } // namespace prop
 
 // Restyles widget so property selectors match its current values: unpolish, polish, update.

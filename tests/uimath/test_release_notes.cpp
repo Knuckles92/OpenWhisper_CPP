@@ -135,7 +135,7 @@ TEST_CASE("bare checksum lines are dropped", "[test_release_notes]") {
     for (int i = 0; i < 32; ++i) {
         digest += "ab";
     }
-    const std::string html = render("Update notes.\n\nFioriVoce-Setup.exe " + digest + "\n");
+    const std::string html = render("Update notes.\n\nOpenWhisper_CPP-Setup.exe " + digest + "\n");
     CHECK(contains(html, "Update notes."));
     CHECK_FALSE(contains(html, digest));
 }

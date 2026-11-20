@@ -39,7 +39,7 @@ def build(tmp):
 
 
 def full_host(ctx, **kwargs):
-    """Every optional callback set: what a FioriVoce host with records and MCP serves."""
+    """Every optional callback set: what a OpenWhisper_CPP host with records and MCP serves."""
     return ctx.host(
         models=lambda: [dict(m) for m in MODELS],
         runtime=lambda: dict(RUNTIME),

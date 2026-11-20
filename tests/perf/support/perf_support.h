@@ -143,7 +143,7 @@ inline Json machine() {
         made["memory_mb"] = static_cast<double>(pages) * static_cast<double>(pageSize) / 1e6;
     }
 #endif
-    if (const auto label = fv::testkit::get_env("FIORIVOCE_PERF_MACHINE")) {
+    if (const auto label = fv::testkit::get_env("OPENWHISPER_CPP_PERF_MACHINE")) {
         made["label"] = *label;
     }
     return made;
@@ -156,9 +156,9 @@ inline std::string readFirstLine(const std::filesystem::path& path) {
     return trim(line);
 }
 
-// FIORIVOCE_PERF_COMMIT (run_perf.py sets it), else the checkout's HEAD read from .git.
+// OPENWHISPER_CPP_PERF_COMMIT (run_perf.py sets it), else the checkout's HEAD read from .git.
 inline std::string commit() {
-    if (const auto given = fv::testkit::get_env("FIORIVOCE_PERF_COMMIT");
+    if (const auto given = fv::testkit::get_env("OPENWHISPER_CPP_PERF_COMMIT");
         given && !given->empty()) {
         return *given;
     }
@@ -186,7 +186,8 @@ inline std::string commit() {
 }
 
 inline std::filesystem::path outDir() {
-    if (const auto given = fv::testkit::get_env("FIORIVOCE_PERF_OUT"); given && !given->empty()) {
+    if (const auto given = fv::testkit::get_env("OPENWHISPER_CPP_PERF_OUT");
+        given && !given->empty()) {
         return std::filesystem::path(*given);
     }
     return fv::testkit::source_root() / "out" / "perf";

@@ -1,4 +1,4 @@
-// fiorivoce --diagnostics: the report's "packaged" (services/diagnostics.py: getattr(sys,
+// openwhisper-cpp --diagnostics: the report's "packaged" (services/diagnostics.py: getattr(sys,
 // "frozen"), true for every installed build) says whether this copy runs from the folder its
 // install registration names. The probes are made by hand, so no case reads the registry but the
 // last, which probes the test executable itself (a build tree).
@@ -36,7 +36,7 @@ fv::Json readReport(const fs::path& path) {
 
 fv::Json reportFor(const fv::update::InstallProbe& install, const fs::path& output) {
     const std::vector<std::string> args{fv::path_to_utf8(output)};
-    REQUIRE(fv::runDiagnostics(args, "fiorivoce.exe", install) == 0);
+    REQUIRE(fv::runDiagnostics(args, "openwhisper-cpp.exe", install) == 0);
     return readReport(output);
 }
 
@@ -44,7 +44,7 @@ fv::Json reportFor(const fv::update::InstallProbe& install, const fs::path& outp
 
 TEST_CASE("the diagnostics report is packaged only in its registered install folder", "[unit]") {
     fv::testkit::TempDataRoot root;
-    const fs::path installed = root.path() / "Programs" / "FioriVoce";
+    const fs::path installed = root.path() / "Programs" / "OpenWhisper_CPP";
     const fs::path elsewhere = root.path() / "build" / "bin";
 
     CHECK(reportFor(probe(true, installed, installed), root.path() / "a.json")["packaged"] == true);
@@ -59,6 +59,6 @@ TEST_CASE("the diagnostics report of a build tree copy is not packaged", "[unit]
     fv::testkit::TempDataRoot root;
     const fs::path output = root.path() / "support.json";
     REQUIRE(fv::runDiagnostics(std::vector<std::string>{fv::path_to_utf8(output)},
-                               "fiorivoce.exe") == 0);
+                               "openwhisper-cpp.exe") == 0);
     CHECK(readReport(output)["packaged"] == false);
 }

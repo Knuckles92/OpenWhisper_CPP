@@ -16,8 +16,8 @@ namespace ui {
 class ThemeManager;
 }
 
-// The Qt application as FioriVoce sets it up (ui_qt/app.py QtApplication): names, the app icon,
-// the windows11 style wrapped for snappy, rounded tooltips, the palette of the saved ui_theme
+// The Qt application as OpenWhisper_CPP sets it up (ui_qt/app.py QtApplication): names, the app
+// icon, the windows11 style wrapped for snappy, rounded tooltips, the palette of the saved ui_theme
 // (built before the splash paints, so it reads the right colours), the saved ui_font_scale,
 // and, while the preference is "system", the platform colour scheme followed live. Uses the
 // QApplication that exists, or creates one.

@@ -96,7 +96,7 @@ struct InstallProbe {
 
 // Installer when the running executable lives in the folder a registered install names
 // (compared lexically, without regard to case on Windows); otherwise Source, such as a build
-// tree on a computer that also has FioriVoce installed.
+// tree on a computer that also has OpenWhisper_CPP installed.
 InstallChannel detect_channel(const InstallProbe&);
 
 // "Windows installer", "Linux package" or "macOS application" by `platform` (sys.platform),
@@ -148,7 +148,7 @@ struct CheckContext {
 // track never downgrades: a prerelease newer than the latest stable reports Development.
 // persist: a success writes update_last_check_at, an AppUpdateError writes
 // update_last_failed_check_at (rate limits too) and is rethrown; write failures are logged.
-// Without an update source or a loopback feed, throws AppUpdateError("This build of FioriVoce
+// Without an update source or a loopback feed, throws AppUpdateError("This build of OpenWhisper_CPP
 // has no update source.") before any request and without writing anything. Blocking: never on
 // the GUI thread.
 UpdateCheckResult check_for_update(const CheckContext&, bool persist = true);
