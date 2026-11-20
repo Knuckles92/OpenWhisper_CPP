@@ -1,0 +1,45 @@
+{
+ "note": "LM Studio before 0.4: only /api/v0/models",
+ "routes": {
+  "GET /v1/models": {
+   "status": 200,
+   "json": {
+    "data": [
+     {
+      "id": "qwen/qwen3-4b"
+     },
+     {
+      "id": "google/gemma-3-4b"
+     },
+     {
+      "id": "text-embedding-nomic-embed-text-v1.5"
+     }
+    ]
+   }
+  },
+  "GET /api/v0/models": {
+   "status": 200,
+   "json": {
+    "data": [
+     {
+      "id": "qwen/qwen3-4b",
+      "type": "llm",
+      "max_context_length": 40960,
+      "capabilities": [
+       "tool_use"
+      ]
+     },
+     {
+      "id": "google/gemma-3-4b",
+      "type": "vlm",
+      "max_context_length": 131072
+     },
+     {
+      "id": "text-embedding-nomic-embed-text-v1.5",
+      "type": "embeddings"
+     }
+    ]
+   }
+  }
+ }
+}

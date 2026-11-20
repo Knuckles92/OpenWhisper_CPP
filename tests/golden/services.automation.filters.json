@@ -1,0 +1,1191 @@
+{
+ "module": "services.automation.filters",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time"
+ },
+ "functions": {
+  "interpret": [
+   {
+    "args": [
+     ""
+    ],
+    "result": [
+     "keep",
+     "",
+     ""
+    ]
+   },
+   {
+    "args": [
+     " "
+    ],
+    "result": [
+     "keep",
+     "",
+     ""
+    ]
+   },
+   {
+    "args": [
+     " \r\n\t"
+    ],
+    "result": [
+     "keep",
+     "",
+     ""
+    ]
+   },
+   {
+    "args": [
+     "{}"
+    ],
+    "result": [
+     "keep",
+     "",
+     ""
+    ]
+   },
+   {
+    "args": [
+     "[]"
+    ],
+    "result": [
+     "failed",
+     "",
+     "The reply wasn't a JSON object"
+    ]
+   },
+   {
+    "args": [
+     "null"
+    ],
+    "result": [
+     "failed",
+     "",
+     "The reply wasn't a JSON object"
+    ]
+   },
+   {
+    "args": [
+     "5"
+    ],
+    "result": [
+     "failed",
+     "",
+     "The reply wasn't a JSON object"
+    ]
+   },
+   {
+    "args": [
+     "\"text\""
+    ],
+    "result": [
+     "failed",
+     "",
+     "The reply wasn't a JSON object"
+    ]
+   },
+   {
+    "args": [
+     "not json"
+    ],
+    "result": [
+     "failed",
+     "",
+     "The reply wasn't JSON"
+    ]
+   },
+   {
+    "args": [
+     "{"
+    ],
+    "result": [
+     "failed",
+     "",
+     "The reply wasn't JSON"
+    ]
+   },
+   {
+    "args": [
+     "{\"text\": \"x\""
+    ],
+    "result": [
+     "failed",
+     "",
+     "The reply wasn't JSON"
+    ]
+   },
+   {
+    "args": [
+     "{\"text\": \"new words\"}"
+    ],
+    "result": [
+     "replace",
+     "new words",
+     ""
+    ]
+   },
+   {
+    "args": [
+     "{\"text\": \"\"}"
+    ],
+    "result": [
+     "replace",
+     "",
+     ""
+    ]
+   },
+   {
+    "args": [
+     "{\"text\": \"  \"}"
+    ],
+    "result": [
+     "replace",
+     "  ",
+     ""
+    ]
+   },
+   {
+    "args": [
+     "{\"text\": 5}"
+    ],
+    "result": [
+     "failed",
+     "",
+     "\"text\" wasn't a string"
+    ]
+   },
+   {
+    "args": [
+     "{\"text\": null}"
+    ],
+    "result": [
+     "failed",
+     "",
+     "\"text\" wasn't a string"
+    ]
+   },
+   {
+    "args": [
+     "{\"text\": [\"a\"]}"
+    ],
+    "result": [
+     "failed",
+     "",
+     "\"text\" wasn't a string"
+    ]
+   },
+   {
+    "args": [
+     "{\"text\": {\"a\": 1}}"
+    ],
+    "result": [
+     "failed",
+     "",
+     "\"text\" wasn't a string"
+    ]
+   },
+   {
+    "args": [
+     "{\"text\": true}"
+    ],
+    "result": [
+     "failed",
+     "",
+     "\"text\" wasn't a string"
+    ]
+   },
+   {
+    "args": [
+     "{\"cancel\": true}"
+    ],
+    "result": [
+     "cancel",
+     "",
+     ""
+    ]
+   },
+   {
+    "args": [
+     "{\"cancel\": false}"
+    ],
+    "result": [
+     "keep",
+     "",
+     ""
+    ]
+   },
+   {
+    "args": [
+     "{\"cancel\": \"yes\"}"
+    ],
+    "result": [
+     "failed",
+     "",
+     "\"cancel\" wasn't true or false"
+    ]
+   },
+   {
+    "args": [
+     "{\"cancel\": 1}"
+    ],
+    "result": [
+     "failed",
+     "",
+     "\"cancel\" wasn't true or false"
+    ]
+   },
+   {
+    "args": [
+     "{\"cancel\": null}"
+    ],
+    "result": [
+     "failed",
+     "",
+     "\"cancel\" wasn't true or false"
+    ]
+   },
+   {
+    "args": [
+     "{\"cancel\": false, \"text\": \"kept\"}"
+    ],
+    "result": [
+     "replace",
+     "kept",
+     ""
+    ]
+   },
+   {
+    "args": [
+     "{\"cancel\": true, \"text\": \"ignored\"}"
+    ],
+    "result": [
+     "cancel",
+     "",
+     ""
+    ]
+   },
+   {
+    "args": [
+     "{\"cancel\": false, \"note\": \"ignored\"}"
+    ],
+    "result": [
+     "keep",
+     "",
+     ""
+    ]
+   },
+   {
+    "args": [
+     "{\"other\": 1}"
+    ],
+    "result": [
+     "keep",
+     "",
+     ""
+    ]
+   },
+   {
+    "args": [
+     "{\"text\": \"a\", \"text\": \"b\"}"
+    ],
+    "result": [
+     "replace",
+     "b",
+     ""
+    ]
+   },
+   {
+    "args": [
+     "{\"text\": \"hi \\ud83d\"}"
+    ],
+    "result": [
+     "failed",
+     "",
+     "\"text\" wasn't valid Unicode"
+    ]
+   },
+   {
+    "args": [
+     "{\"text\": \"\\ude00 there\"}"
+    ],
+    "result": [
+     "failed",
+     "",
+     "\"text\" wasn't valid Unicode"
+    ]
+   },
+   {
+    "args": [
+     "{\"text\": \"a\\udfff\\ud800b\"}"
+    ],
+    "result": [
+     "failed",
+     "",
+     "\"text\" wasn't valid Unicode"
+    ]
+   },
+   {
+    "args": [
+     "{\"text\": \"done \\ud83d\\ude00\"}"
+    ],
+    "result": [
+     "replace",
+     "done 😀",
+     ""
+    ]
+   },
+   {
+    "args": [
+     "{\"text\": \"café 😀\"}"
+    ],
+    "result": [
+     "replace",
+     "café 😀",
+     ""
+    ]
+   },
+   {
+    "args": [
+     " {\"text\": \"x\"} \n"
+    ],
+    "result": [
+     "replace",
+     "x",
+     ""
+    ]
+   },
+   {
+    "args": [
+     "{\"text\": \"x\"} trailing"
+    ],
+    "result": [
+     "failed",
+     "",
+     "The reply wasn't JSON"
+    ]
+   },
+   {
+    "args": [
+     "{\"text\": NaN}"
+    ],
+    "result": [
+     "failed",
+     "",
+     "\"text\" wasn't a string"
+    ]
+   },
+   {
+    "args": [
+     "{\"text\": \"x\", \"cancel\": \"no\"}"
+    ],
+    "result": [
+     "failed",
+     "",
+     "\"cancel\" wasn't true or false"
+    ]
+   },
+   {
+    "args": [
+     "﻿{}"
+    ],
+    "result": [
+     "failed",
+     "",
+     "The reply wasn't JSON"
+    ]
+   }
+  ],
+  "interpret_hex": [
+   {
+    "args": [
+     "ff"
+    ],
+    "result": [
+     "failed",
+     "",
+     "The reply wasn't JSON"
+    ]
+   },
+   {
+    "args": [
+     "7b7d"
+    ],
+    "result": [
+     "keep",
+     "",
+     ""
+    ]
+   },
+   {
+    "args": [
+     "c3a9"
+    ],
+    "result": [
+     "failed",
+     "",
+     "The reply wasn't JSON"
+    ]
+   },
+   {
+    "args": [
+     "7b2274657874223a2022c3a9227d"
+    ],
+    "result": [
+     "replace",
+     "é",
+     ""
+    ]
+   },
+   {
+    "args": [
+     "7b2274657874223a20228022207d"
+    ],
+    "result": [
+     "failed",
+     "",
+     "The reply wasn't JSON"
+    ]
+   },
+   {
+    "args": [
+     "eda0bd"
+    ],
+    "result": [
+     "failed",
+     "",
+     "The reply wasn't JSON"
+    ]
+   },
+   {
+    "args": [
+     "7b2274657874223a2022eda0bd227d"
+    ],
+    "result": [
+     "failed",
+     "",
+     "The reply wasn't JSON"
+    ]
+   },
+   {
+    "args": [
+     "efbbbf7b7d"
+    ],
+    "result": [
+     "failed",
+     "",
+     "The reply wasn't JSON"
+    ]
+   },
+   {
+    "args": [
+     "f4908080"
+    ],
+    "result": [
+     "failed",
+     "",
+     "The reply wasn't JSON"
+    ]
+   }
+  ],
+  "lease_timeout": [
+   {
+    "args": [
+     1500
+    ],
+    "result": 1500
+   },
+   {
+    "args": [
+     100
+    ],
+    "result": 100
+   },
+   {
+    "args": [
+     5000
+    ],
+    "result": 5000
+   },
+   {
+    "args": [
+     99
+    ],
+    "result": {
+     "refused": "Use a timeout_ms from 100 to 5000."
+    }
+   },
+   {
+    "args": [
+     5001
+    ],
+    "result": {
+     "refused": "Use a timeout_ms from 100 to 5000."
+    }
+   },
+   {
+    "args": [
+     50
+    ],
+    "result": {
+     "refused": "Use a timeout_ms from 100 to 5000."
+    }
+   },
+   {
+    "args": [
+     6000
+    ],
+    "result": {
+     "refused": "Use a timeout_ms from 100 to 5000."
+    }
+   },
+   {
+    "args": [
+     0
+    ],
+    "result": {
+     "refused": "Use a timeout_ms from 100 to 5000."
+    }
+   },
+   {
+    "args": [
+     -1
+    ],
+    "result": {
+     "refused": "Use a timeout_ms from 100 to 5000."
+    }
+   },
+   {
+    "args": [
+     1500.0
+    ],
+    "result": 1500
+   },
+   {
+    "args": [
+     1500.5
+    ],
+    "result": {
+     "refused": "Use a timeout_ms from 100 to 5000."
+    }
+   },
+   {
+    "args": [
+     100.0
+    ],
+    "result": 100
+   },
+   {
+    "args": [
+     99.9
+    ],
+    "result": {
+     "refused": "Use a timeout_ms from 100 to 5000."
+    }
+   },
+   {
+    "args": [
+     true
+    ],
+    "result": {
+     "refused": "Use a timeout_ms from 100 to 5000."
+    }
+   },
+   {
+    "args": [
+     false
+    ],
+    "result": {
+     "refused": "Use a timeout_ms from 100 to 5000."
+    }
+   },
+   {
+    "args": [
+     "1500"
+    ],
+    "result": {
+     "refused": "Use a timeout_ms from 100 to 5000."
+    }
+   },
+   {
+    "args": [
+     null
+    ],
+    "result": {
+     "refused": "Use a timeout_ms from 100 to 5000."
+    }
+   },
+   {
+    "args": [
+     [
+      1500
+     ]
+    ],
+    "result": {
+     "refused": "Use a timeout_ms from 100 to 5000."
+    }
+   },
+   {
+    "args": [
+     {
+      "ms": 1500
+     }
+    ],
+    "result": {
+     "refused": "Use a timeout_ms from 100 to 5000."
+    }
+   },
+   {
+    "args": [
+     1e+300
+    ],
+    "result": {
+     "refused": "Use a timeout_ms from 100 to 5000."
+    }
+   },
+   {
+    "args": [
+     {
+      "$float": "nan"
+     }
+    ],
+    "result": {
+     "refused": "Use a timeout_ms from 100 to 5000."
+    }
+   },
+   {
+    "args": [
+     {
+      "$float": "inf"
+     }
+    ],
+    "result": {
+     "refused": "Use a timeout_ms from 100 to 5000."
+    }
+   }
+  ],
+  "lease_modes": [
+   {
+    "args": [
+     [
+      "dictation"
+     ]
+    ],
+    "result": [
+     "dictation"
+    ]
+   },
+   {
+    "args": [
+     [
+      "action"
+     ]
+    ],
+    "result": [
+     "action"
+    ]
+   },
+   {
+    "args": [
+     [
+      "dictation",
+      "action"
+     ]
+    ],
+    "result": [
+     "dictation",
+     "action"
+    ]
+   },
+   {
+    "args": [
+     [
+      "action",
+      "dictation"
+     ]
+    ],
+    "result": [
+     "action",
+     "dictation"
+    ]
+   },
+   {
+    "args": [
+     [
+      "dictation",
+      "dictation"
+     ]
+    ],
+    "result": [
+     "dictation"
+    ]
+   },
+   {
+    "args": [
+     [
+      "action",
+      "dictation",
+      "action"
+     ]
+    ],
+    "result": [
+     "action",
+     "dictation"
+    ]
+   },
+   {
+    "args": [
+     []
+    ],
+    "result": {
+     "refused": "Give modes as a list: dictation, action or both."
+    }
+   },
+   {
+    "args": [
+     [
+      "command"
+     ]
+    ],
+    "result": {
+     "refused": "Give modes as a list: dictation, action or both."
+    }
+   },
+   {
+    "args": [
+     [
+      "file"
+     ]
+    ],
+    "result": {
+     "refused": "Give modes as a list: dictation, action or both."
+    }
+   },
+   {
+    "args": [
+     [
+      "dictation",
+      "command"
+     ]
+    ],
+    "result": {
+     "refused": "Give modes as a list: dictation, action or both."
+    }
+   },
+   {
+    "args": [
+     "dictation"
+    ],
+    "result": {
+     "refused": "Give modes as a list: dictation, action or both."
+    }
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": {
+     "refused": "Give modes as a list: dictation, action or both."
+    }
+   },
+   {
+    "args": [
+     null
+    ],
+    "result": {
+     "refused": "Give modes as a list: dictation, action or both."
+    }
+   },
+   {
+    "args": [
+     5
+    ],
+    "result": {
+     "refused": "Give modes as a list: dictation, action or both."
+    }
+   },
+   {
+    "args": [
+     {
+      "dictation": true
+     }
+    ],
+    "result": {
+     "refused": "Give modes as a list: dictation, action or both."
+    }
+   },
+   {
+    "args": [
+     [
+      5
+     ]
+    ],
+    "result": {
+     "refused": "Give modes as a list: dictation, action or both."
+    }
+   },
+   {
+    "args": [
+     [
+      null
+     ]
+    ],
+    "result": {
+     "refused": "Give modes as a list: dictation, action or both."
+    }
+   },
+   {
+    "args": [
+     [
+      true
+     ]
+    ],
+    "result": {
+     "refused": "Give modes as a list: dictation, action or both."
+    }
+   }
+  ],
+  "register_lease": [
+   {
+    "args": [
+     "http://127.0.0.1:8123/filter?x=1",
+     "after_cleanup",
+     {
+      "timeout_ms": 800,
+      "modes": [
+       "dictation"
+      ]
+     }
+    ],
+    "result": [
+     "http://127.0.0.1:8123/filter?x=1",
+     "after_cleanup",
+     800,
+     [
+      "dictation"
+     ]
+    ]
+   },
+   {
+    "args": [
+     "http://localhost:9/f",
+     "before_cleanup",
+     {}
+    ],
+    "result": [
+     "http://localhost:9/f",
+     "before_cleanup",
+     1500,
+     [
+      "dictation",
+      "action"
+     ]
+    ]
+   },
+   {
+    "args": [
+     "http://[::1]:9/f",
+     "before_cleanup",
+     {}
+    ],
+    "result": [
+     "http://[::1]:9/f",
+     "before_cleanup",
+     1500,
+     [
+      "dictation",
+      "action"
+     ]
+    ]
+   },
+   {
+    "args": [
+     "https://LOCALHOST/f",
+     "before_cleanup",
+     {}
+    ],
+    "result": [
+     "https://LOCALHOST/f",
+     "before_cleanup",
+     1500,
+     [
+      "dictation",
+      "action"
+     ]
+    ]
+   },
+   {
+    "args": [
+     "  http://127.0.0.1:9/f  ",
+     "before_cleanup",
+     {}
+    ],
+    "result": [
+     "http://127.0.0.1:9/f",
+     "before_cleanup",
+     1500,
+     [
+      "dictation",
+      "action"
+     ]
+    ]
+   },
+   {
+    "args": [
+     "http://192.168.1.10/f",
+     "before_cleanup",
+     {}
+    ],
+    "result": {
+     "refused": "A filter added over the API must listen on this computer (127.0.0.1, ::1 or localhost)."
+    }
+   },
+   {
+    "args": [
+     "http://example.com/f",
+     "before_cleanup",
+     {}
+    ],
+    "result": {
+     "refused": "A filter added over the API must listen on this computer (127.0.0.1, ::1 or localhost)."
+    }
+   },
+   {
+    "args": [
+     "http://127.0.0.2/f",
+     "before_cleanup",
+     {}
+    ],
+    "result": {
+     "refused": "A filter added over the API must listen on this computer (127.0.0.1, ::1 or localhost)."
+    }
+   },
+   {
+    "args": [
+     "http://localhost.example.com/f",
+     "before_cleanup",
+     {}
+    ],
+    "result": {
+     "refused": "A filter added over the API must listen on this computer (127.0.0.1, ::1 or localhost)."
+    }
+   },
+   {
+    "args": [
+     "ftp://127.0.0.1/f",
+     "before_cleanup",
+     {}
+    ],
+    "result": {
+     "refused": "Use an address that starts with http:// or https://."
+    }
+   },
+   {
+    "args": [
+     "127.0.0.1:9/f",
+     "before_cleanup",
+     {}
+    ],
+    "result": {
+     "refused": "Use an address that starts with http:// or https://."
+    }
+   },
+   {
+    "args": [
+     "",
+     "before_cleanup",
+     {}
+    ],
+    "result": {
+     "refused": "Enter the address to send to."
+    }
+   },
+   {
+    "args": [
+     "http://127.0.0.1/f has spaces",
+     "before_cleanup",
+     {}
+    ],
+    "result": {
+     "refused": "Addresses can't contain spaces."
+    }
+   },
+   {
+    "args": [
+     "http://[::1/f",
+     "before_cleanup",
+     {}
+    ],
+    "result": {
+     "refused": "That address isn't valid."
+    }
+   },
+   {
+    "args": [
+     "http://127.0.0.1:9/f",
+     "during_cleanup",
+     {}
+    ],
+    "result": {
+     "refused": "Use the stage before_cleanup or after_cleanup."
+    }
+   },
+   {
+    "args": [
+     "http://127.0.0.1:9/f",
+     "",
+     {}
+    ],
+    "result": {
+     "refused": "Use the stage before_cleanup or after_cleanup."
+    }
+   },
+   {
+    "args": [
+     "http://127.0.0.1:9/f",
+     "before_cleanup",
+     {
+      "timeout_ms": 50
+     }
+    ],
+    "result": {
+     "refused": "Use a timeout_ms from 100 to 5000."
+    }
+   },
+   {
+    "args": [
+     "http://127.0.0.1:9/f",
+     "before_cleanup",
+     {
+      "timeout_ms": 6000
+     }
+    ],
+    "result": {
+     "refused": "Use a timeout_ms from 100 to 5000."
+    }
+   },
+   {
+    "args": [
+     "http://127.0.0.1:9/f",
+     "before_cleanup",
+     {
+      "timeout_ms": true
+     }
+    ],
+    "result": {
+     "refused": "Use a timeout_ms from 100 to 5000."
+    }
+   },
+   {
+    "args": [
+     "http://127.0.0.1:9/f",
+     "before_cleanup",
+     {
+      "timeout_ms": "1500"
+     }
+    ],
+    "result": {
+     "refused": "Use a timeout_ms from 100 to 5000."
+    }
+   },
+   {
+    "args": [
+     "http://127.0.0.1:9/f",
+     "before_cleanup",
+     {
+      "timeout_ms": 2500.0
+     }
+    ],
+    "result": [
+     "http://127.0.0.1:9/f",
+     "before_cleanup",
+     2500,
+     [
+      "dictation",
+      "action"
+     ]
+    ]
+   },
+   {
+    "args": [
+     "http://127.0.0.1:9/f",
+     "before_cleanup",
+     {
+      "modes": "dictation"
+     }
+    ],
+    "result": {
+     "refused": "Give modes as a list: dictation, action or both."
+    }
+   },
+   {
+    "args": [
+     "http://127.0.0.1:9/f",
+     "before_cleanup",
+     {
+      "modes": [
+       "command"
+      ]
+     }
+    ],
+    "result": {
+     "refused": "Give modes as a list: dictation, action or both."
+    }
+   },
+   {
+    "args": [
+     "http://127.0.0.1:9/f",
+     "before_cleanup",
+     {
+      "modes": []
+     }
+    ],
+    "result": {
+     "refused": "Give modes as a list: dictation, action or both."
+    }
+   },
+   {
+    "args": [
+     "http://127.0.0.1:9/f",
+     "before_cleanup",
+     {
+      "modes": [
+       "file"
+      ]
+     }
+    ],
+    "result": {
+     "refused": "Give modes as a list: dictation, action or both."
+    }
+   },
+   {
+    "args": [
+     "http://127.0.0.1:9/f",
+     "before_cleanup",
+     {
+      "full": true
+     }
+    ],
+    "result": {
+     "refused": "10 filters are already registered. Remove one first."
+    }
+   },
+   {
+    "args": [
+     "http://example.com/f",
+     "during_cleanup",
+     {
+      "timeout_ms": 1,
+      "modes": []
+     }
+    ],
+    "result": {
+     "refused": "A filter added over the API must listen on this computer (127.0.0.1, ::1 or localhost)."
+    }
+   }
+  ]
+ }
+}

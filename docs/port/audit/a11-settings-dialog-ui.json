@@ -1,0 +1,1178 @@
+{
+ "area": "a11-settings-dialog-ui",
+ "package": "M10 sweep",
+ "features": {
+  "A11-01": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp",
+    "src/ui_settings/settings_dialog.h"
+   ],
+   "tests": [
+    "tests/ui_settings/test_shell.cpp"
+   ],
+   "note": "Title, object name, non-modal, size grip, 1315x850 and 940x520 were tested ('Settings is one non-modal window with the shell's names'); added 'the shell's frame, header, rail pane and body keep OpenWhisper's metrics', which also pins the maximize hint on and MSWindowsFixedSizeDialogHint off."
+  },
+  "A11-02": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_shell.cpp",
+    "tests/ui_settings/test_reference_screenshots.cpp"
+   ],
+   "note": "Header margins (20,14,20,14), spacing 10, the search button's stretch 2, max width 420 and fixed height 36 had no test outside the reference tree; the new shell-metrics test pins them. The brand/label/search-text hiding at 560/700/720 x scale is pinned by 'a narrow window folds the rail into the page menu'. The brand is identity().product ('FioriVoce'), by the port's identity rule. The reference screenshot test exists; on this Linux tree its pixel half skips and its tree half fails on Windows font metrics, so it did not run to completion here."
+  },
+  "A11-03": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_shell.cpp"
+   ],
+   "note": "Tooltip, accessible name, NoFocus and the native Ctrl+K hint were tested; the new shell-metrics test adds the inner row margins (12,0,8,0), spacing 8, the 'Search every setting, model and help note' text and mouse-transparent labels."
+  },
+  "A11-04": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_shell.cpp"
+   ],
+   "note": "NARROW_WIDTH 800 x font scale at 100 % and 130 %, the page menu button's text and accessible name, and the menu (Home, separators, disabled chapter names, checkable current page) are pinned by 'a narrow window folds the rail into the page menu' and 'test_the_page_menu_lists_every_page_by_chapter'."
+  },
+  "A11-05": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp",
+    "src/ui_widgets/nav_rail.h"
+   ],
+   "tests": [
+    "tests/ui_settings/test_shell.cpp"
+   ],
+   "note": "Only the handle tooltip was tested; the new shell-metrics test pins handle width 6, not collapsible, initial rail width 258, the SizeHor cursor and the rail pane's 220/560 limits and (0,12,0,0) margins."
+  },
+  "A11-06": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp",
+    "src/appkit/destinations.h"
+   ],
+   "tests": [
+    "tests/ui_settings/test_shell.cpp",
+    "tests/ui_settings/test_registry.cpp"
+   ],
+   "note": "Chapters, page order, names and icons match _CHAPTERS; as in Python the page icon marks only search results (settings_search_palette.cpp railIcon). Pinned by test_uses_rail_and_independently_scrollable_pages, test_every_page_is_in_exactly_one_place and test_personalize_and_automate_sit_between_dictation_and_meeting_mode."
+  },
+  "A11-07": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_shell.cpp"
+   ],
+   "note": "The crumb (chapter upper-cased, SETTINGS for Home), title and subtitle were tested (test_the_crumb_names_the_chapter); the new shell-metrics test adds the object names, the 1 px divider and the body's (28,16,28,16) margins and spacing 14."
+  },
+  "A11-08": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_shell.cpp"
+   ],
+   "note": "Texts and tooltip were tested; the new shell-metrics test adds the message label and Done button object names and the 110 px minimum width."
+  },
+  "A11-09": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp",
+    "src/ui_settings/settings_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_shell.cpp",
+    "tests/ui_settings/test_registry.cpp"
+   ],
+   "note": "settingsPage_<key> inside settingsPageScroll (no frame, resizable, no horizontal bar), Downloads its own scroller, build on first selection with the loading flag set, and control(name) building the owning page (Python's __getattr__) are pinned by test_uses_rail_and_independently_scrollable_pages, 'nothing a page does while it loads is saved' and test_a_control_attribute_builds_its_page."
+  },
+  "A11-10": {
+   "status": "difference",
+   "difference": "a11-no-staged-settings-build",
+   "note": "Pages stay lazily built on first visit; the idle builder and build_step/finish_build do not exist."
+  },
+  "A11-11": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp",
+    "src/appkit/destinations.h"
+   ],
+   "tests": [
+    "tests/ui_settings/test_shell.cpp"
+   ],
+   "note": "Legacy aliases, basic_* to Home with the card revealed, unknown keys ignored and the backup lock are pinned by test_legacy_model_manager_names_land_on_a_destination, 'unknown names are ignored and Home's sections reveal its cards' and 'a running backup keeps Settings on Backup & restore'."
+  },
+  "A11-12": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_shell.cpp",
+    "tests/ui_settings/test_feature.cpp"
+   ],
+   "note": "show_home, focus_api_keys, focus_hf_policy and show_downloads by 'deep links reach the page they name' and 'show_home returns to the top of Home'; focus_cleanup_model by 'the text alias scrolls to the cleanup model'."
+  },
+  "A11-13": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_shell.cpp",
+    "tests/ui_settings/test_registry.cpp",
+    "tests/ui_settings/test_home.cpp"
+   ],
+   "note": "Captures cancelled on other pages, drafts saved silently, build, stack, rail scroll, crumb/title/subtitle/page-menu text, then onShown: test_registry_calls_each_hook_at_its_moment, 'a draft that cannot be saved yet keeps Settings open on its page', test_home_shortcut_capture_cancels_when_leaving_home. Models' on_destination_shown and Remote's on_shown are those pages' onShown hooks (a15, a17)."
+  },
+  "A11-14": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp",
+    "src/appcore/rail_values.cpp",
+    "src/ui_settings/app_pages.cpp",
+    "src/ui_settings/settings_backup.cpp",
+    "src/ui_settings/walkthroughs_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_shell.cpp",
+    "tests/appcore/test_rail_values.cpp",
+    "tests/ui_settings/test_app_pages.cpp",
+    "tests/ui_settings/test_settings_backup.cpp",
+    "tests/ui_settings/test_meeting_pages.cpp",
+    "tests/ui_settings/test_walkthroughs_page.cpp"
+   ],
+   "note": "Each page registers its railValue; the coalescing depth counter is pinned by 'rail values are drawn once per batch'. General/Appearance/Hotkeys/Developer/Recording by the golden rail values, Backup ('Local backups' until built, then Off/Daily/Weekly) by test_backup_page_is_lazy_searchable_and_usable_at_narrow_size, Dashboard (Localhost / LAN · auto|port) in test_meeting_pages.cpp, Walkthroughs in its page test. Profiles, AI cleanup, Learned rules, Fast judgments and After the meeting values are registered by the personalize and meeting pages (a12/a13, a29/a31)."
+  },
+  "A11-15": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_shell.cpp"
+   ],
+   "note": "'persist saves, skips an equal stored value and reports a failure' pins Python == against the raw stored value, both error texts and the message clearing."
+  },
+  "A11-16": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp",
+    "src/ui_settings/recording_page.cpp",
+    "src/ui_settings/api_keys_section.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_shell.cpp",
+    "tests/ui_settings/test_api_keys.cpp"
+   ],
+   "note": "refresh() reloads built pages from one snapshot and redraws the rail once ('rail values are drawn once per batch', 'a page built while another builds loads only its own bindings', 'Home is refreshed once per refresh'); a non-spontaneous show emits windowShown, which the Recording usage, API keys and model pages rescan on ('each opening re-reads the keys the API keys rail counts')."
+  },
+  "A11-17": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp",
+    "src/uimath/dialog_fit.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_fit.cpp"
+   ],
+   "note": "available - 2x32 fit, lowered minimum and on-screen placement with the 32 px title-bar allowance are pinned by the test_window_fit_and_title_bar cases and 'the first show fits the window to its screen'. The Omarchy 360x240 minimum is the Linux-only kOmarchyDialogMinimum branch."
+  },
+  "A11-18": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_shell.cpp"
+   ],
+   "note": "'Enter is swallowed and Esc closes unless a capture is held' (ShortcutOverride accepted, the override runs instead of closing) and 'Ctrl+K and Find open the search'. A rule dictation and a hotkey capture both set the escape override."
+  },
+  "A11-19": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp",
+    "src/ui_settings/recording_page.cpp",
+    "src/ui_personalize/rules_page.cpp",
+    "src/ui_personalize/cleanup_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_shell.cpp",
+    "tests/ui_settings/test_retention.cpp"
+   ],
+   "note": "Draft saving with veto, palette close and capture cancel were tested; nothing tested that closing commits a retention burst still settling. Added 'closing Settings commits a retention burst still settling' (RecordingPage's close filter). The custom prompt is the cleanup page's saveDrafts and the rule recorder is released on SettingsDialog::closed (rules_page.cpp), both a12/a13's."
+  },
+  "A11-20": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp",
+    "src/ui_settings/settings_backup.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_shell.cpp",
+    "tests/ui_settings/test_settings_backup.cpp"
+   ],
+   "note": "'a running backup keeps Settings on Backup & restore' and 'the dialog locks while the coordinator works, built page or not'."
+  },
+  "A11-21": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_shell.cpp"
+   ],
+   "note": "'a reveal tints the control's card for 1.6 s and focuses it': queued reveal, ensureWidgetVisible(0, 40), searchHit on the card for 1600 ms, focus on the first tab-focusable enabled child."
+  },
+  "A11-22": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_binder.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_binder.cpp"
+   ],
+   "note": "Checkbox, combo (findData or index 0), spin, line edit (stripped, editingFinished), plain text (focus-out only if modified; placeholder text saves \"\"), load order and binding_count starts: the test_settings_binder cases. Both binders persist through SettingsDialog::persist, whose loading guard the shell tests pin."
+  },
+  "A11-23": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/whats_new_tile.cpp",
+    "src/appcore/whats_new.cpp",
+    "src/ui_settings/home_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_home.cpp",
+    "tests/appcore/test_whats_new.cpp"
+   ],
+   "note": "'New in ' + identity().product (identity rule), tile id whatsNew, kind intro, 'Got it' with tooltip 'Hide this note', hidden once whats_new_seen equals the note's date, dismissing saves it: test_new_features_note_dismisses_and_stays_dismissed, test_a_rewritten_note_shows_again_after_an_older_one_was_dismissed, test_note_fits_the_home_tile. The note text is FioriVoce's own (map status)."
+  },
+  "A11-24": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/home_page.cpp",
+    "src/ui_meeting/meeting_home_rows.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_home.cpp",
+    "tests/ui_settings/test_home_screenshots.cpp",
+    "tests/ui_settings/test_text_keys_golden.cpp"
+   ],
+   "note": "Two halves with green/amber dots, ' · ' joins or 'Nothing', two columns from (2*430+12) x scale: 'the where strip lists where dictation runs and the recordings', test_cards_sit_in_two_columns_when_the_page_is_wide and the cleanup-provider tests. Meeting items are the meeting pages' where sources (a25/a31; their consent wording is difference a25-remote-meeting-consent). On this Linux tree test_home_privacy_strip and the golden 'where strip: AI cleanup and text near the cursor' fail because focus::text_reading_supported() is false off Windows, so 'Text near the cursor' always reads (off); not a port defect. The reference screenshot test exists; on this Linux tree its pixel half skips and its tree half fails on Windows font metrics, so it did not run to completion here."
+  },
+  "A11-25": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/home_page.cpp",
+    "src/ui_personalize/cleanup_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_home.cpp",
+    "tests/ui_personalize/test_cleanup_page.cpp"
+   ],
+   "note": "Microphone combo reading devices only when its menu opens, read-only shortcut with Change capturing through setStandardHotkey('record_toggle'), Voice model combo and detail, paste and live-transcript switches, 'All dictation settings  →': test_microphone_reads_devices_once_its_menu_opens, test_change_button_captures_and_saves_a_shortcut_inline, test_voice_choice_uses_the_canonical_controller_label_without_model_setup, 'changing Paste text automatically on Home saves through General'. The cleanup switch and level rows are contributed by the AI cleanup page (M2 'Changes to the cut' 9; a12/a13, test_basic_* in test_cleanup_page.cpp). The macOS 'Set up auto-paste…' link is other-platform."
+  },
+  "A11-26": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/home_page.cpp",
+    "src/ui_settings/home_rows.h"
+   ],
+   "tests": [
+    "tests/ui_settings/test_home.cpp"
+   ],
+   "note": "test_home_has_a_personalize_card_fed_by_page_modules; link 'Dictionary, snippets, styles and commands  →' in test_links_and_buttons_open_their_destination."
+  },
+  "A11-27": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_home_rows.cpp",
+    "src/ui_settings/home_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_meeting_pages.cpp"
+   ],
+   "note": "Rows Voice & speakers (Change, accessible 'Change meeting voice and speakers'), 'Clean up the transcript', 'Write a final report', AI insights (Set up), link 'All meeting settings  →' are contributed by the meeting pages through HomeRows (M2 'Changes to the cut' 9): test_rows_and_storage_repeat_what_each_destination_reports (meeting voice half), test_links_and_buttons_open_their_destination (meeting voice half). The meeting pages themselves are a29/a31's."
+  },
+  "A11-28": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/home_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_home.cpp"
+   ],
+   "note": "'the App card follows the update and tray rules' (tray switch disabled with 'This desktop session does not provide a system tray.', notify enabled only with update checks), test_app_theme_and_meeting_report_edits_use_existing_handlers."
+  },
+  "A11-29": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/home_page.cpp",
+    "src/models/downloads_model.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_home.cpp"
+   ],
+   "note": "'the Storage card shows the inventory, its bar and the components': value, 'X of Y downloaded', the 8 px bar's five colour tokens by size, legend, 'Components · N of M installed' and the link. Backends are Parakeet only (map status)."
+  },
+  "A11-30": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/home_page.cpp",
+    "src/ui_settings/settings_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_home.cpp"
+   ],
+   "note": "test_home_and_page_changes_share_the_same_store_and_callbacks, test_failed_save_restores_home_and_allows_retry, 'a Home row whose page cannot be built saves nothing and shows the saved value', test_home_is_only_reread_while_it_shows."
+  },
+  "A11-31": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/home_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_home.cpp"
+   ],
+   "note": "'the footer names the API keys, the runtime and the download policy' over the three policies (ask first / always download / offline)."
+  },
+  "A11-32": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/home_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_home.cpp",
+    "tests/ui_settings/test_home_screenshots.cpp"
+   ],
+   "note": "Row margins (0,7,0,7), spacing 20 side by side and 8 stacked, card margins (18,13,18,8), two columns from (2*430+12) x scale: test_home_rows_fit_narrow_windows_and_large_fonts and test_cards_sit_in_two_columns_when_the_page_is_wide; the metrics themselves are pinned by the settings_home reference tree. The reference screenshot test exists; on this Linux tree its pixel half skips and its tree half fails on Windows font metrics, so it did not run to completion here."
+  },
+  "A11-33": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_settings/settings_search_palette.cpp",
+    "src/ui_settings/settings_search_source.h",
+    "src/ui_downloads/downloads_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_search_palette.cpp",
+    "tests/ui_downloads/test_downloads_search.cpp"
+   ],
+   "note": "Rebuilt on every open; per page one entry with 'crumb · subtitle', visible TileBase titles not under settingsSearch=false, field groups as 'caption: combo text', textModelFootnote as help, aliases, and unbuilt pages from their spec's searchFields/helpTexts (test_index_covers_tiles_fields_help_models_and_components, test_pages_are_searchable_before_they_are_built, test_each_page_builds_the_tiles_its_search_copy_names, test_settings_first_show_and_search_do_not_build_hidden_destinations). Models and components: decided from settings_search.py _catalog_entries, which has two branches: an unbuilt Downloads page lists the catalogs (no size, no badge), a built one lists its rows with 'Downloads · <size> · <summary>', the row's usage chip when shown and 'Downloaded' when cached, and components with 'Installed' when usable (the row's name when describe fails). M2.24 had ported only the first branch; the second is ported now: DownloadsPage implements SettingsSearchSource (searchEntries(), nullopt until built) and the palette asks the built page, else reads the catalogs. Tests: 'a Downloads page lists no search entries of its own until it is built', 'a built Downloads page's search entries carry sizes and badges', 'a component that cannot be described is found by its row's name', 'Settings search reads the catalogs until Downloads is built, then its rows'."
+  },
+  "A11-34": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/settings_search.cpp"
+   ],
+   "tests": [
+    "tests/appcore/test_settings_search.cpp",
+    "tests/golden/ui_qt.dialogs.settings_search.json"
+   ],
+   "note": "Casefolded token match over title, detail and keywords, ranks 0-3 then title length, caps 6/5/3 in the order Settings, Models & downloads, Help text, highlight and snippet: the four test cases and the golden replay."
+  },
+  "A11-35": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_settings/settings_search_palette.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_search_palette.cpp"
+   ],
+   "note": "Nothing tested the row itself. Added 'a result row shows its chip, snippet, tooltips and badge tones': 28 px chip, mouse-transparent row, title/detail tooltips, a help detail cut to its snippet, Downloaded -> tone ok and any other badge -> use. Highlighting is pinned by tests/appcore/test_settings_search.cpp."
+  },
+  "A11-36": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_search_palette.cpp",
+    "src/ui_settings/settings_search_palette.h"
+   ],
+   "tests": [
+    "tests/ui_settings/test_search_palette.cpp",
+    "tests/ui_settings/test_home_screenshots.cpp"
+   ],
+   "note": "640 px panel, top offset min(58) max(8), placeholder, empty texts, footer hints and 'N result(s)', footer hidden under 480 px wide or 280 px tall, click outside closes, headers unselectable, Up/Down wrap skipping headers, Enter opens, Esc keeps Settings open: 'the palette says what it found', test_arrow_keys_skip_section_headers, test_ctrl_k_opens_the_palette_and_escape_keeps_settings_open. Scrim alpha 170 over slate-rail and results max 380 px are constants read against settings_search.py; the settings_search_palette reference test exists. The reference screenshot test exists; on this Linux tree its pixel half skips and its tree half fails on Windows font metrics, so it did not run to completion here."
+  },
+  "A11-37": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_search_palette.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_search_palette.cpp"
+   ],
+   "note": "Model -> Downloads + revealModel, component -> showDownloads(component), setting -> select then reveal the tile or the named control: test_a_model_result_opens_downloads_on_that_model, test_enter_opens_the_setting_and_marks_its_tile, 'groq finds the Voice model page's server field'."
+  },
+  "A11-38": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_search_palette.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_search_palette.cpp"
+   ],
+   "note": "Same table as A11-86: test_old_window_names_still_find_their_pages and 'aliases are listed only for registered pages'."
+  },
+  "A11-39": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/general_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_app_pages.cpp",
+    "tests/ui_settings/test_page_screenshots.cpp"
+   ],
+   "note": "Tiles, keys and defaults (auto_paste True, restore_clipboard False, copy_clipboard True through keys.inc) and the Wayland sentence: test_general_tiles_toggle_and_gate_update_notify, test_bound_controls_load_without_saving. The Hyprland dispatcher half of the description is Linux-only and not ported (comment in general_page.cpp)."
+  },
+  "A11-40": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/general_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_app_pages.cpp"
+   ],
+   "note": "'without a system tray the tray tile is off and says why': disabled, 'This desktop session does not provide a system tray.', loaded False."
+  },
+  "A11-41": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/general_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_app_pages.cpp"
+   ],
+   "note": "'the update switches save and tell the app' and test_general_tiles_toggle_and_gate_update_notify: four tiles, notify enabled only while checks are on, check/notify/beta changes call notifyChanged('updates'). release_track_changed is the updater's own reaction to the saved key (a16)."
+  },
+  "A11-42": {
+   "status": "other-platform",
+   "reason": "macOS Accessibility status row and its 1000 ms poll; the Windows product has no Accessibility gate for auto-paste."
+  },
+  "A11-43": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/microphone_section.cpp",
+    "src/ui_settings/recording_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_microphones.cpp"
+   ],
+   "note": "The Recording page hosts MicrophoneSection; see A11-60 to A11-68 and A11-100."
+  },
+  "A11-44": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_settings/recording_page.cpp",
+    "src/appcore/retention_policy.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_retention.cpp",
+    "tests/appcore/test_rail_values.cpp"
+   ],
+   "note": "Keyboard tracking off and the usage caption text were tested; nothing pinned the three modes, the 1..1000 and 10..1048576 MB ranges, the 100 MB step and ' MB' suffix, the shared 156 x scale width or which spin is enabled. Added 'the retention controls offer OpenWhisper's modes and ranges'."
+  },
+  "A11-45": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/recording_page.cpp",
+    "src/appcore/retention_policy.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_retention.cpp",
+    "tests/appcore/test_rail_values.cpp"
+   ],
+   "note": "Enter/focus-out commits, 800 ms debounced steps, unchanged limits do nothing, a shrink asks 'Delete N saved recording(s)?' (Yes/Cancel, default Cancel), Cancel reloads, Yes persists mode and counts together then set_retention, re-entry guarded: the test_settings_retention_commit cases and the golden retention confirmation."
+  },
+  "A11-46": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/recording_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_app_pages.cpp"
+   ],
+   "note": "'the live preview switch drops the legacy streaming keys': streaming_enabled saved with LEGACY_STREAMING_KEYS removed in one update, then streamingSettingsChanged. The description names Parakeet only (map status)."
+  },
+  "A11-47": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/appearance_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_app_pages.cpp"
+   ],
+   "note": "test_combo_lists_every_theme_and_persists_the_choice and test_combo_persists_the_chosen_percent (90/100/115/130), then the theme and font-scale signals. 'Omarchy desktop' is the Linux-only part."
+  },
+  "A11-48": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/appearance_page.cpp",
+    "src/ui_overlay/recording_look_preview.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_app_pages.cpp",
+    "tests/ui_settings/test_page_screenshots.cpp"
+   ],
+   "note": "test_settings_loads_saves_and_pushes_the_look, test_settings_loads_the_label_switches, 'loading the Appearance page saves nothing and tells the app nothing' (activated, not index change). The renderer is a07's."
+  },
+  "A11-49": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_settings/appearance_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_app_pages.cpp"
+   ],
+   "note": "Layout save and push were tested (test_settings_loads_saves_and_pushes_the_preview_layout); the size spin's 10..48 range, ' pt' suffix and default 16 were not. Added 'the live preview text size spans 10 to 48 pt from 16'."
+  },
+  "A11-50": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/walkthroughs_page.cpp",
+    "src/ui_hotkeys/standard_hotkeys.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_walkthroughs_page.cpp",
+    "tests/ui_hotkeys/test_shortcut_rows.cpp"
+   ],
+   "note": "Shortcut rows shared with Hotkeys, Copy tile with five formats (default pdf), Document tiles, AI write-up tiles with the '(not installed)' agent names and Follow notes gated on the write-up: the cases in test_walkthroughs_page.cpp and 'the three rows are the Hotkeys page's, word for word'. Walkthrough behaviour itself is a22/a23's."
+  },
+  "A11-51": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_personalize/cleanup_page.cpp",
+    "src/ui_personalize/cleanup_model_section.cpp",
+    "src/ui_personalize/cleanup_gates.cpp",
+    "src/ui_personalize/cleanup_settings.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_cleanup_page.cpp",
+    "tests/ui_personalize/test_cleanup_agent_choice.cpp",
+    "tests/ui_personalize/test_cleanup_model_section.cpp"
+   ],
+   "note": "The AI cleanup page is registered into the dialog from src/ui_personalize (a12/a13 own its content): switch, Light/Medium/High/Custom bar with Custom disabled until a prompt exists, custom prompt saved on focus-out, Open editor… and Remove custom prompt with their confirmations, gate tiles 'Turn on (<Level>)': the test_personalize_s2_settings cases in test_cleanup_page.cpp. Fixed its cleanup model section: 'Who runs AI cleanup' (the AgentPicker with agent discovery) now sits above the Cleanup model tile, which holds the agent's model catalog, the endpoint picker and the thinking level (A15-49; test_cleanup_agent_choice.cpp); the picker shows behind 'Installed agent…' and applies after consent (difference a04-agent-cleanup-scope)."
+  },
+  "A11-52": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/rules_page.cpp",
+    "src/ui_personalize/profiles_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_rules_page.cpp",
+    "tests/ui_personalize/test_profiles_page.cpp"
+   ],
+   "note": "Both pages are registered from src/ui_personalize (a13 owns the content); the dialog side is the registry and namedControl, pinned by test_registry.cpp."
+  },
+  "A11-53": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/intelligence_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_intelligence_settings.cpp"
+   ],
+   "note": "Tiles 'Search past transcripts' and 'Search a knowledge folder' with meeting_past_recall_enabled and meeting_context_folder_enabled (default off), path edit 'No folder selected', Browse… and Clear: 'meeting intelligence settings put text sharing choices behind explicit switches'. Each switch sits as a labelled field ('Allow past-meeting search') in the tile, M8.7's layout. The page is registered from src/ui_meeting (a29/a31 own it); its folder flow is A11-98."
+  },
+  "A11-54": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/dashboard_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_meeting_pages.cpp",
+    "tests/ui_settings/test_meeting_pages_screenshots.cpp"
+   ],
+   "note": "Bind combo (localhost default) with the LAN warning shown only for LAN, port 0..65535 shown as Automatic, keyboard tracking off: 'the Dashboard page shows the port as Automatic and warns only for the LAN', 'a saved LAN dashboard loads with its warning and port', test_live_applied_spinboxes_commit_typed_values_once (dashboard port). Registered from src/ui_meeting."
+  },
+  "A11-55": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_downloads/hf_policy_field.cpp",
+    "src/ui_downloads/downloads_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_window.cpp"
+   ],
+   "note": "Saving hf_access_policy, dropping hf_hub_offline and on_hf_policy_changed were tested ('hf policy persists from the downloads page'); the three labels and the tooltip were not. Added 'the policy field is captioned, sized and explained as OpenWhisper's'. Downloads itself is a15's."
+  },
+  "A11-56": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_hotkeys/hotkeys_page.cpp",
+    "src/ui_hotkeys/standard_hotkeys.cpp",
+    "src/ui_settings/hotkeys_page_adapter.cpp"
+   ],
+   "tests": [
+    "tests/ui_hotkeys/test_hotkeys_page.cpp",
+    "tests/ui_hotkeys/test_capture_fields.cpp",
+    "tests/ui_hotkeys/test_bindings.cpp",
+    "tests/ui_settings/test_app_pages.cpp"
+   ],
+   "note": "The page is built in src/ui_hotkeys (M2 'Changes to the cut' 2) and registered by ui_settings: groups, standard rows with Clear, the record-mode card, Reset to defaults with its confirmation, BindingShortcuts, conflict messages: the cases in test_hotkeys_page.cpp, test_bindings.cpp and 'the Hotkeys page saves standard shortcuts through the window'. The OpenWhisper group is titled identity().product. On this Linux tree two ui_hotkeys tests fail on the Windows side-button wording and nine ui_hotkeys reference cases on font metrics (MACHINE.md); the cases cited here are not among them."
+  },
+  "A11-57": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/developer_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_app_pages.cpp",
+    "tests/ui_settings/test_meeting_pages.cpp"
+   ],
+   "note": "'Developer mode saves and tells the app' (developer_mode, default off) and 'Developer options holds the guard above Developer mode' / test_guard_defaults_off_and_persists for meeting_redecode_coverage_guard."
+  },
+  "A11-58": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp",
+    "src/appkit/settings_page_registry.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_shell.cpp",
+    "tests/ui_settings/test_registry.cpp"
+   ],
+   "note": "The dialog hosts whatever the SettingsPageRegistry holds, in rail order, and builds each on first visit (test_page_modules_are_registered_without_building_their_pages, test_uses_rail_and_independently_scrollable_pages); each page belongs to its area (Voice model and Downloads a15, Remote engine a17, MCP/Actions/Hooks a18-a20, Personalize pages a12/a13, meeting pages a29/a31). Runtime is not registered in the product (M2 'Changes to the cut' 12, A15-41 dropped); the shell tests register a stand-in for every OpenWhisper destination."
+  },
+  "A11-59": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_feature.cpp",
+    "src/ui_settings/app_pages.cpp",
+    "src/ui_settings/settings_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_feature.cpp",
+    "tests/ui_settings/test_registry.cpp"
+   ],
+   "note": "The class-level callbacks became signals (SettingsPagesSignals, SettingsDialog::settingsChanged/hotkeyCaptureSuspended) that SettingsFeature connects to the app: 'SettingsFeature connects every signal', test_notify_changed_reaches_the_injected_callback, 'capture suspension reaches the injected callback'. get_meeting_active is the meetingActive hook."
+  },
+  "A11-60": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/mic_priority.cpp",
+    "src/ui_settings/microphone_section.cpp"
+   ],
+   "tests": [
+    "tests/appcore/test_mic_priority.cpp",
+    "tests/ui_settings/test_microphones.cpp",
+    "tests/golden/ui_qt.dialogs.settings_microphones.json"
+   ],
+   "note": "audio_input_priority is the only source (first entry preferred, rest backups, empty = System default); combo items carry the json [hostapi, name] token: the golden token vectors and test_preferred_combo_lists_one_row_per_microphone_and_keeps_saved_ones."
+  },
+  "A11-61": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/mic_priority.cpp",
+    "src/ui_settings/microphone_section.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_microphones.cpp",
+    "tests/appcore/test_mic_priority.cpp",
+    "tests/golden/ui_qt.dialogs.settings_microphones.json"
+   ],
+   "note": "System default row, one row per default-host-API device, '<name> · Not connected' for saved entries once devices are known, [chosen] + others on save, Refresh beside or under the combo below 400 x scale, the description's extra sentence while empty: test_preferred_combo_lists_one_row_per_microphone_and_keeps_saved_ones, test_choosing_a_backup_as_preferred_moves_it_to_the_front, test_refresh_moves_under_the_combo_in_a_narrow_column, test_system_default_suggests_choosing_a_microphone_for_backups. The Refresh tooltip names identity().product."
+  },
+  "A11-62": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/mic_priority.cpp",
+    "src/ui_settings/microphone_section.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_microphones.cpp",
+    "tests/appcore/test_mic_priority.cpp"
+   ],
+   "note": "audio_input_device is written with the PortAudio-style index for a default-host-API device and removed otherwise: test_a_preferred_microphone_on_another_host_api_drops_the_legacy_index and 'choosing a microphone puts it first and keeps the legacy index where it can open'."
+  },
+  "A11-63": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_settings/microphone_section.cpp",
+    "src/appcore/mic_priority.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_microphones.cpp"
+   ],
+   "note": "Order, 'Not connected' state missing, 'System default · Always last' fixed row, enabled states and accessible names were tested; the 28 px flat buttons, their tooltips and the hidden-but-space-keeping Up/Down were not. Added 'backup rows carry flat 28 px buttons and keep the space of a hidden one'."
+  },
+  "A11-64": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/mic_priority.cpp",
+    "src/ui_settings/microphone_section.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_microphones.cpp",
+    "tests/golden/ui_qt.dialogs.settings_microphones.json"
+   ],
+   "note": "'Add a microphone…' / 'No other microphones found' / 'Looking for microphones…', connected devices not already ranked, disabled when empty: test_add_offers_connected_microphones_not_already_ranked and test_nothing_is_called_disconnected_before_the_device_list_arrives."
+  },
+  "A11-65": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/microphone_section.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_microphones.cpp"
+   ],
+   "note": "Listing runs on the worker with a generation token, and nothing is 'Not connected' before the first list: test_nothing_is_called_disconnected_before_the_device_list_arrives, test_a_window_closed_while_listing_microphones_is_not_held_by_the_worker, test_recording_driver_result_preserves_selection_and_gui_progress."
+  },
+  "A11-66": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/microphone_section.cpp",
+    "src/ui_settings/app_pages.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_microphones.cpp"
+   ],
+   "note": "Refused with the IN_USE text while a stream is open or a meeting runs (and while playback plays, AppPagesHooks::playbackPlaying), otherwise the backend restarts on the worker and re-lists with the button disabled: test_refresh_rereads_devices_only_while_nothing_records. PortAudio's terminate/initialise is the audio backend's refresh()."
+  },
+  "A11-67": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/microphone_section.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_microphones.cpp"
+   ],
+   "note": "test_moved_microphone_keeps_focus_and_a_second_space_moves_it_back, test_removing_a_microphone_focuses_the_row_that_takes_its_place, test_removing_the_only_backup_focuses_the_add_picker, test_a_device_refresh_keeps_focus_on_the_same_button, test_tab_order_holds_after_a_move and the other focus cases."
+  },
+  "A11-68": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/mic_priority.cpp"
+   ],
+   "tests": [
+    "tests/appcore/test_mic_priority.cpp",
+    "tests/ui_settings/test_microphones.cpp",
+    "tests/golden/ui_qt.dialogs.settings_microphones.json"
+   ],
+   "note": "'System default' or 'A → B +N' of short names, preview label short name or 'Default microphone': the golden summaries, 'the rail names the first two microphones and counts the rest', test_rail_value_reads_short_names."
+  },
+  "A11-69": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/api_keys_model.cpp",
+    "src/ui_settings/api_keys_section.cpp",
+    "src/ui_settings/typesafe_credential.cpp"
+   ],
+   "tests": [
+    "tests/appcore/test_api_keys_model.cpp",
+    "tests/ui_settings/test_api_keys.cpp",
+    "tests/ui_settings/test_typesafe_credential.cpp"
+   ],
+   "note": "One row per variable '<owners joined / > · <ENV>', text-LLM owners then speech endpoints, then 'TypeSafe · TYPESAFE_API_KEY'; reload keeps the selection: 'speech-endpoint owners share one row per variable', test_lists_builtin_and_custom_credentials, 'TypeSafe is the API keys page's last credential owner'."
+  },
+  "A11-70": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/api_keys_model.cpp",
+    "src/ui_settings/api_keys_section.cpp"
+   ],
+   "tests": [
+    "tests/appcore/test_api_keys_model.cpp",
+    "tests/ui_settings/test_api_keys.cpp"
+   ],
+   "note": "Every status text, the success/warning tone and icon, masking (last 4 from 12 characters): 'the status line names where the active key comes from', the golden texts, test_environment_value_is_reported_and_shadowed_by_saved_key."
+  },
+  "A11-71": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/api_keys_model.cpp"
+   ],
+   "tests": [
+    "tests/appcore/test_api_keys_model.cpp",
+    "tests/ui_settings/test_api_keys.cpp"
+   ],
+   "note": "OPENAI, OpenRouter and TypeSafe texts and the generic 'Sent as the API key to … for transcript cleanup and meeting intelligence, and to … for API transcription.': the golden texts and test_lists_a_speech_server_key_and_what_uses_it. The API transcription clause stays because the cloud speech backend is ported (M2 'Changes to the cut' 5)."
+  },
+  "A11-72": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_settings/api_keys_section.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_api_keys.cpp"
+   ],
+   "note": "Password echo and Show/Hide were tested; the 512 limit, placeholder, input-method hints, 80x40 toggle and the hasText property behind the spaced monospace were not. Added 'the key field limits, hides and keeps input methods away from the key'."
+  },
+  "A11-73": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/api_keys_section.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_api_keys.cpp"
+   ],
+   "note": "Save enabled with a name, an available store, typed text and no test running; Test with typed or resolved key; Remove only for a stored key: test_save_stores_key_outside_settings_and_masks_it, test_unavailable_store_disables_saving_and_explains, test_environment_value_is_reported_and_shadowed_by_saved_key, 'a key test with nothing typed sends the resolved key'."
+  },
+  "A11-74": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/api_keys_section.cpp",
+    "src/credentials/validate.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_api_keys.cpp",
+    "tests/golden/services.credentials.json"
+   ],
+   "note": "validate_api_key's three messages (golden services.credentials), store set, field and Show cleared, '<Label> saved.', keys_changed: test_save_stores_key_outside_settings_and_masks_it, test_invalid_key_is_rejected_before_storage."
+  },
+  "A11-75": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/api_keys_section.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_api_keys.cpp"
+   ],
+   "note": "'Remove saved key' confirmation (default No) naming the backend and identity().product's fallback, '<Label> removed.' / 'No saved <Label> to remove.': test_declined_removal_keeps_key and test_environment_value_is_reported_and_shadowed_by_saved_key."
+  },
+  "A11-76": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/api_keys_section.cpp",
+    "tests/ui_settings/test_text_model_keys.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_api_keys.cpp",
+    "tests/ui_settings/test_shell.cpp",
+    "tests/ui_settings/test_text_model_keys.cpp"
+   ],
+   "note": "Verification on the worker with a request token, 'Testing <label>…' then '<label> works/failed: <detail>', never persisted, never echoing the key, and a closed window not held by the worker: test_test_button_reports_verdict_without_echoing_key, 'a text-model key is tested as its endpoint', 'a speech server's own key is tested as the speech server', test_a_window_closed_mid_work_is_not_held_by_the_worker."
+  },
+  "A11-77": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/api_keys_model.cpp",
+    "src/ui_settings/api_keys_section.cpp"
+   ],
+   "tests": [
+    "tests/appcore/test_api_keys_model.cpp",
+    "tests/ui_settings/test_api_keys.cpp"
+   ],
+   "note": "Available and unavailable captions (identity().product), the raw reason as 'Details: …' tooltip: the golden texts and test_unavailable_store_disables_saving_and_explains. The macOS Always Allow sentence is the other-platform branch."
+  },
+  "A11-78": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/api_keys_model.cpp",
+    "src/ui_settings/app_pages.cpp"
+   ],
+   "tests": [
+    "tests/appcore/test_api_keys_model.cpp",
+    "tests/ui_settings/test_api_keys.cpp"
+   ],
+   "note": "'None needed' or 'N of M set': the golden lists and 'each opening re-reads the keys the API keys rail counts'."
+  },
+  "A11-79": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_backup.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_settings_backup.cpp",
+    "tests/ui_settings/test_backup_screenshots.cpp"
+   ],
+   "note": "Product-carrying names (dialog titles, default file name, filter, the backup extension) follow identity() and the backup format difference a10-fvbackup-format already recorded in a10-settings-services.json; the inspect filter also accepts OpenWhisper's *.owbackup. Card texts, last-backup line, location (middle-elided), size, 'Include saved recordings and captures' checked, Create backup… with its save dialog, the excluded/privacy notices: test_manual_backup_uses_selected_path_and_reports_progress and the backup_settings_page reference test. The reference screenshot test exists; on this Linux tree its pixel half skips and its tree half fails on Windows font metrics, so it did not run to completion here."
+  },
+  "A11-80": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_backup.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_settings_backup.cpp"
+   ],
+   "note": "Product-carrying names (dialog titles, default file name, filter, the backup extension) follow identity() and the backup format difference a10-fvbackup-format already recorded in a10-settings-services.json; the inspect filter also accepts OpenWhisper's *.owbackup. Choose backup…, Restore and restart enabled only after a successful inspection, summary, location and selectable previous-data label, the restore confirmation (default No): test_restore_requires_inspection_and_explicit_confirmation, test_previous_restore_data_path_is_visible_and_selectable, 'an inspection without a path keeps the path that was picked'. The Import button beside them is FioriVoce's import of OpenWhisper data (a10 import area)."
+  },
+  "A11-81": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_backup.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_settings_backup.cpp"
+   ],
+   "note": "Summary, Off/Daily/Weekly, read-only destination with Browse…, Keep latest 1..100 ' backups' (5), Save schedule, controls disabled while off or busy, the three validation texts and the two status texts: test_automatic_backup_is_off_until_explicitly_saved, test_schedule_rejects_missing_and_recording_destinations."
+  },
+  "A11-82": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_backup.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_settings_backup.cpp"
+   ],
+   "note": "idle -> busy -> progress -> finished, Cancel visible only while creating ('Cancelling…'), operation_busy_changed locking Settings: 'the lock follows what the page is doing', 'a request the coordinator refuses ends the lock with its reason', 'a backup running in the coordinator locks a page that did not start it', test_manual_backup_uses_selected_path_and_reports_progress."
+  },
+  "A11-83": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_backup.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_settings_backup.cpp",
+    "tests/ui_settings/test_backup_screenshots.cpp"
+   ],
+   "note": "Below 680 px the schedule fields go above the calendar and action rows stack when they cannot fit in the current font: 'the page lays out wide and stacks narrow', 'the action rows stack when the import button appears where it does not fit', test_backup_card_text_has_no_opaque_background_and_controls_fit."
+  },
+  "A11-84": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/backup_calendar.cpp",
+    "src/ui_history/history_calendar.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_settings_backup.cpp",
+    "tests/ui_settings/test_golden.cpp",
+    "tests/golden/ui_qt.widgets.backup_calendar.json"
+   ],
+   "note": "Monday-first grid with Saved/Planned marks, title button and month picker, Today/‹/›, legend, detail line, planned every 1 or 7 days from next_backup_at, month tint over 366 days: test_calendar_shows_saved_schedule_and_latest_backup_only, test_calendar_title_opens_picker_and_keys_move_the_month, 'the calendar's texts and month tint', golden is_planned/events/_month_counts. The slide/glide/pulse animations are the shared History calendar widgets' (a09)."
+  },
+  "A11-85": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp",
+    "src/ui_hotkeys/hotkeys_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_registry.cpp",
+    "tests/ui_hotkeys/test_hotkeys_page.cpp",
+    "tests/ui_settings/test_shell.cpp"
+   ],
+   "note": "setStandardHotkey (through the Hotkeys page's handler, building it first; the conflict and 'updated' messages are the page's), setHotkeyCaptureSuspended, notifyChanged, refreshPage, ensureAllPages, openSearch: test_registry.cpp and test_hotkeys_page.cpp. choose_cleanup_level, turn_on_cleanup and cleanup_gate_tile are the AI cleanup page's (src/ui_personalize, a12/a13); bind_remote_service is the remote engine page's (a17)."
+  },
+  "A11-86": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_search_palette.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_search_palette.cpp"
+   ],
+   "note": "_SEARCH_ALIASES word for word, except the Voice model alias no longer names Runtime, a page FioriVoce does not register (M2 'Changes to the cut' 12, map status 'wording per surviving pages'); aliases are listed only for registered pages; 'Who runs AI insights' targets meeting_agent_picker; unbuilt pages search by their spec's searchFields; _among_choices and the (title, page) de-duplication: test_old_window_names_still_find_their_pages, 'aliases are listed only for registered pages', 'a tile marked as a choice is not a setting search finds', test_pages_are_searchable_before_they_are_built."
+  },
+  "A11-87": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_shell.cpp"
+   ],
+   "note": "reject() and closeEvent save drafts asking only while visible, and a veto keeps Settings open on that page ('a draft that cannot be saved yet keeps Settings open on its page'); Enter is swallowed while a focused button takes it first; close cancels every page's capture (Home's and Profiles' through their cancelCapture)."
+  },
+  "A11-88": {
+   "status": "other-platform",
+   "reason": "macOS accessibility polling timer; FioriVoce is a Windows product and has no such timer."
+  },
+  "A11-89": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_downloads/hf_policy_field.cpp",
+    "src/ui_downloads/downloads_feature.cpp",
+    "src/ui_settings/home_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_window.cpp",
+    "tests/ui_settings/test_home.cpp"
+   ],
+   "note": "The Home footer wording per policy was tested ('the footer names the API keys, the runtime and the download policy'); nothing tested the field's caption, 300 px max width, 34 px min height or the HF_HUB_OFFLINE tooltip. Added 'the policy field is captioned, sized and explained as OpenWhisper's' in tests/ui_downloads. The download backend itself is a14/a15's."
+  },
+  "A11-90": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_meeting/meeting_home_rows.cpp",
+    "src/ui_meeting/ai_insights_copy.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_meeting_pages.cpp",
+    "tests/ui_meeting/test_ai_insights_copy.cpp"
+   ],
+   "note": "Home's AI insights line is Python's again: meeting_intelligence_home_line joins meeting_intelligence_overview's model and detail ('<provider> · <agent core>' or '<agent> · your <account> sign-in') with ' · ' and adds '. Turn it on for each meeting when you start it.'; meeting_home_rows.cpp shows it. Pinned by tests/ui_settings/test_meeting_pages.cpp 'test_rows_and_storage_repeat_what_each_destination_reports (meeting voice half)' ('openrouter/free · OpenRouter · FioriVoce. Turn it on for each meeting when you start it.') and tests/ui_meeting/test_ai_insights_copy.cpp 'Home's AI insights line names the model, then who runs it'. The rest of the row was already right (see the earlier audit)."
+  },
+  "A11-91": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/home_page.cpp",
+    "src/ui_personalize/cleanup_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_home.cpp",
+    "tests/ui_personalize/test_cleanup_page.cpp"
+   ],
+   "note": "Refresh only while Home is current (test_home_is_only_reread_while_it_shows, 'one refresh of the window re-reads Home once'), controls updated under signal blockers, microphone combo copying the Recording page's items or the saved name/'System default' ('Home names the saved microphone before the device list is read'), legend colours cycling five tokens by size. The cleanup level combo (Custom only with a custom prompt, disabled while off, SHORT_NOTES detail) and ' API key needed.' are the AI cleanup page's Home rows (cleanup_page.cpp; test_basic_level_is_disabled_while_cleanup_is_off, \"Home's cleanup status says where transcript text goes\")."
+  },
+  "A11-92": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_hotkeys/standard_hotkeys.cpp",
+    "src/ui_hotkeys/hotkeys_page.cpp",
+    "src/hotkeys/conflicts.cpp"
+   ],
+   "tests": [
+    "tests/ui_hotkeys/test_hotkeys_page.cpp",
+    "tests/ui_hotkeys/test_capture_fields.cpp",
+    "tests/ui_hotkeys/test_shortcut_rows.cpp",
+    "tests/ui_hotkeys/test_bindings.cpp"
+   ],
+   "note": "Keys, titles, descriptions and required flags of every row, groups, the walkthrough rows shared with the Walkthroughs page, STANDARD_LABELS in messages, disabled Clear with '<Title> can't be empty. Click its shortcut to change it.', accessible names, 'Reset hotkeys?' wording: 'every standard shortcut has a row on hotkeys', 'the three rows are the Hotkeys page's, word for word', 'conflicts name standard shortcuts as people read them', 'clear and confirmed reset apply immediately'. Platform defaults are settings/hotkeys (a06/a10). On this Linux tree two ui_hotkeys tests fail on the Windows side-button wording and nine ui_hotkeys reference cases on font metrics (MACHINE.md); the cases cited here are not among them."
+  },
+  "A11-93": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_hotkeys/hotkeys_page.cpp",
+    "src/ui_hotkeys/standard_hotkeys.cpp"
+   ],
+   "tests": [
+    "tests/ui_hotkeys/test_hotkeys_page.cpp",
+    "tests/ui_hotkeys/test_capture_fields.cpp"
+   ],
+   "note": "Card texts, Toggle/Push and hold items, the latch row shown only for push-and-hold, record-row descriptions per mode and latch, mode change -> recordingTriggerModeChanged, latch saves only: 'recording trigger mode loads and applies', 'double tap switch shows for push and hold and saves', 'saved latch state loads with the page'. Home's own wording is pinned by 'the shortcut row says what the record shortcut does'. On this Linux tree two ui_hotkeys tests fail on the Windows side-button wording and nine ui_hotkeys reference cases on font metrics (MACHINE.md); the cases cited here are not among them."
+  },
+  "A11-94": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_hotkeys/hotkeys_page.cpp",
+    "src/ui_hotkeys/hotkey_capture.cpp",
+    "src/ui_hotkeys/hotkey_bindings.cpp",
+    "src/ui_hotkeys/profile_hotkey_input.cpp"
+   ],
+   "tests": [
+    "tests/ui_hotkeys/test_hotkeys_page.cpp",
+    "tests/ui_hotkeys/test_capture_fields.cpp",
+    "tests/ui_hotkeys/test_bindings.cpp"
+   ],
+   "note": "Capture start suspends hotkeys, stale capture results ignored, Escape cancels, side buttons apply while capturing, 'Hotkey Capture Failed', conflict check and messages, profile clash ValueError, save through the app's registration, cleared/updated messages, BindingShortcuts signals: 'a result from an earlier capture is ignored', 'a failed capture says so and keeps the shortcut', 'standard hotkey conflicts match any spelling and profiles', 'a profile whose shortcut a standard change would take refuses the save', 'a binding capture stops a standard one', and the capture-field cases. The capture machinery is a06's. On this Linux tree two ui_hotkeys tests fail on the Windows side-button wording and nine ui_hotkeys reference cases on font metrics (MACHINE.md); the cases cited here are not among them."
+  },
+  "A11-95": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/cleanup_page.cpp",
+    "src/ui_personalize/cleanup_settings.cpp",
+    "src/ui_personalize/cleanup_gates.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_cleanup_page.cpp"
+   ],
+   "note": "Enabling saves then notifies, dependent tiles gated, Styles refreshed, tile texts, 'Remove your custom prompt?' with a declined switch re-selecting Custom, empty or preset text removing the key, editor seeded from the text or preset, Remove enabled while a prompt exists, gate button 'Turn on (<Level>)': test_declining_keeps_the_custom_prompt, test_empty_or_built_in_text_removes_the_prompt, test_the_editor_starts_from_the_levels_instructions, test_cleanup_toggle_gates_the_prompt_and_rule_tiles, test_cleanup_turned_on_on_its_own_page_unlocks_styles. Owned by a12/a13 (src/ui_personalize)."
+  },
+  "A11-96": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/walkthroughs_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_walkthroughs_page.cpp",
+    "tests/ui_settings/test_walkthroughs_screenshots.cpp"
+   ],
+   "note": "Titles, descriptions, group intros, placeholders and the agent scan relabelling ('<name> (not installed)', one scan when none is cached): 'the page lists its groups and tiles as OpenWhisper's does', 'the Agent combo names the agents the scan did not find', 'the page starts one scan when none is cached, and none when one is'. The reference screenshot test exists; on this Linux tree its pixel half skips and its tree half fails on Windows font metrics, so it did not run to completion here."
+  },
+  "A11-97": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/dashboard_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_meeting_pages.cpp",
+    "tests/ui_settings/test_meeting_pages_screenshots.cpp"
+   ],
+   "note": "Group Access tile 'Who can open the dashboard' (world-blue.svg) with its description, meetingBindWarning text shown only for LAN, group Port tile 'Dashboard port' (compact) with its description: the Dashboard cases in test_meeting_pages.cpp and the settings_meeting_dashboard reference test. The reference screenshot test exists; on this Linux tree its pixel half skips and its tree half fails on Windows font metrics, so it did not run to completion here."
+  },
+  "A11-98": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_meeting/intelligence_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_meeting_knowledge_folder.cpp"
+   ],
+   "note": "The knowledge-folder flow follows settings_dialog.py:3814-3844: Browse starts at the field's folder only when it is a directory, else at the home folder; the chosen path is saved normalised (QDir::cleanPath + native separators, os.path.normpath); both keys are saved through the dialog's persistMany, so a failure says 'Couldn't save settings: <error>'. Pinned by tests/ui_settings/test_meeting_knowledge_folder.cpp 'a knowledge folder that cannot be saved says why in the dialog' (a missing folder starts at home, the failed save's message, then a trailing-slash choice saved normalised with the switch on). Starting at an existing folder is read in code."
+  },
+  "A11-99": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_settings/app_pages.cpp",
+    "src/ui_overlay/recording_look_preview.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_app_pages.cpp"
+   ],
+   "note": "Nothing tested the preview recorder the App pages build. Added 'the look preview's recorder uses the saved microphones and a scratch file': device_priority is the saved audio_input_priority and output_file is RecordingLookPreview::previewPath() in the temp folder (<product>_overlay_preview.wav)."
+  },
+  "A11-100": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_settings/microphone_section.cpp",
+    "src/appcore/mic_priority.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_microphones.cpp",
+    "tests/appcore/test_mic_priority.cpp",
+    "tests/golden/ui_qt.dialogs.settings_microphones.json"
+   ],
+   "note": "Refresh outcomes, the busy message, save-then-signal with re-render on failure, the no-op while loading, 'Not connected' only after the list, Add ignoring ranked entries and resetting to its placeholder were tested (golden section rules, test_up_down_and_remove_save_the_new_order, test_refresh_rereads_devices_only_while_nothing_records); the backup tile's description was not. The new 'backup rows carry flat 28 px buttons…' test pins 'FioriVoce moves down this list, even in the middle of a dictation.' (identity().product)."
+  },
+  "A11-101": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_backup.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_settings_backup.cpp"
+   ],
+   "note": "Tile descriptions, 'No backup selected' then 'Inspecting backup…', the schedule caption (identity().product), summary lines 'Automatic backups are off' / 'Next backup: when the app is idle' / 'Next backup: <date>', 'Choose automatic backup folder', Cancel, field captions: 'the schedule summary says when the next backup is due', test_restore_requires_inspection_and_explicit_confirmation, test_manual_backup_uses_selected_path_and_reports_progress. The '<Daily|Weekly> backups enabled' branch is coded but unreachable in both apps, since next_backup_at always returns a time while a frequency is set."
+  },
+  "A11-102": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_backup.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_settings_backup.cpp",
+    "tests/ui_settings/test_golden.cpp"
+   ],
+   "note": "Backup created/saved-with-error/Warnings, 'Backup failed: …', inspect failure in both labels, 'Backup inspected. Review the contents before restoring.', the inspection summary lines, the restore confirmation, 'Restore staged. … will restart to apply it.', 'Restore could not be prepared: …', 'Could not save automatic backup settings: …', a snapshot last_error, Cancel only for operation backup/'Creating backup': test_manual_backup_uses_selected_path_and_reports_progress, test_restore_requires_inspection_and_explicit_confirmation, 'a restore request that is refused says why', golden _date_label. 'Could not load backup settings', 'Could not check backup destination' and 'Could not cancel' are coded word for word but have no test."
+  },
+  "A11-103": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/backup_calendar.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_settings_backup.cpp",
+    "tests/golden/ui_qt.widgets.backup_calendar.json"
+   ],
+   "note": "'Latest backup saved', 'Automatic backup planned', accessible names 'Backup calendar' and 'Selected backup date', detail joined by ' · ' else 'No backup shown for this date', per-day tooltip or 'No backup', 'Previous month', 'Next month', 'Go to today (T)', _month_counts: 'the calendar's texts and month tint' and the golden events/_month_counts."
+  }
+ },
+ "differences": [
+  {
+   "id": "a11-no-staged-settings-build",
+   "features": [
+    "A11-10",
+    "MW-13"
+   ],
+   "openwhisper": "SettingsDialog(staged=True) builds the window in generator steps of about 100 ms that the controller runs 2500 ms after start, one per 60 ms, retrying each second while recording or in a meeting.",
+   "fiorivoce": "The window is built when first opened and each page is built on its first visit; there is no idle builder.",
+   "reason": "Lazy pages already keep the first opening fast, and an idle builder adds a second construction path for no gain in the C++ app.",
+   "source": "docs/port/ARCHITECTURE.md 8.5 ('The Settings window's staged idle build is dropped; pages stay lazily built on first visit') and docs/port/packages/M2.md 'Changes to the cut' item 6"
+  }
+ ]
+}

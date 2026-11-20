@@ -1,0 +1,107 @@
+{
+  "package": "M1.17",
+  "files": {
+    "tests/test_personalize_fix2_g4_wayland_selection.py": {
+      "test_a_clipboard_that_cant_see_other_apps_sends_no_copy_and_writes_nothing": {"status": "ported", "cpp": "tests/clipboard/test_selection.cpp", "note": "case: a clipboard that can't see other apps' copies refuses without copying (no copy sent, nothing written, nullopt)"},
+      "test_through_data_control_the_copy_is_read_and_the_url_goes_back": {"status": "ported", "cpp": "tests/clipboard/test_selection.cpp", "note": "case: with the change count another apps copy is read and undone (kept: a clipboard that sees the copy reads it and puts the user's URL back; Wayland's data-control is not used)"},
+      "test_the_users_own_text_handed_over_again_is_not_taken_for_the_selection": {"status": "ported", "cpp": "tests/clipboard/test_selection_handover.cpp", "note": "case: the user's own text handed over again is not taken for the selection (no counter, as Python's)"},
+      "test_a_selection_equal_to_the_clipboard_still_arrives_by_the_deadline": {"status": "ported", "cpp": "tests/clipboard/test_selection_handover.cpp", "note": "case: a selection equal to the clipboard still arrives by the deadline (with Windows' change counter)"},
+      "test_only_wayland_without_data_control_hides_other_apps_copies": {"status": "ported", "cpp": "tests/clipboard/test_selection_handover.cpp", "note": "case: only wayland hides other apps' copies (kept: the non-Wayland rows; FioriVoce never uses data-control, so every Wayland row hides)"},
+      "test_the_clipboard_checks_the_desktop_itself": {
+        "status": "other-platform",
+        "reason": "Wayland data-control capability and Linux Qt startup configuration."
+      },
+      "test_linux_asks_qt_for_data_control": {
+        "status": "other-platform",
+        "reason": "Wayland data-control capability and Linux Qt startup configuration."
+      },
+      "test_a_users_own_choice_is_kept": {
+        "status": "other-platform",
+        "reason": "Wayland data-control capability and Linux Qt startup configuration."
+      },
+      "test_other_systems_are_left_alone": {"status": "other-platform", "reason": "prefer_wayland_data_control sets QT_WAYLAND_USE_DATA_CONTROL on Linux only; FioriVoce does not use Wayland data-control and sets nothing on Windows"},
+      "test_the_app_asks_before_qt_starts": {
+        "status": "other-platform",
+        "reason": "Wayland data-control capability and Linux Qt startup configuration."
+      }
+    },
+    "tests/test_clipboard.py": {
+      "test_blank_clipboard_leaves_transcript": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_nonblank_text_is_restored": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_stage_without_restore_leaves_transcript_and_keeps_no_lease": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_rich_and_custom_formats_are_restored": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp", "note": "the custom format is application/x-fiorivoce-test (lint.brand)"},
+      "test_user_clipboard_change_is_not_overwritten": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_consecutive_stages_restore_the_original_clipboard": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_cleanup_restores_pending_clipboard": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_scheduled_restore_runs_after_event_loop_turn": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_snapshot_failure_keeps_transcript_and_reports_unavailable": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_clipboard_stage_write_failure_prevents_paste": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_restore_failure_emits_warning": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_prefetched_snapshot_is_reused_when_clipboard_is_unchanged": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_prefetch_is_recaptured_when_the_clipboard_changed": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_prefetch_is_recaptured_when_the_sequence_is_unknown": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_prefetch_restores_rich_content": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_prefetch_of_a_blank_clipboard_leaves_the_transcript": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_discarded_prefetch_is_not_used": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_stage_without_restore_drops_the_prefetch": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_discard_cancels_a_prefetch_not_yet_taken": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_prefetch_is_consumed_by_one_stage": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_new_request_drops_the_previous_recordings_prefetch": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_prefetch_waits_for_the_event_loop": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_prefetch_from_another_thread_reads_on_the_qt_thread": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_prefetch_is_skipped_while_a_restore_is_pending": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_restore_after_prefetch_still_respects_a_newer_user_copy": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_prefetch_is_disabled_without_a_change_counter": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_prefetch_failure_falls_back_to_capturing_at_stage": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_cleanup_drops_the_prefetch": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_offscreen_platform_has_no_system_change_counter": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_staged_text_is_rendered_after_it_is_written": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_blank_clipboard_stage_is_rendered": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_unsnapshotted_stage_is_rendered": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_stage_without_restore_is_rendered": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_failed_stage_is_not_rendered": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_render_failure_does_not_fail_the_stage": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"},
+      "test_restore_and_plain_copy_are_not_rendered": {"status": "ported", "cpp": "tests/clipboard/test_temporary_clipboard.cpp"}
+    },
+    "tests/test_clipboard_files.py": {
+      "test_files_and_their_text_go_on_together": {"status": "ported", "cpp": "tests/clipboard/test_files.cpp"},
+      "test_text_only_has_no_file_format": {"status": "ported", "cpp": "tests/clipboard/test_files.cpp"},
+      "test_without_text_only_the_files_go_on": {"status": "ported", "cpp": "tests/clipboard/test_files.cpp"},
+      "test_an_image_goes_on_beside_the_file_and_its_path": {"status": "ported", "cpp": "tests/clipboard/test_files.cpp"},
+      "test_a_pending_paste_restore_is_dropped": {"status": "ported", "cpp": "tests/clipboard/test_files.cpp"},
+      "test_a_selection_capture_in_flight_ends_first": {"status": "ported", "cpp": "tests/clipboard/test_files.cpp"},
+      "test_no_clipboard_writes_nothing_like_write_text": {"status": "ported", "cpp": "tests/clipboard/test_files.cpp"},
+      "test_a_failed_write_keeps_the_pending_restore": {"status": "ported", "cpp": "tests/clipboard/test_files.cpp"}
+    },
+    "tests/test_personalize_s5_clipboard.py": {
+      "test_staged_html_sits_beside_the_text_and_the_ownership_marker": {"status": "ported", "cpp": "tests/clipboard/test_rich_text.cpp"},
+      "test_a_whole_html_document_is_staged_as_it_is": {"status": "ported", "cpp": "tests/clipboard/test_rich_text.cpp"},
+      "test_without_html_the_stage_is_plain_text_as_before": {"status": "ported", "cpp": "tests/clipboard/test_rich_text.cpp"},
+      "test_a_blank_clipboard_keeps_the_html": {"status": "ported", "cpp": "tests/clipboard/test_rich_text.cpp"},
+      "test_an_unreadable_clipboard_still_gets_the_html": {"status": "ported", "cpp": "tests/clipboard/test_rich_text.cpp"},
+      "test_a_failed_paste_leaves_text_and_html_without_the_marker": {"status": "ported", "cpp": "tests/clipboard/test_rich_text.cpp"},
+      "test_a_plain_commit_stays_a_plain_text_write": {"status": "ported", "cpp": "tests/clipboard/test_rich_text.cpp"},
+      "test_rich_text_is_rendered_after_it_is_written_and_only_when_staged": {"status": "ported", "cpp": "tests/clipboard/test_rich_text.cpp"},
+      "test_a_failing_rich_text_render_does_not_fail_the_stage": {"status": "ported", "cpp": "tests/clipboard/test_rich_text.cpp"},
+      "test_offscreen_platform_has_no_rich_text_renderer": {"status": "ported", "cpp": "tests/clipboard/test_rich_text.cpp"}
+    },
+    "tests/test_personalize_foundation_clipboard.py": {
+      "test_selection_is_read_and_the_clipboard_put_back_first": {"status": "ported", "cpp": "tests/clipboard/test_selection.cpp"},
+      "test_the_restored_clipboard_is_kept_for_the_next_paste": {"status": "ported", "cpp": "tests/clipboard/test_selection.cpp"},
+      "test_no_copy_within_the_timeout_reads_nothing_and_writes_nothing": {"status": "ported", "cpp": "tests/clipboard/test_selection.cpp"},
+      "test_a_failing_copy_shortcut_reads_nothing": {"status": "ported", "cpp": "tests/clipboard/test_selection.cpp"},
+      "test_a_valid_prefetch_is_the_original_that_comes_back": {"status": "ported", "cpp": "tests/clipboard/test_selection.cpp"},
+      "test_a_pending_paste_restore_runs_before_the_original_is_kept": {"status": "ported", "cpp": "tests/clipboard/test_selection.cpp"},
+      "test_a_capture_requested_off_the_qt_thread_runs_on_it": {"status": "ported", "cpp": "tests/clipboard/test_selection.cpp"},
+      "test_one_capture_at_a_time_and_a_paste_ends_one_in_flight": {"status": "ported", "cpp": "tests/clipboard/test_selection.cpp"}
+    },
+    "tests/test_personalize_fix_f2_clipboard_no_counter.py": {
+      "test_with_the_change_count_another_apps_copy_is_read_and_undone": {"status": "ported", "cpp": "tests/clipboard/test_selection.cpp"},
+      "test_without_a_counter_or_a_signal_new_text_is_still_seen_and_undone": {"status": "ported", "cpp": "tests/clipboard/test_selection.cpp"},
+      "test_without_a_counter_the_original_goes_back_even_when_nothing_was_seen": {"status": "ported", "cpp": "tests/clipboard/test_selection.cpp"},
+      "test_without_a_counter_a_copy_never_sent_writes_nothing": {"status": "ported", "cpp": "tests/clipboard/test_selection.cpp"},
+      "test_macos_reads_the_pasteboard_change_count": {"status": "dropped", "reason": "other-platform: macOS's NSPasteboard change count is not supported; fv_clipboard's posix build has no clipboard counter"},
+      "test_macos_without_appkit_yet_has_no_count_and_starts_loading_it": {"status": "dropped", "reason": "other-platform: macOS's NSPasteboard change count is not supported; fv_clipboard's posix build has no clipboard counter"}
+    }
+  }
+}

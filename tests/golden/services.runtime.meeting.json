@@ -1,0 +1,436 @@
+{
+ "module": "services.runtime.meeting",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time"
+ },
+ "functions": {
+  "redact_meeting_url": [
+   {
+    "args": [
+     null
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8765/m/secret-host-token"
+    ],
+    "result": "http://127.0.0.1:8765/<redacted>"
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8765/m/secret?history=m_1&view=report"
+    ],
+    "result": "http://127.0.0.1:8765/<redacted>"
+   },
+   {
+    "args": [
+     "HTTPS://Example.COM:9000/m/token#frag"
+    ],
+    "result": "https://Example.COM:9000/<redacted>"
+   },
+   {
+    "args": [
+     "http://[::1]:8765/m/token"
+    ],
+    "result": "http://[::1]:8765/<redacted>"
+   },
+   {
+    "args": [
+     "http://[::1:8765/m/token"
+    ],
+    "result": "<redacted>"
+   },
+   {
+    "args": [
+     "http://[127.0.0.1]:8765/m/token"
+    ],
+    "result": "<redacted>"
+   },
+   {
+    "args": [
+     "127.0.0.1:8765/m/token"
+    ],
+    "result": "<redacted>"
+   },
+   {
+    "args": [
+     "/m/token"
+    ],
+    "result": "<redacted>"
+   },
+   {
+    "args": [
+     "m/token"
+    ],
+    "result": "<redacted>"
+   },
+   {
+    "args": [
+     "file:///tmp/x"
+    ],
+    "result": "<redacted>"
+   },
+   {
+    "args": [
+     "  http://192.168.1.20:8765/m/guest-token"
+    ],
+    "result": "http://192.168.1.20:8765/<redacted>"
+   },
+   {
+    "args": [
+     "http://user:pass@host:1/m/t"
+    ],
+    "result": "http://user:pass@host:1/<redacted>"
+   }
+  ],
+  "_with_history_target": [
+   {
+    "args": [
+     "http://127.0.0.1:9000/m/secret-token?source=qt",
+     "m_review/one"
+    ],
+    "result": "http://127.0.0.1:9000/m/secret-token?source=qt&history=m_review%2Fone"
+   },
+   {
+    "args": [
+     "http://127.0.0.1:9000/m/secret-token?source=qt",
+     "m_review/one",
+     "report"
+    ],
+    "result": "http://127.0.0.1:9000/m/secret-token?source=qt&history=m_review%2Fone&view=report"
+   },
+   {
+    "args": [
+     "http://127.0.0.1:9000/m/host-token",
+     "m_selected"
+    ],
+    "result": "http://127.0.0.1:9000/m/host-token?history=m_selected"
+   },
+   {
+    "args": [
+     "http://127.0.0.1:9000/m/host-token",
+     "m_selected",
+     "report"
+    ],
+    "result": "http://127.0.0.1:9000/m/host-token?history=m_selected&view=report"
+   },
+   {
+    "args": [
+     "http://127.0.0.1:9000/m/host-token?history=old&x=1&history=older",
+     "m_new"
+    ],
+    "result": "http://127.0.0.1:9000/m/host-token?history=m_new&x=1"
+   },
+   {
+    "args": [
+     "http://127.0.0.1:9000/m/host-token?view=transcript",
+     "m_1",
+     "report"
+    ],
+    "result": "http://127.0.0.1:9000/m/host-token?view=report&history=m_1"
+   },
+   {
+    "args": [
+     "http://127.0.0.1:9000/m/host-token?view=transcript",
+     "m_1"
+    ],
+    "result": "http://127.0.0.1:9000/m/host-token?view=transcript&history=m_1"
+   },
+   {
+    "args": [
+     "http://127.0.0.1:9000/m/host-token?flag&empty=&a+b=c%20d",
+     "m 1"
+    ],
+    "result": "http://127.0.0.1:9000/m/host-token?flag=&empty=&a+b=c+d&history=m+1"
+   },
+   {
+    "args": [
+     "http://127.0.0.1:9000/m/host-token?q=caf%C3%A9&bad=%ZZ%e9",
+     "m_ü~._-"
+    ],
+    "result": "http://127.0.0.1:9000/m/host-token?q=caf%C3%A9&bad=%25ZZ%EF%BF%BD&history=m_%C3%BC~._-"
+   },
+   {
+    "args": [
+     "http://127.0.0.1:9000/m/host-token#fragment",
+     "m_1"
+    ],
+    "result": "http://127.0.0.1:9000/m/host-token?history=m_1#fragment"
+   },
+   {
+    "args": [
+     "http://127.0.0.1:9000/m/host-token?&&a=1&",
+     "m_1"
+    ],
+    "result": "http://127.0.0.1:9000/m/host-token?a=1&history=m_1"
+   }
+  ],
+  "_ended_message": [
+   {
+    "args": [
+     {},
+     "ended",
+     true
+    ],
+    "result": "Meeting ended — preparing final insights…"
+   },
+   {
+    "args": [
+     {
+      "capture_error": "Device lost"
+     },
+     "ended",
+     true
+    ],
+    "result": "Meeting ended — preparing final insights…"
+   },
+   {
+    "args": [
+     {
+      "capture_error": "Device lost"
+     },
+     "ended",
+     false
+    ],
+    "result": "Meeting ended — audio capture was incomplete; partial audio was kept in Meeting History"
+   },
+   {
+    "args": [
+     {
+      "capture_error": ""
+     },
+     "needs_recovery",
+     false
+    ],
+    "result": "Meeting ended — transcription recovery needed"
+   },
+   {
+    "args": [
+     {},
+     "needs_recovery",
+     false
+    ],
+    "result": "Meeting ended — transcription recovery needed"
+   },
+   {
+    "args": [
+     {},
+     "ended",
+     false
+    ],
+    "result": "Meeting ended"
+   },
+   {
+    "args": [
+     {},
+     "failed",
+     false
+    ],
+    "result": "Meeting ended"
+   },
+   {
+    "args": [
+     {
+      "capture_error": 0
+     },
+     "ended",
+     false
+    ],
+    "result": "Meeting ended"
+   }
+  ],
+  "_recovered_follow_up_step": [
+   {
+    "args": [
+     {
+      "spool_dir": "/s",
+      "cloud_enabled": false
+     },
+     {
+      "meeting_end_redecode": true,
+      "meeting_end_polish": true,
+      "meeting_end_report": true
+     }
+    ],
+    "result": "redecode"
+   },
+   {
+    "args": [
+     {
+      "spool_dir": "",
+      "cloud_enabled": false
+     },
+     {
+      "meeting_end_redecode": true,
+      "meeting_end_polish": true,
+      "meeting_end_report": true
+     }
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     {
+      "spool_dir": "/s",
+      "cloud_enabled": true
+     },
+     {
+      "meeting_end_redecode": false,
+      "meeting_end_polish": true,
+      "meeting_end_report": true
+     }
+    ],
+    "result": "polish"
+   },
+   {
+    "args": [
+     {
+      "spool_dir": "/s",
+      "cloud_enabled": true
+     },
+     {
+      "meeting_end_redecode": false,
+      "meeting_end_polish": false,
+      "meeting_end_report": true
+     }
+    ],
+    "result": "consolidation"
+   },
+   {
+    "args": [
+     {
+      "spool_dir": "/s",
+      "cloud_enabled": true
+     },
+     {
+      "meeting_end_redecode": false,
+      "meeting_end_polish": false,
+      "meeting_end_report": false
+     }
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     {
+      "spool_dir": null,
+      "cloud_enabled": true
+     },
+     {
+      "meeting_end_redecode": true,
+      "meeting_end_polish": true,
+      "meeting_end_report": true
+     }
+    ],
+    "result": "polish"
+   },
+   {
+    "args": [
+     {
+      "cloud_enabled": 1
+     },
+     {
+      "meeting_end_redecode": false,
+      "meeting_end_polish": true,
+      "meeting_end_report": true
+     }
+    ],
+    "result": "polish"
+   },
+   {
+    "args": [
+     {},
+     {}
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     {
+      "spool_dir": "/s"
+     },
+     {}
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     {
+      "spool_dir": "/s",
+      "cloud_enabled": true
+     },
+     {
+      "meeting_end_redecode": "yes"
+     }
+    ],
+    "result": "polish"
+   }
+  ],
+  "_require_dashboard_address": [
+   {
+    "args": [
+     {
+      "host_url": "http://127.0.0.1:8765/m/h"
+     }
+    ],
+    "result": {
+     "aborted": false
+    }
+   },
+   {
+    "args": [
+     {
+      "url": "http://127.0.0.1:8765"
+     }
+    ],
+    "result": {
+     "aborted": false
+    }
+   },
+   {
+    "args": [
+     {
+      "host_url": "",
+      "url": "http://127.0.0.1:8765"
+     }
+    ],
+    "result": {
+     "aborted": false
+    }
+   },
+   {
+    "args": [
+     {
+      "host_url": null,
+      "url": null
+     }
+    ],
+    "raises": "RuntimeError"
+   },
+   {
+    "args": [
+     {}
+    ],
+    "raises": "RuntimeError"
+   },
+   {
+    "args": [
+     {
+      "guest_url": "http://127.0.0.1:8765/m/g"
+     }
+    ],
+    "raises": "RuntimeError"
+   }
+  ]
+ }
+}

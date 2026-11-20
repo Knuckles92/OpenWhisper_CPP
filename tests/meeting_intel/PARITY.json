@@ -1,0 +1,303 @@
+{
+ "package": "M8.3, M8.5, M8.10",
+ "files": {
+  "tests/test_voice_commands.py": {
+   "test_split_wake_and_instruction_preserve_both_evidence_ids": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_commands.cpp"},
+   "test_split_wake_never_crosses_channel_or_long_gap": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_commands.cpp"},
+   "test_preview_wake_stub_and_continuation_are_joined": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_commands.cpp"},
+   "TestWakeNames::test_default_names_match_as_whole_words": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_commands.cpp", "note": "Voice tests use custom whole-word wake names; test_golden.cpp covers matching default names."},
+   "TestTopicExtraction::test_copies_phrase_after_lead_in": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_commands.cpp"},
+   "TestListener::test_cloud_off_blocks_the_remote_call": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_commands.cpp", "note": "FioriVoce restricts voice judgments to loopback even when the meeting has opted in to its agent."},
+   "test_preview_acknowledges_without_mutating_and_commit_saves_once": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_commands.cpp"},
+   "test_preview_cannot_overwrite_committed_feedback_from_a_slow_judgment": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_commands.cpp"},
+   "TestWakeNames::test_ordinary_speech_does_not_wake": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: TestWakeNames ordinary speech does not wake (OpenWhisper's default names, legacy_identity)"},
+   "TestWakeNames::test_empty_names_disable": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: TestWakeNames empty names disable"},
+   "TestTopicExtraction::test_never_invents": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: TestTopicExtraction never invents"},
+   "TestReferents::test_takes_two_recent_segments_before_command": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: TestReferents takes two recent segments before command"},
+   "TestReferents::test_skips_old_and_excluded_segments": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: TestReferents skips old and excluded segments"},
+   "TestBuildOps::test_decision_cites_referents_and_command": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: TestBuildOps decision cites referents and command (voice_command_ops is build_ops)"},
+   "TestBuildOps::test_action_and_note_cards": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: TestBuildOps action and note cards"},
+   "TestBuildOps::test_set_topic_uses_extracted_phrase_only": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: TestBuildOps set topic uses extracted phrase only"},
+   "TestBuildOps::test_nothing_to_mark_and_unsupported_commands": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: TestBuildOps nothing to mark and unsupported commands"},
+   "TestListener::test_applies_decision_as_system_actor": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: TestListener applies decision as system actor (the item's author is system/voice_command)"},
+   "TestListener::test_unnamed_segments_are_never_judged": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: TestListener unnamed segments are never judged"},
+   "TestListener::test_none_and_low_confidence_do_not_apply": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: TestListener none and low confidence do not apply"},
+   "TestListener::test_callback_receives_results": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: TestListener callback receives results (Deps::applied is on_applied)"},
+   "TestListener::test_shutdown_stops_observing": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: TestListener shutdown stops observing"},
+   "test_changed_preview_is_coalesced_while_judge_is_busy": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: changed preview is coalesced while judge is busy (a committed command on another channel holds the worker)"},
+   "test_same_segment_point_is_captured_instead_of_unrelated_previous_point": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: same segment point is captured instead of unrelated previous point"},
+   "test_preview_consent_and_shutdown_block_network_and_mutations": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: preview consent and shutdown block network and mutations; the unavailable message names the device-local model (VOICE_NEEDS_LOCAL_JUDGE), not AI insights"},
+   "test_missing_key_and_service_failure_have_visible_feedback": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: missing key and service failure have visible feedback; no device-local judge stands for the missing key"},
+   "test_committed_queue_is_bounded_without_blocking_caller": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: committed queue is bounded without blocking caller (16 accepted while the first judgment is held)"},
+   "test_consent_revoked_during_judgment_prevents_save": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: consent revoked during judgment prevents save"},
+   "test_budget_note_from_real_meeting_uses_dictation_not_prior_praise": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: budget note from real meeting uses dictation not prior praise"},
+   "test_polite_dictation_and_split_note_preamble_preserve_the_requested_content": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: polite dictation and split note preamble preserve the requested content"},
+   "test_spoken_note_is_persisted_and_broadcast_before_saved_feedback_without_an_agent": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: spoken note is persisted and broadcast before saved feedback without an agent (FakeMeetingRepository)"}
+  },
+  "tests/test_meeting_insight_review.py": {
+   "test_contradiction_overrides_high_support_and_unclear_audio": {"status": "ported", "cpp": "tests/meeting_intel/test_insight_review.cpp"},
+   "test_no_worker_or_network_without_consent": {"status": "ported", "cpp": "tests/meeting_intel/test_insight_review.cpp", "note": "The review refuses without persisted consent before obtaining a judge."},
+   "test_all_ranked_questions_survive_reload_without_confirming_items": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_all_ranked_questions_survive_reload_without_confirming_items (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_answer_updates_linked_insight_notes_and_durable_report": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_answer_updates_linked_insight_notes_and_durable_report (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_duplicate_answer_and_stale_revision_are_rejected": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_duplicate_answer_and_stale_revision_are_rejected (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_skip_reopen_and_revoking_incorrect_answer": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_skip_reopen_and_revoking_incorrect_answer (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_persistence_failure_is_atomic_and_retryable": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_persistence_failure_is_atomic_and_retryable (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_only_host_can_answer_and_only_system_can_publish": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_only_host_can_answer_and_only_system_can_publish (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_later_human_edit_supersedes_old_correction_everywhere": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_later_human_edit_supersedes_old_correction_everywhere (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_revising_offered_to_accepted_replaces_the_old_clarification": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_revising_offered_to_accepted_replaces_the_old_clarification (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_new_finalization_invalidates_open_reviews_but_preserves_human_answers": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_new_finalization_invalidates_open_reviews_but_preserves_human_answers (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_replaced_evidence_invalidates_a_question_even_at_same_item_revision": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_replaced_evidence_invalidates_a_question_even_at_same_item_revision (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_owner_clarification_requires_consistent_wording_and_updates_metadata": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_owner_clarification_requires_consistent_wording_and_updates_metadata (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_deadline_can_be_explicitly_cleared_without_becoming_a_fact": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_deadline_can_be_explicitly_cleared_without_becoming_a_fact (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_explicit_consent_and_enabled_are_both_required": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_explicit_consent_and_enabled_are_both_required (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_setting_defaults_ignore_legacy_question_limit": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_setting_defaults_ignore_legacy_question_limit (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_cloud_revocation_does_not_leave_a_review_pending": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_cloud_revocation_does_not_leave_a_review_pending (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_master_switch_revocation_prevents_the_next_http_request": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_master_switch_revocation_prevents_the_next_http_request (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_malformed_probability_is_unavailable": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_malformed_probability_is_unavailable (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_shared_client_failures_are_review_unavailable": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_shared_client_failures_are_review_unavailable (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_partial_failure_keeps_successful_checks": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_partial_failure_keeps_successful_checks (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_background_start_is_nonblocking_and_duplicate_start_is_rejected": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_background_start_is_nonblocking_and_duplicate_start_is_rejected (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_high_scores_keep_inferred_separate_from_human_confirmation": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_high_scores_keep_inferred_separate_from_human_confirmation (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_missing_evidence_does_not_invent_a_score_from_network": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_missing_evidence_does_not_invent_a_score_from_network (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_context_includes_later_resolution_in_chronological_order": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_context_includes_later_resolution_in_chronological_order (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_changed_insight_is_not_scored_by_a_stale_worker": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_changed_insight_is_not_scored_by_a_stale_worker (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_changed_transcript_discards_old_assessment": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_changed_transcript_discards_old_assessment (the real run_insight_review over a FakeJudge answering each asked question)"},
+   "test_timeout_never_exposes_provider_or_key": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_shared_client_failures_are_review_unavailable (a judge that throws 'secret provider body', times out (no answer) or answers a non-probability leaves the item unchecked: status failed, the retry sentence, no 'secret' anywhere in the state)"},
+   "test_master_switch_off_blocks_review_even_with_review_consent": {"status": "ported", "cpp": "tests/meeting_intel/test_intel_settings.cpp", "note": "case: the review is enabled only with its consent and the master switch (typesafe_enabled false turns enabled off)"},
+   "test_http_client_rejects_missing_consent_before_network": {"status": "ported", "cpp": "tests/meeting_intel/test_insight_review.cpp", "note": "case: insight review requires its own recorded opt-in. The consent is checked by the store's review_begin (review_disabled) before a judge is obtained, so no request is made; FioriVoce's judge interface carries no consent of its own"},
+   "test_review_uses_shared_model_transport_and_tls_bundle": {"status": "dropped", "reason": "Pins the TypeSafe/OpenRouter HTTPS client (endpoint, key header, TLS bundle, route key names). FioriVoce runs insight review only on a device-local judge (a29-local-meeting-judgments, a30-dashboard-local-judgments); instead tests/meeting_intel/test_insight_review.cpp 'insight review never submits a meeting to a non-local judge', test_review_worker.cpp 'insight review without a local judge names what to choose' and test_local_judgments.cpp 'insight review on a local model'"},
+   "test_review_runs_over_openrouter_when_that_route_is_chosen": {"status": "dropped", "reason": "Pins the TypeSafe/OpenRouter HTTPS client (endpoint, key header, TLS bundle, route key names). FioriVoce runs insight review only on a device-local judge (a29-local-meeting-judgments, a30-dashboard-local-judgments); instead tests/meeting_intel/test_insight_review.cpp 'insight review never submits a meeting to a non-local judge', test_review_worker.cpp 'insight review without a local judge names what to choose' and test_local_judgments.cpp 'insight review on a local model'"},
+   "test_review_without_the_chosen_routes_key_names_that_key": {"status": "dropped", "reason": "Pins the TypeSafe/OpenRouter HTTPS client (endpoint, key header, TLS bundle, route key names). FioriVoce runs insight review only on a device-local judge (a29-local-meeting-judgments, a30-dashboard-local-judgments); instead tests/meeting_intel/test_insight_review.cpp 'insight review never submits a meeting to a non-local judge', test_review_worker.cpp 'insight review without a local judge names what to choose' and test_local_judgments.cpp 'insight review on a local model'"}
+  },
+  "tests/test_meeting_custom_report.py": {
+   "TestCorpus::test_lines_carry_the_clock_and_the_speaker": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp"},
+   "TestCorpus::test_named_participants_replace_the_channel_label": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp"},
+   "TestCorpus::test_empty_lines_are_dropped": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp"},
+   "TestCorpus::test_search_ranks_by_overlap_and_returns_time_order": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp"},
+   "TestCorpus::test_a_query_of_only_stop_words_asks_for_real_terms": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp"},
+   "TestCorpus::test_window_reads_a_stretch_and_reports_an_empty_one": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp"},
+   "TestCorpus::test_a_long_transcript_keeps_its_edges_and_marks_the_gap": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp"},
+   "TestCorpus::test_the_digest_carries_qualifiers_the_report_must_not_drop": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp"},
+   "TestCorpus::test_the_prompt_pastes_a_short_transcript_whole": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp"},
+   "TestCorpus::test_the_prompt_points_a_long_meeting_at_the_read_tools": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp"},
+   "TestCorpus::test_an_empty_meeting_says_so_instead_of_inviting_invention": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp"},
+   "TestCorpus::test_the_title_comes_from_the_document_then_the_request": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp"},
+   "TestGeneration::test_one_turn_becomes_the_report": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "the model turns are canned Chat Completions replies served by an SseProvider on 127.0.0.1, where Python replaces services.text_generation.generate"},
+   "TestGeneration::test_read_tools_run_and_their_results_come_back": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp"},
+   "TestGeneration::test_a_failing_tool_does_not_sink_the_report": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp"},
+   "TestGeneration::test_the_last_round_takes_the_tools_away_and_asks_for_the_report": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp"},
+   "TestGeneration::test_a_wrapping_code_fence_is_stripped": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp"},
+   "TestGeneration::test_an_empty_answer_is_reported_not_stored": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp"},
+   "TestGeneration::test_a_transport_failure_becomes_a_readable_message": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "the endpoint answers 401 (an error the client does not retry and that is not a TextGenerationError), where Python's patched generate raises RuntimeError"},
+   "TestGeneration::test_the_request_is_validated_before_any_model_call": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp"},
+   "TestGeneration::test_past_meeting_recall_is_offered_only_when_it_is_enabled": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp"},
+   "TestLifecycle::test_a_successful_run_publishes_through_the_store": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "ReportDeps::generator and an inline Executor stand for Python's generator and run_in_thread=False"},
+   "TestLifecycle::test_a_rejected_claim_never_reaches_the_model": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp"},
+   "TestLifecycle::test_a_failing_pass_leaves_a_readable_failure_not_a_stuck_record": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp"},
+   "TestLifecycle::test_a_run_whose_report_was_discarded_publishes_nothing": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp"},
+   "TestLifecycle::test_the_worker_runs_off_the_caller_thread": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "the thread is named fv-meeting-custom-report (checked on Windows); Python's is meeting-custom-report"}
+  },
+  "tests/test_installed_agent_core.py": {
+   "test_a_report_through_an_installed_agent": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "ReportDeps::agent_task stands for the patched run_agent_task"},
+   "test_a_report_from_a_missing_agent_says_so": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp"}
+  },
+  "tests/test_meeting_reinsight.py": {
+   "TestGuards::test_unknown_meeting_rejected": {"status": "ported", "cpp": "tests/meeting/test_refinalize_intelligence.cpp", "note": "case of the same name; OpenWhisper's rerun_insights is the consolidation step of rerun_finalization here (what the dashboard's re-run and the desktop retry call)"},
+   "TestGuards::test_meeting_without_transcript_rejected": {"status": "ported", "cpp": "tests/meeting/test_refinalize_intelligence.cpp", "note": "case of the same name; the ValueError is recorded on the consolidation step, as OpenWhisper's _retry_consolidation records it, and no agent is built"},
+   "TestHappyPath::test_ops_land_and_persist": {"status": "ported", "cpp": "tests/meeting/test_refinalize_intelligence.cpp", "note": "case of the same name; OpenWhisper's rerun_insights is the consolidation step of rerun_finalization here (what the dashboard's re-run and the desktop retry call)"},
+   "TestHappyPath::test_agent_receives_full_transcript_and_prompt": {"status": "ported", "cpp": "tests/meeting/test_refinalize_intelligence.cpp", "note": "case of the same name; the copilot charter reaches every core's config"},
+   "TestHappyPath::test_existing_state_is_preserved_and_protected": {"status": "ported", "cpp": "tests/meeting/test_refinalize_intelligence.cpp", "note": "case of the same name; OpenWhisper's rerun_insights is the consolidation step of rerun_finalization here (what the dashboard's re-run and the desktop retry call)"},
+   "TestFailure::test_agent_error_is_reported_not_raised": {"status": "ported", "cpp": "tests/meeting/test_refinalize_intelligence.cpp", "note": "case of the same name; OpenWhisper's rerun_insights is the consolidation step of rerun_finalization here (what the dashboard's re-run and the desktop retry call)"},
+   "TestFailure::test_core_creation_failure_is_reported": {"status": "ported", "cpp": "tests/meeting/test_refinalize_intelligence.cpp", "note": "case of the same name; OpenWhisper's rerun_insights is the consolidation step of rerun_finalization here (what the dashboard's re-run and the desktop retry call)"},
+   "TestFailure::test_core_that_fails_to_start_is_still_shut_down": {"status": "ported", "cpp": "tests/meeting/test_refinalize_intelligence.cpp", "note": "case of the same name, both passes, each called on the provider by itself"},
+   "TestReadTools::test_offline_host_exposes_context_folder_search": {"status": "ported", "cpp": "tests/meeting_intel/test_store_tool_host.cpp", "note": "the StoreToolHost is built directly; Python reaches it through rerun_insights (M8.10)"},
+   "TestReadTools::test_offline_host_checks_evidence_like_a_live_one": {"status": "ported", "cpp": "tests/meeting_intel/test_store_tool_host.cpp", "note": "the StoreToolHost is built directly over a FakeMeetingRepository holding sg_1; Python reaches it through rerun_insights (M8.10)"}
+  },
+  "tests/test_meeting_context_folder.py": {
+   "TestConsent::test_disabled_when_setting_is_off": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_context_folder.cpp"
+   },
+   "TestConsent::test_missing_folder_is_disabled": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_context_folder.cpp"
+   },
+   "TestConsent::test_empty_path_is_disabled": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_context_folder.cpp"
+   },
+   "TestSearch::test_recursive_text_ranking_and_relative_paths": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_context_folder.cpp"
+   },
+   "TestSearch::test_empty_query_asks_for_input": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_context_folder.cpp"
+   },
+   "TestSearch::test_clamps_limit_and_snippet": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_context_folder.cpp"
+   },
+   "TestSearch::test_sanitizes_sg_ids_and_keeps_untrusted_text": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_context_folder.cpp"
+   },
+   "TestSlice::test_returns_passage_for_relative_path": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_context_folder.cpp"
+   },
+   "TestSlice::test_rejects_traversal_and_absolute_paths": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_context_folder.cpp"
+   },
+   "TestSafety::test_skips_hidden_dirs_and_symlinks": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_context_folder.cpp",
+    "note": "skipped where the account cannot create a symbolic link (Windows without Developer Mode), as Python skips on WinError 1314; the hidden-folder half also runs without a link"
+   },
+   "TestSafety::test_skips_binary_and_oversized_files": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_context_folder.cpp",
+    "note": "the oversized file is one byte over the real 2 MiB cap, where Python patches MAX_FILE_BYTES to 64"
+   },
+   "TestSafety::test_skips_encrypted_and_malformed_pdfs": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_context_folder.cpp",
+    "note": "reads the fixture PDFs with PDFium from FIORIVOCE_TEST_PDFIUM and skips without it (Python makes the encrypted PDF with pypdf in the test)"
+   },
+   "TestPackaging::test_extractors_import_and_are_listed_in_the_spec": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_context_folder.cpp",
+    "note": "PyInstaller packaging has no counterpart: the Office readers are compiled in (each reads its fixture) and PDFium is the unpublished pdfium component"
+   },
+   "TestExtraction::test_docx_pptx_xlsx_and_plain_text": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_context_folder.cpp"
+   },
+   "TestExtraction::test_cache_refreshes_when_file_changes": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_context_folder.cpp"
+   }
+  },
+  "tests/test_meeting_recall.py": {
+   "TestRecallConsent::test_disabled_when_setting_is_off": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_recall.cpp"
+   },
+   "TestRecallConsent::test_missing_repository_is_disabled": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_recall.cpp"
+   },
+   "TestRecallSearch::test_excludes_current_meeting_and_omits_sg_ids": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_recall.cpp"
+   },
+   "TestRecallSearch::test_empty_query_asks_for_input": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_recall.cpp"
+   },
+   "TestRecallSearch::test_clamps_limit_and_snippet": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_recall.cpp"
+   },
+   "TestRecallSearch::test_sanitizes_sg_ids_embedded_in_transcript_text": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_recall.cpp"
+   },
+   "TestRecallSlice::test_rejects_current_meeting_id": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_recall.cpp"
+   },
+   "TestRecallSlice::test_returns_opaque_slice": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_recall.cpp"
+   }
+  },
+  "tests/test_meeting_fast_features.py": {
+    "test_pulse_anchors_and_question_sources_are_copied_not_generated": {"status": "ported", "cpp": "tests/meeting_intel/test_live_highlights.cpp", "note": "Two synthetic local-judge cases check the published pulse offset and exact quoted transcript text for highlights, questions and suggested answers."},
+   "test_question_radar_keeps_answers_as_suggestions_and_respects_dismissal": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_live_highlights.cpp",
+    "note": "A fake device-local judge returns both decisions. The stored suggestion and new question are copied from exact transcript passages."
+   },
+   "test_pulse_assessment_preserves_window_scores_and_source_ranking": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_live_highlights.cpp",
+    "note": "A fake local judgment produces a stored pulse with exact transcript provenance and a complete source ranking."
+   },
+   "test_verifier_annotations_do_not_change_claim_status_or_revision": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_citations.cpp"
+   },
+   "test_new_features_require_explicit_opt_in": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_semantic_search.cpp"
+   },
+   "test_semantic_ranking_and_failure_fallback": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_semantic_search.cpp"
+   },
+   "test_semantic_without_a_key_names_the_chosen_routes_key": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_semantic_search.cpp"
+   },
+   "test_semantic_disabled_never_reads_remote_candidates": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_semantic_search.cpp"
+   },
+   "test_semantic_rechecks_meeting_consent_before_sending": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_semantic_search.cpp"
+   },
+   "test_minute_worker_is_nonblocking_bounded_and_deduplicates": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: minute worker is nonblocking bounded and deduplicates"},
+   "test_minute_consent_revoked_in_flight_discards_answers": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: minute consent revoked in flight discards answers (Deps::enabled)"},
+   "test_minute_disabled_never_calls_remote": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: minute disabled never calls remote (feature and consent off are Deps::enabled; a judge not on this computer is never asked)"},
+   "test_minute_discards_source_changed_during_request": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: minute discards source changed during request"},
+   "test_request_budget_with_dense_minute_and_full_inbox": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: request budget with dense minute and full inbox (the request the worker sent, under MAX_STATE_CHARS 24,000)"},
+   "test_source_ranking_uses_complete_distribution_and_handles_ties": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: source ranking uses complete distribution and handles ties"},
+   "test_source_options_save_every_evaluated_passage_in_full": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: source options save every evaluated passage in full"},
+   "test_verifier_failure_and_missing_evidence_are_advisory": {"status": "ported", "cpp": "tests/meeting_intel/test_citation_queue.cpp", "note": "case: verifier failure and missing evidence are advisory (a host user note stands for verifier.invalidate())"},
+   "test_verifier_queue_checks_oldest_first_and_refreshes_queued_items": {"status": "ported", "cpp": "tests/meeting_intel/test_citation_queue.cpp", "note": "case: verifier queue checks oldest first and refreshes queued items"},
+   "test_verifier_rejects_stale_revision_and_changed_source": {"status": "ported", "cpp": "tests/meeting_intel/test_citation_queue.cpp", "note": "case: verifier rejects stale revision and changed source"},
+   "test_no_advisory_writes_when_no_checks_exist": {"status": "ported", "cpp": "tests/meeting_intel/test_citation_queue.cpp", "note": "case: no advisory writes when no checks exist"},
+   "test_spoken_correction_roundtrips_and_removal_undoes": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: spoken correction roundtrips and removal undoes (correction_op is voice_command_ops(\"fix_transcript\"))"},
+   "test_spoken_correction_without_source_or_replacement_is_rejected": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: spoken correction without source or replacement is rejected"}
+  },
+  "tests/test_text_judge.py": {
+   "test_semantic_search_ranks_every_meeting_only_when_the_judge_is_local": {
+    "status": "ported",
+    "cpp": "tests/meeting_intel/test_semantic_search.cpp",
+    "note": "over llm::FakeJudge marked local or hosted, where Python builds a TextModelJudge on a local and a hosted profile"
+   },
+   "test_live_highlights_from_a_local_model": {"status": "ported", "cpp": "tests/meeting_intel/test_local_judgments.cpp", "note": "case: live highlights from a local model (TextModelJudge on a 127.0.0.1 profile over http::FakeHttpClient)"},
+   "test_citation_check_from_a_local_model": {"status": "ported", "cpp": "tests/meeting_intel/test_local_judgments.cpp", "note": "case: citation check from a local model"},
+   "test_voice_command_from_a_local_model": {"status": "ported", "cpp": "tests/meeting_intel/test_local_judgments.cpp", "note": "case: voice command from a local model"},
+   "test_insight_review_on_a_local_model": {"status": "ported", "cpp": "tests/meeting_intel/test_local_judgments.cpp", "note": "case: insight review on a local model (run_insight_review asks the text model; Python calls JudgeReviewer.evaluate)"},
+   "test_final_highlight_pass_goes_newest_first_with_the_judges_budget": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: final highlight pass goes newest first with the judges budget"}
+  },
+  "tests/test_live_signals_lifecycle.py": {
+   "test_busy_worker_retains_all_completed_minutes": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: busy worker retains all completed minutes (a held judgment keeps the worker busy)"},
+   "test_silence_advances_check_and_duplicate_does_not_call_again": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: silence advances check and duplicate does not call again"},
+   "test_late_channel_rechecks_the_earlier_minute": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: late channel rechecks the earlier minute"},
+   "test_revised_evidence_is_checked_again_and_old_pulse_removed": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: revised evidence is checked again and old pulse removed (number, takeaway)"},
+   "test_failed_live_request_can_be_retried_after_a_late_arrival": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: failed live request can be retried after a late arrival"},
+   "test_final_check_includes_short_meeting_and_partial_last_minute": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: final check includes short meeting and partial last minute"},
+   "test_final_checks_obey_total_request_budget": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: final checks obey total request budget (a real clock: 0.15 s budget, a 0.2 s judgment)"},
+   "test_final_results_are_discarded_if_consent_is_revoked": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: final results are discarded if consent is revoked; the feature switch and OpenWhisper's cloud consent are one Deps::enabled, since a device-local judge needs no AI insights consent"},
+   "test_only_final_system_pulses_can_write_after_end": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: only final system pulses can write after end"},
+   "test_final_pulses_persist_and_broadcast": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: final pulses persist and broadcast (number, takeaway; FakeMeetingRepository)"},
+   "test_final_check_does_not_send_in_ineligible_state": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: final check does not send in ineligible state"},
+   "test_shutdown_during_request_discards_result_and_pending_windows": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: shutdown during request discards result and pending windows (shutdown clears the waiting minutes, as Python's does)"},
+   "test_clearer_definitions_preserve_threshold_and_real_evidence": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: clearer definitions preserve threshold and real evidence (through finalize: window_request/window_ops are private)"}
+  },
+  "tests/test_typesafe_meeting_runtime.py": {
+   "test_judge_retries_initialization_failure": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: a judge whose construction failed is looked up again (the judge is looked up per judgment)"}
+  },
+  "tests/test_meeting_takeaways.py": {
+   "test_all_five_pulse_types_publish_in_one_validated_request": {"status": "ported", "cpp": "tests/meeting_intel/test_takeaways.cpp", "note": "case: test_all_five_pulse_types_publish_in_one_validated_request"},
+   "test_takeaway_is_not_requested_when_highlights_are_disabled": {"status": "ported", "cpp": "tests/meeting_intel/test_takeaways.cpp", "note": "case: test_takeaway_is_not_requested_when_highlights_are_disabled"},
+   "test_takeaway_publication_remains_system_owned": {"status": "ported", "cpp": "tests/meeting_intel/test_takeaways.cpp", "note": "case: test_takeaway_publication_remains_system_owned"},
+   "test_takeaway_replacement_does_not_leave_old_sources_or_clear_other_minutes": {"status": "ported", "cpp": "tests/meeting_intel/test_takeaways.cpp", "note": "case: test_takeaway_replacement_does_not_leave_old_sources_or_clear_other_minutes"}
+  }
+ }
+}

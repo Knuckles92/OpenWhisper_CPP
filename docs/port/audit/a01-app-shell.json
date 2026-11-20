@@ -1,0 +1,892 @@
+{
+ "area": "a01-app-shell",
+ "package": "M10 sweep",
+ "features": {
+  "A01-01": {
+   "status": "difference",
+   "difference": "a01-no-checkout-data-root",
+   "note": "The rest of the row is verified: FIORIVOCE_DATA_DIR wins when set and not empty, expanded (~), made absolute and created; else %LOCALAPPDATA%\\FioriVoce (home folder without it), ~/Library/Application Support or $XDG_DATA_HOME (a set but empty one used as is) or ~/.local/share. src/base/paths.cpp Paths::resolve; tests/base/test_paths.cpp ('the environment variable wins', 'the data directory variable is made absolute and an empty one is ignored', 'a leading tilde ...', 'frozen builds use the per user directory', 'a git checkout as the working directory is not the data root'). Folder and variable names are identity() (FioriVoce, FIORIVOCE_DATA_DIR) by the identity rule."
+  },
+  "A01-02": {
+   "status": "verified",
+   "cpp": [
+    "src/base/paths.cpp"
+   ],
+   "tests": [
+    "tests/base/test_paths.cpp"
+   ],
+   "note": "components_root() and speech_models_root() are under local_app_dir() whatever FIORIVOCE_DATA_DIR says ('components and speech models stay in the per user directory')."
+  },
+  "A01-03": {
+   "status": "difference",
+   "difference": "a01-no-checkout-data-root",
+   "note": "Paths::env_file() is <data_root>/.env, returned whether or not it exists ('the env file is in the data root even when it does not exist'); the checkout fallback is the part dropped with the checkout data root (M0.md Scope row A01-03)."
+  },
+  "A01-04": {
+   "status": "verified",
+   "cpp": [
+    "src/settings/keys.inc",
+    "src/settings/keys.cpp",
+    "src/text/cleanup_config.h",
+    "src/log/rotating_file_sink.cpp",
+    "src/ui_shell/main_window.cpp"
+   ],
+   "tests": [
+    "tests/settings/test_defaults.cpp",
+    "tests/golden/services.settings.json",
+    "tests/text/test_cleanup_prompts.cpp",
+    "tests/log/test_sinks.cpp",
+    "tests/ui_shell/test_main_window.cpp"
+   ],
+   "note": "AppConfig has no single C++ home: the settings defaults come from the generated keys.inc (golden services.settings.json), the cleanup and batch constants from text/cleanup_config.h (test_cleanup_prompts.cpp compares every one with the generated values), the log constants from the sinks (rotation at 5 MiB keeps .1 to .3), the window sizes from MainWindow (650x660 minimum, 1280 cap: 'the window carries the product name and its sizes'). The audio, hotkey, overlay, streaming and meeting constants are audited with their areas (a05, a06, a07, a04, a24-a31); the dropped engines' constants are not ported (difference a14-local-engine)."
+  },
+  "A01-05": {
+   "status": "verified",
+   "cpp": [
+    "src/settings/keys.inc",
+    "src/settings/install.cpp"
+   ],
+   "tests": [
+    "tests/settings/test_defaults.cpp",
+    "tests/settings/test_install.cpp",
+    "tests/ui_shell/test_bootstrap.cpp"
+   ],
+   "note": "Adapted as the row says: selected_model defaults to parakeet on every platform (no MLX or local_whisper fallback); a new install keeps it ('main runs startup flow and cleans up controller' reads selected_model == parakeet after startup)."
+  },
+  "A01-06": {
+   "status": "verified",
+   "cpp": [
+    "src/base/platform_info.cpp",
+    "src/base/win/platform_probe.cpp"
+   ],
+   "tests": [
+    "tests/base/test_platform_info.cpp"
+   ],
+   "note": "IsWow64Process2 native machine, then PROCESSOR_ARCHITEW6432, then PROCESSOR_ARCHITECTURE, never WMI. The fallback order and machine names are pinned by unit tests that run here; 'windows kernel reports a known architecture' is Windows-only and was not run here."
+  },
+  "A01-07": {
+   "status": "verified",
+   "cpp": [
+    "src/settings/hotkeys.cpp"
+   ],
+   "tests": [
+    "tests/settings/test_store.cpp",
+    "tests/golden/services.settings.json"
+   ],
+   "note": "Windows/Linux defaults: kp *, kp -, ctrl+alt+kp *, ctrl+alt+m, ctrl+shift+f12, the rest empty. The macOS Control+Option set is not ported (other-platform)."
+  },
+  "A01-08": {
+   "status": "verified",
+   "cpp": [
+    "src/models/speech_catalog.cpp",
+    "src/speech/api_models.h",
+    "src/speech/api_models.cpp",
+    "src/ui_widgets/speech_backend_picker.cpp"
+   ],
+   "tests": [
+    "tests/speech/test_api_models.cpp",
+    "tests/ui_widgets/test_speech_backend_picker.cpp",
+    "tests/golden/services.settings.json"
+   ],
+   "note": "Parakeet -> parakeet and Remote computer -> remote are the choices; API models gpt-transcribe (default), gpt-4o-transcribe, gpt-4o-mini-transcribe, whisper-1 with the retirement rules. Local Whisper, Qwen3-ASR, Nemotron, Moonshine, Parakeet MLX and Unified are not ported (difference a14-local-engine)."
+  },
+  "A01-09": {
+   "status": "verified",
+   "cpp": [
+    "src/text/cleanup_config.h",
+    "src/text/cleanup_config.cpp",
+    "src/text/cleanup_prompts.cpp"
+   ],
+   "tests": [
+    "tests/text/test_cleanup_prompts.cpp"
+   ],
+   "note": "Prompt text is generated from the pinned config.py (data/cleanup_prompts.json), never retyped; the test compares each level preset, the legacy and rule-polish prompts and every constant (8 s / 1 retry, 120 s / 2 retries) with the generated values. The prompts' use is a12's."
+  },
+  "A01-10": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/early_cli.cpp",
+    "src/app/main.cpp",
+    "src/cli/main.cpp",
+    "src/cli/usage.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_early_cli.cpp",
+    "tests/cli/test_cli.cpp"
+   ],
+   "note": "-h/--help as the first argument prints the usage (main.py's layout, FioriVoce's options: 'the usage names this executable's options in OpenWhisper's layout') and exits 0 before the lease, the log, Qt or a runtime. fiorivoce-cli's half ran here ('help loads neither qt nor the speech runtimes'); the fiorivoce.exe child-process test 'help prints usage and exits without opening the app' is [platform], Windows only, not run here."
+  },
+  "A01-11": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/early_cli.cpp",
+    "src/cli/main.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_early_cli.cpp",
+    "tests/cli/test_cli.cpp"
+   ],
+   "note": "Prints '<product> <version>' (FioriVoce 0.x, identity rule) and exits 0, only as the whole command line ('version is the product and the version, and only as the whole command line'; dispatch test: '--version extra' opens the app). The fiorivoce.exe child-process test is Windows only, not run here."
+  },
+  "A01-12": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/early_cli.cpp",
+    "src/cli/commands.cpp",
+    "src/log/diagnostics_report.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_early_cli.cpp",
+    "tests/cli/test_cli.cpp",
+    "tests/log/test_diagnostics.cpp"
+   ],
+   "note": "argparse's behaviour (missing path: usage and exit 2; -h; unrecognized arguments) and the refusal to overwrite are pinned in both executables ('diagnostics parses its command line as argparse does', 'diagnostics never overwrites an existing file', 'diagnostics writes a new report and never replaces a file'); an existing file gets a sentence and exit 1 where Python raised FileExistsError, the gain A01-68 allows. Report content: A01-29."
+  },
+  "A01-13": {
+   "status": "fixed",
+   "cpp": [
+    "src/app/main.cpp",
+    "src/cli/main.cpp",
+    "src/cli/api_command.cpp",
+    "src/cli/channel_command.cpp"
+   ],
+   "tests": [
+    "tests/cli/test_channel_e2e.cpp",
+    "tests/cli/channel_posix_fixture.cpp",
+    "tests/cli/test_api_command.cpp"
+   ],
+   "note": "fiorivoce.exe forwards --api and --channel to fiorivoce-cli beside it, with its own standard handles, before any window, instance check or launch gate, and exits with the CLI's code. cli.test_windowed_interpreter_speaks_over_inherited_pipes failed on Linux only because the POSIX test fixture (PosixCli in channel_posix_fixture.cpp) refused to start any program but fiorivoce-cli; it now also starts the app executable, so the test drives main.cpp's POSIX forwarder end to end and passes here. The servers themselves are a19/a20's."
+  },
+  "A01-14": {
+   "status": "dropped",
+   "reason": "--local-asr-worker, --isolated-worker and multiprocessing.freeze_support are the Python speech workers' plumbing; FioriVoce decodes in process on fv-speech (M0.md Scope row A01-14)."
+  },
+  "A01-15": {
+   "status": "verified",
+   "cpp": [
+    "src/cli/commands.cpp",
+    "src/cli/workflow_smoke.cpp",
+    "src/ui_shell/self_test.cpp",
+    "src/ui_shell/early_cli.cpp",
+    "src/app/main.cpp"
+   ],
+   "tests": [
+    "tests/cli/test_cli.cpp",
+    "tests/cli/test_workflow_smoke.cpp",
+    "tests/ui_shell/test_early_cli.cpp"
+   ],
+   "note": "Rewritten as the row allows (M0.md Scope row A01-15): fiorivoce-cli --self-test checks the data folder, the settings and the runtime folder, runs the workflow smoke and prints '<product> package self-test passed'; fiorivoce.exe --self-test-gui checks the platform plugin, the SVG icon engine and image format, the theme and the windows11 style. --workflow-smoke is fiorivoce-cli's ('workflow smoke takes at most one report path'); fiorivoce.exe refuses it with its usage line (M3.md change 6). 'the GUI self-test passes offscreen' fails on this Linux machine only because Qt here has no windows11 style plugin; the executable tests are Windows only."
+  },
+  "A01-16": {
+   "status": "other-platform",
+   "reason": "--macos-update-helper is the macOS updater's helper dispatch."
+  },
+  "A01-17": {
+   "status": "verified",
+   "cpp": [
+    "src/app/main.cpp",
+    "src/update/gates.cpp"
+   ],
+   "tests": [
+    "tests/update/test_gates.cpp"
+   ],
+   "note": "The shell's side: main() runs the gate (health check, recovery before start, LaunchGate::enter taking the app mutexes) for a GUI launch before appMain creates any Qt object, refuses the launch with exit 0 or 1, and hands the held gate to features through LaunchGateFeature. The gate's behaviour is a16's (being changed now) and pinned by test_gates.cpp; the call order in main() was read, not tested, and win/ code is not compiled here."
+  },
+  "A01-18": {
+   "status": "dropped",
+   "reason": "CUDA DLL directories, Qt ICU directories, CUDA preloading and GPU Acceleration activation are Python and PyInstaller plumbing (the NeMo runtime is loaded by path, NemoApi::get); the Linux dependency preflight is Linux desktop packaging. Component startup recovery before the first load is A14-17 (M0.md Scope row A01-18)."
+  },
+  "A01-19": {
+   "status": "fixed",
+   "cpp": [
+    "src/process/win/launcher_win.cpp",
+    "src/process/win/start_detached.cpp"
+   ],
+   "tests": [
+    "tests/process/test_console_window.cpp",
+    "tests/process/child/process_child.cpp"
+   ],
+   "note": "Code unchanged and right by reading (launcher_win.cpp: CREATE_NO_WINDOW unless spec.new_console; start_detached.cpp: DETACHED_PROCESS|CREATE_NEW_PROCESS_GROUP|CREATE_NO_WINDOW). New [platform] tests, Windows only (#ifdef _WIN32, as the other Windows tests of tests/process): fv_process_child has a 'console-window FILE' command that writes 'none' when GetConsoleWindow() is null, else 'window'; 'a program the launcher starts has no console window' (make_process_launcher, default spec), 'a program the launcher starts with pipes has no console window', 'a program start_detached starts has no console window'. Without the flag the child would share the runner's console or get one of its own, so each would read 'window'. Written and compiled on Linux only as empty cases: NOT compiled or run on Windows; the owner should run tests/process [platform] on Windows."
+  },
+  "A01-20": {
+   "status": "dropped",
+   "reason": "Null stdout/stderr streams for a windowed PyInstaller build; C stdio writes to a missing console fail silently, so there is nothing to guard (M0.md Scope row A01-20)."
+  },
+  "A01-21": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/bootstrap.cpp",
+    "src/backup/startup_gate.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_bootstrap.cpp"
+   ],
+   "note": "appMain takes the lease (applying a pending restore) before the settings or the database open; a refusal shows 'Could not safely open application data: {error} The backup restore remains pending. Close other <product> processes and start the app again.' and returns 1 ('a data folder another process restores refuses the start', 'a pending restore another process blocks refuses the start with the error box', 'normal startup holds shared lease without restore')."
+  },
+  "A01-22": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_shell/restart_tail.cpp",
+    "src/app/main.cpp",
+    "src/backup/restart.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_restart_tail.cpp",
+    "tests/backup/test_startup_gate.cpp"
+   ],
+   "note": "The tail of main() is now fv::finishRun (src/ui_shell/restart_tail.cpp); main() (src/app/main.cpp) passes the code, whether the run opened the app, a releaseGate that calls LaunchGate::release_for_setup, the executable, its DetachedStarter (backup::ProcessStarter over start_detached) and the default error box. With backup::restart_exit_code from an app run it releases the gate, then backup::spawn_restart starts the executable alone: 0 once started; 1 after showStartupError shows 'Could not restart <product>: {error} Please start <product> again manually.' (a thrown exception too, as main.py catches Exception around both); any other code, and any code of an early command, passes through with nothing released or started. Tests with a recording starter: 'a restart exit code starts the app again alone and exits 0' (release before start), 'a restart that cannot start says so and exits 1', 'a restart whose start throws says so and exits 1', 'any other exit code passes through without a restart'. Logging and the lease are released inside appMain (~Bootstrap) before the tail, unchanged."
+  },
+  "A01-23": {
+   "status": "verified",
+   "cpp": [
+    "src/app/main.cpp",
+    "src/update/code_identity.cpp"
+   ],
+   "tests": [
+    "tests/update/test_code_identity.cpp"
+   ],
+   "note": "main() calls CodeIdentity::remember_launch(exe) for a GUI launch once the gate passed, before appMain; the identity and the change detection are a16's and pinned by test_code_identity.cpp. The call itself was read in main.cpp, not tested."
+  },
+  "A01-24": {
+   "status": "fixed",
+   "cpp": [
+    "src/log/setup.cpp",
+    "src/base/log.cpp",
+    "src/log/rotating_file_sink.cpp",
+    "src/log/console_sink.cpp",
+    "src/ui_shell/bootstrap.cpp"
+   ],
+   "tests": [
+    "tests/log/test_setup.cpp",
+    "tests/log/crash_helper/main.cpp",
+    "tests/log/test_sinks.cpp",
+    "tests/base/test_log.cpp"
+   ],
+   "note": "Format, UTF-8 file, 5 MiB x 3 rotation, the console sink and FIORIVOCE_LOG_LEVEL (default INFO) were tested; nothing tested that install_app_logging puts httpx and httpcore at WARNING. The logging helper now logs httpx/httpcore INFO lines and a warning, and 'after install_app_logging, lines read ...' checks only the warning reaches the file."
+  },
+  "A01-25": {
+   "status": "verified",
+   "cpp": [
+    "src/log/crash_handler.cpp",
+    "src/log/win/crash_handler_win.cpp",
+    "src/log/posix/crash_handler_posix.cpp"
+   ],
+   "tests": [
+    "tests/log/test_crash_handler.cpp"
+   ],
+   "note": "Ported as the row says, as a native handler: <log>.crash.log (fiorivoce.crash.log, with_suffix) gets one line per crash (UTC, code, module, dump) and Windows writes a minidump of every thread to crashes\\ from fv-crash-watch; faulthandler's Python traceback has no native counterpart. The file name and the line format are tested here; the access-violation, terminate and watcher-gone tests are [platform] Windows tests, not run here."
+  },
+  "A01-26": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_shell/qt_log.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_qt_log.cpp"
+   ],
+   "note": "Code matched _install_qt_message_handler and _qt_context_suffix and nothing tested it. Added tests/ui_shell/test_qt_log.cpp: the suffix rules (' (file:line function)', None for a missing part, empty without a location) and warning/critical/info reaching logger 'qt' at WARNING/ERROR/INFO, with 'Qt message handler installed' logged once for two installs."
+  },
+  "A01-27": {
+   "status": "verified",
+   "cpp": [
+    "src/log/failure_journal.cpp",
+    "src/base/atomic_file.cpp"
+   ],
+   "tests": [
+    "tests/log/test_diagnostics.cpp",
+    "tests/log/test_golden.cpp",
+    "tests/log/test_setup.cpp"
+   ],
+   "note": "diagnostic-failures.json, 50 events, {utc, component, category, line}, never the message ('failure handler never formats message or exception'), atomic replace, write failures swallowed; component and category mapping and _failure_events replayed from Python (golden)."
+  },
+  "A01-28": {
+   "status": "verified",
+   "cpp": [
+    "src/log/metrics_capture.cpp",
+    "src/base/metrics.cpp"
+   ],
+   "tests": [
+    "tests/log/test_diagnostics.cpp",
+    "tests/log/test_golden.cpp"
+   ],
+   "note": "The 12 allowlisted names, 100 samples, finite 0..1e12, one coalescing writer, inert before logging, a stalled disk never blocks the caller, close bounded at 100 ms; _metric_samples replayed from Python."
+  },
+  "A01-29": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_shell/early_cli.cpp",
+    "src/cli/commands.cpp",
+    "src/update/install_probe.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_diagnostics_packaged.cpp",
+    "tests/cli/test_diagnostics_packaged.cpp",
+    "tests/ui_shell/test_early_cli.cpp"
+   ],
+   "note": "'packaged' (Python's sys.frozen, true for every installed build) is now update::detect_channel(probe_install(release_identity())) == Installer in both executables: the copy runs from the folder its Inno registration names. The install probe answers 'am I an installed copy'; the installed-layout check of src/cli only checks a folder's files and lives in the CLI, which fiorivoce.exe cannot link. runDiagnostics/run_diagnostics take an InstallProbe overload, so the tests make their probes by hand and read no registry: registered and running there -> true, registered elsewhere (a build tree beside an install) -> false, no registration -> false ('the diagnostics report is packaged only in its registered install folder', 'the cli diagnostics report is packaged only in its registered install folder'); the real executables in the build tree report false ('fiorivoce-cli in the build tree reports itself not packaged'; fiorivoce.exe's 'the executable in the build tree reports itself not packaged' is Windows-only and was not run here, and 'the diagnostics report of a build tree copy is not packaged' runs the probing overload in process). The registry is read only for a command line that writes a report. Difference: an unregistered copy (unpacked by hand) reports false where a frozen OpenWhisper reported true; FioriVoce ships through the setup only."
+  },
+  "A01-30": {
+   "status": "verified",
+   "cpp": [
+    "src/log/startup_profiler.cpp",
+    "src/ui_shell/bootstrap.cpp"
+   ],
+   "tests": [
+    "tests/log/test_startup_profiler.cpp",
+    "tests/ui_shell/test_bootstrap.cpp"
+   ],
+   "note": "Marks with seconds since start, '  %-32s total=%7.3fs delta=%7.3fs' from ui_qt.startup_profiler; Bootstrap marks Python's names in order and records startup_to_window_s from main_window_shown ('main runs startup flow and cleans up controller' checks one metric and the summary)."
+  },
+  "A01-31": {
+   "status": "difference",
+   "difference": "a01-single-instance-every-platform",
+   "note": "Behaviour as Python's otherwise: key sha256(normalized real path)[:16] ('golden services.ui_instance _data_key', 'spellings of one data folder share a key'), name <instance_key_prefix>-<key> from identity(), a second launch sends 'show\\n' for up to 2.0 s (0.4 s connect, 50 ms retry) and exits 0, logging '<product> is already running; bringing the existing window forward'; a lock holder that never answers still blocks; a symbolic-link lock is refused; different data folders get separate UIs. src/ui_shell/single_instance.cpp; tests/ui_shell/test_single_instance.cpp."
+  },
+  "A01-32": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/bootstrap.cpp",
+    "src/appkit/qt_bridge.cpp",
+    "src/ui_shell/single_instance.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_bootstrap.cpp"
+   ],
+   "note": "qtThreadCallback posts to the window's thread and drops the call once the window is gone ('show request from another thread runs on the qt thread', 'a show request from a later launch restores the running window'). QLocalServer answers on the GUI thread already, so Python's accept thread has no counterpart."
+  },
+  "A01-33": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_shell/bootstrap.cpp",
+    "src/ui_shell/bootstrap.h"
+   ],
+   "tests": [
+    "tests/ui_shell/test_bootstrap.cpp"
+   ],
+   "note": "The four pairs were right (kStartupSteps) but only the number of event-loop turns was tested. Added 'the splash shows the four startup steps in order', which reads the splash's status and progress at each turn."
+  },
+  "A01-34": {
+   "status": "dropped",
+   "reason": "run_with_ui_pulse exists to hide Python's import cost; a C++ binary has nothing to import. The engine and model load on fv-speech after the window shows (M1.12, CLAUDE.md: never on the GUI thread); the one blocking start-up step left, opening the database, runs on io while the splash's loop turns (Bootstrap::openDatabase). M0.md Scope row A01-34."
+  },
+  "A01-35": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/controller_feature.cpp",
+    "src/ui_setup/guided_setup_offer.cpp",
+    "src/ui_meeting/meeting_feature.cpp",
+    "src/ui_shell/bootstrap.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_startup_health_launch.cpp",
+    "tests/ui_meeting/test_meeting_startup.cpp",
+    "tests/ui_shell/test_bootstrap.cpp"
+   ],
+   "note": "The three startup steps now have tests through startup, and each behaves as bootstrap.py:309-361. (1) and (2), in the ControllerRig (ControllerFeature with SetupFeature, as Bootstrap runs them; UpdateHealthLaunch provided as Bootstrap does for a health launch): 'a normal launch shows the update error and offers setup once the window shows' (the Update failed box, the error file consumed, GuidedSetup's 750 ms offer timer started) and 'a health launch shows no update error and offers no setup, and still starts' (no box, the error file left for the next launch, no offer timer or dialog, and the engine loads: notify_main_ui_ready runs, as Python's does). (3) Through Bootstrap with Shell, History, Settings, a controller stand-in that reads the settings at mainWindowShown, and MeetingFeature: 'startup keeps an existing install's own meeting engine before the window shows' (true), 'startup makes a new install's meetings follow dictation before the window shows' (false), 'the meeting engine choice at startup is MeetingFeature's' (absent without it). The order is Python's: guided_setup_state::initialize and keep_unchosen_engine in Bootstrap::run, then keep_separate_meeting_speech in MeetingFeature::provide, all before the window. The open-items row 'Meeting toggle hotkey; keep_separate_meeting_speech at startup' can drop that half. Deliberate differences, already recorded: the backup coordinator is built in ControllerFeature::provideM3; build_settings_when_idle is gone (a11-no-staged-settings-build); MCP restore at launch is gone (a20-listener)."
+  },
+  "A01-36": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/bootstrap.cpp",
+    "src/app/main.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_bootstrap.cpp"
+   ],
+   "note": "The shell's side: on a health launch the window shows disabled, UpdateHealthLaunch is provided, and 1500 ms after the loop starts the acknowledgement runs on io; true re-enables the window, false or a throw exits 1 ('update health waits for database and the running event loop', both outcomes). Python's readiness error is the database failing to open; here that stops start-up before any window, so nothing is acknowledged ('update health is never acknowledged when the database cannot be opened'). What the acknowledgement checks (main.cpp's lambda over check_health and the update mutexes) is a16's, being changed now."
+  },
+  "A01-37": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_shell/bootstrap.cpp",
+    "src/appcore/shutdown_plan.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_bootstrap.cpp"
+   ],
+   "note": "The splash, the ShutdownPlan (the controllers' steps in A03-29's order, then the strands, the drained persistence and the database), the '='*60 lines around 'Application shutdown complete' and the profile logged before a startup error is rethrown were right and tested. Missing was _shut_down's first step, mcp_runtime.stop(wait=True): the in-app MCP listener was stopped only when the context was destroyed, after the controllers and the database had closed. Bootstrap::shutDown now stops the context's agentapi::McpServerControl, waiting, before anything else (src/ui_shell/CMakeLists.txt gains fv_agentapi). Added 'quit stops the MCP listener, waiting, before the controllers clean up'."
+  },
+  "A01-38": {
+   "status": "dropped",
+   "reason": "HF_HUB_OFFLINE is the Hugging Face Python library's switch; FioriVoce's downloads follow hf_access_policy (a14). M0.md Scope row A01-38."
+  },
+  "A01-39": {
+   "status": "verified",
+   "cpp": [
+    "src/speech/parakeet_backend.cpp"
+   ],
+   "tests": [
+    "tests/speech/test_parakeet_backend.cpp",
+    "tests/speech/test_decode_real.cpp"
+   ],
+   "note": "Adapted as the row says (M1.12): one line, once per process, 'Loaded the NeMo-Speech.cpp {CPU|GPU} runtime from {folder}', in place of the three CUDA preload wordings."
+  },
+  "A01-40": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_shell/application.cpp",
+    "src/ui_theme/tooltip_style.cpp",
+    "src/ui_theme/font_scale.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_application.cpp"
+   ],
+   "note": "Application set the names (identity().product for app, display and organization), the app icon, the snappy tooltip proxy and rounded-tooltip filter, the saved theme and font scale before the splash, and followed the OS colour scheme; nothing tested the Application itself. Added tests/ui_shell/test_application.cpp. The Linux desktop file name, the macOS bundle-name rewrite and the Omarchy environment and Fusion style are other-platform (M0.md Scope row A01-40); WidgetStyleFilter is a02's (A02-11)."
+  },
+  "A01-41": {
+   "status": "other-platform",
+   "reason": "Omarchy theme-file polling (Linux Hyprland desktop); M0.md Scope row A01-41."
+  },
+  "A01-42": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/loading_screen.cpp",
+    "src/ui_shell/loading_screen.h"
+   ],
+   "tests": [
+    "tests/ui_shell/test_loading_screen.cpp",
+    "tests/ui_shell/test_reference_screenshots.cpp"
+   ],
+   "note": "Classic variant: 450x300 frameless stay-on-top tool, translucent, centred on the primary screen's geometry, left-button drag, the 4.5 rad/s wall-clock glow on a 33 ms precise timer, defaults 'Initializing...' / 'Please wait...', 'Loading screen closed' ('the splash is a fixed frameless tool window centred on the primary screen', 'the glow follows the wall clock ...', 'closing the splash stops its glow', 'loading screen drags with left mouse'). The painting (gradient card, glow radii, five dots, mic, Segoe UI texts, the title being identity().product) is pinned by the loading_screen reference screenshots, whose pixel comparison skips off Windows; the compositor-managed variant is other-platform (M0.md Scope row A01-42)."
+  },
+  "A01-43": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_shell/title_bar.cpp",
+    "src/ui_shell/title_bar.h"
+   ],
+   "tests": [
+    "tests/ui_shell/test_title_bar.cpp",
+    "tests/ui_shell/test_main_window.cpp",
+    "tests/ui_shell/test_reference_screenshots.cpp"
+   ],
+   "note": "Height 32 growing with the font scale, the centred product title, 46 px glyph buttons with their tooltips and accessible names, maximize/restore and the notice slot were tested; edge resize is tested on the window ('an edge within eight pixels resizes and the middle does not'). Nothing tested dragging the bar or double-clicking it: added 'dragging the title bar moves the window and a double-click maximizes it'. The title_bar reference screenshots' tree half fails on this Linux machine (Segoe UI metrics), their pixel half skips."
+  },
+  "A01-44": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/shell_feature.cpp",
+    "src/ui_shell/main_window.cpp",
+    "src/appkit/order.h"
+   ],
+   "tests": [
+    "tests/ui_shell/test_main_window.cpp",
+    "tests/ui_shell/test_shell_feature.cpp"
+   ],
+   "note": "'the title bar menus hold OpenWhisper's items in order' checks File (Settings, Guided setup…, Downloads..., Hotkeys, ---, Minimize to Tray, Exit), View (History, History Calendar, Compact Mode, Host Mode, ---, Scratchpad, Stats, ---, Open Meeting Dashboard), Help (Check for Updates..., About), the shortcuts Ctrl+Q/H/Shift+D/Shift+C/Shift+H, Host Mode checkable, NoRole items; 'menu items reach the window's signals' and 'file menu downloads opens downloads' the wiring. macOS 'Quit' and the application-menu role are other-platform."
+  },
+  "A01-45": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_shell/footer_bar.cpp",
+    "src/ui_shell/footer_bar.h"
+   ],
+   "tests": [
+    "tests/ui_shell/test_main_window.cpp",
+    "tests/ui_shell/test_reference_screenshots.cpp"
+   ],
+   "note": "The reference screenshot tree pins the layout and style sheets on Windows (it fails here on Linux font metrics) but records no tooltips, and the unit tests covered labels and signals only. Added 'the footer's buttons keep OpenWhisper's sizes, gaps and tooltips' (48 px bar, (16,7,16,7) margins, 34 px buttons, minimum widths 140/80/100/100, 10 px gaps, centred, pointing-hand cursor, the three tooltips with identity().product). The compositor 'Hide' label is other-platform; the hotkey hints are tested ('update hotkeys gives the tray button its hint')."
+  },
+  "A01-46": {
+   "status": "verified",
+   "cpp": [
+    "src/appkit/screen_registry.cpp",
+    "src/ui_shell/main_window.cpp"
+   ],
+   "tests": [
+    "tests/appkit/test_screen_registry.cpp",
+    "tests/ui_shell/test_main_window.cpp"
+   ],
+   "note": "ScreenRegistry keeps the latest call per method (set_meeting_state merged, keyed calls by first argument) and replays on creation ('inactive screens stay unbuilt and keep the latest call per method', 'set_meeting_state merges dict updates', 'creation places the screen before the replay'); 'the upload tab builds its screen on first show' and 'View Host Mode lazily replaces the recording tabs' cover the window's side."
+  },
+  "A01-47": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/side_panel_host.cpp",
+    "src/ui_shell/main_window.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_side_panel.cpp",
+    "tests/ui_shell/test_main_window.cpp"
+   ],
+   "note": "Panel name and edge-tab name follow the tab (History / Past Meetings / Walkthroughs), refresh 75 ms after a tab switch only while open, the window widens by the animated width and gives it back, Ctrl+H and the edge tab toggle it, opening it leaves compact mode (tests/ui_shell/test_side_panel.cpp)."
+  },
+  "A01-48": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/page_fit.cpp",
+    "src/uimath/window_geometry.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_page_fit.cpp",
+    "tests/uimath/test_window_fit.cpp"
+   ],
+   "note": "Height follows the page for its width capped at the screen, the floor min(fit, 660), dragged and elastic heights kept, widening and handing back, scroll bar held off during the animation, refit at once on re-show (tests/ui_shell/test_page_fit.cpp). Duration and easing are the shared collapse constants (300 ms InOutCubic, a02)."
+  },
+  "A01-49": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/page_fit.cpp",
+    "src/ui_shell/main_window.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_page_fit.cpp"
+   ],
+   "note": "'a collapsed transcript syncs the other transcription tabs', 'a transcript toggled on another transcription tab moves the window by its height', 'an open transcript makes every transcription tab elastic'."
+  },
+  "A01-50": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/main_window.cpp",
+    "src/ui_controller/ui_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_stats_reveal.cpp"
+   ],
+   "note": "kStatsRevealDelayMs 350 and kStatsRevealMargin 12; the card is scrolled into view only after the delay and not when hidden meanwhile (both tests in test_stats_reveal.cpp); ui_controller connects Quick Record's and Upload's stats visibility to it."
+  },
+  "A01-51": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/main_window.cpp",
+    "src/uimath/window_geometry.cpp",
+    "src/ui_shell/compact_mode.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_main_window.cpp",
+    "tests/ui_shell/test_side_panel.cpp",
+    "tests/ui_shell/test_page_fit.cpp",
+    "tests/uimath/test_window_geometry.cpp",
+    "tests/ui_shell/test_compact_mode.cpp"
+   ],
+   "note": "500 ms debounced save, none before the first show nor while maximized/minimized ('a moved window saves its geometry half a second later', 'geometry save waits until initial show'); width without the open panel and without a page's widening ('the saved geometry leaves the open panel's width out', page-fit widening test); restore normalizes <= 680 and legacy widths, clamps to the screen (golden _clamp_geometry and _restored_width, 'restore clamps short/narrow saved geometry'). The primary-first search over intersecting screens was read (main_window.cpp applySavedGeometry); the offscreen platform has one screen, so it is not exercised."
+  },
+  "A01-52": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/compact_mode.cpp",
+    "src/ui_shell/main_window.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_compact_mode.cpp",
+    "tests/ui_shell/test_side_panel.cpp"
+   ],
+   "note": "420x250 fixed, the controller replaces the tabs, the chrome it has no room for hidden, its own x/y, Ctrl+Shift+C via the View menu, leaving on another tab or on opening the panel, persisted and restored (test_compact_mode.cpp, 12 cases)."
+  },
+  "A01-53": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_shell/main_window.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_main_window.cpp"
+   ],
+   "note": "A first Host Mode window (no saved host_window_geometry on a screen) was set to 680x680, where _restore_host_geometry grows it from where it is to max(current, 780) in each direction (config.MAIN_WINDOW_HOST_DEFAULT_WIDTH/HEIGHT; M9.md Scope row A01-53 says at least 780x780). MainWindow::setHostMode now uses kHostDefaultSize 780; added 'a first Host Mode grows the window to 780 square and names it Host', which also pins the 'FioriVoce Host' title. The swap, the disabled History and Compact items, the persisted keys and the own geometry were tested ('View Host Mode lazily replaces the recording tabs and keeps its own geometry'); leaving compact mode first was read (setHostMode calls setCompactMode(false))."
+  },
+  "A01-54": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/main_window.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_main_window.cpp"
+   ],
+   "note": "closeEvent flushes the pending tab save, hides when minimize_tray (default true, true on a read error) and a tray exists, else accepts ('close hides the window to the tray while minimize_tray is on', 'close is not hidden when system tray is unavailable')."
+  },
+  "A01-55": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/main_window.cpp",
+    "src/ui_controller/ui_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_main_window.cpp"
+   ],
+   "note": "requestQuit asks confirmQuit first ('a quit the confirmation refuses keeps the app running'), then saves geometry and QApplication::quit with forceQuit_ so closeEvent accepts; the busy-work confirmation is the controller's (M1.16)."
+  },
+  "A01-56": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/main_window.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_main_window.cpp",
+    "tests/ui_shell/test_bootstrap.cpp"
+   ],
+   "note": "Clears minimized, marks active, showNormal, syncs the title bar's maximize flag, raise, activate ('restore from tray shows a hidden window normal', 'a show request from a later launch restores the running window')."
+  },
+  "A01-57": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/main_window.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_recording_relay.cpp"
+   ],
+   "note": "Only a recording that starts brings Quick Record forward, a full-window walkthrough keeps its tab, compact keeps Quick Record, and 'Recording in progress...' / 'Ready to record' reach Quick Record and the compact controller (test_recording_relay.cpp)."
+  },
+  "A01-58": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/main_window.cpp",
+    "src/ui_history/history_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_recording_relay.cpp"
+   ],
+   "note": "'a transient status reverts to ready after two seconds' (Copied to clipboard, then Ready to record after >= 1.9 s; Entry deleted); the History panel's copy and delete call showTransientStatus with those texts."
+  },
+  "A01-59": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_presenter.cpp",
+    "src/ui_meeting/meeting_intro_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_presenter_flow.cpp",
+    "tests/ui_meeting/test_meeting_feature.cpp",
+    "tests/ui_meeting/test_meeting_intro_dialog.cpp"
+   ],
+   "note": "MeetingPresenter::scheduleIntro matches main_window.py _schedule_meeting_mode_intro/_maybe_show_meeting_mode_intro (queued on the next turn on window or tab show; skipped while hidden, locked, seen or a meeting is live), plus a FioriVoce guard for open meeting setup. Pinned: test_meeting_presenter_flow.cpp 'the first visit to the unlocked Meeting tab shows the intro once, never over meeting setup' (no intro while the tray's first-start setup is open, then once on the next visit, not again on later visits or a re-show) and 'a meeting started from the tray or the hotkey brings Meeting Mode forward' (no intro over a live meeting); test_meeting_feature.cpp test_first_visit_shows_intro_after_tab_opens, test_seen_intro_does_not_show_again, test_active_meeting_does_not_block_on_intro, test_restored_meeting_tab_shows_intro_on_first_show, test_locked_tab_waits_for_platform_ack."
+  },
+  "A01-60": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/history_feature.cpp",
+    "src/ui_history/history_calendar_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_calendar_wiring.cpp"
+   ],
+   "note": "The History feature creates the calendar once and reuses it for the sidebar and View > History Calendar ('the sidebar and menu open one calendar'), and records open above it ('records open above the calendar'); the dialogs themselves are a09's (A09-33)."
+  },
+  "A01-61": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/system_tray.cpp",
+    "src/ui_shell/shell_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_system_tray.cpp"
+   ],
+   "note": "Menu order, NoRole items, tooltip '<product>' / '<product>: update {v} available', 'Update to {v}…' hidden until set, Meeting Dashboard disabled until active, double-click restores and a single click does not, the context menu attached (test_system_tray.cpp). macOS click semantics are other-platform."
+  },
+  "A01-62": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_shell/system_tray.cpp",
+    "src/ui_shell/footer_bar.cpp",
+    "src/ui_shell/main_window.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_system_tray.cpp",
+    "tests/ui_shell/test_main_window.cpp"
+   ],
+   "note": "The hidden tray button and menu item, minimize instead of hide, close quitting and the warning line were tested; the disabled button's tooltip 'This desktop session does not provide a system tray.' was not. 'missing system tray disables tray only controls' now checks it and that the button is disabled."
+  },
+  "A01-63": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/whats_new.cpp",
+    "src/appcore/whats_new.h",
+    "src/ui_settings/whats_new_tile.cpp"
+   ],
+   "tests": [
+    "tests/appcore/test_whats_new.cpp",
+    "tests/ui_settings/test_home.cpp"
+   ],
+   "note": "FioriVoce's own note, as the row says: release_line equals the version's major.minor, updated a real date not in the future, text <= 280 code points, seen only when whats_new_seen equals updated (golden is_seen vectors). The Home tile is a11's."
+  },
+  "A01-64": {
+   "status": "verified",
+   "cpp": [
+    "src/text/app_styles.cpp",
+    "src/text/app_styles.h"
+   ],
+   "tests": [
+    "tests/text/test_app_styles.cpp"
+   ],
+   "note": "All of tests/test_personalize_s1_styles.py's style cases ported plus golden vectors for resolve_tones, resolve_overrides, category_for, style_for, prompt_block and the mutators."
+  },
+  "A01-65": {
+   "status": "fixed",
+   "cpp": [
+    "src/process/process_env.cpp",
+    "src/ui_shell/bootstrap.cpp"
+   ],
+   "tests": [
+    "tests/process/test_process_env.cpp",
+    "tests/ui_shell/test_bootstrap.cpp"
+   ],
+   "note": "set_for_app, prepend_for_app, load_for_app, external_env, drop and child_env were ported and tested (golden external_env/agent_child_env vectors, test_process_env.cpp); the PyInstaller and venv branches drop. Missing was the startup half (open item 'Nothing calls ProcessEnv::instance().adopt_dotenv...'): Python copies .env into os.environ on the first credential lookup that misses (credentials._load_dotenv_into_environ -> load_for_app), recording each key it added and each one already set to the file's value as the app's, so external_env keeps both from children. FioriVoce reads .env directly (DotEnv) and never copies it, so only the second case needs recording; Bootstrap::run now calls ProcessEnv::instance().adopt_dotenv(*state.dotenv) right after the DotEnv is built. Added 'startup keeps .env values an editor also set away from programs it starts' (a value equal to the file's is dropped for children, a different user value stays, a file-only key never enters the process)."
+  },
+  "A01-66": {
+   "status": "other-platform",
+   "reason": "Wayland and Omarchy detection (services/desktop_session.py) only changes Linux desktop behaviour; base/desktop_session.cpp keeps the probes for the shared code, tested in tests/base/test_desktop_session.cpp, but the Windows product never takes those branches."
+  },
+  "A01-67": {
+   "status": "dropped",
+   "reason": "An asyncio Proactor exception handler; FioriVoce has no asyncio. The intent (no error log for a peer reset at close) belongs to the HTTP server layer (M0.md Scope row A01-67)."
+  },
+  "A01-68": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/early_cli.cpp",
+    "src/app/main.cpp",
+    "src/cli/main.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_early_cli.cpp",
+    "tests/cli/test_cli.cpp"
+   ],
+   "note": "fiorivoce.exe: -h/--help and --diagnostics on the first argument, --version and --self-test-gui only as the whole line, --api/--channel forwarded and --workflow-smoke refused first; anything else, '--version extra' included, opens the app ('dispatch is on the first argument only'). fiorivoce-cli does the same for its modes, with unknown words a usage error of its transcribe command ('help still answers when more arguments follow', 'version is the product and the version, and only as the whole command line'). --diagnostics is argparse's (missing path: usage, exit 2; 'diagnostics parses its command line as argparse does'); an existing file gets a sentence and exit 1, the gain the row allows. --self-test is fiorivoce-cli's (A01-15), so the windowed executable opens the app for it."
+  },
+  "A01-69": {
+   "status": "verified",
+   "cpp": [
+    "src/cli/workflow_smoke.cpp",
+    "src/cli/main.cpp"
+   ],
+   "tests": [
+    "tests/cli/test_workflow_smoke.cpp"
+   ],
+   "note": "fiorivoce-cli --workflow-smoke [report.json]: the report as indented JSON in text mode, at most one path ('workflow smoke takes at most one report path', 'the saved report is indented json with text-mode line ends', 'workflow smoke without a path prints the report and saves nothing'). The smoke's content is a16's."
+  },
+  "A01-70": {
+   "status": "verified",
+   "cpp": [
+    "src/update/gates.cpp",
+    "src/app/main.cpp"
+   ],
+   "tests": [
+    "tests/update/test_gates.cpp"
+   ],
+   "note": "update::skips_launch_gate: --self-test-gui, --workflow-smoke, --version, --help and --diagnostics as the first argument skip the gate ('the first argument decides whether the gate runs'); the worker modes are gone and --self-test is fiorivoce-cli's, which has no gate. a16 owns the function."
+  },
+  "A01-71": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_shell/bootstrap.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_startup_error.cpp",
+    "tests/ui_shell/test_bootstrap.cpp"
+   ],
+   "note": "showStartupError writes '<product>: <message>' to stderr and then shows the critical box titled with the product in every build (the row's allowed change; withDefaults' errorBox swallows a Qt failure). The box half was tested through the hooks; nothing tested the stderr line. Added tests/ui_shell/test_startup_error.cpp, which captures stderr."
+  },
+  "A01-72": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_shell/restart_tail.cpp",
+    "src/app/main.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_restart_tail.cpp"
+   ],
+   "note": "Same code as A01-22: The tail of main() is now fv::finishRun (src/ui_shell/restart_tail.cpp); main() (src/app/main.cpp) passes the code, whether the run opened the app, a releaseGate that calls LaunchGate::release_for_setup, the executable, its DetachedStarter (backup::ProcessStarter over start_detached) and the default error box. With backup::restart_exit_code from an app run it releases the gate, then backup::spawn_restart starts the executable alone: 0 once started; 1 after showStartupError shows 'Could not restart <product>: {error} Please start <product> again manually.' (a thrown exception too, as main.py catches Exception around both); any other code, and any code of an early command, passes through with nothing released or started. Tests with a recording starter: 'a restart exit code starts the app again alone and exits 0' (release before start), 'a restart that cannot start says so and exits 1', 'a restart whose start throws says so and exits 1', 'any other exit code passes through without a restart'. Logging and the lease are released inside appMain (~Bootstrap) before the tail, unchanged."
+  },
+  "A01-73": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/bootstrap.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_bootstrap.cpp"
+   ],
+   "note": "'main runs startup flow and cleans up controller' checks 'Starting FioriVoce' between '='*60 rules (four rules with the shutdown's), the profiler summary, 'Application initialization complete' and 'Starting event loop'; the run-error and early-failure tests check 'Application startup failed' and the rethrow."
+  },
+  "A01-74": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/bootstrap.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_bootstrap.cpp"
+   ],
+   "note": "The instance is closed before shutDown ('main runs startup flow': run < instance_released < shutdown; 'main cleans up loading screen and controller on run error' takes the instance again afterwards). Each cleanup group is in its own try with 'Failed to cleanup loading screen' / 'Failed to cleanup controllers'; the MCP stop now comes first (A01-37)."
+  },
+  "A01-75": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_shell/bootstrap.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_bootstrap.cpp"
+   ],
+   "note": "The failed acknowledgement logged 'Could not acknowledge the update transaction.' with a period Python's line lacks; now 'Could not acknowledge the update transaction', and 'update health waits for database and the running event loop' asserts the line on the failing branch only. 'Update readiness failed' is logged with the exception when the acknowledgement throws; Python's readiness error (the database) cannot reach this point here (A01-36). The acknowledgement itself is a16's."
+  },
+  "A01-76": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/bootstrap.cpp",
+    "src/credentials/validate.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_bootstrap.cpp"
+   ],
+   "note": "The keyring is asked on io after the window shows (the store can block); an unresponsive one logs the warning and reaches ShellLifecycle::ambientStatus ('main tells the user when the keyring does not answer', 'an unresponsive keyring reaches the lifecycle's ambient status')."
+  },
+  "A01-77": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/bootstrap.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_bootstrap.cpp"
+   ],
+   "note": "Logging, then the instance check before any Qt object ('main hands off to the running ui'); guided setup's initialize and keep_unchosen_engine before the features build the window (read in Bootstrap::run; the migration's effect tested); the splash destroyed before the window shows and the activation attached right after ('main runs startup flow', 'a show request from a later launch restores the running window'). MCP's configure_controls runs as its feature provides it, and restore at launch does not exist (difference a20-listener)."
+  },
+  "A01-78": {
+   "status": "verified",
+   "cpp": [
+    "src/log/diagnostics_report.cpp",
+    "src/ui_shell/early_cli.cpp",
+    "src/cli/commands.cpp"
+   ],
+   "tests": [
+    "tests/log/test_diagnostics.cpp",
+    "tests/cli/test_cli.cpp"
+   ],
+   "note": "Adapted as the row says: selected_model only when it is a known engine, else default_or_custom; whisper_model/device/compute_type always default_or_custom (the engine is dropped); local_models the sorted unique catalog ids ('the report keeps only catalog ids among the local models, sorted and unique'); 'components' replaces 'packages' with the Qt version and the installed NeMo runtime's version ('the diagnostics report lists catalog models and the installed speech runtime'); json.dump(indent=2) plus a newline ('the export is json.dump(indent=2) and a newline, in text mode')."
+  },
+  "A01-79": {
+   "status": "dropped",
+   "reason": "pkg_resources warning filters, check_multiprocessing and importing Python packages are Python plumbing; the replacement checks the row asks for are fiorivoce.exe --self-test-gui (platform plugin, SVG icon engine and image format, the theme, the bundled icons) and fiorivoce-cli --self-test --installed (every file and library of the install), see A01-15. M0.md Scope row A01-79."
+  }
+ },
+ "differences": [
+  {
+   "id": "a01-no-checkout-data-root",
+   "features": [
+    "A01-01",
+    "A01-03",
+    "SS-09"
+   ],
+   "openwhisper": "A source run keeps its data in the working directory or the checkout when that holds openwhisper_settings.json or .git, and .env falls back to <checkout>/.env.",
+   "fiorivoce": "The data root is FIORIVOCE_DATA_DIR or the per-user folder however the program was started, and .env is only <data_root>/.env.",
+   "reason": "The checkout rule exists for `python main.py`; a compiled program has no checkout, and a working-directory rule would let a launch from another folder open different data.",
+   "source": "docs/port/ARCHITECTURE.md 3.1 'A source checkout never becomes the data root (... deliberate difference)'; docs/port/packages/M0.md Scope rows A01-01 and A01-03"
+  },
+  {
+   "id": "a01-single-instance-every-platform",
+   "features": [
+    "A01-31",
+    "MW-14"
+   ],
+   "openwhisper": "Only Linux enforces one UI per data folder (flock in $XDG_RUNTIME_DIR plus an abstract socket, both named with the uid); Windows and macOS get a no-op primary and rely on the frozen build's mutex or the Dock.",
+   "fiorivoce": "Every platform enforces it with a QLockFile in the temporary folder and a QLocalServer (a named pipe on Windows) keyed by the same data-folder hash; a second launch brings the first window forward. The lock and server names carry the account between the prefix and the key: the uid on POSIX, as OpenWhisper's Linux names do, and on Windows the first eight hex digits of the SHA-256 of the lower-case account name, so two accounts sharing one data folder do not collide.",
+   "reason": "The updater's application mutex does not bring the running window forward and does not separate data folders; one mechanism serves every platform. Windows has no uid, and its pipe names are one namespace for the whole machine.",
+   "source": "docs/port/packages/M0.md Scope row A01-31 ('M0.11 (all platforms, deliberate difference)') and the map's porting note for services/ui_instance.py; the shell sweep of 2026-11-19 (open item ui_shell/single_instance.cpp): src/ui_shell/posix/instance_user_posix.cpp, src/ui_shell/win/instance_user_win.cpp (not yet compiled on Windows), tests/ui_shell/test_sweep_instance_user.cpp ('the instance name carries the account between the prefix and the key', \"another account's lock on the same data folder does not keep this one out\")"
+  },
+  {
+   "id": "a01-packaged-registered-only",
+   "features": [
+    "A01-29"
+   ],
+   "openwhisper": "The diagnostics report's 'packaged' is sys.frozen: true for every frozen build, installed or unpacked by hand.",
+   "fiorivoce": "'packaged' is true only for a copy that runs from the folder its installer registration names; a copy unpacked by hand or run from a build tree reports false.",
+   "reason": "A native executable has no frozen flag, and FioriVoce ships through its setup only, so the registration is what marks an installed copy.",
+   "source": "docs/port/audit/a01-app-shell.json A01-29's note; src/update/install_probe.cpp, src/ui_shell/early_cli.cpp, src/cli/commands.cpp; tests/ui_shell/test_diagnostics_packaged.cpp ('the diagnostics report is packaged only in its registered install folder'), tests/cli/test_diagnostics_packaged.cpp ('fiorivoce-cli in the build tree reports itself not packaged')"
+  }
+ ]
+}

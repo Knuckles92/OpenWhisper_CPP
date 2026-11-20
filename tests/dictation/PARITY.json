@@ -1,0 +1,1905 @@
+{
+  "package": "M1.19, M1.14, M2.3, M2.16, M2.18, M4.9, M4.13, M5.3, M5.14, M6.11",
+  "files": {
+    "tests/test_automation_foundation_pipeline.py": {
+      "test_a_dictation_pastes_and_publishes_completion_and_history": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_automation_pipeline.cpp",
+        "note": "a fake AutomationPort stands in for filters.apply, StageRun, routing.decide and the mocked action runtime; History is the real one on a temporary database, so history.saved names its own row id"
+      },
+      "test_an_action_job_goes_to_the_action_not_the_cursor": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_raw_shaping_skips_ai_cleanup": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_a_filter_can_take_over_delivery_without_losing_the_words": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_an_after_cleanup_filter_replaces_the_final_text": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_a_failing_filter_keeps_the_text": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_routing_turns_a_dictation_into_an_action_job": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_no_route_or_an_unknown_action_pastes_as_usual": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_run_action_text_runs_without_recording": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_run_action_text_refusals": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_automation_pipeline.cpp",
+        "note": "RunRefused carries ControlError's code; automation answers with ControlError"
+      },
+      "test_failures_are_published": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_a_dictation_that_may_be_routed_learns_its_app_without_app_awareness": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_route_by_voice_says_when_no_action_matched": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"}
+    },
+    "tests/test_automation_fix_pipeline_control.py": {
+      "test_filters_and_routing_get_the_cancel": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_automation_pipeline.cpp",
+        "note": "the stages get the job's CancelToken, shown by cancelling the job's work after the run, where Python compares the Event object"
+      },
+      "test_canceled_words_reach_no_later_stage": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_a_program_needs_the_agent_permission_for_agents_and_channels": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_automation_pipeline.cpp",
+        "note": "RunPermissionDenied names the settings key; automation answers with permissions::PermissionDenied"
+      },
+      "test_other_actions_need_no_agent_permission": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_no_new_run_while_actions_refuse_work": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_a_program_run_never_reads_the_selection": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_a_recording_reads_the_selection_only_when_the_user_started_it": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_a_program_run_cannot_take_the_slot_from_a_recording_being_stopped": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_automation_pipeline.cpp",
+        "note": "starts, stops and runs share the UI thread here, so the run comes right after the stop claimed the slot, where Python's comes from another thread while the stop holds the capture lock"
+      },
+      "test_a_judge_failure_pastes_and_route_by_voice_says_so": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_an_empty_transcript_is_not_taken_for_a_filter_cancel": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_automation_pipeline.cpp",
+        "note": "through the pipeline (an engine that hears only spaces and a filter that answers nothing) where Python calls the private _run_filters"
+      },
+      "test_a_filter_that_empties_the_words_or_cancels_takes_delivery": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_automation_pipeline.cpp",
+        "note": "through the pipeline: the filter's take-over shows as the status and the saved, unpasted entry"
+      },
+      "test_an_empty_dictation_with_filters_reports_no_speech": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"}
+    },
+    "tests/test_automation_fix2_pipeline.py": {
+      "test_cancel_reports_a_recording_or_job_it_canceled": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_cancel_with_nothing_going_on_reports_nothing_canceled": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_no_preview_follows_the_end_of_its_recording": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_automation_pipeline.cpp",
+        "note": "appcore::PreviewThrottle on a FakeClock stands in for PreviewEvents and the quarter-second wait"
+      },
+      "test_a_held_preview_never_reaches_the_next_recording": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_previews_are_live_only": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_an_api_run_is_refused_at_once_while_a_recording_starts": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_automation_pipeline.cpp",
+        "note": "the run arrives while the recorder opens its device (inside start_recording), where Python's start holds the capture lock on another thread"
+      },
+      "test_a_transform_is_refused_at_once_while_a_recording_starts": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_a_canceled_jobs_filters_stay_canceled_after_the_next_job_claims_the_slot": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_automation_pipeline.cpp",
+        "note": "the last assertion (the cleanup client shares the job's event) has no counterpart: each cleanup pass takes the slot's current token"
+      }
+    },
+    "tests/test_automation_fix_pipeline_shaping.py": {
+      "test_a_transform_without_an_ai_provider_sends_the_cleaned_words": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_action_shaping.cpp",
+        "note": "a fake CommandCompletion refuses as CommandRuntime.rewrite_text does without a provider"
+      },
+      "test_a_transform_the_model_fails_or_refuses_sends_the_cleaned_words": {"status": "ported", "cpp": "tests/dictation/test_action_shaping.cpp"},
+      "test_an_action_deleted_while_recording_still_gets_the_words_and_history": {"status": "ported", "cpp": "tests/dictation/test_action_shaping.cpp"},
+      "test_a_routed_dictation_into_a_refusing_transform_is_not_lost": {"status": "ported", "cpp": "tests/dictation/test_action_shaping.cpp"},
+      "test_a_cancel_during_the_transform_is_still_a_cancel": {"status": "ported", "cpp": "tests/dictation/test_action_shaping.cpp"},
+      "test_a_refusal_never_drops_a_dictation_or_action_recording": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_action_shaping.cpp",
+        "note": "the refusal reaches the worker from the cleanup pass, where Python calls _refuse; the kept audio shows as the Recordings copy, acknowledged only once that copy exists"
+      },
+      "test_a_command_refusal_still_drops_its_instruction_audio": {"status": "ported", "cpp": "tests/dictation/test_action_shaping.cpp"},
+      "test_an_api_run_profile_action_says_its_formatting_failed": {"status": "ported", "cpp": "tests/dictation/test_action_shaping.cpp"},
+      "test_an_action_without_problems_has_no_notice": {"status": "ported", "cpp": "tests/dictation/test_action_shaping.cpp"},
+      "test_a_profile_dictation_still_shows_the_failure_in_its_status": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_action_shaping.cpp",
+        "note": "the recording starts with the profile, where Python sets the runtime's private profile fields"
+      },
+      "test_a_rewrite_publishes_no_selected_text": {"status": "ported", "cpp": "tests/dictation/test_action_shaping.cpp"},
+      "test_dictations_actions_and_files_keep_their_before_cleanup_text": {"status": "ported", "cpp": "tests/dictation/test_action_shaping.cpp"}
+    },
+    "tests/test_automation_fix_pipeline_lifecycle.py": {
+      "test_a_multi_file_upload_publishes_a_completion_per_saved_file": {"status": "ported", "cpp": "tests/dictation/test_automation_events.cpp"},
+      "test_a_combined_upload_publishes_one_completion": {"status": "ported", "cpp": "tests/dictation/test_automation_events.cpp"},
+      "test_an_empty_upload_says_there_was_no_speech": {"status": "ported", "cpp": "tests/dictation/test_automation_events.cpp"},
+      "test_an_empty_dictation_publishes_no_speech": {"status": "ported", "cpp": "tests/dictation/test_automation_events.cpp"},
+      "test_a_stop_refused_as_busy_publishes_recording_canceled": {"status": "ported", "cpp": "tests/dictation/test_automation_events.cpp"},
+      "test_a_failure_publishes_its_category_not_the_exception": {"status": "ported", "cpp": "tests/dictation/test_automation_events.cpp"},
+      "test_a_cancel_publishes_canceled": {"status": "ported", "cpp": "tests/dictation/test_automation_events.cpp"},
+      "test_a_refusal_publishes_its_copy": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_automation_events.cpp",
+        "note": "a Command Mode recording's completion refuses, where Python calls _refuse"
+      },
+      "test_the_builder_never_passes_free_text_as_the_error": {"status": "ported", "cpp": "tests/dictation/test_automation_events.cpp"}
+    },
+    "tests/test_automation_r2_caret_text.py": {
+      "test_only_a_job_the_user_started_reads_the_text_near_the_cursor": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_run_action_text_from_a_program_never_sees_the_text_near_the_cursor": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_automation_pipeline.cpp",
+        "note": "the words the fake port's action receives stand in for action.ran's text from the real ActionRuntime"
+      },
+      "test_a_dictation_a_program_started_never_sees_the_text_near_the_cursor": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_automation_pipeline.cpp",
+        "note": "the recording starts and stops through the runtime, where Python's _record hands the job to the slot itself"
+      },
+      "test_a_routed_dictation_a_program_started_never_sees_the_text_near_the_cursor": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_a_job_without_a_capture_is_unaffected": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"}
+    },
+    "tests/test_automation_r2_program_words_pipeline.py": {
+      "test_a_lease_cannot_rewrite_the_users_channel_action_without_the_permission": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_automation_pipeline.cpp",
+        "note": "the fake port's lease applies filters._leases_apply's rule; the channel's origin is the delivered job's program_words()"
+      },
+      "test_with_the_permission_a_leases_words_reach_claude_as_a_programs": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_a_lease_that_turns_a_dictation_into_words_for_claude_is_not_sent": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_a_dictation_a_program_started_is_not_routed_to_claude_without_the_permission": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_automation_pipeline.cpp",
+        "note": "the runtime's half: the routed words reach the action as a program's, never the cursor or the clipboard; the ActionRuntime's refusal (PROGRAM_WORDS_MESSAGE) is M5.15's"
+      },
+      "test_with_the_permission_a_program_started_dictation_reaches_claude_as_a_programs": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"}
+    },
+    "tests/test_automation_r3_busy_and_state.py": {
+      "test_a_programs_run_while_the_user_records_tells_the_user_nothing": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_a_programs_run_while_a_recording_starts_tells_the_user_nothing": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_the_users_own_rewrite_still_says_why_it_was_refused": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_the_live_state_shows_a_routed_dictation_as_its_actions_job": {"status": "dropped", "reason": "Difference a19-live-api-not-served: the live state is QtAppControl.state(), which the running app never registers. tests/agentapi/test_session_without_live_tools.cpp ('the desktop's local MCP session has no live tools') and tests/ui_controller/test_agent_changes.cpp ('the running app registers no live API control') pin what happens instead."}
+    },
+    "tests/test_automation_r3_cancel_window.py": {
+      "test_the_runtime_has_nothing_to_cancel_once_the_result_is_delivered": {"status": "ported", "cpp": "tests/dictation/test_automation_cancel.cpp"},
+      "test_an_api_cancel_while_a_delivered_job_is_saved_is_refused": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_automation_cancel.cpp",
+        "note": "app_control._cancel's check (cancelable() and cancel()) over the runtime; the ControlError is M5.16's"
+      },
+      "test_a_cancel_before_the_result_is_delivered_still_cancels_the_job": {"status": "ported", "cpp": "tests/dictation/test_automation_cancel.cpp"},
+      "test_a_failed_jobs_audio_being_kept_is_not_canceled": {"status": "ported", "cpp": "tests/dictation/test_automation_cancel.cpp"}
+    },
+    "tests/test_automation_r4_cancel_runtime.py": {
+      "test_a_second_cancel_while_recording_is_quiet": {"status": "ported", "cpp": "tests/dictation/test_automation_cancel.cpp"},
+      "test_a_second_cancel_after_the_stop_is_quiet": {"status": "ported", "cpp": "tests/dictation/test_automation_cancel.cpp"},
+      "test_a_second_cancel_while_transcribing_is_quiet": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_automation_cancel.cpp",
+        "note": "the fake engine holds the decode at its gate; the engine is told to stop through the job's cancel token, where Python counts cancel_transcription calls"
+      },
+      "test_the_api_refuses_a_second_cancel": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_automation_cancel.cpp",
+        "note": "app_control._cancel's check over the runtime; the ControlError is M5.16's"
+      },
+      "test_a_rewrite_canceled_while_it_reads_the_selection_ends_canceled": {"status": "ported", "cpp": "tests/dictation/test_automation_cancel.cpp"},
+      "test_a_cancel_after_an_upload_was_delivered_says_nothing": {"status": "ported", "cpp": "tests/dictation/test_automation_cancel.cpp"},
+      "test_cancel_while_a_pasted_dictation_is_saved_says_there_was_nothing_to_cancel": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_automation_cancel.cpp",
+        "note": "the runtime's half (its Cancel cancels and shows nothing); the controller's \"Nothing to cancel\" is M5.22's"
+      }
+    },
+    "tests/test_automation_r4_cancel_uploads.py": {
+      "test_an_upload_canceled_after_its_worker_finished_is_canceled": {"status": "ported", "cpp": "tests/dictation/test_automation_cancel.cpp"},
+      "test_a_batch_canceled_after_its_files_finished_says_canceled": {"status": "ported", "cpp": "tests/dictation/test_automation_cancel.cpp"},
+      "test_a_combined_batch_canceled_after_it_finished_says_canceled": {"status": "ported", "cpp": "tests/dictation/test_automation_cancel.cpp"},
+      "test_a_combined_batch_canceled_during_its_cleanup_keeps_the_raw_transcript": {"status": "ported", "cpp": "tests/dictation/test_automation_cancel.cpp"},
+      "test_a_batch_canceled_with_nothing_to_keep_ends_canceled": {"status": "ported", "cpp": "tests/dictation/test_automation_cancel.cpp"}
+    },
+    "tests/test_automation_actions_paste_seam.py": {
+      "test_the_answering_job_may_paste_while_it_still_holds_the_slot": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_a_routed_copy_of_the_job_counts_as_the_same_job": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_another_job_or_a_recording_still_refuses_the_paste": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"},
+      "test_without_an_active_job_any_caller_pastes": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"}
+    },
+    "tests/test_automation_r2_selection.py": {
+      "test_the_mac_reader_returns_the_selection_only_when_asked": {
+        "status": "dropped",
+        "reason": "other-platform: the macOS Accessibility reader has no milestone"
+      },
+      "test_a_long_selection_doesnt_hide_the_text_around_it_when_not_asked": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_automation_selection.cpp",
+        "note": "the Windows UI Automation reader over a hidden EDIT of the test process ([platform]), where Python drives the macOS reader over a fake Accessibility API"
+      },
+      "test_only_a_job_the_user_started_asks_for_the_selection": {"status": "ported", "cpp": "tests/dictation/test_automation_pipeline.cpp"}
+    },
+    "tests/test_automation_foundation_events.py": {
+      "test_completed_payload_for_a_file_and_for_a_job": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_event_payloads.cpp",
+        "note": "the job builders live in dictation/events.h; the other functions of the file are in tests/automation/PARITY.json"
+      }
+    },
+    "tests/test_personalize_fix_f1_latch_no_data.py": {
+      "test_a_double_tap_before_any_audio_latches_and_the_next_press_stops": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hold_runtime.cpp"
+      },
+      "test_a_lone_tap_before_any_audio_still_cancels_after_the_window": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hold_runtime.cpp"
+      },
+      "test_without_the_latch_a_tap_before_any_audio_cancels_at_once": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hold_runtime.cpp"
+      },
+      "test_a_long_hold_without_audio_stops_instead_of_leaving_the_mic_open": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hold_runtime.cpp"
+      },
+      "test_a_hold_the_cancel_shortcut_claimed_is_left_alone": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hold_runtime.cpp"
+      }
+    },
+    "tests/test_personalize_fix_f1_paste_original_keys.py": {
+      "test_the_shortcut_waits_for_its_modifiers_before_pasting": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hotkey_runtime.cpp",
+        "note": "NativeSyntheticKeys over a keyboard port whose modifiers are held, where Python patches synthetic_keys._modifier_probe"
+      },
+      "test_keys_still_held_at_the_deadline_paste_nothing_and_say_why": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hotkey_runtime.cpp"
+      },
+      "test_setup_wires_the_shortcut_through_the_wait": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hotkey_runtime.cpp",
+        "note": "the saved paste_last_original shortcut is pressed through the fake hook instead of calling the manager's stored callback"
+      },
+      "test_the_wait_runs_on_the_press_thread_not_the_caller": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hotkey_runtime.cpp"
+      }
+    },
+    "tests/test_push_hold_recording.py": {
+      "TestPushHoldRuntimeHandlers::test_long_hold_stops": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hold_runtime.cpp"
+      },
+      "TestPushHoldRuntimeHandlers::test_short_tap_cancels_without_the_hands_free_latch": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hold_runtime.cpp"
+      },
+      "TestPushHoldRuntimeHandlers::test_refused_start_makes_release_a_no_op": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hold_runtime.cpp"
+      },
+      "TestPushHoldRuntimeHandlers::test_press_during_post_roll_is_ignored": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hold_runtime.cpp"
+      },
+      "TestPushHoldRuntimeHandlers::test_previous_hold_cannot_cancel_a_profile_recording": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hold_runtime.cpp"
+      },
+      "TestPushHoldRuntimeHandlers::test_release_before_stream_open_waits_then_no_ops": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hold_runtime.cpp",
+        "note": "waits the real half second: the wait is a condition on the stream, not a patched clock"
+      },
+      "TestPushHoldRuntimeHandlers::test_release_after_cancel_hotkey_is_a_no_op": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hold_runtime.cpp"
+      },
+      "TestPushHoldRuntimeHandlers::test_set_mode_applies_to_manager_and_resets_state": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hold_runtime.cpp",
+        "note": "a press makes the held state Python sets by hand; the reset runs on the dispatcher, so the test drains it first"
+      }
+    },
+    "tests/test_personalize_s6_runtime.py": {
+      "test_a_slow_start_never_lets_its_release_run_first": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hold_runtime.cpp"
+      },
+      "test_a_second_press_soon_after_a_tap_keeps_recording": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hold_runtime.cpp"
+      },
+      "test_a_press_after_the_window_cancels_the_tap_and_starts_over": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hold_runtime.cpp"
+      },
+      "test_a_lone_tap_cancels_only_once_the_window_closes": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hold_runtime.cpp"
+      },
+      "test_without_the_latch_a_tap_cancels_at_once": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hold_runtime.cpp"
+      },
+      "test_a_long_hold_still_stops_with_the_latch_on": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hold_runtime.cpp"
+      },
+      "test_a_recording_that_ends_elsewhere_leaves_hands_free": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hold_runtime.cpp"
+      },
+      "test_a_tap_canceled_by_the_cancel_key_is_not_canceled_again": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hold_runtime.cpp"
+      },
+      "test_changing_the_trigger_mode_drops_the_latch": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hold_runtime.cpp",
+        "note": "the reset runs on the dispatcher (HoldMachine's affinity), so the test drains before checking"
+      },
+      "test_windows_key_events_latch_and_stop": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hold_runtime.cpp"
+      },
+      "test_command_keys_reach_the_controller_on_the_dispatcher_thread": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hotkey_runtime_families.cpp"
+      },
+      "test_transform_shortcuts_register_beside_profiles_and_skip_conflicts": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hotkey_runtime_families.cpp",
+        "note": "the real HotkeyManager over FakeKeyboardHook where Python records the families on a stub manager; the transforms are saved settings"
+      },
+      "test_a_broken_transform_library_keeps_profile_shortcuts": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hotkey_runtime_families.cpp",
+        "note": "set_transform_loader stands for patching load_transforms"
+      },
+      "test_transform_shortcut_dispatches_end_to_end_on_windows": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hotkey_runtime_families.cpp"
+      }
+    },
+    "tests/test_hook_refresh_waits_for_hold.py": {
+      "test_refresh_waits_for_the_held_record_key_then_runs": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hotkey_runtime.cpp"
+      },
+      "test_refresh_waits_for_a_held_command_key": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hotkey_runtime.cpp",
+        "note": "Command Mode's press and release handling is M4's; the test records them"
+      },
+      "test_refresh_runs_when_nothing_is_held": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hotkey_runtime.cpp"
+      }
+    },
+    "tests/test_personalize_fix2_g1_rehook_hold.py": {
+      "test_keyboard_hold_across_a_rehook_stops_the_recording": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hotkey_runtime.cpp"
+      },
+      "test_lost_release_lets_the_next_press_and_release_stop_the_recording": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hotkey_runtime.cpp"
+      },
+      "test_press_during_another_recording_is_still_ignored": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hotkey_runtime.cpp"
+      },
+      "test_x11_side_button_hold_survives_a_rehook": {
+        "status": "dropped",
+        "reason": "other-platform: the pynput mouse listener (Linux X11)"
+      },
+      "test_windows_side_button_hold_across_a_rehook_stops_the_recording": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hotkey_runtime.cpp"
+      }
+    },
+    "tests/test_dictation_runtime_exception_handling.py": {
+      "test_pipeline_resolved_is_none_when_not_ready_cancelled_or_failed": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline.cpp",
+        "note": "a selection future that is abandoned (its promise destroyed unset) is Python's cancelled future"
+      },
+      "test_command_resolve_ignores_a_future_resolved_in_between": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_selection.cpp"
+      },
+      "test_command_snapshot_is_none_when_not_ready_cancelled_or_failed": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_selection.cpp",
+        "note": "a focus capture always resolves and never fails: not ready and no capture are the cases left"
+      },
+      "test_a_failing_text_filter_keeps_the_words_and_logs_no_dictated_text": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_automation_pipeline.cpp",
+        "note": "through the pipeline, where Python calls the private _filtered; a std::runtime_error is logged as RuntimeError"
+      },
+      "test_failed_spoken_routing_pastes_the_dictation_and_logs_no_dictated_text": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_automation_pipeline.cpp",
+        "note": "through the pipeline, where Python calls the private _route"
+      }
+    },
+    "tests/test_personalize_fix2_g1_paste_target_tab.py": {
+      "test_paste_check_compares_the_site_too": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline.cpp",
+        "note": "FakeCaptureService answers with Gmail where Python runs the capture service over FakePlatform(GMAIL)"
+      },
+      "test_the_paste_check_and_the_learning_reread_agree": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_dictionary_learning.cpp"
+      },
+      "test_a_transform_finished_after_a_tab_switch_is_copied_not_pasted": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_delivery.cpp"
+      }
+    },
+    "tests/test_personalize_fix_f5_rich_join.py": {
+      "test_a_rich_paste_continues_the_sentence_like_the_plain_one": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline.cpp",
+        "note": "snippet expansion is M4's: starts from OpenWhisper's expanded text and HTML (golden rich_paste) and compares the joined HTML with OpenWhisper's instead of a QTextEdit render"
+      },
+      "test_a_rich_paste_drops_the_period_before_more_of_the_sentence": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline.cpp",
+        "note": "as test_a_rich_paste_continues_the_sentence_like_the_plain_one"
+      },
+      "test_html_is_unchanged_without_a_known_caret": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline.cpp",
+        "note": "pipeline level: a job without a capture gets neither join; staging the clipboard is M1.14's"
+      },
+      "test_html_for_paste_only_joins_live_dictation": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline.cpp",
+        "note": "the failing join is injected (HtmlJoin) where Python monkeypatches focus_context"
+      },
+      "test_a_whole_formatted_snippet_gets_its_leading_space": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline_text.cpp",
+        "note": "the two clipboard flavours are checked; what a QTextEdit shows after the paste (_rich_paste) needs Qt, which fv_dictation's tests do not link"
+      }
+    },
+    "tests/test_application_controller.py": {
+      "TestApplicationController::test_transcription_complete_saves_history_and_resets_pending_state": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_transcription_runtime.cpp",
+        "note": "the pending source is a real WAV, so History's copy of it is checked as audio_file"
+      },
+      "TestApplicationController::test_start_recording_failure_stays_idle": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_transcription_runtime.cpp"
+      },
+      "TestApplicationController::test_empty_asr_skips_history_clipboard_and_paste": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_transcription_runtime.cpp"
+      },
+      "TestApplicationController::test_stop_recording_without_streaming_keeps_no_preview": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_transcription_runtime.cpp",
+        "note": "the rig records without a live preview, so the pending preview text stays empty"
+      },
+      "TestApplicationController::test_transcription_failure_keeps_recording_in_history": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_transcription_runtime.cpp"
+      },
+      "TestApplicationController::test_retry_from_history_reuses_the_failed_entry": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_transcription_runtime.cpp",
+        "note": "the failed entry is a real History row and the decode the speech service's on a fake engine, where Python mocks failed_recording_for_path, complete_failed_recording and transcribe"
+      },
+      "TestApplicationController::test_copy_failure_does_not_claim_pasted": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_transcription_runtime.cpp"
+      },
+      "TestApplicationController::test_auto_paste_schedules_clipboard_restore_even_when_copy_is_enabled": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_transcription_runtime.cpp"
+      },
+      "TestApplicationController::test_auto_paste_with_restore_off_leaves_transcript_on_clipboard": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_transcription_runtime.cpp"
+      },
+      "TestApplicationController::test_auto_paste_leaves_transcript_when_clipboard_started_blank": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_transcription_runtime.cpp"
+      },
+      "TestApplicationController::test_auto_paste_reports_when_clipboard_snapshot_is_unavailable": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_transcription_runtime.cpp"
+      },
+      "TestApplicationController::test_auto_paste_failure_keeps_transcript_and_cancels_restore": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_transcription_runtime.cpp",
+        "note": "FakeSyntheticKeys.fail stands in for patching send_paste"
+      },
+      "TestApplicationController::test_recording_start_is_refused_while_a_job_is_queued": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_transcription_runtime.cpp",
+        "note": "uploads are M2's: a claim without a job holds the slot as the queued upload does"
+      },
+      "TestApplicationController::test_stop_recording_does_not_block_the_qt_thread": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_transcription_runtime.cpp",
+        "note": "the preview's stop between the wait and the save is checked by \"stop recording keeps the streaming preview text\" in tests/dictation/test_streaming_runtime.cpp"
+      },
+      "TestApplicationController::test_stopped_recording_claims_job_before_post_roll_finishes": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_transcription_runtime.cpp",
+        "note": "the racing upload is a claim from inside the post-roll wait; the hand-off is read while the fake engine holds the decode"
+      },
+      "TestApplicationController::test_transcribe_audio_file_skips_cleanup_when_disabled": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_transcription_runtime.cpp"
+      },
+      "TestApplicationController::test_history_persistence_is_queued_and_keeps_recording_slot": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_transcription_runtime.cpp"
+      },
+      "TestApplicationController::test_history_failure_is_visible_and_keeps_transcript": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_transcription_runtime.cpp",
+        "note": "History's table is dropped so the save fails, where Python patches add_entry to raise"
+      },
+      "TestApplicationController::test_capture_failure_preserves_audio_without_transcribing": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_transcription_runtime.cpp"
+      },
+      "TestApplicationController::test_stop_timeout_preserves_journal_and_does_not_transcribe": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_transcription_runtime.cpp"
+      },
+      "TestApplicationController::test_queued_capture_error_after_cancel_does_not_stop_new_recording": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_transcription_runtime.cpp"
+      },
+      "TestApplicationController::test_history_refresh_failure_releases_recording_slot": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_transcription_runtime.cpp",
+        "note": "a refresh_history subscriber throws"
+      },
+      "TestApplicationController::test_shutdown_refuses_new_jobs_but_releases_finished_job": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_transcription_runtime.cpp"
+      },
+      "TestApplicationController::test_stop_recording_announces_a_split_only_for_a_backend_that_splits": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_uploads.cpp"
+      },
+      "TestApplicationController::test_upload_reports_large_file_through_the_ui_controller": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_uploads.cpp"
+      },
+      "TestApplicationController::test_local_engine_takes_a_large_upload_in_one_pass_with_no_notice": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_uploads.cpp"
+      },
+      "TestApplicationController::test_transcription_complete_stores_raw_and_fixed_text": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_uploads.cpp"
+      },
+      "TestApplicationController::test_upload_audio_file_uses_preview_duration": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_uploads.cpp"
+      },
+      "TestApplicationController::test_second_upload_is_refused_without_overwriting_active_job_metadata": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_uploads.cpp"
+      },
+      "TestApplicationController::test_batch_upload_claims_one_job_slot_and_refuses_a_second_upload": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_uploads.cpp"
+      },
+      "TestApplicationController::test_single_item_batch_request_uses_the_single_file_path": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_uploads.cpp"
+      },
+      "TestApplicationController::test_separate_batch_writes_one_history_row_per_file_and_stays_in_the_window": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_uploads.cpp"
+      },
+      "TestApplicationController::test_single_upload_result_is_neither_copied_nor_pasted": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_uploads.cpp"
+      },
+      "TestApplicationController::test_sequential_batch_writes_one_row_with_joined_text_and_batch_context": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_uploads.cpp"
+      },
+      "TestApplicationController::test_separate_batch_cleanup_does_not_pass_a_batch_context": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_uploads.cpp"
+      },
+      "TestApplicationController::test_custom_batch_per_file_passes_instructions_to_each_cleanup": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_uploads.cpp"
+      },
+      "TestApplicationController::test_cancel_mid_separate_batch_keeps_finished_files": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_uploads.cpp"
+      },
+      "TestApplicationController::test_cancel_mid_sequential_batch_discards_everything": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_uploads.cpp"
+      },
+      "TestApplicationController::test_batch_announces_each_large_file_the_backend_splits": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_uploads.cpp"
+      },
+      "TestApplicationController::test_batch_failure_in_one_file_keeps_the_others_in_separate_mode": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_uploads.cpp"
+      },
+      "TestApplicationController::test_batch_with_every_file_failing_reports_an_error": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_uploads.cpp"
+      },
+      "TestApplicationController::test_streaming_reconfigure_can_disable_runtime": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_streaming_runtime.cpp",
+        "note": "on Parakeet, which shares its engine with the preview, where Python sets up tiny.en for Whisper"
+      },
+      "TestApplicationController::test_streaming_preview_shares_the_loaded_parakeet_engine": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_streaming_runtime.cpp",
+        "note": "the shared engine shows as one backend made and none released, and a recording's window decoded on it"
+      },
+      "TestApplicationController::test_streaming_preview_waits_for_the_optional_engine_to_load": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_streaming_runtime.cpp",
+        "note": "a real EngineReloadMachine runs the reload (_reload_worker) and asks for the set-up with streaming_setup_due"
+      },
+      "TestApplicationController::test_startup_sets_up_the_preview_after_the_optional_engine_loads": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_streaming_runtime.cpp",
+        "note": "on Parakeet (Nemotron is not ported); the start-up load is EngineReloadMachine::initial_load"
+      },
+      "TestApplicationController::test_streaming_preview_is_unavailable_for_other_optional_engines": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_streaming_runtime.cpp",
+        "note": "the API engine, with the lead's wording \"Live preview needs Parakeet\"; not waiting shows as no set-up after the next load"
+      },
+      "TestApplicationController::test_empty_asr_falls_back_to_the_streaming_preview": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_streaming_runtime.cpp",
+        "note": "a whole dictation whose preview heard the words and whose final pass is blank, where Python sets the pending fields by hand"
+      },
+      "TestApplicationController::test_streaming_preview_does_not_leak_into_a_later_job": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_streaming_runtime.cpp",
+        "note": "two dictations in a row, where Python calls _on_transcription_complete twice"
+      },
+      "TestApplicationController::test_a_real_transcript_ignores_the_streaming_preview": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_streaming_runtime.cpp",
+        "note": "a whole dictation whose preview heard other words"
+      },
+      "TestApplicationController::test_stop_recording_keeps_the_streaming_preview_text": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_streaming_runtime.cpp",
+        "note": "the pending preview text is read at the save, since the job then runs on to its result and clears it"
+      },
+      "TestApplicationController::test_transcription_complete_passes_cleanup_time_to_ui": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp"
+      },
+      "TestApplicationController::test_transcribe_audio_file_applies_cleanup_when_enabled": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp",
+        "note": "the real TranscriptCleanup on its default endpoint, against an http::FakeHttpClient"
+      },
+      "TestApplicationController::test_profile_recording_formats_with_start_snapshot_and_copies_result": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp",
+        "note": "the result is pasted (the rig's settings) and the clipboard stage checked"
+      },
+      "TestApplicationController::test_profile_shortcut_stops_without_replacing_recording_format": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp",
+        "note": "the profile shortcut's start and toggle are called on the runtime; the shortcut itself is M4.13's"
+      },
+      "TestApplicationController::test_cancel_profile_then_standard_recording_and_upload_use_standard_cleanup": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp"
+      },
+      "TestApplicationController::test_missing_busy_and_failed_profile_starts_do_not_leak_profile": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp"
+      },
+      "TestApplicationController::test_unavailable_profile_cleanup_reports_raw_fallback": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp"
+      },
+      "TestApplicationController::test_combined_cleanup_failure_shows_raw_text_and_says_so_in_status": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp"
+      },
+      "TestApplicationController::test_recording_waits_briefly_for_the_remote_engine": {"status": "ported", "cpp": "tests/dictation/test_runtime_flow.cpp", "note": "cases 'a recording waits briefly for the remote engine, then keeps the audio' (offline), 'a recording decodes once the remote engine reconnects' (reconnected), 'a recording waiting for the remote engine can be canceled' (canceled: one attempt, nothing kept) and 'a recording stops waiting for a remote reconnect that never settles' (timeout: one attempt over the whole 12 s wait; found and fixed: a truncated remainder ran the other two attempts at once)"},
+      "TestApplicationController::test_recording_retries_a_decode_the_remote_host_refused_before_starting": {"status": "ported", "cpp": "tests/dictation/test_runtime_flow.cpp", "note": "case of the same name: a decode the paired host refused before starting it (EngineError Retry::Connection, which RemoteSpeechBackend::decode now gives a RemoteDecodeNotStarted) joins one reconnect and is decoded again; the words are kept, not pasted. Ported here: TranscriptionRuntime::decode_and_complete's retry (it was missing)"}
+    },
+    "tests/test_cancel_after_stop.py": {
+      "test_cancel_during_post_roll_transcribes_nothing": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cancel.cpp"
+      },
+      "test_cancel_before_any_stop_leaves_the_next_job_alone": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cancel.cpp"
+      },
+      "test_uncanceled_dictation_still_completes": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cancel.cpp"
+      },
+      "test_cancel_before_transcription_starts_skips_the_engine": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cancel.cpp"
+      },
+      "test_cancel_during_decode_never_reaches_cleanup": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cancel.cpp",
+        "note": "the cancel lands while the fake engine holds the decode; with cleanup on, reaching it would log that no provider is available, and that warning is never logged"
+      },
+      "test_cancel_between_emit_and_slot_does_not_paste": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cancel.cpp"
+      },
+      "test_stop_after_cancel_claims_no_job": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cancel.cpp"
+      },
+      "test_native_preview_recordings_take_the_file_path": {
+        "status": "dropped",
+        "reason": "Nemotron's native streaming preview: the engine is not ported"
+      },
+      "test_abandoned_job_drops_its_early_decode_session": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cancel.cpp",
+        "note": "the recording's real session is discarded, where Python mocks IncrementalDictation.discard"
+      },
+      "test_preview_that_cannot_start_shows_no_empty_overlay": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cancel.cpp",
+        "note": "the earlier recording's window is held decoding in the engine, where Python fakes is_streaming"
+      },
+      "test_cancel_during_cleanup_fails_the_job_instead_of_pasting": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp",
+        "note": "the cleaner presses Cancel while it runs, where Python patches _maybe_cleanup_transcript"
+      }
+    },
+    "tests/test_paste_latency.py": {
+      "test_paste_happens_before_history_is_saved": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_paste_latency.cpp",
+        "note": "History's save is seen through its record-sync outbox"
+      },
+      "test_paste_status_stays_the_final_status": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_paste_latency.cpp"
+      },
+      "test_history_failure_still_pastes": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_paste_latency.cpp",
+        "note": "History's table is dropped, so the reason after 'History could not be saved: ' is SQLite's rather than 'database is locked'"
+      },
+      "test_paste_failure_still_records_history": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_paste_latency.cpp"
+      },
+      "test_unexpected_clipboard_error_still_records_history_and_frees_the_job": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_paste_latency.cpp"
+      },
+      "test_empty_result_skips_history_and_paste_and_drops_the_prefetch": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_paste_latency.cpp"
+      },
+      "test_copy_only_delivery_drops_the_prefetch": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_paste_latency.cpp"
+      },
+      "test_transcription_error_drops_the_prefetch": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_paste_latency.cpp"
+      },
+      "test_recording_start_requests_one_prefetch_after_the_recorder_and_overlay": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_paste_latency.cpp"
+      },
+      "test_no_prefetch_when_auto_paste_is_off": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_paste_latency.cpp"
+      },
+      "test_failed_start_requests_no_prefetch_and_drops_any_stale_one": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_paste_latency.cpp"
+      },
+      "test_refused_start_touches_no_clipboard": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_paste_latency.cpp"
+      },
+      "test_cancel_during_recording_drops_the_prefetch": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_paste_latency.cpp"
+      },
+      "test_dictation_pastes_without_copying_the_clipboard_again": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_paste_latency.cpp",
+        "note": "fv_dictation is Qt-free: a ClipboardPort that snapshots as TemporaryClipboard does (prefetch, reuse while the change counter is unchanged, restore) stands in for the real one over a SequencedClipboard, and the test fires the restore timer"
+      },
+      "test_restore_off_pastes_and_leaves_the_transcript_without_copying_the_clipboard": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_paste_latency.cpp",
+        "note": "as test_dictation_pastes_without_copying_the_clipboard_again"
+      },
+      "test_restore_is_off_until_turned_on": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_paste_latency.cpp",
+        "note": "as test_dictation_pastes_without_copying_the_clipboard_again"
+      },
+      "test_copy_made_during_dictation_is_what_gets_restored": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_paste_latency.cpp",
+        "note": "as test_dictation_pastes_without_copying_the_clipboard_again"
+      },
+      "test_canceled_dictation_leaves_no_snapshot_behind": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_paste_latency.cpp",
+        "note": "as test_dictation_pastes_without_copying_the_clipboard_again"
+      },
+      "test_upload_displays_ready_then_saves_history_and_never_pastes": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_uploads.cpp"
+      }
+    },
+    "tests/test_personalize_fix_f5_final_language.py": {
+      "test_a_language_switched_during_the_recording_is_the_one_recorded": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_recognition.cpp",
+        "note": "English and French on Parakeet, where Python switches English to German on Whisper"
+      },
+      "test_the_starting_language_is_recorded_without_a_switch": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_recognition.cpp"
+      },
+      "test_a_slot_released_meanwhile_is_never_given_its_job_back": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_recognition.cpp",
+        "note": "the release between the claim and the swap is driven on JobSlot::replace_active_job, where Python patches _final_pass_recognition to call _finish_job"
+      }
+    },
+    "tests/test_strict_switch_reads.py": {
+      "test_auto_paste_reads_its_switch_strictly": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_paste_latency.cpp",
+        "note": "read where delivery reads it (whether the result is pasted), where Python calls HotkeyRuntime._auto_paste_enabled"
+      },
+      "test_cleanup_reads_its_switch_strictly": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp",
+        "note": "cleanup_profiles.cleanup_may_run, and the cleanup stage, read the switch alike"
+      },
+      "test_a_malformed_consent_is_not_consent": {"status": "ported", "cpp": "tests/dictation/test_strict_consent_read.cpp", "note": "case: test_a_malformed_consent_is_not_consent (the saved switch; meeting insights are authorized by per-destination grants)"}
+    },
+    "tests/test_personalize_fix3_h1_outcome_notices.py": {
+      "test_plain_dictation_gets_no_notice": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_notices.cpp",
+        "note": "no AI cleanup until M4: the decoded words are pasted where Python pastes FakeCleaner's"
+      },
+      "test_a_refused_command_says_why_after_the_overlay_hides": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_notices.cpp"
+      },
+      "test_a_rewrite_for_an_app_that_lost_focus_says_it_was_copied": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_notices.cpp"
+      },
+      "test_a_pasted_rewrite_and_a_written_command_are_confirmed": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_notices.cpp"
+      },
+      "test_a_failed_paste_of_a_rewrite_is_reported": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_notices.cpp"
+      },
+      "test_an_ai_failure_in_a_command_is_reported": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_notices.cpp"
+      },
+      "test_a_transform_with_nothing_selected_says_so": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_notices.cpp"
+      },
+      "test_transforms_and_command_mode_without_a_provider_say_so": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_notices.cpp",
+        "note": "the transform's provider check reads keys off the UI thread, so its answer is awaited before the next shortcut"
+      },
+      "test_a_command_during_a_recording_says_to_finish_it": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_notices.cpp"
+      },
+      "test_a_canceled_rewrite_gets_no_notice": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_notices.cpp"
+      },
+      "test_a_transform_canceled_while_its_selection_is_read_gets_no_notice": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_notices.cpp",
+        "note": "the modifier wait is held so the Cancel lands while the selection is read"
+      },
+      "test_busy_refusals_of_rewrites_and_pastes_show_by_the_pointer": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_notices.cpp"
+      }
+    },
+    "tests/test_local_transcription_contracts.py": {
+      "test_saved_recording_dispatch_guards_and_releases_claim": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_transcription_runtime.cpp",
+        "note": "the failed-entry lookup and the decode run on the jobs strand (the database is never read on the UI thread); submit_error is the recording removed before the worker reads it"
+      },
+      "test_local_engine_takes_a_file_over_the_api_limit_whole": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_uploads.cpp"
+      },
+      "test_worker_job_shows_the_split_a_backend_reports": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_uploads.cpp"
+      }
+    },
+    "tests/test_batch_upload.py": {
+      "TestBatchUploadRequest::test_sequential_combines_and_separate_does_not": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_batch.cpp"
+      },
+      "TestBatchUploadRequest::test_custom_follows_its_own_checkbox": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_batch.cpp"
+      },
+      "TestBatchUploadRequest::test_separate_has_no_batch_context": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_batch.cpp"
+      },
+      "TestBatchUploadRequest::test_sequential_context_names_the_parts_in_order": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_batch.cpp"
+      },
+      "TestBatchUploadRequest::test_custom_combined_context_carries_the_user_text": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_batch.cpp"
+      },
+      "TestBatchUploadRequest::test_custom_per_file_context_names_the_current_file": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_batch.cpp"
+      },
+      "TestBatchUploadRequest::test_custom_with_nothing_typed_has_no_context": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_batch.cpp"
+      },
+      "TestComposeBatchCleanupPrompt::test_base_prompt_comes_first_then_header_context_and_guard": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_batch.cpp"
+      },
+      "TestTextHelpers::test_join_raw_parts_uses_blank_lines_and_drops_empties": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_batch.cpp"
+      },
+      "TestTextHelpers::test_join_raw_parts_of_nothing_is_empty": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_batch.cpp"
+      },
+      "TestTextHelpers::test_format_batch_transcript_heads_each_section_with_its_name": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_batch.cpp"
+      },
+      "TestTextHelpers::test_batch_source_name_lists_every_file_when_short": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_batch.cpp"
+      },
+      "TestTextHelpers::test_batch_source_name_drops_trailing_names_past_the_limit": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_batch.cpp"
+      },
+      "TestTextHelpers::test_batch_source_name_always_keeps_the_first_file": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_batch.cpp"
+      }
+    },
+    "tests/test_preview_lazy_tail.py": {
+      "test_runtime_finalize_uses_the_window_preview_and_skips_the_rest": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_streaming_runtime.cpp",
+        "note": "the no-preview branch is checked; a native stream and a finalize_preview that raises have no counterpart (WindowPreview::finalize does not throw)"
+      },
+      "test_empty_dictation_shows_the_lazily_completed_preview": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_streaming_runtime.cpp"
+      },
+      "test_non_empty_dictation_never_decodes_the_kept_tail": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_streaming_runtime.cpp"
+      },
+      "test_an_upload_never_finishes_an_earlier_dictation_preview": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_streaming_runtime.cpp",
+        "note": "the dictation fails at its save, leaving the tail kept, before the upload runs"
+      },
+      "test_a_canceled_job_skips_the_fallback_decode": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_streaming_runtime.cpp"
+      }
+    },
+    "tests/test_streaming_transcriber.py": {
+      "test_runtime_stop_mutes_updates_but_preserves_postroll_until_worker_drains": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_streaming_runtime.cpp",
+        "note": "the window preview reads the recorder's tape, so the post-roll shows as a window decoded after begin_stop that never reaches the screen"
+      },
+      "test_runtime_cancel_detaches_recorder_and_uses_nonblocking_preview_cancel": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_streaming_runtime.cpp",
+        "note": "the cancel returns while a window is held decoding, and leaves nothing for finalize"
+      }
+    },
+    "tests/test_incremental_dictation.py": {
+      "test_uploads_and_retranscribes_never_use_the_session": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_incremental_runtime.cpp",
+        "note": "the runtime transcribes another file while its recording's session holds an early window"
+      },
+      "test_runtime_transcribes_its_own_recording_from_the_session": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_incremental_runtime.cpp",
+        "note": "through stop_recording and the stop's worker, where Python calls transcribe_audio_file"
+      },
+      "test_runtime_cancel_discards_the_session": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_incremental_runtime.cpp"
+      },
+      "test_cleared_capture_invalidates": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_incremental_runtime.cpp",
+        "note": "a tape is never cleared: the runtime's discard_early_decode (microphone order changed, meeting started) drops the session, whose reason is \"the recording was canceled\""
+      }
+    },
+    "tests/test_personalize_s4_incremental.py": {
+      "test_runtime_starts_the_session_with_the_jobs_context": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_incremental_runtime.cpp",
+        "note": "the job's language comes from the saved dictation languages; the early window decodes with it"
+      }
+    },
+    "tests/test_personalize_foundation_pipeline.py": {
+      "test_inert_prompt_is_todays_prompt": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline_text.cpp"
+      },
+      "test_inert_profile_prompt_is_todays_prompt": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline_text.cpp"
+      },
+      "test_inert_text_is_unchanged": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline_text.cpp"
+      },
+      "test_blocks_follow_the_base_prompt_in_order": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline_text.cpp",
+        "note": "the named blocks are CleanupPromptBlocks stand-ins where Python monkeypatches the modules"
+      },
+      "test_profile_and_switches_leave_their_blocks_out": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline_text.cpp"
+      },
+      "test_a_failing_block_is_left_out": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline_text.cpp"
+      },
+      "test_dictionary_applies_to_every_job_and_snippets_only_to_dictation": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline_text.cpp",
+        "note": "a stand-in TextPreparer replaces and plans as the monkeypatched modules do"
+      },
+      "test_a_lost_placeholder_falls_back_to_the_uncleaned_expansion": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline_text.cpp"
+      },
+      "test_begin_job_asks_for_focus_only_when_app_context_is_on": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline_text.cpp"
+      },
+      "test_begin_job_survives_a_broken_capture_service": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline_text.cpp"
+      },
+      "test_recognition_carries_language_and_phrases_when_steering_is_on": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline_text.cpp",
+        "note": "the settings give French and the dictionary's phrases where Python patches job_language and recognition_phrases; the failing half has no input, since fv_text's resolvers never throw"
+      },
+      "test_job_futures_never_raise_or_wait_at_timeout_zero": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline_text.cpp",
+        "note": "a wrongly typed future has no counterpart: both futures are typed"
+      },
+      "test_text_joins_the_caret_only_for_dictation_with_a_known_caret": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline_text.cpp",
+        "note": "the join is injected (TextJoin)"
+      },
+      "test_a_rewrite_pastes_only_into_the_app_it_provably_started_in": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline_text.cpp"
+      },
+      "test_after_paste_schedules_learning_for_dictation_only": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline_text.cpp"
+      },
+      "test_history_fields_name_the_kind_and_leave_unknowns_out": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline_text.cpp"
+      },
+      "test_history_fields_never_hold_window_titles_or_text": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline_text.cpp"
+      },
+      "test_record_stats_swallows_failures": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline_text.cpp"
+      }
+    },
+    "tests/test_personalize_foundation_runtime.py": {
+      "test_recording_job_starts_before_the_preview_and_is_claimed_by_the_stop": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp",
+        "note": "the rig records without a live preview, so the preview's order is not observed; stop_playback, the prefetch and the claim are"
+      },
+      "test_cancel_and_failed_start_leave_no_job": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp"
+      },
+      "test_a_busy_recording_or_walkthrough_start_shows_by_the_pointer": {"status": "ported", "cpp": "tests/dictation/test_cleanup_runtime.cpp"},
+      "test_a_failed_stop_drops_the_job_and_an_upload_gets_none": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp",
+        "note": "the profile comes from a profile recording where Python sets it by hand"
+      },
+      "test_an_upload_clears_a_job_left_by_a_recording": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp",
+        "note": "the recorder stops on its own after a profile recording, leaving its job and profile behind"
+      },
+      "test_final_pass_gets_recognition_only_for_a_job": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp",
+        "note": "the context shows as the language the engine is asked for"
+      },
+      "test_dictionary_applies_with_cleanup_off": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp",
+        "note": "run_cleanup, the port of _maybe_cleanup_transcript"
+      },
+      "test_cleanup_records_its_level": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp"
+      },
+      "test_a_whole_snippet_skips_cleanup": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp",
+        "note": "a saved snippet where Python patches the snippet functions"
+      },
+      "test_a_lost_placeholder_reports_a_failed_cleanup": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp"
+      },
+      "test_dictation_paste_call_is_unchanged_without_html": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp"
+      },
+      "test_html_reaches_the_clipboard_stage": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp",
+        "note": "a formatted snippet sets the rich text where Python sets _delivery_html"
+      },
+      "test_the_focused_scratchpad_takes_the_dictation": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp"
+      },
+      "test_after_paste_follows_a_successful_paste": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp",
+        "note": "a recording TextPreparer stands in for after_paste's monkeypatch"
+      },
+      "test_history_entries_carry_the_job_context": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp"
+      },
+      "test_batch_entries_are_file_entries": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp"
+      },
+      "test_stats_failures_never_touch_the_saved_entry": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp",
+        "note": "the stats table is dropped where Python patches record_stats"
+      },
+      "test_paste_text_now_pastes_without_history_and_refuses_while_busy": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp"
+      },
+      "test_command_recording_listens_and_takes_no_clipboard_prefetch": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_rewrite_jobs.cpp"
+      },
+      "test_command_recordings_go_to_the_command_runtime": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_rewrite_jobs.cpp",
+        "note": "a CommandCompletion fake stands for the Mock command runtime"
+      },
+      "test_a_failing_command_reports_its_message": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_rewrite_jobs.cpp"
+      },
+      "test_rewrites_paste_even_with_auto_paste_off": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_rewrite_jobs.cpp"
+      },
+      "test_a_rewrite_is_only_copied_when_the_app_changed": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_rewrite_jobs.cpp"
+      },
+      "test_rewrite_jobs_are_refused_while_recording_or_busy": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_rewrite_jobs.cpp"
+      },
+      "test_a_submitted_rewrite_is_pasted_and_saved": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_rewrite_jobs.cpp"
+      },
+      "test_a_failed_rewrite_frees_the_slot": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_rewrite_jobs.cpp"
+      },
+      "test_an_abandoned_rewrite_frees_the_slot_once": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_rewrite_jobs.cpp"
+      }
+    },
+    "tests/test_personalize_s5_pipeline.py": {
+      "test_a_whole_snippet_skips_cleanup_and_pastes_its_exact_text": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp"
+      },
+      "test_an_embedded_snippet_survives_cleanup": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp"
+      },
+      "test_a_lost_placeholder_falls_back_to_the_uncleaned_text_with_expansions": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp"
+      },
+      "test_snippets_only_run_for_live_dictation_with_snippets_on": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp"
+      },
+      "test_the_cleanup_prompt_carries_the_placeholder_guard": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp"
+      },
+      "test_the_runtime_never_sends_a_whole_snippet_to_cleanup": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp"
+      },
+      "test_the_runtime_cleans_around_a_protected_snippet": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp"
+      },
+      "test_the_runtime_reports_a_cleanup_that_dropped_a_snippet": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp"
+      }
+    },
+    "tests/test_personalize_s2_prompts.py": {
+      "test_a_dictation_gets_its_levels_preset_and_the_rules": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_prompt.cpp"
+      },
+      "test_existing_users_with_the_old_default_saved_get_medium": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_prompt.cpp"
+      },
+      "test_a_custom_prompt_gets_no_corrections_or_lists": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_prompt.cpp"
+      },
+      "test_the_profile_preamble_handles_corrections_but_not_lists": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_prompt.cpp"
+      },
+      "test_lists_stay_inline_in_terminals_and_unknown_apps": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_prompt.cpp",
+        "note": "the app catalogue's own terminal check, where the `terminals` fixture patches is_terminal; the terminal's app id is the lowercase one Windows reports"
+      },
+      "test_a_terminal_is_told_to_stay_on_one_line_only_once": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_prompt.cpp"
+      },
+      "test_a_dictation_without_focus_capture_counts_as_an_unknown_app": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_prompt.cpp"
+      },
+      "test_no_note_when_the_prompt_makes_no_lists": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_prompt.cpp"
+      },
+      "test_files_and_rewrites_keep_their_lists": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_prompt.cpp"
+      },
+      "test_the_note_follows_the_rules_and_precedes_the_batch_context": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_prompt.cpp"
+      }
+    },
+    "tests/test_personalize_s1_styles.py": {
+      "test_existing_installs_keep_todays_prompt_in_every_text_app": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_prompt.cpp"
+      },
+      "test_new_install_work_chat_gets_the_casual_block_after_the_rules": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_prompt.cpp"
+      },
+      "test_a_profile_always_wins_over_a_style": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_prompt.cpp"
+      },
+      "test_terminals_never_get_line_breaks_even_formal": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_prompt.cpp"
+      },
+      "test_text_near_the_cursor_follows_the_style_and_ends_with_its_guard": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_prompt.cpp"
+      },
+      "test_text_near_the_cursor_is_left_out_while_reading_is_off": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_prompt.cpp"
+      },
+      "test_paste_text_continues_the_sentence": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_prompt.cpp"
+      },
+      "test_history_keeps_the_category_with_styles_off": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_prompt.cpp"
+      }
+    },
+    "tests/test_personalize_s4_learning.py": {
+      "TestLearning::test_second_sighting_adds_a_learned_word_and_notifies": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_dictionary_learning.cpp"
+      },
+      "TestLearning::test_through_the_pipeline_after_a_paste": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_dictionary_learning.cpp"
+      },
+      "TestLearning::test_a_known_word_is_not_added_again": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_dictionary_learning.cpp"
+      },
+      "TestLearning::test_off_unless_learning_and_text_reading_are_on": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_dictionary_learning.cpp"
+      },
+      "TestLearning::test_needs_the_caret_text_of_another_app": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_dictionary_learning.cpp",
+        "note": "no job at all goes through after_paste, which never reaches the learner"
+      },
+      "TestLearning::test_a_failed_reread_learns_nothing": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_dictionary_learning.cpp"
+      },
+      "TestLearning::test_an_unpending_job_never_waits": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_dictionary_learning.cpp"
+      },
+      "TestLearning::test_scheduling_returns_before_the_delay": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_dictionary_learning.cpp",
+        "note": "the delay is a timer on the UI executor, where Python starts a threading.Timer"
+      }
+    },
+    "tests/test_dictionary_cleanup_revert.py": {
+      "TestLearning::test_one_revert_learns_a_protected_word": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_dictionary_learning.cpp"
+      },
+      "TestLearning::test_an_ordinary_correction_still_needs_two_sightings": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_dictionary_learning.cpp"
+      },
+      "TestLearning::test_a_known_word_becomes_protected_once": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_dictionary_learning.cpp"
+      },
+      "TestLearning::test_off_when_learning_is_off": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_dictionary_learning.cpp"
+      }
+    },
+    "tests/test_personalize_s4_recognition.py": {
+      "TestTranscribeSeam::test_empty_or_unsupported_calls_as_before": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_recognition_seam.cpp"
+      },
+      "TestTranscribeSeam::test_a_context_reaches_a_backend_that_takes_one": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_recognition_seam.cpp"
+      },
+      "test_a_dictation_reaches_whisper_with_hints_and_replacements": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_recognition_seam.cpp",
+        "note": "adapted to Parakeet: the job gets the dictionary's phrases and the text its replacements; none is sent to the engine (lead decision 2)"
+      },
+      "TestLocalSpeech::test_language_comes_from_the_context_per_request": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_recognition_seam.cpp",
+        "note": "through the runtime: each final pass decodes with its job's language, a file without a job with the engine's own"
+      },
+      "TestLocalSpeech::test_no_language_leaves_the_engine_setting": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_recognition_seam.cpp"
+      },
+      "TestHelpers::test_hotwords_keep_the_first_phrases_that_fit": {
+        "status": "dropped",
+        "reason": "faster-whisper hotwords: Local Whisper is not ported"
+      },
+      "TestLocalWhisper::test_hotwords_and_language_are_added": {
+        "status": "dropped",
+        "reason": "Local Whisper (faster-whisper) is not ported"
+      },
+      "TestLocalWhisper::test_nothing_is_added_without_hints": {
+        "status": "dropped",
+        "reason": "Local Whisper (faster-whisper) is not ported"
+      },
+      "TestLocalWhisper::test_options_stay_json_for_the_isolated_worker": {
+        "status": "dropped",
+        "reason": "Local Whisper (faster-whisper) and its worker process are not ported"
+      },
+      "TestLocalSpeech::test_nemotron_phrases_only_once_boosting_is_verified": {
+        "status": "dropped",
+        "reason": "Nemotron is not ported"
+      },
+      "TestLocalSpeech::test_phrases_reach_the_worker_request_only_when_set": {
+        "status": "dropped",
+        "reason": "the speech worker process is not ported: Parakeet runs in-process"
+      },
+      "test_worker_passes_phrases_only_to_nemotron": {
+        "status": "dropped",
+        "reason": "Nemotron and the speech worker process are not ported"
+      },
+      "TestNvidiaSpeechContext::test_struct_matches_the_c_abi": {
+        "status": "dropped",
+        "reason": "phrases reach NeMo speech contexts only for Nemotron; Parakeet's support is `after` (lead decision 2)"
+      },
+      "TestNvidiaSpeechContext::test_phrases_stay_alive_through_the_native_call": {
+        "status": "dropped",
+        "reason": "phrases reach NeMo speech contexts only for Nemotron; Parakeet's support is `after` (lead decision 2)"
+      },
+      "TestNvidiaSpeechContext::test_options_point_at_the_keepalive": {
+        "status": "dropped",
+        "reason": "phrases reach NeMo speech contexts only for Nemotron; Parakeet's support is `after` (lead decision 2)"
+      },
+      "TestNvidiaSpeechContext::test_a_stream_keeps_its_context_until_it_closes": {
+        "status": "dropped",
+        "reason": "phrases reach NeMo speech contexts only for Nemotron; Parakeet's support is `after` (lead decision 2)"
+      }
+    },
+    "tests/test_cleanup_deadline.py": {
+      "test_cancel_during_a_stalled_cleanup_frees_the_dictation": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp",
+        "note": "the real TranscriptCleanup over a provider that never answers"
+      }
+    },
+    "tests/test_personalize_fix_f5_stats_spoken.py": {
+      "test_a_whole_snippet_counts_its_trigger": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline_text.cpp"
+      },
+      "test_an_inline_snippet_counts_the_words_around_its_trigger": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline_text.cpp"
+      },
+      "test_raw_text_for_undo_still_holds_the_expansion": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline_text.cpp"
+      }
+    },
+    "tests/test_stats_features.py": {
+      "test_a_prepared_transcript_says_what_snippets_and_the_dictionary_did": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_pipeline_text.cpp"
+      }
+    },
+    "tests/test_personalize_coordinator.py": {
+      "test_copy_only_delivery_keeps_snippet_formatting": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_runtime.cpp"
+      }
+    },
+    "tests/test_personalize_fix2_g4_unknown_app_paragraphs.py": {
+      "test_an_unknown_app_is_told_to_add_no_line_or_paragraph_breaks": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_prompt.cpp"
+      },
+      "test_a_known_app_keeps_the_presets_paragraphs": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_cleanup_prompt.cpp"
+      }
+    },
+    "tests/test_personalize_s3_command_runtime.py": {
+      "test_hold_records_an_instruction_and_release_stops_it": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp",
+        "note": "over the real TranscriptionRuntime where Python uses FakeRuntime: a start shows as the recorder starting, a claim as the slot taken"
+      },
+      "test_a_short_tap_cancels": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp"
+      },
+      "test_toggle_mode_presses_start_and_stop_and_ignores_releases": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp"
+      },
+      "test_without_a_provider_it_says_so_and_never_records": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp"
+      },
+      "test_a_dictation_in_progress_is_left_alone": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp"
+      },
+      "test_a_press_during_a_stops_post_roll_is_left_to_the_runtime": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp",
+        "note": "the real runtime refuses the start as busy in its own words, where FakeRuntime refuses silently; Command Mode adds no status of its own either way"
+      },
+      "test_a_refused_start_leaves_nothing_to_stop": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp"
+      },
+      "test_a_recording_canceled_elsewhere_lets_the_next_press_start_again": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp",
+        "note": "the runtime's Cancel ends the recording where Python clears is_recording"
+      },
+      "test_a_recording_stopped_elsewhere_still_reads_its_selection_once": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp",
+        "note": "the runtime's stop_recording is the Stop button"
+      },
+      "test_unknown_selection_is_copied_once_the_keys_are_up": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp",
+        "note": "the modifier wait is checked to run off the GUI thread where Python checks the thread's name"
+      },
+      "test_an_empty_selection_from_ui_automation_is_final": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp"
+      },
+      "test_terminals_never_get_a_copy": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp"
+      },
+      "test_copy_line_editors_only_count_real_selections": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp"
+      },
+      "test_with_app_context_off_the_selection_is_still_read": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp"
+      },
+      "test_a_selection_is_rewritten_by_the_instruction": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp",
+        "note": "the real AI cleanup client over an in-memory model where Python uses FakeCleaner"
+      },
+      "test_with_nothing_selected_it_writes_new_text": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp"
+      },
+      "test_writing_new_text_can_be_turned_off": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp"
+      },
+      "test_silence_is_not_an_instruction": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp"
+      },
+      "test_an_unavailable_provider_is_reported": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp",
+        "note": "a client without a key is unavailable where Python sets available=False"
+      },
+      "test_failed_rewrites_raise_instead_of_pasting": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp",
+        "note": "the timeout is the client's own deadline, reached by moving its clock"
+      },
+      "test_a_selection_that_never_arrives_is_an_error": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp",
+        "note": "a recording's own selection whose copy never answers; set_selection_wait stands for patching SELECTION_WAIT_S"
+      },
+      "test_the_dictionary_corrects_the_spoken_instruction": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp",
+        "note": "a saved \"sounds like\" where Python patches apply_replacements"
+      },
+      "test_a_transform_rewrites_the_selection": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp"
+      },
+      "test_an_empty_selection_abandons_the_transform": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp"
+      },
+      "test_a_refused_claim_reads_nothing": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp",
+        "note": "the real runtime's busy refusal is the only status"
+      },
+      "test_unknown_transforms_and_missing_providers_say_so": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp",
+        "note": "the provider check runs off the UI thread, so the second refusal is awaited"
+      },
+      "test_transforms_keep_the_app_out_of_the_job_when_app_context_is_off": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp"
+      },
+      "test_a_closed_runtime_ignores_shortcuts": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp"
+      },
+      "test_the_qt_hop_survives_a_failing_step": {
+        "status": "dropped",
+        "reason": "_QtCall is replaced by the UI executor, whose failing task is logged without stopping it (base/executor.h, tested in tests/base)"
+      }
+    },
+    "tests/test_personalize_s3_command_delivery.py": {
+      "test_a_command_pastes_its_rewrite_and_keeps_the_selection_as_raw_text": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_delivery.cpp"
+      },
+      "test_a_command_never_pastes_into_an_app_that_took_focus": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_delivery.cpp"
+      },
+      "test_a_failed_command_pastes_nothing": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_delivery.cpp"
+      },
+      "test_a_transform_runs_through_the_job_slot_to_paste_and_history": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_delivery.cpp"
+      },
+      "test_a_transform_with_nothing_selected_frees_the_slot": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_delivery.cpp"
+      },
+      "test_command_recordings_are_named_command_mode_in_history": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_delivery.cpp"
+      },
+      "test_a_transform_run_through_the_runtime_is_named_once": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_delivery.cpp",
+        "note": "the runtime's half: the saved entry names the transform once; the History card's and entry dialog's chip is ui_history's kind_label"
+      },
+      "test_a_bare_or_missing_transform_name_still_reads_well": {
+        "status": "golden",
+        "vectors": "tests/golden/ui_qt.widgets.history_sidebar.json",
+        "cpp": "tests/ui_history/test_golden.cpp",
+        "note": "tests ui_history's _kind_label alone (no runtime): its golden cases hold a bare \"Polish\" and a missing name for a transform"
+      }
+    },
+    "tests/test_personalize_fix_f2_command_refusals.py": {
+      "test_an_instruction_that_needs_a_selection_keeps_no_audio": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp",
+        "note": "a stopped recording through finish_recording_job on the fake engine; no file in Recordings stands for preserve_recording not called"
+      },
+      "test_an_instruction_nobody_heard_keeps_no_audio": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp",
+        "note": "a stopped recording through finish_recording_job on the fake engine; no file in Recordings stands for preserve_recording not called"
+      },
+      "test_nothing_selected_with_writing_turned_off_keeps_no_audio": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp",
+        "note": "a stopped recording through finish_recording_job on the fake engine; no file in Recordings stands for preserve_recording not called"
+      },
+      "test_a_failing_ai_model_still_keeps_the_instruction_audio": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp",
+        "note": "a stopped recording through finish_recording_job on the fake engine; no file in Recordings stands for preserve_recording not called"
+      },
+      "test_a_transform_refusal_shows_its_message_plainly": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_runtime.cpp",
+        "note": "a stopped recording through finish_recording_job on the fake engine; no file in Recordings stands for preserve_recording not called"
+      }
+    },
+    "tests/test_personalize_fix_f2_selection_blocked.py": {
+      "test_command_mode_never_copies_from_an_excluded_app": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_selection.cpp",
+        "note": "FocusCapture over FakeFocusPlatform, as Python's CaptureService over FakePlatform"
+      },
+      "test_a_transform_in_an_excluded_app_is_abandoned_unread": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_selection.cpp"
+      },
+      "test_a_password_field_is_not_copied_either": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_selection.cpp"
+      },
+      "test_an_unread_selection_reads_as_no_text": {"status": "ported", "cpp": "tests/dictation/test_pipeline.cpp", "note": "case: selection_text answers only a ready string (an UnreadSelection reads as \"\")"}
+    },
+    "tests/test_personalize_fix_f2_selection_keys_held.py": {
+      "test_command_mode_refuses_instead_of_copying_with_keys_held": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_selection.cpp"
+      },
+      "test_a_transform_abandons_instead_of_copying_with_keys_held": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_selection.cpp"
+      },
+      "test_a_command_with_a_known_selection_needs_no_keys_released": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_selection.cpp"
+      },
+      "test_the_reader_thread_never_copies_with_keys_held": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_selection.cpp"
+      }
+    },
+    "tests/test_personalize_fix_f3_console_terminal.py": {
+      "test_command_mode_never_sends_a_copy_to_a_classic_console": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_selection.cpp",
+        "note": "focus::foreground_identity over a fake Win32 desktop, as Python's FakeWin32"
+      }
+    },
+    "tests/test_personalize_fix_f2_paste_target.py": {
+      "test_without_app_awareness_a_transform_is_copied_when_the_app_changed": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_delivery.cpp"
+      },
+      "test_without_app_awareness_a_transform_still_pastes_into_the_same_app": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_delivery.cpp"
+      },
+      "test_without_app_awareness_command_mode_checks_the_app_too": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_delivery.cpp"
+      },
+      "test_a_rewrite_whose_app_cannot_be_told_is_copied_not_pasted_blind": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_command_delivery.cpp"
+      },
+      "test_linux_answers_the_paste_check_although_its_identity_is_asynchronous": {"status": "ported", "cpp": "tests/dictation/test_paste_check_identity.cpp", "note": "case: the paste check answers although the identity is asynchronous (FakeFocusPlatform without a synchronous identity)"},
+      "test_a_hung_linux_identity_read_is_bounded_and_unknown": {"status": "ported", "cpp": "tests/dictation/test_paste_check_identity.cpp", "note": "case: a hung identity read is bounded and unknown (PASTE_CHECK_TIMEOUT, not patched)"}
+    },
+    "tests/test_cleanup_profiles.py": {
+      "test_windows_profile_shortcuts_toggle_once_per_press_and_unregister": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_hotkey_runtime_families.cpp",
+        "note": "registered through refresh_profile_hotkeys over FakeKeyboardHook"
+      }
+    },
+    "tests/test_personalize_s3_text_rewrite.py": {
+      "test_the_timeout_notice_fits_by_the_pointer": {
+        "status": "ported",
+        "cpp": "tests/ui_overlay/test_rewrite_timeout_notice.cpp",
+        "note": "the fit is WaveformOverlay::fitNotice (ui_overlay), which fv_dictation's tests cannot link and uimath does not have, so the test is in ui_overlay's tests"
+      }
+    },
+    "tests/test_walkthrough_runtime.py": {
+      "test_recovered_walkthrough_claims_a_walkthrough_job_and_keeps_sections": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_walkthrough_job.cpp",
+        "note": "the decode runs on the jobs strand recover_walkthrough posts it to; the sections are read back from the manifest the real build_documents wrote with the FakeRenderer"
+      },
+      "test_recovery_does_not_replace_a_busy_job": {"status": "ported", "cpp": "tests/dictation/test_walkthrough_job.cpp"},
+      "test_a_walkthrough_records_like_a_dictation_without_early_decoding": {"status": "ported", "cpp": "tests/dictation/test_walkthrough_job.cpp"},
+      "test_a_walkthrough_reads_nothing_on_screen": {"status": "ported", "cpp": "tests/dictation/test_walkthrough_job.cpp"},
+      "test_stopping_closes_the_walkthrough_to_new_screenshots": {"status": "ported", "cpp": "tests/dictation/test_walkthrough_job.cpp"},
+      "test_each_section_is_transcribed_and_the_document_copied": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_walkthrough_job.cpp",
+        "note": "the engine's decode calls (one per clip, their lengths) stand in for the clip names; build_documents is the real one with the FakeRenderer, read back from the manifest"
+      },
+      "test_a_held_note_goes_to_the_write_up_not_the_document": {"status": "ported", "cpp": "tests/dictation/test_walkthrough_job.cpp"},
+      "test_a_screenshot_moved_up_takes_its_words_into_the_document": {"status": "ported", "cpp": "tests/dictation/test_walkthrough_job.cpp"},
+      "test_an_undone_screenshot_leaves_its_words_to_the_section_after_it": {"status": "ported", "cpp": "tests/dictation/test_walkthrough_job.cpp"},
+      "test_finished_walkthrough_uses_preferred_copy": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_walkthrough_job.cpp",
+        "note": "the Markdown copied is the real document's clipboard_text"
+      },
+      "test_finished_walkthrough_agent_copy_has_pdf_and_action_prompt": {"status": "ported", "cpp": "tests/dictation/test_walkthrough_job.cpp"},
+      "test_only_agent_auto_paste_uses_two_part_delivery": {"status": "ported", "cpp": "tests/dictation/test_walkthrough_job.cpp"},
+      "test_agent_auto_paste_waits_for_write_up_and_uses_delivered_pdf": {"status": "ported", "cpp": "tests/dictation/test_walkthrough_job.cpp"},
+      "test_each_section_is_cleaned_up_on_its_own": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_walkthrough_job.cpp",
+        "note": "FakeCleaner upper-cases each section through the real cleanup stage, where Python patches _maybe_cleanup_transcript"
+      },
+      "test_screenshots_without_words_still_make_a_walkthrough": {"status": "ported", "cpp": "tests/dictation/test_walkthrough_job.cpp"},
+      "test_no_screenshots_and_no_words_is_no_speech": {"status": "ported", "cpp": "tests/dictation/test_walkthrough_job.cpp"},
+      "test_a_document_that_cannot_be_written_keeps_the_words": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_walkthrough_job.cpp",
+        "note": "the FakeRenderer fails with DocumentError where Python's build_documents raises OSError(ENOSPC)"
+      },
+      "test_screenshots_that_could_not_be_saved_are_named_in_the_status": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_walkthrough_job.cpp",
+        "note": "a FakeShotImage whose save fails half written, where Python patches _write_png"
+      },
+      "test_canceling_a_walkthrough_deletes_its_screenshots": {"status": "ported", "cpp": "tests/dictation/test_walkthrough_job.cpp"},
+      "test_a_failed_walkthrough_keeps_its_screenshots_and_says_where": {"status": "ported", "cpp": "tests/dictation/test_walkthrough_job.cpp"},
+      "test_a_cancel_between_sections_stops_the_walkthrough": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_walkthrough_job.cpp",
+        "note": "the Cancel lands while the engine holds the first clip's decode, where Python sets the cancel from inside it"
+      },
+      "test_a_walkthrough_written_up_is_what_gets_copied": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_walkthrough_job.cpp",
+        "note": "the write-up is the runtime's WalkthroughWriteUp seam, where Python patches write_up.write_up"
+      },
+      "test_a_dictation_runs_while_the_write_up_is_still_writing": {"status": "ported", "cpp": "tests/dictation/test_walkthrough_job.cpp"},
+      "test_a_failed_write_up_copies_the_walkthrough_as_spoken": {"status": "ported", "cpp": "tests/dictation/test_walkthrough_job.cpp"},
+      "test_a_cancel_during_the_write_up_keeps_the_walkthrough_as_spoken": {"status": "ported", "cpp": "tests/dictation/test_walkthrough_job.cpp"},
+      "test_an_unreadable_recording_is_transcribed_whole_above_the_screenshots": {
+        "status": "ported",
+        "cpp": "tests/dictation/test_walkthrough_job.cpp",
+        "note": "the recording is an 8-bit WAV the cutter refuses and the real speech service decodes, where Python's is no WAV and its fake engine decodes anything"
+      },
+      "test_walkthrough_text_reaches_events_with_its_raw_words": {"status": "ported", "cpp": "tests/dictation/test_walkthrough_job.cpp"},
+      "test_the_saved_job_future_is_never_needed": {"status": "ported", "cpp": "tests/dictation/test_walkthrough_job.cpp"}
+    },
+    "tests/test_remote_engine.py": {
+      "test_live_preview_waits_for_the_host_then_decodes_there": {"status": "ported", "cpp": "tests/dictation/test_streaming_runtime.cpp", "note": "case of the same name: with Remote selected and not yet connected a reconfigure sets nothing up and says nothing; the reload's end asks for the set-up, and the preview's windows go to the dictation slot (the engine the host is behind) on the Preview lane. That those decodes reach the host is tests/remote_host/test_service.cpp (the remote speech backend decodes windows through the saved paired service)"},
+      "test_a_remote_reload_keeps_a_fitting_preview_and_rebuilds_a_stale_one": {"status": "ported", "cpp": "tests/dictation/test_streaming_runtime.cpp", "note": "case of the same name. Adapted: the preview holds no engine of its own, so it is stale when a reload replaced the dictation slot's engine (a new generation), whatever the host then runs; the same connection keeps it, a recording keeps it, and the next set-up after the recording rebuilds it (seen by the window length it was set up with)"},
+      "test_a_host_without_a_preview_engine_says_so": {"status": "ported", "cpp": "tests/dictation/test_streaming_runtime.cpp", "note": "case of the same name: StreamingRuntime reads the host's family from speech::remote_voice_capabilities and says \"Live preview needs Parakeet on devbox\" (FioriVoce names its one previewing engine; lead amendment 16)"}
+    },
+    "tests/test_walkthrough_paste.py": {
+      "test_shortcut_dispatch_leaves_normal_ctrl_v_untouched": {"status": "ported", "cpp": "tests/dictation/test_walkthrough_paste_keys.cpp", "note": "case: shortcut dispatch leaves normal ctrl v untouched (HotkeyRuntime over FakeKeyboardHook)"},
+      "test_virtual_key_shortcut_uses_os_modifiers": {"status": "ported", "cpp": "tests/dictation/test_walkthrough_paste_keys.cpp", "note": "case: a virtual key shortcut uses the os modifiers"},
+      "test_virtual_modifiers_are_waited_for_even_when_the_hook_misses_them": {"status": "ported", "cpp": "tests/dictation/test_walkthrough_paste_keys.cpp", "note": "case: virtual modifiers are waited for even when the hook misses them (focus::windows_modifiers_held)"}
+    },
+    "tests/test_personalize_fix2_g4_wayland_selection.py": {
+      "test_command_mode_says_so_instead_of_writing_over_the_selection": {"status": "ported", "cpp": "tests/dictation/test_unseen_selection.cpp", "note": "case: command mode says so instead of writing over an unseen selection"},
+      "test_a_transform_says_so": {"status": "ported", "cpp": "tests/dictation/test_unseen_selection.cpp", "note": "case: a transform of an unseen selection says so and writes nothing"},
+      "test_a_transform_end_to_end_keeps_the_users_clipboard": {"status": "ported", "cpp": "tests/dictation/test_unseen_selection.cpp", "note": "case: a transform of an unseen selection says so and writes nothing (no copy, stage or write); the TemporaryClipboard half is tests/clipboard/test_selection.cpp, a clipboard that can't see other apps' copies refuses without copying"}
+    },
+    "tests/test_personalize_fix2_g1_linux_terminals.py": {
+      "test_spoken_lists_stay_on_one_line_in_a_newly_known_terminal": {"status": "ported", "cpp": "tests/dictation/test_windows_terminals.cpp", "note": "case: spoken lists stay on one line in a terminal the catalogue knows (WezTerm, Alacritty, Git Bash, PowerShell)"},
+      "test_command_mode_never_copies_from_a_newly_known_terminal": {"status": "ported", "cpp": "tests/dictation/test_windows_terminals.cpp", "note": "case: command mode never copies from a terminal the catalogue knows (Windows terminals in place of Linux window classes)"}
+    }
+  }
+}

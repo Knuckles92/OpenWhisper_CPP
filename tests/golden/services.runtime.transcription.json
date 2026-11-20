@@ -1,0 +1,5704 @@
+{
+ "module": "services.runtime.transcription",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time"
+ },
+ "functions": {
+  "_start_failure_message": [
+   {
+    "args": [
+     "EngineNotReadyError",
+     "The speech model isn't downloaded yet. Approve the download, then try again."
+    ],
+    "result": "The speech model isn't downloaded yet. Approve the download, then try again."
+   },
+   {
+    "args": [
+     "EngineNotReadyError",
+     ""
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "RuntimeError",
+     "Could not open the audio stream"
+    ],
+    "result": "Failed to process audio: Could not open the audio stream"
+   },
+   {
+    "args": [
+     "ValueError",
+     "bad sample rate"
+    ],
+    "result": "Failed to process audio: bad sample rate"
+   },
+   {
+    "args": [
+     "RuntimeError",
+     ""
+    ],
+    "result": "Failed to process audio: "
+   }
+  ],
+  "_recording_destination": [
+   {
+    "args": [
+     null,
+     "dictation"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     null,
+     "walkthrough"
+    ],
+    "result": "Walkthrough"
+   },
+   {
+    "args": [
+     {
+      "name": "Ship it",
+      "kind": "agent",
+      "params": {}
+     },
+     "walkthrough"
+    ],
+    "result": "Walkthrough"
+   },
+   {
+    "args": [
+     {
+      "name": "Ship it",
+      "kind": "agent",
+      "params": {}
+     },
+     "action"
+    ],
+    "result": "Agent · Claude Code"
+   },
+   {
+    "args": [
+     {
+      "name": "Ship it",
+      "kind": "agent",
+      "params": {
+       "agent": "codex"
+      }
+     },
+     "action"
+    ],
+    "result": "Agent · Codex"
+   },
+   {
+    "args": [
+     {
+      "name": "Ship it",
+      "kind": "agent",
+      "params": {
+       "agent": "opencode_cli"
+      }
+     },
+     "action"
+    ],
+    "result": "Agent · OpenCode"
+   },
+   {
+    "args": [
+     {
+      "name": "Ship it",
+      "kind": "agent",
+      "params": {
+       "agent": "claude_code"
+      }
+     },
+     "action"
+    ],
+    "result": "Agent · Claude Code"
+   },
+   {
+    "args": [
+     {
+      "name": "Ship it",
+      "kind": "agent",
+      "params": {
+       "agent": "someone_else"
+      }
+     },
+     "action"
+    ],
+    "result": "Agent"
+   },
+   {
+    "args": [
+     {
+      "name": "Ship it",
+      "kind": "agent",
+      "params": {
+       "agent": ""
+      }
+     },
+     "action"
+    ],
+    "result": "Agent"
+   },
+   {
+    "args": [
+     {
+      "name": "Search",
+      "kind": "open_link",
+      "params": {
+       "template": "x"
+      }
+     },
+     "action"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "name": "Hook",
+      "kind": "webhook"
+     },
+     "dictation"
+    ],
+    "result": ""
+   }
+  ],
+  "_reads_selection": [
+   {
+    "args": [
+     {
+      "name": "Ship it",
+      "kind": "agent",
+      "params": {}
+     }
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     {
+      "name": "Ship it",
+      "kind": "agent",
+      "params": {
+       "include_selection": true
+      }
+     }
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     {
+      "name": "Ship it",
+      "kind": "agent",
+      "params": {
+       "include_selection": false
+      }
+     }
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     {
+      "name": "Ship it",
+      "kind": "agent",
+      "params": {
+       "include_selection": 1
+      }
+     }
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     {
+      "name": "Ship it",
+      "kind": "agent",
+      "params": {
+       "include_selection": "yes"
+      }
+     }
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     {
+      "name": "Hook",
+      "kind": "webhook",
+      "params": {
+       "include_selection": true
+      }
+     }
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     {
+      "name": "Hook",
+      "kind": "webhook"
+     }
+    ],
+    "result": false
+   }
+  ],
+  "_report_busy": [
+   {
+    "args": [
+     "starting another recording",
+     false
+    ],
+    "result": {
+     "returned": "A transcription is already in progress — wait before starting another recording",
+     "status": [
+      "A transcription is already in progress — wait before starting another recording"
+     ]
+    }
+   },
+   {
+    "args": [
+     "processing this recording",
+     false
+    ],
+    "result": {
+     "returned": "A transcription is already in progress — wait before processing this recording",
+     "status": [
+      "A transcription is already in progress — wait before processing this recording"
+     ]
+    }
+   },
+   {
+    "args": [
+     "re-transcribing audio",
+     false
+    ],
+    "result": {
+     "returned": "A transcription is already in progress — wait before re-transcribing audio",
+     "status": [
+      "A transcription is already in progress — wait before re-transcribing audio"
+     ]
+    }
+   },
+   {
+    "args": [
+     "uploading audio",
+     false
+    ],
+    "result": {
+     "returned": "A transcription is already in progress — wait before uploading audio",
+     "status": [
+      "A transcription is already in progress — wait before uploading audio"
+     ]
+    }
+   },
+   {
+    "args": [
+     "rewriting text",
+     false
+    ],
+    "result": {
+     "returned": "A transcription is already in progress — wait before rewriting text",
+     "status": [
+      "A transcription is already in progress — wait before rewriting text"
+     ]
+    }
+   },
+   {
+    "args": [
+     "pasting",
+     false
+    ],
+    "result": {
+     "returned": "A transcription is already in progress — wait before pasting",
+     "status": [
+      "A transcription is already in progress — wait before pasting"
+     ]
+    }
+   },
+   {
+    "args": [
+     "recovering a walkthrough",
+     false
+    ],
+    "result": {
+     "returned": "A transcription is already in progress — wait before recovering a walkthrough",
+     "status": [
+      "A transcription is already in progress — wait before recovering a walkthrough"
+     ]
+    }
+   },
+   {
+    "args": [
+     "starting another recording",
+     true
+    ],
+    "result": {
+     "returned": "OpenWhisper is preparing an update. Try again shortly.",
+     "status": [
+      "OpenWhisper is preparing an update. Try again shortly."
+     ]
+    }
+   }
+  ],
+  "_show_listening": [
+   {
+    "args": [
+     "dictation",
+     null,
+     null
+    ],
+    "result": {
+     "overlay": [
+      "recording"
+     ],
+     "status": [
+      "Recording..."
+     ]
+    }
+   },
+   {
+    "args": [
+     "dictation",
+     null,
+     "Email"
+    ],
+    "result": {
+     "overlay": [
+      "recording"
+     ],
+     "status": [
+      "Recording · Email..."
+     ]
+    }
+   },
+   {
+    "args": [
+     "dictation",
+     null,
+     ""
+    ],
+    "result": {
+     "overlay": [
+      "recording"
+     ],
+     "status": [
+      "Recording · ..."
+     ]
+    }
+   },
+   {
+    "args": [
+     "command",
+     null,
+     null
+    ],
+    "result": {
+     "overlay": [
+      "command_listening"
+     ],
+     "status": [
+      "Command Mode · Listening..."
+     ]
+    }
+   },
+   {
+    "args": [
+     "command",
+     "Ship it",
+     "Email"
+    ],
+    "result": {
+     "overlay": [
+      "command_listening"
+     ],
+     "status": [
+      "Command Mode · Listening..."
+     ]
+    }
+   },
+   {
+    "args": [
+     "action",
+     "Ship it",
+     null
+    ],
+    "result": {
+     "overlay": [
+      "recording"
+     ],
+     "status": [
+      "Ship it · Listening..."
+     ]
+    }
+   },
+   {
+    "args": [
+     "action",
+     "",
+     null
+    ],
+    "result": {
+     "overlay": [
+      "recording"
+     ],
+     "status": [
+      " · Listening..."
+     ]
+    }
+   },
+   {
+    "args": [
+     "walkthrough",
+     null,
+     null
+    ],
+    "result": {
+     "overlay": [
+      "recording"
+     ],
+     "status": [
+      "Walkthrough · Recording..."
+     ]
+    }
+   },
+   {
+    "args": [
+     "walkthrough",
+     null,
+     "Email"
+    ],
+    "result": {
+     "overlay": [
+      "recording"
+     ],
+     "status": [
+      "Walkthrough · Recording..."
+     ]
+    }
+   },
+   {
+    "args": [
+     "transform",
+     null,
+     null
+    ],
+    "result": {
+     "overlay": [
+      "recording"
+     ],
+     "status": [
+      "Recording..."
+     ]
+    }
+   }
+  ],
+  "_error_status": [
+   {
+    "args": [
+     "Failed to process audio: boom",
+     "dictation",
+     false
+    ],
+    "result": "Error: Failed to process audio: boom"
+   },
+   {
+    "args": [
+     "Set up AI cleanup to use Command Mode",
+     "command",
+     true
+    ],
+    "result": "Set up AI cleanup to use Command Mode"
+   },
+   {
+    "args": [
+     "Transcription canceled",
+     null,
+     false
+    ],
+    "result": "Error: Transcription canceled"
+   },
+   {
+    "args": [
+     "Transcription canceled",
+     "walkthrough",
+     false
+    ],
+    "result": "Error: Transcription canceled"
+   },
+   {
+    "args": [
+     "",
+     "dictation",
+     false
+    ],
+    "result": "Error: "
+   }
+  ],
+  "_save_failed_recording": [
+   {
+    "args": [
+     "Error: Failed to process audio: boom",
+     "saved",
+     false
+    ],
+    "result": [
+     {
+      "error": "Error: Failed to process audio: boom — recording saved in History. Select Retry transcription.",
+      "refresh": true,
+      "notice": "Transcription failed. Retry the recording from History."
+     }
+    ]
+   },
+   {
+    "args": [
+     "Error: Failed to process audio: boom",
+     "saved",
+     true
+    ],
+    "result": [
+     {
+      "error": "Error: Failed to process audio: boom — recording saved in History. Select Retry transcription.",
+      "refresh": true,
+      "notice": "Reconnect failed. Audio saved in History."
+     }
+    ]
+   },
+   {
+    "args": [
+     "Error: Failed to process audio: boom",
+     "not_retained",
+     false
+    ],
+    "result": [
+     {
+      "error": "Error: Failed to process audio: boom — audio could not be retained in History; recovery copy kept",
+      "refresh": true,
+      "notice": "Error: Failed to process audio: boom — audio could not be retained in History; recovery copy kept"
+     }
+    ]
+   },
+   {
+    "args": [
+     "Error: Failed to process audio: boom",
+     "failed",
+     false
+    ],
+    "result": [
+     {
+      "error": "Error: Failed to process audio: boom — History could not be saved; recovery copy kept",
+      "refresh": true,
+      "notice": "Error: Failed to process audio: boom — History could not be saved; recovery copy kept"
+     }
+    ]
+   }
+  ],
+  "_preserve_failed_audio": [
+   {
+    "args": [
+     "Error: x",
+     "saved",
+     "recording_2026-11-14_10-00-00.wav"
+    ],
+    "result": [
+     {
+      "error": "Error: x — audio saved in Recordings as recording_2026-11-14_10-00-00.wav"
+     }
+    ]
+   },
+   {
+    "args": [
+     "Error: x",
+     "not_retained",
+     ""
+    ],
+    "result": [
+     {
+      "error": "Error: x — audio retention failed; original and recovery copy kept"
+     }
+    ]
+   },
+   {
+    "args": [
+     "Error: x",
+     "missing",
+     ""
+    ],
+    "result": [
+     {
+      "error": "Error: x"
+     }
+    ]
+   },
+   {
+    "args": [
+     "Error: x",
+     "failed",
+     ""
+    ],
+    "result": [
+     {
+      "error": "Error: x — could not retain audio; recovery copy kept"
+     }
+    ]
+   }
+  ],
+  "_delivery_notice": [
+   {
+    "args": [
+     "",
+     null,
+     null
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "",
+     "Email",
+     null
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "",
+     "Email",
+     ""
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "",
+     "Email",
+     "timed out"
+    ],
+    "result": "Email formatting failed (timed out); using raw transcript"
+   },
+   {
+    "args": [
+     "",
+     null,
+     "timed out"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "",
+     "Email",
+     "cleanup unavailable"
+    ],
+    "result": "Email formatting failed (cleanup unavailable); using raw transcript"
+   },
+   {
+    "args": [
+     "",
+     "Support ticket",
+     "snippet placeholder lost"
+    ],
+    "result": "Support ticket formatting failed (snippet placeholder lost); using raw transcript"
+   },
+   {
+    "args": [
+     "",
+     "Email",
+     "canceled"
+    ],
+    "result": "Email formatting failed (canceled); using raw transcript"
+   },
+   {
+    "args": [
+     "",
+     "Email",
+     "timed out after 17 s"
+    ],
+    "result": "Email formatting failed (timed out after 17 s); using raw transcript"
+   },
+   {
+    "args": [
+     "This action's transform no longer exists — sent your cleaned words",
+     "Email",
+     "timed out"
+    ],
+    "result": "This action's transform no longer exists — sent your cleaned words"
+   }
+  ],
+  "constants": [
+   {
+    "args": [],
+    "result": {
+     "EMPTY_ASR_MESSAGE": "No speech detected (empty after VAD)",
+     "MIN_RECORDING_BYTES": 100,
+     "WALKTHROUGH_LABEL": "Walkthrough"
+    }
+   }
+  ],
+  "_batch_line": [
+   {
+    "args": [
+     {
+      "path": "C:/rec/a.wav",
+      "text": " first words. "
+     },
+     false
+    ],
+    "result": "first words."
+   },
+   {
+    "args": [
+     {
+      "path": "C:/rec/a.wav",
+      "text": " first words. "
+     },
+     true
+    ],
+    "result": "first words."
+   },
+   {
+    "args": [
+     {
+      "path": "C:/rec/r.wav",
+      "text": "Cleaned.",
+      "raw_text": "um cleaned"
+     },
+     false
+    ],
+    "result": "Cleaned."
+   },
+   {
+    "args": [
+     {
+      "path": "C:/rec/r.wav",
+      "text": "Cleaned.",
+      "raw_text": "um cleaned"
+     },
+     true
+    ],
+    "result": "um cleaned"
+   },
+   {
+    "args": [
+     {
+      "path": "C:/rec/r.wav",
+      "text": "Cleaned.",
+      "raw_text": ""
+     },
+     true
+    ],
+    "result": "Cleaned."
+   },
+   {
+    "args": [
+     {
+      "path": "C:/rec/f.wav",
+      "error": "boom"
+     },
+     false
+    ],
+    "result": "Error: boom"
+   },
+   {
+    "args": [
+     {
+      "path": "C:/rec/f.wav",
+      "error": "boom"
+     },
+     true
+    ],
+    "result": "Error: boom"
+   },
+   {
+    "args": [
+     {
+      "path": "C:/rec/a.wav",
+      "text": " first words. ",
+      "error": ""
+     },
+     false
+    ],
+    "result": "first words."
+   },
+   {
+    "args": [
+     {
+      "path": "C:/rec/e.wav",
+      "text": "   "
+     },
+     false
+    ],
+    "result": "No speech detected (empty after VAD)"
+   },
+   {
+    "args": [
+     {
+      "path": "C:/rec/e.wav",
+      "text": "   "
+     },
+     true
+    ],
+    "result": "No speech detected (empty after VAD)"
+   },
+   {
+    "args": [
+     {
+      "path": "x.wav"
+     },
+     false
+    ],
+    "result": "No speech detected (empty after VAD)"
+   },
+   {
+    "args": [
+     {
+      "path": "x.wav",
+      "text": "\tcafé — ok\n"
+     },
+     false
+    ],
+    "result": "café — ok"
+   }
+  ],
+  "_batch_display": [
+   {
+    "args": [
+     {
+      "items": [
+       {
+        "path": "C:/rec/a.wav",
+        "text": " first words. "
+       },
+       {
+        "path": "C:\\rec\\b.mp3",
+        "text": "second words."
+       },
+       {
+        "path": "D:/x/c.m4a",
+        "text": "third."
+       }
+      ]
+     },
+     false
+    ],
+    "result": [
+     "## a.wav\n\nfirst words.\n\n## b.mp3\n\nsecond words.\n\n## c.m4a\n\nthird.",
+     null
+    ]
+   },
+   {
+    "args": [
+     {
+      "items": [
+       {
+        "path": "C:/rec/a.wav",
+        "text": " first words. "
+       },
+       {
+        "path": "C:/rec/r.wav",
+        "text": "Cleaned.",
+        "raw_text": "um cleaned"
+       }
+      ]
+     },
+     false
+    ],
+    "result": [
+     "## a.wav\n\nfirst words.\n\n## r.wav\n\nCleaned.",
+     "## a.wav\n\nfirst words.\n\n## r.wav\n\num cleaned"
+    ]
+   },
+   {
+    "args": [
+     {
+      "items": [
+       {
+        "path": "C:/rec/a.wav",
+        "text": " first words. "
+       },
+       {
+        "path": "C:/rec/f.wav",
+        "error": "boom"
+       },
+       {
+        "path": "C:/rec/e.wav",
+        "text": "   "
+       }
+      ]
+     },
+     false
+    ],
+    "result": [
+     "## a.wav\n\nfirst words.\n\n## f.wav\n\nError: boom\n\n## e.wav\n\nNo speech detected (empty after VAD)",
+     null
+    ]
+   },
+   {
+    "args": [
+     {
+      "items": [
+       {
+        "path": "C:/rec/e.wav",
+        "text": "   "
+       },
+       {
+        "path": "C:/rec/e.wav",
+        "text": "   "
+       }
+      ]
+     },
+     true
+    ],
+    "result": [
+     "## e.wav\n\nNo speech detected (empty after VAD)\n\n## e.wav\n\nNo speech detected (empty after VAD)",
+     null
+    ]
+   },
+   {
+    "args": [
+     {
+      "items": [
+       {
+        "path": "C:/rec/a.wav",
+        "text": " first words. "
+       },
+       {
+        "path": "C:/rec/r.wav",
+        "text": "Cleaned.",
+        "raw_text": ""
+       }
+      ]
+     },
+     false
+    ],
+    "result": [
+     "## a.wav\n\nfirst words.\n\n## r.wav\n\nCleaned.",
+     null
+    ]
+   },
+   {
+    "args": [
+     {
+      "relation": "sequential",
+      "items": [
+       {
+        "path": "C:/rec/a.wav",
+        "text": " first words. "
+       },
+       {
+        "path": "C:\\rec\\b.mp3",
+        "text": "second words."
+       }
+      ],
+      "combined_text": "Joined.",
+      "combined_raw_text": "first words.\n\nsecond words."
+     },
+     false
+    ],
+    "result": [
+     "Joined.",
+     "first words.\n\nsecond words."
+    ]
+   },
+   {
+    "args": [
+     {
+      "relation": "sequential",
+      "items": [
+       {
+        "path": "C:/rec/a.wav",
+        "text": " first words. "
+       },
+       {
+        "path": "C:\\rec\\b.mp3",
+        "text": "second words."
+       }
+      ],
+      "combined_text": "   "
+     },
+     true
+    ],
+    "result": [
+     "No speech detected (empty after VAD)",
+     null
+    ]
+   },
+   {
+    "args": [
+     {
+      "relation": "sequential",
+      "items": [
+       {
+        "path": "C:/rec/a.wav",
+        "text": " first words. "
+       },
+       {
+        "path": "C:\\rec\\b.mp3",
+        "text": "second words."
+       }
+      ]
+     },
+     false
+    ],
+    "result": [
+     "",
+     null
+    ]
+   },
+   {
+    "args": [
+     {
+      "relation": "custom",
+      "custom_combine": true,
+      "items": [
+       {
+        "path": "C:/rec/a.wav",
+        "text": " first words. "
+       },
+       {
+        "path": "C:\\rec\\b.mp3",
+        "text": "second words."
+       }
+      ],
+      "combined_text": "Joined."
+     },
+     false
+    ],
+    "result": [
+     "Joined.",
+     null
+    ]
+   },
+   {
+    "args": [
+     {
+      "relation": "custom",
+      "custom_combine": false,
+      "items": [
+       {
+        "path": "C:/rec/a.wav",
+        "text": " first words. "
+       },
+       {
+        "path": "C:\\rec\\b.mp3",
+        "text": "second words."
+       }
+      ],
+      "combined_text": "Joined."
+     },
+     false
+    ],
+    "result": [
+     "## a.wav\n\nfirst words.\n\n## b.mp3\n\nsecond words.",
+     null
+    ]
+   }
+  ],
+  "_batch_status": [
+   {
+    "args": [
+     {
+      "items": [
+       {
+        "path": "C:/rec/a.wav",
+        "text": " first words. "
+       },
+       {
+        "path": "C:\\rec\\b.mp3",
+        "text": "second words."
+       },
+       {
+        "path": "D:/x/c.m4a",
+        "text": "third."
+       }
+      ]
+     },
+     3,
+     false
+    ],
+    "result": "Ready"
+   },
+   {
+    "args": [
+     {
+      "items": [
+       {
+        "path": "C:/rec/a.wav",
+        "text": " first words. "
+       },
+       {
+        "path": "C:\\rec\\b.mp3",
+        "text": "second words."
+       },
+       {
+        "path": "D:/x/c.m4a",
+        "text": "third."
+       }
+      ]
+     },
+     1,
+     true
+    ],
+    "result": "Canceled — kept 1 of 3 files"
+   },
+   {
+    "args": [
+     {
+      "items": [
+       {
+        "path": "C:/rec/a.wav",
+        "text": " first words. "
+       },
+       {
+        "path": "C:\\rec\\b.mp3",
+        "text": "second words."
+       }
+      ]
+     },
+     0,
+     true
+    ],
+    "result": "Canceled — kept 0 of 2 files"
+   },
+   {
+    "args": [
+     {
+      "relation": "sequential",
+      "items": [
+       {
+        "path": "C:/rec/a.wav",
+        "text": " first words. "
+       },
+       {
+        "path": "C:\\rec\\b.mp3",
+        "text": "second words."
+       }
+      ]
+     },
+     2,
+     true
+    ],
+    "result": "Canceled — kept the transcript"
+   },
+   {
+    "args": [
+     {
+      "relation": "sequential",
+      "items": [
+       {
+        "path": "C:/rec/a.wav",
+        "text": " first words. "
+       },
+       {
+        "path": "C:\\rec\\b.mp3",
+        "text": "second words."
+       }
+      ],
+      "cleanup_error": "canceled"
+     },
+     2,
+     false
+    ],
+    "result": "Ready without AI cleanup"
+   },
+   {
+    "args": [
+     {
+      "relation": "sequential",
+      "items": [
+       {
+        "path": "C:/rec/a.wav",
+        "text": " first words. "
+       },
+       {
+        "path": "C:\\rec\\b.mp3",
+        "text": "second words."
+       }
+      ],
+      "cleanup_error": "canceled"
+     },
+     2,
+     true
+    ],
+    "result": "Canceled — kept the transcript without AI cleanup"
+   },
+   {
+    "args": [
+     {
+      "relation": "sequential",
+      "items": [
+       {
+        "path": "C:/rec/a.wav",
+        "text": " first words. "
+       },
+       {
+        "path": "C:\\rec\\b.mp3",
+        "text": "second words."
+       }
+      ],
+      "cleanup_error": "timed out"
+     },
+     2,
+     false
+    ],
+    "result": "Ready — AI cleanup failed (timed out); showing raw text"
+   },
+   {
+    "args": [
+     {
+      "relation": "sequential",
+      "items": [
+       {
+        "path": "C:/rec/a.wav",
+        "text": " first words. "
+       },
+       {
+        "path": "C:\\rec\\b.mp3",
+        "text": "second words."
+       }
+      ],
+      "cleanup_error": "cleanup unavailable"
+     },
+     2,
+     false
+    ],
+    "result": "Ready — AI cleanup failed (cleanup unavailable); showing raw text"
+   },
+   {
+    "args": [
+     {
+      "relation": "sequential",
+      "items": [
+       {
+        "path": "C:/rec/a.wav",
+        "text": " first words. "
+       },
+       {
+        "path": "C:\\rec\\b.mp3",
+        "text": "second words."
+       }
+      ],
+      "cleanup_error": ""
+     },
+     2,
+     false
+    ],
+    "result": "Ready"
+   },
+   {
+    "args": [
+     {
+      "relation": "custom",
+      "custom_combine": true,
+      "items": [
+       {
+        "path": "C:/rec/a.wav",
+        "text": " first words. "
+       },
+       {
+        "path": "C:\\rec\\b.mp3",
+        "text": "second words."
+       }
+      ],
+      "cleanup_error": "HTTP 429"
+     },
+     2,
+     true
+    ],
+    "result": "Canceled — kept the transcript — AI cleanup failed (HTTP 429); showing raw text"
+   },
+   {
+    "args": [
+     {
+      "items": [
+       {
+        "path": "C:/rec/a.wav",
+        "text": " first words. "
+       },
+       {
+        "path": "C:\\rec\\b.mp3",
+        "text": "second words."
+       }
+      ],
+      "cleanup_error": "timed out"
+     },
+     1,
+     true
+    ],
+    "result": "Canceled — kept 1 of 2 files — AI cleanup failed (timed out); showing raw text"
+   }
+  ],
+  "_copy_rewrite": [
+   {
+    "args": [
+     true,
+     "changed"
+    ],
+    "result": {
+     "statuses": [
+      "Rewrite copied — the app changed; paste it where you want"
+     ],
+     "notices": [
+      [
+       "Rewrite copied — the app changed; paste it where you want",
+       false
+      ]
+     ],
+     "copied": [
+      "Rewritten."
+     ]
+    }
+   },
+   {
+    "args": [
+     true,
+     "unknown"
+    ],
+    "result": {
+     "statuses": [
+      "Rewrite copied — couldn't confirm the app; paste it where you want"
+     ],
+     "notices": [
+      [
+       "Rewrite copied — couldn't confirm the app; paste it where you want",
+       false
+      ]
+     ],
+     "copied": [
+      "Rewritten."
+     ]
+    }
+   },
+   {
+    "args": [
+     true,
+     "same"
+    ],
+    "result": {
+     "statuses": [
+      "Rewrite copied — couldn't confirm the app; paste it where you want"
+     ],
+     "notices": [
+      [
+       "Rewrite copied — couldn't confirm the app; paste it where you want",
+       false
+      ]
+     ],
+     "copied": [
+      "Rewritten."
+     ]
+    }
+   },
+   {
+    "args": [
+     false,
+     "changed"
+    ],
+    "result": {
+     "statuses": [
+      "Transcription complete (copy failed)"
+     ],
+     "notices": [
+      [
+       "Transcription complete (copy failed)",
+       false
+      ]
+     ],
+     "copied": [
+      "Rewritten."
+     ]
+    }
+   },
+   {
+    "args": [
+     false,
+     "unknown"
+    ],
+    "result": {
+     "statuses": [
+      "Transcription complete (copy failed)"
+     ],
+     "notices": [
+      [
+       "Transcription complete (copy failed)",
+       false
+      ]
+     ],
+     "copied": [
+      "Rewritten."
+     ]
+    }
+   }
+  ],
+  "_notify_forced_outcome": [
+   {
+    "args": [
+     "old words",
+     true,
+     "Ready (Pasted)"
+    ],
+    "result": [
+     [
+      "Rewritten",
+      true
+     ]
+    ]
+   },
+   {
+    "args": [
+     "",
+     true,
+     "Ready (Pasted)"
+    ],
+    "result": [
+     [
+      "Inserted",
+      true
+     ]
+    ]
+   },
+   {
+    "args": [
+     "   ",
+     true,
+     "Ready (Pasted)"
+    ],
+    "result": [
+     [
+      "Inserted",
+      true
+     ]
+    ]
+   },
+   {
+    "args": [
+     null,
+     true,
+     "Ready (Pasted)"
+    ],
+    "result": [
+     [
+      "Inserted",
+      true
+     ]
+    ]
+   },
+   {
+    "args": [
+     "old words",
+     false,
+     "Transcription complete (paste failed)"
+    ],
+    "result": [
+     [
+      "Transcription complete (paste failed)",
+      false
+     ]
+    ]
+   },
+   {
+    "args": [
+     "",
+     false,
+     "Transcription complete (copy failed)"
+    ],
+    "result": [
+     [
+      "Transcription complete (copy failed)",
+      false
+     ]
+    ]
+   },
+   {
+    "args": [
+     "old words",
+     false,
+     ""
+    ],
+    "result": []
+   }
+  ],
+  "_copy_walkthrough": [
+   {
+    "args": [
+     "pdf",
+     true,
+     true,
+     0,
+     true,
+     "",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up copied (0 screenshots) — paste it where you need it"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "pdf",
+     true,
+     true,
+     1,
+     false,
+     "",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough copied (1 screenshot) — paste it where you need it. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "pdf",
+     true,
+     true,
+     3,
+     true,
+     "",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up copied (3 screenshots) — paste it where you need it. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "pdf",
+     true,
+     true,
+     0,
+     false,
+     "Claude Code is not signed in.",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (0 screenshots): Claude Code is not signed in."
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "pdf",
+     true,
+     true,
+     1,
+     false,
+     "Claude Code is not signed in.",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (1 screenshot): Claude Code is not signed in.. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "pdf",
+     true,
+     true,
+     3,
+     false,
+     "Claude Code is not signed in.",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (3 screenshots): Claude Code is not signed in.. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "pdf",
+     true,
+     false,
+     0,
+     true,
+     "",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up saved (0 screenshots); copying it failed — drag it from the card"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "pdf",
+     true,
+     false,
+     1,
+     false,
+     "",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough saved (1 screenshot); copying it failed — drag it from the card. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "pdf",
+     true,
+     false,
+     3,
+     true,
+     "",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up saved (3 screenshots); copying it failed — drag it from the card. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "pdf",
+     true,
+     false,
+     0,
+     false,
+     "Claude Code is not signed in.",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (0 screenshots): Claude Code is not signed in."
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "pdf",
+     true,
+     false,
+     1,
+     false,
+     "Claude Code is not signed in.",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (1 screenshot): Claude Code is not signed in.. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "pdf",
+     true,
+     false,
+     3,
+     false,
+     "Claude Code is not signed in.",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (3 screenshots): Claude Code is not signed in.. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "pdf",
+     false,
+     true,
+     0,
+     true,
+     "",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up copied (0 screenshots) — paste it where you need it"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "pdf",
+     false,
+     true,
+     1,
+     false,
+     "",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough copied (1 screenshot) — paste it where you need it. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "pdf",
+     false,
+     true,
+     3,
+     true,
+     "",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up copied (3 screenshots) — paste it where you need it. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "pdf",
+     false,
+     true,
+     0,
+     false,
+     "Claude Code is not signed in.",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (0 screenshots): Claude Code is not signed in."
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "pdf",
+     false,
+     true,
+     1,
+     false,
+     "Claude Code is not signed in.",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (1 screenshot): Claude Code is not signed in.. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "pdf",
+     false,
+     true,
+     3,
+     false,
+     "Claude Code is not signed in.",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (3 screenshots): Claude Code is not signed in.. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "pdf",
+     false,
+     false,
+     0,
+     true,
+     "",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up saved (0 screenshots); copying it failed — drag it from the card"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "pdf",
+     false,
+     false,
+     1,
+     false,
+     "",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough saved (1 screenshot); copying it failed — drag it from the card. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "pdf",
+     false,
+     false,
+     3,
+     true,
+     "",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up saved (3 screenshots); copying it failed — drag it from the card. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "pdf",
+     false,
+     false,
+     0,
+     false,
+     "Claude Code is not signed in.",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (0 screenshots): Claude Code is not signed in."
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "pdf",
+     false,
+     false,
+     1,
+     false,
+     "Claude Code is not signed in.",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (1 screenshot): Claude Code is not signed in.. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "pdf",
+     false,
+     false,
+     3,
+     false,
+     "Claude Code is not signed in.",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (3 screenshots): Claude Code is not signed in.. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent_task",
+     true,
+     true,
+     0,
+     true,
+     "",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up copied (0 screenshots) — preparing to paste PDF, then instructions"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 1
+    }
+   },
+   {
+    "args": [
+     "agent_task",
+     true,
+     true,
+     1,
+     false,
+     "",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough copied (1 screenshot) — preparing to paste PDF, then instructions. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 1
+    }
+   },
+   {
+    "args": [
+     "agent_task",
+     true,
+     true,
+     3,
+     true,
+     "",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up copied (3 screenshots) — preparing to paste PDF, then instructions. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 1
+    }
+   },
+   {
+    "args": [
+     "agent_task",
+     true,
+     true,
+     0,
+     false,
+     "Claude Code is not signed in.",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough as spoken; preparing to paste PDF, then instructions (0 screenshots): Claude Code is not signed in."
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 1
+    }
+   },
+   {
+    "args": [
+     "agent_task",
+     true,
+     true,
+     1,
+     false,
+     "Claude Code is not signed in.",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough as spoken; preparing to paste PDF, then instructions (1 screenshot): Claude Code is not signed in.. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 1
+    }
+   },
+   {
+    "args": [
+     "agent_task",
+     true,
+     true,
+     3,
+     false,
+     "Claude Code is not signed in.",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough as spoken; preparing to paste PDF, then instructions (3 screenshots): Claude Code is not signed in.. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 1
+    }
+   },
+   {
+    "args": [
+     "agent_task",
+     true,
+     false,
+     0,
+     true,
+     "",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up saved (0 screenshots); copying it failed — drag it from the card"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 1
+    }
+   },
+   {
+    "args": [
+     "agent_task",
+     true,
+     false,
+     1,
+     false,
+     "",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough saved (1 screenshot); copying it failed — drag it from the card. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 1
+    }
+   },
+   {
+    "args": [
+     "agent_task",
+     true,
+     false,
+     3,
+     true,
+     "",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up saved (3 screenshots); copying it failed — drag it from the card. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 1
+    }
+   },
+   {
+    "args": [
+     "agent_task",
+     true,
+     false,
+     0,
+     false,
+     "Claude Code is not signed in.",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough as spoken; preparing to paste PDF, then instructions (0 screenshots): Claude Code is not signed in."
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 1
+    }
+   },
+   {
+    "args": [
+     "agent_task",
+     true,
+     false,
+     1,
+     false,
+     "Claude Code is not signed in.",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough as spoken; preparing to paste PDF, then instructions (1 screenshot): Claude Code is not signed in.. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 1
+    }
+   },
+   {
+    "args": [
+     "agent_task",
+     true,
+     false,
+     3,
+     false,
+     "Claude Code is not signed in.",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough as spoken; preparing to paste PDF, then instructions (3 screenshots): Claude Code is not signed in.. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 1
+    }
+   },
+   {
+    "args": [
+     "agent_task",
+     false,
+     true,
+     0,
+     true,
+     "",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up copied (0 screenshots) — paste the instructions, then drag the PDF into your chat"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent_task",
+     false,
+     true,
+     1,
+     false,
+     "",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough copied (1 screenshot) — paste the instructions, then drag the PDF into your chat. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent_task",
+     false,
+     true,
+     3,
+     true,
+     "",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up copied (3 screenshots) — paste the instructions, then drag the PDF into your chat. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent_task",
+     false,
+     true,
+     0,
+     false,
+     "Claude Code is not signed in.",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough as spoken; paste instructions and drag the PDF (0 screenshots): Claude Code is not signed in."
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent_task",
+     false,
+     true,
+     1,
+     false,
+     "Claude Code is not signed in.",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough as spoken; paste instructions and drag the PDF (1 screenshot): Claude Code is not signed in.. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent_task",
+     false,
+     true,
+     3,
+     false,
+     "Claude Code is not signed in.",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough as spoken; paste instructions and drag the PDF (3 screenshots): Claude Code is not signed in.. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent_task",
+     false,
+     false,
+     0,
+     true,
+     "",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up saved (0 screenshots); copying it failed — drag it from the card"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent_task",
+     false,
+     false,
+     1,
+     false,
+     "",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough saved (1 screenshot); copying it failed — drag it from the card. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent_task",
+     false,
+     false,
+     3,
+     true,
+     "",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up saved (3 screenshots); copying it failed — drag it from the card. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent_task",
+     false,
+     false,
+     0,
+     false,
+     "Claude Code is not signed in.",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (0 screenshots): Claude Code is not signed in."
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent_task",
+     false,
+     false,
+     1,
+     false,
+     "Claude Code is not signed in.",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (1 screenshot): Claude Code is not signed in.. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent_task",
+     false,
+     false,
+     3,
+     false,
+     "Claude Code is not signed in.",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (3 screenshots): Claude Code is not signed in.. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "both",
+     true,
+     true,
+     0,
+     true,
+     "",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up copied (0 screenshots) — paste it into your agent"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.pdf"
+       ],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "both",
+     true,
+     true,
+     1,
+     false,
+     "",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough copied (1 screenshot) — paste it into your agent. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "both",
+     true,
+     true,
+     3,
+     true,
+     "",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up copied (3 screenshots) — paste it into your agent. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.pdf"
+       ],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "both",
+     true,
+     true,
+     0,
+     false,
+     "Claude Code is not signed in.",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (0 screenshots): Claude Code is not signed in."
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "both",
+     true,
+     true,
+     1,
+     false,
+     "Claude Code is not signed in.",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (1 screenshot): Claude Code is not signed in.. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "both",
+     true,
+     true,
+     3,
+     false,
+     "Claude Code is not signed in.",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (3 screenshots): Claude Code is not signed in.. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "both",
+     true,
+     false,
+     0,
+     true,
+     "",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up saved (0 screenshots); copying it failed — drag it from the card"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.pdf"
+       ],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "both",
+     true,
+     false,
+     1,
+     false,
+     "",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough saved (1 screenshot); copying it failed — drag it from the card. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "both",
+     true,
+     false,
+     3,
+     true,
+     "",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up saved (3 screenshots); copying it failed — drag it from the card. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.pdf"
+       ],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "both",
+     true,
+     false,
+     0,
+     false,
+     "Claude Code is not signed in.",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (0 screenshots): Claude Code is not signed in."
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "both",
+     true,
+     false,
+     1,
+     false,
+     "Claude Code is not signed in.",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (1 screenshot): Claude Code is not signed in.. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "both",
+     true,
+     false,
+     3,
+     false,
+     "Claude Code is not signed in.",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (3 screenshots): Claude Code is not signed in.. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "both",
+     false,
+     true,
+     0,
+     true,
+     "",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up copied (0 screenshots) — paste it into your agent"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.pdf"
+       ],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "both",
+     false,
+     true,
+     1,
+     false,
+     "",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough copied (1 screenshot) — paste it into your agent. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "both",
+     false,
+     true,
+     3,
+     true,
+     "",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up copied (3 screenshots) — paste it into your agent. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.pdf"
+       ],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "both",
+     false,
+     true,
+     0,
+     false,
+     "Claude Code is not signed in.",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (0 screenshots): Claude Code is not signed in."
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "both",
+     false,
+     true,
+     1,
+     false,
+     "Claude Code is not signed in.",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (1 screenshot): Claude Code is not signed in.. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "both",
+     false,
+     true,
+     3,
+     false,
+     "Claude Code is not signed in.",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (3 screenshots): Claude Code is not signed in.. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "both",
+     false,
+     false,
+     0,
+     true,
+     "",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up saved (0 screenshots); copying it failed — drag it from the card"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.pdf"
+       ],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "both",
+     false,
+     false,
+     1,
+     false,
+     "",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough saved (1 screenshot); copying it failed — drag it from the card. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "both",
+     false,
+     false,
+     3,
+     true,
+     "",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up saved (3 screenshots); copying it failed — drag it from the card. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.pdf"
+       ],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "both",
+     false,
+     false,
+     0,
+     false,
+     "Claude Code is not signed in.",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (0 screenshots): Claude Code is not signed in."
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "both",
+     false,
+     false,
+     1,
+     false,
+     "Claude Code is not signed in.",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (1 screenshot): Claude Code is not signed in.. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "both",
+     false,
+     false,
+     3,
+     false,
+     "Claude Code is not signed in.",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (3 screenshots): Claude Code is not signed in.. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent",
+     true,
+     true,
+     0,
+     true,
+     "",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up copied (0 screenshots) — paste it into your agent"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent",
+     true,
+     true,
+     1,
+     false,
+     "",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough copied (1 screenshot) — paste it into your agent. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent",
+     true,
+     true,
+     3,
+     true,
+     "",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up copied (3 screenshots) — paste it into your agent. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent",
+     true,
+     true,
+     0,
+     false,
+     "Claude Code is not signed in.",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (0 screenshots): Claude Code is not signed in."
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent",
+     true,
+     true,
+     1,
+     false,
+     "Claude Code is not signed in.",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (1 screenshot): Claude Code is not signed in.. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent",
+     true,
+     true,
+     3,
+     false,
+     "Claude Code is not signed in.",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (3 screenshots): Claude Code is not signed in.. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent",
+     true,
+     false,
+     0,
+     true,
+     "",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up saved (0 screenshots); copying it failed — drag it from the card"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent",
+     true,
+     false,
+     1,
+     false,
+     "",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough saved (1 screenshot); copying it failed — drag it from the card. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent",
+     true,
+     false,
+     3,
+     true,
+     "",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up saved (3 screenshots); copying it failed — drag it from the card. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent",
+     true,
+     false,
+     0,
+     false,
+     "Claude Code is not signed in.",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (0 screenshots): Claude Code is not signed in."
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent",
+     true,
+     false,
+     1,
+     false,
+     "Claude Code is not signed in.",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (1 screenshot): Claude Code is not signed in.. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent",
+     true,
+     false,
+     3,
+     false,
+     "Claude Code is not signed in.",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (3 screenshots): Claude Code is not signed in.. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent",
+     false,
+     true,
+     0,
+     true,
+     "",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up copied (0 screenshots) — paste it into your agent"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent",
+     false,
+     true,
+     1,
+     false,
+     "",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough copied (1 screenshot) — paste it into your agent. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent",
+     false,
+     true,
+     3,
+     true,
+     "",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up copied (3 screenshots) — paste it into your agent. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent",
+     false,
+     true,
+     0,
+     false,
+     "Claude Code is not signed in.",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (0 screenshots): Claude Code is not signed in."
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent",
+     false,
+     true,
+     1,
+     false,
+     "Claude Code is not signed in.",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (1 screenshot): Claude Code is not signed in.. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent",
+     false,
+     true,
+     3,
+     false,
+     "Claude Code is not signed in.",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (3 screenshots): Claude Code is not signed in.. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent",
+     false,
+     false,
+     0,
+     true,
+     "",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up saved (0 screenshots); copying it failed — drag it from the card"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent",
+     false,
+     false,
+     1,
+     false,
+     "",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough saved (1 screenshot); copying it failed — drag it from the card. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent",
+     false,
+     false,
+     3,
+     true,
+     "",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up saved (3 screenshots); copying it failed — drag it from the card. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent",
+     false,
+     false,
+     0,
+     false,
+     "Claude Code is not signed in.",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (0 screenshots): Claude Code is not signed in."
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent",
+     false,
+     false,
+     1,
+     false,
+     "Claude Code is not signed in.",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (1 screenshot): Claude Code is not signed in.. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "agent",
+     false,
+     false,
+     3,
+     false,
+     "Claude Code is not signed in.",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (3 screenshots): Claude Code is not signed in.. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "word",
+     true,
+     true,
+     0,
+     true,
+     "",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up copied (0 screenshots) — paste it where you need it"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.docx"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "word",
+     true,
+     true,
+     1,
+     false,
+     "",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough copied (1 screenshot) — paste it where you need it. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.docx"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "word",
+     true,
+     true,
+     3,
+     true,
+     "",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up copied (3 screenshots) — paste it where you need it. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.docx"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "word",
+     true,
+     true,
+     0,
+     false,
+     "Claude Code is not signed in.",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (0 screenshots): Claude Code is not signed in."
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.docx"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "word",
+     true,
+     true,
+     1,
+     false,
+     "Claude Code is not signed in.",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (1 screenshot): Claude Code is not signed in.. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.docx"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "word",
+     true,
+     true,
+     3,
+     false,
+     "Claude Code is not signed in.",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (3 screenshots): Claude Code is not signed in.. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.docx"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "word",
+     true,
+     false,
+     0,
+     true,
+     "",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up saved (0 screenshots); copying it failed — drag it from the card"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.docx"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "word",
+     true,
+     false,
+     1,
+     false,
+     "",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough saved (1 screenshot); copying it failed — drag it from the card. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.docx"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "word",
+     true,
+     false,
+     3,
+     true,
+     "",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up saved (3 screenshots); copying it failed — drag it from the card. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.docx"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "word",
+     true,
+     false,
+     0,
+     false,
+     "Claude Code is not signed in.",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (0 screenshots): Claude Code is not signed in."
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.docx"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "word",
+     true,
+     false,
+     1,
+     false,
+     "Claude Code is not signed in.",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (1 screenshot): Claude Code is not signed in.. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.docx"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "word",
+     true,
+     false,
+     3,
+     false,
+     "Claude Code is not signed in.",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (3 screenshots): Claude Code is not signed in.. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.docx"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "word",
+     false,
+     true,
+     0,
+     true,
+     "",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up copied (0 screenshots) — paste it where you need it"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.docx"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "word",
+     false,
+     true,
+     1,
+     false,
+     "",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough copied (1 screenshot) — paste it where you need it. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.docx"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "word",
+     false,
+     true,
+     3,
+     true,
+     "",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up copied (3 screenshots) — paste it where you need it. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.docx"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "word",
+     false,
+     true,
+     0,
+     false,
+     "Claude Code is not signed in.",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (0 screenshots): Claude Code is not signed in."
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.docx"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "word",
+     false,
+     true,
+     1,
+     false,
+     "Claude Code is not signed in.",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (1 screenshot): Claude Code is not signed in.. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.docx"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "word",
+     false,
+     true,
+     3,
+     false,
+     "Claude Code is not signed in.",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (3 screenshots): Claude Code is not signed in.. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.docx"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "word",
+     false,
+     false,
+     0,
+     true,
+     "",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up saved (0 screenshots); copying it failed — drag it from the card"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.docx"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "word",
+     false,
+     false,
+     1,
+     false,
+     "",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough saved (1 screenshot); copying it failed — drag it from the card. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.docx"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "word",
+     false,
+     false,
+     3,
+     true,
+     "",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up saved (3 screenshots); copying it failed — drag it from the card. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.docx"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "word",
+     false,
+     false,
+     0,
+     false,
+     "Claude Code is not signed in.",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (0 screenshots): Claude Code is not signed in."
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.docx"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "word",
+     false,
+     false,
+     1,
+     false,
+     "Claude Code is not signed in.",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (1 screenshot): Claude Code is not signed in.. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.docx"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "word",
+     false,
+     false,
+     3,
+     false,
+     "Claude Code is not signed in.",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (3 screenshots): Claude Code is not signed in.. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.docx"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     true,
+     true,
+     0,
+     true,
+     "",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up copied (0 screenshots) — paste it where you need it"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     true,
+     true,
+     1,
+     false,
+     "",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough copied (1 screenshot) — paste it where you need it. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     true,
+     true,
+     3,
+     true,
+     "",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up copied (3 screenshots) — paste it where you need it. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     true,
+     true,
+     0,
+     false,
+     "Claude Code is not signed in.",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (0 screenshots): Claude Code is not signed in."
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     true,
+     true,
+     1,
+     false,
+     "Claude Code is not signed in.",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (1 screenshot): Claude Code is not signed in.. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     true,
+     true,
+     3,
+     false,
+     "Claude Code is not signed in.",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (3 screenshots): Claude Code is not signed in.. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     true,
+     false,
+     0,
+     true,
+     "",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up saved (0 screenshots); copying it failed — drag it from the card"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     true,
+     false,
+     1,
+     false,
+     "",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough saved (1 screenshot); copying it failed — drag it from the card. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     true,
+     false,
+     3,
+     true,
+     "",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up saved (3 screenshots); copying it failed — drag it from the card. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     true,
+     false,
+     0,
+     false,
+     "Claude Code is not signed in.",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (0 screenshots): Claude Code is not signed in."
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     true,
+     false,
+     1,
+     false,
+     "Claude Code is not signed in.",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (1 screenshot): Claude Code is not signed in.. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     true,
+     false,
+     3,
+     false,
+     "Claude Code is not signed in.",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (3 screenshots): Claude Code is not signed in.. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     false,
+     true,
+     0,
+     true,
+     "",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up copied (0 screenshots) — paste it where you need it"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     false,
+     true,
+     1,
+     false,
+     "",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough copied (1 screenshot) — paste it where you need it. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     false,
+     true,
+     3,
+     true,
+     "",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up copied (3 screenshots) — paste it where you need it. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     false,
+     true,
+     0,
+     false,
+     "Claude Code is not signed in.",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (0 screenshots): Claude Code is not signed in."
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     false,
+     true,
+     1,
+     false,
+     "Claude Code is not signed in.",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (1 screenshot): Claude Code is not signed in.. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     false,
+     true,
+     3,
+     false,
+     "Claude Code is not signed in.",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough copied as spoken (3 screenshots): Claude Code is not signed in.. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      true
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     false,
+     false,
+     0,
+     true,
+     "",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up saved (0 screenshots); copying it failed — drag it from the card"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     false,
+     false,
+     1,
+     false,
+     "",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough saved (1 screenshot); copying it failed — drag it from the card. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     false,
+     false,
+     3,
+     true,
+     "",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up saved (3 screenshots); copying it failed — drag it from the card. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "write-up.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     false,
+     false,
+     0,
+     false,
+     "Claude Code is not signed in.",
+     0
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (0 screenshots): Claude Code is not signed in."
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     false,
+     false,
+     1,
+     false,
+     "Claude Code is not signed in.",
+     1
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (1 screenshot): Claude Code is not signed in.. 1 screenshot couldn't be saved and is left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     false,
+     false,
+     3,
+     false,
+     "Claude Code is not signed in.",
+     2
+    ],
+    "result": {
+     "statuses": [
+      "Write-up failed — Walkthrough saved as spoken; copying it failed (3 screenshots): Claude Code is not signed in.. 2 screenshots couldn't be saved and are left out"
+     ],
+     "copied": [
+      [
+       [
+        "walkthrough.pdf"
+       ],
+       false
+      ]
+     ],
+     "ready": [
+      false
+     ],
+     "pasted": 0
+    }
+   }
+  ],
+  "_deliver_walkthrough": [
+   {
+    "args": [
+     null,
+     "",
+     true
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough finished, but its document is missing"
+     ],
+     "notices": [
+      "Walkthrough finished, but its document is missing"
+     ],
+     "copied": [],
+     "dismissed": 1
+    }
+   },
+   {
+    "args": [
+     null,
+     "",
+     false
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough finished, but its document is missing"
+     ],
+     "notices": [
+      "Walkthrough finished, but its document is missing"
+     ],
+     "copied": [],
+     "dismissed": 1
+    }
+   },
+   {
+    "args": [
+     null,
+     "first part\n\n[Screenshot 1]",
+     true
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough finished, but its document is missing — its words are copied and kept in History"
+     ],
+     "notices": [
+      "Walkthrough finished, but its document is missing — its words are copied and kept in History"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "dismissed": 1
+    }
+   },
+   {
+    "args": [
+     null,
+     "first part\n\n[Screenshot 1]",
+     false
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough finished, but its document is missing — its words are kept in History"
+     ],
+     "notices": [
+      "Walkthrough finished, but its document is missing — its words are kept in History"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "dismissed": 1
+    }
+   },
+   {
+    "args": [
+     "",
+     "",
+     true
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough finished, but its document is missing"
+     ],
+     "notices": [
+      "Walkthrough finished, but its document is missing"
+     ],
+     "copied": [],
+     "dismissed": 1
+    }
+   },
+   {
+    "args": [
+     "",
+     "",
+     false
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough finished, but its document is missing"
+     ],
+     "notices": [
+      "Walkthrough finished, but its document is missing"
+     ],
+     "copied": [],
+     "dismissed": 1
+    }
+   },
+   {
+    "args": [
+     "",
+     "first part\n\n[Screenshot 1]",
+     true
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough finished, but its document is missing — its words are copied and kept in History"
+     ],
+     "notices": [
+      "Walkthrough finished, but its document is missing — its words are copied and kept in History"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "dismissed": 1
+    }
+   },
+   {
+    "args": [
+     "",
+     "first part\n\n[Screenshot 1]",
+     false
+    ],
+    "result": {
+     "statuses": [
+      "Walkthrough finished, but its document is missing — its words are kept in History"
+     ],
+     "notices": [
+      "Walkthrough finished, but its document is missing — its words are kept in History"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "dismissed": 1
+    }
+   },
+   {
+    "args": [
+     "No space left on device",
+     "",
+     true
+    ],
+    "result": {
+     "statuses": [
+      "Couldn't save the walkthrough document (No space left on device)"
+     ],
+     "notices": [
+      "Couldn't save the walkthrough document (No space left on device)"
+     ],
+     "copied": [],
+     "dismissed": 1
+    }
+   },
+   {
+    "args": [
+     "No space left on device",
+     "",
+     false
+    ],
+    "result": {
+     "statuses": [
+      "Couldn't save the walkthrough document (No space left on device)"
+     ],
+     "notices": [
+      "Couldn't save the walkthrough document (No space left on device)"
+     ],
+     "copied": [],
+     "dismissed": 1
+    }
+   },
+   {
+    "args": [
+     "No space left on device",
+     "first part\n\n[Screenshot 1]",
+     true
+    ],
+    "result": {
+     "statuses": [
+      "Couldn't save the walkthrough document (No space left on device) — its words are copied and kept in History"
+     ],
+     "notices": [
+      "Couldn't save the walkthrough document (No space left on device) — its words are copied and kept in History"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "dismissed": 1
+    }
+   },
+   {
+    "args": [
+     "No space left on device",
+     "first part\n\n[Screenshot 1]",
+     false
+    ],
+    "result": {
+     "statuses": [
+      "Couldn't save the walkthrough document (No space left on device) — its words are kept in History"
+     ],
+     "notices": [
+      "Couldn't save the walkthrough document (No space left on device) — its words are kept in History"
+     ],
+     "copied": [
+      [
+       [],
+       true
+      ]
+     ],
+     "dismissed": 1
+    }
+   }
+  ]
+ }
+}

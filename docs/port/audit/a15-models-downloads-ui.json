@@ -1,0 +1,574 @@
+{
+ "area": "a15-models-downloads-ui",
+ "package": "M10 sweep (auditor AU7)",
+ "features": {
+  "A15-01": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_downloads/downloads_page.cpp",
+    "src/ui_downloads/downloads_page.h"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_a15_audit.cpp",
+    "tests/ui_downloads/test_downloads_page.cpp",
+    "tests/ui_downloads/test_downloads_window.cpp"
+   ],
+   "note": "Lazy build into the Downloads destination, the tabs hidden without components and the message row were tested ('the window builds the deferred page into its Downloads destination', 'only the designated regions scroll'); the tabs' accessible name 'Downloads section' and Stop after current's words are now pinned by 'a15 audit: the Downloads header and toolbar carry OpenWhisper's words'."
+  },
+  "A15-02": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_downloads/downloads_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_a15_audit.cpp",
+    "tests/ui_downloads/test_downloads_page.cpp"
+   ],
+   "note": "'open folder button fits its label' tested the width; Download all…'s text, tooltip and showing while a model is missing, and Open folder's tooltip, are now pinned by the a15 audit test. 'Add custom models…' is dropped with A15-34 (custom faster-whisper models, M2 Scope table)."
+  },
+  "A15-03": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/downloads_page.cpp",
+    "src/models/downloads_model.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_page.cpp"
+   ],
+   "note": "'header reports count disk usage and folder' pins '{n} of {total} speech models · {size} used · {folder}' with the speech-models folder, as the row's adaptation asks; the checking text by the async scan tests."
+  },
+  "A15-04": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/downloads_page.cpp",
+    "src/models/downloads_model.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_window.cpp",
+    "tests/ui_downloads/test_downloads_page.cpp"
+   ],
+   "note": "'downloads rail reports totals then live progress' and 'download progress updates row and footer'."
+  },
+  "A15-05": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/hf_policy_field.cpp",
+    "src/ui_downloads/downloads_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_window.cpp"
+   ],
+   "note": "'the policy field is captioned, sized and explained as OpenWhisper's', 'hf policy persists from the downloads page' and 'focus hf policy selects downloads destination'."
+  },
+  "A15-06": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/downloads_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_page.cpp"
+   ],
+   "note": "'banner shown and downloads disabled' and 'env blocked disables selection actions' (HF_HUB_OFFLINE through the page's env reader)."
+  },
+  "A15-07": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_downloads/downloads_page.cpp",
+    "src/ui_downloads/model_row_widget.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_a15_audit.cpp",
+    "tests/ui_downloads/test_downloads_page.cpp",
+    "tests/ui_downloads/test_model_row.cpp"
+   ],
+   "note": "Filtering, combining filters and the empty state were tested ('filter matches name and repo', 'no match shows empty state', the backend and status filter cases); the placeholder, clear button, combo items and tooltips are now pinned by the a15 audit test."
+  },
+  "A15-08": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/downloads_page.cpp",
+    "src/models/downloads_model.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_page.cpp"
+   ],
+   "note": "'default keeps assigned model in place', 'downloaded first groups cached models', 'smallest first uses catalog estimates', 'name sort is alphabetical', 'backend sort keeps each family contiguous'. The Parakeet MLX clause is Apple Silicon only and the MLX backend is not in the catalog (FioriVoce has one local speech engine, Parakeet on NeMo-Speech.cpp (difference a14-local-engine in docs/port/audit/a14-models-components-services.json))."
+  },
+  "A15-09": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/model_row_widget.cpp",
+    "src/ui_downloads/download_row.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_model_row.cpp",
+    "tests/ui_downloads/test_reference_screenshots.cpp"
+   ],
+   "note": "The test_model_row.cpp cases pin the checkbox, name and summary, size, chip, badge, Download/Delete sizes, the hidden Set Active and the tooltip/names; the Whisper summary variants do not apply (FioriVoce has one local speech engine, Parakeet on NeMo-Speech.cpp (difference a14-local-engine in docs/port/audit/a14-models-components-services.json))."
+  },
+  "A15-10": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/model_row_widget.cpp",
+    "src/models/downloads_model.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_model_row.cpp",
+    "tests/ui_downloads/test_downloads_page.cpp"
+   ],
+   "note": "Every state is a test_model_row.cpp case ('a loaded model cannot be deleted', 'a queued model row says Queued...', the overlay inside the margins); 'In use — switch models first' and the blocked tooltips are the downloads_model texts."
+  },
+  "A15-11": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/downloads_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_page.cpp",
+    "tests/ui_downloads/test_model_row.cpp"
+   ],
+   "note": "'usage chip combines both modes', 'the usage chip shows its text and hides when empty' and 'inspector reports the selected model usage'."
+  },
+  "A15-12": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/downloads_page.cpp",
+    "src/models/downloads_model.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_page.cpp"
+   ],
+   "note": "'uncached rows offer selection cached do not', 'toggling updates summary and button', 'clear empties the selection', 'select all checks only missing models', 'disabled download selected looks disabled', 'download selected confirms and requests in catalog order'."
+  },
+  "A15-13": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/batch_download_dialog.cpp",
+    "src/models/consent_text.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_batch_and_details.cpp",
+    "tests/ui_downloads/test_downloads_page.cpp",
+    "tests/ui_downloads/test_reference_screenshots.cpp"
+   ],
+   "note": "'the batch dialog lists each model with its size, the total and the destination', the singular/unknown case, 'accepting the batch dialog is the consent and Cancel refuses it' and 'confirmation lists sizes total and destination'."
+  },
+  "A15-14": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/downloads_page.cpp",
+    "src/models/downloads_model.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_page.cpp"
+   ],
+   "note": "'begin batch locks selection and downloads', 'progress counts each model', 'finish batch summarizes failures and unlocks', 'stopped queue is reported', 'single download message is unchanged'."
+  },
+  "A15-15": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/downloads_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_page.cpp"
+   ],
+   "note": "'delete confirm default no does nothing', 'delete confirm yes invokes callback', 'delete result is reported in the message line', 'loaded model delete is disabled'. On this Linux tree these message-box cases (and 'Meeting audio consent belongs to one paired host and can be cleared') end in SIGSEGV when DownloadsPage::askQuestion builds its QMessageBox, before their text assertions, so they did not run to completion here; the title, text and default No were read in askQuestion and models::delete_model_confirmation / component removal confirmation against settings_downloads.py."
+  },
+  "A15-16": {
+   "status": "dropped",
+   "reason": "Custom Whisper rows are CTranslate2/faster-whisper models; FioriVoce has one local speech engine, Parakeet on NeMo-Speech.cpp (difference a14-local-engine in docs/port/audit/a14-models-components-services.json); M2 Scope table: dropped."
+  },
+  "A15-17": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/downloads_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_page.cpp",
+    "tests/ui_downloads/test_downloads_reference.cpp"
+   ],
+   "note": "'inspector docks when the page is wide enough', 'narrow page floats the inspector until a model is picked', 'widening again docks the inspector'; the floating-inspector reference test exists (its tree half does not run to completion here)."
+  },
+  "A15-18": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/downloads_page.cpp",
+    "src/models/model_details.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_page.cpp"
+   ],
+   "note": "'inspector is empty until a model is selected', 'selecting a row shows its bundled profile', 'tag pill shows its full text under the theme', 'representative profiles render expected facts', 'repository links open the bundled urls', 'profile text fits the scroll area for every model'."
+  },
+  "A15-19": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/downloads_page.cpp",
+    "src/ui_downloads/downloads_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_page.cpp",
+    "tests/ui_downloads/test_downloads_window.cpp",
+    "tests/ui_downloads/test_voice_model_page.cpp"
+   ],
+   "note": "'row click signal selects that model', 'auto has no profile to show', 'engine downloads focuses the missing runtime', 'voice page opens downloads filtered to its engine' and 'manage downloads links open downloads filtered'."
+  },
+  "A15-20": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/downloads_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_page.cpp"
+   ],
+   "note": "'open folder opens the speech models folder' (the adaptation the row asks for)."
+  },
+  "A15-21": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/downloads_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_page.cpp",
+    "tests/ui_downloads/test_voice_model_page.cpp"
+   ],
+   "note": "'the first scan says it is checking until the worker answers', 'a stale scan never overwrites a newer one' and the other background-scan cases of test_downloads_page.cpp pin the snapshot first, the stale generation and the checking state; 'settings closed mid scan is not held by the worker' (test_voice_model_page.cpp) covers the worker not holding a page."
+  },
+  "A15-22": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/downloads_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_page.cpp",
+    "tests/ui_downloads/test_downloads_reference.cpp"
+   ],
+   "note": "'missing component has enabled install button' and 'component progress and result reach the row and message'; the strip's caption and object names are in the settings_downloads components reference tree."
+  },
+  "A15-23": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/component_row_widget.cpp",
+    "src/models/downloads_model.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_component_row.cpp"
+   ],
+   "note": "'the badge, button label and Remove follow the component's state', 'an installed component shows its size on disk and an external one says so', 'the reason joins the summary', 'the component row's buttons have the compact sizes'."
+  },
+  "A15-24": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/component_row_widget.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_component_row.cpp"
+   ],
+   "note": "'an installing row turns Install into Cancel and tracks the phases' and 'progress is ignored while no install is in flight'."
+  },
+  "A15-25": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/component_row_widget.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_component_row.cpp",
+    "tests/ui_downloads/test_downloads_page.cpp"
+   ],
+   "note": "'Remove stays disabled for 600 ms after an install ends' and 'an installed component gets Remove enabled at once'."
+  },
+  "A15-26": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/downloads_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_page.cpp"
+   ],
+   "note": "'component removal asks before deleting' pins the title, 'Remove {name} ({size})?\\n\\nYou can install it again later.' and the default No. On this Linux tree these message-box cases (and 'Meeting audio consent belongs to one paired host and can be cleared') end in SIGSEGV when DownloadsPage::askQuestion builds its QMessageBox, before their text assertions, so they did not run to completion here; the title, text and default No were read in askQuestion and models::delete_model_confirmation / component removal confirmation against settings_downloads.py."
+  },
+  "A15-27": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/downloads_page.cpp",
+    "src/models/downloads_model.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_page.cpp",
+    "tests/ui_downloads/test_downloads_window.cpp"
+   ],
+   "note": "'component events reach the page's rows and message' and the components tab title in the component cases; the update(s) suffix is downloads_model's component tab title builder."
+  },
+  "A15-28": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/download_row.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_model_row.cpp",
+    "tests/ui_downloads/test_component_row.cpp"
+   ],
+   "note": "'a click on the row body and Return, Enter and Space open the details, a button click does not' (model row) and 'a row opens its details on a body click, keys and not on its buttons' (component row)."
+  },
+  "A15-29": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/component_details_dialog.cpp",
+    "src/models/component_details.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_batch_and_details.cpp",
+    "tests/ui_downloads/test_reference_screenshots.cpp"
+   ],
+   "note": "'the component popup shows the bundled profile and the sizes', 'writes a dash for a size it does not know', 'link buttons open the source and the origin', 'closes with Close', 'a component without a profile is refused'."
+  },
+  "A15-30": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/hf_consent_dialog.cpp",
+    "src/models/consent_text.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_consent_dialogs.cpp",
+    "tests/ui_downloads/test_downloads_window.cpp"
+   ],
+   "note": "The fourteen HF consent cases of test_consent_dialogs.cpp (texts per policy, buttons, Cancel default and focused, Enter not downloading, scrolling) and 'the consent dialog's Open Settings opens Settings on the download policy'."
+  },
+  "A15-31": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/required_runtime_dialog.cpp",
+    "src/models/consent_text.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_consent_dialogs.cpp",
+    "tests/ui_downloads/test_downloads_window.cpp"
+   ],
+   "note": "'runtime prompt has explicit install and later actions', 'the runtime prompt says how big the runtime download is' and the presenter routing test."
+  },
+  "A15-32": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/required_runtime_dialog.cpp",
+    "src/models/consent_text.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_consent_dialogs.cpp",
+    "tests/ui_downloads/test_downloads_window.cpp"
+   ],
+   "note": "'gpu runtime offer names the card sizes and choices', 'gpu runtime offer cpu and later answers', 'without a GPU the offer says this GPU' and 'the presenter routes the GPU runtime offer back to ModelRuntime'."
+  },
+  "A15-33": {
+   "status": "dropped",
+   "reason": "The Use-this-GPU offer installs CUDA libraries for faster-whisper (CTranslate2); FioriVoce has one local speech engine, Parakeet on NeMo-Speech.cpp (difference a14-local-engine in docs/port/audit/a14-models-components-services.json); A15-32 is the Parakeet equivalent (M2 Scope table)."
+  },
+  "A15-34": {
+   "status": "dropped",
+   "reason": "The custom Whisper dialog discovers CTranslate2 folders for faster-whisper; FioriVoce has one local speech engine, Parakeet on NeMo-Speech.cpp (difference a14-local-engine in docs/port/audit/a14-models-components-services.json) (M2 Scope table)."
+  },
+  "A15-35": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/voice_model_page.cpp",
+    "src/ui_downloads/model_assignments.h"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_voice_model_page.cpp",
+    "tests/ui_downloads/test_model_assignments.cpp"
+   ],
+   "note": "'engine combo invokes backend callback', 'choose backend ignores an unknown id', 'a change of engine that fails is reverted and reported', 'the caption under the engine combo follows the engine' and the engine_caption vectors."
+  },
+  "A15-36": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/local_model_picker.cpp",
+    "src/ui_downloads/voice_model_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_local_model_picker.cpp",
+    "tests/ui_downloads/test_voice_model_page.cpp"
+   ],
+   "note": "Combo, Manage downloads link with its tooltip, caption and the one-change signal are the four test_local_model_picker.cpp cases. The 'auto' choice, Whisper sizes and 'Add custom models…' are Whisper-only (FioriVoce has one local speech engine, Parakeet on NeMo-Speech.cpp (difference a14-local-engine in docs/port/audit/a14-models-components-services.json)); the choices are the catalog's Parakeet models."
+  },
+  "A15-37": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/local_engine_controls.cpp",
+    "src/ui_widgets/engine_field.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_local_engine_controls.cpp"
+   ],
+   "note": "Model, Device and Language columns, saving with the other engines' choices, the download-size tooltips and the language stepping aside are the test_local_engine_controls.cpp cases. The Quant column is Whisper-only and never shown (FioriVoce has one local speech engine, Parakeet on NeMo-Speech.cpp (difference a14-local-engine in docs/port/audit/a14-models-components-services.json))."
+  },
+  "A15-38": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/dictation_languages_field.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_dictation_languages.cpp"
+   ],
+   "note": "The TestField, TestAddingKeepsTheCurrentLanguage and TestOneLanguageControl ports plus 'the caption says which language the next dictation uses' and 'the chips and the Add button carry the names the theme and screen readers use'."
+  },
+  "A15-39": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/voice_model_page.cpp",
+    "src/ui_downloads/model_assignments.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_voice_model_page.cpp",
+    "tests/ui_downloads/test_model_assignments.cpp"
+   ],
+   "note": "'voice page says what the engine has on this computer', 'the inventory names the runtime that is not installed', 'cloud engine hides the on this computer row', the two failure cases, 'get models filters downloads to the selected engine' and the engine_inventory vectors."
+  },
+  "A15-40": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/voice_model_page.cpp",
+    "src/ui_downloads/model_assignments.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_model_assignments.cpp",
+    "tests/ui_downloads/test_voice_model_reference.cpp"
+   ],
+   "note": "Adapted as the row asks: 'the voice footnote and captions name only the engines FioriVoce has' pins the Parakeet wording."
+  },
+  "A15-41": {
+   "status": "dropped",
+   "reason": "The Runtime page sets Local Whisper's device and quantization; FioriVoce has one local speech engine, Parakeet on NeMo-Speech.cpp (difference a14-local-engine in docs/port/audit/a14-models-components-services.json); M2 'Changes to the cut' item 12 (lead decision 3) drops it."
+  },
+  "A15-42": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/speech_server_controls.cpp",
+    "src/ui_downloads/voice_model_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_speech_server_controls.cpp",
+    "tests/ui_downloads/test_voice_model_page.cpp"
+   ],
+   "note": "'a server on this computer keeps audio here', 'a change of server the controller refuses is reported' and 'the api server's key link opens api keys on its credential'."
+  },
+  "A15-43": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_widgets/remote_engine_controls.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_remote_link_glyph.cpp",
+    "tests/ui_record/test_remote_link_card.cpp"
+   ],
+   "note": "Ported RemoteEngineControls: Device/Quant/Language from the host's runtime and engine only, 'Not reported'/'Not connected', '<device> · Set up on host' (setup:<device>) → help_requested('remote_models'), runtimeSelected(family, model, {key: value}) locking until the next state, the host tooltips with identity().product, a saved choice the host no longer offers greyed. The language tip drops 'Moonshine supports English only' (FioriVoce hosts serve Parakeet only). Tests: 'the runtime fields show only what the paired host reports', 'choosing a runtime setting asks the host and locks until it answers', 'a device the host could set up opens its model management', 'a saved choice the host no longer offers stays shown and greyed'."
+  },
+  "A15-44": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_widgets/remote_link_glyph.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_remote_link_glyph.cpp"
+   ],
+   "note": "Ported RemoteLinkGlyph: 44x16, laptop-wire-host painting, mirrored serving chip, the 520/460/900/420/760/1100 ms animations on a 33 ms timer that runs only while something moves and the glyph is shown, the one-time greeting, click-to-reconnect, the pointing hand while offline. A clock seam (setClock) replaces Python's poking of _drawn_at. Tests: test_the_glyph_only_animates_on_real_events, test_the_glyph_greets_a_host_only_the_first_time, test_the_glyph_asks_to_reconnect_when_clicked, 'the glyph is 44 by 16...'."
+  },
+  "A15-45": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_widgets/remote_model_notice.cpp",
+    "src/ui_record/transcription_tab_base.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_remote_link_glyph.cpp",
+    "tests/ui_record/test_remote_link_card.cpp"
+   ],
+   "note": "RemoteModelNotice replaces the plain QPushButton: painted Tabler download glyph in the theme's left padding, warning dot and 'Available to install on the paired host: <names>. ' prefix from the host's installable dependencies, OpenWhisper's tooltip, TabFocus, Fixed/Ignored size policy. 'manage host models names what the host could install', 'TestRemoteModelField card height is the same as for a local backend'."
+  },
+  "A15-46": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_models_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_remote/test_remote_models_inspector.cpp",
+    "tests/ui_remote/test_remote_models_dialog.cpp"
+   ],
+   "note": "Rebuilt to remote_models.py: 'Models on <host>' 760x570 min / 960x700, intro, #remoteHostSummary engine line, search ('Search host models…', 'No matching models'), list with Active/Downloaded/size, inspector (title, description from model_details, download detail, 'Download model on host', 'Run on host' devices with Ready/Setup needed/Unavailable, runtime detail, 'Install runtime on host', 'Use on host'/'Active on host'), the three confirmations, status/progress/install lines, 2 s polling, 'Refresh host'/'Close', '<error> Refresh to check the host's current state.'. Kept from FioriVoce: the fingerprint guard and the host speech language row (a FioriVoce addition). Tests: the six cases of test_remote_models_inspector.cpp and the three earlier ones."
+  },
+  "A15-47": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/engine_field.cpp",
+    "src/ui_widgets/engine_field.h"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_engine_field.cpp"
+   ],
+   "note": "Dot colours and the busy spin only while shown, the dot in the combo's left padding, the 96 px floor, device labels and engine_field's caption and help: the seven test_engine_field.cpp cases."
+  },
+  "A15-48": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/meeting_voice_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_meeting_voice_page.cpp",
+    "tests/ui_downloads/test_meeting_voice_reference.cpp"
+   ],
+   "note": "The 26 test_meeting_voice_page.cpp cases (engine following or separate, model, language, speaker-id combo and its download off the Qt thread, statuses, rail). The remote rows stay hidden ('the remote rows stay hidden whatever is saved') by difference a10-meeting-speech-stays-local, and a saved OpenAI speaker pass reads as on-device by a10-openai-speakers-read-local (docs/port/audit/a10-settings-services.json)."
+  },
+  "A15-49": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_personalize/cleanup_model_section.cpp",
+    "src/ui_personalize/cleanup_page.cpp",
+    "src/ui_widgets/agent_picker.cpp",
+    "src/ui_meeting/intelligence_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_cleanup_agent_choice.cpp",
+    "tests/ui_personalize/test_cleanup_model_section.cpp",
+    "tests/ui_meeting/test_intelligence_page.cpp",
+    "tests/ui_meeting/test_meeting_intelligence_settings.cpp"
+   ],
+   "note": "Fixed the Cleanup model tile's agent card, which was a bare runner list and a typed model ID: the AI cleanup page now builds the shared AgentPicker (purpose 'AI cleanup', unframed) above the Cleanup model tile, with the agent tiles and their discovery state, 'Look again', the count line and the blocked notice, and the tile holds the chosen agent's model row from its own catalog ('<Agent> default' first, a saved model missing from the list added, OpenCode's list loaded in the background), then the endpoint picker (hidden while an agent runs) and the thinking level with OpenWhisper's notes ('Sent to <Agent> as its reasoning effort.') and description ('<Agent> rewrites each dictation. Cleanup profiles use it too.'). As OpenWhisper, no free-typed agent model. Deliberately different (a04-agent-cleanup-scope): the tiles show once 'Installed agent…' is chosen in the provider list or while an agent is saved, and a tile click only stages it until 'Apply runner' and, for an agent, the consent question naming it ('test_cleanup_agent_persists_default_and_model_and_restores_api', 'AI cleanup asks before sending transcripts through a named agent', 'approved cleanup agents remember model choices and allow the default'). The Insights model tile is ui_meeting's intelligence page (audited with a29)."
+  },
+  "A15-50": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/model_assignments.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_model_assignments.cpp",
+    "tests/ui_downloads/test_voice_model_page.cpp",
+    "tests/ui_downloads/test_meeting_voice_page.cpp"
+   ],
+   "note": "The voice_summary, voice_detail, voice_is_cloud and voice_is_remote vectors, 'the summary of the voice engine is the same from the rail and from the page', 'rail items show the value each destination owns' and 'the meeting summaries name the model, language and speaker labels'."
+  },
+  "A15-51": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/downloads_page.cpp",
+    "src/ui_downloads/voice_model_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_page.cpp",
+    "tests/ui_downloads/test_voice_model_page.cpp",
+    "tests/ui_downloads/test_meeting_voice_page.cpp"
+   ],
+   "note": "'settings closed mid scan is not held by the worker', 'a scan that a newer one overtook is dropped', 'runtime result cannot overwrite a new device selection' and 'a download that answers after the page closed reaches nothing'."
+  },
+  "A15-52": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/downloads_presenter.cpp",
+    "src/ui_downloads/downloads_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_window.cpp"
+   ],
+   "note": "'the page's requests reach the runtimes', 'model events reach the page, the rail and Quick Record', 'component events reach the page's rows and message' and 'the fallback progress dialog shows only when Settings is hidden'."
+  }
+ },
+ "differences": []
+}

@@ -1,0 +1,2321 @@
+{
+ "module": "ui_qt.widgets.transcription_progress",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time"
+ },
+ "functions": {
+  "format_elapsed": [
+   {
+    "args": [
+     0
+    ],
+    "result": "0:00"
+   },
+   {
+    "args": [
+     0.0
+    ],
+    "result": "0:00"
+   },
+   {
+    "args": [
+     0.4
+    ],
+    "result": "0:00"
+   },
+   {
+    "args": [
+     0.999
+    ],
+    "result": "0:00"
+   },
+   {
+    "args": [
+     1
+    ],
+    "result": "0:01"
+   },
+   {
+    "args": [
+     59
+    ],
+    "result": "0:59"
+   },
+   {
+    "args": [
+     59.99
+    ],
+    "result": "0:59"
+   },
+   {
+    "args": [
+     60
+    ],
+    "result": "1:00"
+   },
+   {
+    "args": [
+     61.5
+    ],
+    "result": "1:01"
+   },
+   {
+    "args": [
+     119.9
+    ],
+    "result": "1:59"
+   },
+   {
+    "args": [
+     599
+    ],
+    "result": "9:59"
+   },
+   {
+    "args": [
+     600
+    ],
+    "result": "10:00"
+   },
+   {
+    "args": [
+     3599
+    ],
+    "result": "59:59"
+   },
+   {
+    "args": [
+     3600
+    ],
+    "result": "60:00"
+   },
+   {
+    "args": [
+     3661.7
+    ],
+    "result": "61:01"
+   },
+   {
+    "args": [
+     86399.9
+    ],
+    "result": "1439:59"
+   },
+   {
+    "args": [
+     359999
+    ],
+    "result": "5999:59"
+   },
+   {
+    "args": [
+     360000
+    ],
+    "result": "6000:00"
+   },
+   {
+    "args": [
+     -0.5
+    ],
+    "result": "0:00"
+   },
+   {
+    "args": [
+     -1
+    ],
+    "result": "0:00"
+   },
+   {
+    "args": [
+     -61
+    ],
+    "result": "0:00"
+   },
+   {
+    "args": [
+     10000000000.0
+    ],
+    "result": "166666666:40"
+   },
+   {
+    "args": [
+     1e+17
+    ],
+    "result": "1666666666666666:40"
+   },
+   {
+    "args": [
+     1.5e+19
+    ],
+    "result": "250000000000000000:00"
+   },
+   {
+    "args": [
+     9.223372036854776e+18
+    ],
+    "result": "153722867280912930:08"
+   },
+   {
+    "args": [
+     9.3e+18
+    ],
+    "result": "155000000000000000:00"
+   },
+   {
+    "args": [
+     1e+300
+    ],
+    "result": "16666666666666667541746004253407004145074476351802652581930901925196707633148469929772856251340797734061740730548064636282375387256007176260746536413111783047473120015442930062297170563246468167656149220582846665751351983982794014667910879046335708242987646480334280713968594491203273114424323342336:00"
+   },
+   {
+    "args": [
+     {
+      "$float": "nan"
+     }
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     {
+      "$float": "inf"
+     }
+    ],
+    "raises": "OverflowError"
+   },
+   {
+    "args": [
+     {
+      "$float": "-inf"
+     }
+    ],
+    "raises": "OverflowError"
+   }
+  ],
+  "stage_for_overlay_state": [
+   {
+    "args": [
+     "none"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "recording"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "processing"
+    ],
+    "result": "preparing"
+   },
+   {
+    "args": [
+     "transcribing"
+    ],
+    "result": "transcribing"
+   },
+   {
+    "args": [
+     "cleaning"
+    ],
+    "result": "cleaning"
+   },
+   {
+    "args": [
+     "canceling"
+    ],
+    "result": "canceled"
+   },
+   {
+    "args": [
+     "stt_enabled"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "stt_disabled"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "command_listening"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "rewriting"
+    ],
+    "result": "cleaning"
+   }
+  ],
+  "stage_title": [
+   {
+    "args": [
+     "preparing"
+    ],
+    "result": "Preparing audio"
+   },
+   {
+    "args": [
+     "splitting"
+    ],
+    "result": "Splitting large file"
+   },
+   {
+    "args": [
+     "transcribing"
+    ],
+    "result": "Transcribing"
+   },
+   {
+    "args": [
+     "cleaning"
+    ],
+    "result": "Cleaning up"
+   },
+   {
+    "args": [
+     "done"
+    ],
+    "result": "Done"
+   },
+   {
+    "args": [
+     "failed"
+    ],
+    "result": "Failed"
+   },
+   {
+    "args": [
+     "canceled"
+    ],
+    "result": "Canceled"
+   }
+  ],
+  "apply_steps": [
+   {
+    "args": [
+     "preparing",
+     [
+      "pending",
+      "pending",
+      "pending"
+     ]
+    ],
+    "result": [
+     "active",
+     "pending",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "preparing",
+     [
+      "active",
+      "pending",
+      "pending"
+     ]
+    ],
+    "result": [
+     "active",
+     "pending",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "preparing",
+     [
+      "done",
+      "active",
+      "pending"
+     ]
+    ],
+    "result": [
+     "active",
+     "pending",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "preparing",
+     [
+      "done",
+      "done",
+      "active"
+     ]
+    ],
+    "result": [
+     "active",
+     "pending",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "preparing",
+     [
+      "done",
+      "done",
+      "done"
+     ]
+    ],
+    "result": [
+     "active",
+     "pending",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "preparing",
+     [
+      "failed",
+      "pending",
+      "pending"
+     ]
+    ],
+    "result": [
+     "active",
+     "pending",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "preparing",
+     [
+      "done",
+      "failed",
+      "pending"
+     ]
+    ],
+    "result": [
+     "active",
+     "pending",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "preparing",
+     [
+      "active",
+      "active",
+      "pending"
+     ]
+    ],
+    "result": [
+     "active",
+     "pending",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "splitting",
+     [
+      "pending",
+      "pending",
+      "pending"
+     ]
+    ],
+    "result": [
+     "active",
+     "pending",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "splitting",
+     [
+      "active",
+      "pending",
+      "pending"
+     ]
+    ],
+    "result": [
+     "active",
+     "pending",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "splitting",
+     [
+      "done",
+      "active",
+      "pending"
+     ]
+    ],
+    "result": [
+     "active",
+     "pending",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "splitting",
+     [
+      "done",
+      "done",
+      "active"
+     ]
+    ],
+    "result": [
+     "active",
+     "pending",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "splitting",
+     [
+      "done",
+      "done",
+      "done"
+     ]
+    ],
+    "result": [
+     "active",
+     "pending",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "splitting",
+     [
+      "failed",
+      "pending",
+      "pending"
+     ]
+    ],
+    "result": [
+     "active",
+     "pending",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "splitting",
+     [
+      "done",
+      "failed",
+      "pending"
+     ]
+    ],
+    "result": [
+     "active",
+     "pending",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "splitting",
+     [
+      "active",
+      "active",
+      "pending"
+     ]
+    ],
+    "result": [
+     "active",
+     "pending",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "transcribing",
+     [
+      "pending",
+      "pending",
+      "pending"
+     ]
+    ],
+    "result": [
+     "done",
+     "active",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "transcribing",
+     [
+      "active",
+      "pending",
+      "pending"
+     ]
+    ],
+    "result": [
+     "done",
+     "active",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "transcribing",
+     [
+      "done",
+      "active",
+      "pending"
+     ]
+    ],
+    "result": [
+     "done",
+     "active",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "transcribing",
+     [
+      "done",
+      "done",
+      "active"
+     ]
+    ],
+    "result": [
+     "done",
+     "active",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "transcribing",
+     [
+      "done",
+      "done",
+      "done"
+     ]
+    ],
+    "result": [
+     "done",
+     "active",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "transcribing",
+     [
+      "failed",
+      "pending",
+      "pending"
+     ]
+    ],
+    "result": [
+     "done",
+     "active",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "transcribing",
+     [
+      "done",
+      "failed",
+      "pending"
+     ]
+    ],
+    "result": [
+     "done",
+     "active",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "transcribing",
+     [
+      "active",
+      "active",
+      "pending"
+     ]
+    ],
+    "result": [
+     "done",
+     "active",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "cleaning",
+     [
+      "pending",
+      "pending",
+      "pending"
+     ]
+    ],
+    "result": [
+     "done",
+     "done",
+     "active"
+    ]
+   },
+   {
+    "args": [
+     "cleaning",
+     [
+      "active",
+      "pending",
+      "pending"
+     ]
+    ],
+    "result": [
+     "done",
+     "done",
+     "active"
+    ]
+   },
+   {
+    "args": [
+     "cleaning",
+     [
+      "done",
+      "active",
+      "pending"
+     ]
+    ],
+    "result": [
+     "done",
+     "done",
+     "active"
+    ]
+   },
+   {
+    "args": [
+     "cleaning",
+     [
+      "done",
+      "done",
+      "active"
+     ]
+    ],
+    "result": [
+     "done",
+     "done",
+     "active"
+    ]
+   },
+   {
+    "args": [
+     "cleaning",
+     [
+      "done",
+      "done",
+      "done"
+     ]
+    ],
+    "result": [
+     "done",
+     "done",
+     "active"
+    ]
+   },
+   {
+    "args": [
+     "cleaning",
+     [
+      "failed",
+      "pending",
+      "pending"
+     ]
+    ],
+    "result": [
+     "done",
+     "done",
+     "active"
+    ]
+   },
+   {
+    "args": [
+     "cleaning",
+     [
+      "done",
+      "failed",
+      "pending"
+     ]
+    ],
+    "result": [
+     "done",
+     "done",
+     "active"
+    ]
+   },
+   {
+    "args": [
+     "cleaning",
+     [
+      "active",
+      "active",
+      "pending"
+     ]
+    ],
+    "result": [
+     "done",
+     "done",
+     "active"
+    ]
+   },
+   {
+    "args": [
+     "done",
+     [
+      "pending",
+      "pending",
+      "pending"
+     ]
+    ],
+    "result": [
+     "done",
+     "done",
+     "done"
+    ]
+   },
+   {
+    "args": [
+     "done",
+     [
+      "active",
+      "pending",
+      "pending"
+     ]
+    ],
+    "result": [
+     "done",
+     "done",
+     "done"
+    ]
+   },
+   {
+    "args": [
+     "done",
+     [
+      "done",
+      "active",
+      "pending"
+     ]
+    ],
+    "result": [
+     "done",
+     "done",
+     "done"
+    ]
+   },
+   {
+    "args": [
+     "done",
+     [
+      "done",
+      "done",
+      "active"
+     ]
+    ],
+    "result": [
+     "done",
+     "done",
+     "done"
+    ]
+   },
+   {
+    "args": [
+     "done",
+     [
+      "done",
+      "done",
+      "done"
+     ]
+    ],
+    "result": [
+     "done",
+     "done",
+     "done"
+    ]
+   },
+   {
+    "args": [
+     "done",
+     [
+      "failed",
+      "pending",
+      "pending"
+     ]
+    ],
+    "result": [
+     "done",
+     "done",
+     "done"
+    ]
+   },
+   {
+    "args": [
+     "done",
+     [
+      "done",
+      "failed",
+      "pending"
+     ]
+    ],
+    "result": [
+     "done",
+     "done",
+     "done"
+    ]
+   },
+   {
+    "args": [
+     "done",
+     [
+      "active",
+      "active",
+      "pending"
+     ]
+    ],
+    "result": [
+     "done",
+     "done",
+     "done"
+    ]
+   },
+   {
+    "args": [
+     "failed",
+     [
+      "pending",
+      "pending",
+      "pending"
+     ]
+    ],
+    "result": [
+     "pending",
+     "pending",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "failed",
+     [
+      "active",
+      "pending",
+      "pending"
+     ]
+    ],
+    "result": [
+     "failed",
+     "pending",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "failed",
+     [
+      "done",
+      "active",
+      "pending"
+     ]
+    ],
+    "result": [
+     "done",
+     "failed",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "failed",
+     [
+      "done",
+      "done",
+      "active"
+     ]
+    ],
+    "result": [
+     "done",
+     "done",
+     "failed"
+    ]
+   },
+   {
+    "args": [
+     "failed",
+     [
+      "done",
+      "done",
+      "done"
+     ]
+    ],
+    "result": [
+     "done",
+     "done",
+     "done"
+    ]
+   },
+   {
+    "args": [
+     "failed",
+     [
+      "failed",
+      "pending",
+      "pending"
+     ]
+    ],
+    "result": [
+     "failed",
+     "pending",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "failed",
+     [
+      "done",
+      "failed",
+      "pending"
+     ]
+    ],
+    "result": [
+     "done",
+     "failed",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "failed",
+     [
+      "active",
+      "active",
+      "pending"
+     ]
+    ],
+    "result": [
+     "failed",
+     "failed",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "canceled",
+     [
+      "pending",
+      "pending",
+      "pending"
+     ]
+    ],
+    "result": [
+     "pending",
+     "pending",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "canceled",
+     [
+      "active",
+      "pending",
+      "pending"
+     ]
+    ],
+    "result": [
+     "failed",
+     "pending",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "canceled",
+     [
+      "done",
+      "active",
+      "pending"
+     ]
+    ],
+    "result": [
+     "done",
+     "failed",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "canceled",
+     [
+      "done",
+      "done",
+      "active"
+     ]
+    ],
+    "result": [
+     "done",
+     "done",
+     "failed"
+    ]
+   },
+   {
+    "args": [
+     "canceled",
+     [
+      "done",
+      "done",
+      "done"
+     ]
+    ],
+    "result": [
+     "done",
+     "done",
+     "done"
+    ]
+   },
+   {
+    "args": [
+     "canceled",
+     [
+      "failed",
+      "pending",
+      "pending"
+     ]
+    ],
+    "result": [
+     "failed",
+     "pending",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "canceled",
+     [
+      "done",
+      "failed",
+      "pending"
+     ]
+    ],
+    "result": [
+     "done",
+     "failed",
+     "pending"
+    ]
+   },
+   {
+    "args": [
+     "canceled",
+     [
+      "active",
+      "active",
+      "pending"
+     ]
+    ],
+    "result": [
+     "failed",
+     "failed",
+     "pending"
+    ]
+   }
+  ],
+  "set_batch_position": [
+   {
+    "args": [
+     1,
+     1,
+     1
+    ],
+    "result": [
+     1,
+     1,
+     0.0
+    ]
+   },
+   {
+    "args": [
+     1,
+     1,
+     3
+    ],
+    "result": [
+     1,
+     3,
+     0.0
+    ]
+   },
+   {
+    "args": [
+     1,
+     2,
+     3
+    ],
+    "result": [
+     2,
+     3,
+     0.3333333333333333
+    ]
+   },
+   {
+    "args": [
+     1,
+     3,
+     3
+    ],
+    "result": [
+     3,
+     3,
+     0.6666666666666666
+    ]
+   },
+   {
+    "args": [
+     1,
+     4,
+     3
+    ],
+    "result": [
+     3,
+     3,
+     0.6666666666666666
+    ]
+   },
+   {
+    "args": [
+     1,
+     0,
+     3
+    ],
+    "result": [
+     1,
+     3,
+     0.0
+    ]
+   },
+   {
+    "args": [
+     1,
+     -2,
+     3
+    ],
+    "result": [
+     1,
+     3,
+     0.0
+    ]
+   },
+   {
+    "args": [
+     1,
+     1,
+     0
+    ],
+    "result": [
+     1,
+     1,
+     0.0
+    ]
+   },
+   {
+    "args": [
+     1,
+     2,
+     0
+    ],
+    "result": [
+     1,
+     1,
+     0.0
+    ]
+   },
+   {
+    "args": [
+     1,
+     5,
+     7
+    ],
+    "result": [
+     5,
+     7,
+     0.5714285714285714
+    ]
+   },
+   {
+    "args": [
+     1,
+     7,
+     7
+    ],
+    "result": [
+     7,
+     7,
+     0.8571428571428571
+    ]
+   },
+   {
+    "args": [
+     1,
+     1,
+     2
+    ],
+    "result": [
+     1,
+     2,
+     0.0
+    ]
+   },
+   {
+    "args": [
+     3,
+     1,
+     1
+    ],
+    "result": [
+     1,
+     1,
+     0.0
+    ]
+   },
+   {
+    "args": [
+     3,
+     1,
+     3
+    ],
+    "result": [
+     1,
+     3,
+     0.0
+    ]
+   },
+   {
+    "args": [
+     3,
+     2,
+     3
+    ],
+    "result": [
+     2,
+     3,
+     0.3333333333333333
+    ]
+   },
+   {
+    "args": [
+     3,
+     3,
+     3
+    ],
+    "result": [
+     3,
+     3,
+     0.6666666666666666
+    ]
+   },
+   {
+    "args": [
+     3,
+     4,
+     3
+    ],
+    "result": [
+     3,
+     3,
+     0.6666666666666666
+    ]
+   },
+   {
+    "args": [
+     3,
+     0,
+     3
+    ],
+    "result": [
+     1,
+     3,
+     0.0
+    ]
+   },
+   {
+    "args": [
+     3,
+     -2,
+     3
+    ],
+    "result": [
+     1,
+     3,
+     0.0
+    ]
+   },
+   {
+    "args": [
+     3,
+     1,
+     0
+    ],
+    "result": [
+     1,
+     1,
+     0.0
+    ]
+   },
+   {
+    "args": [
+     3,
+     2,
+     0
+    ],
+    "result": [
+     1,
+     1,
+     0.0
+    ]
+   },
+   {
+    "args": [
+     3,
+     5,
+     7
+    ],
+    "result": [
+     5,
+     7,
+     0.5714285714285714
+    ]
+   },
+   {
+    "args": [
+     3,
+     7,
+     7
+    ],
+    "result": [
+     7,
+     7,
+     0.8571428571428571
+    ]
+   },
+   {
+    "args": [
+     3,
+     1,
+     2
+    ],
+    "result": [
+     1,
+     2,
+     0.0
+    ]
+   }
+  ],
+  "set_stage_bar": [
+   {
+    "args": [
+     1,
+     1,
+     1,
+     "preparing"
+    ],
+    "result": "indeterminate"
+   },
+   {
+    "args": [
+     1,
+     1,
+     1,
+     "splitting"
+    ],
+    "result": "indeterminate"
+   },
+   {
+    "args": [
+     1,
+     1,
+     1,
+     "transcribing"
+    ],
+    "result": "indeterminate"
+   },
+   {
+    "args": [
+     1,
+     1,
+     1,
+     "cleaning"
+    ],
+    "result": "indeterminate"
+   },
+   {
+    "args": [
+     1,
+     1,
+     1,
+     "done"
+    ],
+    "result": 1.0
+   },
+   {
+    "args": [
+     1,
+     1,
+     1,
+     "failed"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     1,
+     1,
+     1,
+     "canceled"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     1,
+     1,
+     4,
+     "preparing"
+    ],
+    "result": 0.0125
+   },
+   {
+    "args": [
+     1,
+     1,
+     4,
+     "splitting"
+    ],
+    "result": 0.025
+   },
+   {
+    "args": [
+     1,
+     1,
+     4,
+     "transcribing"
+    ],
+    "result": 0.05
+   },
+   {
+    "args": [
+     1,
+     1,
+     4,
+     "cleaning"
+    ],
+    "result": 0.2125
+   },
+   {
+    "args": [
+     1,
+     1,
+     4,
+     "done"
+    ],
+    "result": 1.0
+   },
+   {
+    "args": [
+     1,
+     1,
+     4,
+     "failed"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     1,
+     1,
+     4,
+     "canceled"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     1,
+     3,
+     4,
+     "preparing"
+    ],
+    "result": 0.5125
+   },
+   {
+    "args": [
+     1,
+     3,
+     4,
+     "splitting"
+    ],
+    "result": 0.525
+   },
+   {
+    "args": [
+     1,
+     3,
+     4,
+     "transcribing"
+    ],
+    "result": 0.55
+   },
+   {
+    "args": [
+     1,
+     3,
+     4,
+     "cleaning"
+    ],
+    "result": 0.7125
+   },
+   {
+    "args": [
+     1,
+     3,
+     4,
+     "done"
+    ],
+    "result": 1.0
+   },
+   {
+    "args": [
+     1,
+     3,
+     4,
+     "failed"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     1,
+     3,
+     4,
+     "canceled"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     1,
+     4,
+     4,
+     "preparing"
+    ],
+    "result": 0.7625
+   },
+   {
+    "args": [
+     1,
+     4,
+     4,
+     "splitting"
+    ],
+    "result": 0.775
+   },
+   {
+    "args": [
+     1,
+     4,
+     4,
+     "transcribing"
+    ],
+    "result": 0.8
+   },
+   {
+    "args": [
+     1,
+     4,
+     4,
+     "cleaning"
+    ],
+    "result": 0.9625
+   },
+   {
+    "args": [
+     1,
+     4,
+     4,
+     "done"
+    ],
+    "result": 1.0
+   },
+   {
+    "args": [
+     1,
+     4,
+     4,
+     "failed"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     1,
+     4,
+     4,
+     "canceled"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     1,
+     9,
+     4,
+     "preparing"
+    ],
+    "result": 0.7625
+   },
+   {
+    "args": [
+     1,
+     9,
+     4,
+     "splitting"
+    ],
+    "result": 0.775
+   },
+   {
+    "args": [
+     1,
+     9,
+     4,
+     "transcribing"
+    ],
+    "result": 0.8
+   },
+   {
+    "args": [
+     1,
+     9,
+     4,
+     "cleaning"
+    ],
+    "result": 0.9625
+   },
+   {
+    "args": [
+     1,
+     9,
+     4,
+     "done"
+    ],
+    "result": 1.0
+   },
+   {
+    "args": [
+     1,
+     9,
+     4,
+     "failed"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     1,
+     9,
+     4,
+     "canceled"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     1,
+     2,
+     3,
+     "preparing"
+    ],
+    "result": 0.35000000000000003
+   },
+   {
+    "args": [
+     1,
+     2,
+     3,
+     "splitting"
+    ],
+    "result": 0.3666666666666667
+   },
+   {
+    "args": [
+     1,
+     2,
+     3,
+     "transcribing"
+    ],
+    "result": 0.39999999999999997
+   },
+   {
+    "args": [
+     1,
+     2,
+     3,
+     "cleaning"
+    ],
+    "result": 0.6166666666666667
+   },
+   {
+    "args": [
+     1,
+     2,
+     3,
+     "done"
+    ],
+    "result": 1.0
+   },
+   {
+    "args": [
+     1,
+     2,
+     3,
+     "failed"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     1,
+     2,
+     3,
+     "canceled"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     1,
+     1,
+     0,
+     "preparing"
+    ],
+    "result": "indeterminate"
+   },
+   {
+    "args": [
+     1,
+     1,
+     0,
+     "splitting"
+    ],
+    "result": "indeterminate"
+   },
+   {
+    "args": [
+     1,
+     1,
+     0,
+     "transcribing"
+    ],
+    "result": "indeterminate"
+   },
+   {
+    "args": [
+     1,
+     1,
+     0,
+     "cleaning"
+    ],
+    "result": "indeterminate"
+   },
+   {
+    "args": [
+     1,
+     1,
+     0,
+     "done"
+    ],
+    "result": 1.0
+   },
+   {
+    "args": [
+     1,
+     1,
+     0,
+     "failed"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     1,
+     1,
+     0,
+     "canceled"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     4,
+     1,
+     1,
+     "preparing"
+    ],
+    "result": "indeterminate"
+   },
+   {
+    "args": [
+     4,
+     1,
+     1,
+     "splitting"
+    ],
+    "result": "indeterminate"
+   },
+   {
+    "args": [
+     4,
+     1,
+     1,
+     "transcribing"
+    ],
+    "result": "indeterminate"
+   },
+   {
+    "args": [
+     4,
+     1,
+     1,
+     "cleaning"
+    ],
+    "result": "indeterminate"
+   },
+   {
+    "args": [
+     4,
+     1,
+     1,
+     "done"
+    ],
+    "result": 1.0
+   },
+   {
+    "args": [
+     4,
+     1,
+     1,
+     "failed"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     4,
+     1,
+     1,
+     "canceled"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     4,
+     1,
+     4,
+     "preparing"
+    ],
+    "result": 0.0125
+   },
+   {
+    "args": [
+     4,
+     1,
+     4,
+     "splitting"
+    ],
+    "result": 0.025
+   },
+   {
+    "args": [
+     4,
+     1,
+     4,
+     "transcribing"
+    ],
+    "result": 0.05
+   },
+   {
+    "args": [
+     4,
+     1,
+     4,
+     "cleaning"
+    ],
+    "result": 0.2125
+   },
+   {
+    "args": [
+     4,
+     1,
+     4,
+     "done"
+    ],
+    "result": 1.0
+   },
+   {
+    "args": [
+     4,
+     1,
+     4,
+     "failed"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     4,
+     1,
+     4,
+     "canceled"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     4,
+     3,
+     4,
+     "preparing"
+    ],
+    "result": 0.5125
+   },
+   {
+    "args": [
+     4,
+     3,
+     4,
+     "splitting"
+    ],
+    "result": 0.525
+   },
+   {
+    "args": [
+     4,
+     3,
+     4,
+     "transcribing"
+    ],
+    "result": 0.55
+   },
+   {
+    "args": [
+     4,
+     3,
+     4,
+     "cleaning"
+    ],
+    "result": 0.7125
+   },
+   {
+    "args": [
+     4,
+     3,
+     4,
+     "done"
+    ],
+    "result": 1.0
+   },
+   {
+    "args": [
+     4,
+     3,
+     4,
+     "failed"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     4,
+     3,
+     4,
+     "canceled"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     4,
+     4,
+     4,
+     "preparing"
+    ],
+    "result": 0.7625
+   },
+   {
+    "args": [
+     4,
+     4,
+     4,
+     "splitting"
+    ],
+    "result": 0.775
+   },
+   {
+    "args": [
+     4,
+     4,
+     4,
+     "transcribing"
+    ],
+    "result": 0.8
+   },
+   {
+    "args": [
+     4,
+     4,
+     4,
+     "cleaning"
+    ],
+    "result": 0.9625
+   },
+   {
+    "args": [
+     4,
+     4,
+     4,
+     "done"
+    ],
+    "result": 1.0
+   },
+   {
+    "args": [
+     4,
+     4,
+     4,
+     "failed"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     4,
+     4,
+     4,
+     "canceled"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     4,
+     9,
+     4,
+     "preparing"
+    ],
+    "result": 0.7625
+   },
+   {
+    "args": [
+     4,
+     9,
+     4,
+     "splitting"
+    ],
+    "result": 0.775
+   },
+   {
+    "args": [
+     4,
+     9,
+     4,
+     "transcribing"
+    ],
+    "result": 0.8
+   },
+   {
+    "args": [
+     4,
+     9,
+     4,
+     "cleaning"
+    ],
+    "result": 0.9625
+   },
+   {
+    "args": [
+     4,
+     9,
+     4,
+     "done"
+    ],
+    "result": 1.0
+   },
+   {
+    "args": [
+     4,
+     9,
+     4,
+     "failed"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     4,
+     9,
+     4,
+     "canceled"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     4,
+     2,
+     3,
+     "preparing"
+    ],
+    "result": 0.35000000000000003
+   },
+   {
+    "args": [
+     4,
+     2,
+     3,
+     "splitting"
+    ],
+    "result": 0.3666666666666667
+   },
+   {
+    "args": [
+     4,
+     2,
+     3,
+     "transcribing"
+    ],
+    "result": 0.39999999999999997
+   },
+   {
+    "args": [
+     4,
+     2,
+     3,
+     "cleaning"
+    ],
+    "result": 0.6166666666666667
+   },
+   {
+    "args": [
+     4,
+     2,
+     3,
+     "done"
+    ],
+    "result": 1.0
+   },
+   {
+    "args": [
+     4,
+     2,
+     3,
+     "failed"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     4,
+     2,
+     3,
+     "canceled"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     4,
+     1,
+     0,
+     "preparing"
+    ],
+    "result": "indeterminate"
+   },
+   {
+    "args": [
+     4,
+     1,
+     0,
+     "splitting"
+    ],
+    "result": "indeterminate"
+   },
+   {
+    "args": [
+     4,
+     1,
+     0,
+     "transcribing"
+    ],
+    "result": "indeterminate"
+   },
+   {
+    "args": [
+     4,
+     1,
+     0,
+     "cleaning"
+    ],
+    "result": "indeterminate"
+   },
+   {
+    "args": [
+     4,
+     1,
+     0,
+     "done"
+    ],
+    "result": 1.0
+   },
+   {
+    "args": [
+     4,
+     1,
+     0,
+     "failed"
+    ],
+    "result": "reset"
+   },
+   {
+    "args": [
+     4,
+     1,
+     0,
+     "canceled"
+    ],
+    "result": "reset"
+   }
+  ]
+ }
+}

@@ -1,0 +1,860 @@
+{
+ "area": "a06-hotkeys-paste-focus",
+ "package": "M10 sweep",
+ "features": {
+  "A06-01": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/grammar.cpp",
+    "src/hotkeys/grammar.h"
+   ],
+   "tests": [
+    "tests/hotkeys/test_golden.cpp",
+    "tests/golden/services._hotkey_common.json",
+    "tests/golden/services._hotkey_keyboard.json",
+    "tests/golden/services._hotkey_pynput.json"
+   ],
+   "note": "Both vocabularies replay Python's parse/format vectors (146 + 73 + 73 parse cases)."
+  },
+  "A06-02": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/grammar.cpp"
+   ],
+   "tests": [
+    "tests/hotkeys/test_golden.cpp",
+    "tests/golden/services._hotkey_keyboard.json",
+    "tests/golden/services._hotkey_pynput.json",
+    "tests/hotkeys/test_windows_matcher.cpp"
+   ],
+   "note": "format_hotkey_display vectors for Windows, Linux and macOS spellings."
+  },
+  "A06-03": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/defaults.cpp",
+    "src/settings/hotkeys.cpp",
+    "src/dictation/hotkey_runtime.cpp"
+   ],
+   "tests": [
+    "tests/settings/test_store.cpp",
+    "tests/dictation/test_hotkey_runtime.cpp",
+    "tests/hotkeys/test_conflicts.cpp"
+   ],
+   "note": "Windows/Linux table and order pinned by 'the default hotkeys are Windows' table in config order'; the merge by 'setup merges the defaults under the saved hotkeys'. The macOS branch of default_hotkeys(\"darwin\") matches config.py but no test asserts its values (other-platform)."
+  },
+  "A06-04": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/grammar.h",
+    "src/hotkeys/matcher.cpp",
+    "src/hotkeys/hotkey_manager.cpp"
+   ],
+   "tests": [
+    "tests/hotkeys/test_windows_matcher.cpp",
+    "tests/hotkeys/test_physical_keys.cpp",
+    "tests/hotkeys/test_golden.cpp",
+    "tests/dictation/test_hotkey_runtime.cpp"
+   ]
+  },
+  "A06-05": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/matcher.cpp",
+    "src/hotkeys/debouncer.cpp",
+    "src/hotkeys/defaults.h"
+   ],
+   "tests": [
+    "tests/hotkeys/test_hotkey_manager.cpp",
+    "tests/hotkeys/test_push_hold_matcher.cpp",
+    "tests/hotkeys/test_golden.cpp"
+   ]
+  },
+  "A06-06": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/matcher.cpp",
+    "src/hotkeys/hotkey_manager.cpp",
+    "src/dictation/hotkey_runtime.cpp"
+   ],
+   "tests": [
+    "tests/hotkeys/test_push_hold_matcher.cpp",
+    "tests/hotkeys/test_windows_matcher.cpp",
+    "tests/dictation/test_hold_runtime.cpp",
+    "tests/dictation/test_hotkey_runtime.cpp"
+   ]
+  },
+  "A06-07": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/matcher.cpp",
+    "src/hotkeys/hotkey_manager.cpp"
+   ],
+   "tests": [
+    "tests/hotkeys/test_windows_matcher.cpp",
+    "tests/hotkeys/test_physical_keys.cpp",
+    "tests/dictation/test_hotkey_runtime_families.cpp"
+   ]
+  },
+  "A06-08": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/matcher.cpp",
+    "src/hotkeys/hotkey_manager.cpp",
+    "src/dictation/hotkey_runtime.cpp"
+   ],
+   "tests": [
+    "tests/hotkeys/test_enable_disable.cpp",
+    "tests/hotkeys/test_hotkey_manager.cpp",
+    "tests/dictation/test_hotkey_runtime.cpp"
+   ]
+  },
+  "A06-09": {
+   "status": "fixed",
+   "cpp": [
+    "src/hotkeys/matcher.cpp",
+    "src/hotkeys/hotkey_manager.cpp",
+    "src/hotkeys/grammar.h",
+    "src/dictation/hotkey_runtime.cpp"
+   ],
+   "tests": [
+    "tests/hotkeys/test_windows_matcher.cpp",
+    "tests/hotkeys/test_physical_keys.cpp",
+    "tests/hotkeys/test_golden.cpp",
+    "tests/dictation/test_hotkey_runtime_families.cpp",
+    "tests/dictation/test_hotkey_runtime_actions.cpp"
+   ],
+   "note": "Code was right; the unknown-family error was asserted by type only. test_windows_transform_family_dispatches_beside_profiles now also asserts the text \"Unknown shortcut family: macro\". No source change."
+  },
+  "A06-10": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/win/keyboard_hook.cpp",
+    "src/hotkeys/matcher.cpp",
+    "src/hotkeys/key_event.cpp",
+    "src/hotkeys/key_names.cpp"
+   ],
+   "tests": [
+    "tests/hotkeys/test_key_names.cpp",
+    "tests/hotkeys/test_golden.cpp",
+    "tests/hotkeys/test_physical_keys.cpp",
+    "tests/hotkeys/test_keyboard_hook_interactive.cpp"
+   ],
+   "note": "The matcher and translator are tested here through the fake hook; win/keyboard_hook.cpp itself is only driven by the [interactive] test, which is written and not run."
+  },
+  "A06-11": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/matcher.cpp"
+   ],
+   "tests": [
+    "tests/hotkeys/test_physical_keys.cpp",
+    "tests/hotkeys/test_golden.cpp",
+    "tests/golden/services._hotkey_keyboard.json"
+   ]
+  },
+  "A06-12": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/matcher.cpp",
+    "src/hotkeys/hotkey_manager.cpp",
+    "src/dictation/hotkey_runtime.cpp"
+   ],
+   "tests": [
+    "tests/hotkeys/test_hold_active.cpp",
+    "tests/hotkeys/test_mouse_hook.cpp",
+    "tests/dictation/test_hotkey_runtime.cpp"
+   ]
+  },
+  "A06-13": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/matcher.cpp",
+    "src/hotkeys/win/keyboard_hook.cpp",
+    "src/hotkeys/key_event.h"
+   ],
+   "tests": [
+    "tests/hotkeys/test_golden.cpp",
+    "tests/golden/services._hotkey_keyboard.json",
+    "tests/hotkeys/test_synthetic_input_tag.cpp"
+   ],
+   "note": "The matcher's injected branch replays Python's scan -82 trace; the GetAsyncKeyState read in win/keyboard_hook.cpp is Windows-only code read, not run here."
+  },
+  "A06-14": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/mouse_hook.cpp",
+    "src/hotkeys/mouse_hook.h",
+    "src/hotkeys/win/mouse_hook.cpp",
+    "src/hotkeys/hotkey_manager.cpp",
+    "src/hotkeys/matcher.cpp"
+   ],
+   "tests": [
+    "tests/hotkeys/test_mouse_hook.cpp",
+    "tests/hotkeys/test_golden_mouse.cpp",
+    "tests/golden/services._mouse_hook_win.json",
+    "tests/hotkeys/test_mouse_hook_win.cpp",
+    "tests/hotkeys/test_mouse_hook_interactive.cpp"
+   ],
+   "note": "The hook's decision (MouseButtonFilter) and the manager's start/stop rule run here and replay Python's callback traces. The two threads of win/mouse_hook.cpp are covered by test_mouse_hook_win.cpp over a fake user32, which is Windows-only and was not run here; the real-hook test is [interactive]."
+  },
+  "A06-15": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/mouse_hook.cpp",
+    "src/hotkeys/mouse_hook.h",
+    "src/hotkeys/win/mouse_hook.cpp"
+   ],
+   "tests": [
+    "tests/hotkeys/test_click_observer.cpp",
+    "tests/hotkeys/test_golden_click.cpp",
+    "tests/golden/services._mouse_hook_win.json"
+   ],
+   "note": "ClickFilter replays Python's click traces here; the Windows wiring cases in test_click_observer.cpp are Windows-only and were not run here."
+  },
+  "A06-16": {
+   "status": "other-platform",
+   "reason": "macOS NSEvent click monitor (_mouse_monitor_mac.py); FioriVoce observes clicks only through the Windows mouse hook."
+  },
+  "A06-17": {
+   "status": "other-platform",
+   "reason": "macOS Carbon RegisterEventHotKey backend (_hotkey_carbon.py); the only FioriVoce hotkey backend is the Windows low-level hook."
+  },
+  "A06-18": {
+   "status": "other-platform",
+   "reason": "Linux X11 pynput/XRecord listener (_hotkey_pynput.py); not part of the Windows product, hotkeys/posix/keyboard_hook.cpp throws 'Global hotkeys are not supported on this platform.'"
+  },
+  "A06-19": {
+   "status": "other-platform",
+   "reason": "Linux X11 XGrabKey passive grabs (_x11_key_grab.py)."
+  },
+  "A06-20": {
+   "status": "other-platform",
+   "reason": "Linux X11 pynput mouse listener for buttons 8/9; side buttons are bound only through the Windows hook (posix mouse_shortcuts_supported() is false)."
+  },
+  "A06-21": {
+   "status": "other-platform",
+   "reason": "Cross-source dedupe exists only in the pynput/Carbon/Hyprland dispatcher (_hotkey_pynput._should_accept_action); the Windows backend has one source."
+  },
+  "A06-22": {
+   "status": "other-platform",
+   "reason": "Qt focused-window fallback (ActiveWindowHotkeyFilter -> handle_hotkey_press/release) is used only with the pynput/Wayland backend; Python skips it on Windows."
+  },
+  "A06-23": {
+   "status": "other-platform",
+   "reason": "Wayland degrade of the pynput backend (Linux only)."
+  },
+  "A06-24": {
+   "status": "other-platform",
+   "reason": "Hyprland/Omarchy compositor binds over D-Bus (omarchy_controls.py), Linux only."
+  },
+  "A06-25": {
+   "status": "other-platform",
+   "reason": "Omarchy bar D-Bus API and status file (omarchy_controls.py), Linux only."
+  },
+  "A06-26": {
+   "status": "other-platform",
+   "reason": "Hyprland send_shortcut paste/copy (hyprland.py), Linux only."
+  },
+  "A06-27": {
+   "status": "verified",
+   "cpp": [
+    "src/focus/synthetic_keys.cpp",
+    "src/focus/win/keyboard_port.cpp",
+    "src/dictation/delivery.cpp"
+   ],
+   "tests": [
+    "tests/focus/test_synthetic_keys.cpp",
+    "tests/dictation/test_delivery.cpp",
+    "tests/dictation/test_paste_latency.cpp"
+   ],
+   "note": "Windows Ctrl+V as one SendInput chord. The chord order and the fake port run here; the real port's tests ('every input the synthetic keys send carries our tag', scan codes) are Windows-only [platform] and were not run; the injecting one is [interactive]. macOS/X11/Wayland paths and the Wayland error text are other-platform (posix make_keyboard_port throws SyntheticKeysError)."
+  },
+  "A06-28": {
+   "status": "verified",
+   "cpp": [
+    "src/focus/synthetic_keys.cpp",
+    "src/focus/win/keyboard_port.cpp"
+   ],
+   "tests": [
+    "tests/focus/test_synthetic_keys.cpp",
+    "tests/dictation/test_command_selection.cpp"
+   ],
+   "note": "Windows Ctrl+C ('windows copy is ctrl c'); the macOS Accessibility and Wayland messages are other-platform."
+  },
+  "A06-29": {
+   "status": "verified",
+   "cpp": [
+    "src/focus/synthetic_keys.cpp",
+    "src/focus/synthetic_keys.h",
+    "src/dictation/hotkey_runtime.cpp"
+   ],
+   "tests": [
+    "tests/focus/test_synthetic_keys.cpp",
+    "tests/dictation/test_hotkey_runtime.cpp"
+   ]
+  },
+  "A06-30": {
+   "status": "verified",
+   "cpp": [
+    "src/focus/synthetic_keys.cpp",
+    "src/focus/catalog.cpp"
+   ],
+   "tests": [
+    "tests/focus/test_synthetic_keys.cpp",
+    "tests/golden/services.synthetic_keys.json"
+   ]
+  },
+  "A06-31": {
+   "status": "verified",
+   "cpp": [
+    "src/clipboard/temporary_clipboard.cpp",
+    "src/clipboard/snapshot.cpp",
+    "src/focus/clipboard_port.h",
+    "src/dictation/delivery.cpp"
+   ],
+   "tests": [
+    "tests/clipboard/test_temporary_clipboard.cpp",
+    "tests/clipboard/test_golden.cpp",
+    "tests/golden/ui_qt.clipboard.json",
+    "tests/dictation/test_delivery.cpp"
+   ],
+   "note": "The private marker format is named after the product (application/x-fiorivoce-auto-paste, 'the marker format is named after the product'), the brand rule applied to Python's application/x-openwhisper-auto-paste; the 16-byte token, ownership check, 250 ms delay and blank rule are as in Python."
+  },
+  "A06-32": {
+   "status": "verified",
+   "cpp": [
+    "src/clipboard/temporary_clipboard.cpp",
+    "src/clipboard/win/sequence.cpp",
+    "src/clipboard/posix/platform.cpp",
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/clipboard/test_temporary_clipboard.cpp",
+    "tests/clipboard/test_golden.cpp",
+    "tests/golden/ui_qt.clipboard.json",
+    "tests/dictation/test_paste_latency.cpp",
+    "tests/dictation/test_cleanup_runtime.cpp"
+   ],
+   "note": "GetClipboardSequenceNumber (win/sequence.cpp) is Windows-only code, read and not run; the state machine runs here over the fake backend's counter."
+  },
+  "A06-33": {
+   "status": "verified",
+   "cpp": [
+    "src/clipboard/temporary_clipboard.cpp",
+    "src/dictation/command_selection.cpp",
+    "src/text/cleanup_config.h"
+   ],
+   "tests": [
+    "tests/clipboard/test_selection.cpp",
+    "tests/clipboard/test_golden.cpp",
+    "tests/golden/ui_qt.clipboard.json",
+    "tests/dictation/test_command_selection.cpp"
+   ]
+  },
+  "A06-34": {
+   "status": "verified",
+   "cpp": [
+    "src/clipboard/win/render.cpp",
+    "src/clipboard/temporary_clipboard.cpp",
+    "src/clipboard/render.h"
+   ],
+   "tests": [
+    "tests/clipboard/test_temporary_clipboard.cpp",
+    "tests/clipboard/test_rich_text.cpp",
+    "tests/clipboard/test_platform.cpp"
+   ],
+   "note": "When the renderers run (after the write, rich only when staged, a failure does not fail the stage) is tested here with injected renderers. The Win32 OpenClipboard/GetClipboardData(CF_UNICODETEXT / \"HTML Format\") calls in win/render.cpp are only exercised by the [interactive] helper test, which was not run."
+  },
+  "A06-35": {
+   "status": "verified",
+   "cpp": [
+    "src/clipboard/html.cpp"
+   ],
+   "tests": [
+    "tests/clipboard/test_golden.cpp",
+    "tests/golden/ui_qt.clipboard.json",
+    "tests/clipboard/test_rich_text.cpp"
+   ]
+  },
+  "A06-36": {
+   "status": "verified",
+   "cpp": [
+    "src/clipboard/temporary_clipboard.cpp"
+   ],
+   "tests": [
+    "tests/clipboard/test_files.cpp"
+   ]
+  },
+  "A06-37": {
+   "status": "fixed",
+   "cpp": [
+    "src/clipboard/temporary_clipboard.cpp",
+    "src/ui_controller/clipboard_service.cpp",
+    "src/ui_controller/clipboard_service.h",
+    "src/ui_controller/ui_controller.cpp"
+   ],
+   "tests": [
+    "tests/clipboard/test_temporary_clipboard.cpp",
+    "tests/clipboard/test_golden.cpp",
+    "tests/golden/ui_qt.clipboard.json",
+    "tests/clipboard/test_selection.cpp",
+    "tests/ui_controller/test_clipboard_service.cpp"
+   ],
+   "note": "Code was right. The signal half was tested (restore_failed(message) from a failed paste restore and a failed selection restore). The status half, 'Ready (Pasted; clipboard restore failed)' from ClipboardService, had no test in either tree: added tests/ui_controller/test_clipboard_service.cpp ('a clipboard restore that fails leaves its status on the line', 'a clipboard restore that works asks for no status'). No source change."
+  },
+  "A06-38": {
+   "status": "other-platform",
+   "reason": "QT_WAYLAND_USE_DATA_CONTROL and the Qt >= 6.10 data-control path matter only on Wayland. The C++ keeps the injectable sees_foreign_copies seam (A06-33); clipboard/sequence.cpp foreign_copies_visible() is false on a Wayland Qt platform and true elsewhere, and the env var is never set."
+  },
+  "A06-39": {
+   "status": "verified",
+   "cpp": [
+    "src/focus/foreground.cpp",
+    "src/focus/win/foreground.cpp",
+    "src/focus/snapshot.h"
+   ],
+   "tests": [
+    "tests/focus/test_windows_identity.cpp"
+   ],
+   "note": "Windows identity over a fake Win32Desktop runs here; RealWin32Desktop (win/foreground.cpp) is read, with only 'windows real identity is quick and never raises' touching it on Windows. Own windows are named after the product. macOS and Linux identities are other-platform (posix foreground_identity() is nullopt)."
+  },
+  "A06-40": {
+   "status": "verified",
+   "cpp": [
+    "src/focus/detail/capture_service.cpp",
+    "src/focus/focus_capture.h",
+    "src/focus/capture_service.cpp",
+    "src/focus/snapshot.h"
+   ],
+   "tests": [
+    "tests/focus/test_capture_service.cpp"
+   ],
+   "note": "One deliberate timing detail: the text thread is marked idle as soon as the reader answers, before the request resolves (Python clears busy after), so a caller asking again right after its answer is read rather than answered 'busy'."
+  },
+  "A06-41": {
+   "status": "verified",
+   "cpp": [
+    "src/focus/win/uia_text_reader.cpp",
+    "src/focus/uia_text_reader.h",
+    "src/focus/snapshot.h"
+   ],
+   "tests": [
+    "tests/focus/test_windows_identity.cpp"
+   ],
+   "note": "Windows-only code and tests: 'ui automation reads a hidden edit control' and 'ui automation marks a password edit as refused' are [platform] and were not run here. Read against _win_uia.py line by line (timeouts 500/1000 ms, selection-then-caret anchor, 1000/200 chars, limit*2 tail, >8000 selection unknown). No test, in either tree, covers the focused-element pid check of read()."
+  },
+  "A06-42": {
+   "status": "other-platform",
+   "reason": "macOS AX text reader (focus_context/_mac.py), disabled in Python as well (_AX_TEXT_ENABLED = False)."
+  },
+  "A06-43": {
+   "status": "verified",
+   "cpp": [
+    "src/focus/catalog.cpp",
+    "src/focus/catalog.h",
+    "src/focus/data/app_catalog.json"
+   ],
+   "tests": [
+    "tests/focus/test_catalog.cpp",
+    "tests/golden/services.focus_context.catalog.json"
+   ],
+   "note": "The embedded table holds 103 apps and 32 sites, checked against the generated tables by 'the catalogue matches the generated tables'."
+  },
+  "A06-44": {
+   "status": "verified",
+   "cpp": [
+    "src/focus/prompt_block.cpp",
+    "src/focus/prompt_block.h",
+    "src/dictation/cleanup_prompt.cpp"
+   ],
+   "tests": [
+    "tests/focus/test_join.cpp",
+    "tests/golden/services.focus_context.json",
+    "tests/dictation/test_cleanup_prompt.cpp"
+   ]
+  },
+  "A06-45": {
+   "status": "verified",
+   "cpp": [
+    "src/focus/join.cpp",
+    "src/focus/join.h"
+   ],
+   "tests": [
+    "tests/focus/test_join.cpp",
+    "tests/golden/services.focus_context.json"
+   ],
+   "note": "745 join_with_context and 259 join_html_with_context vectors from Python."
+  },
+  "A06-46": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/conflicts.cpp",
+    "src/hotkeys/conflicts.h"
+   ],
+   "tests": [
+    "tests/hotkeys/test_conflicts.cpp",
+    "tests/hotkeys/test_golden.cpp",
+    "tests/golden/services.hotkey_conflicts.json"
+   ]
+  },
+  "A06-47": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_hotkeys/hotkey_capture.cpp",
+    "src/ui_hotkeys/hotkey_capture.h",
+    "src/ui_hotkeys/profile_hotkey_input.cpp"
+   ],
+   "tests": [
+    "tests/ui_hotkeys/test_capture_fields.cpp"
+   ],
+   "note": "Code was right; nothing asserted the field's fixed properties. Added 'a shortcut field is a read-only line that marks itself while capturing' (object name hotkeyInput, read-only, minimum height 38, placeholder, the capturing property). Escape rules, ShortcutOverride, side buttons only while capturing and the unsupported notice were already tested."
+  },
+  "A06-48": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/capture.cpp",
+    "src/hotkeys/capture.h",
+    "src/hotkeys/win/capture.cpp"
+   ],
+   "tests": [
+    "tests/hotkeys/test_capture.cpp",
+    "tests/hotkeys/test_golden_mouse.cpp",
+    "tests/golden/ui_qt.widgets.hotkey_capture.json",
+    "tests/hotkeys/test_mouse_hook_interactive.cpp"
+   ],
+   "note": "Windows variant (first key-up, get_hotkey_name, the Windows failure text) verified through the fake hook and 32 Python capture runs; the pynput variant and its macOS/Linux failure text are other-platform. The real second WH_KEYBOARD_LL hook is only exercised by [interactive] tests, not run."
+  },
+  "A06-49": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_hotkeys/profile_hotkey_input.cpp",
+    "src/ui_hotkeys/profile_hotkey_input.h"
+   ],
+   "tests": [
+    "tests/ui_hotkeys/test_capture_fields.cpp"
+   ],
+   "note": "Code was right; focus-out and hide cancelling a capture, the accessible name and the tooltip had no test. Added 'profile field names itself and a capture ends when it loses focus or is hidden'. The hint text, the 10 s timer, commit on release, Tab, F-keys, the kp prefix and page up/page_up were already tested."
+  },
+  "A06-50": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/mouse_shortcuts.cpp",
+    "src/ui_hotkeys/hotkey_bindings.cpp",
+    "src/ui_hotkeys/hotkeys_page.cpp"
+   ],
+   "tests": [
+    "tests/hotkeys/test_capture.cpp",
+    "tests/hotkeys/test_golden_mouse.cpp",
+    "tests/golden/ui_qt.widgets.hotkey_capture.json"
+   ]
+  },
+  "A06-51": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_hotkeys/hotkey_bindings.cpp",
+    "src/ui_hotkeys/hotkey_bindings.h",
+    "src/ui_hotkeys/personal_binding_sources.cpp",
+    "src/ui_automation/action_bindings.cpp"
+   ],
+   "tests": [
+    "tests/ui_hotkeys/test_bindings.cpp",
+    "tests/ui_hotkeys/test_personal_bindings.cpp",
+    "tests/ui_hotkeys/test_reference_screenshots.cpp",
+    "tests/ui_automation/test_action_bindings.cpp"
+   ],
+   "note": "The reference screenshot tests compare against windows11 references and fail on this Linux machine (fusion style, other fonts); they were not a usable check here."
+  },
+  "A06-52": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_hotkeys/hotkey_row.cpp",
+    "src/ui_hotkeys/hotkey_row.h"
+   ],
+   "tests": [
+    "tests/ui_hotkeys/test_capture_fields.cpp",
+    "tests/ui_hotkeys/test_reference_screenshots.cpp"
+   ],
+   "note": "'hotkey rows fit narrow windows and large fonts' (the upstream test) checks no control overflows or overlaps at 520/400/300 px and 130 %. On this Linux machine that test fails on an earlier line for another reason (it expects the Windows side-button note); its reflow assertions passed."
+  },
+  "A06-53": {
+   "status": "other-platform",
+   "reason": "macOS 'Set up auto-paste' Accessibility dialog (accessibility_dialog.py)."
+  },
+  "A06-54": {
+   "status": "other-platform",
+   "reason": "macOS AXIsProcessTrusted helpers and instruction texts; on Windows Python's versions are no-ops returning True/\"\"."
+  },
+  "A06-55": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/dispatcher.cpp",
+    "src/hotkeys/dispatcher.h"
+   ],
+   "tests": [
+    "tests/hotkeys/test_dispatcher.cpp",
+    "tests/dictation/test_hold_runtime.cpp"
+   ]
+  },
+  "A06-56": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/debouncer.cpp",
+    "src/hotkeys/debouncer.h"
+   ],
+   "tests": [
+    "tests/hotkeys/test_golden.cpp",
+    "tests/golden/services._hotkey_common.json",
+    "tests/hotkeys/test_hotkey_manager.cpp"
+   ]
+  },
+  "A06-57": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/matcher.cpp",
+    "src/hotkeys/hotkey_manager.cpp",
+    "src/dictation/hotkey_runtime.cpp",
+    "src/ui_hotkeys/hotkeys_page.cpp",
+    "src/ui_controller/settings_bindings.cpp"
+   ],
+   "tests": [
+    "tests/hotkeys/test_golden.cpp",
+    "tests/hotkeys/test_mouse_hook.cpp",
+    "tests/hotkeys/test_physical_keys.cpp",
+    "tests/dictation/test_hotkey_runtime.cpp",
+    "tests/ui_hotkeys/test_hotkeys_page.cpp",
+    "tests/ui_controller/test_settings_bindings.cpp"
+   ],
+   "note": "Windows part (hook passes everything, holds forgotten, mouse hook stopped); Carbon, X11 grabs and Omarchy binds are other-platform."
+  },
+  "A06-58": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/hotkey_manager.cpp",
+    "src/hotkeys/win/keyboard_hook.cpp",
+    "src/dictation/hotkey_runtime.cpp",
+    "src/dictation/hotkey_runtime.h"
+   ],
+   "tests": [
+    "tests/hotkeys/test_hotkey_manager.cpp",
+    "tests/hotkeys/test_golden.cpp",
+    "tests/dictation/test_hotkey_runtime.cpp"
+   ],
+   "note": "The hook is removed on the thread that installed it (fv-hotkey-hook ends its message loop on WM_QUIT), which is M1.5's reading of Python's main-thread-only unhook_all; watchdog constants 10 s / 30 s / 5 min and the 60 s minimum gap are pinned by 'the watchdog rehooks after a sleep and refreshes every five minutes'."
+  },
+  "A06-59": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/matcher.cpp"
+   ],
+   "tests": [
+    "tests/hotkeys/test_golden.cpp",
+    "tests/golden/services._hotkey_keyboard.json",
+    "tests/hotkeys/test_enable_disable.cpp",
+    "tests/hotkeys/test_push_hold_matcher.cpp",
+    "tests/dictation/test_hotkey_runtime.cpp"
+   ]
+  },
+  "A06-60": {
+   "status": "other-platform",
+   "reason": "Dispatch rules of the pynput/Carbon/Hyprland backend (_hotkey_pynput.trigger_action); the Windows rules are A06-59."
+  },
+  "A06-61": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/hotkey_manager.cpp",
+    "src/hotkeys/hotkey_manager.h"
+   ],
+   "tests": [
+    "tests/hotkeys/test_key_names.cpp",
+    "tests/hotkeys/test_hotkey_manager.cpp",
+    "tests/hotkeys/test_golden.cpp"
+   ],
+   "note": "Windows part: backend_available/backend_name ('keyboard' or 'unavailable')/backend_error, and update_hotkeys doing a full cleanup + re-hook (golden 'update' steps). The Carbon/pynput/Hyprland names and the X11 grab rules are other-platform. In Python only omarchy_controls reads these fields, so no FioriVoce UI reads them."
+  },
+  "A06-62": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/win/mouse_hook.cpp",
+    "src/hotkeys/posix/mouse_hook.cpp",
+    "src/hotkeys/mouse_shortcuts.h",
+    "src/ui_hotkeys/hotkey_capture.cpp"
+   ],
+   "tests": [
+    "tests/hotkeys/test_mouse_hook.cpp",
+    "tests/ui_hotkeys/test_capture_fields.cpp"
+   ],
+   "note": "True with the Windows hook. Everywhere else FioriVoce answers false (Python answers true on Linux X11 through pynput, a backend that is other-platform); the Hyprland 'Unsupported shortcut' text is other-platform. The capture notice is 'unsupported desktop explains and keeps capturing'."
+  },
+  "A06-63": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/mouse_hook.cpp",
+    "src/hotkeys/matcher.cpp",
+    "src/hotkeys/win/mouse_hook.cpp"
+   ],
+   "tests": [
+    "tests/hotkeys/test_mouse_hook.cpp",
+    "tests/hotkeys/test_golden_mouse.cpp",
+    "tests/golden/services._hotkey_keyboard.json",
+    "tests/golden/services._mouse_hook_win.json",
+    "tests/hotkeys/test_mouse_hook_win.cpp"
+   ],
+   "note": "GetAsyncKeyState modifiers at the press are asserted in test_mouse_hook_win.cpp (Windows-only, not run here); the claim rule, the suppressed set across a restart and the error fall-through run here."
+  },
+  "A06-64": {
+   "status": "verified",
+   "cpp": [
+    "src/focus/synthetic_keys.cpp",
+    "src/focus/win/keyboard_port.cpp",
+    "src/hotkeys/win/keyboard_hook.cpp"
+   ],
+   "tests": [
+    "tests/focus/test_synthetic_keys.cpp",
+    "tests/hotkeys/test_synthetic_input_tag.cpp"
+   ],
+   "note": "Windows: both chords go through SendInput in keyboard.send's order (modifier down, key down, key up, modifier up) with real scan codes, and carry kSyntheticInputTag so the app's own hook passes them unseen, which is what `keyboard` does while its send() runs. The pynput Controller path and the macOS trust check are other-platform. The tag assertions on real INPUTs are Windows-only tests, not run here."
+  },
+  "A06-65": {
+   "status": "verified",
+   "cpp": [
+    "src/focus/synthetic_keys.cpp"
+   ],
+   "tests": [
+    "tests/focus/test_synthetic_keys.cpp",
+    "tests/golden/services.synthetic_keys.json"
+   ]
+  },
+  "A06-66": {
+   "status": "verified",
+   "cpp": [
+    "src/focus/foreground.cpp",
+    "src/focus/win/foreground.cpp"
+   ],
+   "tests": [
+    "tests/focus/test_windows_identity.cpp"
+   ],
+   "note": "Windows cases through the fake desktop (own process, access denied, ApplicationFrameHost, console classes, title only for browsers, hex window). The Win32 calls themselves (512-char GetWindowTextW, PROCESS_QUERY_LIMITED_INFORMATION) are read in win/foreground.cpp and not run here. The Linux X11/Hyprland rules are other-platform."
+  },
+  "A06-67": {
+   "status": "verified",
+   "cpp": [
+    "src/focus/detail/capture_service.cpp",
+    "src/focus/capture_service.cpp",
+    "src/focus/capture_service.h",
+    "src/dictation/dictionary_learning.cpp"
+   ],
+   "tests": [
+    "tests/focus/test_capture_service.cpp",
+    "tests/dictation/test_dictionary_learning.cpp"
+   ]
+  },
+  "A06-68": {
+   "status": "verified",
+   "cpp": [
+    "src/focus/join.cpp"
+   ],
+   "tests": [
+    "tests/focus/test_join.cpp",
+    "tests/golden/services.focus_context.json"
+   ]
+  },
+  "A06-69": {
+   "status": "verified",
+   "cpp": [
+    "src/focus/prompt_block.cpp"
+   ],
+   "tests": [
+    "tests/focus/test_join.cpp",
+    "tests/golden/services.focus_context.json"
+   ]
+  },
+  "A06-70": {
+   "status": "verified",
+   "cpp": [
+    "src/focus/catalog.cpp",
+    "src/focus/data/app_catalog.json"
+   ],
+   "tests": [
+    "tests/focus/test_catalog.cpp",
+    "tests/golden/services.focus_context.catalog.json"
+   ]
+  },
+  "A06-71": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/conflicts.cpp"
+   ],
+   "tests": [
+    "tests/hotkeys/test_conflicts.cpp",
+    "tests/hotkeys/test_golden.cpp",
+    "tests/golden/services.hotkey_conflicts.json"
+   ]
+  },
+  "A06-72": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_hotkeys/profile_hotkey_input.cpp",
+    "src/ui_hotkeys/hotkey_capture.cpp"
+   ],
+   "tests": [
+    "tests/ui_hotkeys/test_capture_fields.cpp",
+    "tests/ui_hotkeys/test_golden.cpp",
+    "tests/golden/ui_qt.widgets.hotkey_capture.json"
+   ]
+  },
+  "A06-73": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/capture.cpp"
+   ],
+   "tests": [
+    "tests/hotkeys/test_capture.cpp",
+    "tests/hotkeys/test_golden_mouse.cpp",
+    "tests/golden/ui_qt.widgets.hotkey_capture.json"
+   ],
+   "note": "Windows result rules (first key-up, kp_ names, get_hotkey_name, all-Esc cancels, stop() silent) replay 32 Python runs; the pynput variant's rules and its 'listener stopped' log are other-platform."
+  },
+  "A06-74": {
+   "status": "other-platform",
+   "reason": "Omarchy/Hyprland extras (omarchy_controls.py), Linux only."
+  },
+  "A06-75": {
+   "status": "verified",
+   "cpp": [
+    "src/clipboard/temporary_clipboard.cpp"
+   ],
+   "tests": [
+    "tests/clipboard/test_selection.cpp",
+    "tests/clipboard/test_golden.cpp",
+    "tests/golden/ui_qt.clipboard.json",
+    "tests/clipboard/test_files.cpp"
+   ]
+  },
+  "A06-76": {
+   "status": "verified",
+   "cpp": [
+    "src/clipboard/temporary_clipboard.cpp",
+    "src/clipboard/snapshot.cpp",
+    "src/dictation/transcription_runtime.cpp",
+    "src/dictation/delivery.cpp"
+   ],
+   "tests": [
+    "tests/clipboard/test_temporary_clipboard.cpp",
+    "tests/clipboard/test_rich_text.cpp",
+    "tests/clipboard/test_golden.cpp",
+    "tests/golden/ui_qt.clipboard.json",
+    "tests/dictation/test_delivery.cpp"
+   ]
+  },
+  "A06-77": {
+   "status": "other-platform",
+   "reason": "OPENWHISPER_MACOS_LAUNCH_APP is read only by the macOS Accessibility helpers."
+  },
+  "A06-78": {
+   "status": "other-platform",
+   "reason": "HYPRLAND_INSTANCE_SIGNATURE, XDG_RUNTIME_DIR status folder, QT_WAYLAND_USE_DATA_CONTROL and OPENWHISPER_MACOS_LAUNCH_APP are read only by the Linux and macOS backends."
+  }
+ },
+ "differences": []
+}

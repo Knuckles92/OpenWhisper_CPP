@@ -1,0 +1,1125 @@
+{
+ "module": "meeting.content",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time"
+ },
+ "functions": {
+  "meeting_display_title": [
+   {
+    "args": [
+     {}
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "title": "  SQL title  ",
+      "state_json": "{\"title\": \"State title\"}"
+     }
+    ],
+    "result": "SQL title"
+   },
+   {
+    "args": [
+     {
+      "title": "",
+      "state_json": "{\"title\": \"  State title \", \"topic\": {\"current\": \"Topic\"}}"
+     }
+    ],
+    "result": "State title"
+   },
+   {
+    "args": [
+     {
+      "title": null,
+      "state_json": "{\"title\": \"\", \"topic\": {\"current\": \"  Topic only  \"}}"
+     }
+    ],
+    "result": "Topic only"
+   },
+   {
+    "args": [
+     {
+      "title": "   ",
+      "state_json": "{\"topic\": \"not a dict\"}"
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "state": {
+       "title": "Live state title"
+      },
+      "state_json": "{\"title\": \"Ignored\"}"
+     }
+    ],
+    "result": "Live state title"
+   },
+   {
+    "args": [
+     {
+      "state": "not a dict",
+      "state_json": "{\"title\": \"From json\"}"
+     }
+    ],
+    "result": "From json"
+   },
+   {
+    "args": [
+     {
+      "state_json": "{broken",
+      "status": "failed"
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "status": "FAILED"
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "status": "ended"
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "status": null
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "title": 42
+     }
+    ],
+    "result": "42"
+   },
+   {
+    "args": [
+     {
+      "content_summary": {
+       "preview_text": "  Hello from ASR  "
+      },
+      "state_json": "{\"topic\": {\"current\": \"Ignored topic\"}}"
+     }
+    ],
+    "result": "Ignored topic"
+   },
+   {
+    "args": [
+     {
+      "content_summary": {
+       "preview_text": "   "
+      },
+      "state_json": "{\"topic\": {\"current\": \"Quarterly roadmap\"}}"
+     }
+    ],
+    "result": "Quarterly roadmap"
+   },
+   {
+    "args": [
+     {
+      "content_summary": "not a dict",
+      "state_json": "{\"topic\": {\"current\": \"Topic\"}}"
+     }
+    ],
+    "result": "Topic"
+   },
+   {
+    "args": [
+     {
+      "content_summary": {
+       "is_empty": true
+      },
+      "status": "ended"
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "content_summary": {
+       "is_empty": false
+      },
+      "status": "ended",
+      "state_json": "{\"finalization\": {\"status\": \"completed\"}, \"cloud_enabled\": true}"
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "status": "failed",
+      "content_summary": {
+       "is_empty": true
+      }
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "status": "active",
+      "state_json": "{\"finalization\": {\"status\": \"running\"}}"
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "status": "ended",
+      "cloud_enabled": true,
+      "state_json": "{\"finalization\": {\"status\": \"failed\", \"card_deferred\": true}}"
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "status": "ended",
+      "cloud_enabled": false
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "status": "ended",
+      "cloud_enabled": true
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "status": "needs_recovery",
+      "cloud_enabled": true,
+      "state_json": "{broken"
+     }
+    ],
+    "result": ""
+   }
+  ],
+  "fallback_meeting_title": [
+   {
+    "args": [
+     {}
+    ],
+    "result": "Untitled meeting"
+   },
+   {
+    "args": [
+     {
+      "title": "  SQL title  ",
+      "state_json": "{\"title\": \"State title\"}"
+     }
+    ],
+    "result": "SQL title"
+   },
+   {
+    "args": [
+     {
+      "title": "",
+      "state_json": "{\"title\": \"  State title \", \"topic\": {\"current\": \"Topic\"}}"
+     }
+    ],
+    "result": "State title"
+   },
+   {
+    "args": [
+     {
+      "title": null,
+      "state_json": "{\"title\": \"\", \"topic\": {\"current\": \"  Topic only  \"}}"
+     }
+    ],
+    "result": "Topic only"
+   },
+   {
+    "args": [
+     {
+      "title": "   ",
+      "state_json": "{\"topic\": \"not a dict\"}"
+     }
+    ],
+    "result": "Untitled meeting"
+   },
+   {
+    "args": [
+     {
+      "state": {
+       "title": "Live state title"
+      },
+      "state_json": "{\"title\": \"Ignored\"}"
+     }
+    ],
+    "result": "Live state title"
+   },
+   {
+    "args": [
+     {
+      "state": "not a dict",
+      "state_json": "{\"title\": \"From json\"}"
+     }
+    ],
+    "result": "From json"
+   },
+   {
+    "args": [
+     {
+      "state_json": "{broken",
+      "status": "failed"
+     }
+    ],
+    "result": "Failed meeting"
+   },
+   {
+    "args": [
+     {
+      "status": "FAILED"
+     }
+    ],
+    "result": "Failed meeting"
+   },
+   {
+    "args": [
+     {
+      "status": "ended"
+     }
+    ],
+    "result": "Untitled meeting"
+   },
+   {
+    "args": [
+     {
+      "status": null
+     }
+    ],
+    "result": "Untitled meeting"
+   },
+   {
+    "args": [
+     {
+      "title": 42
+     }
+    ],
+    "result": "42"
+   },
+   {
+    "args": [
+     {
+      "content_summary": {
+       "preview_text": "  Hello from ASR  "
+      },
+      "state_json": "{\"topic\": {\"current\": \"Ignored topic\"}}"
+     }
+    ],
+    "result": "Ignored topic"
+   },
+   {
+    "args": [
+     {
+      "content_summary": {
+       "preview_text": "   "
+      },
+      "state_json": "{\"topic\": {\"current\": \"Quarterly roadmap\"}}"
+     }
+    ],
+    "result": "Quarterly roadmap"
+   },
+   {
+    "args": [
+     {
+      "content_summary": "not a dict",
+      "state_json": "{\"topic\": {\"current\": \"Topic\"}}"
+     }
+    ],
+    "result": "Topic"
+   },
+   {
+    "args": [
+     {
+      "content_summary": {
+       "is_empty": true
+      },
+      "status": "ended"
+     }
+    ],
+    "result": "Untitled meeting"
+   },
+   {
+    "args": [
+     {
+      "content_summary": {
+       "is_empty": false
+      },
+      "status": "ended",
+      "state_json": "{\"finalization\": {\"status\": \"completed\"}, \"cloud_enabled\": true}"
+     }
+    ],
+    "result": "Untitled meeting"
+   },
+   {
+    "args": [
+     {
+      "status": "failed",
+      "content_summary": {
+       "is_empty": true
+      }
+     }
+    ],
+    "result": "Failed meeting"
+   },
+   {
+    "args": [
+     {
+      "status": "active",
+      "state_json": "{\"finalization\": {\"status\": \"running\"}}"
+     }
+    ],
+    "result": "Untitled meeting"
+   },
+   {
+    "args": [
+     {
+      "status": "ended",
+      "cloud_enabled": true,
+      "state_json": "{\"finalization\": {\"status\": \"failed\", \"card_deferred\": true}}"
+     }
+    ],
+    "result": "Untitled meeting"
+   },
+   {
+    "args": [
+     {
+      "status": "ended",
+      "cloud_enabled": false
+     }
+    ],
+    "result": "Untitled meeting"
+   },
+   {
+    "args": [
+     {
+      "status": "ended",
+      "cloud_enabled": true
+     }
+    ],
+    "result": "Untitled meeting"
+   },
+   {
+    "args": [
+     {
+      "status": "needs_recovery",
+      "cloud_enabled": true,
+      "state_json": "{broken"
+     }
+    ],
+    "result": "Untitled meeting"
+   }
+  ],
+  "meeting_preview_text": [
+   {
+    "args": [
+     {}
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "title": "  SQL title  ",
+      "state_json": "{\"title\": \"State title\"}"
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "title": "",
+      "state_json": "{\"title\": \"  State title \", \"topic\": {\"current\": \"Topic\"}}"
+     }
+    ],
+    "result": "Topic"
+   },
+   {
+    "args": [
+     {
+      "title": null,
+      "state_json": "{\"title\": \"\", \"topic\": {\"current\": \"  Topic only  \"}}"
+     }
+    ],
+    "result": "Topic only"
+   },
+   {
+    "args": [
+     {
+      "title": "   ",
+      "state_json": "{\"topic\": \"not a dict\"}"
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "state": {
+       "title": "Live state title"
+      },
+      "state_json": "{\"title\": \"Ignored\"}"
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "state": "not a dict",
+      "state_json": "{\"title\": \"From json\"}"
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "state_json": "{broken",
+      "status": "failed"
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "status": "FAILED"
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "status": "ended"
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "status": null
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "title": 42
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "content_summary": {
+       "preview_text": "  Hello from ASR  "
+      },
+      "state_json": "{\"topic\": {\"current\": \"Ignored topic\"}}"
+     }
+    ],
+    "result": "Hello from ASR"
+   },
+   {
+    "args": [
+     {
+      "content_summary": {
+       "preview_text": "   "
+      },
+      "state_json": "{\"topic\": {\"current\": \"Quarterly roadmap\"}}"
+     }
+    ],
+    "result": "Quarterly roadmap"
+   },
+   {
+    "args": [
+     {
+      "content_summary": "not a dict",
+      "state_json": "{\"topic\": {\"current\": \"Topic\"}}"
+     }
+    ],
+    "result": "Topic"
+   },
+   {
+    "args": [
+     {
+      "content_summary": {
+       "is_empty": true
+      },
+      "status": "ended"
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "content_summary": {
+       "is_empty": false
+      },
+      "status": "ended",
+      "state_json": "{\"finalization\": {\"status\": \"completed\"}, \"cloud_enabled\": true}"
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "status": "failed",
+      "content_summary": {
+       "is_empty": true
+      }
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "status": "active",
+      "state_json": "{\"finalization\": {\"status\": \"running\"}}"
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "status": "ended",
+      "cloud_enabled": true,
+      "state_json": "{\"finalization\": {\"status\": \"failed\", \"card_deferred\": true}}"
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "status": "ended",
+      "cloud_enabled": false
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "status": "ended",
+      "cloud_enabled": true
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "status": "needs_recovery",
+      "cloud_enabled": true,
+      "state_json": "{broken"
+     }
+    ],
+    "result": ""
+   }
+  ],
+  "meeting_insights_pill": [
+   {
+    "args": [
+     {}
+    ],
+    "result": [
+     "Off",
+     "neutral"
+    ]
+   },
+   {
+    "args": [
+     {
+      "title": "  SQL title  ",
+      "state_json": "{\"title\": \"State title\"}"
+     }
+    ],
+    "result": [
+     "Off",
+     "neutral"
+    ]
+   },
+   {
+    "args": [
+     {
+      "title": "",
+      "state_json": "{\"title\": \"  State title \", \"topic\": {\"current\": \"Topic\"}}"
+     }
+    ],
+    "result": [
+     "Off",
+     "neutral"
+    ]
+   },
+   {
+    "args": [
+     {
+      "title": null,
+      "state_json": "{\"title\": \"\", \"topic\": {\"current\": \"  Topic only  \"}}"
+     }
+    ],
+    "result": [
+     "Off",
+     "neutral"
+    ]
+   },
+   {
+    "args": [
+     {
+      "title": "   ",
+      "state_json": "{\"topic\": \"not a dict\"}"
+     }
+    ],
+    "result": [
+     "Off",
+     "neutral"
+    ]
+   },
+   {
+    "args": [
+     {
+      "state": {
+       "title": "Live state title"
+      },
+      "state_json": "{\"title\": \"Ignored\"}"
+     }
+    ],
+    "result": [
+     "Off",
+     "neutral"
+    ]
+   },
+   {
+    "args": [
+     {
+      "state": "not a dict",
+      "state_json": "{\"title\": \"From json\"}"
+     }
+    ],
+    "result": [
+     "Off",
+     "neutral"
+    ]
+   },
+   {
+    "args": [
+     {
+      "state_json": "{broken",
+      "status": "failed"
+     }
+    ],
+    "result": [
+     "Failed start",
+     "warning"
+    ]
+   },
+   {
+    "args": [
+     {
+      "status": "FAILED"
+     }
+    ],
+    "result": [
+     "Failed start",
+     "warning"
+    ]
+   },
+   {
+    "args": [
+     {
+      "status": "ended"
+     }
+    ],
+    "result": [
+     "Off",
+     "neutral"
+    ]
+   },
+   {
+    "args": [
+     {
+      "status": null
+     }
+    ],
+    "result": [
+     "Off",
+     "neutral"
+    ]
+   },
+   {
+    "args": [
+     {
+      "title": 42
+     }
+    ],
+    "result": [
+     "Off",
+     "neutral"
+    ]
+   },
+   {
+    "args": [
+     {
+      "content_summary": {
+       "preview_text": "  Hello from ASR  "
+      },
+      "state_json": "{\"topic\": {\"current\": \"Ignored topic\"}}"
+     }
+    ],
+    "result": [
+     "Off",
+     "neutral"
+    ]
+   },
+   {
+    "args": [
+     {
+      "content_summary": {
+       "preview_text": "   "
+      },
+      "state_json": "{\"topic\": {\"current\": \"Quarterly roadmap\"}}"
+     }
+    ],
+    "result": [
+     "Off",
+     "neutral"
+    ]
+   },
+   {
+    "args": [
+     {
+      "content_summary": "not a dict",
+      "state_json": "{\"topic\": {\"current\": \"Topic\"}}"
+     }
+    ],
+    "raises": "AttributeError"
+   },
+   {
+    "args": [
+     {
+      "content_summary": {
+       "is_empty": true
+      },
+      "status": "ended"
+     }
+    ],
+    "result": [
+     "Empty",
+     "warning"
+    ]
+   },
+   {
+    "args": [
+     {
+      "content_summary": {
+       "is_empty": false
+      },
+      "status": "ended",
+      "state_json": "{\"finalization\": {\"status\": \"completed\"}, \"cloud_enabled\": true}"
+     }
+    ],
+    "result": [
+     "Ready",
+     "success"
+    ]
+   },
+   {
+    "args": [
+     {
+      "status": "failed",
+      "content_summary": {
+       "is_empty": true
+      }
+     }
+    ],
+    "result": [
+     "Failed start",
+     "warning"
+    ]
+   },
+   {
+    "args": [
+     {
+      "status": "active",
+      "state_json": "{\"finalization\": {\"status\": \"running\"}}"
+     }
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     {
+      "status": "ended",
+      "cloud_enabled": true,
+      "state_json": "{\"finalization\": {\"status\": \"failed\", \"card_deferred\": true}}"
+     }
+    ],
+    "result": [
+     "Saved for later",
+     "warning"
+    ]
+   },
+   {
+    "args": [
+     {
+      "status": "ended",
+      "cloud_enabled": false
+     }
+    ],
+    "result": [
+     "Off",
+     "neutral"
+    ]
+   },
+   {
+    "args": [
+     {
+      "status": "ended",
+      "cloud_enabled": true
+     }
+    ],
+    "result": [
+     "Unavailable",
+     "warning"
+    ]
+   },
+   {
+    "args": [
+     {
+      "status": "needs_recovery",
+      "cloud_enabled": true,
+      "state_json": "{broken"
+     }
+    ],
+    "result": [
+     "Unavailable",
+     "warning"
+    ]
+   }
+  ],
+  "untitled_title_from_topic": [
+   {
+    "args": [
+     {}
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "title": "Named"
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "title": "   ",
+      "topic": {
+       "current": "  Budget planning  "
+      }
+     }
+    ],
+    "result": "Budget planning"
+   },
+   {
+    "args": [
+     {
+      "title": null,
+      "topic": {
+       "current": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      }
+     }
+    ],
+    "result": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+   },
+   {
+    "args": [
+     {
+      "topic": {
+       "current": "éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"
+      }
+     }
+    ],
+    "result": "éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"
+   },
+   {
+    "args": [
+     {
+      "topic": "not a dict"
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "topic": {
+       "current": null
+      }
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "topic": {
+       "current": "   "
+      }
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "topic": {}
+     }
+    ],
+    "result": ""
+   }
+  ],
+  "build_untitled_title_ops": [
+   {
+    "args": [
+     {}
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     {
+      "title": "Named"
+     }
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     {
+      "title": "   ",
+      "topic": {
+       "current": "  Budget planning  "
+      }
+     }
+    ],
+    "result": [
+     {
+      "op": "set_title",
+      "text": "Budget planning"
+     }
+    ]
+   },
+   {
+    "args": [
+     {
+      "title": null,
+      "topic": {
+       "current": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      }
+     }
+    ],
+    "result": [
+     {
+      "op": "set_title",
+      "text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+     }
+    ]
+   },
+   {
+    "args": [
+     {
+      "topic": {
+       "current": "éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"
+      }
+     }
+    ],
+    "result": [
+     {
+      "op": "set_title",
+      "text": "éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"
+     }
+    ]
+   },
+   {
+    "args": [
+     {
+      "topic": "not a dict"
+     }
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     {
+      "topic": {
+       "current": null
+      }
+     }
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     {
+      "topic": {
+       "current": "   "
+      }
+     }
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     {
+      "topic": {}
+     }
+    ],
+    "result": []
+   }
+  ]
+ }
+}

@@ -1,0 +1,788 @@
+{
+ "module": "ui_qt.utils.list_reconcile",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time"
+ },
+ "functions": {
+  "reconcile_cards": [
+   {
+    "args": [
+     [],
+     [],
+     []
+    ],
+    "result": {
+     "entries": [],
+     "removed": [],
+     "inserted": [],
+     "fingerprints": []
+    }
+   },
+   {
+    "args": [
+     [],
+     [],
+     [
+      [
+       "a",
+       1
+      ],
+      [
+       "b",
+       2
+      ]
+     ]
+    ],
+    "result": {
+     "entries": [
+      [
+       "a",
+       false
+      ],
+      [
+       "b",
+       false
+      ]
+     ],
+     "removed": [],
+     "inserted": [
+      0,
+      1
+     ],
+     "fingerprints": [
+      [
+       "a",
+       1
+      ],
+      [
+       "b",
+       2
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      "a",
+      "b"
+     ],
+     [
+      [
+       "a",
+       1
+      ],
+      [
+       "b",
+       2
+      ]
+     ],
+     [
+      [
+       "a",
+       1
+      ],
+      [
+       "b",
+       2
+      ]
+     ]
+    ],
+    "result": {
+     "entries": [
+      [
+       "a",
+       true
+      ],
+      [
+       "b",
+       true
+      ]
+     ],
+     "removed": [],
+     "inserted": [],
+     "fingerprints": [
+      [
+       "a",
+       1
+      ],
+      [
+       "b",
+       2
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      "a",
+      "b"
+     ],
+     [
+      [
+       "a",
+       1
+      ],
+      [
+       "b",
+       2
+      ]
+     ],
+     [
+      [
+       "b",
+       2
+      ],
+      [
+       "a",
+       1
+      ]
+     ]
+    ],
+    "result": {
+     "entries": [
+      [
+       "b",
+       true
+      ],
+      [
+       "a",
+       true
+      ]
+     ],
+     "removed": [],
+     "inserted": [
+      0
+     ],
+     "fingerprints": [
+      [
+       "a",
+       1
+      ],
+      [
+       "b",
+       2
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      "a",
+      "b"
+     ],
+     [
+      [
+       "a",
+       1
+      ],
+      [
+       "b",
+       2
+      ]
+     ],
+     [
+      [
+       "a",
+       1
+      ],
+      [
+       "b",
+       3
+      ]
+     ]
+    ],
+    "result": {
+     "entries": [
+      [
+       "a",
+       true
+      ],
+      [
+       "b",
+       false
+      ]
+     ],
+     "removed": [
+      1
+     ],
+     "inserted": [
+      1
+     ],
+     "fingerprints": [
+      [
+       "a",
+       1
+      ],
+      [
+       "b",
+       3
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      "a",
+      "b",
+      "c"
+     ],
+     [
+      [
+       "a",
+       1
+      ],
+      [
+       "b",
+       2
+      ],
+      [
+       "c",
+       3
+      ]
+     ],
+     [
+      [
+       "c",
+       3
+      ],
+      [
+       "a",
+       1
+      ]
+     ]
+    ],
+    "result": {
+     "entries": [
+      [
+       "c",
+       true
+      ],
+      [
+       "a",
+       true
+      ]
+     ],
+     "removed": [
+      1
+     ],
+     "inserted": [
+      0
+     ],
+     "fingerprints": [
+      [
+       "a",
+       1
+      ],
+      [
+       "c",
+       3
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      "a",
+      "b",
+      "c"
+     ],
+     [
+      [
+       "a",
+       1
+      ],
+      [
+       "b",
+       2
+      ],
+      [
+       "c",
+       3
+      ]
+     ],
+     [
+      [
+       "d",
+       4
+      ],
+      [
+       "b",
+       2
+      ],
+      [
+       "e",
+       5
+      ]
+     ]
+    ],
+    "result": {
+     "entries": [
+      [
+       "d",
+       false
+      ],
+      [
+       "b",
+       true
+      ],
+      [
+       "e",
+       false
+      ]
+     ],
+     "removed": [
+      2,
+      0
+     ],
+     "inserted": [
+      0,
+      2
+     ],
+     "fingerprints": [
+      [
+       "b",
+       2
+      ],
+      [
+       "d",
+       4
+      ],
+      [
+       "e",
+       5
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      "a",
+      null,
+      "b"
+     ],
+     [
+      [
+       "a",
+       1
+      ],
+      [
+       "b",
+       2
+      ]
+     ],
+     [
+      [
+       "a",
+       1
+      ],
+      [
+       "b",
+       2
+      ]
+     ]
+    ],
+    "result": {
+     "entries": [
+      [
+       "a",
+       true
+      ],
+      [
+       "b",
+       true
+      ]
+     ],
+     "removed": [
+      1
+     ],
+     "inserted": [],
+     "fingerprints": [
+      [
+       "a",
+       1
+      ],
+      [
+       "b",
+       2
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      null
+     ],
+     [],
+     [
+      [
+       "a",
+       1
+      ]
+     ]
+    ],
+    "result": {
+     "entries": [
+      [
+       "a",
+       false
+      ]
+     ],
+     "removed": [
+      0
+     ],
+     "inserted": [
+      0
+     ],
+     "fingerprints": [
+      [
+       "a",
+       1
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      "a",
+      "b"
+     ],
+     [
+      [
+       "a",
+       {
+        "t": "x",
+        "n": 1
+       }
+      ],
+      [
+       "b",
+       [
+        1,
+        2
+       ]
+      ]
+     ],
+     [
+      [
+       "a",
+       {
+        "n": 1,
+        "t": "x"
+       }
+      ],
+      [
+       "b",
+       [
+        2,
+        1
+       ]
+      ]
+     ]
+    ],
+    "result": {
+     "entries": [
+      [
+       "a",
+       true
+      ],
+      [
+       "b",
+       false
+      ]
+     ],
+     "removed": [
+      1
+     ],
+     "inserted": [
+      1
+     ],
+     "fingerprints": [
+      [
+       "a",
+       {
+        "n": 1,
+        "t": "x"
+       }
+      ],
+      [
+       "b",
+       [
+        2,
+        1
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      "a"
+     ],
+     [
+      [
+       "a",
+       1
+      ]
+     ],
+     [
+      [
+       "a",
+       1.0
+      ]
+     ]
+    ],
+    "result": {
+     "entries": [
+      [
+       "a",
+       true
+      ]
+     ],
+     "removed": [],
+     "inserted": [],
+     "fingerprints": [
+      [
+       "a",
+       1.0
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      "a"
+     ],
+     [
+      [
+       "a",
+       1
+      ]
+     ],
+     [
+      [
+       "a",
+       true
+      ]
+     ]
+    ],
+    "result": {
+     "entries": [
+      [
+       "a",
+       true
+      ]
+     ],
+     "removed": [],
+     "inserted": [],
+     "fingerprints": [
+      [
+       "a",
+       true
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      "a"
+     ],
+     [
+      [
+       "a",
+       "1"
+      ]
+     ],
+     [
+      [
+       "a",
+       1
+      ]
+     ]
+    ],
+    "result": {
+     "entries": [
+      [
+       "a",
+       false
+      ]
+     ],
+     "removed": [
+      0
+     ],
+     "inserted": [
+      0
+     ],
+     "fingerprints": [
+      [
+       "a",
+       1
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      "x",
+      "y",
+      "z"
+     ],
+     [
+      [
+       "x",
+       0
+      ],
+      [
+       "y",
+       0
+      ],
+      [
+       "z",
+       0
+      ]
+     ],
+     [
+      [
+       "z",
+       0
+      ],
+      [
+       "y",
+       0
+      ],
+      [
+       "x",
+       0
+      ]
+     ]
+    ],
+    "result": {
+     "entries": [
+      [
+       "z",
+       true
+      ],
+      [
+       "y",
+       true
+      ],
+      [
+       "x",
+       true
+      ]
+     ],
+     "removed": [],
+     "inserted": [
+      0,
+      1
+     ],
+     "fingerprints": [
+      [
+       "x",
+       0
+      ],
+      [
+       "y",
+       0
+      ],
+      [
+       "z",
+       0
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      "a",
+      "b"
+     ],
+     [
+      [
+       "a",
+       1
+      ],
+      [
+       "b",
+       2
+      ]
+     ],
+     []
+    ],
+    "result": {
+     "entries": [],
+     "removed": [
+      1,
+      0
+     ],
+     "inserted": [],
+     "fingerprints": []
+    }
+   },
+   {
+    "args": [
+     [
+      "a"
+     ],
+     [
+      [
+       "a",
+       null
+      ]
+     ],
+     [
+      [
+       "a",
+       null
+      ],
+      [
+       "b",
+       null
+      ]
+     ]
+    ],
+    "result": {
+     "entries": [
+      [
+       "a",
+       true
+      ],
+      [
+       "b",
+       false
+      ]
+     ],
+     "removed": [],
+     "inserted": [
+      1
+     ],
+     "fingerprints": [
+      [
+       "a",
+       null
+      ],
+      [
+       "b",
+       null
+      ]
+     ]
+    }
+   }
+  ]
+ }
+}

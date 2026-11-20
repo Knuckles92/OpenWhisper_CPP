@@ -1,0 +1,13 @@
+{
+ "source": "Hand-written. A refusal streamed in `delta.refusal` pieces, in sidecar/src/pi-integration.test.ts:26-29's frame shape; the reply equals tests/fixtures/llm/generation/replies.json 'chat_refusal'.",
+ "protocol": "chat",
+ "equivalent": "chat_refusal",
+ "frames": [
+  {"id": "chat-test", "object": "chat.completion.chunk", "choices": [{"index": 0, "delta": {"role": "assistant", "content": null, "refusal": "I can't "}, "finish_reason": null}]},
+  {"id": "chat-test", "object": "chat.completion.chunk", "choices": [{"index": 0, "delta": {"refusal": "help with that."}, "finish_reason": null}]},
+  {"id": "chat-test", "object": "chat.completion.chunk", "choices": [{"index": 0, "delta": {}, "finish_reason": "stop"}]},
+  "data: [DONE]\n\n"
+ ],
+ "events": [],
+ "raises": {"raises": "TextGenerationError", "message": "Model refused the request."}
+}

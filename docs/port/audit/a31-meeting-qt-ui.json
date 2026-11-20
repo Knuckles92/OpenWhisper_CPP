@@ -1,0 +1,642 @@
+{
+ "area": "a31-meeting-qt-ui",
+ "package": "M7.20",
+ "features": {
+  "A31-42": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_recovery_dialog.cpp",
+    "src/ui_meeting/meeting_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_recovery_dialog.cpp",
+    "tests/ui_meeting/test_meeting_presenter.cpp"
+   ]
+  },
+  "A31-54": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_recovery_dialog.cpp",
+    "src/ui_meeting/meeting_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_recovery_dialog.cpp",
+    "tests/ui_meeting/test_meeting_presenter.cpp"
+   ]
+  },
+  "A31-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_mode_tab.cpp",
+    "src/ui_widgets/studio.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp",
+    "tests/ui_meeting/test_reference_screenshots.cpp"
+   ],
+   "note": "meetingModeScrollArea and the (24,6,24,16) page margins in meeting_mode_tab.cpp; the 560x540 stage, the stacking below column+gap+stage and the never-resizing panes are 'test_stage_changes_never_resize_the_window', 'test_narrow_window_stacks_the_column_above_the_stage' and 'the tab asks for the width of the column beside the stage'; the reference trees pin geometry on Windows."
+  },
+  "A31-02": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_mode_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp",
+    "tests/ui_meeting/test_reference_screenshots.cpp"
+   ],
+   "note": "'test_beta_tag_marks_the_title_not_the_speech_note' pins the Beta tag and its 'inaccurate' tooltip; title and tag style are in the reference trees."
+  },
+  "A31-03": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_mode_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp",
+    "tests/ui_meeting/test_reference_screenshots.cpp"
+   ],
+   "note": "buttonId meetingStart; 'test_start_emits_cloud_choice', 'test_start_emits_typed_meeting_brief', 'test_recording_elsewhere_holds_start_in_every_idle_state', 'test_running_finalization_holds_start_and_shows_indeterminate_bar', 'test_continue_in_background_appears_after_local_pass_and_emits'."
+  },
+  "A31-04": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_mode_tab.cpp",
+    "src/ui_meeting/meeting_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp",
+    "tests/ui_meeting/test_meeting_readiness.cpp"
+   ],
+   "note": "'test_developer_mode_shows_demo_meeting_control' (button, hint, visibility, demo_requested); the presenter starts the demo with policy 'disabled' after the platform acknowledgement only ('test_demo_uses_platform_ack_without_audio_readiness')."
+  },
+  "A31-05": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_meeting/meeting_mode_tab.cpp",
+    "src/ui_meeting/meeting_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp",
+    "tests/ui_meeting/test_meeting_readiness.cpp",
+    "tests/ui_meeting/test_meeting_tab_signals.cpp"
+   ],
+   "note": "The tab's slot was tested ('test_active_payload_switches_layout'); the presenter did not give the tab dashboard_available when a payload left it out (_update_screen's setdefault) and nothing tested the buttons' signals. The presenter now fills it from its retained state; 'the state payload reaches the tab, the tabs, Past Meetings and the tray' pins the guest link disabled until the dashboard URL arrives, and 'the live controls emit pause, resume, end, dashboard and guest link' the signals."
+  },
+  "A31-06": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_mode_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp",
+    "tests/ui_meeting/test_reference_screenshots.cpp"
+   ],
+   "note": "'test_stage_follows_the_meeting' ('wrapping up'), 'test_unavailable_and_failed_use_warning_tone' (the Past Meetings note) and 'test_continue_in_background_appears_after_local_pass_and_emits' (the background note) read the slot note; the three sentences are in the result-running and result-failed reference trees."
+  },
+  "A31-07": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_meeting/meeting_mode_tab.cpp",
+    "src/ui_meeting/meeting_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp",
+    "tests/ui_meeting/test_meeting_readiness.cpp"
+   ],
+   "note": "The tab formats both lines ('remote meeting speech names its host before a meeting', 'test_remote_speech_status_names_actual_host_and_connection'), but the presenter never called setRemoteSpeechHost: a remote meeting source showed the local note. MeetingPresenter::refreshSpeechDestination now gives the paired host (load_client_pairing) or 'a host (not paired yet)' on build, on aiDestinationWanted and on a speech-setting change; pinned by 'the tab\\'s speech line names the remote host the meeting would use'. The local note is the Parakeet copy from models::resolve_meeting_speech."
+  },
+  "A31-08": {
+   "status": "difference",
+   "difference": "a31-ai-insights-consent-per-meeting",
+   "note": "The switch, its label 'AI insights for next meeting', the tooltip and the signal-blocked payload are as OpenWhisper ('test_cloud_checkbox_presents_compact_tooltip', 'test_ai_insights_switch_names_the_feature_not_the_location', 'test_brief_follows_switch_changes_made_without_signals'); it starts off for every meeting instead of meeting_cloud_last_enabled, and a live switch-on asks the consent (test_meeting_presenter.cpp)."
+  },
+  "A31-09": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_meeting/ai_insights_copy.cpp",
+    "src/ui_meeting/meeting_presenter.cpp",
+    "src/ui_meeting/meeting_mode_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_ai_insights_copy.cpp",
+    "tests/ui_meeting/test_meeting_readiness.cpp",
+    "tests/ui_meeting/test_meeting_mode_tab.cpp"
+   ],
+   "note": "ai_insights_destination and installed_agent_destination were not ported: the presenter showed the consent destination ('OpenRouter (openrouter.ai)') as both lines. Ported over the meeting profile and the installed agents' cached scan (never a scan); the presenter sets '{where} — {privacy}.' and the compact where. Pinned by the ten destination cases in test_ai_insights_copy.cpp and 'the tab\\'s AI line is the destination and what leaves this computer'; frozen while active by 'test_ai_destination_holds_still_during_a_meeting'. The 'model runs on this computer' caveat for a remote judge is difference a31-meeting-judge-stays-local."
+  },
+  "A31-10": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_mode_tab.cpp",
+    "src/ui_meeting/meeting_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp",
+    "tests/ui_meeting/test_meeting_readiness.cpp"
+   ],
+   "note": "'test_change_link_requests_intelligence_settings' (object name, tooltip, hidden live); the presenter opens destinations::meeting_intelligence ('every Meeting Mode tab action reaches the runtime')."
+  },
+  "A31-11": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_mode_tab.cpp",
+    "src/ui_meeting/brief_edit.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp"
+   ],
+   "note": "'test_brief_is_hidden_while_ai_insights_are_off', 'test_meeting_brief_is_capped_at_the_validation_limit', 'test_meeting_brief_field_is_hidden_during_a_meeting', 'test_brief_field_behaves_like_a_form_control', 'test_start_emits_typed_meeting_brief'."
+  },
+  "A31-12": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_meeting/meeting_mode_tab.cpp",
+    "src/ui_meeting/meeting_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp",
+    "tests/ui_meeting/test_meeting_tab_signals.cpp",
+    "tests/ui_meeting/test_meeting_readiness.cpp"
+   ],
+   "note": "Hidden without setup was tested (setupLink null); added 'the setup link asks for meeting setup where setup is offered' (text tooltip, setup_requested) and the presenter's handling ('Quick Record holds meeting setup with a status line')."
+  },
+  "A31-13": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_mode_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp"
+   ],
+   "note": "background_message shown and hidden, background_available ('test_continue_in_background_appears_after_local_pass_and_emits' and the background payload cases)."
+  },
+  "A31-14": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_mode_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp",
+    "tests/ui_meeting/test_reference_screenshots.cpp"
+   ],
+   "note": "'test_idle_shows_start_controls', 'test_platform_copy_does_not_promise_unavailable_system_audio' (Windows WASAPI line hidden on Windows), 'test_platform_copy_marks_pre_screencapturekit_macos_unsupported'; heading, subtitle and the three steps are in the idle reference trees."
+  },
+  "A31-15": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_meeting/meeting_mode_tab.cpp",
+    "src/ui_meeting/recent_meeting_row.cpp",
+    "src/ui_meeting/meeting_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp",
+    "tests/ui_meeting/test_meeting_readiness.cpp"
+   ],
+   "note": "The tab and readRecentMeetings were tested; the presenter read the repository with limit 3 and no live filter instead of read_recent_meetings (six rows, live statuses dropped). It now uses readRecentMeetings; 'the empty stage lists the three newest finished meetings, not the live one' pins it."
+  },
+  "A31-16": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_mode_tab.cpp",
+    "src/ui_meeting/live_dot.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp",
+    "tests/ui_meeting/test_reference_screenshots.cpp"
+   ],
+   "note": "'the live dot breathes only while live and shown', 'test_starting_is_non_active_and_does_not_run_timer', 'test_active_payload_switches_layout'; tones and pill text in the live/paused/starting reference trees."
+  },
+  "A31-17": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_meeting/meeting_mode_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp",
+    "tests/ui_meeting/test_meeting_tab_signals.cpp"
+   ],
+   "note": "Enabled states and the Resume label were tested; nothing clicked the buttons. Added 'the live controls emit pause, resume, end, dashboard and guest link'."
+  },
+  "A31-18": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_mode_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp"
+   ],
+   "note": "'test_an_elapsed_update_does_not_restart_a_paused_clock', 'test_retained_state_keeps_the_clock_through_pause_and_resume', 'test_state_replayed_into_a_new_tab_counts_from_when_it_was_read'."
+  },
+  "A31-19": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_mode_tab.cpp",
+    "src/ui_meeting/meeting_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp",
+    "tests/ui_meeting/test_meeting_readiness.cpp"
+   ],
+   "note": "The tab's set_meeting_state order and starting rules: 'test_startup_status_does_not_flash_idle_before_active_confirmation', 'test_startup_failure_returns_to_idle_after_early_active_status', 'test_starting_clears_previous_finalization'; the presenter side (dashboard default, selected meeting, tabs, tray, host mode) is 'the state payload reaches the tab, the tabs, Past Meetings and the tray'."
+  },
+  "A31-20": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/finalization_card.cpp",
+    "src/meeting/finalization_view.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp",
+    "tests/meeting/test_finalization_view.cpp"
+   ],
+   "note": "Headings and default messages per status are golden vectors of meeting_mode_tab (test_finalization_view.cpp); 'test_unavailable_and_failed_use_warning_tone', 'test_empty_meeting_stays_visible_and_disables_speaker_rerun', 'test_failed_redecode_under_completed_shows_retry_controls' ('Meeting Finished With Issues')."
+  },
+  "A31-21": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_meeting/finalization_card.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp",
+    "tests/ui_meeting/test_meeting_tab_signals.cpp"
+   ],
+   "note": "Report button tips are golden vectors and 'test_leftover_card_shows_identity_and_report_button' covers the identity; the 'Meeting result' fallback title had no test. Added 'a result without a title reads Meeting result'."
+  },
+  "A31-22": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/finalization_card.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp"
+   ],
+   "note": "'test_multi_step_progress_rendering', 'test_running_step_without_detail_reads_in_progress', 'test_running_finalization_holds_start_and_shows_indeterminate_bar'."
+  },
+  "A31-23": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/finalization_card.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp"
+   ],
+   "note": "'test_unchanged_finalization_steps_keep_their_rows', 'test_failed_finalization_shows_retry_button_and_emits_signal', 'test_refused_speaker_step_rerun_is_disabled_with_reason', 'test_completed_hides_recap_and_keeps_checklist'."
+  },
+  "A31-24": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/finalization_card.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp",
+    "tests/ui_meeting/test_reference_screenshots.cpp"
+   ],
+   "note": "'test_incomplete_result_groups_actions_by_context', 'test_incomplete_card_keeps_start_and_emits_keep_later', 'test_completed_card_keeps_idle_start_and_emits_done', 'test_disabled_card_emits_done'; empty-meeting messages in the empty-meeting reference tree."
+  },
+  "A31-25": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/finalization_card.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp"
+   ],
+   "note": "'test_on_device_labels_hide_speaker_rerun', 'test_missing_consent_disables_speaker_rerun_with_reason', 'test_eligible_speaker_rerun_is_enabled', 'test_refused_speaker_step_rerun_is_disabled_with_reason'."
+  },
+  "A31-26": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_meeting/past_meetings_panel.cpp",
+    "src/ui_meeting/past_meetings_model.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_past_meetings_panel.cpp",
+    "tests/ui_meeting/test_past_meetings_golden.cpp",
+    "tests/ui_meeting/test_meeting_tab_signals.cpp"
+   ],
+   "note": "Placeholders, counts, the 100-row cap and the debounced search were tested (test_past_meetings_panel.cpp, the list-view golden vectors); the header's ☰ 28x28 button, the calendar tooltip and signal, the 'Search meetings...' placeholder with its clear button and the 250 ms delay were not. Added 'the Past Meetings header names its menu, calendar and search'."
+  },
+  "A31-27": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/past_meeting_item.cpp",
+    "src/ui_meeting/past_meetings_model.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_past_meetings_panel.cpp",
+    "tests/ui_meeting/test_past_meetings_golden.cpp"
+   ],
+   "note": "Card text, warnings, lifecycle and pills are golden vectors ('past meetings card matches OpenWhisper', has_transcript, meeting_has_audio, meeting_location); selection is 'selecting a card highlights it and clearing the id clears it'."
+  },
+  "A31-28": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/past_meeting_item.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_past_meetings_panel.cpp",
+    "tests/ui_meeting/test_past_meetings_delete.cpp"
+   ],
+   "note": "Local menu: 'the card menu copies, deletes and keeps its shape' and the Show in Folder cases. The host-kept variant is in A31-31's handoff."
+  },
+  "A31-29": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/past_meetings_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_past_meetings_panel.cpp",
+    "tests/ui_meeting/test_past_meetings_delete.cpp"
+   ],
+   "note": "'the header menu asks for the export and the folder', 'opening the meetings folder makes it and shows it', the clear-history cases with the host note in test_past_meetings_delete.cpp."
+  },
+  "A31-30": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/past_meetings_panel.cpp",
+    "src/ui_meeting/meeting_delete_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_past_meetings_delete.cpp",
+    "tests/ui_meeting/test_meeting_delete_dialog.cpp"
+   ],
+   "note": "'test_delete_follows_the_confirmation', 'test_dont_ask_again_preference_is_saved', 'test_saved_opt_out_skips_confirmation_and_keeps_recordings', 'the delete dialog offers recordings only for a meeting that has some', 'test_cancel_comes_first_and_delete_is_the_danger_action'."
+  },
+  "A31-31": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_meeting/meeting_presenter.cpp",
+    "src/ui_meeting/past_meetings_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_past_meetings_presenter_host.cpp",
+    "tests/ui_meeting/test_past_meetings_host_copies.cpp",
+    "tests/ui_meeting/test_past_meetings_delete.cpp",
+    "tests/ui_meeting/test_past_meetings_host.cpp"
+   ],
+   "note": "Was: the presenter's provider blocked the whole load on list_remote, listed the host with an empty query and filtered title/preview here, and marked local copies from list_remote matches only. Now PastMeetingsPanel's load asks the host in a task of its own (PastMeetingsOptions::hostWanted/hostMerge, as History's sidebar does): this computer's meetings show after REMOTE_MERGE_WAIT_S (0.4 s) and the merged list when the host answers; MeetingPresenter's mergeHostMeetings (_start_remote_listing's merged) marks local meetings copies_on_host names 'Also on <host>', passes the search to list_remote, keeps the pin and revision 'Delete meeting copy' needs, sorts by started_at; an unreachable host leaves the local list. Pinned by test_past_meetings_presenter_host.cpp over a FakeRecordSync through the presenter: 'Past Meetings shows this computer's meetings first and the host's when it answers', 'Past Meetings asks the host with the search, and an unreachable host hides nothing'. Earlier verified: pills, host delete prompts and hostClearNote (test_past_meetings_host_copies.cpp, test_past_meetings_delete.cpp)."
+  },
+  "A31-32": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_export_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_export_dialog.cpp"
+   ],
+   "note": "Title, criteria, includes, item label, 'meetings_export' folder and the stem identity().product + '_meetings' ('fiorivoce_meetings.md'), host-kept rows left out ('the meetings an export offers leave out host-kept ones')."
+  },
+  "A31-33": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_meeting/meeting_intro_dialog.cpp",
+    "src/ui_meeting/meeting_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_intro_dialog.cpp",
+    "tests/ui_meeting/test_meeting_feature.cpp"
+   ],
+   "note": "The dialog and its persistence were tested; the first-visit scheduling (shown via a zero timer only when visible, on the tab, unlocked, unseen and no meeting) had no test. The presenter's scheduleIntro is pinned by the five TestMeetingIntroAppearsOnFirstVisit cases in test_meeting_feature.cpp."
+  },
+  "A31-34": {
+   "status": "other-platform",
+   "reason": "The unsupported-platform and Linux preview dialogs are macOS/Linux UI. The hook Windows goes through is kept and tested: MeetingPresenter::acknowledgePlatform passes on win32 without UI ('test_windows_tab_is_not_muted_or_locked', 'test_demo_uses_platform_ack_without_audio_readiness'); other platforms get a plain Yes/No question."
+  },
+  "A31-35": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_setup_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_setup_dialog.cpp"
+   ],
+   "note": "'test_dialog_persists_only_completed_setup', 'test_closing_waits_for_audio_devices_to_be_released', 'Start anyway waits for an audio check and a meeting that is not ready', 'Done saves meeting_setup_complete, and a failed save only logs'; the presenter forwards its policy ('test_start_seams_forward_ready_policy_once')."
+  },
+  "A31-36": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/setup_check.cpp",
+    "src/ui_meeting/meeting_setup_dialog.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_setup_check.cpp",
+    "tests/ui_meeting/test_meeting_setup_dialog.cpp",
+    "tests/ui_meeting/test_meeting_readiness.cpp"
+   ],
+   "note": "inspect_models/prepare_models over Parakeet and the NeMo runtime ('test_inspect_models_checks_selected_meeting_runtime', 'test_prepare_installs_only_missing_files_and_releases_claims', 'test_prepare_honors_offline_policy', 'test_inspect_remote_does_not_require_local_speech_models'); messages in 'Download missing files shows its progress and what is ready'."
+  },
+  "A31-37": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/setup_check.cpp",
+    "src/ui_meeting/meeting_setup_dialog.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_setup_check.cpp",
+    "tests/ui_meeting/test_meeting_setup_dialog.cpp"
+   ],
+   "note": "SETUP_MIC_SIGNAL_RMS 64; 'test_audio_check_routes_and_closes_both_devices', 'test_cancelled_audio_check_does_not_open_devices'; the 'still closing' lock and the 'Speak close to the microphone…' hint in test_meeting_setup_dialog.cpp."
+  },
+  "A31-38": {
+   "status": "other-platform",
+   "reason": "macOS Screen Recording permission dialog; macOS capture is not part of the Windows product. system_audio_permission_required is false off macOS (meeting/platform_policy)."
+  },
+  "A31-39": {
+   "status": "other-platform",
+   "reason": "Linux PulseAudio/PipeWire remediation dialog; the Windows start never reaches it ('test_first_start_runs_shared_setup (Windows rows)')."
+  },
+  "A31-40": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_meeting/meeting_consent_dialog.cpp",
+    "src/ui_meeting/ai_insights_copy.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_ai_insights_copy.cpp",
+    "tests/ui_meeting/test_meeting_presenter.cpp"
+   ],
+   "note": "The dialog had its own shorter copy, 'Not now' as the default and other object names. It now has OpenWhisper's title label, body (agent, remote and local endpoint, backup agent, audio statement, recall note), toggle note, meetingConsentNotNowButton / meetingConsentEnableButton (default) and resultAction; pinned by the TestConsentForAnAgent and TestCloudConsentCopy cases and 'the consent\\'s buttons: Not now and the default Turn on AI insights'. When it is asked and the judge sentence are difference a31-ai-insights-consent-per-meeting and a31-meeting-judge-stays-local."
+  },
+  "A31-41": {
+   "status": "difference",
+   "difference": "a31-speaker-pass-explicit",
+   "note": "No Settings-time audio upload consent; Past Meetings' explicit action asks each time ('the explicit speaker pass names what is sent to OpenAI and defaults to Cancel')."
+  },
+  "A31-43": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/after_end_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_meeting_pages.cpp"
+   ],
+   "note": "'the After the meeting page has its groups and seven switches', 'test_report_view_tiles_follow_the_final_report_toggle', 'switching off the last view puts Ribbon back and says so', 'the review switch asks first and saves the consent with it'. Re-transcribe stays (Parakeet re-decode)."
+  },
+  "A31-44": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/fast_judgments_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_fast_judgments_page.cpp"
+   ],
+   "note": "Key notice, Judge tile routes and Test, features and rail values: the 40 cases of test_fast_judgments_page.cpp ('test_off_reads_off', 'test_enabled_with_a_key_counts_active_features', 'test_a_result_for_the_route_left_behind_is_dropped', ...)."
+  },
+  "A31-45": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/rerun_options.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_rerun_options.cpp"
+   ],
+   "note": "'the meeting\\'s recorded model wins and settings fill the rest', 'a remote meeting takes its route\\'s language', 'a stored openai backend never reaches the key'."
+  },
+  "A31-46": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/after_end_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_meeting_pages.cpp"
+   ],
+   "note": "Tile copy with 'run Parakeet again' (test_meeting_pages.cpp line ~166 and the settings_meeting_after reference trees)."
+  },
+  "A31-47": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/after_end_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_meeting_pages.cpp"
+   ],
+   "note": "'the review switch asks first and saves the consent with it' (No reverts, one write), 'the review question names where excerpts go for each route'."
+  },
+  "A31-48": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/after_end_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_meeting_pages.cpp"
+   ],
+   "note": "'the review switch is on only when its consent matches', 'saved views that are all off load with Ribbon on and the hint', 'test_report_view_tiles_follow_the_final_report_toggle'."
+  },
+  "A31-49": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/fast_judgments_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_fast_judgments_page.cpp"
+   ],
+   "note": "'test_segments_show_which_routes_have_a_key', 'test_jev_routes_hide_the_text_model_choice', 'choosing the route that is already chosen saves nothing', 'the Test button is disabled while a test runs and a second click does nothing', 'Testing shows its own line first, in the warning tone'."
+  },
+  "A31-50": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/fast_judgments_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_fast_judgments_page.cpp"
+   ],
+   "note": "'test_notice_names_the_missing_key_when_features_are_on', 'test_notice_explains_that_turning_switches_on_will_not_help', 'test_an_openrouter_key_alone_offers_a_one_click_switch', 'test_the_notice_button_opens_the_typesafe_credential'."
+  },
+  "A31-51": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/fast_judgments_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_fast_judgments_page.cpp"
+   ],
+   "note": "'test_master_off_keeps_saved_choices_and_restores_them_live', 'test_a_local_model_needs_no_key_and_keeps_excerpts_here', 'the controls carry OpenWhisper\\'s object names'; tile copy in the settings_fast_judgments_page reference trees."
+  },
+  "A31-52": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_setup_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_setup_dialog.cpp"
+   ],
+   "note": "'Start anyway waits for an audio check and a meeting that is not ready', 'a step that fails says so and leaves the dialog usable', 'Done saves meeting_setup_complete, and a failed save only logs'; the macOS and Linux hints are other-platform."
+  },
+  "A31-53": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_intro_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_intro_dialog.cpp"
+   ],
+   "note": "'test_copy_covers_mode_features_and_settings', 'test_skip_and_got_it_both_persist_seen', 'a settings file that cannot be written is only logged'."
+  },
+  "A31-55": {
+   "status": "other-platform",
+   "reason": "The unsupported/preview dialog's copy and checkboxes are macOS/Linux only; Windows passes acknowledgePlatform without UI (A31-34)."
+  },
+  "A31-56": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_meeting/meeting_presenter.cpp",
+    "src/ui_meeting/past_meetings_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_past_meetings_presenter_host.cpp",
+    "tests/ui_meeting/test_past_meetings_panel.cpp",
+    "tests/ui_meeting/test_past_meetings_delete.cpp"
+   ],
+   "note": "Was: MeetingPresenter passed an empty progress callback to check_out_from. Now the fetch's progress posts 'Getting it from <host>… N%' (got*100/total, only when total) to the card through the panel's QPointer. Pinned by test_past_meetings_presenter_host.cpp 'test_opening_a_host_meeting_downloads_it_first (through the presenter)' (check_out_from with the row's pin, '… 25%' on the card, then show_past_meeting) and '…closed_mid_host_request… (the presenter's fetch)' (the panel deleted mid-download: nothing reaches it, nothing opens). Panel half: test_past_meetings_panel.cpp 'opening a host-kept meeting asks the owner to fetch it, then selects it', test_past_meetings_delete.cpp; card vectors in test_past_meetings_golden.cpp."
+  }
+ },
+ "differences": [
+  {
+   "id": "a31-ai-insights-consent-per-meeting",
+   "features": [
+    "A31-08",
+    "MR-03"
+   ],
+   "openwhisper": "The AI insights switch starts at meeting_cloud_last_enabled; the consent dialog is asked once, meeting_cloud_consent_given then lets later meetings send text without asking, and the dialog names the chosen backup agent in the same consent.",
+   "fiorivoce": "The switch starts off for every meeting. Turning it on for a meeting (at its start or live) shows the consent naming that meeting's destination, and the grant covers that route only; nothing stored lets a later meeting send text without asking. The backup agent is named in the consent and authorized by its own dialog for its own route.",
+   "reason": "Installed agents and hosted models are destinations the user must have named to them before transcript text leaves the machine, every time.",
+   "source": "tests/meeting/test_runtime_consent.cpp; tests/ui_meeting/test_meeting_presenter.cpp ('Meeting Mode starts and ends through the desktop presenter': a fresh live enable asks even when the grant store remembers the route); src/ui_meeting/meeting_presenter.cpp (buildTab, askIntelligenceConsent, askBackupConsent)"
+  },
+  {
+   "id": "a31-meeting-judge-stays-local",
+   "features": [
+    "A31-09",
+    "A31-40",
+    "MR-07",
+    "MM-04",
+    "SMV-03"
+   ],
+   "openwhisper": "With Fast judgments on and a remote judge (TypeSafe, OpenRouter or a hosted text model), the consent dialog says short transcript excerpts also go to that judge, and the tab's line for a local model reads 'the model runs on this computer' instead of 'transcript text stays on this computer'.",
+   "fiorivoce": "Meetings use only a Fast judgments judge on this computer (local_fast_judge: the live topic judge, insight review and semantic search), so no judge is named in the consent and the local line keeps 'transcript text stays on this computer'.",
+   "reason": "A hosted judge never receives meeting excerpts in FioriVoce, so naming it would be untrue.",
+   "source": "src/ui_meeting/meeting_feature.cpp (deps.local_fast_judge returns a judge only for a local route); src/meeting/detail/live_intelligence.cpp (topic_judge uses only a local judge); docs/port/differences.md (review and semantic search only with local_fast_judge); tests/ui_meeting/test_ai_insights_copy.cpp ('test_local_fast_judgments_keep_the_privacy_claim', 'the consent names a local endpoint and says the text stays')"
+  },
+  {
+   "id": "a31-speaker-pass-explicit",
+   "features": [
+    "A31-41",
+    "NP-04"
+   ],
+   "openwhisper": "Choosing OpenAI for speaker identification in Settings shows MeetingAudioConsentDialog ('Upload system audio for speaker identification'); after it the system-audio recording is uploaded automatically after each meeting.",
+   "fiorivoce": "The OpenAI speaker pass runs only from Past Meetings' explicit 'Identify speakers with OpenAI' action, which asks each time, names the meeting and says what is sent (the system-audio track) and what stays (microphone track, transcript, names), with Cancel as the default.",
+   "reason": "Meeting audio leaves the computer only on an action the user takes for that meeting.",
+   "source": "tests/meeting/test_cloud_speakers.cpp; tests/ui_meeting/test_meeting_readiness.cpp ('the explicit speaker pass names what is sent to OpenAI and defaults to Cancel'); src/ui_meeting/meeting_presenter.cpp identifySavedSpeakers"
+  },
+  {
+   "id": "a31-meetings-folder-failure-logged",
+   "features": [
+    "A31-29"
+   ],
+   "openwhisper": "Open meetings folder creates the folder with os.makedirs; when that fails, the exception leaves the Qt slot unhandled and the folder is not opened.",
+   "fiorivoce": "A meetings folder that cannot be created is logged as 'Could not create the meetings folder <path>: <reason>' and nothing is opened; the user is shown no message.",
+   "reason": "A failure must not escape a Qt slot in C++. Whether the user should also see a message is left to the owner (docs/port/open-items.md, Waiting on the owner).",
+   "source": "The meeting sweep of 2026-11-19 (open item ui_meeting (M7.15)); src/ui_meeting/past_meetings_panel.cpp openMeetingsFolder; tests/ui_meeting/test_sweep_meetings_folder.cpp ('a meetings folder that cannot be made is not opened')"
+  }
+ ]
+}

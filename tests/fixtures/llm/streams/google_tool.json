@@ -1,0 +1,24 @@
+{
+ "source": "Hand-written. The tool turn of sidecar-opencode/src/adapter.test.ts:49-53 (a functionCall part, finishReason STOP) after a signed thought part, the call carrying its own thoughtSignature; the reply equals tests/fixtures/llm/generation/replies.json 'google_tool'.",
+ "protocol": "google",
+ "equivalent": "google_tool",
+ "frames": [
+  {"candidates": [{"content": {"role": "model", "parts": [{"text": "private reasoning", "thought": true, "thoughtSignature": "signed-reasoning"}]}}]},
+  {"candidates": [{"content": {"role": "model", "parts": [{"functionCall": {"id": "call_1", "name": "search_context_files", "args": {"query": "budget"}}, "thoughtSignature": "tool-signature"}]}, "finishReason": "STOP"}]}
+ ],
+ "events": [
+  ["thinking_start"],
+  ["thinking_delta", "private reasoning"],
+  ["thinking_end"],
+  ["toolcall_start", "", "call_1", "search_context_files"],
+  ["toolcall_delta", "{\"query\": \"budget\"}", "call_1", "search_context_files"],
+  ["toolcall_end", "", "call_1", "search_context_files"]
+ ],
+ "result": {
+  "text": "",
+  "tool_calls": [{"id": "call_1", "name": "search_context_files", "arguments": "{\"query\": \"budget\"}"}],
+  "assistant_message": {"role": "assistant", "content": "", "tool_calls": [{"id": "call_1", "type": "function", "function": {"name": "search_context_files", "arguments": "{\"query\": \"budget\"}"}}], "_google": [{"text": "private reasoning", "thought": true, "thoughtSignature": "signed-reasoning"}, {"functionCall": {"id": "call_1", "name": "search_context_files", "args": {"query": "budget"}}, "thoughtSignature": "tool-signature"}]},
+  "usage": null,
+  "finish_reason": "STOP"
+ }
+}

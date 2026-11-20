@@ -1,0 +1,100 @@
+{
+  "schema": 1,
+  "openwhisper_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+  "note": "Numbers OpenWhisper's committed documents give, copied with their source; no OpenWhisper code was run to make this file. Windows Python 3.12, offscreen Qt (the documents' own description). A metric listed under 'unavailable' has no committed number; its ratio budget reports 'no reference' until run_perf.py --openwhisper measures it under lead decision 5.",
+  "metrics": {
+    "main_window_first_ms": {
+      "value": 117.2,
+      "unit": "ms",
+      "statistic": "single",
+      "source": "docs/benchmarks/performance-implementation-2026-10-03.json desktop.after_main_window[0].construction_ms; docs/performance-implementation-2026-10-03.md 'First MainWindow construction 117 ms'"
+    },
+    "main_window_warm_ms": {
+      "value": 42.74,
+      "unit": "ms",
+      "statistic": "p50",
+      "source": "docs/benchmarks/performance-implementation-2026-10-03.json desktop.after_main_window[1..2].construction_ms (43.96, 41.52), median"
+    },
+    "main_window_widgets": {
+      "value": 292,
+      "unit": "widgets",
+      "statistic": "single",
+      "source": "docs/benchmarks/performance-implementation-2026-10-03.json desktop.after_main_window[0].widgets"
+    },
+    "main_window_show_events_ms": {
+      "value": 12.34,
+      "unit": "ms",
+      "statistic": "p50",
+      "source": "docs/benchmarks/performance-implementation-2026-10-03.json desktop.after_main_window[*].show_events_ms (15.98, 12.34, 12.28), median"
+    },
+    "settings_first_ms": {
+      "value": 221.09,
+      "unit": "ms",
+      "statistic": "single",
+      "source": "docs/benchmarks/performance-implementation-2026-10-03.json desktop.after_settings_and_history.settings[0].construction_ms; docs/performance-implementation-2026-10-03.md 'First Settings construction 221 ms'"
+    },
+    "settings_warm_ms": {
+      "value": 52.975,
+      "unit": "ms",
+      "statistic": "p50",
+      "source": "docs/benchmarks/performance-implementation-2026-10-03.json desktop.after_settings_and_history.settings[1..2].construction_ms (53.59, 52.36), median"
+    },
+    "settings_widgets": {
+      "value": 317,
+      "unit": "widgets",
+      "statistic": "single",
+      "source": "docs/benchmarks/performance-implementation-2026-10-03.json desktop.after_settings_and_history.settings[0].widgets"
+    },
+    "settings_show_events_ms": {
+      "value": 22.34,
+      "unit": "ms",
+      "statistic": "p50",
+      "source": "docs/benchmarks/performance-implementation-2026-10-03.json desktop.after_settings_and_history.settings[*].show_and_events_ms (26.99, 22.34, 16.24), median"
+    },
+    "history_refresh_100_ms": {
+      "value": 1.62,
+      "unit": "ms",
+      "statistic": "p50",
+      "source": "docs/benchmarks/performance-implementation-2026-10-03.json desktop.after_settings_and_history.history.unchanged_refresh_ms (1.89, 1.62, 1.29), median; docs/performance-implementation-2026-10-03.md '1.3-1.9 ms'"
+    },
+    "history_first_100_cards_ms": {
+      "value": 91.78,
+      "unit": "ms",
+      "statistic": "single",
+      "source": "docs/benchmarks/performance-implementation-2026-10-03.json desktop.after_settings_and_history.history.first_100_cards_ms"
+    },
+    "meeting_state_runtime_write_ms": {
+      "value": 6.386,
+      "unit": "ms",
+      "statistic": "p50",
+      "source": "docs/benchmarks/performance-implementation-2026-10-03.json state_writes.operations.runtime_status.after_median_ms (median of 75)"
+    },
+    "meeting_state_summary_patch_ms": {
+      "value": 5.113,
+      "unit": "ms",
+      "statistic": "p50",
+      "source": "docs/benchmarks/performance-implementation-2026-10-03.json state_writes.operations.summary_patch.after_median_ms (median of 75)"
+    },
+    "meeting_state_card_edit_ms": {
+      "value": 5.638,
+      "unit": "ms",
+      "statistic": "p50",
+      "source": "docs/benchmarks/performance-implementation-2026-10-03.json state_writes.operations.card_edit.after_median_ms (median of 75)"
+    }
+  },
+  "unavailable": {
+    "quit_transcribing_ms": "docs/release-health.md names the check ('Quit while workers are busy: Measure process exit time') as optional manual testing and commits no value or bound ('There is no application-wide hard shutdown deadline')",
+    "quit_transcribing_exit_ms": "as quit_transcribing_ms: no committed value",
+    "quit_installing_ms": "as quit_transcribing_ms: no committed value",
+    "quit_installing_exit_ms": "as quit_transcribing_ms: no committed value",
+    "shutdown_s": "recorded by cleanup into diagnostic-metrics.json on the user's machine; no committed value. check_release_health.py's cleanup_s (limit 2 s) times the synthetic service's worker cleanup, not Quit",
+    "stop_to_result_p95_ms": "docs/release-health.md:62-77 states acceptance criteria (investigate a >20% p95 regression), not a number; --workflow-smoke was not run (lead decision 5 not approved in this session)",
+    "dictation_stop_overhead_ms": "scripts/bench_dictation_overhead.py commits no results; not run (lead decision 5)",
+    "remote_round_trip_ms": "scripts/bench_dictation_overhead.py commits no results; not run (lead decision 5)",
+    "api_upload_ms": "scripts/bench_dictation_overhead.py commits no results; not run (lead decision 5)",
+    "agent_ttft_overhead_p95_ms": "no committed number; the Pi sidecar was not run (lead decision 5)",
+    "agent_pass_overhead_p95_ms": "no committed number; the Pi sidecar was not run (lead decision 5)",
+    "startup_to_window_s": "release-health.md names the metric but commits no value; the budget is architecture 12.3's absolute 0.4 s",
+    "idle_rss_mb": "no committed number; the budget is architecture 12.3's absolute 150 MB"
+  }
+}

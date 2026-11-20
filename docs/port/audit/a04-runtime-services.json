@@ -1,0 +1,1390 @@
+{
+ "area": "a04-runtime-services",
+ "package": "M10 sweep",
+ "features": {
+  "A04-01": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/job_slot.cpp",
+    "src/dictation/messages.cpp",
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_job_slot.cpp",
+    "tests/dictation/test_golden.cpp",
+    "tests/golden/services.runtime.transcription.json",
+    "tests/dictation/test_uploads.cpp",
+    "tests/dictation/test_rewrite_jobs.cpp"
+   ],
+   "note": "_report_busy's texts replay as golden vectors (busy_message); the host-update text is '{identity().product} is preparing an update. Try again shortly.' by the identity rule. 'one job at a time, and every gate refuses a claim' and 'claims race to exactly one winner' pin the slot."
+  },
+  "A04-02": {
+   "status": "fixed",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_runtime_audit.cpp"
+   ],
+   "note": "can_start_recording keeps Python's order (backup status, host-update pointer notice, meeting status, readiness message, busy pointer notice, already recording silent). Only single gates were tested; 'the recording start gates refuse in OpenWhisper's order' added, with every gate on at once and lifted one at a time."
+  },
+  "A04-03": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/messages.cpp",
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_golden.cpp",
+    "tests/golden/services.runtime.transcription.json",
+    "tests/dictation/test_action_recording.cpp",
+    "tests/dictation/test_rewrite_jobs.cpp"
+   ],
+   "note": "_show_listening's overlay state and status replay as golden vectors (listening_status); show_listening emits both."
+  },
+  "A04-04": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/messages.cpp",
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_golden.cpp",
+    "tests/golden/services.runtime.transcription.json",
+    "tests/dictation/test_action_recording.cpp"
+   ],
+   "note": "_recording_destination golden vectors; emitted before the preview starts, as in Python."
+  },
+  "A04-05": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_cleanup_runtime.cpp",
+    "tests/dictation/test_action_recording.cpp"
+   ],
+   "note": "'profile recording formats with start snapshot and copies result' edits the library after Start; 'an action recording is refused for an action that is gone or turned off' and 'missing busy and failed profile starts do not leak profile' pin the two refusals."
+  },
+  "A04-06": {
+   "status": "fixed",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_runtime_audit.cpp"
+   ],
+   "note": "dictation_route gives a plain dictation route \"auto\" when voice routing and 'on dictation' are on; no dictation test set those settings. Added 'plain dictation is routed by voice only when routing listens to dictation' (a profile recording and routing off give no route)."
+  },
+  "A04-07": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp",
+    "src/meeting/detail/runtime_start.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_cleanup_runtime.cpp",
+    "tests/meeting/test_runtime_start.cpp"
+   ],
+   "note": "Dictation: 'recording job starts before the preview and is claimed by the stop' checks the stop_playback hook; meeting: 'test_a_meeting_start_stops_playback'."
+  },
+  "A04-08": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_paste_latency.cpp"
+   ],
+   "note": "Prefetch only for DICTATION with auto_paste and restore_clipboard, after the recorder and overlay; discarded on cancel, failed start, error, empty result and copy-only delivery (test_paste_latency's ported cases)."
+  },
+  "A04-09": {
+   "status": "fixed",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_transcription_runtime.cpp",
+    "tests/dictation/test_runtime_audit.cpp"
+   ],
+   "note": "The recorder's reason was tested; the default reason 'Could not open the audio stream', the NONE overlay and the dropped prefetch were not. Added 'a start failure without a reason says the stream could not open'."
+  },
+  "A04-10": {
+   "status": "difference",
+   "difference": "a04-refused-stop-ends-preview",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_transcription_runtime.cpp",
+    "tests/dictation/test_runtime_controls.cpp",
+    "tests/dictation/test_cancel.cpp",
+    "tests/dictation/test_walkthrough_job.cpp",
+    "tests/dictation/test_streaming_runtime.cpp",
+    "tests/dictation/test_streaming_quit.cpp"
+   ],
+   "note": "Otherwise as OpenWhisper: PROCESSING + 'Processing...', slot claimed before the post-roll ('stopped recording claims job before post roll finishes'), post-roll and WAV save on the jobs executor ('stop recording does not block the qt thread'), stop after cancel ignored ('stop after cancel claims no job'), 'Failed to stop recording' ('a stop the recorder refuses ends the recording without a job'). The one deliberate difference, a refused stop also ending the window preview, is a04-refused-stop-ends-preview, pinned by 'a stop refused as busy stops the preview for the next recording' (host-update gate) and 'a stop that claims no job leaves the next recording its preview' (backup gate)."
+  },
+  "A04-11": {
+   "status": "fixed",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_runtime_controls.cpp",
+    "tests/dictation/test_transcription_runtime.cpp",
+    "tests/dictation/test_runtime_audit.cpp"
+   ],
+   "note": "saved_recording_size matches Python's five outcomes; four were pinned ('the saved WAV checks report their exact reasons', 'a saved WAV under 100 bytes...', 'stop timeout preserves journal...'). Added 'a saved recording whose file is missing reports it was not created' for 'Audio file not created'."
+  },
+  "A04-12": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_runtime_flow.cpp",
+    "tests/dictation/test_transcription_runtime.cpp"
+   ],
+   "note": "'a lost microphone keeps its audio as a failed recording' (status '{message} — preserving captured audio', failed_recording entry, nothing pasted), 'capture failure preserves audio without transcribing', 'queued capture error after cancel does not stop new recording'."
+  },
+  "A04-13": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp",
+    "src/dictation/job_slot.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_runtime_controls.cpp",
+    "tests/dictation/test_automation_cancel.cpp",
+    "tests/dictation/test_runtime_flow.cpp",
+    "tests/dictation/test_job_slot.cpp"
+   ],
+   "note": "'Recording canceled' + CANCELING, 'Transcription canceled', 'Canceled' for a working job with an idle engine, quiet repeats and the bool result (test_automation_cancel's second-cancel cases, 'a cancel with nothing to stop says nothing'); a delivered job being saved is not canceled ('a job whose result was delivered is not canceled while it is saved')."
+  },
+  "A04-14": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_cancel.cpp",
+    "tests/dictation/test_cleanup_runtime.cpp",
+    "tests/dictation/test_uploads.cpp",
+    "tests/dictation/test_walkthrough_job.cpp"
+   ],
+   "note": "Post-roll, before decode, during decode, cleanup ('cancel during cleanup fails the job instead of pasting'), between batch files ('test_cancel_mid_separate_batch_keeps_finished_files'), between walkthrough sections ('a cancel between sections stops the walkthrough')."
+  },
+  "A04-15": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp",
+    "src/dictation/recognition.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_recognition.cpp",
+    "tests/dictation/test_pipeline_text.cpp"
+   ],
+   "note": "'a language switched during the recording is the one recorded' (History records the final pass's language); vocabulary through 'recognition carries language and phrases when steering is on'."
+  },
+  "A04-16": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp",
+    "src/dictation/streaming_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_streaming_runtime.cpp",
+    "tests/dictation/test_transcription_runtime.cpp"
+   ],
+   "note": "'empty asr falls back to the streaming preview', 'empty dictation shows the lazily completed preview', 'empty asr skips history clipboard and paste', and the retry suffix ' — recording kept in History' in 'retry from history reuses the failed entry'."
+  },
+  "A04-17": {
+   "status": "fixed",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp",
+    "src/dictation/cleanup_stage.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_cleanup_runtime.cpp",
+    "tests/dictation/test_runtime_audit.cpp"
+   ],
+   "note": "Dictionary with cleanup off, 'Cleaning up...' with CLEANING, raw fallback and snippet loss were pinned in test_cleanup_runtime; 'Formatting · {profile}...' was not. Added 'a cleanup profile's pass says it is formatting'. The provider side is a12's."
+  },
+  "A04-18": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/messages.cpp",
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_golden.cpp",
+    "tests/golden/services.runtime.transcription.json",
+    "tests/dictation/test_action_shaping.cpp",
+    "tests/dictation/test_cleanup_runtime.cpp"
+   ],
+   "note": "_delivery_notice golden vectors; 'Ready (Pasted) — Email formatting failed (...); using raw transcript' through the runtime."
+  },
+  "A04-19": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_automation_pipeline.cpp"
+   ],
+   "note": "Before- and after-cleanup filters, 'Not pasted — a text filter handled it' saved but not delivered, an empty-already result stays no-speech, failures logged by type only."
+  },
+  "A04-20": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_automation_pipeline.cpp"
+   ],
+   "note": "'test_routing_turns_a_dictation_into_an_action_job', 'test_route_by_voice_says_when_no_action_matched', 'test_a_judge_failure_pastes_and_route_by_voice_says_so'."
+  },
+  "A04-21": {
+   "status": "fixed",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_action_shaping.cpp",
+    "tests/dictation/test_automation_pipeline.cpp",
+    "tests/dictation/test_runtime_audit.cpp"
+   ],
+   "note": "raw/profile/transform shaping and '{transform} couldn't run — sent your cleaned words' were pinned; the missing-transform notice was not. Added 'an action whose transform is gone sends the cleaned words and says so'."
+  },
+  "A04-22": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp",
+    "src/dictation/scratchpad_text.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_cleanup_runtime.cpp",
+    "tests/dictation/test_uploads.cpp"
+   ],
+   "note": "'the focused scratchpad takes the dictation' ('Ready (Added to Scratchpad)'); an upload never goes there."
+  },
+  "A04-23": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/delivery.cpp",
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_transcription_runtime.cpp",
+    "tests/dictation/test_delivery.cpp",
+    "tests/dictation/test_paste_latency.cpp"
+   ],
+   "note": "'Ready (Pasted)', '... clipboard restore unavailable', '(paste failed)', '(copy failed)', copy-only 'Ready'. The macOS Accessibility branch is other-platform."
+  },
+  "A04-24": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/rewrite_jobs.cpp",
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_command_delivery.cpp",
+    "tests/dictation/test_rewrite_jobs.cpp",
+    "tests/dictation/test_command_notices.cpp",
+    "tests/dictation/test_command_selection.cpp"
+   ],
+   "note": "_copy_rewrite and _notify_forced_outcome replay as golden vectors; forced paste with auto-paste off only into the same app."
+  },
+  "A04-25": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_uploads.cpp",
+    "tests/dictation/test_runtime_flow.cpp",
+    "tests/dictation/test_transcription_runtime.cpp"
+   ],
+   "note": "Upload 'Ready' with no clipboard ('test_upload_displays_ready_then_saves_history_and_never_pastes'), retry 'Transcript ready to copy'. The live branch ('Transcript recovered. Ready to copy.') is in the code but unreachable: only the remote reconnect during a job turns clipboard delivery off for a live recording, and that is not ported (see A04-34)."
+  },
+  "A04-26": {
+   "status": "fixed",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_paste_latency.cpp",
+    "tests/dictation/test_transcription_runtime.cpp",
+    "tests/dictation/test_runtime_audit.cpp"
+   ],
+   "note": "Paste before History on the persistence executor and 'History could not be saved: ...' were pinned; the entry saved without its audio was not. Added 'History that keeps the words but not the audio says so' (recordings folder replaced by a file; the recording is not acknowledged)."
+  },
+  "A04-27": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp",
+    "src/dictation/messages.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_runtime_flow.cpp",
+    "tests/dictation/test_transcription_runtime.cpp",
+    "tests/dictation/test_golden.cpp",
+    "tests/golden/services.runtime.transcription.json"
+   ],
+   "note": "_save_failed_recording golden vectors; 'a failed decode keeps the recording in History for a retry'."
+  },
+  "A04-28": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp",
+    "src/dictation/messages.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_golden.cpp",
+    "tests/golden/services.runtime.transcription.json",
+    "tests/dictation/test_action_shaping.cpp"
+   ],
+   "note": "_preserve_failed_audio golden vectors; non-dictation failures keep the WAV in Recordings through the runtime (test_action_shaping's audio_kept)."
+  },
+  "A04-29": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp",
+    "src/dictation/messages.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_golden.cpp",
+    "tests/golden/services.runtime.transcription.json",
+    "tests/dictation/test_walkthrough_job.cpp",
+    "tests/dictation/test_command_notices.cpp"
+   ],
+   "note": "_error_status golden vectors (refusals bare); the dialog is transcription_failed; walkthrough kept-note in 'a failed walkthrough keeps its screenshots and says where'."
+  },
+  "A04-30": {
+   "status": "fixed",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_transcription_runtime.cpp",
+    "tests/dictation/test_runtime_audit.cpp"
+   ],
+   "note": "The retry completing its failed entry was pinned ('retry from history reuses the failed entry'); the meeting refusal and 'Error: Audio file not found' were not. Added 'retranscribing is refused during a meeting and for a missing file'. The failed-entry lookup moved to the jobs executor (no database read on the UI thread)."
+  },
+  "A04-31": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_uploads.cpp"
+   ],
+   "note": "'uploads are refused during a meeting, for missing files and with nothing to do' and 'Processing uploaded file...'."
+  },
+  "A04-32": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp",
+    "src/dictation/uploads.cpp",
+    "src/dictation/batch.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_uploads.cpp",
+    "tests/dictation/test_uploads_golden.cpp",
+    "tests/dictation/test_batch.cpp",
+    "tests/dictation/test_automation_cancel.cpp"
+   ],
+   "note": "_batch_line/_batch_display/_batch_status golden vectors; 'All {n} files failed: ...', combined batch stops at its first failure, cancel keeps finished files."
+  },
+  "A04-33": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp",
+    "src/dictation/upload_progress.cpp",
+    "src/speech/upload_splitter.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_uploads.cpp"
+   ],
+   "note": "Kept with the cloud speech endpoint (src/speech/cloud_backend.cpp): 'test_stop_recording_announces_a_split_only_for_a_backend_that_splits', 'test_batch_announces_each_large_file_the_backend_splits'; the local engine takes a large file whole with no notice."
+  },
+  "A04-34": {
+   "status": "fixed",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp",
+    "src/remote/remote_backend.cpp",
+    "src/remote_host/service.cpp",
+    "src/ui_remote/remote_feature.cpp",
+    "src/ui_controller/ui_controller.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_runtime_flow.cpp"
+   ],
+   "note": "Ported _retry_remote_for_recording: TranscriptionRuntime::retry_remote_for_recording joins up to three reconnects (REMOTE_RECOVERY_DELAYS 0/1/2 s within REMOTE_RECOVERY_WAIT 12 s) through set_remote_link (RemoteEngineService::dictation_link's retry_now and restoring, wired in RemoteFeature::install), emits 'Retrying connection (n/3)...' as transcription_retry_progress (UiController -> OverlayRouter::showTranscriptionRetry) and the status, turns clipboard delivery off, and ends 'Remote engine unavailable after {n} reconnect attempt(s). {device_info}' with remote_retry_exhausted set, so the failed recording's notice is 'Reconnect failed. Audio saved in History.'. Tests: 'a recording waits briefly for the remote engine, then keeps the audio' and 'a recording decodes once the remote engine reconnects' ('Transcript recovered. Ready to copy.'). Not ported: the retry of a decode the host refused before starting (test_recording_retries_a_decode_the_remote_host_refused_before_starting)."
+  },
+  "A04-35": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/recovery.cpp",
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_runtime_flow.cpp",
+    "tests/dictation/test_walkthrough_job.cpp"
+   ],
+   "note": "'startup recovery turns an interrupted journal into a recording' and 'startup recovery joins an interrupted walkthrough to its recovered audio' (walkthrough message wins)."
+  },
+  "A04-36": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp",
+    "src/dictation/walkthrough_job.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_walkthrough_job.cpp"
+   ],
+   "note": "No early decoding, 'Transcribing section {i} of {n}...', 'Writing the walkthrough...', each section cleaned on its own, a document that cannot be written keeps the words."
+  },
+  "A04-37": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/walkthrough_job.cpp",
+    "src/dictation/messages.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_walkthrough_job.cpp",
+    "tests/dictation/test_walkthrough_golden.cpp",
+    "tests/golden/services.runtime.transcription.json"
+   ],
+   "note": "_copy_walkthrough (144 vectors) and _deliver_walkthrough golden; write-up off the slot, 'Writing it up with {agent}...', 'Stopping the write-up...', lost-screenshot suffix."
+  },
+  "A04-38": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/walkthrough_job.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_walkthrough_job.cpp"
+   ],
+   "note": "'recovering a walkthrough is refused while another is saved or recorded', 'recovered walkthrough claims a walkthrough job and keeps sections'."
+  },
+  "A04-39": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp",
+    "src/dictation/rewrite_jobs.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_rewrite_jobs.cpp",
+    "tests/dictation/test_automation_pipeline.cpp"
+   ],
+   "note": "begin/submit/abandon, REWRITING 'Rewriting...', refused while recording or busy, a transform refused at once while a recording starts (the non-blocking claim)."
+  },
+  "A04-40": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_action_recording.cpp",
+    "tests/dictation/test_automation_pipeline.cpp"
+   ],
+   "note": "\"run_action_text's refusals carry the messages a program is shown\" pins all five texts (product by identity()); status '{action}...'."
+  },
+  "A04-41": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_runtime_flow.cpp",
+    "tests/dictation/test_cleanup_runtime.cpp",
+    "tests/dictation/test_automation_pipeline.cpp"
+   ],
+   "note": "'paste_text_now pastes with auto-paste off and is refused while busy'; the answering job may paste while it holds the slot."
+  },
+  "A04-42": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp",
+    "src/dictation/messages.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_runtime_flow.cpp",
+    "tests/dictation/test_uploads.cpp",
+    "tests/dictation/test_golden.cpp"
+   ],
+   "note": "require_backend_ready: missing model asks for consent and raises the engine's sentence ('the engine not being ready is said as the engine says it', 'an upload with the speech model missing asks for consent and frees the slot'); another failure asks for a reload; _start_failure_message golden. The remote branch (remote.retry_now) is a comment only; it belongs with A04-34's handoff."
+  },
+  "A04-43": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_runtime_flow.cpp",
+    "tests/dictation/test_runtime_controls.cpp",
+    "tests/dictation/test_streaming_runtime.cpp"
+   ],
+   "note": "'a model change saves the engine and reloads it, but not during a meeting', 'changing the engine reconfigures the preview'. Whisper branches dropped (engine-specific)."
+  },
+  "A04-44": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/events.cpp",
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_automation_events.cpp",
+    "tests/dictation/test_event_payloads.cpp",
+    "tests/dictation/test_automation_pipeline.cpp",
+    "tests/dictation/test_transcription_runtime.cpp"
+   ],
+   "note": "Every event with its failure category; previews live only ('test_previews_are_live_only')."
+  },
+  "A04-45": {
+   "status": "fixed",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_runtime_flow.cpp",
+    "tests/dictation/test_runtime_audit.cpp"
+   ],
+   "note": "cancel_s was pinned ('a cancel while recording throws the capture away'); stop_to_result_s was recorded but untested. Added 'a dictation records the time from stop to result'."
+  },
+  "A04-46": {
+   "status": "other-platform",
+   "reason": "transcription.py prepare_host_update is called only by services/omarchy_controls.py (the Linux Omarchy desktop's update controls); the Windows product's updater never asks a sharing host to hold an update, so no desktop refusal '{product} is in use on this computer' exists. The client's recording reservations served only that hold: FioriVoce's dictation engine no longer advertises recording_activity it never sends (RemoteEngineService::make_backend, reports_recording false; tests/remote_host/test_runtime_links.cpp 'the dictation engine does not advertise recording reservations'), so an OpenWhisper host counts it as untracked and holds its update while it is connected. The host half (SpeechHost::prepare_update, the reservations from OpenWhisper clients) stays and is tested."
+  },
+  "A04-47": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/command_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_command_runtime.cpp",
+    "tests/dictation/test_command_notices.cpp",
+    "tests/dictation/test_hotkey_runtime_families.cpp"
+   ],
+   "note": "Hold/release, a tap under 250 ms cancels ('test_a_short_tap_cancels'), toggle mode, 'Set up AI cleanup to use Command Mode', 'test_a_command_during_a_recording_says_to_finish_it'; keys reach the controller on the dispatcher thread."
+  },
+  "A04-48": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/command_runtime.cpp",
+    "src/dictation/command_selection.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_command_selection.cpp",
+    "tests/dictation/test_command_runtime.cpp",
+    "tests/golden/services.runtime.command.json"
+   ],
+   "note": "_looks_like_copied_line, _refusal and _known_selection replay as golden vectors; UIA's empty answer is final, terminals and classic consoles never get a copy, keys-held refusal, excluded apps and password fields; '{identity().product} can't read selected text on this desktop' by the identity rule."
+  },
+  "A04-49": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/command_runtime.cpp",
+    "src/dictation/command_selection.h"
+   ],
+   "tests": [
+    "tests/dictation/test_command_runtime.cpp",
+    "tests/dictation/test_command_selection.cpp"
+   ],
+   "note": "'test_silence_is_not_an_instruction', 'test_a_selection_that_never_arrives_is_an_error' ('Couldn't read the selected text. Try again.'), 'Select text first', 'Writing...' / 'Rewriting...'; SELECTION_WAIT_S in the golden constants."
+  },
+  "A04-50": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/command_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_command_runtime.cpp",
+    "tests/dictation/test_command_notices.cpp",
+    "tests/dictation/test_command_delivery.cpp"
+   ],
+   "note": "'test_unknown_transforms_and_missing_providers_say_so', 'Rewriting · Polish...', 'Select text to transform', History source 'Transform · {name}'."
+  },
+  "A04-51": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/hotkey_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_hotkey_runtime.cpp",
+    "tests/dictation/test_hotkey_runtime_families.cpp",
+    "tests/dictation/test_hotkey_runtime_actions.cpp"
+   ],
+   "note": "setup_hotkeys wires all 17 callbacks of hotkeys.py (record toggle, record and command press/release, cancel, minimize, meeting, Scratchpad, cycle language, paste last original, route-by-voice, walkthrough, screenshot, paste walkthrough, two status updates); 'setup merges the defaults under the saved hotkeys', 'update_hotkeys applies, saves as given and says so', 'the other shortcuts post to the UI executor'."
+  },
+  "A04-52": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/hold_machine.cpp",
+    "src/dictation/hotkey_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_hold_runtime.cpp",
+    "tests/dictation/test_hotkey_runtime.cpp",
+    "tests/golden/services.runtime.hotkeys.json"
+   ],
+   "note": "250 ms hold, 400 ms latch window, 'Hands-free · press {hotkey} to stop', lost release after a rehook, release waiting for the stream to open; the hold_trace golden vectors."
+  },
+  "A04-53": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/hotkey_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_hotkey_runtime.cpp",
+    "tests/dictation/test_hold_runtime.cpp"
+   ],
+   "note": "'the trigger mode switch says which mode is on'; 'test_changing_the_trigger_mode_drops_the_latch'."
+  },
+  "A04-54": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/hotkey_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_hotkey_runtime.cpp"
+   ],
+   "note": "Both texts with the keys held at the deadline; the wait runs on the press thread."
+  },
+  "A04-55": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/hotkey_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_hotkey_runtime_families.cpp",
+    "tests/dictation/test_hotkey_runtime_actions.cpp"
+   ],
+   "note": "Profile, transform and enabled-action shortcuts registered, conflicts skipped, a broken library keeps the others."
+  },
+  "A04-56": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/hotkey_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_hotkey_runtime.cpp"
+   ],
+   "note": "'the watchdog rehooks after a sleep and refreshes every five minutes', refresh deferred while a record or command key is held, no rehook on Wayland. The Windows hook itself is a06's."
+  },
+  "A04-57": {
+   "status": "other-platform",
+   "reason": "The Qt event-filter fallback serves pynput backends (Linux and macOS); the Windows product uses the low-level keyboard hook."
+  },
+  "A04-58": {
+   "status": "other-platform",
+   "reason": "macOS Accessibility permission intro; macOS only."
+  },
+  "A04-59": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/hotkey_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_hotkey_runtime.cpp"
+   ],
+   "note": "'STT Enabled and Disabled reach the overlay', 'the enable/disable shortcut says STT Disabled through the hook'."
+  },
+  "A04-60": {
+   "status": "other-platform",
+   "reason": "Omarchy (Hyprland on Wayland) controls; Linux only."
+  },
+  "A04-61": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/streaming_runtime.cpp",
+    "src/speech/window_preview.cpp",
+    "src/speech/preview_status.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_streaming_runtime.cpp",
+    "tests/speech/test_window_preview.cpp"
+   ],
+   "note": "Enabled by streaming_enabled; a window preview (chunk from streaming_chunk_duration, overlap 0.75 s) sharing the loaded Parakeet engine ('streaming preview shares the loaded parakeet engine', 'streaming preview waits for the optional engine to load'). The Nemotron native stream and Whisper's tiny.en preview are dropped (engine-specific); the remote host's preview is A17's."
+  },
+  "A04-62": {
+   "status": "fixed",
+   "cpp": [
+    "src/speech/preview_status.cpp",
+    "src/dictation/streaming_runtime.cpp"
+   ],
+   "tests": [
+    "tests/speech/test_preview_status.cpp",
+    "tests/dictation/test_streaming_runtime.cpp",
+    "tests/dictation/test_streaming_quit.cpp"
+   ],
+   "note": "Reworded for FioriVoce as the row allows: 'Live preview needs Parakeet' / '... on {host}'; 'Stop recording before changing streaming mode' pinned. 'Failed to reconfigure streaming' had no test because nothing in configure can be made to throw (the settings reads are tolerant). StreamingRuntime now takes an optional PreviewFactory (default: the WindowPreview it always built), and 'a preview that fails to set up says so on reconfigure only' passes one that throws: setup() stays quiet and disabled, reconfigure() reports 'Failed to reconfigure streaming', as _configure_streaming's except clause does."
+  },
+  "A04-63": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_shell/bootstrap.cpp",
+    "src/ui_controller/controller_feature.cpp",
+    "src/speech/window_preview.cpp",
+    "src/dictation/streaming_runtime.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_quit_jobs.cpp",
+    "tests/ui_controller/test_quit_streaming.cpp",
+    "tests/dictation/test_streaming_quit.cpp",
+    "tests/dictation/test_streaming_runtime.cpp"
+   ],
+   "note": "Fixed in Quit's order, as OpenWhisper's cleanup is ordered, rather than in StreamingRuntime alone: a jobs task past the 5 s budget used the whole context (TranscriptionRuntime included, and the StreamingRuntime pointer it had loaded before the runtime cleared it), so counting StreamingRuntime's callers could not cover every path. (1) ShutdownStep::Streaming ('Error during streaming cleanup', application_controller.py's streaming_runtime.cleanup()) was never registered; ControllerFeature now adds it, before the strands. (2) WindowPreview::cancel() and its destructor now also cancel the decode finalize() waits on (a CancelSource per finalize, passed as the Final job's token): a window still queued is dropped at once, one being decoded ends with that window; before, cancel() woke finalize's wait but a decode already submitted ran to the end. (3) Bootstrap's Strands step waits for the jobs strand's running tasks however long they take (executor.shutdown(wait=True)), logging 'A background job is still running; waiting for it to finish' after the 5 s budget, so the history drain, the database close and the context's release all come after the last job. Tests that fail before the fix: 'quit's streaming cleanup ends a stop finalizing its preview at once' and 'cancel ends a finalize whose window is queued behind other work' (finalize held behind a busy engine; without the token it stays held until the engine is free), 'quit waits for a running job before the database and the context go' (without the wait the history drain and the context release land while the job runs), 'quit removes the live preview before it waits for the strands'. The two teardown tests are strengthened: a guard declared after the WatchedClock resets the runtime and opens the engine gate; a guard declared after the preview opens the delivery gate; GatedExecutor holds the speech thread's posts only (its id learned from a decode)."
+  },
+  "A04-64": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/overlay_router.cpp",
+    "src/ui_controller/ui_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_level_meter.cpp",
+    "tests/ui_controller/test_controller_refreshes.cpp"
+   ],
+   "note": "Pinned: 'a level fills the overlay's twenty bars, and the next replaces it' (OverlayRouter::setLevel(0.4) leaves exactly 20 bars of 0.4 on the overlay, setLevel(0.1) replaces them all) and, through the wiring, 'the recorder's level reaches every bar of the overlay' (Recorder::level emitted reaches the overlay's bars)."
+  },
+  "A04-65": {
+   "status": "verified",
+   "cpp": [
+    "src/models/model_runtime.cpp",
+    "src/models/coordinator.cpp"
+   ],
+   "tests": [
+    "tests/models/test_model_runtime.cpp",
+    "tests/models/test_hf_access.cpp"
+   ],
+   "note": "Adapted to the Parakeet model files: 'the consent answers grant once, allow always, open Settings or report the block', HF_HUB_OFFLINE and declined texts, \"Downloading model '{m}'...\", 'progress passes ten times a second, on a percent change and when final'. 'Whisper engine ready' / 'Model failed to load' belong to the Whisper load-into-engine branch and are dropped (engine-specific)."
+  },
+  "A04-66": {
+   "status": "verified",
+   "cpp": [
+    "src/models/model_runtime.cpp"
+   ],
+   "tests": [
+    "tests/models/test_model_runtime.cpp"
+   ],
+   "note": "'a batch is refused offline or beside another request, and a cached one only rescans', sequential with a stop between models ('trace: a batch stopped during its first model', 'test_stopped_batch_releases_processed_and_unprocessed_...')."
+  },
+  "A04-67": {
+   "status": "verified",
+   "cpp": [
+    "src/models/model_runtime.cpp"
+   ],
+   "tests": [
+    "tests/models/test_model_runtime.cpp"
+   ],
+   "note": "'a delete is refused during a meeting and while the model downloads', 'test_manager_delete_refuses_loaded_model', 'test_manager_delete_reports_locked_files', \"Model '{m}' deleted\"."
+  },
+  "A04-68": {
+   "status": "dropped",
+   "reason": "faster-whisper's CUDA fallback and its 'Use this GPU' offer belong to the Whisper engine; FioriVoce's GPU choice is the NeMo GPU runtime, offered by the missing-runtime prompt (A04-69)."
+  },
+  "A04-69": {
+   "status": "verified",
+   "cpp": [
+    "src/models/model_runtime.cpp"
+   ],
+   "tests": [
+    "tests/models/test_model_runtime.cpp"
+   ],
+   "note": "Adapted to the NeMo CPU and GPU runtimes: once per runtime per session, GPU runtime offered with the CPU one ('test_first_use_offers_the_gpu_runtime_with_the_cpu_one', 'test_required_runtime_prompt_install_or_later', 'forget_runtime_prompts asks again...')."
+  },
+  "A04-70": {
+   "status": "verified",
+   "cpp": [
+    "src/models/component_runtime.cpp"
+   ],
+   "tests": [
+    "tests/models/test_component_runtime.cpp",
+    "tests/models/test_component_rules.cpp"
+   ],
+   "note": "'install finish messages' (no restart needed / restart '{product}' / canceled / failed), throttled progress, 'Component removed', refusals during a speech job; product by identity()."
+  },
+  "A04-71": {
+   "status": "verified",
+   "cpp": [
+    "src/remote/remote_backend.cpp"
+   ],
+   "tests": [
+    "tests/remote_host/test_remote_backend.cpp"
+   ],
+   "note": "The backend keeps its own link (reconnect_on / watch_live_link) instead of RemoteRuntime's 1 s polling tick; the backoff 2, 5, 15, 30, 60 s (last repeats) is pinned by 'test_a_dropped_host_is_reported_at_once_and_retried_with_backoff', retry_now and quiet reconnects by their tests. Remote code was being changed by another worker during this audit."
+  },
+  "A04-72": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/application_controller.cpp",
+    "src/remote/remote_backend.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_remote_engine_hooks.cpp",
+    "tests/remote_host/test_remote_backend_runtime.cpp"
+   ],
+   "note": "Checked against services/runtime/remote.py select_remote_model / select_remote_runtime: ApplicationController::select_remote_model and select_remote_runtime with remote::plan_remote_model_switch / plan_remote_runtime_change give the same gates and words (skip for the model served; End the meeting before changing the engine / Finish recording before changing the engine; Finish the current activity before changing the remote runtime while a meeting, recording, transcription or reload runs; request_runtime ValueError sentences via runtime_request_refusal; notes Switching <host> to <label>... and Updating the runtime on <host>...; a refusal shows the host fields again via remote_models_stale). Nothing differed. Tests: ui_controller a Model field choice switches the paired computer through the controller, the paired computer's model and runtime wait for the current activity; remote_host test_choosing_a_model_on_the_client_reloads_through_the_host, test_the_client_wont_switch_the_host_mid_recording, a runtime change waits for the current activity."
+  },
+  "A04-73": {
+   "status": "fixed",
+   "cpp": [
+    "src/remote_host/model_management.cpp"
+   ],
+   "tests": [
+    "tests/remote_host/test_model_management.cpp"
+   ],
+   "note": "Python's limit is used for what it limits: the UI thread has 10 s to take a paired computer's switch (HostModelManager::set_handoff_timeout, default 10 s), else '{host} didn't respond. Try again in a moment.' ('a host whose UI thread does not take the switch says it did not respond'). The wait for the load that follows is OpenWhisper's too (RemoteEngineService.select_model waits on engine_settled), bounded at 240 s. The loading refusal is tested ('the host refuses a switch while its engine loads')."
+  },
+  "A04-74": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_remote/remote_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_remote/test_remote_record_refresh.cpp"
+   ],
+   "note": "RemoteFeature::install (installRecordRefresh) connects the remote engine's changed (records, client, host_renamed) and the record sync's changed (records) to HistoryPanel::refresh and refreshPastMeetings, as remote.py's records_changed; other events (state, clients, activity) do not refresh. The lookup now uses the RemoteEngineControl interface the service is provided as (same object in the app), so a FakeRemoteEngine drives it: remote record changes refresh History and Past Meetings. The pairing change's reconnect of the Remote engine is the Remote engine page's own reload."
+  },
+  "A04-75": {
+   "status": "verified",
+   "cpp": [
+    "src/update/runtime.cpp",
+    "src/update/schedule.cpp",
+    "src/ui_controller/update_presenter.cpp"
+   ],
+   "tests": [
+    "tests/update/test_runtime.cpp",
+    "tests/ui_controller/test_update_presenter.cpp"
+   ],
+   "note": "kUpdateCheckDelay 8000 ms, the launch check skipping the interval once, kUpdateRecheckFloor 1 h ('launch check skips the interval once', 'finished check arms the next one from the saved times'); an automatic failure goes to the ambient status line (test_update_presenter)."
+  },
+  "A04-76": {
+   "status": "fixed",
+   "cpp": [
+    "src/update/runtime.cpp"
+   ],
+   "tests": [
+    "tests/update/test_runtime.cpp",
+    "tests/update/test_runtime_attempts.cpp"
+   ],
+   "note": "UpdaterRuntime::request_download gives each attempt a fresh CancelSource and an attempt number, and on_download_finished discards a stale attempt's handoff, as updater.py does; 'No installer is available.' and 'The update was canceled.' were pinned in test_runtime.cpp. Added: 'a second download supersedes the first and discards what it prepared' (native actions: the first's prepared transaction arrives after the second began, is discarded and not reported; only the second's handoff is) and 'a download that fails without a reason says the download failed' (an UpdateApplyError and a std::runtime_error with empty text both report 'The download failed.')."
+  },
+  "A04-77": {
+   "status": "verified",
+   "cpp": [
+    "src/update/leftovers.cpp",
+    "src/update/runtime.cpp"
+   ],
+   "tests": [
+    "tests/update/test_runtime.cpp"
+   ],
+   "note": "'leftovers are pruned on the components strand'. The macOS part is other-platform."
+  },
+  "A04-78": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/runtime_start.cpp",
+    "src/meeting/runtime_messages.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_start.cpp",
+    "tests/meeting/test_runtime_consent.cpp"
+   ],
+   "note": "Gate order as meeting.py (update, backup, finalizing, busy, engine loading; recording/transcription to the main status line): 'a backup or a host update refuses a start before anything else', 'test_finalization_running_blocks_second_meeting_not_claim', 'test_start_meeting_blocked_while_whisper_loading', 'a start saves the remembered AI insights choice and stops behind a recording'; 'Starting meeting...' / 'Meeting in progress' in 'a scripted meeting publishes the runtime's states in order'. The consent round-trip follows difference a04-meeting-insights-per-meeting (recorded under A04-84). src/meeting was being changed by another worker during this audit."
+  },
+  "A04-79": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/runtime_start.cpp",
+    "src/meeting/runtime_messages.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_start.cpp"
+   ],
+   "note": "'test_start_worker_failure_rolls_back_active_state' ('Could not start the meeting: ...', state failed). The Linux system-audio replacement text is other-platform (Linux capture)."
+  },
+  "A04-80": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/runtime_start.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_status_texts.cpp"
+   ],
+   "note": "\"pause, resume and end say what they did or why they could not\": Meeting paused, Meeting in progress after a resume, \"Ending meeting — finishing transcription...\" with state ending, and \"Could not resume the meeting: device lost\" / \"Could not end the meeting: drain stuck\" from a FakeEngine that throws."
+  },
+  "A04-81": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/runtime_card.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_card.cpp",
+    "tests/meeting/test_runtime_background_end.cpp"
+   ],
+   "note": "'test_restore_deferred_latest_leaves_idle_and_does_not_hydrate_older', 'test_hydrate_skips_pending_without_steps', 'test_defer_persists_flag_and_hides_card', background handoff and background_message ('{n} meeting(s) finishing in the background...')."
+  },
+  "A04-82": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/runtime_retry.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_retry.cpp"
+   ],
+   "note": "\"a retry says it is retrying and a failure without words is the bare sentence\": the status line and the running finalization read \"Retrying post-meeting steps…\", and a failed result with no message or error reads \"Post-meeting retry failed.\". The speaker re-run gate stays difference a04-meeting-speaker-pass-desktop-only."
+  },
+  "A04-83": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/runtime_url.cpp",
+    "src/meeting/detail/runtime_past.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_golden.cpp",
+    "tests/golden/services.runtime.meeting.json",
+    "tests/meeting/test_runtime_dashboards.cpp",
+    "tests/meeting/test_runtime_bridge.cpp"
+   ],
+   "note": "redact_meeting_url and _with_history_target golden vectors (tokens never logged), '?history={id}&view=report' ('test_runtime_opens_report_view_on_history_url'), past meetings through the archive dashboard ('a past meeting opens in the app's archive dashboard on loopback')."
+  },
+  "A04-84": {
+   "status": "difference",
+   "difference": "a04-meeting-insights-per-meeting"
+  },
+  "A04-85": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/runtime_recovery.cpp",
+    "src/meeting/recovery.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_recovery.cpp",
+    "tests/meeting/test_runtime_golden.cpp"
+   ],
+   "note": "Scan on a worker ('test_recovery_scan_emits_dead_sessions', '..._silent_when_none'), finalize/discard, the follow-up step (_recovered_follow_up_step golden, 'test_recovered_follow_up_matches_live_end_settings')."
+  },
+  "A04-86": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/runtime_past.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_past.cpp"
+   ],
+   "note": "Copy ('no transcript'), delete keeping or purging audio, clear ('Meetings cleared' / 'Meetings and recordings cleared'), refusal while live. The 'Could not ...: {e}' failures are listed under A04-100."
+  },
+  "A04-87": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/runtime_bridge.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_bridge.cpp",
+    "tests/meeting/test_runtime_retry.cpp"
+   ],
+   "note": "'engine events reach the desktop only from the current engine, then go public', 'test_voice_feedback_reaches_no_desktop_surface', 'an error event is shown once the start is over', stale retry events dropped ('test_queued_old_retry_completion_cannot_finish_new_retry')."
+  },
+  "A04-88": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/model_lease.cpp",
+    "src/meeting/detail/runtime_start.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_lease.cpp",
+    "tests/meeting/test_model_lease.cpp",
+    "tests/meeting/test_runtime_start.cpp"
+   ],
+   "note": "Adapted to the shared Parakeet recognizer: a meeting on the dictation model borrows it through a lease; one with its own model releases dictation until asr_released, background_ready or failure ('test_start_releases_the_dictation_engine_before_loading_its_own')."
+  },
+  "A04-89": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/runtime_bridge.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_status_texts.cpp"
+   ],
+   "note": "\"test_meeting_cleanup_gives_up_on_a_hanging_engine_shutdown\": a FakeEngine whose shutdown blocks makes cleanup return after kShutdownJoinTimeout (5 s, waited out) and log \"Meeting engine shutdown still running after 5.0s; abandoning it so the application can exit.\"; exclusive mode is cleared and shutdown ran once. Python also prints the stuck thread stack (sys._current_frames): C++ has no portable way to read another thread stack, so the warning names the budget only (test_abandoned_engine_shutdown_logs_where_it_is_stuck dropped for that reason)."
+  },
+  "A04-90": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/runtime.cpp",
+    "src/dictation/walkthrough_recording.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_runtime.cpp",
+    "tests/dictation/test_walkthrough_job.cpp"
+   ],
+   "note": "'walkthrough start explains recording, write-up and readiness refusals', 'walkthrough shortcut starts with the overlay kept out of screenshots'. src/walkthrough was being edited by another worker during this audit; read at the time of writing."
+  },
+  "A04-91": {
+   "status": "fixed",
+   "cpp": [
+    "src/walkthrough/runtime.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_runtime_texts.cpp",
+    "tests/walkthrough/test_runtime_copy_unsaved.cpp",
+    "tests/walkthrough/test_runtime.cpp"
+   ],
+   "note": "The texts were already right; the missing pins are added. 'Couldn't copy the screenshot' when copy_image returns false: tests/walkthrough/test_runtime_texts.cpp 'a screenshot the clipboard refuses says it couldn't be copied'; with the unsaved suffix: tests/walkthrough/test_runtime_copy_unsaved.cpp 'a screenshot neither copied nor saved says both'. The copied cases stay pinned in test_runtime.cpp."
+  },
+  "A04-92": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/runtime.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_runtime.cpp"
+   ],
+   "note": "'walkthrough shortcuts manage screenshot modes and countdown' ('Snapping in 3…'), 'tray waits before screenshot and a menu choice replaces a countdown' (300 ms), 'delayed snap can be taken early', 'pressing screenshot again keeps the open selection'."
+  },
+  "A04-93": {
+   "status": "fixed",
+   "cpp": [
+    "src/walkthrough/runtime.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_runtime_texts.cpp",
+    "tests/walkthrough/test_runtime.cpp"
+   ],
+   "note": "The three unpinned texts are now pinned in tests/walkthrough/test_runtime_texts.cpp: the caption 'Screenshot {n} added' ('each kept screenshot is captioned with its number'), the writer thread's 'Screenshot {n} couldn't be saved — the walkthrough keeps recording' reported on the UI thread with the walkthrough still recording ('a screenshot the writer could not save says the walkthrough keeps recording'), and 'Couldn't take a screenshot' for a failure without a reason ('a screenshot that failed without a reason says it couldn't be taken'). The code was already right."
+  },
+  "A04-94": {
+   "status": "fixed",
+   "cpp": [
+    "src/walkthrough/runtime.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_runtime_texts.cpp",
+    "tests/walkthrough/test_runtime.cpp"
+   ],
+   "note": "'Auto Mode couldn't watch for clicks. You can still use Snap.' is now pinned by tests/walkthrough/test_runtime_texts.cpp 'auto mode without a click hook says snap still works' (the walkthrough keeps recording). The code was already right; the macOS click hook is other-platform."
+  },
+  "A04-95": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/runtime.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_runtime.cpp"
+   ],
+   "note": "'stopping a walkthrough cancels its countdown', 'canceling or stopping a walkthrough resolves an open screenshot', 'ending a different recording leaves the walkthrough overlay alone'."
+  },
+  "A04-96": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/runtime.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_status_texts.cpp"
+   ],
+   "note": "\"the meeting hotkey ends a meeting or asks for the readiness gate\": with no meeting the hotkey emits meeting_platform_ack_requested once and builds nothing; with one running it ends it and asks nothing."
+  },
+  "A04-97": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/build_options.cpp",
+    "src/meeting/detail/runtime_start.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_status_texts.cpp"
+   ],
+   "note": "\"a demo meeting is built as OpenWhisper demo and says so\": build_options(cloud, demo) gives the title Demo Planning Sync, speaker backend local, no audio-upload consent and no end redecode even with those settings on (a normal build keeps them), and a demo start says \"Demo meeting loaded — End to test cleanup and the report\"."
+  },
+  "A04-98": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/runtime_start.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_start.cpp"
+   ],
+   "note": "Update/backup/engine-loading texts on meeting_status_update, 'Finish recording or transcription before starting a meeting' on the main status line ('a start saves the remembered AI insights choice and stops behind a recording'), gates re-checked after the leftover card is filed ('test_begin_start_files_leftover_card')."
+  },
+  "A04-99": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/runtime_start.cpp",
+    "src/meeting/detail/runtime_url.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_start.cpp",
+    "tests/meeting/test_runtime_card.cpp",
+    "tests/meeting/test_runtime_golden.cpp"
+   ],
+   "note": "Playback stopped, meeting_cloud_last_enabled saved, starting state, server_port 0 beside background engines (test_runtime_card), 'Meeting dashboard did not provide an address.' (_require_dashboard_address golden, 'a start without a dashboard address is aborted'), failed start rolls back and restores the engine. The Linux system-audio text is other-platform."
+  },
+  "A04-100": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/runtime_past.cpp",
+    "src/meeting/detail/runtime_recovery.cpp",
+    "src/meeting/detail/runtime_start.cpp",
+    "src/meeting/runtime_messages.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_status_texts.cpp",
+    "tests/meeting/test_runtime_consent.cpp"
+   ],
+   "note": "\"past meeting actions name what failed\" pins \"That meeting no longer exists\", \"The live meeting dashboard is unavailable\" and, with the database closed, \"Could not load the past meeting: \", \"Could not open the past meeting: \", \"Could not copy the transcript: \", \"Could not delete the meeting: \", \"Could not clear past meetings: \", \"Could not discard the meeting: \" (each with the error); resume and end are in A04-80, Keep for later in A04-102. \"Could not change AI insights: {e}\" was missing: the AI insights toggle (MeetingRuntime::set_live_intelligence) showed the engine bare refusal as a status line; it now emits Python _apply_cloud meeting_error with that prefix and still resyncs the toggle (\"test_toggle_cloud_with_consent_applies\")."
+  },
+  "A04-101": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/runtime_bridge.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_status_texts.cpp"
+   ],
+   "note": "\"intelligence events show online and offline\": {online: true} reads \"Meeting intelligence online\", {online: false} the offline line."
+  },
+  "A04-102": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/runtime_card.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_status_texts.cpp"
+   ],
+   "note": "\"keep for later refuses while a meeting runs and says when it could not save\": \"A meeting is already in progress\" with the deferral left unsaved, and \"Could not save this meeting for later\" when persisting fails (database closed)."
+  },
+  "A04-103": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/runtime_card.cpp",
+    "src/meeting/runtime_messages.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_card.cpp",
+    "tests/meeting/test_runtime_background_end.cpp",
+    "tests/ui_meeting/test_meeting_mode_tab.cpp"
+   ],
+   "note": "Handoff only when finalizing with the model freed ('test_background_handoff_waits_for_local_model_release'), outcomes 'needs attention' (test_runtime_card) and 'finished' (tab), kStillInBackground refusal, opening a background meeting's own dashboard ('test_open_background_meeting_reuses_its_processing_dashboard')."
+  },
+  "A04-104": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/runtime_past.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_titles.cpp"
+   ],
+   "note": "\"a dashboard that rejects a rename is the update_rejected ControlError\": retitle_saved_meeting throws \"update_rejected: The meeting title could not be changed.\" and the saved title is unchanged."
+  },
+  "A04-105": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/runtime_recovery.cpp",
+    "src/meeting/runtime_messages.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_recovery.cpp",
+    "tests/meeting/test_runtime_golden.cpp",
+    "tests/meeting/test_runtime_card.cpp"
+   ],
+   "note": "'test_recovery_scan_failure_is_visible_and_retryable', finalized / incomplete-capture / could-not-finalize / discarded outcomes, 'a recovery Finalize of an unknown meeting is an error, not a crash', follow-up step golden; restoring the last finalization at startup in test_runtime_card's restore cases."
+  },
+  "A04-106": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/runtime_past.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_status_texts.cpp"
+   ],
+   "note": "\"open report with nothing selected says what to do\": \"No meeting report is available. Select a meeting from Past Meetings.\" as meeting_error, nothing opened."
+  },
+  "A04-107": {
+   "status": "difference",
+   "difference": "a04-meeting-speaker-pass-desktop-only"
+  },
+  "A04-108": {
+   "status": "verified",
+   "cpp": [
+    "src/models/model_runtime.cpp"
+   ],
+   "tests": [
+    "tests/models/test_model_runtime.cpp"
+   ],
+   "note": "'the policy turning to always fetches the missing selected model', 'forget_runtime_prompts asks again...', fetch-only downloads leave the engine alone unless the file is the missing selected model, never during a meeting ('test_cache_fetch_does_not_revive_the_engine_during_a_...'), 'a download cut short by shutdown reports the cancel', 'test_optional_download_never_marks_engine_busy'."
+  },
+  "A04-109": {
+   "status": "verified",
+   "cpp": [
+    "src/models/model_runtime.cpp"
+   ],
+   "tests": [
+    "tests/models/test_model_runtime.cpp"
+   ],
+   "note": "\"Downloading model '{m}' from Hugging Face...\", \"Model '{m}' downloaded\", \"Model '{m}' is unavailable\", describe_model_download_error, batch_download_finished(succeeded, total). \"Model '{m}' failed to load (details in openwhisper.log).\" is the Whisper load-into-engine branch (catalog models never load there) and is dropped; the batch stop is a log line only."
+  },
+  "A04-111": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/messages.cpp",
+    "src/dictation/pipeline.cpp",
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_automation_pipeline.cpp",
+    "tests/dictation/test_golden.cpp",
+    "tests/golden/services.runtime.transcription.json"
+   ],
+   "note": "_reads_selection golden vectors; 'test_a_recording_reads_the_selection_only_when_the_user_started_it', 'test_a_program_run_never_reads_the_selection', 'test_only_a_job_the_user_started_asks_for_the_selection'."
+  },
+  "A04-112": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp",
+    "src/dictation/uploads.cpp",
+    "src/dictation/cleaner_port.cpp",
+    "src/dictation/cleanup_stage.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_uploads.cpp",
+    "tests/dictation/test_cleanup_runtime.cpp",
+    "tests/dictation/test_batch.cpp"
+   ],
+   "note": "Per-file batch context ('test_custom_batch_per_file_passes_instructions_to_each_cleanup'), the combined pass once with TRANSCRIPT_BATCH_CLEANUP_TIMEOUT_S = 120 ('test_sequential_batch_writes_one_row...' checks timeout_s), ' — AI cleanup failed (cleanup unavailable); showing raw text', 'snippet placeholder lost', the dictionary on uploads, HTML kept for the paste ('html reaches the clipboard stage')."
+  },
+  "A04-113": {
+   "status": "fixed",
+   "cpp": [
+    "src/dictation/recovery.cpp",
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_walkthrough_job.cpp",
+    "tests/dictation/test_runtime_audit.cpp"
+   ],
+   "note": "Attaching recovered audio and the walkthrough message winning were pinned ('startup recovery joins an interrupted walkthrough to its recovered audio'); the prune was not. Added 'startup recovery prunes walkthroughs past their retention'."
+  },
+  "A04-114": {
+   "status": "fixed",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_action_recording.cpp",
+    "tests/dictation/test_walkthrough_job.cpp",
+    "tests/dictation/test_cleanup_golden.cpp",
+    "tests/dictation/test_runtime_audit.cpp"
+   ],
+   "note": "Action target and walkthrough shots in Stats, and the empty walkthrough ending as no speech, were pinned; the retranscription flag was not. Added 'a retranscribed file is saved in History but not counted in Stats'."
+  },
+  "A04-115": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_notices.cpp",
+    "tests/dictation/test_command_notices.cpp"
+   ],
+   "note": "'plain dictation gets no notice', 'a failed rewrite shows its status near the pointer, unless canceled'; notice_requested is posted to the UI executor from any thread."
+  },
+  "A04-116": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/hotkey_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_hotkey_runtime.cpp"
+   ],
+   "note": "'while a shortcut is being captured the record key passes'."
+  },
+  "A04-117": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/runtime.cpp",
+    "src/dictation/walkthrough_recording.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_runtime.cpp",
+    "tests/dictation/test_walkthrough_job.cpp"
+   ],
+   "note": "Meeting/backup refusal through WalkthroughRecording::refuse_during_meeting (test_walkthrough_job 'the walkthrough recording port reaches the runtime and the recorder'), write-up and readiness refusals ('walkthrough start explains...'), pause status ('Walkthrough · Paused'), Snap-menu pick saved and taken ('walkthrough starts and chooses a screenshot mode')."
+  },
+  "A04-118": {
+   "status": "verified",
+   "cpp": [
+    "src/update/runtime.cpp",
+    "src/update/trust.cpp",
+    "src/ui_controller/update_presenter.cpp"
+   ],
+   "tests": [
+    "tests/update/test_runtime.cpp",
+    "tests/update/test_check.cpp",
+    "tests/ui_controller/test_update_presenter.cpp"
+   ],
+   "note": "The check runs on the jobs executor ('a manual check reports the release it found'), 'Could not check for updates.' fallback (test_check), automatic failures to the ambient line and manual ones to the dialog (test_update_presenter), unsaved times never check at once."
+  },
+  "A04-119": {
+   "status": "fixed",
+   "cpp": [
+    "src/remote_host/model_management.cpp",
+    "src/ui_controller/application_controller.cpp",
+    "src/remote/remote_backend.cpp"
+   ],
+   "tests": [
+    "tests/remote_host/test_model_management.cpp",
+    "tests/ui_controller/test_remote_engine_hooks.cpp"
+   ],
+   "note": "'Switching to {label} for {device}...' / 'Switching to {label}...': HostModelManager::select and configure pass the paired computer's name to EngineControl::reload_engine(note), which the controller shows as the reload's status ('the host's reload says which model it switches to and for which computer'). 'Updating the runtime on {host}...' and 'Switching {host} to {label}...': ApplicationController::select_remote_runtime / select_remote_model over plan_remote_runtime_change / plan_remote_model_switch ('a Model field choice switches the paired computer through the controller'). 'Couldn't switch models: {e}' belongs to Host Mode's own engine picker (select_host_model), which is the codex/cloud-remote-tabs branch's."
+  }
+ },
+ "differences": [
+  {
+   "id": "a04-meeting-insights-per-meeting",
+   "features": [
+    "A04-84",
+    "A04-78"
+   ],
+   "openwhisper": "Turning on AI insights, at a meeting's start or with the toggle during it, asks once for informed consent and stores meeting_cloud_consent_given; later starts and toggles go ahead without asking, and the toggle reports 'AI insights on' / 'AI insights off' ('AI insights stay off' when declined).",
+   "fiorivoce": "AI insights consent is asked for every meeting and names its destination (the agent route and its backup); none is stored and an earlier answer approves nothing. A declined start runs transcript-only; during a meeting AI insights turn on only with a desktop approval for that meeting's destination. The guest link ('No guest link available yet') is unchanged.",
+   "reason": "Sending a meeting's transcript to a hosted model or an installed agent is authorized per meeting and per destination, never by a stored grant.",
+   "source": "docs/port/open-items.md, the 'SSD integration branch' section (per-meeting external destinations); tests/meeting/test_runtime_consent.cpp ('every start with AI insights asks again and carries only its own approval', 'test_toggle_cloud_without_consent_reprompts')"
+  },
+  {
+   "id": "a04-meeting-speaker-pass-desktop-only",
+   "features": [
+    "A04-107",
+    "A04-82",
+    "MM-15"
+   ],
+   "openwhisper": "The post-meeting card offers a speaker re-run when the saved speaker backend is openai and audio-upload consent is stored (naming what blocks it otherwise), and retrying the speaker_id step uploads the meeting audio to OpenAI; the other retry gates (backup, local model first, one claim per generation, agent writes for the run, busy refusal) apply.",
+   "fiorivoce": "The retry gates are kept (tests/meeting/test_runtime_retry.cpp), but the card never offers a speaker re-run from saved settings and a retried speaker_id step uploads nothing; the optional OpenAI speaker pass runs only from the explicit Past Meetings action, approved for that one meeting each time, and sends only the system-audio recording.",
+   "reason": "Saved settings, stored consent, End and retries must not start an upload of meeting audio; each upload needs the user's fresh, explicit action.",
+   "source": "docs/port/open-items.md, the 'SSD integration branch' section and 'The optional OpenAI speaker pass runs from the desktop Past Meetings action'; tests/meeting/test_cloud_speakers.cpp ('each saved speaker pass asks again and sends only system audio after approval'), tests/meeting/test_runtime_consent.cpp ('the card never offers a speaker re-run from saved settings'), tests/meeting/test_runtime_retry.cpp ('test_desktop_speaker_retry_never_uploads_when_ineligible')"
+  },
+  {
+   "id": "a04-refused-stop-ends-preview",
+   "features": [
+    "A04-10"
+   ],
+   "openwhisper": "A stop whose job claim is refused (a backup, a host update or another job holds the slot) publishes recording_canceled, reports the busy notice and returns with the live preview still streaming over the stopped recording. Nothing stops it later, so the next recording's start_streaming refuses ('Streaming worker is still active') while start_streaming_session still shows the preview overlay, which then follows the old worker and its text.",
+   "fiorivoce": "The refused stop also stops the window preview (StreamingRuntime::stop_session), so the next recording starts a preview of its own and its overlay shows only its own text. The busy notice, the recording_canceled event and the empty overlay state are unchanged.",
+   "reason": "OpenWhisper's behaviour is a fault: no worker owns the refused recording, so its preview is never stopped and the next recording's preview is lost or shows the old text. No user relies on it.",
+   "source": "The lead's decision of 2026-11-19 on the A04-10 audit note; src/dictation/transcription_runtime.cpp stop_recording (the commented stop_session on a refused claim); tests/dictation/test_streaming_quit.cpp ('a stop refused as busy stops the preview for the next recording') and tests/dictation/test_streaming_runtime.cpp ('a stop that claims no job leaves the next recording its preview')"
+  },
+  {
+   "id": "a04-refused-preview-no-fallback",
+   "features": [
+    "A04-16",
+    "A04-63"
+   ],
+   "openwhisper": "When a recording's live-preview start is refused because the previous recording's window is still decoding, an empty final transcript falls back to the preview text the previous recording kept and shows it with 'No speech detected — showing the live preview (not saved)'.",
+   "fiorivoce": "A recording whose preview never started has no preview to fall back on and gets the empty-transcript message; the previous recording keeps its own fallback.",
+   "reason": "The kept text belongs to another recording.",
+   "source": "The dictation sweep of 2026-11-19 (open item dictation/streaming_runtime.cpp); src/dictation/streaming_runtime.cpp; tests/dictation/test_sweep_refused_preview.cpp ('a recording whose preview start was refused has no preview to fall back on', 'a refused recording stopped as busy leaves the previous recording its fallback')"
+  }
+ ]
+}

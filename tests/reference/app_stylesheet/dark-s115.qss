@@ -1,0 +1,6119 @@
+/* OpenWhisper theme. Every colour is a palette token (see
+   ui_qt/utils/palette.py) resolved at load time, so this one file describes
+   both the dark and the light theme. Soft greys, rounded surfaces, and vibrant
+   accents in the Apple idiom. */
+
+/* Main color palette */
+QMainWindow {
+    background-color: #1c1c1e; /* Apple Dark Mode Background */
+    color: #f5f5f7; /* Apple Text White */
+}
+
+QWidget {
+    background-color: #1c1c1e;
+    color: #f5f5f7;
+    font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+    font-size: 16px; /* Increased base font size */
+}
+
+/* Top-level dialogs */
+QDialog {
+    background-color: #1c1c1e;
+    color: #f5f5f7;
+}
+
+/* Standard buttons with modern styling */
+QPushButton {
+    background-color: #2c2c2e; /* Secondary System Fill */
+    color: #0a84ff; /* Apple System Blue */
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    font-size: 16px;
+    outline: none;
+}
+
+QPushButton:hover {
+    background-color: #3a3a3c;
+}
+
+QPushButton:pressed {
+    background-color: #1c1c1e;
+    color: #007aff; /* Darker Blue */
+}
+
+QPushButton:disabled {
+    color: #636366; /* Label Color Secondary */
+    background-color: #2c2c2e;
+}
+
+/* Primary action buttons (more prominent) */
+QPushButton#primaryButton {
+    background-color: #0a84ff;
+    color: #ffffff;
+    font-size: 17px;
+    padding: 12px 24px;
+}
+
+QPushButton#primaryButton:hover {
+    background-color: #007aff;
+}
+
+QPushButton#primaryButton:pressed {
+    background-color: #0062cc;
+}
+
+/* Outranks QPushButton:disabled above, which the primary and danger fills
+   beat: without it a disabled primary or danger action still looks clickable. */
+QPushButton#primaryButton:disabled,
+QPushButton#dangerButton:disabled {
+    background-color: #2c2c2e;
+    color: #636366;
+}
+
+/* Settings actions, chosen by property (ui_qt/widgets/buttons.py) so a button
+   keeps its own object name. A property selector ranks below the #id rules
+   above and below, so these never override the primary and danger buttons. */
+QPushButton[tone="neutral"] {
+    color: #f5f5f7;
+    background-color: transparent;
+    border: 1px solid #48484a;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+QPushButton[tone="neutral"]:hover {
+    background-color: #1c1c1e;
+    border-color: #545456;
+}
+
+QPushButton[tone="neutral"]:pressed {
+    background-color: #3a3a3c;
+}
+
+QPushButton[tone="neutral"]:disabled {
+    color: #636366;
+    background-color: transparent;
+    border-color: #2c2c2e;
+}
+
+QPushButton[tone="primary"] {
+    color: #ffffff;
+    background-color: #0a84ff;
+    border: 1px solid #0a84ff;
+    border-radius: 8px;
+    padding: 6px 16px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+QPushButton[tone="primary"]:hover {
+    background-color: #007aff;
+}
+
+QPushButton[tone="primary"]:pressed {
+    background-color: #0062cc;
+}
+
+QPushButton[tone="primary"]:disabled {
+    color: #636366;
+    background-color: #232325;
+    border-color: #3a3a3c;
+}
+
+QPushButton[tone="danger"] {
+    color: #ffffff;
+    background-color: #ff453a;
+    border: 1px solid #ff453a;
+    border-radius: 8px;
+    padding: 6px 16px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+QPushButton[tone="danger"]:hover {
+    background-color: #ff3b30;
+    border-color: #ff3b30;
+}
+
+QPushButton[tone="danger"]:pressed {
+    background-color: #d70015;
+    border-color: #d70015;
+}
+
+QPushButton[tone="danger"]:disabled {
+    color: #636366;
+    background-color: #232325;
+    border-color: #3a3a3c;
+}
+
+/* Danger buttons (for cancel/stop) */
+QPushButton#dangerButton {
+    background-color: #ff453a; /* Apple System Red */
+    color: #ffffff;
+}
+
+QPushButton#dangerButton:hover {
+    background-color: #ff3b30;
+}
+
+QPushButton#dangerButton:pressed {
+    background-color: #d70015;
+}
+
+/* Success buttons */
+QPushButton#successButton {
+    background-color: #30d158; /* Apple System Green */
+    color: #ffffff;
+}
+
+QPushButton#successButton:hover {
+    background-color: #28cd41;
+}
+
+QPushButton#successButton:pressed {
+    background-color: #1fb34a;
+}
+
+/* Warning buttons (yellow/amber) */
+QPushButton#warningButton {
+    background-color: #ff9f0a; /* Apple System Orange */
+    color: #ffffff;
+}
+
+QPushButton#warningButton:hover {
+    background-color: #ff9500;
+}
+
+QPushButton#warningButton:pressed {
+    background-color: #cc7700;
+}
+
+QPushButton#successButton[inactive="true"],
+QPushButton#successButton[inactive="true"]:hover,
+QPushButton#successButton[inactive="true"]:pressed {
+    background-color: rgba(48, 209, 88, 0.28);
+    color: rgba(255, 255, 255, 0.55);
+}
+
+/* Start Meeting while it has to wait (the last meeting still holds the
+   speech model, or another mode is recording): washed out, like inactive. */
+QPushButton#successButton[buttonId="meetingStart"]:disabled {
+    background-color: rgba(48, 209, 88, 0.28);
+    color: rgba(255, 255, 255, 0.55);
+}
+
+/* Stop and Cancel while nothing is recording: a neutral outline, so only
+   the action that applies now wears a colour. A tinted fill read as live. */
+QPushButton#dangerButton[inactive="true"],
+QPushButton#dangerButton[inactive="true"]:hover,
+QPushButton#dangerButton[inactive="true"]:pressed,
+QPushButton#warningButton[inactive="true"],
+QPushButton#warningButton[inactive="true"]:hover,
+QPushButton#warningButton[inactive="true"]:pressed {
+    background-color: #2c2c2e;
+    color: #636366;
+    border: 1px solid #3a3a3c;
+}
+
+/* ComboBox (Model selector) */
+QComboBox {
+    background-color: #2c2c2e;
+    color: #f5f5f7;
+    border: 1px solid #3a3a3c;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 16px;
+    selection-background-color: #0a84ff;
+}
+
+QComboBox::drop-down {
+    border: none;
+    background-color: transparent;
+    width: 24px;
+}
+
+/* The chevron's stroke is #8e8e93; the Settings family swaps in the
+   slate one below. */
+QComboBox::down-arrow {
+    image: url(:/ui_theme/assets/tabler/chevron-down-gray.svg);
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+}
+
+QComboBox QAbstractItemView {
+    background-color: #2c2c2e;
+    color: #f5f5f7;
+    selection-background-color: #0a84ff;
+    border: 1px solid #3a3a3c;
+    border-radius: 8px;
+    outline: none;
+    padding: 4px;
+}
+
+/* Label styling. Transparent so a label never paints QWidget's #1c1c1e over
+   whatever card, rail, or dialog surface it sits on. */
+QLabel {
+    background-color: transparent;
+    color: #f5f5f7;
+    font-size: 16px;
+}
+
+QLabel#headerLabel {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 21px; /* Larger headers */
+    background-color: transparent;
+}
+
+QLabel#statusLabel {
+    color: #8e8e93; /* Secondary Label Color */
+    font-size: 15px;
+}
+
+
+/* Section headings inside dialogs and panels */
+QLabel#sectionLabel {
+    color: #8e8e93;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+/* Small hint/help text under controls */
+QLabel#infoLabel {
+    color: #8e8e93;
+    font-size: 14px;
+    background-color: transparent;
+}
+
+/* Text input fields */
+QLineEdit {
+    background-color: #2c2c2e;
+    color: #f5f5f7;
+    border: 1px solid #3a3a3c;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 16px;
+    selection-background-color: #0a84ff;
+}
+
+QLineEdit:focus {
+    border: 1px solid #0a84ff;
+}
+
+/* Model Manager — rail and stack; Downloads shares the same surfaces */
+QDialog#settingsDialog,
+QDialog#componentDetailsDialog,
+QDialog#batchDownloadDialog,
+QDialog#remoteRecordRecoveryDialog,
+QDialog#pairRequestDialog {
+    background-color: #1c1c1e;
+}
+
+QDialog#pairRequestDialog QLabel#pairRequestCode {
+    background-color: #2c2c2e;
+    border: 1px solid #3a3a3c;
+    border-radius: 10px;
+    color: #f5f5f7;
+    padding: 10px 16px;
+}
+
+QDialog#remoteRecordRecoveryDialog QLabel,
+QDialog#pairRequestDialog QLabel {
+    background-color: transparent;
+    color: #d1d1d6;
+    border: none;
+}
+
+QWidget#modelManagerBody,
+QWidget#modelManagerStack,
+QWidget#downloadsModelsSection,
+QWidget#downloadsCatalogColumn,
+QWidget#downloadsSelectionBar,
+QWidget#downloadsListContainer,
+QWidget#downloadsInspectorContent {
+    background-color: transparent;
+}
+
+/* Each page in the stack sits directly on the dialog surface. Without this
+   the generic QWidget #1c1c1e frames the whole page in a box of a different grey
+   against the #1c1c1e body, visible in every Settings section. */
+QWidget#modelManagerStack > QWidget {
+    background-color: transparent;
+}
+
+/* Let the page surface show through the scroll area, its viewport, and the
+   scrolled content (the three-level selector Qt needs for the latter two).
+   Otherwise the default widget grey frames every card in a lighter inset. */
+QScrollArea#settingsPageScroll,
+QScrollArea#settingsPageScroll > QWidget,
+QScrollArea#settingsPageScroll > QWidget > QWidget,
+#downloadsPage QScrollArea,
+#downloadsPage QScrollArea > QWidget,
+#downloadsPage QScrollArea > QWidget > QWidget,
+QScrollArea#transcriptionTabScrollArea,
+QScrollArea#transcriptionTabScrollArea > QWidget,
+QScrollArea#transcriptionTabScrollArea > QWidget > QWidget,
+QScrollArea#meetingLinuxAudioScroll,
+QScrollArea#meetingLinuxAudioScroll > QWidget,
+QScrollArea#meetingLinuxAudioScroll > QWidget > QWidget {
+    background-color: transparent;
+    border: none;
+}
+
+/* The rail sits a shade darker than the body, so the page reads as the
+   working surface and the rail as chrome. */
+QWidget#modelManagerRailPane {
+    background-color: #161618;
+}
+
+QSplitter#settingsSplitter::handle:horizontal {
+    background-color: transparent;
+    border-left: 1px solid #2c2c2e;
+}
+
+QSplitter#settingsSplitter::handle:horizontal:hover {
+    background-color: #2c2c2e;
+    border-left: 1px solid #3a3a3c;
+}
+
+
+QListWidget#modelManagerRail {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 0px 11px;
+}
+
+/* Item widgets paint the selection, so the view's own item states must not. */
+QListWidget#modelManagerRail::item,
+QListWidget#modelManagerRail::item:selected,
+QListWidget#modelManagerRail::item:hover {
+    background: transparent;
+    border: none;
+}
+
+QWidget#modelManagerRailItem {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 9px;
+}
+
+QWidget#modelManagerRailItem:hover {
+    background-color: #2c2c2e;
+    border-color: #3a3a3c;
+}
+
+QWidget#modelManagerRailItem[selected="true"] {
+    background-color: #142130;
+    border-color: #318dff;
+}
+
+QLabel#modelManagerRailIcon {
+    background-color: transparent;
+    border: none;
+}
+
+QLabel#modelManagerRailName {
+    color: #d1d1d6;
+    background-color: transparent;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+QLabel#modelManagerRailName[selected="true"] {
+    color: #f5f5f7;
+}
+
+QLabel#modelManagerRailValue {
+    color: #757579;
+    background-color: transparent;
+    border: none;
+    font-size: 13px;
+}
+
+QLabel#modelManagerRailValue[selected="true"] {
+    color: #6fb1ff;
+}
+
+QLabel#localModelPickerCaption {
+    color: #98989d;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+}
+
+/* The Settings field look. `SettingsDialog QComboBox` is the default for every
+   dropdown in Settings (a type selector, so it outranks the main window's bare
+   QComboBox but not any #name rule); without it a combo with no styled name
+   fell back to the main window's grey fill. The names keep the look elsewhere. */
+SettingsDialog QComboBox,
+QComboBox#localModelPickerCombo,
+QComboBox#ondemandEngineCombo,
+QComboBox#meetingLanguageCombo,
+QComboBox#meetingSpeakerIdCombo,
+QComboBox#meetingAgentCoreCombo,
+QComboBox#libraryDeviceCombo,
+QComboBox#libraryComputeCombo {
+    color: #f5f5f7;
+    background-color: #1c1c1e;
+    border: 1px solid #48484a;
+    border-radius: 9px;
+    font-size: 15px;
+    padding-left: 12px;
+    padding-right: 32px;
+}
+
+QPushButton#localModelPickerManage {
+    color: #0a84ff;
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    padding: 2px 4px;
+}
+
+QPushButton#localModelPickerManage:hover {
+    text-decoration: underline;
+}
+
+QLabel#modelRowUsage {
+    background-color: rgba(10, 132, 255, 0.10);
+    color: #6fb1ff;
+    border: 1px solid rgba(10, 132, 255, 0.22);
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+QWidget#textModelPicker {
+    background-color: transparent;
+}
+
+QLabel#modelManagerTitle {
+    color: #f5f5f7;
+    font-size: 23px;
+    font-weight: 700;
+    background-color: transparent;
+    border: none;
+}
+
+QLabel#modelManagerSubtitle {
+    color: #98989d;
+    font-size: 15px;
+    background-color: transparent;
+    border: none;
+}
+
+/* Under every Settings page heading; pages scroll beneath it. */
+QFrame#settingsPageHeaderDivider {
+    background-color: #2c2c2e;
+    border: none;
+}
+
+QLabel#textProviderUrl {
+    color: #757579;
+    font-size: 13px;
+    font-family: Consolas, "Cascadia Mono", "SF Mono", monospace;
+    background-color: transparent;
+    border: none;
+}
+
+QPushButton#textEndpointEditButton,
+QPushButton#textEndpointDeleteButton {
+    color: #d1d1d6;
+    background-color: #2c2c2e;
+    border: 1px solid #48484a;
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-size: 14px;
+}
+
+QPushButton#textEndpointEditButton:hover,
+QPushButton#textEndpointDeleteButton:hover {
+    color: #f5f5f7;
+    background-color: #1c1c1e;
+    border-color: #545456;
+}
+
+QPushButton#textEndpointEditButton:disabled,
+QPushButton#textEndpointDeleteButton:disabled {
+    color: #757579;
+    border-color: #2c2c2e;
+}
+
+QDialog#textEndpointDialog {
+    background-color: #1c1c1e;
+}
+
+QLabel#textEndpointError {
+    color: #ff6961;
+    font-size: 14px;
+    background-color: transparent;
+    border: none;
+}
+
+QLabel#textModelStatus,
+QLabel#textModelFootnote {
+    color: #98989d;
+    font-size: 14px;
+    background-color: transparent;
+    border: none;
+}
+
+QLabel#textProviderCredentialIcon,
+QLabel#textModelFootnoteIcon {
+    background-color: transparent;
+    border: none;
+}
+
+QLabel#textProviderRequirement {
+    color: #e0a052;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+QLabel#textProviderRequirement[available="true"] {
+    color: #30d158;
+}
+
+QLabel#apiKeyStatus {
+    color: #e0a052;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+}
+
+QLabel#apiKeyStatus[tone="success"] {
+    color: #30d158;
+}
+
+/* Only the key itself; the placeholder keeps the normal field font. */
+QLineEdit#apiKeyInput[hasText="true"] {
+    font-family: "Cascadia Mono", "Consolas", "Menlo", monospace;
+    letter-spacing: 1px;
+}
+
+QWidget#modelManagerFieldGroup {
+    background-color: transparent;
+}
+
+QLabel#textModelFieldLabel {
+    color: #98989d;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: transparent;
+    border: none;
+}
+
+QComboBox#textModelProviderCombo,
+QComboBox#textModelSort,
+QComboBox#textModelCombo {
+    color: #f5f5f7;
+    background-color: #1c1c1e;
+    border: 1px solid #48484a;
+    border-radius: 9px;
+    font-size: 16px;
+    padding-left: 12px;
+    padding-right: 32px;
+}
+
+QComboBox#textModelProviderCombo {
+    font-weight: 600;
+}
+
+QComboBox#textModelProviderCombo:focus,
+QComboBox#textModelSort:focus,
+QComboBox#textModelCombo:focus {
+    border-color: #0a84ff;
+}
+
+/* Every combo in Settings takes the slate chevron at the standard size,
+   engine fields included (their own rule is smaller). */
+QDialog#settingsDialog QComboBox::down-arrow {
+    image: url(:/ui_theme/assets/tabler/chevron-down-slate.svg);
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+}
+
+QFrame#textModelGroupSeparator {
+    background-color: transparent;
+    border: none;
+    border-top: 1px solid #2c2c2e;
+}
+
+QFrame#textModelFootnoteCard {
+    background-color: #2c2c2e;
+    border: 1px solid #3a3a3c;
+    border-radius: 10px;
+}
+
+QLabel#modelManagerMessage {
+    color: #98989d;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+}
+
+QPushButton#modelManagerCloseButton {
+    color: #d1d1d6;
+    background-color: #1c1c1e;
+    border: 1px solid #48484a;
+    border-radius: 9px;
+    font-size: 15px;
+}
+
+QPushButton#modelManagerCloseButton:hover {
+    color: #f5f5f7;
+    background-color: #3a3a3c;
+    border-color: #545456;
+}
+
+QLineEdit#modelManagerSearch,
+QComboBox#modelManagerSort,
+QComboBox#modelManagerBackendFilter,
+QComboBox#modelManagerStatusFilter {
+    color: #f5f5f7;
+    background-color: #1c1c1e;
+    border: 1px solid #48484a;
+    min-height: 32px;
+    max-height: 32px;
+    border-radius: 8px;
+    padding: 4px 12px;
+    font-size: 14px;
+}
+
+QLineEdit#modelManagerSearch:focus,
+QComboBox#modelManagerSort:focus,
+QComboBox#modelManagerBackendFilter:focus,
+QComboBox#modelManagerStatusFilter:focus {
+    border-color: #0a84ff;
+}
+
+/* The search field shares its row with three eliding combos. These minimums
+   are content widths (padding and border are added on top), and their sum
+   must fit the catalog column at the window's minimum size under a large
+   font scale: the combos elide long items rather than squeeze the search. */
+QLineEdit#modelManagerSearch {
+    min-width: 90px;
+}
+
+QComboBox#modelManagerSort {
+    min-width: 115px;
+    padding-right: 28px;
+}
+
+QComboBox#modelManagerBackendFilter {
+    min-width: 100px;
+    padding-right: 28px;
+}
+
+QComboBox#modelManagerStatusFilter {
+    min-width: 105px;
+    padding-right: 28px;
+}
+
+QLabel#downloadsEnvBanner {
+    color: #ff9f0a;
+    background-color: rgba(255, 159, 10, 0.1);
+    border: 1px solid rgba(255, 159, 10, 0.35);
+    border-radius: 8px;
+    padding: 8px 12px;
+}
+
+/* Settings › Downloads — catalog list plus the model profile inspector that
+   replaced the separate Model Details dialog. */
+QLabel#downloadsTitle {
+    color: #f5f5f7;
+    background-color: transparent;
+    border: none;
+    font-size: 23px;
+    font-weight: 700;
+}
+
+QLabel#downloadsSubtitle,
+QLabel#downloadsMessage {
+    color: #98989d;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+}
+
+QFrame#downloadsInspector {
+    background-color: #2c2c2e;
+    border: 1px solid #3a3a3c;
+    border-radius: 12px;
+}
+
+/* Same voice as the Settings tile group captions. */
+QLabel#downloadsEyebrow {
+    color: #98989d;
+    background-color: transparent;
+    border: none;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+QLabel#downloadsInspectorName {
+    color: #f5f5f7;
+    background-color: transparent;
+    border: none;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+QLabel#downloadsInspectorTags,
+QLabel#downloadsInspectorUsage {
+    color: #6fb1ff;
+    background-color: rgba(10, 132, 255, 0.12);
+    border: 1px solid rgba(10, 132, 255, 0.25);
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+QLabel#downloadsSectionTitle {
+    color: #f5f5f7;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+QLabel#downloadsInspectorBody,
+QLabel#downloadsFactValue {
+    color: #d1d1d6;
+    background-color: transparent;
+    border: none;
+    font-size: 13px;
+}
+
+QLabel#downloadsFactLabel {
+    color: #757579;
+    background-color: transparent;
+    border: none;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+QLabel#downloadsSourceNote {
+    color: #757579;
+    background-color: transparent;
+    border: none;
+    font-size: 12px;
+}
+
+QPushButton#downloadsRepoButton,
+QPushButton#downloadsOriginButton,
+QPushButton#downloadsLicenseButton,
+QPushButton#downloadsToolButton {
+    color: #d1d1d6;
+    background-color: #1c1c1e;
+    border: 1px solid #48484a;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+QPushButton#downloadsRepoButton:hover,
+QPushButton#downloadsOriginButton:hover,
+QPushButton#downloadsLicenseButton:hover,
+QPushButton#downloadsToolButton:hover {
+    color: #f5f5f7;
+    background-color: #3a3a3c;
+    border-color: #545456;
+}
+
+QFrame#downloadsComponentStrip {
+    background-color: transparent;
+    border: none;
+    border-top: 1px solid #2c2c2e;
+}
+
+/* The batch action sits in a 34 px toolbar row, so it drops the
+   primary button's dialog-scale padding. */
+QWidget#downloadsPage QPushButton#primaryButton {
+    font-size: 15px;
+    padding: 6px 16px;
+    border-radius: 8px;
+}
+
+/* "Download selected" with nothing ticked: the MCP page's disabled look.
+   The padding gives up the border's pixel so the button keeps its size. */
+QWidget#downloadsPage QPushButton#primaryButton:disabled {
+    color: #636366;
+    background-color: #232325;
+    border: 1px solid #3a3a3c;
+    padding: 5px 15px;
+}
+
+/* Batch selection in the Downloads window: flat link actions, running
+   total, and the multi-model confirmation. */
+QWidget#downloadsSelectionBar {
+    background-color: transparent;
+}
+
+QPushButton#downloadsFlatButton {
+    color: #6fb1ff;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 2px 4px;
+}
+
+QPushButton#downloadsFlatButton:hover {
+    color: #6fb1ff;
+}
+
+QPushButton#downloadsFlatButton:disabled {
+    color: #636366;
+}
+
+QLabel#downloadsSelectionSummary {
+    color: #98989d;
+    background-color: transparent;
+    border: none;
+    font-size: 13px;
+}
+
+QLabel#batchModelList {
+    color: #d1d1d6;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+}
+
+QLabel#batchTotalLabel {
+    color: #f5f5f7;
+    background-color: transparent;
+    border: none;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+QLabel#batchDestPath {
+    color: #d1d1d6;
+    background-color: #1c1c1e;
+    border: 1px solid #48484a;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 13px;
+}
+
+/* Settings > General: one rounded tile per on/off setting. The tile, not
+   just the indicator, is the click target, so hover tells the user the whole
+   card reacts. The switch alone shows on/off; the card keeps its colour. */
+QLabel#settingsTileGroupTitle {
+    color: #d1d1d6;
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    padding-top: 4px;
+}
+
+QFrame#settingsTile {
+    background-color: #2c2c2e;
+    border: 1px solid #3a3a3c;
+    border-radius: 12px;
+}
+
+QFrame#settingsTile:hover {
+    background-color: #323234;
+    border-color: #48484a;
+}
+
+/* Value tiles are not click targets, so they keep the resting colors. */
+QFrame#settingsTile[kind="field"]:hover {
+    background-color: #2c2c2e;
+    border-color: #3a3a3c;
+}
+
+/* Callout for a page locked by a setting on another destination. */
+QFrame#settingsTile[kind="notice"] {
+    background-color: #2b2118;
+    border-color: #64491f;
+}
+
+QFrame#settingsTile[kind="notice"]:hover {
+    background-color: #2b2118;
+    border-color: #64491f;
+}
+
+QWidget#settingsTileBody,
+QWidget#settingsTileText,
+QWidget#recordingLookParts,
+QWidget#remoteSection,
+QWidget#remotePairRow,
+QWidget#remotePairedRow,
+QWidget#remotePairingBox,
+QWidget#remoteFindList,
+QWidget#remoteFindRow,
+QWidget#remoteWaitBox,
+QWidget#remoteCredentialRecovery,
+QWidget#remoteCredentialActions,
+QWidget#remoteHostNotes,
+QWidget#remoteHostNoteRow,
+QWidget#remoteDevicesList,
+QWidget#remoteDeviceRow,
+QLabel#remoteClientMessage,
+QLabel#remoteTailscaleHint,
+QLabel#remoteFindMessage,
+QLabel#remoteFindLabel,
+QLabel#remoteFindNote,
+QLabel#remoteWaitLabel,
+QLabel#remoteWaitCode,
+QLabel#remoteCredentialHelp,
+QLabel#remotePairingCode,
+QLabel#remotePairingExpiry,
+QLabel#remoteHostStatus,
+QLabel#remoteHostIdentity,
+QLabel#remoteHostNote,
+QLabel#remoteDeviceLabel,
+QLabel#remoteStorageStatus {
+    background-color: transparent;
+}
+
+QLabel#settingsTileFieldLabel {
+    color: #d1d1d6;
+    background-color: transparent;
+    border: none;
+    font-size: 15px;
+}
+
+/* The overlay label switches' captions sit on the tile, not the page. */
+QWidget#recordingLookParts QLabel {
+    background-color: transparent;
+}
+
+QFrame#settingsTile QLabel#settingsTileGroupTitle,
+QFrame#settingsTile QLabel#infoLabel {
+    padding-top: 0;
+}
+
+QFrame#settingsTile:disabled {
+    background-color: #232325;
+    border-color: #2c2c2e;
+}
+
+QLabel#settingsTileIcon {
+    background-color: transparent;
+    border: none;
+}
+
+QLabel#settingsTileTitle {
+    color: #f5f5f7;
+    background-color: transparent;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+QLabel#settingsTileDescription {
+    color: #98989d;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+}
+
+QLabel#settingsTileTitle:disabled,
+QLabel#settingsTileDescription:disabled {
+    color: #636366;
+}
+
+QFrame#settingsTile QCheckBox::indicator:disabled {
+    background-color: #232325;
+    border-color: #3a3a3c;
+}
+
+QFrame#settingsTile QCheckBox::indicator:checked:disabled {
+    background-color: #24425f;
+    border-color: #24425f;
+}
+
+/* MCP keeps connection controls and optional permissions together, while
+   advanced fields and individual grants expand only when needed. Surfaces use
+   the theme's tint tokens so state (running, error) reads as colour, not as
+   another outlined box. */
+QWidget#mcpSettingsPage,
+QWidget#mcpSettingsView,
+QWidget#mcpHostArea,
+QWidget#mcpCopyField,
+QWidget#mcpConnection,
+QWidget#mcpDisclosure,
+QWidget#mcpDisclosureBody,
+QWidget#mcpSettingsPermissions,
+QWidget#mcpAdaptiveRow,
+QWidget#mcpSettingsView QLabel,
+QWidget#mcpSettingsPage QLabel {
+    background-color: transparent;
+    border: none;
+}
+
+QFrame#mcpCard,
+QFrame#mcpGate,
+QFrame#mcpServerBar {
+    background-color: #2c2c2e;
+    border: 1px solid #2c2c2e;
+    border-radius: 14px;
+}
+
+QFrame#mcpServerBar[state="running"] {
+    background-color: rgba(48, 209, 88, 0.10);
+    border-color: rgba(48, 209, 88, 0.38);
+}
+
+QFrame#mcpServerBar[state="error"] {
+    background-color: rgba(255, 69, 58, 0.10);
+    border-color: rgba(255, 69, 58, 0.38);
+}
+
+QFrame#mcpGate QLabel {
+    background-color: transparent;
+    border: none;
+}
+
+QWidget#mcpSettingsPage QLabel#mcpStatusText {
+    color: #d1d1d6;
+    font-size: 16px;
+}
+
+QLabel#mcpCardTitle {
+    color: #f5f5f7;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+QLabel#mcpSectionLabel {
+    color: #f5f5f7;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+QLabel#mcpFieldLabel {
+    color: #98989d;
+    font-size: 14px;
+}
+
+QWidget#mcpSettingsPage QLabel#mcpIncluded {
+    color: #30d158;
+    background-color: rgba(48, 209, 88, 0.14);
+    border: 1px solid rgba(48, 209, 88, 0.30);
+    border-radius: 10px;
+    padding: 2px 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+QWidget#mcpSettingsPage QLabel#mcpNote {
+    color: #98989d;
+    background-color: #1c1c1e;
+    border: 1px solid #2c2c2e;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 14px;
+}
+
+QLabel#mcpNotice {
+    color: #d1d1d6;
+    font-size: 15px;
+}
+
+QWidget#mcpChoiceBar {
+    background-color: #1c1c1e;
+    border: 1px solid #2c2c2e;
+    border-radius: 11px;
+}
+
+QPushButton#mcpChoice {
+    color: #d1d1d6;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 0;
+}
+
+/* The chooser is also used outside the MCP page, so its labels must not
+   depend on a page-level transparent-label rule. */
+QPushButton#mcpChoice QLabel {
+    background-color: transparent;
+    border: none;
+}
+
+QLabel#mcpChoiceTitle {
+    color: #d1d1d6;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+QLabel#mcpChoiceDetail {
+    color: #98989d;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+QPushButton#mcpChoice:hover {
+    background-color: #3a3a3c;
+}
+
+QPushButton#mcpChoice:focus {
+    border-color: #0a84ff;
+}
+
+QPushButton#mcpChoice:checked {
+    color: #f5f5f7;
+    background-color: rgba(10, 132, 255, 0.18);
+    border-color: rgba(10, 132, 255, 0.55);
+}
+
+QLabel#mcpChoiceTitle[selected="true"] {
+    color: #0a84ff;
+}
+
+QPushButton#mcpChoice:disabled {
+    color: #636366;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+QPushButton#mcpChoice:checked:disabled {
+    background-color: #3a3a3c;
+}
+
+QLabel#mcpChoiceTitle:disabled,
+QLabel#mcpChoiceTitle[selected="true"]:disabled,
+QLabel#mcpChoiceDetail:disabled {
+    color: #636366;
+}
+
+QWidget#mcpSettingsPage QPushButton#primaryButton {
+    font-size: 15px;
+    padding: 8px 18px;
+    border: 1px solid #0a84ff;
+}
+
+QWidget#mcpSettingsPage QPushButton#primaryButton:disabled {
+    color: #636366;
+    background-color: #232325;
+    border-color: #3a3a3c;
+}
+
+QPushButton#mcpCopyButton {
+    color: #f5f5f7;
+    background-color: #1c1c1e;
+    border: 1px solid #3a3a3c;
+    padding: 8px 14px;
+    font-size: 15px;
+}
+
+QPushButton#mcpCopyButton:hover,
+QPushButton#mcpCopyButton:focus,
+QWidget#mcpSettingsPage QPushButton#primaryButton:focus {
+    border-color: #6fb1ff;
+}
+
+QPushButton#mcpCopyButton:disabled {
+    color: #636366;
+    border-color: #2c2c2e;
+}
+
+QToolButton#mcpDisclosureToggle {
+    color: #d1d1d6;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 6px 8px;
+    font-size: 15px;
+    text-align: left;
+}
+
+QToolButton#mcpDisclosureToggle[group="true"] {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 6px 0;
+    font-weight: 600;
+}
+
+QToolButton#mcpDisclosureToggle:hover {
+    color: #f5f5f7;
+    background-color: #1c1c1e;
+}
+
+QToolButton#mcpDisclosureToggle:focus {
+    color: #f5f5f7;
+    border-color: #0a84ff;
+}
+
+QToolButton#mcpDisclosureToggle:disabled {
+    color: #636366;
+}
+
+QFrame#mcpPermissionRow {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #2c2c2e;
+    border-radius: 0;
+}
+
+QWidget#mcpSettingsPage QLineEdit,
+QWidget#mcpSettingsPage QPlainTextEdit {
+    color: #f5f5f7;
+    background-color: #1c1c1e;
+    border: 1px solid #3a3a3c;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 15px;
+}
+
+QWidget#mcpSettingsPage QLineEdit:disabled {
+    color: #636366;
+}
+
+QWidget#mcpSettingsPage QCheckBox {
+    color: #d1d1d6;
+    font-size: 14px;
+    spacing: 8px;
+}
+
+QWidget#mcpSettingsPage QCheckBox:disabled {
+    color: #636366;
+}
+
+/* Backup cards contain nested form wrappers and labels. The global QWidget
+   background otherwise paints opaque strips across the card surface. */
+QWidget#backupSettingsPage,
+QWidget#backupScheduleBody,
+QWidget#backupScheduleFields,
+QWidget#backupFieldGroup,
+QWidget#backupDestinationRow,
+QWidget#backupActionRow,
+QWidget#backupCalendar,
+QWidget#backupSettingsPage QLabel,
+QWidget#backupSettingsPage QCheckBox {
+    background-color: transparent;
+}
+
+QWidget#backupSettingsPage QLabel {
+    border: none;
+    color: #98989d;
+    font-size: 14px;
+}
+
+QWidget#backupSettingsPage QFrame#settingsTile {
+    border-radius: 14px;
+}
+
+QWidget#backupSettingsPage QFrame#settingsTile[backupCard="create"] {
+    border-color: #2a5382;
+}
+
+/* Restates the standard card title over the page's caption rule above. */
+QWidget#backupSettingsPage QLabel#settingsTileTitle {
+    color: #f5f5f7;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+QWidget#backupSettingsPage QLabel#backupLastCreated,
+QWidget#backupSettingsPage QLabel#backupScheduleSummary {
+    color: #d1d1d6;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+QWidget#backupSettingsPage QCheckBox {
+    color: #d1d1d6;
+    font-size: 15px;
+    spacing: 8px;
+}
+
+QWidget#backupSettingsPage QLineEdit,
+QWidget#backupSettingsPage QComboBox,
+QWidget#backupSettingsPage QSpinBox {
+    background-color: #1c1c1e;
+    color: #f5f5f7;
+    border: 1px solid #48484a;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 15px;
+    min-height: 20px;
+}
+
+QWidget#backupSettingsPage QComboBox {
+    padding-right: 30px;
+}
+
+QWidget#backupSettingsPage QLineEdit:focus,
+QWidget#backupSettingsPage QComboBox:focus,
+QWidget#backupSettingsPage QSpinBox:focus {
+    border-color: #0a84ff;
+}
+
+QWidget#backupSettingsPage QPushButton {
+    color: #d1d1d6;
+    background-color: #3a3a3c;
+    border: 1px solid #48484a;
+    border-radius: 8px;
+    padding: 9px 14px;
+    font-size: 15px;
+}
+
+QWidget#backupSettingsPage QPushButton:hover {
+    background-color: #323234;
+    border-color: #545456;
+    color: #f5f5f7;
+}
+
+QWidget#backupSettingsPage QPushButton#backupCreateButton,
+QWidget#backupSettingsPage QPushButton#backupRestoreButton {
+    color: #ffffff;
+    background-color: #0a84ff;
+    border-color: #0a84ff;
+}
+
+QWidget#backupSettingsPage QPushButton#backupCreateButton:hover,
+QWidget#backupSettingsPage QPushButton#backupRestoreButton:hover {
+    background-color: #007aff;
+    border-color: #007aff;
+}
+
+QWidget#backupSettingsPage QPushButton:disabled,
+QWidget#backupSettingsPage QPushButton#backupCreateButton:disabled,
+QWidget#backupSettingsPage QPushButton#backupRestoreButton:disabled,
+QWidget#backupSettingsPage QLineEdit:disabled,
+QWidget#backupSettingsPage QSpinBox:disabled {
+    background-color: #232325;
+    color: #636366;
+    border-color: #2c2c2e;
+}
+
+QWidget#backupSettingsPage QPushButton#calendarMonthTitle {
+    color: #f5f5f7;
+    background: transparent;
+    border: none;
+    padding: 0px 24px 0px 8px;
+    text-align: left;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+QWidget#backupSettingsPage QToolButton#backupCalendarToday {
+    background-color: rgba(10, 132, 255, 0.14);
+    color: #6fb1ff;
+    border: 1px solid rgba(10, 132, 255, 0.3);
+    border-radius: 12px;
+    padding: 3px 12px;
+    min-height: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+QWidget#backupSettingsPage QToolButton#backupCalendarToday:hover,
+QWidget#backupSettingsPage QToolButton#backupCalendarToday:focus {
+    background-color: rgba(10, 132, 255, 0.24);
+}
+
+QWidget#backupSettingsPage QToolButton#backupCalendarNav {
+    background-color: transparent;
+    color: #d1d1d6;
+    border: 1px solid #3a3a3c;
+    border-radius: 6px;
+    padding: 4px 8px;
+    min-height: 20px;
+    font-size: 14px;
+}
+
+QWidget#backupSettingsPage QToolButton#backupCalendarNav:hover,
+QWidget#backupSettingsPage QToolButton#backupCalendarNav:focus {
+    background-color: #3a3a3c;
+    border-color: #318dff;
+}
+
+QWidget#backupSettingsPage QLabel#backupCalendarLatest {
+    color: #30d158;
+    font-size: 13px;
+}
+
+QWidget#backupSettingsPage QLabel#backupCalendarPlanned {
+    color: #6fb1ff;
+    font-size: 13px;
+}
+
+/* Meeting intelligence: who runs AI insights. The tiles paint their own
+   cards (lift, glow, scan shimmer); these rules set their type. */
+QWidget#agentPicker,
+QWidget#agentModelSection,
+QWidget#agentTileGrid,
+QWidget#agentTile {
+    background-color: transparent;
+}
+
+QWidget#agentMark {
+    font-size: 15px;
+}
+
+QWidget#agentStatusPill {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+QLabel#agentTileName {
+    color: #f5f5f7;
+    background-color: transparent;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+QLabel#agentTileName[muted="true"] {
+    color: #98989d;
+}
+
+QLabel#agentTileDetail {
+    color: #98989d;
+    background-color: transparent;
+    font-size: 14px;
+}
+
+QLabel#agentTileDetail[tone="muted"] {
+    color: #757579;
+}
+
+QLabel#agentTileDetail[tone="warning"] {
+    color: #ff9f0a;
+}
+
+QPushButton#agentTileLink {
+    color: #6fb1ff;
+    background-color: transparent;
+    border: none;
+    padding: 0px;
+    min-height: 0px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+}
+
+QPushButton#agentTileLink:hover {
+    color: #007aff;
+    text-decoration: underline;
+}
+
+/* Integrated Hotkeys destination */
+QFrame#hotkeyInstructionCard,
+QFrame#hotkeyModeCard,
+QFrame#hotkeyShortcutCard {
+    background-color: #2c2c2e;
+    border: 1px solid #3a3a3c;
+    border-radius: 10px;
+}
+
+QLabel#hotkeyInstructionIcon {
+    background-color: transparent;
+    border: none;
+}
+
+QLabel#hotkeyInstructionText,
+QLabel#hotkeyShortcutDescription {
+    color: #98989d;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+}
+
+QLabel#hotkeyGroupTitle {
+    color: #d1d1d6;
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    padding-top: 4px;
+}
+
+QLabel#hotkeyShortcutName {
+    color: #f5f5f7;
+    background-color: transparent;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+QLineEdit#hotkeyInput {
+    background-color: #1c1c1e;
+    color: #6fb1ff;
+    border: 1px solid #48484a;
+    border-radius: 9px;
+    padding: 6px 11px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+QWidget#cleanupProfilesPanel,
+QWidget#cleanupProfileLibrary,
+QWidget#cleanupProfilesPanel QLabel,
+QWidget#cleanupProfilesPanel QCheckBox {
+    background: transparent;
+}
+
+/* The editor is a card, like the tiles on the other Settings pages. */
+QWidget#cleanupProfileEditor {
+    background-color: #2c2c2e;
+    border: 1px solid #3a3a3c;
+    border-radius: 12px;
+}
+
+QListWidget#cleanupProfilesList {
+    background: #2c2c2e;
+    color: #f5f5f7;
+    border: 1px solid #3a3a3c;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 15px;
+    outline: none;
+}
+
+QListWidget#cleanupProfilesList::item {
+    padding: 10px 8px;
+    border-radius: 6px;
+}
+
+QListWidget#cleanupProfilesList::item:selected {
+    background: #17345a;
+    color: #6fb1ff;
+}
+
+QLineEdit#hotkeyInput:focus {
+    border-color: #318dff;
+}
+
+QLineEdit#hotkeyInput[capturing="true"] {
+    background-color: #17345a;
+    color: #ffffff;
+    border-color: #318dff;
+}
+
+QPushButton#hotkeyClearButton,
+QPushButton#hotkeyResetButton {
+    color: #d1d1d6;
+    background-color: #1c1c1e;
+    border: 1px solid #48484a;
+    border-radius: 9px;
+    font-size: 14px;
+}
+
+QPushButton#hotkeyClearButton:hover,
+QPushButton#hotkeyResetButton:hover {
+    color: #f5f5f7;
+    background-color: #3a3a3c;
+    border-color: #545456;
+}
+
+/* Spin boxes. Native arrows stay hidden on NoWheelSpinBox; the stacked
+   chevron rail is a child widget. The ::up-arrow / ::down-arrow rules still
+   use SVG images (never two borders) so a leftover native arrow cannot
+   read as a crop mark the way combo arrows used to. */
+QSpinBox {
+    background-color: #2c2c2e;
+    color: #f5f5f7;
+    border: 1px solid #3a3a3c;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 16px;
+    selection-background-color: #0a84ff;
+}
+
+QSpinBox:focus {
+    border: 1px solid #0a84ff;
+}
+
+QSpinBox:disabled {
+    color: #636366;
+}
+
+QSpinBox::up-button,
+QSpinBox::down-button {
+    subcontrol-origin: border;
+    width: 24px;
+    background-color: transparent;
+    border: none;
+    border-left: 1px solid #3a3a3c;
+}
+
+QSpinBox::up-button {
+    subcontrol-position: top right;
+}
+
+QSpinBox::down-button {
+    subcontrol-position: bottom right;
+}
+
+QSpinBox::up-button:hover,
+QSpinBox::down-button:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+QSpinBox::up-button:pressed,
+QSpinBox::down-button:pressed {
+    background-color: rgba(255, 255, 255, 0.14);
+}
+
+QSpinBox::up-arrow {
+    image: url(:/ui_theme/assets/tabler/chevron-up-gray.svg);
+    border: none;
+    width: 14px;
+    height: 14px;
+}
+
+QSpinBox::down-arrow {
+    image: url(:/ui_theme/assets/tabler/chevron-down-gray.svg);
+    border: none;
+    width: 14px;
+    height: 14px;
+}
+
+QWidget#spinStepper {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: none;
+    border-left: 1px solid #3a3a3c;
+}
+
+QFrame#spinStepperDivider {
+    background-color: #3a3a3c;
+    border: none;
+}
+
+QToolButton#spinStepUp,
+QToolButton#spinStepDown {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    color: #d1d1d6;
+}
+
+/* Theme-coloured Tabler chevrons, small enough to read as a slim rail. */
+QToolButton#spinStepUp {
+    border-top-right-radius: 7px;
+    qproperty-icon: url(:/ui_theme/assets/tabler/chevron-up-gray.svg);
+}
+
+QToolButton#spinStepDown {
+    border-bottom-right-radius: 7px;
+    qproperty-icon: url(:/ui_theme/assets/tabler/chevron-down-gray.svg);
+}
+
+QToolButton#spinStepUp:hover,
+QToolButton#spinStepDown:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+QToolButton#spinStepUp:pressed,
+QToolButton#spinStepDown:pressed {
+    background-color: rgba(255, 255, 255, 0.14);
+}
+
+QToolButton#spinStepUp:disabled,
+QToolButton#spinStepDown:disabled {
+    background-color: transparent;
+}
+
+/* Sliders */
+QSlider::groove:horizontal {
+    background-color: #3a3a3c;
+    height: 4px;
+    border-radius: 2px;
+}
+
+QSlider::sub-page:horizontal {
+    background-color: #0a84ff;
+    border-radius: 2px;
+}
+
+QSlider::handle:horizontal {
+    background-color: #f5f5f7;
+    border: 1px solid #f5f5f7;
+    width: 14px;
+    height: 14px;
+    margin: -6px 0;
+    border-radius: 8px;
+}
+
+/* Text edit (multi-line) */
+QTextEdit {
+    background-color: #2c2c2e;
+    color: #f5f5f7;
+    border: none;
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 16px;
+    line-height: 1.5;
+    selection-background-color: #0a84ff;
+}
+
+QTextEdit:focus {
+    border: 1px solid #0a84ff;
+}
+
+/* Scrollbar styling */
+QScrollBar:vertical {
+    background-color: transparent;
+    width: 12px;
+    margin: 0px;
+}
+
+QScrollBar::handle:vertical {
+    background-color: #48484a;
+    border-radius: 6px;
+    min-height: 30px;
+    margin: 2px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background-color: #636366;
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background-color: transparent;
+}
+
+QScrollBar:horizontal {
+    background-color: transparent;
+    height: 12px;
+    margin: 0px;
+}
+
+QScrollBar::handle:horizontal {
+    background-color: #48484a;
+    border-radius: 6px;
+    min-width: 30px;
+    margin: 2px;
+}
+
+QScrollBar::handle:horizontal:hover {
+    background-color: #636366;
+}
+
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
+    width: 0px;
+}
+
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+    background-color: transparent;
+}
+
+/* Tab widget */
+QTabWidget::pane {
+    border: none;
+    background-color: #1c1c1e;
+}
+
+QTabBar::tab {
+    background-color: transparent;
+    color: #8e8e93;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+QTabBar::tab:selected {
+    color: #0a84ff;
+    border-bottom: 2px solid #0a84ff;
+}
+
+QTabBar::tab:hover {
+    color: #f5f5f7;
+}
+
+QPushButton#settingsPageLink {
+    color: #0a84ff;
+    background-color: transparent;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 2px 0;
+    min-height: 0;
+}
+
+QPushButton#settingsPageLink:hover {
+    color: #6fb1ff;
+    text-decoration: underline;
+}
+
+QPushButton#settingsPageLink:pressed {
+    color: #0a84ff;
+}
+
+/* Transcript pane: one surface for the Fixed / Raw switch and the text. The
+   text edit inside is borderless and gives up most of its top padding while
+   the switch is up, so the two do not each add a full margin above line one. */
+QFrame#transcriptPane {
+    background-color: #2c2c2e;
+    border: none;
+    border-radius: 12px;
+}
+
+QWidget#transcriptSwitchRow {
+    background-color: transparent;
+}
+
+QTextEdit#transcriptText,
+QTextEdit#transcriptText:focus {
+    background-color: transparent;
+    border: none;
+    border-radius: 12px;
+    padding: 16px;
+}
+
+QTextEdit#transcriptText[headed="true"] {
+    padding-top: 6px;
+}
+
+QWidget#quickRecordContent QTextEdit#transcriptText,
+QWidget#quickRecordContent QTextEdit#transcriptText:focus {
+    padding: 16px 48px 16px 16px;
+}
+
+QWidget#quickRecordContent QTextEdit#transcriptText[headed="true"],
+QWidget#quickRecordContent QTextEdit#transcriptText[headed="true"]:focus {
+    padding: 6px 48px 16px 16px;
+}
+
+/* Room for the reading-window button in the pane's top-right corner. */
+QWidget#uploadFileContent QTextEdit#transcriptText,
+QWidget#uploadFileContent QTextEdit#transcriptText:focus {
+    padding: 16px 44px 16px 16px;
+}
+
+QWidget#uploadFileContent QTextEdit#transcriptText[headed="true"],
+QWidget#uploadFileContent QTextEdit#transcriptText[headed="true"]:focus {
+    padding: 6px 44px 16px 16px;
+}
+
+QFrame#transcriptSwitch {
+    background-color: #1c1c1e;
+    border: 1px solid #3a3a3c;
+    border-radius: 7px;
+}
+
+QPushButton#transcriptSwitchBtn {
+    background-color: transparent;
+    color: #8e8e93;
+    border: none;
+    border-radius: 5px;
+    padding: 0 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+QPushButton#transcriptSwitchBtn:checked {
+    background-color: #0a84ff;
+    color: #ffffff;
+}
+
+QPushButton#transcriptSwitchBtn:hover:!checked {
+    background-color: #2c2c2e;
+    color: #f5f5f7;
+}
+
+/* Settings → Remote engine: where this computer keeps its records. */
+QFrame#recordsLocationSwitch {
+    background-color: #1c1c1e;
+    border: 1px solid #3a3a3c;
+    border-radius: 9px;
+}
+
+QPushButton#recordsLocationBtn {
+    background-color: transparent;
+    color: #8e8e93;
+    border: none;
+    border-radius: 7px;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+QPushButton#recordsLocationBtn:checked {
+    background-color: #0a84ff;
+    color: #ffffff;
+}
+
+QPushButton#recordsLocationBtn:hover:!checked {
+    background-color: #2c2c2e;
+    color: #f5f5f7;
+}
+
+QPushButton#recordsLocationBtn:disabled {
+    color: #636366;
+}
+
+QPushButton#transcriptExpandButton,
+QPushButton#transcriptCopyButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 0;
+}
+
+QPushButton#transcriptCopyButton {
+    color: #aeaeb2;
+    font-size: 13px;
+    padding: 0 4px;
+}
+
+QPushButton#transcriptExpandButton:hover,
+QPushButton#transcriptCopyButton:hover,
+QPushButton#transcriptCopyButton:focus {
+    background-color: rgba(255, 255, 255, 0.10);
+}
+
+QPushButton#transcriptExpandButton:pressed,
+QPushButton#transcriptCopyButton:pressed {
+    background-color: rgba(255, 255, 255, 0.16);
+}
+
+/* Transcript reading window */
+QDialog#transcriptViewerDialog {
+    background-color: #1c1c1e;
+}
+
+QFrame#transcriptViewerToolbar {
+    background-color: #1c1c1e;
+    border: none;
+    border-bottom: 1px solid #2c2c2e;
+}
+
+QLabel#transcriptViewerTitle {
+    color: #f5f5f7;
+    background-color: transparent;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+QTabBar#transcriptViewerTabs {
+    background-color: transparent;
+}
+
+QTabBar#transcriptViewerTabs::tab {
+    background-color: transparent;
+    color: #8e8e93;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 6px 12px 7px 12px;
+    margin: 0 2px;
+    font-size: 14px;
+    font-weight: 600;
+    min-width: 58px;
+    max-width: 112px;
+}
+
+QTabBar#transcriptViewerTabs::tab:selected {
+    color: #f5f5f7;
+    border-bottom-color: #0a84ff;
+}
+
+QTabBar#transcriptViewerTabs::tab:hover:!selected {
+    color: #f5f5f7;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+QTextBrowser#transcriptViewerText,
+QTextBrowser#transcriptViewerText:focus {
+    background-color: #1c1c1e;
+    color: #f5f5f7;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    selection-background-color: #0a84ff;
+}
+
+QPushButton#transcriptViewerZoomButton {
+    background-color: #2c2c2e;
+    color: #f5f5f7;
+    border: 1px solid #3a3a3c;
+    border-radius: 7px;
+    padding: 0;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+QPushButton#transcriptViewerZoomButton:hover {
+    background-color: #3a3a3c;
+}
+
+QPushButton#transcriptViewerZoomButton:disabled {
+    color: #636366;
+    background-color: #232325;
+}
+
+QPushButton#transcriptViewerCopyButton {
+    background-color: rgba(10, 132, 255, 0.14);
+    color: #0a84ff;
+    border: none;
+    border-radius: 7px;
+    padding: 5px 14px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+QPushButton#transcriptViewerCopyButton:hover {
+    background-color: rgba(10, 132, 255, 0.24);
+}
+
+QPushButton#transcriptViewerCopyButton:disabled {
+    color: #636366;
+    background-color: #232325;
+}
+
+/* Fixed / Raw transcript version toggle (History entry dialog) */
+QPushButton#transcriptVersionBtn {
+    background-color: #2c2c2e;
+    color: #8e8e93;
+    border: 1px solid #3a3a3c;
+    border-radius: 8px;
+    padding: 4px 14px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+QPushButton#transcriptVersionBtn:checked {
+    background-color: #0a84ff;
+    color: #ffffff;
+    border: 1px solid #0a84ff;
+}
+
+QPushButton#transcriptVersionBtn:hover:!checked {
+    background-color: #3a3a3c;
+    color: #f5f5f7;
+    border: 1px solid #48484a;
+}
+
+/* Menu bar */
+QMenuBar {
+    background-color: #1c1c1e;
+    color: #f5f5f7;
+    border-bottom: 1px solid #2c2c2e;
+    font-size: 15px;
+}
+
+QMenuBar::item {
+    padding: 8px 12px;
+    background: transparent;
+}
+
+QMenuBar::item:selected {
+    background-color: #2c2c2e;
+    border-radius: 4px;
+}
+
+/* Menu */
+QMenu {
+    background-color: #2c2c2e;
+    color: #f5f5f7;
+    border: 1px solid #3a3a3c;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+QMenu::item {
+    padding: 6px 24px 6px 12px;
+    border-radius: 4px;
+}
+
+QMenu::item:selected {
+    background-color: #0a84ff;
+    color: #ffffff;
+}
+
+/* The label area must blend into its parent, including the trailing space
+   Qt reserves for textless checkboxes on tinted settings cards. */
+QCheckBox {
+    color: #f5f5f7;
+    background-color: transparent;
+    spacing: 8px;
+    font-size: 16px;
+    outline: none;
+}
+
+/* One checkbox size everywhere: the compact Quick Record box. */
+QCheckBox::indicator {
+    width: 15px;
+    height: 15px;
+    background-color: #2c2c2e;
+    border: 1px solid #48484a;
+    border-radius: 4px;
+}
+
+QCheckBox::indicator:checked {
+    background-color: #0a84ff;
+    border: 1px solid #0a84ff;
+    image: url(:/ui_theme/assets/check.svg); /* Placeholder for check icon */
+}
+
+/* Frame for grouping */
+QFrame {
+    border: none;
+}
+
+/* Custom card widget */
+QWidget#card {
+    background-color: #2c2c2e;
+    border-radius: 16px;
+    border: 1px solid #3a3a3c; /* Subtle border */
+}
+
+QWidget#controlPanel {
+    background-color: #2c2c2e;
+    border-radius: 16px;
+    padding: 20px;
+}
+
+/* Engine card on Quick Record / Upload File. Four labeled fields across the
+   full width, then a footer line with the resolved engine and the two controls
+   that apply to every backend. */
+QFrame#engineCard {
+    background-color: #2c2c2e;
+    border: 1px solid #3a3a3c;
+    border-radius: 12px;
+}
+
+QWidget#engineFieldGroup {
+    background-color: transparent;
+}
+
+QLabel#engineFieldLabel {
+    color: #8e8e93;
+    font-size: 13px;
+    background-color: transparent;
+}
+
+/* Recessed against the card. The global combo fill is the same color as the
+   card, which would leave a field readable only by its 1px border. */
+QComboBox#engineField,
+QComboBox#engineFieldPrimary {
+    background-color: #1c1c1e;
+    color: #f5f5f7;
+    border: 1px solid #3a3a3c;
+    border-radius: 8px;
+    padding: 5px 4px 5px 10px;
+    font-size: 14px;
+    min-height: 22px;
+}
+
+/* Extra left padding clears the status dot StatusFieldCombo parents to itself;
+   the API backends have no local engine to report on, so the dot goes and the
+   value moves back to the normal indent. */
+QComboBox#engineFieldPrimary {
+    font-weight: 600;
+    padding-left: 26px;
+}
+
+QComboBox#engineFieldPrimary[dot="false"] {
+    padding-left: 10px;
+}
+
+QComboBox#engineField:hover,
+QComboBox#engineFieldPrimary:hover {
+    border-color: #48484a;
+}
+
+QComboBox#engineField:focus,
+QComboBox#engineFieldPrimary:focus,
+QComboBox#engineField:on,
+QComboBox#engineFieldPrimary:on {
+    border-color: #0a84ff;
+}
+
+QComboBox#engineField:disabled,
+QComboBox#engineFieldPrimary:disabled {
+    color: #636366;
+    background-color: #232325;
+    border-color: #3a3a3c;
+}
+
+QComboBox#engineField::drop-down,
+QComboBox#engineFieldPrimary::drop-down,
+QComboBox#hostModelCombo::drop-down {
+    border: none;
+    background-color: transparent;
+    width: 20px;
+}
+
+/* A smaller chevron for the compact field. */
+QComboBox#engineField::down-arrow,
+QComboBox#engineFieldPrimary::down-arrow,
+QComboBox#hostModelCombo::down-arrow {
+    width: 14px;
+    height: 14px;
+    margin-right: 5px;
+}
+
+/* StatusDot styles itself — see its docstring; one instance lives inside a
+   QComboBox, which an application stylesheet cannot reach. */
+
+QLabel#engineResolvedLabel {
+    color: #8e8e93;
+    font-size: 13px;
+    background-color: transparent;
+}
+
+/* Manage host models: a footer link, like the model manager links, with its
+   download glyph (and a dot when the host can install something) painted in
+   the left padding by RemoteModelNotice. */
+QPushButton#remoteModelNotice {
+    color: #0a84ff;
+    background-color: transparent;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 0 0 0 19px;
+    min-height: 0;
+}
+
+QPushButton#remoteModelNotice:hover {
+    color: #6fb1ff;
+    text-decoration: underline;
+}
+
+QPushButton#remoteModelNotice:focus {
+    text-decoration: underline;
+}
+
+QPushButton#remoteModelNotice:pressed {
+    color: #0a84ff;
+}
+
+QWidget#remoteServingRow {
+    background-color: transparent;
+}
+
+QLabel#remoteServingLabel {
+    color: #8e8e93;
+    font-size: 13px;
+    background-color: transparent;
+}
+
+QCheckBox#engineCleanupCheck,
+QCheckBox#engineLivePreviewCheck {
+    color: #f5f5f7;
+    font-size: 13px;
+    spacing: 6px;
+    background-color: transparent;
+}
+
+QCheckBox#engineCleanupCheck::indicator,
+QCheckBox#engineLivePreviewCheck::indicator {
+    width: 15px;
+    height: 15px;
+    border-radius: 4px;
+    border: 1px solid #48484a;
+    background-color: #1c1c1e;
+}
+
+QCheckBox#engineCleanupCheck::indicator:checked,
+QCheckBox#engineLivePreviewCheck::indicator:checked {
+    background-color: #0a84ff;
+    border-color: #0a84ff;
+    image: url(:/ui_theme/assets/check.svg);
+}
+
+QCheckBox#engineCleanupCheck::indicator:hover,
+QCheckBox#engineLivePreviewCheck::indicator:hover {
+    border-color: #0a84ff;
+}
+
+/* Grayed out while recording, or while the engine can't run a live preview.
+   After the hover rule so a disabled box doesn't light up under the cursor. */
+QCheckBox#engineCleanupCheck:disabled,
+QCheckBox#engineLivePreviewCheck:disabled {
+    color: #636366;
+}
+
+QCheckBox#engineCleanupCheck::indicator:disabled,
+QCheckBox#engineLivePreviewCheck::indicator:disabled {
+    background-color: transparent;
+    border-color: #3a3a3c;
+}
+
+QCheckBox#engineCleanupCheck::indicator:checked:disabled,
+QCheckBox#engineLivePreviewCheck::indicator:checked:disabled {
+    background-color: #24425f;
+    border-color: #24425f;
+}
+
+/* Content Tab Bar */
+QTabBar#contentTabBar::tab {
+    background-color: transparent;
+    color: #8e8e93;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    min-width: 120px;
+    margin-right: 8px;
+}
+
+QTabBar#contentTabBar::tab:selected {
+    color: #0a84ff;
+    border-bottom: 2px solid #0a84ff;
+}
+
+QTabBar#contentTabBar::tab:hover:!selected {
+    color: #f5f5f7;
+}
+
+QTabBar#contentTabBar::tab:disabled {
+    color: #48484a;
+}
+
+/* Meeting Mode is the last tab. Grey it on macOS/Linux without disabling
+   the tab, so a selected unsupported session is not stolen by Qt. Once
+   opened it reads like any selected tab, never like a disabled one. */
+QTabBar#contentTabBar[unsupportedMeeting="true"]::tab:last {
+    color: #48484a;
+}
+
+QTabBar#contentTabBar[unsupportedMeeting="true"]::tab:last:hover {
+    color: #636366;
+}
+
+QTabBar#contentTabBar[unsupportedMeeting="true"]::tab:last:selected {
+    color: #0a84ff;
+    border-bottom: 2px solid #0a84ff;
+}
+
+/* Tooltips — elevated surface so they read against the dark window.
+   The window is made translucent by RoundedTooltipFilter so the
+   border-radius renders with transparent corners. */
+QToolTip {
+    background-color: #3a3a3c;
+    color: #f5f5f7;
+    border: 1px solid #545456;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 14px;
+}
+
+/* Learned Rules: the composer and the library are InfoTiles; these rules tune
+   the controls inside them to the tile palette. */
+QLabel#cleanupRuleDialogMark {
+    color: #ffffff;
+    background-color: #0a84ff;
+    border: 1px solid #318dff;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+QLabel#cleanupRulesCount {
+    color: #6fb1ff;
+    background-color: rgba(10, 132, 255, 0.12);
+    border: 1px solid rgba(10, 132, 255, 0.25);
+    border-radius: 10px;
+    padding: 3px 9px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+QLineEdit#cleanupRuleInput {
+    background-color: #1c1c1e;
+    border: 1px solid #48484a;
+    border-radius: 9px;
+    padding: 8px 12px;
+    font-size: 15px;
+}
+
+QLineEdit#cleanupRuleInput:hover {
+    border-color: #545456;
+}
+
+QLineEdit#cleanupRuleInput:focus {
+    border: 1px solid #0a84ff;
+}
+
+QPushButton#cleanupRuleDictateButton,
+QPushButton#cleanupRuleAddButton {
+    min-height: 40px;
+    max-height: 40px;
+    border-radius: 9px;
+    padding: 0 15px;
+    font-size: 14px;
+}
+
+QPushButton#cleanupRuleEditButton,
+QPushButton#cleanupRuleDeleteButton {
+    min-height: 34px;
+    max-height: 34px;
+    border-radius: 9px;
+    padding: 0 15px;
+    font-size: 14px;
+}
+
+QPushButton#cleanupRuleAddButton {
+    color: #ffffff;
+    background-color: #0a84ff;
+    border: 1px solid #318dff;
+}
+
+QPushButton#cleanupRuleAddButton:hover {
+    background-color: #007aff;
+}
+
+QPushButton#cleanupRuleAddButton:disabled {
+    color: #636366;
+    background-color: #3a3a3c;
+    border-color: #3a3a3c;
+}
+
+QPushButton#cleanupRuleDictateButton,
+QPushButton#cleanupRuleEditButton {
+    color: #d1d1d6;
+    background-color: #1c1c1e;
+    border: 1px solid #48484a;
+}
+
+QPushButton#cleanupRuleDictateButton:hover,
+QPushButton#cleanupRuleEditButton:hover {
+    color: #f5f5f7;
+    background-color: #3a3a3c;
+    border-color: #545456;
+}
+
+QPushButton#cleanupRuleDictateButton:disabled,
+QPushButton#cleanupRuleEditButton:disabled {
+    color: #636366;
+    background-color: #232325;
+    border-color: #2c2c2e;
+}
+
+QPushButton#cleanupRuleDictateButton {
+    qproperty-icon: url(:/ui_theme/assets/tabler/microphone-slate.svg);
+}
+
+/* While a rule is being dictated the button is the red Stop, like the main
+   recording controls. */
+QPushButton#cleanupRuleDictateButton[recording="true"] {
+    qproperty-icon: url(:/ui_theme/assets/tabler/player-stop-danger.svg);
+    color: #ff6961;
+    background-color: rgba(255, 69, 58, 0.12);
+    border-color: rgba(255, 69, 58, 0.45);
+}
+
+QPushButton#cleanupRuleDictateButton[recording="true"]:hover {
+    color: #ff453a;
+    background-color: rgba(255, 69, 58, 0.2);
+    border-color: #ff453a;
+}
+
+QPushButton#cleanupRuleDeleteButton {
+    color: #ff6961;
+    background-color: transparent;
+    border: 1px solid #48484a;
+}
+
+QPushButton#cleanupRuleDeleteButton:hover {
+    color: #ffffff;
+    background-color: #d70015;
+    border-color: #ff453a;
+}
+
+QPushButton#cleanupRuleDeleteButton:disabled {
+    color: #636366;
+    background-color: transparent;
+    border-color: #2c2c2e;
+}
+
+/* Shown only for a problem (duplicate rule, no audio); progress lives in the
+   activity strip. */
+QLabel#cleanupRuleStatus {
+    color: #e0a052;
+    background-color: transparent;
+    font-size: 13px;
+}
+
+/* The composer's live strip: listening, transcribing, polishing. */
+QWidget#ruleActivityHost {
+    background-color: transparent;
+}
+
+QFrame#ruleActivityStrip {
+    background-color: #1c1c1e;
+    border: 1px solid #3a3a3c;
+    border-radius: 9px;
+}
+
+QFrame#ruleActivityStrip[state="listening"] {
+    background-color: rgba(255, 69, 58, 0.07);
+    border-color: rgba(255, 69, 58, 0.38);
+}
+
+QLabel#ruleActivityTitle {
+    color: #f5f5f7;
+    background-color: transparent;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+QLabel#ruleActivityDetail {
+    color: #98989d;
+    background-color: transparent;
+    font-size: 13px;
+}
+
+QLabel#ruleActivityTime {
+    color: #d1d1d6;
+    background-color: transparent;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+QLabel#ruleActivityTime[nearCap="true"] {
+    color: #ff9f0a;
+}
+
+QListWidget#cleanupRulesList {
+    color: #f5f5f7;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 0px;
+}
+
+QListWidget#cleanupRulesList::item {
+    background-color: #1c1c1e;
+    border: 1px solid #3a3a3c;
+    border-radius: 9px;
+    padding: 10px 13px;
+}
+
+QListWidget#cleanupRulesList::item:hover {
+    background-color: #3a3a3c;
+    border-color: #48484a;
+}
+
+QListWidget#cleanupRulesList::item:selected {
+    color: #ffffff;
+    background-color: #17345a;
+    border: 1px solid #0a84ff;
+}
+
+/* Empty lists (ui_qt/widgets/empty_state.py): one look on every page. */
+QFrame#emptyState {
+    background-color: #232325;
+    border: 1px dashed #48484a;
+    border-radius: 10px;
+}
+
+QLabel#emptyStateTitle {
+    color: #f5f5f7;
+    background-color: transparent;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+QLabel#emptyStateHint {
+    color: #98989d;
+    background-color: transparent;
+    font-size: 14px;
+}
+
+QLabel#emptyStateTitle:disabled,
+QLabel#emptyStateHint:disabled {
+    color: #757579;
+}
+
+/* Learned Rule review dialog */
+QDialog#cleanupRuleDialog {
+    background-color: #1c1c1e;
+}
+
+QLabel#cleanupRuleDialogTitle {
+    color: #ffffff;
+    background-color: transparent;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+QLabel#cleanupRuleDialogSubtitle,
+QLabel#cleanupRuleDialogInfo {
+    color: #8e8e93;
+    background-color: transparent;
+    font-size: 14px;
+}
+
+QLabel#cleanupRuleOriginal {
+    color: #d1d1d6;
+    background-color: #2c2c2e;
+    border-left: 3px solid #0a84ff;
+    border-radius: 6px;
+    padding: 9px 12px;
+    font-size: 14px;
+}
+
+QLabel#cleanupRuleNotice {
+    color: #ffd08a;
+    background-color: #2b2118;
+    border: 1px solid #64491f;
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-size: 13px;
+}
+
+QFrame#cleanupRuleEditorCard {
+    background-color: #2c2c2e;
+    border: 1px solid #3a3a3c;
+    border-radius: 12px;
+}
+
+QLabel#cleanupRuleEditorLabel {
+    color: #6fb1ff;
+    background-color: transparent;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+QTextEdit#cleanupRuleEditor {
+    background-color: #1c1c1e;
+    border: 1px solid #3a3a3c;
+    border-radius: 8px;
+    padding: 11px;
+}
+
+QTextEdit#cleanupRuleEditor:focus {
+    border: 1px solid #0a84ff;
+}
+
+/* ── Meeting Mode ─────────────────────────────────────────────── */
+
+QWidget#meetingModeTab,
+QWidget#meetingModeContent,
+QWidget#meetingStudio,
+QWidget#meetingStage,
+QWidget#meetingPlain,
+QWidget#meetingIdleCard,
+QWidget#meetingResultHost,
+QScrollArea#meetingResultScroll,
+QWidget#meetingIntro {
+    background-color: transparent;
+    border: none;
+}
+
+/* The control column and the stage beside it, as on the Walkthrough tab. */
+QFrame#meetingColumn {
+    background-color: #2c2c2e;
+    border: 1px solid #3a3a3c;
+    border-radius: 14px;
+}
+
+QFrame#meetingStagePane {
+    background-color: #232326;
+    border: 1px solid #2c2c2e;
+    border-radius: 14px;
+}
+
+QFrame#meetingRule {
+    background-color: #3a3a3c;
+    border: none;
+}
+
+QLabel#meetingOverline {
+    color: #8e8e93;
+    font-size: 13px;
+    font-weight: 700;
+    background: transparent;
+}
+
+QLabel#meetingRowName {
+    color: #f5f5f7;
+    font-size: 15px;
+    font-weight: 600;
+    background: transparent;
+}
+
+QLabel#meetingColumnNote,
+QLabel#meetingDemoHint,
+QLabel#meetingHint {
+    color: #8e8e93;
+    font-size: 14px;
+    background: transparent;
+}
+
+QLabel#meetingHeading {
+    color: #ffffff;
+    font-size: 21px;
+    font-weight: 700;
+    background: transparent;
+}
+
+QLabel#meetingTitle {
+    color: #f5f5f7;
+    font-size: 16px;
+    font-weight: 700;
+    background: transparent;
+}
+
+QLabel#meetingStep {
+    color: #6fb1ff;
+    background-color: rgba(10, 132, 255, 0.16);
+    border-radius: 11px;
+    font-size: 14px;
+    font-weight: 700;
+    min-width: 22px; max-width: 22px;
+    min-height: 22px; max-height: 22px;
+}
+
+QFrame#meetingRecent {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 10px;
+}
+
+QFrame#meetingRecent:hover, QFrame#meetingRecent:focus {
+    background-color: rgba(255, 255, 255, 0.06);
+    border-color: #3a3a3c;
+}
+
+QLabel#meetingRecentPill {
+    color: #98989d;
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 9px;
+    padding: 2px 9px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+QLabel#meetingRecentPill[tone="success"] {
+    color: #30d158;
+    background-color: rgba(48, 209, 88, 0.15);
+}
+
+QLabel#meetingRecentPill[tone="warning"] {
+    color: #ff9f0a;
+    background-color: rgba(255, 159, 10, 0.15);
+}
+
+/* The on-air card: neutral while starting, lit while capturing, amber
+   while paused. The tint sits on the stage, so it holds in both themes. */
+QFrame#meetingOnAir {
+    background-color: #2c2c2e;
+    border: 1px solid #3a3a3c;
+    border-radius: 22px;
+}
+
+QFrame#meetingOnAir[tone="live"] {
+    border-color: rgba(255, 69, 58, 0.42);
+    background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+        stop:0 rgba(255, 69, 58, 0.26), stop:0.55 rgba(255, 69, 58, 0.10),
+        stop:1 rgba(255, 69, 58, 0.04));
+}
+
+QFrame#meetingOnAir[tone="paused"] {
+    border-color: rgba(255, 159, 10, 0.42);
+    background-color: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+        stop:0 rgba(255, 159, 10, 0.20), stop:0.55 rgba(255, 159, 10, 0.08),
+        stop:1 rgba(255, 159, 10, 0.03));
+}
+
+QLabel#meetingModePlatformHint {
+    color: #8e8e93;
+    background-color: #232326;
+    border: 1px solid #3a3a3c;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+QLabel#meetingModePlatformHint[tone="warning"] {
+    color: #ff9f0a;
+    background-color: #2b2118;
+    border-color: #64491f;
+}
+
+QLabel#meetingStatusPill {
+    background-color: transparent;
+    color: #8e8e93;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+QLabel#meetingStatusPill[tone="live"] {
+    color: #ff6961;
+}
+
+QLabel#meetingStatusPill[tone="paused"] {
+    color: #ff9f0a;
+}
+
+QLabel#meetingElapsedLabel {
+    color: #ffffff;
+    font-size: 78px;
+    font-weight: 700;
+    background-color: transparent;
+}
+
+/* On the column, whose own colour is the default button fill. */
+QPushButton#meetingDashboardButton,
+QPushButton#meetingGuestLinkButton,
+QPushButton#meetingDemoButton {
+    background-color: #1c1c1e;
+    border: 1px solid #3a3a3c;
+    padding: 8px 10px;
+    font-size: 15px;
+    border-radius: 10px;
+}
+
+QPushButton#meetingDashboardButton:hover,
+QPushButton#meetingGuestLinkButton:hover,
+QPushButton#meetingDemoButton:hover {
+    background-color: #3a3a3c;
+}
+
+QPushButton#meetingDashboardButton:disabled,
+QPushButton#meetingGuestLinkButton:disabled {
+    color: #636366;
+}
+
+QPushButton#meetingPauseButton {
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: #f5f5f7;
+    padding: 8px 16px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 22px;
+}
+
+QPushButton#meetingPauseButton:hover {
+    background-color: rgba(255, 255, 255, 0.14);
+}
+
+QPushButton#meetingPauseButton:disabled {
+    color: #636366;
+}
+
+/* End keeps the danger fill its DangerButton class implies; the meeting
+   object name replaces the class one. */
+QPushButton#meetingEndButton {
+    background-color: #ff453a;
+    color: #ffffff;
+    padding: 8px 16px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 22px;
+}
+
+QPushButton#meetingEndButton:hover {
+    background-color: #ff3b30;
+}
+
+QPushButton#meetingEndButton:pressed {
+    background-color: #d70015;
+}
+
+QPushButton#meetingEndButton:disabled {
+    background-color: #2c2c2e;
+    color: #636366;
+}
+
+/* The AI insights switch and the optional brief are rows of the column. */
+QWidget#meetingAiPanel,
+QWidget#meetingBriefPanel,
+QWidget#meetingAiDetails {
+    background-color: transparent;
+    border: none;
+}
+
+QLabel#meetingAiDescription,
+QLabel#meetingAiDestination,
+QLabel#meetingAiCompactDestination,
+QLabel#meetingBriefHint {
+    color: #8e8e93;
+    font-size: 14px;
+    background-color: transparent;
+}
+
+QLabel#meetingBriefOptional {
+    color: #8e8e93;
+    font-size: 13px;
+    background-color: transparent;
+}
+
+/* Recessed against its panel, like the engine fields on Quick Record. */
+QPlainTextEdit#meetingBriefInput {
+    background-color: #1c1c1e;
+    color: #f5f5f7;
+    border: 1px solid #3a3a3c;
+    border-radius: 8px;
+    padding: 4px 6px;
+    font-size: 15px;
+    selection-background-color: #0a84ff;
+}
+
+QPlainTextEdit#meetingBriefInput:hover {
+    border-color: #48484a;
+}
+
+QPlainTextEdit#meetingBriefInput:focus {
+    border-color: #0a84ff;
+}
+
+/* Keep focus inside the existing indicator: a border on the whole checkbox
+   encloses its label and clips the content when mouse clicks give it focus.
+   The named variants must outrank their checked/hover indicator rules. */
+QCheckBox::indicator:focus,
+QCheckBox#engineCleanupCheck::indicator:focus,
+QCheckBox#engineLivePreviewCheck::indicator:focus {
+    border-color: #6fb1ff;
+}
+
+/* A text cue preserves keyboard focus without adding a frame or changing
+   the content rectangle of compact buttons and links. Text fields retain
+   their normal one-pixel focus border. */
+QWidget#meetingModeTab QPushButton:focus,
+QWidget#meetingModeTab QToolButton:focus {
+    text-decoration: underline;
+}
+
+/* Dialog footers: focus recolours the button's own one-pixel edge, so the
+   size stays put and the label is never underlined. The default button
+   holds focus when a dialog opens, and an underline read as a link. */
+QDialog#meetingIntroDialog QPushButton:focus,
+QDialog#meetingConsentDialog QPushButton:focus,
+QDialog#meetingAudioConsentDialog QPushButton:focus,
+QDialog#meetingUnsupportedDialog QPushButton:focus,
+QDialog#meetingSystemAudioDialog QPushButton:focus,
+QDialog#meetingLinuxAudioDialog QPushButton:focus,
+QDialog#meetingRecoveryDialog QPushButton:focus,
+QDialog#meetingDeleteDialog QPushButton:focus,
+QDialog#textEndpointDialog QPushButton:focus,
+QDialog#accessibilityDialog QPushButton:focus,
+QDialog#guidedSetupDialog QPushButton[tone]:focus {
+    border: 1px solid #6fb1ff;
+}
+
+QWidget#meetingFinalizationCard {
+    background-color: #2c2c2e;
+    border: 1px solid #3a3a3c;
+    border-radius: 12px;
+}
+
+QLabel#meetingFinalizationIdentityTitle {
+    color: #f5f5f7;
+    background-color: transparent;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+QLabel#meetingFinalizationIdentityMeta {
+    color: #98989d;
+    background-color: transparent;
+    font-size: 14px;
+}
+
+QLabel#meetingFinalizationTitle {
+    color: #f5f5f7;
+    background-color: transparent;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+QWidget#meetingFinalizationCard[finalizationTone="warning"] QLabel#meetingFinalizationTitle {
+    color: #ff9f0a;
+}
+
+QWidget#meetingFinalizationCard[finalizationTone="success"] QLabel#meetingFinalizationTitle {
+    color: #30d158;
+}
+
+QLabel#meetingBetaBadge,
+QLabel#meetingFinalizationStepBadge {
+    border: none;
+    border-radius: 10px;
+    padding: 0px 8px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+QLabel#meetingFinalizationStepBadge {
+    color: #6fb1ff;
+    background-color: rgba(10, 132, 255, 0.15);
+}
+
+QLabel#meetingBetaBadge {
+    color: #ff9f0a;
+    background-color: rgba(255, 159, 10, 0.15);
+}
+
+QLabel#meetingColumnTitle {
+    color: #f5f5f7;
+    font-size: 17px;
+    font-weight: 600;
+    background: transparent;
+}
+
+QLabel#meetingColumnBetaTag {
+    color: #ff9f0a;
+    background: transparent;
+    border: 1px solid rgba(255, 159, 10, 0.45);
+    border-radius: 6px;
+    padding: 0px 6px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+QWidget#meetingFinalizationActiveBox {
+    background-color: rgba(0, 0, 0, 0.22);
+    border-radius: 8px;
+}
+
+QLabel#meetingFinalizationMessage {
+    color: #f5f5f7;
+    font-size: 15px;
+    font-weight: 500;
+    background-color: transparent;
+}
+
+QLabel#meetingFinalizationDetail {
+    color: #98989d;
+    font-size: 13px;
+    background-color: transparent;
+}
+
+QLabel#meetingFinalizationKeepHint {
+    color: #98989d;
+    font-size: 13px;
+    background-color: transparent;
+}
+
+QWidget#meetingFinalizationStepsWidget {
+    background-color: rgba(0, 0, 0, 0.15);
+    border: 1px solid #3a3a3c;
+    border-radius: 8px;
+}
+
+QWidget#meetingFinalizationStepRow {
+    background-color: transparent;
+}
+
+QLabel#meetingFinalizationStepName {
+    color: #d1d1d6;
+    background-color: transparent;
+}
+
+QLabel#meetingFinalizationStepDetail {
+    color: #8e8e93;
+    background-color: transparent;
+}
+
+QProgressBar#meetingFinalizationProgress {
+    background-color: #3a3a3c;
+    border: none;
+    border-radius: 3px;
+    max-height: 6px;
+    min-height: 6px;
+}
+
+QProgressBar#meetingFinalizationProgress::chunk {
+    background-color: #0a84ff;
+    border-radius: 3px;
+}
+
+QFrame#meetingFinalizationDivider {
+    background-color: #3a3a3c;
+    border: none;
+    max-height: 1px;
+}
+
+QWidget#meetingFinalizationIdentity,
+QWidget#meetingFinalizationFooter {
+    background-color: transparent;
+}
+
+/* Flat meeting actions, including "Change…" beside AI insights. */
+QPushButton[meetingLink="true"] {
+    color: #0a84ff;
+    background-color: transparent;
+    border: none;
+    padding: 2px 0;
+    font-size: 14px;
+    font-weight: 600;
+    min-width: 0;
+    min-height: 0;
+}
+
+QPushButton[meetingLink="true"]:hover {
+    color: #6fb1ff;
+    background-color: transparent;
+}
+
+QPushButton[meetingLink="true"]:pressed {
+    color: #0062cc;
+    background-color: transparent;
+}
+
+QPushButton[meetingLink="true"]:disabled {
+    color: #636366;
+    background-color: transparent;
+}
+
+QPushButton[meetingResultAction="true"] {
+    background-color: #3a3a3c;
+    color: #f5f5f7;
+    border: none;
+    border-radius: 8px;
+    padding: 7px 12px;
+    font-size: 15px;
+    font-weight: 600;
+    min-width: 0;
+    min-height: 0;
+}
+
+QPushButton[meetingResultAction="true"]:hover {
+    background-color: #48484a;
+}
+
+QPushButton[meetingResultAction="true"]:pressed {
+    background-color: #2c2c2e;
+}
+
+QPushButton#meetingFinalizationRetryButton {
+    background-color: #0a84ff;
+    color: #ffffff;
+}
+
+QPushButton#meetingFinalizationRetryButton:hover {
+    background-color: #007aff;
+}
+
+QPushButton#meetingFinalizationRetryButton:pressed {
+    background-color: #0062cc;
+}
+
+QPushButton#meetingFinalizationDoneButton {
+    background-color: #30d158;
+    color: #ffffff;
+}
+
+QPushButton#meetingFinalizationDoneButton:hover {
+    background-color: #28cd41;
+}
+
+QPushButton#meetingFinalizationDoneButton:pressed {
+    background-color: #1fb34a;
+}
+
+QPushButton#meetingFinalizationStepAction {
+    color: #0a84ff;
+    background-color: transparent;
+    border: none;
+    padding: 0 4px;
+    font-size: 13px;
+    min-width: 0;
+    min-height: 0;
+}
+
+QDialog#meetingConsentDialog,
+QDialog#meetingRecoveryDialog,
+QDialog#meetingIntroDialog {
+    background-color: #1c1c1e;
+    color: #f5f5f7;
+}
+
+/* Export dialog shares the Settings / Model Manager slate palette. */
+QDialog#meetingExportDialog,
+QDialog#historyExportDialog {
+    background-color: #1c1c1e;
+    color: #f5f5f7;
+}
+
+QFrame#meetingExportCard,
+QFrame#historyExportCard {
+    background-color: #2c2c2e;
+    border: 1px solid #3a3a3c;
+    border-radius: 10px;
+}
+
+/* Plain QWidget containers paint the global background; keep the card
+   surface visible behind the scope panels. */
+QWidget#meetingExportPane,
+QWidget#historyExportPane {
+    background-color: transparent;
+}
+
+QLabel#meetingExportEyebrow,
+QLabel#historyExportEyebrow {
+    color: #6fb1ff;
+    background-color: transparent;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
+
+QLabel#meetingExportMeta,
+QLabel#meetingExportProgress,
+QLabel#historyExportMeta,
+QLabel#historyExportProgress {
+    color: #98989d;
+    background-color: transparent;
+    font-size: 14px;
+}
+
+/* The global QWidget rule paints an opaque background; without these the
+   check and radio labels sit in dark bars on top of the lighter cards. */
+QDialog#meetingExportDialog QCheckBox,
+QDialog#historyExportDialog QCheckBox {
+    color: #f5f5f7;
+    background-color: transparent;
+    spacing: 8px;
+    font-size: 15px;
+}
+
+QDialog#meetingExportDialog QCheckBox:disabled,
+QDialog#historyExportDialog QCheckBox:disabled {
+    color: #757579;
+}
+
+QDialog#meetingExportDialog QRadioButton,
+QDialog#historyExportDialog QRadioButton {
+    color: #f5f5f7;
+    spacing: 8px;
+    font-size: 15px;
+    background-color: transparent;
+}
+
+/* Both states total 18px (content + border) so the indicator stays a
+   circle and the label never shifts when toggled. */
+QDialog#meetingExportDialog QRadioButton::indicator,
+QDialog#historyExportDialog QRadioButton::indicator {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #48484a;
+    border-radius: 9px;
+    background-color: #1c1c1e;
+}
+
+QDialog#meetingExportDialog QRadioButton::indicator:checked,
+QDialog#historyExportDialog QRadioButton::indicator:checked {
+    width: 8px;
+    height: 8px;
+    border: 5px solid #0a84ff;
+    background-color: #ffffff;
+}
+
+QDialog#meetingExportDialog QLineEdit,
+QDialog#historyExportDialog QLineEdit {
+    background-color: #1c1c1e;
+    color: #f5f5f7;
+    border: 1px solid #3a3a3c;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 15px;
+}
+
+QDialog#meetingExportDialog QLineEdit:focus,
+QDialog#historyExportDialog QLineEdit:focus {
+    border: 1px solid #0a84ff;
+}
+
+QDialog#meetingExportDialog QComboBox,
+QDialog#historyExportDialog QComboBox {
+    background-color: #1c1c1e;
+    border: 1px solid #3a3a3c;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 15px;
+}
+
+QDialog#meetingExportDialog QComboBox::down-arrow,
+QDialog#historyExportDialog QComboBox::down-arrow {
+    image: url(:/ui_theme/assets/tabler/chevron-down-slate.svg);
+}
+
+QListWidget#meetingExportList,
+QListWidget#historyExportList {
+    background-color: #1c1c1e;
+    color: #f5f5f7;
+    border: 1px solid #3a3a3c;
+    border-radius: 8px;
+    padding: 4px;
+    font-size: 14px;
+    min-width: 0;
+}
+
+QListWidget#meetingExportList::item,
+QListWidget#historyExportList::item {
+    padding: 6px 8px;
+    border-radius: 6px;
+}
+
+QListWidget#meetingExportList::item:hover,
+QListWidget#historyExportList::item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+QListWidget#meetingExportList::item:selected,
+QListWidget#historyExportList::item:selected {
+    background-color: rgba(10, 132, 255, 0.16);
+}
+
+QListWidget#meetingExportList::indicator,
+QListWidget#historyExportList::indicator {
+    width: 16px;
+    height: 16px;
+    background-color: #2c2c2e;
+    border: 1px solid #48484a;
+    border-radius: 4px;
+}
+
+QListWidget#meetingExportList::indicator:checked,
+QListWidget#historyExportList::indicator:checked {
+    background-color: #0a84ff;
+    border: 1px solid #0a84ff;
+    image: url(:/ui_theme/assets/check.svg);
+}
+
+QDialog#meetingExportDialog QDateEdit,
+QDialog#historyExportDialog QDateEdit {
+    background-color: #1c1c1e;
+    color: #f5f5f7;
+    border: 1px solid #3a3a3c;
+    border-radius: 8px;
+    padding: 4px 8px;
+    font-size: 15px;
+    min-width: 0;
+}
+
+QDialog#meetingExportDialog QDateEdit::drop-down,
+QDialog#historyExportDialog QDateEdit::drop-down {
+    border: none;
+    background-color: transparent;
+    width: 24px;
+}
+
+QDialog#meetingExportDialog QDateEdit::down-arrow,
+QDialog#historyExportDialog QDateEdit::down-arrow {
+    image: url(:/ui_theme/assets/tabler/chevron-down-slate.svg);
+    border: none;
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+}
+
+QDialog#meetingExportDialog QCalendarWidget,
+QDialog#historyExportDialog QCalendarWidget {
+    background-color: #3a3a3c;
+    color: #f5f5f7;
+}
+
+QPushButton#meetingExportMiniBtn,
+QPushButton#historyExportMiniBtn {
+    background-color: #3a3a3c;
+    color: #f5f5f7;
+    border: 1px solid #3a3a3c;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 14px;
+}
+
+QPushButton#meetingExportMiniBtn:hover,
+QPushButton#historyExportMiniBtn:hover {
+    background-color: #3a3a3c;
+    border-color: #48484a;
+}
+
+QLabel#meetingIntroLead {
+    color: #d1d1d6;
+    font-size: 16px;
+    background-color: transparent;
+}
+
+QFrame#meetingIntroSection {
+    background-color: #2c2c2e;
+    border: 1px solid #3a3a3c;
+    border-radius: 10px;
+}
+
+QLabel#meetingIntroBullet {
+    color: #0a84ff;
+    font-size: 16px;
+    font-weight: 700;
+    background-color: transparent;
+    min-width: 12px;
+}
+
+QLabel#meetingIntroItem {
+    color: #f5f5f7;
+    font-size: 15px;
+    background-color: transparent;
+}
+
+QLabel#consentBodyLabel {
+    color: #d1d1d6;
+    font-size: 15px;
+    background-color: transparent;
+    line-height: 1.4;
+}
+
+QFrame#meetingRecoveryRow {
+    background-color: #2c2c2e;
+    border: 1px solid #3a3a3c;
+    border-radius: 10px;
+}
+
+QLabel#meetingRecoveryRowLabel {
+    color: #f5f5f7;
+    font-size: 15px;
+    background-color: transparent;
+}
+
+/* By dialog, not by button name: the primary and danger buttons here keep
+   their class object names, which is what gives them their colour. */
+QDialog#meetingRecoveryDialog QPushButton {
+    padding: 8px 16px;
+    font-size: 15px;
+}
+
+QLabel#meetingBindWarning {
+    background-color: #2b2118;
+    border: 1px solid #64491f;
+    border-radius: 8px;
+    color: #ffd08a;
+    font-size: 14px;
+    padding: 8px 10px;
+}
+
+/* Update dialog */
+
+QDialog#appUpdateDialog {
+    background-color: #1c1c1e;
+}
+
+QLabel#updateTitleLabel {
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 700;
+    background-color: transparent;
+}
+
+QLabel#updateBodyLabel {
+    color: #98989d;
+    font-size: 15px;
+    background-color: transparent;
+}
+
+QLabel#updateBodyLabel[tone="error"] {
+    color: #ff6961;
+}
+
+QFrame#updateNotesCard {
+    background-color: #232326;
+    border: 1px solid #3a3a3c;
+    border-radius: 12px;
+}
+
+QLabel#updateNotesCaption {
+    color: #8e8e93;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background-color: transparent;
+}
+
+QTextBrowser#updateNotesView {
+    background-color: transparent;
+    border: none;
+    padding: 0px 10px 0px 0px;
+    font-size: 15px;
+}
+
+QTextBrowser#updateNotesView QScrollBar:vertical {
+    background-color: transparent;
+    width: 6px;
+}
+
+QTextBrowser#updateNotesView QScrollBar::handle:vertical {
+    background-color: #48484a;
+    border-radius: 3px;
+    margin: 0px;
+    min-height: 24px;
+}
+
+QTextBrowser#updateNotesView QScrollBar::handle:vertical:hover {
+    background-color: #636366;
+}
+
+QTextBrowser#updateNotesView QScrollBar::add-page:vertical,
+QTextBrowser#updateNotesView QScrollBar::sub-page:vertical {
+    background-color: transparent;
+}
+
+QLabel#updateHintLabel {
+    color: #98989d;
+    font-size: 14px;
+    background-color: transparent;
+}
+
+QFrame#updateProgressPanel {
+    background-color: #232326;
+    border: 1px solid #3a3a3c;
+    border-radius: 12px;
+}
+
+QLabel#updateProgressDetail {
+    color: #98989d;
+    font-size: 14px;
+    background-color: transparent;
+}
+
+QLabel#updateProgressPercent {
+    color: #6fb1ff;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: transparent;
+}
+
+QFrame#updateFooterDivider {
+    background-color: #2c2c2e;
+    border: none;
+}
+
+QDialog#appUpdateDialog QCheckBox {
+    color: #aeaeb2;
+    font-size: 15px;
+}
+
+QDialog#appUpdateDialog QCheckBox::indicator {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+}
+
+QDialog#appUpdateDialog QPushButton {
+    padding: 9px 18px;
+    font-size: 15px;
+}
+
+/* Upload File: the loaded-file card and the inline progress it shows while a
+   job runs. A QFrame so the surface paints; every label inside sets its own
+   transparent background because the global QWidget fill would otherwise
+   paint a dark block behind each one. */
+QFrame#uploadFileCard {
+    background-color: #2c2c2e;
+    border: 1px solid #3a3a3c;
+    border-radius: 16px;
+}
+
+QStackedWidget#uploadFooter,
+QWidget#uploadActions,
+QFrame#uploadProgressPanel {
+    background-color: transparent;
+    border: none;
+}
+
+QLabel#uploadFileIcon {
+    background-color: rgba(10, 132, 255, 0.14);
+    border-radius: 12px;
+}
+
+QLabel#uploadFileName {
+    color: #f5f5f7;
+    font-size: 17px;
+    font-weight: 600;
+    background-color: transparent;
+}
+
+QLabel#uploadMetaChip {
+    background-color: #1c1c1e;
+    border: 1px solid #3a3a3c;
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 13px;
+    color: #c7c7cc;
+}
+
+QLabel#uploadChunkChip {
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+QLabel#uploadChunkChip[tone="ok"] {
+    background-color: rgba(48, 209, 88, 0.14);
+    color: #30d158;
+}
+
+QLabel#uploadChunkChip[tone="warn"] {
+    background-color: rgba(255, 159, 10, 0.16);
+    color: #ff9f0a;
+}
+
+QPushButton#uploadRemoveButton {
+    background-color: transparent;
+    color: #8e8e93;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+QPushButton#uploadRemoveButton:hover {
+    background-color: rgba(255, 69, 58, 0.14);
+    color: #ff453a;
+}
+
+QPushButton#uploadRemoveButton:disabled {
+    color: #48484a;
+    background-color: transparent;
+}
+
+QFrame#uploadCardDivider {
+    background-color: #3a3a3c;
+}
+
+QLabel#uploadProgressTitle {
+    color: #f5f5f7;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: transparent;
+}
+
+QLabel#uploadProgressTitle[stage="done"] {
+    color: #30d158;
+}
+
+QLabel#uploadProgressTitle[stage="failed"] {
+    color: #ff453a;
+}
+
+QLabel#uploadProgressTitle[stage="canceled"] {
+    color: #ff9f0a;
+}
+
+QLabel#uploadProgressElapsed {
+    color: #8e8e93;
+    font-size: 14px;
+    background-color: transparent;
+}
+
+QLabel#uploadProgressDetail {
+    color: #8e8e93;
+    font-size: 13px;
+    background-color: transparent;
+}
+
+QFrame#uploadStepConnector {
+    background-color: #3a3a3c;
+}
+
+QLabel#uploadStepDot {
+    border-radius: 4px;
+    background-color: #48484a;
+}
+
+QLabel#uploadStepDot[stepState="active"] {
+    background-color: #0a84ff;
+}
+
+QLabel#uploadStepDot[stepState="done"] {
+    background-color: #30d158;
+}
+
+QLabel#uploadStepDot[stepState="failed"] {
+    background-color: #ff453a;
+}
+
+QLabel#uploadStepTitle {
+    color: #8e8e93;
+    font-size: 13px;
+    background-color: transparent;
+}
+
+QLabel#uploadStepTitle[stepState="active"] {
+    color: #f5f5f7;
+    font-weight: 600;
+}
+
+QLabel#uploadStepTitle[stepState="done"] {
+    color: #c7c7cc;
+}
+
+QLabel#uploadStepTitle[stepState="failed"] {
+    color: #ff453a;
+}
+
+/* Copy sits on the card, and the default button fill is the card color, so it
+   needs its own surface. Inactive (no transcript yet) reads as an outline. */
+QPushButton#uploadCopyButton {
+    background-color: #3a3a3c;
+    color: #f5f5f7;
+    font-size: 16px;
+}
+
+QPushButton#uploadCopyButton:hover {
+    background-color: #48484a;
+}
+
+QPushButton#uploadCopyButton:pressed {
+    background-color: #2c2c2e;
+}
+
+QPushButton#uploadCopyButton[inactive="true"],
+QPushButton#uploadCopyButton[inactive="true"]:hover,
+QPushButton#uploadCopyButton[inactive="true"]:pressed {
+    background-color: transparent;
+    color: #636366;
+    border: 1px solid #3a3a3c;
+}
+
+QLabel#uploadResultNote {
+    color: #8e8e93;
+    font-size: 14px;
+    background-color: transparent;
+}
+
+QLabel#uploadResultNote[tone="danger"] {
+    color: #ff453a;
+}
+
+/* Multi-file upload: the queue that replaces the single-file header when two
+   or more files are dropped. Containers are plain widgets and must not pick
+   up the global QWidget fill; rows are frames that carry their state. */
+QWidget#uploadFileHeader,
+QWidget#uploadQueue,
+QWidget#uploadRelationRow {
+    background-color: transparent;
+    border: none;
+}
+
+QLabel#uploadQueueTitle {
+    color: #f5f5f7;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: transparent;
+}
+
+QLabel#uploadQueueNote {
+    color: #8e8e93;
+    font-size: 14px;
+    background-color: transparent;
+}
+
+QLabel#uploadQueueNote[tone="warn"] {
+    color: #ff9f0a;
+}
+
+QFrame#uploadQueueRow {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid #3a3a3c;
+    border-radius: 10px;
+}
+
+QFrame#uploadQueueRow[state="active"] {
+    border-color: #0a84ff;
+    background-color: rgba(10, 132, 255, 0.08);
+}
+
+QFrame#uploadQueueRow[state="done"] {
+    border-color: rgba(48, 209, 88, 0.45);
+}
+
+QFrame#uploadQueueRow[state="failed"] {
+    border-color: rgba(255, 69, 58, 0.55);
+    background-color: rgba(255, 69, 58, 0.06);
+}
+
+QFrame#uploadQueueRow[state="stopped"] {
+    border-color: rgba(255, 159, 10, 0.45);
+}
+
+QLabel#uploadQueueRowIcon {
+    background-color: rgba(10, 132, 255, 0.14);
+    border-radius: 8px;
+}
+
+QLabel#uploadQueueRowName {
+    color: #f5f5f7;
+    font-size: 15px;
+    font-weight: 600;
+    background-color: transparent;
+}
+
+QLabel#uploadRowState {
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 13px;
+    font-weight: 600;
+    background-color: #1c1c1e;
+    color: #8e8e93;
+}
+
+QLabel#uploadRowState[state="active"] {
+    background-color: rgba(10, 132, 255, 0.16);
+    color: #0a84ff;
+}
+
+QLabel#uploadRowState[state="done"] {
+    background-color: rgba(48, 209, 88, 0.14);
+    color: #30d158;
+}
+
+QLabel#uploadRowState[state="failed"] {
+    background-color: rgba(255, 69, 58, 0.14);
+    color: #ff453a;
+}
+
+QLabel#uploadRowState[state="stopped"] {
+    background-color: rgba(255, 159, 10, 0.14);
+    color: #ff9f0a;
+}
+
+QPushButton#uploadRowMoveButton,
+QPushButton#uploadRowRemoveButton,
+QPushButton#uploadRowCopyButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 0;
+}
+
+QPushButton#uploadRowMoveButton:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+QPushButton#uploadRowCopyButton:hover {
+    background-color: rgba(10, 132, 255, 0.16);
+}
+
+QPushButton#uploadRowRemoveButton:hover {
+    background-color: rgba(255, 69, 58, 0.16);
+}
+
+QPushButton#uploadRowMoveButton:disabled,
+QPushButton#uploadRowRemoveButton:disabled {
+    background-color: transparent;
+}
+
+QPushButton#uploadAddFilesButton {
+    background-color: rgba(10, 132, 255, 0.12);
+    color: #0a84ff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+QPushButton#uploadAddFilesButton:hover {
+    background-color: rgba(10, 132, 255, 0.22);
+}
+
+QPushButton#uploadAddFilesButton:disabled {
+    background-color: transparent;
+    color: #48484a;
+}
+
+QLabel#uploadRelationLabel {
+    color: #c7c7cc;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: transparent;
+}
+
+QComboBox#uploadRelationCombo {
+    padding: 5px 12px;
+    font-size: 15px;
+    min-height: 28px;
+}
+
+QLabel#uploadRelationHint {
+    color: #8e8e93;
+    font-size: 13px;
+    background-color: transparent;
+}
+
+QPushButton#uploadRelationEditButton {
+    background-color: transparent;
+    color: #0a84ff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+QPushButton#uploadRelationEditButton:hover {
+    background-color: rgba(10, 132, 255, 0.12);
+}
+
+QLabel#uploadProgressBatch {
+    color: #c7c7cc;
+    font-size: 14px;
+    background-color: transparent;
+}
+
+QPushButton#uploadStopButton {
+    background-color: transparent;
+    color: #8e8e93;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 6px;
+}
+
+QPushButton#uploadStopButton:hover {
+    background-color: rgba(255, 69, 58, 0.14);
+    color: #ff453a;
+}
+
+QPushButton#uploadStopButton:disabled {
+    color: #48484a;
+    background-color: transparent;
+}
+
+/* Custom relation dialog for a multi-file upload. */
+QDialog#batchRelationDialog {
+    background-color: #1c1c1e;
+}
+
+QLabel#batchRelationTitle {
+    color: #f5f5f7;
+    background-color: transparent;
+}
+
+QLabel#batchRelationInfo {
+    color: #8e8e93;
+    font-size: 14px;
+    background-color: transparent;
+}
+
+QFrame#batchRelationFilesCard,
+QFrame#batchRelationEditorCard {
+    background-color: #2c2c2e;
+    border: 1px solid #3a3a3c;
+    border-radius: 12px;
+}
+
+QLabel#batchRelationFilesLabel,
+QLabel#batchRelationEditorLabel {
+    color: #8e8e93;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background-color: transparent;
+}
+
+QLabel#batchRelationFileName {
+    color: #c7c7cc;
+    font-size: 14px;
+    background-color: transparent;
+}
+
+QTextEdit#batchRelationEditor {
+    background-color: #1c1c1e;
+    border: 1px solid #3a3a3c;
+    border-radius: 8px;
+    color: #f5f5f7;
+    padding: 8px;
+}
+
+QCheckBox#batchRelationCombine {
+    color: #f5f5f7;
+    font-size: 15px;
+    background-color: transparent;
+}
+
+/* ---- Settings: header, chapter rail, and Home ---- */
+
+QFrame#settingsViewHeader {
+    background-color: #161618;
+    border: none;
+    border-bottom: 1px solid #2c2c2e;
+}
+
+QLabel#settingsViewBrand {
+    background-color: transparent;
+    color: #f5f5f7;
+    font-size: 20px;
+    font-weight: 700;
+    border: none;
+}
+
+QLabel#settingsViewLabel {
+    background-color: transparent;
+    color: #98989d;
+    font-size: 15px;
+    border: none;
+    padding-left: 12px;
+}
+
+/* Stands in for the rail in a window too narrow for it. */
+QPushButton#settingsPageMenu {
+    background-color: #1c1c1e;
+    color: #f5f5f7;
+    border: 1px solid #48484a;
+    border-radius: 8px;
+    padding: 7px 12px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+QPushButton#settingsPageMenu:hover {
+    background-color: #3a3a3c;
+    border-color: #545456;
+}
+
+QLabel#settingsPageCrumb {
+    color: #757579;
+    background-color: transparent;
+    border: none;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+QWidget#settingsRailChapter {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 9px;
+}
+
+QWidget#settingsRailChapter:hover {
+    background-color: #2c2c2e;
+    border-color: #3a3a3c;
+}
+
+/* The chapter holding the current page wears the same pill as a selected
+   top-level page, so the top level always says where you are. */
+QWidget#settingsRailChapter[active="true"] {
+    background-color: #142130;
+    border-color: #318dff;
+}
+
+QLabel#settingsRailChapterName,
+QLabel#settingsRailChevron {
+    background-color: transparent;
+    border: none;
+}
+
+QLabel#settingsRailChapterName {
+    color: #d1d1d6;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+QLabel#settingsRailChapterName[active="true"] {
+    color: #f5f5f7;
+}
+
+/* A chapter's pages hang off a guide line under its icon; the current page
+   lights its stretch of the line and its name instead of taking a second
+   pill under the chapter's. */
+QWidget#modelManagerRailItem[nested="true"],
+QWidget#modelManagerRailItem[nested="true"]:hover,
+QWidget#modelManagerRailItem[nested="true"][selected="true"] {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+QFrame#settingsRailGuide {
+    background-color: #3a3a3c;
+    border: none;
+}
+
+QFrame#settingsRailGuide[selected="true"] {
+    background-color: #0a84ff;
+}
+
+QWidget#modelManagerRailItem[nested="true"] QLabel#modelManagerRailName {
+    color: #98989d;
+    font-weight: 500;
+}
+
+QWidget#modelManagerRailItem[nested="true"]:hover QLabel#modelManagerRailName {
+    color: #f5f5f7;
+}
+
+QWidget#modelManagerRailItem[nested="true"] QLabel#modelManagerRailName[selected="true"] {
+    color: #6fb1ff;
+    font-weight: 600;
+}
+
+QWidget#modelManagerRailItem[nested="true"] QLabel#modelManagerRailValue[selected="true"] {
+    color: #98989d;
+}
+
+QWidget#homePage,
+QWidget#homeShortcut,
+QWidget#homeWhereHalf,
+QAbstractButton#settingsSwitch {
+    background-color: transparent;
+    border: none;
+}
+
+QFrame#homeCard {
+    background-color: #2c2c2e;
+    border: 1px solid #3a3a3c;
+    border-radius: 12px;
+}
+
+/* A deep link to an old Basic tab tints its card briefly, like a search hit. */
+QFrame#homeCard[searchHit="true"] {
+    border-color: #318dff;
+}
+
+QLabel#homeCardTitle,
+QLabel#homeCardIcon,
+QLabel#homeRowTitle,
+QLabel#homeRowDescription,
+QLabel#homeStatus,
+QLabel#homeStorageValue,
+QLabel#homeLegend,
+QLabel#homeComponents,
+QLabel#homeFooter,
+QLabel#settingsAutoSaveLabel {
+    background-color: transparent;
+    border: none;
+}
+
+QLabel#homeCardTitle {
+    color: #f5f5f7;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+QLabel#homeRowTitle {
+    color: #f5f5f7;
+    font-size: 15px;
+}
+
+QLabel#homeRowDescription {
+    color: #98989d;
+    font-size: 14px;
+}
+
+QLabel#homeStatus {
+    color: #98989d;
+    font-size: 13px;
+    padding-bottom: 4px;
+}
+
+QLabel#homeStorageValue {
+    color: #f5f5f7;
+    font-size: 17px;
+    font-weight: 700;
+    padding-top: 4px;
+}
+
+QLabel#homeLegend,
+QLabel#homeFooter {
+    color: #757579;
+    font-size: 13px;
+}
+
+QLabel#homeComponents {
+    color: #d1d1d6;
+    font-size: 14px;
+}
+
+QLabel#settingsAutoSaveLabel {
+    color: #757579;
+    font-size: 13px;
+}
+
+QFrame#homeDivider {
+    background-color: #2c2c2e;
+    border: none;
+}
+
+/* basicSettingsCombo: guided setup's microphone, named for the retired
+   Basic view; drop it once guided_setup.py uses homeCombo. */
+QComboBox#homeCombo,
+QComboBox#basicSettingsCombo {
+    background-color: #1c1c1e;
+    color: #f5f5f7;
+    border: 1px solid #48484a;
+    border-radius: 7px;
+    padding: 6px 12px;
+    font-size: 15px;
+}
+
+QComboBox#homeCombo:focus,
+QComboBox#basicSettingsCombo:focus {
+    border-color: #0a84ff;
+}
+
+QPushButton#homeLink {
+    background-color: transparent;
+    color: #0a84ff;
+    border: none;
+    padding: 9px 0 6px 0;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+}
+
+QPushButton#homeLink:hover,
+QPushButton#homeLink:focus {
+    color: #007aff;
+    text-decoration: underline;
+}
+
+QPushButton#settingsChangeShortcut {
+    background-color: #1c1c1e;
+    color: #d1d1d6;
+    border: 1px solid #48484a;
+    border-radius: 7px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* ---- Settings: header search, the where strip, and the search palette ---- */
+
+QPushButton#settingsRailSearch {
+    background-color: #1c1c1e;
+    border: 1px solid #3a3a3c;
+    border-radius: 8px;
+    text-align: left;
+}
+
+QPushButton#settingsRailSearch:hover {
+    background-color: #3a3a3c;
+    border-color: #545456;
+}
+
+QPushButton#settingsRailSearch:focus {
+    border-color: #0a84ff;
+}
+
+QLabel#settingsRailSearchIcon {
+    background-color: transparent;
+    border: none;
+}
+
+QLabel#settingsRailSearchText {
+    color: #757579;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+}
+
+QLabel#settingsRailSearchHint {
+    color: #98989d;
+    background-color: #3a3a3c;
+    border: 1px solid #48484a;
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    padding: 0px 5px;
+    font-size: 12px;
+}
+
+/* A search result's card is tinted briefly so the eye finds it. */
+QFrame#settingsTile[searchHit="true"],
+QFrame#textModelFootnoteCard[searchHit="true"] {
+    background-color: #142130;
+    border-color: #318dff;
+}
+
+QLabel#engineInventoryLabel {
+    padding-top: 0;
+}
+
+QWidget#engineInventoryRow,
+QWidget#downloadsPage {
+    background-color: transparent;
+}
+
+QLabel#downloadsPolicyLabel {
+    color: #d1d1d6;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+}
+
+QComboBox#hfPolicyCombo {
+    color: #f5f5f7;
+    background-color: #1c1c1e;
+    border: 1px solid #48484a;
+    border-radius: 8px;
+    font-size: 14px;
+    padding-left: 12px;
+    padding-right: 32px;
+}
+
+/* The profile floats over the catalog when the page is too narrow to dock
+   it; the lifted border separates it from the rows underneath. */
+QFrame#downloadsInspector[overlay="true"] {
+    background-color: #1c1c1e;
+    border: 1px solid #545456;
+}
+
+QPushButton#downloadsInspectorClose {
+    color: #98989d;
+    background-color: transparent;
+    border: 1px solid #3a3a3c;
+    border-radius: 7px;
+    font-size: 13px;
+}
+
+QPushButton#downloadsInspectorClose:hover {
+    color: #f5f5f7;
+    background-color: #3a3a3c;
+    border-color: #545456;
+}
+
+QFrame#homeWhere {
+    background-color: transparent;
+    border: 1px solid #3a3a3c;
+    border-radius: 12px;
+}
+
+QWidget#homeWhereHalf {
+    background-color: transparent;
+}
+
+QFrame#homeWhereDivider {
+    background-color: #3a3a3c;
+    border: none;
+}
+
+QLabel#homeDot {
+    border: none;
+    border-radius: 4px;
+    background-color: #30d158;
+}
+
+QLabel#homeDot[tone="warn"] {
+    background-color: #e0a052;
+}
+
+QLabel#homeWhereTitle {
+    color: #f5f5f7;
+    background-color: transparent;
+    border: none;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+QLabel#homeWhereList {
+    color: #98989d;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+}
+
+QWidget#settingsSearchOverlay {
+    background-color: transparent;
+}
+
+QFrame#settingsSearchPanel {
+    background-color: #1c1c1e;
+    border: 1px solid #48484a;
+    border-radius: 14px;
+}
+
+QLineEdit#settingsSearchInput {
+    color: #f5f5f7;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #2c2c2e;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+    min-height: 52px;
+    padding: 0px 14px;
+    font-size: 18px;
+}
+
+QListWidget#settingsSearchResults {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 6px 8px;
+}
+
+QListWidget#settingsSearchResults::item {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 9px;
+}
+
+QListWidget#settingsSearchResults::item:selected {
+    background-color: #142130;
+    border-color: #318dff;
+}
+
+QListWidget#settingsSearchResults::item:hover:!selected {
+    background-color: #323234;
+}
+
+QWidget#settingsSearchRow {
+    background-color: transparent;
+}
+
+QLabel#settingsSearchSection {
+    color: #757579;
+    background-color: transparent;
+    border: none;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 8px 12px 2px 12px;
+}
+
+QLabel#settingsSearchIcon {
+    background-color: #2c2c2e;
+    border: 1px solid #3a3a3c;
+    border-radius: 7px;
+}
+
+QLabel#settingsSearchTitle {
+    color: #f5f5f7;
+    background-color: transparent;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+QLabel#settingsSearchDetail {
+    color: #757579;
+    background-color: transparent;
+    border: none;
+    font-size: 13px;
+}
+
+QLabel#settingsSearchBadge {
+    color: #6fb1ff;
+    background-color: rgba(10, 132, 255, 0.10);
+    border: 1px solid rgba(10, 132, 255, 0.28);
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+QLabel#settingsSearchBadge[tone="ok"] {
+    color: #30d158;
+    background-color: rgba(48, 209, 88, 0.10);
+    border: 1px solid rgba(48, 209, 88, 0.28);
+}
+
+QLabel#settingsSearchEmpty {
+    color: #98989d;
+    background-color: transparent;
+    border: none;
+    font-size: 15px;
+    padding: 26px 20px;
+}
+
+QWidget#settingsSearchFooter {
+    background-color: transparent;
+    border-top: 1px solid #2c2c2e;
+}
+
+QLabel#settingsSearchHint {
+    color: #757579;
+    background-color: transparent;
+    border: none;
+    font-size: 13px;
+}
+
+QListWidget#remoteModelList {
+    background-color: #1c1c1e;
+    border: 1px solid #2c2c2e;
+    border-radius: 10px;
+    padding: 6px;
+}
+QListWidget#remoteModelList::item {
+    padding: 12px 10px;
+    margin: 2px;
+    border-radius: 7px;
+}
+QListWidget#remoteModelList::item:selected {
+    background-color: rgba(10, 132, 255, 0.18);
+    color: #6fb1ff;
+}
+QFrame#remoteModelInspector {
+    background-color: #1c1c1e;
+    border: 1px solid #2c2c2e;
+    border-radius: 10px;
+}
+QFrame#remoteModelInspector QLabel {
+    background-color: transparent;
+}
+QLabel#remoteModelTitle {
+    font-size: 21px;
+    font-weight: 600;
+}
+QLabel#remoteHostSummary {
+    background-color: rgba(10, 132, 255, 0.08);
+    border-radius: 8px;
+    padding: 12px;
+}
+
+/* Settings: the dismissible "New in OpenWhisper" note on Home. */
+QFrame#settingsTile[kind="intro"],
+QFrame#settingsTile[kind="intro"]:hover {
+    background-color: #142130;
+    border-color: #2a5382;
+}
+
+/* personalize:S1 begin (context & styles) */
+QWidget#appStylesRows,
+QWidget#appStylesRow,
+QWidget#appStylesAddRow,
+QWidget#appStyleCardBody {
+    background-color: transparent;
+}
+
+QWidget#appStylesAddRow QComboBox:disabled {
+    color: #636366;
+    border-color: #2c2c2e;
+}
+
+QLabel#appStylesRowLabel {
+    color: #f5f5f7;
+    background-color: transparent;
+    border: none;
+    font-size: 15px;
+}
+
+/* Each tone's example reads like a message written in that tone. */
+QLabel#appStyleExample {
+    color: #d1d1d6;
+    background-color: #1c1c1e;
+    border: 1px solid #2c2c2e;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 15px;
+}
+
+QLabel#appStylesRowLabel:disabled,
+QLabel#appStyleExample:disabled {
+    color: #636366;
+}
+/* personalize:S1 end */
+
+/* personalize:S2 begin (cleanup levels) */
+/* AI cleanup: what the chosen cleanup level does, under its control. */
+QLabel#cleanupLevelNote {
+    color: #d1d1d6;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+}
+
+QLabel#cleanupLevelNote:disabled {
+    color: #636366;
+}
+
+/* The custom prompt editor, styled like the Learned rules input. */
+QPlainTextEdit#cleanupPromptEditor {
+    background-color: #1c1c1e;
+    color: #f5f5f7;
+    border: 1px solid #48484a;
+    border-radius: 9px;
+    padding: 6px 8px;
+    font-size: 15px;
+    selection-background-color: #0a84ff;
+}
+
+QPlainTextEdit#cleanupPromptEditor:hover {
+    border-color: #545456;
+}
+
+QPlainTextEdit#cleanupPromptEditor:focus {
+    border: 1px solid #0a84ff;
+}
+
+QPlainTextEdit#cleanupPromptEditor:disabled {
+    color: #636366;
+    border-color: #2c2c2e;
+}
+/* personalize:S2 end */
+
+/* personalize:S3 begin (commands) */
+QWidget#transformsPanel,
+QWidget#transformLibrary,
+QWidget#transformsPanel QLabel,
+QWidget[tileId="transformStarters"],
+QWidget[tileId="commandShortcutField"] {
+    background: transparent;
+}
+
+/* The transform editor is a card, like the profile editor beside it in the rail. */
+QWidget#transformEditor {
+    background-color: #2c2c2e;
+    border: 1px solid #3a3a3c;
+    border-radius: 12px;
+}
+
+/* Outlined like the Name field above it: the light card and the text field
+   share a fill, so without a border the instruction has no edge. */
+QWidget#transformEditor QTextEdit {
+    border: 1px solid #3a3a3c;
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+QWidget#transformEditor QTextEdit:focus {
+    border-color: #0a84ff;
+}
+
+QListWidget#transformsList {
+    background: #2c2c2e;
+    color: #f5f5f7;
+    border: 1px solid #3a3a3c;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 15px;
+    outline: none;
+}
+
+QListWidget#transformsList::item {
+    padding: 10px 8px;
+    border-radius: 6px;
+}
+
+QListWidget#transformsList::item:selected {
+    background: #17345a;
+    color: #6fb1ff;
+}
+
+/* Quick Record: compact links to Command Mode and Walkthrough settings. */
+QPushButton#commandModeHintLink,
+QPushButton#walkthroughSettingsLink {
+    color: #0a84ff;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 2px 0;
+    min-height: 0;
+}
+
+QPushButton#commandModeHintLink:hover,
+QPushButton#commandModeHintLink:focus,
+QPushButton#walkthroughSettingsLink:hover,
+QPushButton#walkthroughSettingsLink:focus {
+    color: #6fb1ff;
+    text-decoration: underline;
+}
+/* personalize:S3 end */
+
+/* personalize:S4 begin (dictionary) */
+QWidget#dictionaryLibrary,
+QWidget#dictionaryRows,
+QWidget#dictionaryRowText,
+QWidget#reflow,
+QWidget#dictionaryActions {
+    background-color: transparent;
+}
+
+QLineEdit#dictionaryTermInput,
+QLineEdit#dictionaryHeardInput,
+QLineEdit#dictionarySearchInput {
+    background-color: #1c1c1e;
+    border: 1px solid #48484a;
+    border-radius: 9px;
+    padding: 8px 12px;
+    font-size: 15px;
+}
+
+QLineEdit#dictionaryTermInput:hover,
+QLineEdit#dictionaryHeardInput:hover,
+QLineEdit#dictionarySearchInput:hover {
+    border-color: #545456;
+}
+
+QLineEdit#dictionaryTermInput:focus,
+QLineEdit#dictionaryHeardInput:focus,
+QLineEdit#dictionarySearchInput:focus {
+    border: 1px solid #0a84ff;
+}
+
+QLabel#dictionaryMessage {
+    color: #30d158;
+    background-color: transparent;
+    font-size: 14px;
+}
+
+QLabel#dictionaryMessage[tone="error"] {
+    color: #ff6961;
+}
+
+QLabel#dictionaryCount {
+    color: #6fb1ff;
+    background-color: rgba(10, 132, 255, 0.12);
+    border: 1px solid rgba(10, 132, 255, 0.25);
+    border-radius: 10px;
+    padding: 3px 9px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+QFrame#dictionaryRow {
+    background-color: #1c1c1e;
+    border: 1px solid #3a3a3c;
+    border-radius: 9px;
+}
+
+QFrame#dictionaryRow:hover {
+    border-color: #48484a;
+}
+
+QLabel#dictionaryTerm {
+    color: #f5f5f7;
+    background-color: transparent;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+QLabel#dictionaryDetail {
+    color: #98989d;
+    background-color: transparent;
+    font-size: 14px;
+}
+
+QLabel#dictionaryBadge {
+    color: #6fb1ff;
+    background-color: rgba(10, 132, 255, 0.12);
+    border: 1px solid rgba(10, 132, 255, 0.28);
+    border-radius: 8px;
+    padding: 1px 7px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+QLabel#dictionaryBadge[tone="new"] {
+    color: #30d158;
+    background-color: rgba(48, 209, 88, 0.12);
+    border: 1px solid rgba(48, 209, 88, 0.30);
+}
+
+QPushButton#dictionaryStar {
+    background-color: transparent;
+    border: none;
+    border-radius: 8px;
+    padding: 0px;
+    qproperty-icon: url(:/ui_theme/assets/tabler/star-gray.svg);
+}
+
+QPushButton#dictionaryStar:hover {
+    background-color: #3a3a3c;
+}
+
+QPushButton#dictionaryStar[starred="true"] {
+    qproperty-icon: url(:/ui_theme/assets/tabler/star-filled-amber.svg);
+}
+
+/* personalize:S4 end */
+
+/* personalize:S5 begin (snippets) */
+QWidget#snippetsPanel,
+QWidget#snippetsLibrary,
+QWidget#snippetsEditor,
+QWidget#snippetsFormatRow {
+    background-color: transparent;
+}
+
+QLabel#snippetsCount {
+    color: #6fb1ff;
+    background-color: rgba(10, 132, 255, 0.12);
+    border: 1px solid rgba(10, 132, 255, 0.25);
+    border-radius: 10px;
+    padding: 3px 9px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+QListWidget#snippetsList {
+    color: #f5f5f7;
+    background-color: #1c1c1e;
+    border: 1px solid #3a3a3c;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 15px;
+    outline: none;
+}
+
+QListWidget#snippetsList::item {
+    padding: 8px 9px;
+    border-radius: 7px;
+}
+
+QListWidget#snippetsList::item:hover {
+    background-color: #3a3a3c;
+}
+
+QListWidget#snippetsList::item:selected {
+    color: #ffffff;
+    background-color: #17345a;
+}
+
+QFrame#snippetsEmpty {
+    background-color: #232325;
+    border: 1px dashed #48484a;
+    border-radius: 10px;
+}
+
+QLabel#snippetsEmptyTitle,
+QLabel#snippetsFormatTitle {
+    color: #f5f5f7;
+    background-color: transparent;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+QLineEdit#snippetTriggerInput,
+QPlainTextEdit#snippetTextInput {
+    color: #f5f5f7;
+    background-color: #1c1c1e;
+    border: 1px solid #48484a;
+    border-radius: 9px;
+    padding: 8px 12px;
+    font-size: 15px;
+    selection-background-color: #0a84ff;
+}
+
+QPlainTextEdit#snippetTextInput {
+    padding: 6px 8px;
+}
+
+QLineEdit#snippetTriggerInput:hover,
+QPlainTextEdit#snippetTextInput:hover {
+    border-color: #545456;
+}
+
+QLineEdit#snippetTriggerInput:focus,
+QPlainTextEdit#snippetTextInput:focus {
+    border-color: #0a84ff;
+}
+
+QLabel#snippetTriggerNote,
+QLabel#snippetPreview {
+    color: #98989d;
+    background-color: transparent;
+    font-size: 14px;
+}
+
+QLabel#snippetMessage {
+    color: #30d158;
+    background-color: transparent;
+    font-size: 14px;
+}
+
+QLabel#snippetTriggerNote[tone="error"],
+QLabel#snippetMessage[tone="error"] {
+    color: #ff453a;
+}
+/* personalize:S5 end */
+
+/* personalize:S6 begin (hotkeys) */
+/* The hands-free switch shares the trigger-mode card, under a hairline. */
+QWidget#hotkeyLatchRow {
+    background-color: transparent;
+    border: none;
+    border-top: 1px solid #2c2c2e;
+}
+
+QLabel#hotkeyShortcutNote {
+    color: #98989d;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+}
+
+QLabel#hotkeyShortcutNote[tone="warning"] {
+    color: #ff9f0a;
+}
+
+QPushButton#hotkeyClearButton:disabled {
+    color: #636366;
+    background-color: transparent;
+    border-color: #2c2c2e;
+}
+/* personalize:S6 end */
+
+/* personalize:S7 begin (microphones) */
+QWidget#micPreferredRow,
+QWidget#micBackupList,
+QWidget#micBackupText {
+    background-color: transparent;
+}
+
+QFrame#micBackupRow {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid #3a3a3c;
+    border-radius: 8px;
+}
+
+QFrame#micBackupRow[state="fixed"] {
+    background-color: transparent;
+    border-color: #2c2c2e;
+}
+
+QLabel#micBackupName {
+    color: #f5f5f7;
+    background-color: transparent;
+    border: none;
+    font-size: 15px;
+}
+
+QFrame#micBackupRow[state="missing"] QLabel#micBackupName,
+QFrame#micBackupRow[state="fixed"] QLabel#micBackupName {
+    color: #98989d;
+}
+
+QLabel#micBackupNote {
+    color: #98989d;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+}
+
+QPushButton#micBackupButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 0;
+}
+
+QPushButton#micBackupButton:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+QPushButton#micBackupButton[kind="remove"]:hover {
+    background-color: rgba(255, 69, 58, 0.16);
+}
+
+QPushButton#micBackupButton:disabled {
+    background-color: transparent;
+}
+
+QPushButton#micBackupButton[kind="up"] {
+    qproperty-icon: url(:/ui_theme/assets/tabler/chevron-up-gray.svg);
+}
+
+QPushButton#micBackupButton[kind="down"] {
+    qproperty-icon: url(:/ui_theme/assets/tabler/chevron-down-gray.svg);
+}
+
+QPushButton#micBackupButton[kind="remove"] {
+    qproperty-icon: url(:/ui_theme/assets/tabler/x-gray.svg);
+}
+/* personalize:S7 end */
+
+/* personalize:S8 begin (overlay, languages & scratchpad) */
+/* Settings → Voice model: the languages you dictate in, as chips. */
+QWidget#dictationLanguages,
+QWidget#dictationLanguageChips,
+QLabel#dictationLanguageChipLabel {
+    background-color: transparent;
+}
+
+QFrame#dictationLanguageChip {
+    background-color: #3a3a3c;
+    border: 1px solid #48484a;
+    border-radius: 15px;
+}
+
+QFrame#dictationLanguageChip[active="true"] {
+    background-color: rgba(10, 132, 255, 0.16);
+    border-color: #3a6aa3;
+}
+
+QFrame#dictationLanguageChip[available="false"] {
+    background-color: transparent;
+    border: 1px dashed #3a3a3c;
+}
+
+QLabel#dictationLanguageChipLabel {
+    color: #f5f5f7;
+    font-size: 15px;
+}
+
+QFrame#dictationLanguageChip[active="true"] QLabel#dictationLanguageChipLabel {
+    color: #6fb1ff;
+    font-weight: 600;
+}
+
+QFrame#dictationLanguageChip[available="false"] QLabel#dictationLanguageChipLabel {
+    color: #757579;
+}
+
+QToolButton#dictationLanguageChipRemove {
+    background-color: transparent;
+    border: none;
+    border-radius: 11px;
+    padding: 0;
+}
+
+QToolButton#dictationLanguageChipRemove:hover {
+    background-color: rgba(255, 69, 58, 0.16);
+}
+
+/* The floating Scratchpad. Classic desktops draw the rounded surface on a
+   translucent window; compositor-managed ones get a plain window. */
+QFrame#scratchpadSurface {
+    background-color: #2c2c2e;
+    border: 1px solid #48484a;
+    border-radius: 14px;
+}
+
+QFrame#scratchpadSurface[framed="false"] {
+    border: none;
+    border-radius: 0;
+}
+
+QFrame#scratchpadHeader {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #3a3a3c;
+}
+
+QFrame#scratchpadFooter {
+    background-color: transparent;
+    border: none;
+    border-top: 1px solid #3a3a3c;
+}
+
+QLabel#scratchpadIcon,
+QLabel#scratchpadTitle,
+QLabel#scratchpadStatus {
+    background-color: transparent;
+}
+
+QLabel#scratchpadTitle {
+    color: #f5f5f7;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+QLabel#scratchpadStatus {
+    color: #8e8e93;
+    font-size: 14px;
+}
+
+QToolButton#scratchpadOnTop {
+    color: #8e8e93;
+    background-color: transparent;
+    border: 1px solid #48484a;
+    border-radius: 10px;
+    padding: 2px 9px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+QToolButton#scratchpadOnTop:hover {
+    background-color: #3a3a3c;
+}
+
+QToolButton#scratchpadOnTop:checked {
+    color: #6fb1ff;
+    background-color: rgba(10, 132, 255, 0.14);
+    border-color: #2a5382;
+}
+
+QToolButton#scratchpadClose {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 4px;
+}
+
+QToolButton#scratchpadClose:hover {
+    background-color: #3a3a3c;
+}
+
+QPlainTextEdit#scratchpadEditor {
+    color: #f5f5f7;
+    background-color: transparent;
+    border: none;
+    padding: 8px 10px;
+    font-size: 17px;
+    selection-background-color: rgba(10, 132, 255, 0.35);
+}
+
+QToolButton[scratchpadAction="true"] {
+    color: #c7c7cc;
+    background-color: transparent;
+    border: none;
+    border-radius: 7px;
+    padding: 5px 9px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+QToolButton[scratchpadAction="true"]:hover {
+    color: #f5f5f7;
+    background-color: #3a3a3c;
+}
+
+QToolButton[scratchpadAction="true"]:pressed {
+    background-color: #48484a;
+}
+
+QToolButton[scratchpadAction="true"]:disabled {
+    color: #636366;
+}
+
+QSizeGrip#scratchpadGrip {
+    width: 12px;
+    height: 12px;
+    background-color: transparent;
+}
+/* personalize:S8 end */
+
+/* The corner card that says a walkthrough is ready (walkthrough_ready.py). */
+QFrame#walkthroughReadySurface {
+    background-color: #2c2c2e;
+    border: 1px solid #48484a;
+    border-radius: 14px;
+}
+
+QLabel#walkthroughThumb,
+QLabel#walkthroughReadyTitle,
+QLabel#walkthroughReadySubtitle,
+QLabel#walkthroughReadyReason,
+QLabel#walkthroughFileIcon,
+QLabel#walkthroughFileName {
+    background-color: transparent;
+}
+
+QLabel#walkthroughReadyTitle {
+    color: #f5f5f7;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+QLabel#walkthroughReadySubtitle {
+    color: #8e8e93;
+    font-size: 14px;
+}
+
+QLabel#walkthroughReadyReason {
+    color: #8e8e93;
+    font-size: 14px;
+    padding-top: 2px;
+}
+
+QFrame#walkthroughFileChip {
+    background-color: rgba(10, 132, 255, 0.10);
+    border: 1px solid #2a5382;
+    border-radius: 9px;
+}
+
+QFrame#walkthroughFileChip:hover {
+    background-color: rgba(10, 132, 255, 0.18);
+}
+
+QLabel#walkthroughFileName {
+    color: #6fb1ff;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+QToolButton[walkthroughAction="true"] {
+    color: #6fb1ff;
+    background-color: transparent;
+    border: none;
+    border-radius: 7px;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+QToolButton[walkthroughAction="true"]:hover {
+    background-color: rgba(10, 132, 255, 0.12);
+}
+
+QToolButton[walkthroughAction="true"]:pressed {
+    background-color: rgba(10, 132, 255, 0.2);
+}
+
+QToolButton#walkthroughReadyClose,
+QToolButton#walkthroughReadyMore {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 4px;
+}
+
+QToolButton#walkthroughReadyMore {
+    border-radius: 7px;
+    padding: 5px 7px;
+}
+
+QToolButton#walkthroughReadyMore::menu-indicator {
+    image: none;
+    width: 0px;
+}
+
+QToolButton#walkthroughReadyClose:hover,
+QToolButton#walkthroughReadyMore:hover,
+QToolButton#walkthroughReadyMore:pressed {
+    background-color: #3a3a3c;
+}
+
+/* personalize:S9 begin (history, stats & playback) */
+/* Stats window: the Settings slate family, with a tinted glyph per number. */
+QDialog#statsDialog {
+    background-color: #1c1c1e;
+}
+
+QScrollArea#statsScroll,
+QScrollArea#statsScroll > QWidget,
+QWidget#statsBody,
+QStackedWidget#statsPages,
+QWidget#statsContent,
+QFrame#statsEmpty,
+QWidget#statsFooter {
+    background-color: transparent;
+    border: none;
+}
+
+QLabel#statsTitle {
+    color: #f5f5f7;
+    background-color: transparent;
+    font-size: 23px;
+    font-weight: 700;
+}
+
+QLabel#statsIntro,
+QLabel#statsMuted {
+    color: #98989d;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+}
+
+QFrame#statsSection {
+    background-color: #2c2c2e;
+    border: 1px solid #3a3a3c;
+    border-radius: 12px;
+}
+
+QWidget#statsStat {
+    background-color: transparent;
+    border: none;
+}
+
+QFrame#statsFeatureRow {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+}
+
+QFrame#statsFeatureRow:hover {
+    background-color: rgba(152, 152, 157, 0.14);
+}
+
+QFrame#statsFeatureRow:focus {
+    border-color: #0a84ff;
+}
+
+QFrame#statsRule {
+    background-color: #3a3a3c;
+    border: none;
+}
+
+QLabel#statsCardIcon {
+    background-color: rgba(10, 132, 255, 0.14);
+    border: none;
+    border-radius: 8px;
+}
+
+QLabel#statsCardCaption {
+    color: #98989d;
+    background-color: transparent;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+QLabel#statsCardValue {
+    color: #f5f5f7;
+    background-color: transparent;
+    border: none;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+QLabel#statsCardDetail {
+    color: #757579;
+    background-color: transparent;
+    border: none;
+    font-size: 13px;
+}
+
+QLabel#statsSectionTitle,
+QLabel#statsEmptyTitle {
+    color: #f5f5f7;
+    background-color: transparent;
+    border: none;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+QLabel#statsEmptyTitle {
+    font-size: 17px;
+}
+
+QLabel#statsAppName {
+    color: #f5f5f7;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+QLabel#statsAppWords {
+    color: #98989d;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+QLabel#statsAppShare {
+    color: #757579;
+    background-color: transparent;
+    border: none;
+    font-size: 13px;
+}
+
+QLabel#statsHeroCaption {
+    color: #98989d;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+QLabel#statsHeroValue {
+    color: #f5f5f7;
+    background-color: transparent;
+    border: none;
+    font-size: 37px;
+    font-weight: 800;
+}
+
+QLabel#statsHeroDetail {
+    color: #98989d;
+    background-color: transparent;
+    border: none;
+    font-size: 13px;
+}
+
+QLabel#statsTrend {
+    color: #d1d1d6;
+    background-color: rgba(152, 152, 157, 0.16);
+    border: none;
+    border-radius: 9px;
+    padding: 2px 9px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+QLabel#statsTrend[tone="up"] {
+    color: #30d158;
+    background-color: rgba(48, 209, 88, 0.16);
+}
+
+QLabel#statsTrend[tone="down"] {
+    color: #ff9f0a;
+    background-color: rgba(255, 159, 10, 0.16);
+}
+
+QLabel#statsInsight {
+    color: #d1d1d6;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+/* personalize:S9 end */
+
+/* automation:G begin */
+/* Settings > Automate > Actions (ui_qt/widgets/action_*.py). Every rule here is
+   self-contained: the widgets also appear outside the page's own containers. */
+QWidget[tileId="actionRow"],
+QWidget[tileId="actionsPanel"],
+QWidget[tileId="actionList"],
+QWidget[tileId="actionGallery"],
+QWidget[tileId="actionAgentFields"],
+QWidget[tileId="actionAgentChooser"],
+QWidget[tileId="actionShapingField"],
+QWidget[tileId="actionPathField"],
+QWidget[tileId="actionShortcutField"],
+QWidget[tileId="actionRouteShortcut"],
+QFrame#actionSwitchRow {
+    background-color: transparent;
+    border: none;
+}
+
+QWidget[tileId="actionRow"] QLabel,
+QWidget[tileId="actionAgentFields"] QLabel,
+QWidget[tileId="actionsPanel"] QLabel,
+QWidget[tileId="actionGallery"] QLabel,
+QFrame#actionSwitchRow QLabel {
+    background-color: transparent;
+}
+
+QLabel#actionHint {
+    color: #98989d;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+}
+
+QLabel#actionHint[tone="ok"] {
+    color: #30d158;
+}
+
+QLabel#actionHint[tone="warning"] {
+    color: #ff9f0a;
+}
+
+QLabel#actionHint[tone="error"] {
+    color: #ff6961;
+}
+
+QLabel#actionSectionLabel {
+    color: #f5f5f7;
+    background-color: transparent;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+QFrame#actionDivider {
+    background-color: #2c2c2e;
+    border: none;
+}
+
+/* Text boxes match the shortcut boxes beside them. */
+QLineEdit[tileId="actionInput"],
+QPlainTextEdit[tileId="actionInput"],
+QSpinBox[tileId="actionInput"],
+QComboBox#actionOutputCombo,
+QComboBox#actionShapingCombo {
+    color: #f5f5f7;
+    background-color: #1c1c1e;
+    border: 1px solid #48484a;
+    border-radius: 9px;
+    padding: 6px 11px;
+    font-size: 15px;
+    selection-background-color: #0a84ff;
+}
+
+QComboBox#actionOutputCombo,
+QComboBox#actionShapingCombo {
+    padding-right: 32px;
+}
+
+QLineEdit[tileId="actionInput"]:hover,
+QPlainTextEdit[tileId="actionInput"]:hover,
+QSpinBox[tileId="actionInput"]:hover,
+QComboBox#actionOutputCombo:hover,
+QComboBox#actionShapingCombo:hover {
+    border-color: #545456;
+}
+
+QLineEdit[tileId="actionInput"]:focus,
+QPlainTextEdit[tileId="actionInput"]:focus,
+QSpinBox[tileId="actionInput"]:focus,
+QComboBox#actionOutputCombo:focus,
+QComboBox#actionShapingCombo:focus {
+    border-color: #0a84ff;
+}
+
+QLineEdit[tileId="actionInput"]:read-only {
+    color: #d1d1d6;
+}
+
+QLineEdit[tileId="actionInput"]:disabled,
+QPlainTextEdit[tileId="actionInput"]:disabled,
+QComboBox#actionOutputCombo:disabled,
+QComboBox#actionShapingCombo:disabled {
+    color: #636366;
+    border-color: #2c2c2e;
+}
+
+/* Tile icons sit in a soft square of their own colour, like the MCP cards. */
+QLabel#settingsTileIcon[iconTone="blue"] {
+    background-color: rgba(10, 132, 255, 0.14);
+    border-radius: 9px;
+}
+
+QLabel#settingsTileIcon[iconTone="purple"] {
+    background-color: rgba(191, 90, 242, 0.16);
+    border-radius: 9px;
+}
+
+QLabel#settingsTileIcon[iconTone="green"] {
+    background-color: rgba(48, 209, 88, 0.14);
+    border-radius: 9px;
+}
+
+QLabel#settingsTileIcon[iconTone="gray"] {
+    background-color: #3a3a3c;
+    border-radius: 9px;
+}
+
+/* The Agent hotkey card leads the page with a little warmth. */
+QFrame#settingsTile[tileId="actionAgentCard"],
+QFrame#settingsTile[tileId="actionAgentCard"]:hover {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+        stop: 0 rgba(191, 90, 242, 0.11), stop: 0.55 #2c2c2e, stop: 1 #2c2c2e);
+    border: 1px solid rgba(191, 90, 242, 0.30);
+    border-radius: 14px;
+}
+
+QFrame#settingsTile[tileId="actionAgentCard"][searchHit="true"] {
+    background-color: #142130;
+    border-color: #318dff;
+}
+
+QLabel#settingsTileTitle[tileId="actionAgentTitle"] {
+    font-size: 17px;
+}
+
+QFrame#settingsTile[tileId="actionAgentCard"] QLabel#settingsTileIcon[iconTone="purple"] {
+    background-color: rgba(191, 90, 242, 0.20);
+    border-radius: 11px;
+}
+
+/* One installed agent: its mark lights up once a scan finds it. */
+QPushButton#actionAgentChoice {
+    color: #f5f5f7;
+    background-color: #1c1c1e;
+    border: 1px solid #3a3a3c;
+    border-radius: 11px;
+    padding: 0;
+}
+
+QPushButton#actionAgentChoice:hover {
+    background-color: #3a3a3c;
+    border-color: #545456;
+}
+
+QPushButton#actionAgentChoice:focus {
+    border-color: #0a84ff;
+}
+
+QPushButton#actionAgentChoice:checked {
+    background-color: rgba(10, 132, 255, 0.14);
+    border-color: rgba(10, 132, 255, 0.60);
+}
+
+QPushButton#actionAgentChoice:disabled {
+    background-color: transparent;
+    border: 1px dashed #3a3a3c;
+}
+
+QPushButton#actionAgentChoice:checked:disabled {
+    background-color: #3a3a3c;
+}
+
+QPushButton#actionAgentChoice QLabel {
+    background-color: transparent;
+    border: none;
+}
+
+QLabel#actionAgentName {
+    color: #f5f5f7;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+QLabel#actionAgentDetail {
+    color: #98989d;
+    font-size: 13px;
+}
+
+QLabel#actionAgentDetail[tone="found"] {
+    color: #30d158;
+}
+
+QLabel#actionAgentName:disabled,
+QLabel#actionAgentDetail:disabled {
+    color: #757579;
+}
+
+/* Action cards. */
+QFrame#settingsTile[tileId="actionCard"][off="true"] QLabel#settingsTileTitle,
+QFrame#settingsTile[tileId="actionCard"][off="true"] QLabel#settingsTileDescription {
+    color: #757579;
+}
+
+QFrame#settingsTile[tileId="actionCard"][searchHit="true"] {
+    background-color: #142130;
+    border-color: #318dff;
+}
+
+/* Links, like the other pages' "Open ..." links but without their
+   "min-height: 0": Settings pages lay out at their minimum height, so a link
+   must never be allowed below its own text. */
+QPushButton#actionLink {
+    color: #0a84ff;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 2px 0;
+}
+
+QPushButton#actionLink:hover,
+QPushButton#actionLink:focus {
+    color: #6fb1ff;
+    text-decoration: underline;
+}
+
+QPushButton#actionLink[tone="danger"] {
+    color: #ff6961;
+}
+
+QPushButton#actionLink:disabled {
+    color: #636366;
+}
+
+QLabel#actionChip {
+    color: #d1d1d6;
+    background-color: #1c1c1e;
+    border: 1px solid #3a3a3c;
+    border-radius: 9px;
+    padding: 2px 9px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+QLabel#actionChip[tone="key"] {
+    color: #6fb1ff;
+    background-color: rgba(10, 132, 255, 0.12);
+    border-color: rgba(10, 132, 255, 0.32);
+}
+
+QLabel#actionChip[tone="voice"] {
+    color: #d29bf5;
+    background-color: rgba(191, 90, 242, 0.12);
+    border-color: rgba(191, 90, 242, 0.32);
+}
+
+QLabel#actionChip[tone="muted"] {
+    color: #757579;
+    background-color: transparent;
+    border: 1px dashed #48484a;
+    font-weight: 400;
+}
+
+/* Add action: each starting point is a card you can click or tab to. */
+QFrame#settingsTile[tileId="actionPreset"]:focus {
+    border-color: #0a84ff;
+}
+
+/* Route by voice: where it stands, in its own words. */
+QFrame#actionStatusLine {
+    background-color: #2c2c2e;
+    border: 1px solid #2c2c2e;
+    border-radius: 12px;
+}
+
+QFrame#actionStatusLine[state="ready"] {
+    background-color: rgba(48, 209, 88, 0.08);
+    border-color: rgba(48, 209, 88, 0.30);
+}
+
+QFrame#actionStatusLine[state="attention"] {
+    background-color: #2b2118;
+    border-color: #64491f;
+}
+
+QFrame#actionStatusLine QWidget,
+QFrame#actionStatusLine QLabel {
+    background-color: transparent;
+}
+
+QLabel#actionHint[tileId="actionStatusMessage"] {
+    color: #d1d1d6;
+    font-size: 15px;
+}
+
+/* What a link will open, for the sample words. */
+QLabel#actionLinkPreview {
+    color: #98989d;
+    background-color: #1c1c1e;
+    border: 1px solid #2c2c2e;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 14px;
+}
+
+QLabel#actionLinkPreview[tone="warning"] {
+    color: #ff9f0a;
+}
+
+/* "Try it" says what happened, as it happened. */
+QLabel#actionTryResult {
+    color: #d1d1d6;
+    background-color: #1c1c1e;
+    border: 1px solid #2c2c2e;
+    border-radius: 8px;
+    padding: 7px 10px;
+    font-size: 14px;
+}
+
+QLabel#actionTryResult[tone="ok"] {
+    color: #30d158;
+    background-color: rgba(48, 209, 88, 0.10);
+    border-color: rgba(48, 209, 88, 0.32);
+}
+
+QLabel#actionTryResult[tone="error"] {
+    color: #ff6961;
+    background-color: rgba(255, 69, 58, 0.08);
+    border-color: rgba(255, 69, 58, 0.30);
+}
+/* automation:G end */
+
+/* automation:H begin */
+/* Settings > Hooks: each tile holds a list of saved hooks with an editor
+   card that opens under the row being edited. Every container and label the
+   widgets nest is transparent, so only the rows and the editor are surfaces. */
+QWidget#hooksSection,
+QWidget#hooksList,
+QWidget#hooksRowText,
+QWidget#hooksButtonRow,
+QWidget#hooksExtras,
+QWidget#hooksInlineField,
+QWidget#hooksEventChooser,
+QWidget#hooksRecent,
+QWidget#hooksRecentRow,
+QWidget#hooksLeases,
+QWidget#hooksLeaseRows,
+QWidget#hooksSection QLabel {
+    background-color: transparent;
+    border: none;
+}
+
+QLabel#hooksCount {
+    color: #6fb1ff;
+    background-color: rgba(10, 132, 255, 0.12);
+    border: 1px solid rgba(10, 132, 255, 0.25);
+    border-radius: 10px;
+    padding: 3px 9px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+QFrame#hooksRow {
+    background-color: #1c1c1e;
+    border: 1px solid #2c2c2e;
+    border-radius: 10px;
+}
+
+QFrame#hooksRow:hover {
+    background-color: #3a3a3c;
+    border-color: #3a3a3c;
+}
+
+QFrame#hooksRow[selected="true"] {
+    background-color: #142130;
+    border-color: #2a5382;
+}
+
+QLabel#hooksRowName {
+    color: #f5f5f7;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+QLabel#hooksRowDetail {
+    color: #98989d;
+    font-size: 14px;
+}
+
+QFrame#hooksRow[off="true"] QLabel#hooksRowName {
+    color: #98989d;
+}
+
+QFrame#hooksEditor {
+    background-color: #2c2c2e;
+    border: 1px solid #2a5382;
+    border-radius: 12px;
+}
+
+QFrame#hooksEditor QLabel {
+    background-color: transparent;
+    border: none;
+}
+
+QFrame#hooksEditor QLineEdit,
+QFrame#hooksEditor QPlainTextEdit#hooksArgs,
+QFrame#hooksEditor QSpinBox {
+    color: #f5f5f7;
+    background-color: #1c1c1e;
+    border: 1px solid #48484a;
+    border-radius: 9px;
+    padding: 7px 12px;
+    font-size: 15px;
+    selection-background-color: #0a84ff;
+}
+
+QFrame#hooksEditor QPlainTextEdit#hooksArgs {
+    padding: 4px 8px;
+}
+
+QFrame#hooksEditor QLineEdit:hover,
+QFrame#hooksEditor QPlainTextEdit#hooksArgs:hover,
+QFrame#hooksEditor QSpinBox:hover {
+    border-color: #545456;
+}
+
+QFrame#hooksEditor QLineEdit:focus,
+QFrame#hooksEditor QPlainTextEdit#hooksArgs:focus,
+QFrame#hooksEditor QSpinBox:focus {
+    border-color: #0a84ff;
+}
+
+QFrame#hooksDivider {
+    background-color: #2c2c2e;
+    border: none;
+}
+
+QLabel#hooksSectionLabel {
+    color: #f5f5f7;
+    background-color: transparent;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+QLabel#hooksHint {
+    color: #98989d;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+}
+
+QLabel#hooksHint[tone="warning"] {
+    color: #ff9f0a;
+}
+
+/* What went wrong with a test or a secret, in words that wrap. */
+QLabel#hooksHint[tone="error"] {
+    color: #ff453a;
+}
+
+QLabel#hooksMessage {
+    color: #30d158;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+}
+
+QLabel#hooksMessage[tone="error"] {
+    color: #ff453a;
+}
+
+/* Event chips: checkable tags that wrap; checked ones wear the accent. */
+QPushButton#hooksEventChip {
+    color: #d1d1d6;
+    background-color: transparent;
+    border: 1px solid #48484a;
+    border-radius: 13px;
+    padding: 4px 12px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+QPushButton#hooksEventChip:hover {
+    color: #f5f5f7;
+    background-color: #1c1c1e;
+    border-color: #545456;
+}
+
+QPushButton#hooksEventChip:focus {
+    border-color: #0a84ff;
+}
+
+QPushButton#hooksEventChip:checked {
+    color: #6fb1ff;
+    background-color: rgba(10, 132, 255, 0.16);
+    border-color: rgba(10, 132, 255, 0.55);
+}
+
+QPushButton#hooksEventChip:checked:hover {
+    background-color: rgba(10, 132, 255, 0.24);
+}
+
+/* A short honest result next to Send test, Run test and the secret buttons. */
+QLabel#hooksChip {
+    color: #d1d1d6;
+    background-color: #1c1c1e;
+    border: 1px solid #3a3a3c;
+    border-radius: 10px;
+    padding: 3px 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+QLabel#hooksChip[tone="ok"] {
+    color: #30d158;
+    background-color: rgba(48, 209, 88, 0.12);
+    border-color: rgba(48, 209, 88, 0.32);
+}
+
+QLabel#hooksChip[tone="error"] {
+    color: #ff453a;
+    background-color: rgba(255, 69, 58, 0.10);
+    border-color: rgba(255, 69, 58, 0.32);
+}
+
+QLabel#hooksChip[tone="busy"] {
+    color: #6fb1ff;
+    background-color: rgba(10, 132, 255, 0.10);
+    border-color: rgba(10, 132, 255, 0.30);
+}
+
+QLabel#hooksRecentTime {
+    color: #98989d;
+    font-size: 14px;
+}
+
+QLabel#hooksRecentWhat {
+    color: #d1d1d6;
+    font-size: 14px;
+}
+
+QLabel#hooksRecentEmpty {
+    color: #98989d;
+    font-size: 14px;
+}
+
+QLabel#hooksRecentResult {
+    color: #30d158;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+QLabel#hooksRecentResult[tone="error"] {
+    color: #ff453a;
+}
+
+QFrame#hooksLeaseRow {
+    background-color: #1c1c1e;
+    border: 1px solid #2c2c2e;
+    border-radius: 9px;
+}
+
+QFrame#hooksLeaseRow QLabel {
+    background-color: transparent;
+    border: none;
+}
+
+/* Settings > API & MCP: the live API, MCP Events and Claude Code channel cards
+   sit outside #mcpSettingsPage, so they carry their own copies of its rules. */
+QWidget#mcpLiveSection,
+QWidget#mcpLiveSection QLabel,
+QWidget#mcpLiveRow,
+QWidget#mcpEndpoints {
+    background-color: transparent;
+    border: none;
+}
+
+QWidget#mcpLiveSection QLineEdit,
+QWidget#mcpLiveSection QPlainTextEdit {
+    color: #f5f5f7;
+    background-color: #1c1c1e;
+    border: 1px solid #3a3a3c;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 15px;
+}
+
+QWidget#mcpLiveSection QLineEdit:disabled {
+    color: #636366;
+}
+
+QWidget#mcpLiveSection QPlainTextEdit#mcpChannelConfig {
+    font-family: "Cascadia Mono", "Consolas", "SF Mono", "Menlo", monospace;
+    font-size: 14px;
+}
+
+/* The launch command wraps instead of scrolling, so all of it shows. */
+QWidget#mcpLiveSection QLabel#mcpCommandBox {
+    color: #f5f5f7;
+    background-color: #1c1c1e;
+    border: 1px solid #3a3a3c;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-family: "Cascadia Mono", "Consolas", "SF Mono", "Menlo", monospace;
+    font-size: 14px;
+}
+
+QWidget#mcpLiveSection QLabel#mcpLiveStatus {
+    color: #d1d1d6;
+    font-size: 15px;
+}
+
+QWidget#mcpLiveSection QLabel#mcpPreviewChip {
+    color: #ff9f0a;
+    background-color: rgba(255, 159, 10, 0.12);
+    border: 1px solid rgba(255, 159, 10, 0.32);
+    border-radius: 10px;
+    padding: 2px 9px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+QPushButton#mcpEndpoint {
+    color: #0a84ff;
+    background-color: transparent;
+    border: none;
+    padding: 2px 0;
+    font-family: "Cascadia Mono", "Consolas", "SF Mono", "Menlo", monospace;
+    font-size: 14px;
+    text-align: left;
+}
+
+QPushButton#mcpEndpoint:hover,
+QPushButton#mcpEndpoint:focus {
+    color: #6fb1ff;
+    text-decoration: underline;
+}
+
+QPushButton#mcpEndpoint:disabled {
+    color: #636366;
+}
+
+/* A text link. No min-height override, so its height never drops below the text. */
+QPushButton#hooksLink {
+    color: #0a84ff;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 2px 0;
+    text-align: left;
+}
+
+QPushButton#hooksLink:hover,
+QPushButton#hooksLink:focus {
+    color: #6fb1ff;
+    text-decoration: underline;
+}
+/* automation:H end */

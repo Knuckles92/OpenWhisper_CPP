@@ -1,0 +1,126 @@
+{
+ "area": "a33-tests-and-parity-harness",
+ "package": "M10 sweep",
+ "features": {
+  "A33-H1": {
+   "status": "fixed",
+   "cpp": [
+    "tools/parity/classify_tests.py",
+    "tools/parity/classification.json",
+    "tools/parity/classification.md",
+    "tools/parity/parity_report.py"
+   ],
+   "tests": [
+    "tools/parity/tests/test_harness_audit_a33.py",
+    "tools/parity/tests/test_parity_tools.py"
+   ],
+   "note": "classify_tests.py had no test: added Classification.test_a_rerun_on_the_reference_checkout_gives_the_committed_bytes (skips without FIORIVOCE_OW_ROOT); run here against /home/user/knuckles92/openwhisper it rebuilt classification.json and classification.md byte for byte. parity_report.py --check reads the classification (64 PARITY.json files, 0 problems). python3 -I -B -m unittest discover -s tools/parity/tests passed here (with FIORIVOCE_OW_ROOT set to the reference checkout, and without it)."
+  },
+  "A33-H2": {
+   "status": "verified",
+   "cpp": [
+    "tools/parity/golden_vectors.py",
+    "tools/parity/golden_format.py",
+    "tools/parity/ow_isolation.py"
+   ],
+   "tests": [
+    "tools/parity/tests/test_parity_tools.py",
+    "tests/support/test_support.cpp"
+   ],
+   "note": "test_round_trip_of_tagged_floats, test_repr_values_are_kept_but_not_decoded and test_files_are_lf_utf8_with_indent_one pin the vector format; 'golden vector files carry their module, commit and pins' checks every committed file. Regenerating vectors needs the reference checkout's Python dependencies and was not run."
+  },
+  "A33-H3": {
+   "status": "fixed",
+   "cpp": [
+    "tools/parity/trace_plugin.py"
+   ],
+   "tests": [
+    "tools/parity/tests/test_harness_audit_a33.py"
+   ],
+   "note": "trace_plugin.py had no test: added TracePlugin.test_records_each_distinct_call_with_its_result_or_exception, which runs it under pytest as golden_vectors.py does against a small module (distinct calls kept once, kwargs, results, the exception name, the summary line). Skips when pytest is not installed. python3 -I -B -m unittest discover -s tools/parity/tests passed here (with FIORIVOCE_OW_ROOT set to the reference checkout, and without it)."
+  },
+  "A33-H4": {
+   "status": "verified",
+   "cpp": [
+    "tests/support/golden/golden.cpp",
+    "tests/support/golden/golden.h"
+   ],
+   "tests": [
+    "tests/support/test_support.cpp",
+    "tests/meeting_web/test_golden.cpp"
+   ],
+   "note": "fv_golden: for_each, typed args and results, raises, Python equality and float tolerance comparators, the OpenWhisper-to-FioriVoce rebrand map; 'golden vectors catch a port that rounds half away from zero' and 'golden for_each fails on a function without vectors' prove it can fail. ctest -L support passed here (39 tests, 2 pixel cases skipped)."
+  },
+  "A33-H5": {
+   "status": "verified",
+   "cpp": [
+    "tools/parity/render_reference.py"
+   ],
+   "tests": [
+    "tools/parity/tests/test_parity_tools.py",
+    "tests/support/test_support.cpp"
+   ],
+   "note": "test_checkout_urls_become_resource_urls and test_a_leftover_checkout_path_fails pin the stylesheet rewrite; the committed references under tests/reference are what the C++ screenshot tests replay. Rendering new references needs PyQt6 and the reference checkout and was not run here."
+  },
+  "A33-H6": {
+   "status": "verified",
+   "cpp": [
+    "tools/parity/render_reference.py",
+    "tests/support/screenshot/screenshot.cpp",
+    "tests/support/screenshot/dumped_widgets.h"
+   ],
+   "tests": [
+    "tests/support/test_support.cpp"
+   ],
+   "note": "'dump_tree writes the Python dump's schema for a C++ widget', 'the reference theme installs every palette group and restores the previous one', 'expect_matches fails when the application stylesheet is not the reference's' and 'the same tree without the application stylesheet does not match the reference'; the last one's pixel half skips here."
+  },
+  "A33-H7": {
+   "status": "verified",
+   "cpp": [
+    "tests/support/screenshot/screenshot.cpp",
+    "tests/support/screenshot/screenshot.h"
+   ],
+   "tests": [
+    "tests/support/test_support.cpp"
+   ],
+   "note": "'image comparison counts differing pixels and paints them magenta', 'tolerance files need a pixel count and a reason' and 'Qt kit families come from the version' ran here; 'fv_screenshot rebuilds the EmptyState harness reference at 0 differing pixels' skips its pixel half on this Linux machine (MACHINE.md: reference pixels are Windows'), as do the reference tree checks that fail on font metrics in other directories."
+  },
+  "A33-H8": {
+   "status": "fixed",
+   "cpp": [
+    "tools/parity/ow_isolation.py",
+    "tools/parity/check_isolation.py"
+   ],
+   "tests": [
+    "tools/parity/tests/test_harness_audit_a33.py",
+    "tools/parity/tests/test_parity_tools.py"
+   ],
+   "note": "check_isolation.py was tested; ow_isolation.isolate was not: added Isolation.test_every_openwhisper_path_moves_into_scratch (OPENWHISPER_DATA_DIR, LOCALAPPDATA, APPDATA, XDG_DATA_HOME into scratch, HF offline, proxies removed, no bytecode, the real folder kept in FIORIVOCE_REAL_LOCALAPPDATA) and test_scratch_inside_the_checkout_or_the_real_data_is_refused, each in a child process. python3 -I -B -m unittest discover -s tools/parity/tests passed here (with FIORIVOCE_OW_ROOT set to the reference checkout, and without it)."
+  },
+  "A33-H9": {
+   "status": "fixed",
+   "cpp": [
+    "tools/parity/coverage_table.py"
+   ],
+   "tests": [
+    "tools/parity/tests/test_harness_audit_a33.py"
+   ],
+   "note": "coverage_table.py had no test: added CoverageTable.test_every_area_has_a_row_whose_counts_come_from_the_classification (one row per area of docs/port/areas.json, test-function counts summed from classification.json, the total test lines). python3 -I -B -m unittest discover -s tools/parity/tests passed here (with FIORIVOCE_OW_ROOT set to the reference checkout, and without it)."
+  },
+  "A33-H10": {
+   "status": "verified",
+   "cpp": [
+    "tools/parity/parity_report.py",
+    "tools/parity/feature_audit.py",
+    "tools/parity/differences.py",
+    "tools/parity/ledger.py"
+   ],
+   "tests": [
+    "tools/parity/tests/test_parity_tools.py",
+    "tools/parity/tests/test_feature_audit.py"
+   ],
+   "note": "PARITY.json schema, most-finished status across packages, unassigned files, schema errors failing the check, the committed files valid (test_the_committed_parity_files_are_valid passes now), and the feature audit's references, statuses, handoffs under --final and merged evidence. python3 -I -B -m unittest discover -s tools/parity/tests passed here (with FIORIVOCE_OW_ROOT set to the reference checkout, and without it)."
+  }
+ },
+ "differences": []
+}

@@ -1,0 +1,2599 @@
+{
+ "module": "services.backup",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time",
+  "note": "Windows paths: _relative_under's root is a WindowsPath, as on the owner's machine; the replay runs it on Windows only."
+ },
+ "functions": {
+  "_scrub": [
+   {
+    "args": [
+     "https://user:pw@example.com/v1?key=abc#frag"
+    ],
+    "result": "https://example.com/v1"
+   },
+   {
+    "args": [
+     "http://example.com"
+    ],
+    "result": "http://example.com"
+   },
+   {
+    "args": [
+     "HTTPS://Example.com/Path?q=1"
+    ],
+    "result": "https://Example.com/Path"
+   },
+   {
+    "args": [
+     "Https://User@Host:80/p;params?q#f"
+    ],
+    "result": "https://Host:80/p;params"
+   },
+   {
+    "args": [
+     "https://example.com?x=1"
+    ],
+    "result": "https://example.com"
+   },
+   {
+    "args": [
+     "https://example.com#frag"
+    ],
+    "result": "https://example.com"
+   },
+   {
+    "args": [
+     "https://a@b@c.com/x"
+    ],
+    "result": "https://c.com/x"
+   },
+   {
+    "args": [
+     "http://"
+    ],
+    "result": "http://"
+   },
+   {
+    "args": [
+     "https://"
+    ],
+    "result": "https://"
+   },
+   {
+    "args": [
+     "http:///path"
+    ],
+    "result": "http:///path"
+   },
+   {
+    "args": [
+     "http://user@/path"
+    ],
+    "result": "http:///path"
+   },
+   {
+    "args": [
+     "http://user:pw@?q"
+    ],
+    "result": "http://"
+   },
+   {
+    "args": [
+     "http://[::1]:8080/x?y"
+    ],
+    "result": "http://[::1]:8080/x"
+   },
+   {
+    "args": [
+     "https://u@[::1]/"
+    ],
+    "result": "https://[::1]/"
+   },
+   {
+    "args": [
+     "https://[::1%25eth0]/a"
+    ],
+    "result": "https://[::1%25eth0]/a"
+   },
+   {
+    "args": [
+     "https://[fe80::1%]/"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "https://[::ffff:1.2.3.4]/"
+    ],
+    "result": "https://[::ffff:1.2.3.4]/"
+   },
+   {
+    "args": [
+     "https://[::ffff:1.2.3.04]/"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "https://[1:2:3:4:5:6:7:8:9]/"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "https://[1:2:3:4:5:6:7:8]/"
+    ],
+    "result": "https://[1:2:3:4:5:6:7:8]/"
+   },
+   {
+    "args": [
+     "https://[1::2::3]/"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "https://[:1:2:3:4:5:6:7]/"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "https://[1:2:3:4:5:6:7::]/"
+    ],
+    "result": "https://[1:2:3:4:5:6:7::]/"
+   },
+   {
+    "args": [
+     "https://[::]/"
+    ],
+    "result": "https://[::]/"
+   },
+   {
+    "args": [
+     "https://[12345::]/"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "https://[v1.fe]/"
+    ],
+    "result": "https://[v1.fe]/"
+   },
+   {
+    "args": [
+     "https://[v.x]/"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "https://[vG.x]/"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "https://[V1.x]/"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "https://[1.2.3.4]/"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "https://[zz]/"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "https://[::1]x/"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "https://x[::1]/"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "https://[x]@host/"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "http://[bad/x"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "HTTP://bad["
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "http://bad]/"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "xhttp://["
+    ],
+    "result": "xhttp://["
+   },
+   {
+    "args": [
+     "http]://x"
+    ],
+    "result": "http]://x"
+   },
+   {
+    "args": [
+     "http://ex℀ample.com/"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "https://ex／ample.com/"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "http://＠host/"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "http://h⁇/x"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "https://éxample.com/p?q"
+    ],
+    "result": "https://éxample.com/p"
+   },
+   {
+    "args": [
+     "https://x.com/é?q"
+    ],
+    "result": "https://x.com/é"
+   },
+   {
+    "args": [
+     "  https://u:p@h.com/a?b"
+    ],
+    "result": "https://h.com/a"
+   },
+   {
+    "args": [
+     "\u0000\u0001https://u:p@h.com/a?b"
+    ],
+    "result": "https://h.com/a"
+   },
+   {
+    "args": [
+     "https://h.com/a\tb?c"
+    ],
+    "result": "https://h.com/ab"
+   },
+   {
+    "args": [
+     "https://h.com/a\r\nb"
+    ],
+    "result": "https://h.com/ab"
+   },
+   {
+    "args": [
+     "https:\\\\host\\path?q"
+    ],
+    "result": "https:\\\\host\\path?q"
+   },
+   {
+    "args": [
+     "https:host/path?q"
+    ],
+    "result": "https:host/path?q"
+   },
+   {
+    "args": [
+     "ftp://user:pw@host/x?y"
+    ],
+    "result": "ftp://user:pw@host/x?y"
+   },
+   {
+    "args": [
+     "mailto:x@y.com"
+    ],
+    "result": "mailto:x@y.com"
+   },
+   {
+    "args": [
+     "not a url"
+    ],
+    "result": "not a url"
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "https://ex%40mple.com/?q"
+    ],
+    "result": "https://ex%40mple.com/"
+   },
+   {
+    "args": [
+     "https://host:99999/x?y"
+    ],
+    "result": "https://host:99999/x"
+   },
+   {
+    "args": [
+     "HtTp://Host.Example/A/B/?q=1#z"
+    ],
+    "result": "http://Host.Example/A/B/"
+   },
+   {
+    "args": [
+     "https://u:p@h/x?y",
+     true
+    ],
+    "result": "https://u:p@h/x?y"
+   },
+   {
+    "args": [
+     1
+    ],
+    "result": 1
+   },
+   {
+    "args": [
+     1.5
+    ],
+    "result": 1.5
+   },
+   {
+    "args": [
+     null
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     true
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     []
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     {}
+    ],
+    "result": {}
+   },
+   {
+    "args": [
+     [
+      "https://h/x?y",
+      1,
+      null,
+      true,
+      [
+       "http://a:b@c/d?e"
+      ]
+     ]
+    ],
+    "result": [
+     "https://h/x",
+     1,
+     null,
+     true,
+     [
+      "http://c/d"
+     ]
+    ]
+   },
+   {
+    "args": [
+     {
+      "a": {
+       "api_key": "x",
+       "url": "https://u:p@h/x?y",
+       "Headers": {
+        "X": "1"
+       },
+       "list": [
+        "https://h/x?y",
+        1,
+        null,
+        true
+       ]
+      },
+      "dictation_snippets": [
+       {
+        "text": "https://x/?a=1",
+        "password": "p"
+       }
+      ],
+      "nested": {
+       "dictation_snippets": {
+        "deep": "https://h/?q",
+        "inner": {
+         "u": "https://h/?q"
+        }
+       }
+      },
+      "MyToken": "t",
+      "cookieJar": 1,
+      "Authorization": "b",
+      "PRIVATE_KEY_PATH": "k",
+      "credentials_file": "c",
+      "secretive": 2,
+      "İapi_key": 3,
+      "headerless": 4,
+      "plain": "https://u@h/?q#f"
+     }
+    ],
+    "result": {
+     "a": {
+      "url": "https://h/x",
+      "list": [
+       "https://h/x",
+       1,
+       null,
+       true
+      ]
+     },
+     "dictation_snippets": [
+      {
+       "text": "https://x/?a=1"
+      }
+     ],
+     "nested": {
+      "dictation_snippets": {
+       "deep": "https://h/?q",
+       "inner": {
+        "u": "https://h/?q"
+       }
+      }
+     },
+     "plain": "https://h/"
+    }
+   },
+   {
+    "args": [
+     {
+      "dictation_snippets": "https://h/?q",
+      "other": "https://h/?q"
+     }
+    ],
+    "result": {
+     "dictation_snippets": "https://h/?q",
+     "other": "https://h/"
+    }
+   },
+   {
+    "args": [
+     {
+      "keep": "https://h/?q"
+     },
+     true
+    ],
+    "result": {
+     "keep": "https://h/?q"
+    }
+   }
+  ],
+  "_sanitize_settings": [
+   {
+    "args": [
+     {}
+    ],
+    "result": {
+     "remote_host_enabled": false,
+     "remote_host_model_management": false,
+     "remote_host_tailscale_trust": false,
+     "remote_host_keep_records": false,
+     "remote_host_manage_mcp": false,
+     "remote_client_history": false,
+     "remote_records_location": "local",
+     "mcp_enabled": false,
+     "mcp_tailscale_enabled": false,
+     "meeting_server_bind": "localhost",
+     "meeting_context_folder_enabled": false,
+     "meeting_context_folder_path": "",
+     "api_run_actions": false,
+     "api_control_recording": false,
+     "api_text_filters": false,
+     "api_agent_prompts": false,
+     "mcp_events_enabled": false
+    }
+   },
+   {
+    "args": [
+     {
+      "ui_theme": "dark",
+      "remote_engine_client": {
+       "host": "elsewhere",
+       "fingerprint": "old"
+      },
+      "remote_host_enabled": true,
+      "remote_host_devices": [
+       {
+        "token_hash": "old-token-digest"
+       }
+      ],
+      "remote_records_location": "host",
+      "mcp_enabled": true,
+      "meeting_context_folder_path": "C:\\Users\\dana\\external",
+      "legacy_secret": "do-not-export"
+     }
+    ],
+    "result": {
+     "ui_theme": "dark",
+     "remote_host_enabled": false,
+     "remote_records_location": "local",
+     "mcp_enabled": false,
+     "remote_host_model_management": false,
+     "remote_host_tailscale_trust": false,
+     "remote_host_keep_records": false,
+     "remote_host_manage_mcp": false,
+     "remote_client_history": false,
+     "mcp_tailscale_enabled": false,
+     "meeting_server_bind": "localhost",
+     "meeting_context_folder_enabled": false,
+     "meeting_context_folder_path": "",
+     "api_run_actions": false,
+     "api_control_recording": false,
+     "api_text_filters": false,
+     "api_agent_prompts": false,
+     "mcp_events_enabled": false
+    }
+   },
+   {
+    "args": [
+     {
+      "ui_theme": "light",
+      "mcp_enabled": false,
+      "meeting_context_folder_path": "",
+      "transcript_cleanup_base_url": "https://user:pw@api.example.com/v1?key=abc",
+      "dictation_snippets": [
+       {
+        "id": "s1",
+        "trigger": "cal",
+        "text": "Book: https://cal.example.com/dana?ref=email#slots",
+        "formatted": false
+       }
+      ],
+      "text_llm_profiles": [
+       {
+        "base_url": "https://person:password@example.com/v1?token=s#f",
+        "api_key": "k",
+        "name": "P"
+       }
+      ]
+     }
+    ],
+    "result": {
+     "ui_theme": "light",
+     "mcp_enabled": false,
+     "transcript_cleanup_base_url": "https://api.example.com/v1",
+     "dictation_snippets": [
+      {
+       "id": "s1",
+       "trigger": "cal",
+       "text": "Book: https://cal.example.com/dana?ref=email#slots",
+       "formatted": false
+      }
+     ],
+     "text_llm_profiles": [
+      {
+       "base_url": "https://example.com/v1",
+       "name": "P"
+      }
+     ],
+     "remote_host_enabled": false,
+     "remote_host_model_management": false,
+     "remote_host_tailscale_trust": false,
+     "remote_host_keep_records": false,
+     "remote_host_manage_mcp": false,
+     "remote_client_history": false,
+     "remote_records_location": "local",
+     "mcp_tailscale_enabled": false,
+     "meeting_server_bind": "localhost",
+     "meeting_context_folder_enabled": false,
+     "meeting_context_folder_path": "",
+     "api_run_actions": false,
+     "api_control_recording": false,
+     "api_text_filters": false,
+     "api_agent_prompts": false,
+     "mcp_events_enabled": false
+    }
+   },
+   {
+    "args": [
+     {
+      "automation_webhooks": [
+       {
+        "url": "https://h/x?sig=1",
+        "enabled": true
+       },
+       "loose",
+       3,
+       {
+        "name": "no flag"
+       }
+      ],
+      "automation_programs": [
+       {
+        "program": "C:\\x.exe",
+        "enabled": true
+       }
+      ],
+      "automation_filters": "not a list",
+      "api_run_actions": true,
+      "api_control_recording": true,
+      "api_text_filters": true,
+      "api_agent_prompts": true,
+      "mcp_events_enabled": true,
+      "mcp_tailscale_enabled": true,
+      "meeting_server_bind": "0.0.0.0",
+      "meeting_context_folder_enabled": true,
+      "remote_host_model_management": true,
+      "remote_host_tailscale_trust": true,
+      "remote_host_keep_records": true,
+      "remote_host_manage_mcp": true,
+      "remote_client_history": true
+     }
+    ],
+    "result": {
+     "automation_webhooks": [
+      {
+       "url": "https://h/x",
+       "enabled": false
+      },
+      "loose",
+      3,
+      {
+       "name": "no flag",
+       "enabled": false
+      }
+     ],
+     "automation_programs": [
+      {
+       "program": "C:\\x.exe",
+       "enabled": false
+      }
+     ],
+     "automation_filters": "not a list",
+     "api_run_actions": false,
+     "api_control_recording": false,
+     "api_text_filters": false,
+     "api_agent_prompts": false,
+     "mcp_events_enabled": false,
+     "mcp_tailscale_enabled": false,
+     "meeting_server_bind": "localhost",
+     "meeting_context_folder_enabled": false,
+     "remote_host_model_management": false,
+     "remote_host_tailscale_trust": false,
+     "remote_host_keep_records": false,
+     "remote_host_manage_mcp": false,
+     "remote_client_history": false,
+     "remote_host_enabled": false,
+     "remote_records_location": "local",
+     "mcp_enabled": false,
+     "meeting_context_folder_path": ""
+    }
+   },
+   {
+    "args": [
+     {
+      "actions": null,
+      "ui_theme": "dark"
+     }
+    ],
+    "result": {
+     "ui_theme": "dark",
+     "remote_host_enabled": false,
+     "remote_host_model_management": false,
+     "remote_host_tailscale_trust": false,
+     "remote_host_keep_records": false,
+     "remote_host_manage_mcp": false,
+     "remote_client_history": false,
+     "remote_records_location": "local",
+     "mcp_enabled": false,
+     "mcp_tailscale_enabled": false,
+     "meeting_server_bind": "localhost",
+     "meeting_context_folder_enabled": false,
+     "meeting_context_folder_path": "",
+     "api_run_actions": false,
+     "api_control_recording": false,
+     "api_text_filters": false,
+     "api_agent_prompts": false,
+     "mcp_events_enabled": false
+    }
+   },
+   {
+    "args": [
+     {
+      "actions": "not a list"
+     }
+    ],
+    "result": {
+     "remote_host_enabled": false,
+     "remote_host_model_management": false,
+     "remote_host_tailscale_trust": false,
+     "remote_host_keep_records": false,
+     "remote_host_manage_mcp": false,
+     "remote_client_history": false,
+     "remote_records_location": "local",
+     "mcp_enabled": false,
+     "mcp_tailscale_enabled": false,
+     "meeting_server_bind": "localhost",
+     "meeting_context_folder_enabled": false,
+     "meeting_context_folder_path": "",
+     "api_run_actions": false,
+     "api_control_recording": false,
+     "api_text_filters": false,
+     "api_agent_prompts": false,
+     "mcp_events_enabled": false,
+     "actions": []
+    }
+   },
+   {
+    "args": [
+     {
+      "actions": [],
+      "zzz": 1
+     }
+    ],
+    "result": {
+     "zzz": 1,
+     "remote_host_enabled": false,
+     "remote_host_model_management": false,
+     "remote_host_tailscale_trust": false,
+     "remote_host_keep_records": false,
+     "remote_host_manage_mcp": false,
+     "remote_client_history": false,
+     "remote_records_location": "local",
+     "mcp_enabled": false,
+     "mcp_tailscale_enabled": false,
+     "meeting_server_bind": "localhost",
+     "meeting_context_folder_enabled": false,
+     "meeting_context_folder_path": "",
+     "api_run_actions": false,
+     "api_control_recording": false,
+     "api_text_filters": false,
+     "api_agent_prompts": false,
+     "mcp_events_enabled": false,
+     "actions": []
+    }
+   },
+   {
+    "args": [
+     {
+      "ui_theme": "dark",
+      "actions": [
+       {
+        "id": "w",
+        "name": "Slack",
+        "kind": "webhook",
+        "params": {
+         "url": "https://user:hunter2@hooks.example.com/hook?token=SECRET",
+         "output": "none",
+         "secret": "x"
+        },
+        "enabled": true
+       },
+       {
+        "id": "p",
+        "name": "P",
+        "kind": "program ",
+        "params": {
+         "program": "curl.exe",
+         "args": [
+          "https://u:pw@example.com/a?sig=S",
+          7
+         ],
+         "timeout_s": 30
+        }
+       },
+       {
+        "id": "a",
+        "name": "A",
+        "kind": "agent",
+        "params": {
+         "agent": "codex"
+        }
+       },
+       {
+        "id": "l",
+        "name": "Link",
+        "kind": "open_link",
+        "params": {
+         "template": "https://api.example.com/x?key=LINK-KEY&q={text}"
+        },
+        "description": "Opens https://u:p@d.example/?q"
+       },
+       {
+        "id": "c",
+        "name": "C",
+        "kind": "clipboard",
+        "enabled": false
+       },
+       {
+        "id": "x2",
+        "name": "Hook",
+        "kind": " Webhook",
+        "params": {
+         "url": "https://h"
+        }
+       },
+       {
+        "id": "s",
+        "name": "S",
+        "kind": "scripts",
+        "spoken_names": [
+         "s cripts",
+         "S CRIPTS"
+        ]
+       },
+       {
+        "id": "ch",
+        "name": "Ch",
+        "kind": "channel",
+        "shaping": "raw"
+       },
+       "loose",
+       3,
+       null,
+       {
+        "id": "w",
+        "name": "Dup",
+        "kind": "webhook"
+       }
+      ],
+      "after": "https://u:p@h/?q"
+     }
+    ],
+    "result": {
+     "ui_theme": "dark",
+     "after": "https://h/",
+     "remote_host_enabled": false,
+     "remote_host_model_management": false,
+     "remote_host_tailscale_trust": false,
+     "remote_host_keep_records": false,
+     "remote_host_manage_mcp": false,
+     "remote_client_history": false,
+     "remote_records_location": "local",
+     "mcp_enabled": false,
+     "mcp_tailscale_enabled": false,
+     "meeting_server_bind": "localhost",
+     "meeting_context_folder_enabled": false,
+     "meeting_context_folder_path": "",
+     "api_run_actions": false,
+     "api_control_recording": false,
+     "api_text_filters": false,
+     "api_agent_prompts": false,
+     "mcp_events_enabled": false,
+     "actions": [
+      {
+       "id": "w",
+       "name": "Slack",
+       "kind": "webhook",
+       "params": {
+        "url": "https://hooks.example.com/hook",
+        "output": "none"
+       },
+       "hotkey": "",
+       "shaping": "cleanup",
+       "spoken_names": [],
+       "description": "",
+       "enabled": false
+      },
+      {
+       "id": "p",
+       "name": "P",
+       "kind": "program",
+       "params": {
+        "program": "curl.exe",
+        "args": [
+         "https://example.com/a"
+        ],
+        "output": "none",
+        "timeout_s": 30
+       },
+       "hotkey": "",
+       "shaping": "cleanup",
+       "spoken_names": [],
+       "description": "",
+       "enabled": false
+      },
+      {
+       "id": "a",
+       "name": "A",
+       "kind": "agent",
+       "params": {
+        "agent": "codex",
+        "mode": "handoff",
+        "surface": "auto",
+        "folder": "",
+        "new_folder": false,
+        "include_selection": false,
+        "model": "",
+        "output": "scratchpad"
+       },
+       "hotkey": "",
+       "shaping": "cleanup",
+       "spoken_names": [],
+       "description": "",
+       "enabled": false
+      },
+      {
+       "id": "l",
+       "name": "Link",
+       "kind": "open_link",
+       "params": {
+        "template": "https://api.example.com/x?key=LINK-KEY&q={text}"
+       },
+       "hotkey": "",
+       "shaping": "cleanup",
+       "spoken_names": [],
+       "description": "Opens https://u:p@d.example/?q",
+       "enabled": true
+      },
+      {
+       "id": "c",
+       "name": "C",
+       "kind": "clipboard",
+       "params": {},
+       "hotkey": "",
+       "shaping": "cleanup",
+       "spoken_names": [],
+       "description": "",
+       "enabled": false
+      },
+      {
+       "id": "s",
+       "name": "S",
+       "kind": "scripts",
+       "params": {},
+       "hotkey": "",
+       "shaping": "cleanup",
+       "spoken_names": [
+        "s cripts"
+       ],
+       "description": "",
+       "enabled": true
+      },
+      {
+       "id": "ch",
+       "name": "Ch",
+       "kind": "channel",
+       "params": {},
+       "hotkey": "",
+       "shaping": "raw",
+       "spoken_names": [],
+       "description": "",
+       "enabled": true
+      }
+     ]
+    }
+   }
+  ],
+  "_member_parts": [
+   {
+    "args": [
+     "manifest.json"
+    ],
+    "result": [
+     "manifest.json"
+    ]
+   },
+   {
+    "args": [
+     "data/recordings/a.wav"
+    ],
+    "result": [
+     "data",
+     "recordings",
+     "a.wav"
+    ]
+   },
+   {
+    "args": [
+     "data"
+    ],
+    "result": [
+     "data"
+    ]
+   },
+   {
+    "args": [
+     "a/b/c"
+    ],
+    "result": [
+     "a",
+     "b",
+     "c"
+    ]
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": {
+     "error": "Unsafe archive member name"
+    }
+   },
+   {
+    "args": [
+     "/data/x"
+    ],
+    "result": {
+     "error": "Unsafe archive member name"
+    }
+   },
+   {
+    "args": [
+     "data//x"
+    ],
+    "result": {
+     "error": "Unsafe archive member name"
+    }
+   },
+   {
+    "args": [
+     "data/./x"
+    ],
+    "result": {
+     "error": "Unsafe archive member name"
+    }
+   },
+   {
+    "args": [
+     "data/../x"
+    ],
+    "result": {
+     "error": "Unsafe archive member name"
+    }
+   },
+   {
+    "args": [
+     "data/x/"
+    ],
+    "result": {
+     "error": "Unsafe archive member name"
+    }
+   },
+   {
+    "args": [
+     "data\\x"
+    ],
+    "result": {
+     "error": "Unsafe archive member name"
+    }
+   },
+   {
+    "args": [
+     "data/x\u0000y"
+    ],
+    "result": {
+     "error": "Unsafe archive member name"
+    }
+   },
+   {
+    "args": [
+     "data/\u001fx"
+    ],
+    "result": {
+     "error": "Unsafe archive member name"
+    }
+   },
+   {
+    "args": [
+     "data/x"
+    ],
+    "result": [
+     "data",
+     "x"
+    ]
+   },
+   {
+    "args": [
+     "data/a:b"
+    ],
+    "result": {
+     "error": "Unsafe archive member name"
+    }
+   },
+   {
+    "args": [
+     "C:/x"
+    ],
+    "result": {
+     "error": "Unsafe archive member name"
+    }
+   },
+   {
+    "args": [
+     "data/.hidden"
+    ],
+    "result": [
+     "data",
+     ".hidden"
+    ]
+   },
+   {
+    "args": [
+     "data/..x"
+    ],
+    "result": [
+     "data",
+     "..x"
+    ]
+   },
+   {
+    "args": [
+     "data/x.."
+    ],
+    "result": [
+     "data",
+     "x.."
+    ]
+   },
+   {
+    "args": [
+     "data/été"
+    ],
+    "result": [
+     "data",
+     "été"
+    ]
+   },
+   {
+    "args": [
+     "."
+    ],
+    "result": {
+     "error": "Unsafe archive member name"
+    }
+   },
+   {
+    "args": [
+     ".."
+    ],
+    "result": {
+     "error": "Unsafe archive member name"
+    }
+   },
+   {
+    "args": [
+     "data/ x"
+    ],
+    "result": [
+     "data",
+     " x"
+    ]
+   },
+   {
+    "args": [
+     "data/x "
+    ],
+    "result": [
+     "data",
+     "x "
+    ]
+   },
+   {
+    "args": [
+     null
+    ],
+    "result": {
+     "error": "Unsafe archive member name"
+    }
+   },
+   {
+    "args": [
+     5
+    ],
+    "result": {
+     "error": "Unsafe archive member name"
+    }
+   },
+   {
+    "args": [
+     [
+      "data",
+      "x"
+     ]
+    ],
+    "result": {
+     "error": "Unsafe archive member name"
+    }
+   }
+  ],
+  "_safe_member": [
+   {
+    "args": [
+     "manifest.json"
+    ],
+    "result": "manifest.json"
+   },
+   {
+    "args": [
+     "data/openwhisper_settings.json"
+    ],
+    "result": "data/openwhisper_settings.json"
+   },
+   {
+    "args": [
+     "data/openwhisper.db"
+    ],
+    "result": "data/openwhisper.db"
+   },
+   {
+    "args": [
+     "data/fiorivoce.db"
+    ],
+    "result": {
+     "error": "Archive contains a file outside owned data"
+    }
+   },
+   {
+    "args": [
+     "data/recordings/a.wav"
+    ],
+    "result": "data/recordings/a.wav"
+   },
+   {
+    "args": [
+     "data/recordings/devices/peer/r.wav"
+    ],
+    "result": "data/recordings/devices/peer/r.wav"
+   },
+   {
+    "args": [
+     "data/meetings/m1/mic-000.wav"
+    ],
+    "result": "data/meetings/m1/mic-000.wav"
+   },
+   {
+    "args": [
+     "data/captures/2026/shot.png"
+    ],
+    "result": "data/captures/2026/shot.png"
+   },
+   {
+    "args": [
+     "data/.recorded_audio-recovery/x/session.json"
+    ],
+    "result": "data/.recorded_audio-recovery/x/session.json"
+   },
+   {
+    "args": [
+     "data/recorded_audio.wav"
+    ],
+    "result": "data/recorded_audio.wav"
+   },
+   {
+    "args": [
+     "data/scratchpad.txt"
+    ],
+    "result": "data/scratchpad.txt"
+   },
+   {
+    "args": [
+     "data/meetings.json"
+    ],
+    "result": "data/meetings.json"
+   },
+   {
+    "args": [
+     "data/meetings.json.bak"
+    ],
+    "result": "data/meetings.json.bak"
+   },
+   {
+    "args": [
+     "data/transcription_history.json"
+    ],
+    "result": {
+     "error": "Archive contains transient or raw legacy data"
+    }
+   },
+   {
+    "args": [
+     "data/transcription_history.json.bak"
+    ],
+    "result": {
+     "error": "Archive contains transient or raw legacy data"
+    }
+   },
+   {
+    "args": [
+     "data/remote_records"
+    ],
+    "result": {
+     "error": "Archive contains transient or raw legacy data"
+    }
+   },
+   {
+    "args": [
+     "data/remote_records/x.json"
+    ],
+    "result": {
+     "error": "Archive contains transient or raw legacy data"
+    }
+   },
+   {
+    "args": [
+     "data/remote_records/cache/x"
+    ],
+    "result": {
+     "error": "Archive contains transient or raw legacy data"
+    }
+   },
+   {
+    "args": [
+     "data/scratchpad.txt/x"
+    ],
+    "result": {
+     "error": "Archive contains an unexpected nested file"
+    }
+   },
+   {
+    "args": [
+     "data/openwhisper.db-wal"
+    ],
+    "result": {
+     "error": "Archive contains a file outside owned data"
+    }
+   },
+   {
+    "args": [
+     "data/.openwhisper-restore/x"
+    ],
+    "result": {
+     "error": "Archive contains a file outside owned data"
+    }
+   },
+   {
+    "args": [
+     "data/Recordings/a.wav"
+    ],
+    "result": {
+     "error": "Archive contains a file outside owned data"
+    }
+   },
+   {
+    "args": [
+     "data"
+    ],
+    "result": {
+     "error": "Archive contains a file outside owned data"
+    }
+   },
+   {
+    "args": [
+     "other/recordings/a.wav"
+    ],
+    "result": {
+     "error": "Archive contains a file outside owned data"
+    }
+   },
+   {
+    "args": [
+     "manifest.json/x"
+    ],
+    "result": {
+     "error": "Archive contains a file outside owned data"
+    }
+   },
+   {
+    "args": [
+     "data/recordings"
+    ],
+    "result": "data/recordings"
+   },
+   {
+    "args": [
+     "data/../recordings"
+    ],
+    "result": {
+     "error": "Unsafe archive member name"
+    }
+   },
+   {
+    "args": [
+     "data/recordings/a:b.wav"
+    ],
+    "result": {
+     "error": "Unsafe archive member name"
+    }
+   },
+   {
+    "args": [
+     "MANIFEST.json"
+    ],
+    "result": {
+     "error": "Archive contains a file outside owned data"
+    }
+   },
+   {
+    "args": [
+     "data/settings.json"
+    ],
+    "result": {
+     "error": "Archive contains a file outside owned data"
+    }
+   },
+   {
+    "args": [
+     null
+    ],
+    "result": {
+     "error": "Unsafe archive member name"
+    }
+   }
+  ],
+  "_relative_under": [
+   {
+    "args": [
+     "C:\\Data\\OW\\meetings\\m1",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": "meetings/m1"
+   },
+   {
+    "args": [
+     "c:/data/ow/meetings/m1",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": "meetings/m1"
+   },
+   {
+    "args": [
+     "C:\\Data\\OW\\Meetings\\m1",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "meetings/m1",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": "meetings/m1"
+   },
+   {
+    "args": [
+     "meetings\\m1\\mic-000.wav",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": "meetings/m1/mic-000.wav"
+   },
+   {
+    "args": [
+     "meetings",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": "meetings"
+   },
+   {
+    "args": [
+     "",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     ".",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "C:\\Other\\meetings\\m1",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "C:\\Data\\OW",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "C:\\Data\\OW\\meetings",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": "meetings"
+   },
+   {
+    "args": [
+     "C:\\Data\\OW\\meetings\\..\\recordings\\x",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": {
+     "error": "Unsafe archive member name"
+    }
+   },
+   {
+    "args": [
+     "C:\\Data\\OW\\recordings\\a.wav",
+     "C:\\Data\\OW",
+     "recordings"
+    ],
+    "result": "recordings/a.wav"
+   },
+   {
+    "args": [
+     "C:\\Data\\OW\\recordings\\a.wav",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "/meetings/x",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "\\Data\\OW\\meetings\\x",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": "meetings/x"
+   },
+   {
+    "args": [
+     "C:meetings\\x",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": "meetings/x"
+   },
+   {
+    "args": [
+     "c:meetings\\x",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": "meetings/x"
+   },
+   {
+    "args": [
+     "C:\\Data\\OW\\meetings\\a:b",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "C:\\Data\\OW\\.\\meetings\\m1",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": "meetings/m1"
+   },
+   {
+    "args": [
+     "C:\\Data\\OW\\meetings\\m1\\",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": "meetings/m1"
+   },
+   {
+    "args": [
+     "C:\\Data\\OW\\\\meetings\\\\m1",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": "meetings/m1"
+   },
+   {
+    "args": [
+     "\\\\server\\share\\meetings",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "C:\\Data\\OW2\\meetings\\x",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "C:/Data/OW/meetings/café",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": "meetings/café"
+   },
+   {
+    "args": [
+     "C:\\Data\\OW\\meetings\\m1\\..\\..\\..\\x",
+     "C:\\Data\\OW",
+     "meetings"
+    ],
+    "result": {
+     "error": "Unsafe archive member name"
+    }
+   },
+   {
+    "args": [
+     "C:\\Data\\OW\\recordings\\devices\\peer\\r.wav",
+     "C:\\Data\\OW",
+     "recordings"
+    ],
+    "result": "recordings/devices/peer/r.wav"
+   },
+   {
+    "args": [
+     "C:\\DÄTÄ\\meetings\\x",
+     "C:\\Dätä",
+     "meetings"
+    ],
+    "result": "meetings/x"
+   },
+   {
+    "args": [
+     "C:\\Data\\OW\\meetings\\x",
+     "C:\\Data\\OW\\",
+     "meetings"
+    ],
+    "result": "meetings/x"
+   }
+  ],
+  "_meeting_session_updates": [
+   {
+    "args": [
+     [
+      "id",
+      "spool_dir",
+      "status",
+      "host_token",
+      "guest_token",
+      "asr_remote_json",
+      "agent_endpoint_json",
+      "app_pid",
+      "app_heartbeat_at"
+     ],
+     "meetings/m1"
+    ],
+    "result": [
+     [
+      "spool_dir",
+      "__OW_BACKUP_DATA__/meetings/m1"
+     ],
+     [
+      "host_token",
+      "<token:43>"
+     ],
+     [
+      "guest_token",
+      "<token:43>"
+     ],
+     [
+      "asr_remote_json",
+      null
+     ],
+     [
+      "agent_endpoint_json",
+      null
+     ],
+     [
+      "app_pid",
+      null
+     ],
+     [
+      "app_heartbeat_at",
+      null
+     ]
+    ]
+   },
+   {
+    "args": [
+     [
+      "id",
+      "spool_dir"
+     ],
+     "meetings/m2"
+    ],
+    "result": [
+     [
+      "spool_dir",
+      "__OW_BACKUP_DATA__/meetings/m2"
+     ]
+    ]
+   },
+   {
+    "args": [
+     [
+      "id",
+      "spool_dir",
+      "guest_token",
+      "app_pid"
+     ],
+     "meetings/café"
+    ],
+    "result": [
+     [
+      "spool_dir",
+      "__OW_BACKUP_DATA__/meetings/café"
+     ],
+     [
+      "guest_token",
+      "<token:43>"
+     ],
+     [
+      "app_pid",
+      null
+     ]
+    ]
+   },
+   {
+    "args": [
+     [],
+     "meetings/x"
+    ],
+    "result": [
+     [
+      "spool_dir",
+      "__OW_BACKUP_DATA__/meetings/x"
+     ]
+    ]
+   }
+  ],
+  "_check_staged_file": [
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     {
+      "path": "data/openwhisper.db",
+      "size": 999,
+      "sha256": "x"
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "listed": [
+      "data/openwhisper.db"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     {
+      "path": "data/openwhisper_settings.json"
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "listed": [
+      "data/openwhisper_settings.json"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     {
+      "path": "data/recordings/a.wav",
+      "size": 4,
+      "sha256": "a40ff3d5900fb7698b8c865041347cb49eccedc8f93945f89629ad104aaecce4"
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "listed": [
+      "data/recordings/a.wav"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     {
+      "path": "data/meetings/m1/mic-000.wav",
+      "size": 5,
+      "sha256": "18034b8849499b12ef063b7092c5460fcaf94be4baff2fe87e5bc85b6c55b3de"
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     [
+      "data/recordings/a.wav"
+     ]
+    ],
+    "result": {
+     "listed": [
+      "data/meetings/m1/mic-000.wav",
+      "data/recordings/a.wav"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     {
+      "path": "data/recordings/a.wav",
+      "size": 5,
+      "sha256": "a40ff3d5900fb7698b8c865041347cb49eccedc8f93945f89629ad104aaecce4"
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "error": "Staged restore file is missing or changed",
+     "listed": [
+      "data/recordings/a.wav"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     {
+      "path": "data/recordings/a.wav",
+      "size": 4,
+      "sha256": "7f28d97564bbd8e24fb784e9bf7ebd97b6f0ae1611c002d97f327c9b26b6d78c"
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "error": "Staged restore checksum mismatch",
+     "listed": [
+      "data/recordings/a.wav"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     {
+      "path": "data/recordings/a.wav",
+      "size": 4,
+      "sha256": "A40FF3D5900FB7698B8C865041347CB49ECCEDC8F93945F89629AD104AAECCE4"
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "error": "Staged restore checksum mismatch",
+     "listed": [
+      "data/recordings/a.wav"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     {
+      "path": "data/recordings/a.wav",
+      "size": 4,
+      "sha256": 5
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "error": "Staged restore checksum mismatch",
+     "listed": [
+      "data/recordings/a.wav"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     {
+      "path": "data/recordings/a.wav",
+      "size": 4
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "error": "Staged restore checksum mismatch",
+     "listed": [
+      "data/recordings/a.wav"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     {
+      "path": "data/recordings/a.wav",
+      "size": true,
+      "sha256": "a40ff3d5900fb7698b8c865041347cb49eccedc8f93945f89629ad104aaecce4"
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "error": "Staged restore file is missing or changed",
+     "listed": [
+      "data/recordings/a.wav"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     {
+      "path": "data/recordings/a.wav",
+      "size": -1,
+      "sha256": "a40ff3d5900fb7698b8c865041347cb49eccedc8f93945f89629ad104aaecce4"
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "error": "Staged restore file is missing or changed",
+     "listed": [
+      "data/recordings/a.wav"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     {
+      "path": "data/recordings/a.wav",
+      "size": 4.0,
+      "sha256": "a40ff3d5900fb7698b8c865041347cb49eccedc8f93945f89629ad104aaecce4"
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "error": "Staged restore file is missing or changed",
+     "listed": [
+      "data/recordings/a.wav"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     {
+      "path": "data/recordings/a.wav",
+      "size": "4",
+      "sha256": "a40ff3d5900fb7698b8c865041347cb49eccedc8f93945f89629ad104aaecce4"
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "error": "Staged restore file is missing or changed",
+     "listed": [
+      "data/recordings/a.wav"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     {
+      "path": "data/recordings/a.wav",
+      "sha256": "a40ff3d5900fb7698b8c865041347cb49eccedc8f93945f89629ad104aaecce4"
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "error": "Staged restore file is missing or changed",
+     "listed": [
+      "data/recordings/a.wav"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     {
+      "path": "data/recordings/a.wav",
+      "size": 4,
+      "sha256": "a40ff3d5900fb7698b8c865041347cb49eccedc8f93945f89629ad104aaecce4"
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     [
+      "data/recordings/a.wav"
+     ]
+    ],
+    "result": {
+     "error": "Staged restore has duplicate entries",
+     "listed": [
+      "data/recordings/a.wav"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     {
+      "path": "data/recordings/b.wav",
+      "size": 4,
+      "sha256": "a40ff3d5900fb7698b8c865041347cb49eccedc8f93945f89629ad104aaecce4"
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "error": "Staged restore file is missing or changed",
+     "listed": [
+      "data/recordings/b.wav"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     {
+      "path": "data/recordings",
+      "size": 4,
+      "sha256": "a40ff3d5900fb7698b8c865041347cb49eccedc8f93945f89629ad104aaecce4"
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "error": "Staged restore file is missing or changed",
+     "listed": [
+      "data/recordings"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     {
+      "size": 4,
+      "sha256": "a40ff3d5900fb7698b8c865041347cb49eccedc8f93945f89629ad104aaecce4"
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "error": "Unsafe archive member name",
+     "listed": []
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     {
+      "path": null,
+      "size": 4
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "error": "Unsafe archive member name",
+     "listed": []
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     {
+      "path": "manifest.json",
+      "size": 4
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "error": "Staged restore manifest is invalid",
+     "listed": []
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     {
+      "path": "data/../x",
+      "size": 4
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "error": "Unsafe archive member name",
+     "listed": []
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     {
+      "path": "data/remote_records/x",
+      "size": 4
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "error": "Archive contains transient or raw legacy data",
+     "listed": []
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     {
+      "path": "data/fiorivoce.db",
+      "size": 3
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "error": "Archive contains a file outside owned data",
+     "listed": []
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     {
+      "path": "data/openwhisper.db-wal",
+      "size": 3
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "error": "Archive contains a file outside owned data",
+     "listed": []
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     "data/recordings/a.wav",
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "error": "Staged restore manifest is invalid",
+     "listed": []
+    }
+   },
+   {
+    "args": [
+     {
+      "format": "openwhisper-backup",
+      "staged_db_size": 3,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "staged_settings_size": 2,
+      "staged_settings_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+     },
+     null,
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "error": "Staged restore manifest is invalid",
+     "listed": []
+    }
+   },
+   {
+    "args": [
+     {},
+     {
+      "path": "data/openwhisper.db",
+      "size": 3,
+      "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "error": "Staged restore file is missing or changed",
+     "listed": [
+      "data/openwhisper.db"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "staged_db_size": 3,
+      "staged_db_sha256": null
+     },
+     {
+      "path": "data/openwhisper.db"
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "error": "Staged restore checksum mismatch",
+     "listed": [
+      "data/openwhisper.db"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "staged_db_size": 4,
+      "staged_db_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+     },
+     {
+      "path": "data/openwhisper.db"
+     },
+     {
+      "openwhisper.db": "abc",
+      "openwhisper_settings.json": "{}",
+      "recordings/a.wav": "RIFF",
+      "meetings/m1/mic-000.wav": "RIFFm"
+     },
+     []
+    ],
+    "result": {
+     "error": "Staged restore file is missing or changed",
+     "listed": [
+      "data/openwhisper.db"
+     ]
+    }
+   }
+  ]
+ }
+}

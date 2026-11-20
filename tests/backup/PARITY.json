@@ -1,0 +1,146 @@
+{
+  "package": "M3.1, M3.4",
+  "files": {
+    "tests/test_backup.py": {
+      "test_backup_restores_to_a_different_root_and_keeps_previous_data": {
+        "status": "ported",
+        "cpp": "tests/backup/test_restore.cpp"
+      },
+      "test_text_only_archive_clears_audio_references": {
+        "status": "ported",
+        "cpp": "tests/backup/test_create_inspect.cpp"
+      },
+      "test_captures_round_trip_with_backup_and_are_optional_assets": {
+        "status": "ported",
+        "cpp": "tests/backup/test_restore.cpp"
+      },
+      "test_live_meeting_is_refused_and_existing_output_is_unchanged": {
+        "status": "ported",
+        "cpp": "tests/backup/test_create_inspect.cpp"
+      },
+      "test_cancel_does_not_publish_a_partial_archive": {
+        "status": "ported",
+        "cpp": "tests/backup/test_create_inspect.cpp"
+      },
+      "test_destination_inside_not_yet_created_recordings_is_rejected": {
+        "status": "ported",
+        "cpp": "tests/backup/test_create_inspect.cpp"
+      },
+      "test_corrupt_and_traversal_archives_are_rejected": {
+        "status": "ported",
+        "cpp": "tests/backup/test_create_inspect.cpp"
+      },
+      "test_checksums_cannot_hide_missing_database_audio": {
+        "status": "ported",
+        "cpp": "tests/backup/test_create_inspect.cpp"
+      },
+      "test_failed_apply_rolls_back_entire_owned_set_and_can_retry": {
+        "status": "ported",
+        "cpp": "tests/backup/test_restore.cpp",
+        "note": "os.replace's monkeypatch is backup/testing/restore_faults.h's before_move hook"
+      },
+      "test_rebased_database_can_grow_and_import_rescrubs_settings": {
+        "status": "ported",
+        "cpp": "tests/backup/test_restore.cpp"
+      },
+      "test_restore_moves_stale_sqlite_sidecars_and_recovers_committed_journal": {
+        "status": "ported",
+        "cpp": "tests/backup/test_restore.cpp",
+        "note": "Path.unlink's monkeypatch is backup/testing/restore_faults.h's before_remove hook"
+      },
+      "test_real_database_manager_wal_roundtrip": {
+        "status": "ported",
+        "cpp": "tests/backup/test_restore.cpp",
+        "note": "the history row and the meeting are written through fv::Database's v18 schema with SQL (OpenWhisper's SqlMeetingRepository is M7's); both include_recordings values through GENERATE"
+      },
+      "test_legacy_history_is_imported_into_snapshot_without_raw_json": {
+        "status": "ported",
+        "cpp": "tests/backup/test_create_inspect.cpp"
+      }
+    },
+    "tests/test_automation_fix_pipeline_backup.py": {
+      "test_a_kind_with_stray_spaces_comes_back_off_like_the_app_reads_it": {
+        "status": "ported",
+        "cpp": "tests/backup/test_sanitize.cpp"
+      },
+      "test_webhook_program_and_agent_actions_come_back_off": {
+        "status": "ported",
+        "cpp": "tests/backup/test_sanitize.cpp"
+      },
+      "test_urls_inside_actions_are_scrubbed_except_a_link_template": {
+        "status": "ported",
+        "cpp": "tests/backup/test_sanitize.cpp"
+      },
+      "test_snippets_keep_their_urls": {
+        "status": "ported",
+        "cpp": "tests/backup/test_sanitize.cpp"
+      }
+    },
+    "tests/test_personalize_foundation_backup.py": {
+      "test_scratchpad_is_backed_up_and_restored": {
+        "status": "ported",
+        "cpp": "tests/backup/test_restore.cpp"
+      },
+      "test_snippet_text_keeps_its_urls_while_endpoints_are_scrubbed": {
+        "status": "ported",
+        "cpp": "tests/backup/test_sanitize.cpp"
+      },
+      "test_snippet_links_with_queries_survive_a_backup_and_restore": {
+        "status": "ported",
+        "cpp": "tests/backup/test_restore.cpp",
+        "note": "load_snippets is M4's: the restored dictation_snippets list is compared with Snippet.to_dict() of the one valid snippet"
+      }
+    },
+    "tests/test_backup_manager.py": {
+      "test_worker_completion_releases_reservation_after_context_exit": {
+        "status": "ported",
+        "cpp": "tests/backup/test_coordinator.cpp"
+      },
+      "test_cancelled_backup_reports_error_and_releases_reservation": {
+        "status": "ported",
+        "cpp": "tests/backup/test_coordinator.cpp",
+        "note": "on ManualExecutor the cancel lands before the worker runs; 'a backup cancelled while it runs on a real worker thread' covers a cancel during the work on a Strand"
+      },
+      "test_schedule_is_off_by_default_and_persists_explicit_choice": {
+        "status": "ported",
+        "cpp": "tests/backup/test_coordinator.cpp"
+      },
+      "test_calendar_due_date_follows_saved_automatic_backup_and_retry": {
+        "status": "ported",
+        "cpp": "tests/backup/test_coordinator.cpp"
+      },
+      "test_missing_or_malformed_schedule_destination_does_not_run": {
+        "status": "ported",
+        "cpp": "tests/backup/test_coordinator.cpp"
+      },
+      "test_automatic_retention_removes_only_registered_archives": {
+        "status": "ported",
+        "cpp": "tests/backup/test_coordinator.cpp"
+      },
+      "test_inspection_does_not_reserve_but_restore_does": {
+        "status": "ported",
+        "cpp": "tests/backup/test_coordinator.cpp",
+        "note": "restore_staged carries what the service's prepare_restore returns: the fake returns the archive, as Python's fake BackupInfo does; the real service returns the stage folder"
+      },
+      "test_snapshot_exposes_previous_data_location_when_available": {
+        "status": "ported",
+        "cpp": "tests/backup/test_coordinator.cpp"
+      }
+    },
+    "tests/test_backup_startup.py": {
+      "test_pending_restore_never_runs_while_another_process_uses_data": {
+        "status": "ported",
+        "cpp": "tests/backup/test_startup_gate.cpp",
+        "note": "the reader process is fv_backup_lease_helper; the monkeypatched pending and apply calls are StartupRestoreSteps"
+      },
+      "test_restart_command_drops_update_and_restore_args": {
+        "status": "ported",
+        "cpp": "tests/backup/test_startup_gate.cpp",
+        "note": "only the frozen branch exists: FioriVoce always restarts its executable"
+      }
+    },
+    "tests/test_remote_mcp_control.py": {
+      "test_restoring_a_backup_never_carries_the_opt_in_over": {"status": "ported", "cpp": "tests/backup/test_golden.cpp", "note": "case: _sanitize_settings matches OpenWhisper (a recorded case restores remote_host_manage_mcp true and expects false)"}
+    }
+  }
+}

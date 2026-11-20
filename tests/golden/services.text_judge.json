@@ -1,0 +1,1601 @@
+{
+ "module": "services.text_judge",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time"
+ },
+ "functions": {
+  "render": [
+   {
+    "args": [
+     {
+      "q": {
+       "type": "noul",
+       "instructions": "Is it?"
+      }
+     }
+    ],
+    "result": [
+     {
+      "q": {
+       "answer": "yes/no",
+       "question": "Is it?"
+      }
+     },
+     {},
+     {
+      "type": "object",
+      "properties": {
+       "q": {
+        "type": "number"
+       }
+      },
+      "required": [
+       "q"
+      ],
+      "additionalProperties": false
+     }
+    ]
+   },
+   {
+    "args": [
+     {
+      "q": {
+       "type": "noul",
+       "instructions": "Is it?",
+       "criteria": {
+        "yes": "Y"
+       }
+      }
+     }
+    ],
+    "result": [
+     {
+      "q": {
+       "answer": "yes/no",
+       "question": "Is it?",
+       "criteria": {
+        "yes": "Y"
+       }
+      }
+     },
+     {},
+     {
+      "type": "object",
+      "properties": {
+       "q": {
+        "type": "number"
+       }
+      },
+      "required": [
+       "q"
+      ],
+      "additionalProperties": false
+     }
+    ]
+   },
+   {
+    "args": [
+     {
+      "q": {
+       "type": "noul",
+       "instructions": "Is it?",
+       "criteria": {}
+      }
+     }
+    ],
+    "result": [
+     {
+      "q": {
+       "answer": "yes/no",
+       "question": "Is it?"
+      }
+     },
+     {},
+     {
+      "type": "object",
+      "properties": {
+       "q": {
+        "type": "number"
+       }
+      },
+      "required": [
+       "q"
+      ],
+      "additionalProperties": false
+     }
+    ]
+   },
+   {
+    "args": [
+     {
+      "q": {
+       "type": "noul"
+      }
+     }
+    ],
+    "result": [
+     {
+      "q": {
+       "answer": "yes/no",
+       "question": null
+      }
+     },
+     {},
+     {
+      "type": "object",
+      "properties": {
+       "q": {
+        "type": "number"
+       }
+      },
+      "required": [
+       "q"
+      ],
+      "additionalProperties": false
+     }
+    ]
+   },
+   {
+    "args": [
+     {
+      "q": {
+       "type": "choice",
+       "instructions": "Which?",
+       "criteria": {
+        "a": "A",
+        "b": null,
+        "c": "C"
+       }
+      }
+     }
+    ],
+    "result": [
+     {
+      "q": {
+       "answer": "choice",
+       "question": "Which?",
+       "options": {
+        "1": {
+         "name": "a",
+         "means": "A"
+        },
+        "2": {
+         "name": "b"
+        },
+        "3": {
+         "name": "c",
+         "means": "C"
+        }
+       }
+      }
+     },
+     {
+      "q": {
+       "1": "a",
+       "2": "b",
+       "3": "c"
+      }
+     },
+     {
+      "type": "object",
+      "properties": {
+       "q": {
+        "type": "object",
+        "properties": {
+         "option": {
+          "type": "string",
+          "enum": [
+           "1",
+           "2",
+           "3"
+          ]
+         },
+         "probability": {
+          "type": "number"
+         }
+        },
+        "required": [
+         "option",
+         "probability"
+        ],
+        "additionalProperties": false
+       }
+      },
+      "required": [
+       "q"
+      ],
+      "additionalProperties": false
+     }
+    ]
+   },
+   {
+    "args": [
+     {
+      "q": {
+       "type": "choice",
+       "instructions": "Which?",
+       "criteria": {
+        "only": "O"
+       }
+      }
+     }
+    ],
+    "result": [
+     {
+      "q": {
+       "answer": "choice",
+       "question": "Which?",
+       "options": {
+        "1": {
+         "name": "only",
+         "means": "O"
+        }
+       }
+      }
+     },
+     {
+      "q": {
+       "1": "only"
+      }
+     },
+     {
+      "type": "object",
+      "properties": {
+       "q": {
+        "type": "object",
+        "properties": {
+         "option": {
+          "type": "string",
+          "enum": [
+           "1"
+          ]
+         },
+         "probability": {
+          "type": "number"
+         }
+        },
+        "required": [
+         "option",
+         "probability"
+        ],
+        "additionalProperties": false
+       }
+      },
+      "required": [
+       "q"
+      ],
+      "additionalProperties": false
+     }
+    ]
+   },
+   {
+    "args": [
+     {
+      "q": {
+       "type": "choice",
+       "instructions": "Which?"
+      }
+     }
+    ],
+    "result": [
+     {
+      "q": {
+       "answer": "choice",
+       "question": "Which?",
+       "options": {}
+      }
+     },
+     {
+      "q": {}
+     },
+     {
+      "type": "object",
+      "properties": {
+       "q": {
+        "type": "object",
+        "properties": {
+         "option": {
+          "type": "string",
+          "enum": []
+         },
+         "probability": {
+          "type": "number"
+         }
+        },
+        "required": [
+         "option",
+         "probability"
+        ],
+        "additionalProperties": false
+       }
+      },
+      "required": [
+       "q"
+      ],
+      "additionalProperties": false
+     }
+    ]
+   },
+   {
+    "args": [
+     {
+      "q": {
+       "type": "choice",
+       "instructions": "Qué?",
+       "criteria": {
+        "café": "à côté",
+        "日本": null
+       }
+      }
+     }
+    ],
+    "result": [
+     {
+      "q": {
+       "answer": "choice",
+       "question": "Qué?",
+       "options": {
+        "1": {
+         "name": "café",
+         "means": "à côté"
+        },
+        "2": {
+         "name": "日本"
+        }
+       }
+      }
+     },
+     {
+      "q": {
+       "1": "café",
+       "2": "日本"
+      }
+     },
+     {
+      "type": "object",
+      "properties": {
+       "q": {
+        "type": "object",
+        "properties": {
+         "option": {
+          "type": "string",
+          "enum": [
+           "1",
+           "2"
+          ]
+         },
+         "probability": {
+          "type": "number"
+         }
+        },
+        "required": [
+         "option",
+         "probability"
+        ],
+        "additionalProperties": false
+       }
+      },
+      "required": [
+       "q"
+      ],
+      "additionalProperties": false
+     }
+    ]
+   },
+   {
+    "args": [
+     {
+      "route": {
+       "type": "choice",
+       "instructions": "Which action?",
+       "criteria": {
+        "a_todo": "Todo list",
+        "none": "No action"
+       }
+      },
+      "payload": {
+       "type": "noul",
+       "instructions": "Is there a payload?"
+      },
+      "span": {
+       "type": "choice",
+       "instructions": "Which span?",
+       "criteria": {
+        "buy milk": null,
+        "Todo, buy milk": null
+       }
+      }
+     }
+    ],
+    "result": [
+     {
+      "route": {
+       "answer": "choice",
+       "question": "Which action?",
+       "options": {
+        "1": {
+         "name": "a_todo",
+         "means": "Todo list"
+        },
+        "2": {
+         "name": "none",
+         "means": "No action"
+        }
+       }
+      },
+      "payload": {
+       "answer": "yes/no",
+       "question": "Is there a payload?"
+      },
+      "span": {
+       "answer": "choice",
+       "question": "Which span?",
+       "options": {
+        "1": {
+         "name": "buy milk"
+        },
+        "2": {
+         "name": "Todo, buy milk"
+        }
+       }
+      }
+     },
+     {
+      "route": {
+       "1": "a_todo",
+       "2": "none"
+      },
+      "span": {
+       "1": "buy milk",
+       "2": "Todo, buy milk"
+      }
+     },
+     {
+      "type": "object",
+      "properties": {
+       "route": {
+        "type": "object",
+        "properties": {
+         "option": {
+          "type": "string",
+          "enum": [
+           "1",
+           "2"
+          ]
+         },
+         "probability": {
+          "type": "number"
+         }
+        },
+        "required": [
+         "option",
+         "probability"
+        ],
+        "additionalProperties": false
+       },
+       "payload": {
+        "type": "number"
+       },
+       "span": {
+        "type": "object",
+        "properties": {
+         "option": {
+          "type": "string",
+          "enum": [
+           "1",
+           "2"
+          ]
+         },
+         "probability": {
+          "type": "number"
+         }
+        },
+        "required": [
+         "option",
+         "probability"
+        ],
+        "additionalProperties": false
+       }
+      },
+      "required": [
+       "route",
+       "payload",
+       "span"
+      ],
+      "additionalProperties": false
+     }
+    ]
+   },
+   {
+    "args": [
+     {
+      "q": {
+       "type": "score",
+       "instructions": "How?",
+       "criteria": [
+        "a",
+        "b"
+       ]
+      }
+     }
+    ],
+    "raises": "TypeSafeError"
+   },
+   {
+    "args": [
+     {
+      "a": {
+       "type": "noul",
+       "instructions": "A?"
+      },
+      "b": {
+       "type": "score",
+       "instructions": "B?",
+       "criteria": [
+        "x",
+        "y"
+       ]
+      }
+     }
+    ],
+    "raises": "TypeSafeError"
+   },
+   {
+    "args": [
+     {}
+    ],
+    "result": [
+     {},
+     {},
+     {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": false
+     }
+    ]
+   }
+  ],
+  "parse": [
+   {
+    "args": [
+     "{\"q\": 0.83}",
+     {
+      "q": {
+       "type": "noul",
+       "instructions": "Is it?"
+      }
+     }
+    ],
+    "result": {
+     "ok": {
+      "q": {
+       "type": "noul",
+       "noul": 0.83
+      }
+     }
+    }
+   },
+   {
+    "args": [
+     "{\"q\": 0}",
+     {
+      "q": {
+       "type": "noul",
+       "instructions": "Is it?"
+      }
+     }
+    ],
+    "result": {
+     "ok": {
+      "q": {
+       "type": "noul",
+       "noul": 0.0
+      }
+     }
+    }
+   },
+   {
+    "args": [
+     "{\"q\": 1}",
+     {
+      "q": {
+       "type": "noul",
+       "instructions": "Is it?"
+      }
+     }
+    ],
+    "result": {
+     "ok": {
+      "q": {
+       "type": "noul",
+       "noul": 1.0
+      }
+     }
+    }
+   },
+   {
+    "args": [
+     "not json at all",
+     {
+      "q": {
+       "type": "noul",
+       "instructions": "Is it?"
+      }
+     }
+    ],
+    "result": {
+     "error": "answer is not a JSON object"
+    }
+   },
+   {
+    "args": [
+     "[0.5]",
+     {
+      "q": {
+       "type": "noul",
+       "instructions": "Is it?"
+      }
+     }
+    ],
+    "result": {
+     "error": "answer is not a JSON object"
+    }
+   },
+   {
+    "args": [
+     "{\"other\": 0.5}",
+     {
+      "q": {
+       "type": "noul",
+       "instructions": "Is it?"
+      }
+     }
+    ],
+    "result": {
+     "error": "invalid probability on q"
+    }
+   },
+   {
+    "args": [
+     "{\"q\": 1.5}",
+     {
+      "q": {
+       "type": "noul",
+       "instructions": "Is it?"
+      }
+     }
+    ],
+    "result": {
+     "error": "invalid probability on q"
+    }
+   },
+   {
+    "args": [
+     "{\"q\": true}",
+     {
+      "q": {
+       "type": "noul",
+       "instructions": "Is it?"
+      }
+     }
+    ],
+    "result": {
+     "error": "invalid probability on q"
+    }
+   },
+   {
+    "args": [
+     "{\"q\": \"0.5\"}",
+     {
+      "q": {
+       "type": "noul",
+       "instructions": "Is it?"
+      }
+     }
+    ],
+    "result": {
+     "error": "invalid probability on q"
+    }
+   },
+   {
+    "args": [
+     "{\"q\": null}",
+     {
+      "q": {
+       "type": "noul",
+       "instructions": "Is it?"
+      }
+     }
+    ],
+    "result": {
+     "error": "invalid probability on q"
+    }
+   },
+   {
+    "args": [
+     "",
+     {
+      "q": {
+       "type": "noul",
+       "instructions": "Is it?"
+      }
+     }
+    ],
+    "result": {
+     "error": "answer is not a JSON object"
+    }
+   },
+   {
+    "args": [
+     "{",
+     {
+      "q": {
+       "type": "noul",
+       "instructions": "Is it?"
+      }
+     }
+    ],
+    "result": {
+     "error": "answer is not a JSON object"
+    }
+   },
+   {
+    "args": [
+     "}{",
+     {
+      "q": {
+       "type": "noul",
+       "instructions": "Is it?"
+      }
+     }
+    ],
+    "result": {
+     "error": "answer is not a JSON object"
+    }
+   },
+   {
+    "args": [
+     "{\"q\": 0.2} trailing {\"q\": 0.9}",
+     {
+      "q": {
+       "type": "noul",
+       "instructions": "Is it?"
+      }
+     }
+    ],
+    "result": {
+     "error": "answer is not valid JSON"
+    }
+   },
+   {
+    "args": [
+     "<think>{\"q\": 0.1} maybe</think>\n```json\n{\"q\": 0.75}\n```",
+     {
+      "q": {
+       "type": "noul",
+       "instructions": "Is it?"
+      }
+     }
+    ],
+    "result": {
+     "ok": {
+      "q": {
+       "type": "noul",
+       "noul": 0.75
+      }
+     }
+    }
+   },
+   {
+    "args": [
+     "<THINK>hmm</Think>{\"q\": 0.4}",
+     {
+      "q": {
+       "type": "noul",
+       "instructions": "Is it?"
+      }
+     }
+    ],
+    "result": {
+     "ok": {
+      "q": {
+       "type": "noul",
+       "noul": 0.4
+      }
+     }
+    }
+   },
+   {
+    "args": [
+     "<think>one</think><think>{\"q\": 0.1}</think>{\"q\": 0.6}",
+     {
+      "q": {
+       "type": "noul",
+       "instructions": "Is it?"
+      }
+     }
+    ],
+    "result": {
+     "ok": {
+      "q": {
+       "type": "noul",
+       "noul": 0.6
+      }
+     }
+    }
+   },
+   {
+    "args": [
+     "<think>never closed {\"q\": 0.3}",
+     {
+      "q": {
+       "type": "noul",
+       "instructions": "Is it?"
+      }
+     }
+    ],
+    "result": {
+     "ok": {
+      "q": {
+       "type": "noul",
+       "noul": 0.3
+      }
+     }
+    }
+   },
+   {
+    "args": [
+     "Sure! {\"q\": 0.66} Hope that helps.",
+     {
+      "q": {
+       "type": "noul",
+       "instructions": "Is it?"
+      }
+     }
+    ],
+    "result": {
+     "ok": {
+      "q": {
+       "type": "noul",
+       "noul": 0.66
+      }
+     }
+    }
+   },
+   {
+    "args": [
+     "{\"q\": {\"option\": \"2\", \"probability\": 0.9}}",
+     {
+      "q": {
+       "type": "choice",
+       "instructions": "Which?",
+       "criteria": {
+        "a": "A",
+        "b": null,
+        "c": "C"
+       }
+      }
+     }
+    ],
+    "result": {
+     "ok": {
+      "q": {
+       "type": "choice",
+       "choice": "b",
+       "confidence": 0.8499999999999999,
+       "probabilities": {}
+      }
+     }
+    }
+   },
+   {
+    "args": [
+     "{\"q\": {\"option\": 2, \"probability\": 0.9}}",
+     {
+      "q": {
+       "type": "choice",
+       "instructions": "Which?",
+       "criteria": {
+        "a": "A",
+        "b": null,
+        "c": "C"
+       }
+      }
+     }
+    ],
+    "result": {
+     "ok": {
+      "q": {
+       "type": "choice",
+       "choice": "b",
+       "confidence": 0.8499999999999999,
+       "probabilities": {}
+      }
+     }
+    }
+   },
+   {
+    "args": [
+     "{\"q\": {\"option\": \"1\", \"probability\": 1}}",
+     {
+      "q": {
+       "type": "choice",
+       "instructions": "Which?",
+       "criteria": {
+        "a": "A",
+        "b": null,
+        "c": "C"
+       }
+      }
+     }
+    ],
+    "result": {
+     "ok": {
+      "q": {
+       "type": "choice",
+       "choice": "a",
+       "confidence": 1.0,
+       "probabilities": {}
+      }
+     }
+    }
+   },
+   {
+    "args": [
+     "{\"q\": {\"option\": \"3\", \"probability\": 0.2}}",
+     {
+      "q": {
+       "type": "choice",
+       "instructions": "Which?",
+       "criteria": {
+        "a": "A",
+        "b": null,
+        "c": "C"
+       }
+      }
+     }
+    ],
+    "result": {
+     "ok": {
+      "q": {
+       "type": "choice",
+       "choice": "c",
+       "confidence": 0.0,
+       "probabilities": {}
+      }
+     }
+    }
+   },
+   {
+    "args": [
+     "{\"q\": {\"option\": \"9\", \"probability\": 0.9}}",
+     {
+      "q": {
+       "type": "choice",
+       "instructions": "Which?",
+       "criteria": {
+        "a": "A",
+        "b": null,
+        "c": "C"
+       }
+      }
+     }
+    ],
+    "result": {
+     "error": "unknown choice on q"
+    }
+   },
+   {
+    "args": [
+     "{\"q\": {\"option\": \"1\", \"probability\": 2}}",
+     {
+      "q": {
+       "type": "choice",
+       "instructions": "Which?",
+       "criteria": {
+        "a": "A",
+        "b": null,
+        "c": "C"
+       }
+      }
+     }
+    ],
+    "result": {
+     "error": "invalid probability on q"
+    }
+   },
+   {
+    "args": [
+     "{\"q\": {\"option\": \"1\", \"probability\": true}}",
+     {
+      "q": {
+       "type": "choice",
+       "instructions": "Which?",
+       "criteria": {
+        "a": "A",
+        "b": null,
+        "c": "C"
+       }
+      }
+     }
+    ],
+    "result": {
+     "error": "invalid probability on q"
+    }
+   },
+   {
+    "args": [
+     "{\"q\": {\"option\": \"1\", \"probability\": \"0.5\"}}",
+     {
+      "q": {
+       "type": "choice",
+       "instructions": "Which?",
+       "criteria": {
+        "a": "A",
+        "b": null,
+        "c": "C"
+       }
+      }
+     }
+    ],
+    "result": {
+     "error": "invalid probability on q"
+    }
+   },
+   {
+    "args": [
+     "{\"q\": {\"option\": \"1\"}}",
+     {
+      "q": {
+       "type": "choice",
+       "instructions": "Which?",
+       "criteria": {
+        "a": "A",
+        "b": null,
+        "c": "C"
+       }
+      }
+     }
+    ],
+    "result": {
+     "error": "invalid probability on q"
+    }
+   },
+   {
+    "args": [
+     "{\"q\": \"1\"}",
+     {
+      "q": {
+       "type": "choice",
+       "instructions": "Which?",
+       "criteria": {
+        "a": "A",
+        "b": null,
+        "c": "C"
+       }
+      }
+     }
+    ],
+    "result": {
+     "error": "no choice on q"
+    }
+   },
+   {
+    "args": [
+     "{\"q\": {\"option\": \"1.0\", \"probability\": 0.9}}",
+     {
+      "q": {
+       "type": "choice",
+       "instructions": "Which?",
+       "criteria": {
+        "a": "A",
+        "b": null,
+        "c": "C"
+       }
+      }
+     }
+    ],
+    "result": {
+     "error": "unknown choice on q"
+    }
+   },
+   {
+    "args": [
+     "{\"q\": {\"option\": \"1\", \"probability\": 0.7}}",
+     {
+      "q": {
+       "type": "choice",
+       "instructions": "Which?",
+       "criteria": {
+        "only": "O"
+       }
+      }
+     }
+    ],
+    "result": {
+     "ok": {
+      "q": {
+       "type": "choice",
+       "choice": "only",
+       "confidence": 0.7,
+       "probabilities": {}
+      }
+     }
+    }
+   },
+   {
+    "args": [
+     "{\"q\": {\"option\": \"2\", \"probability\": 0.7}}",
+     {
+      "q": {
+       "type": "choice",
+       "instructions": "Qué?",
+       "criteria": {
+        "café": "à côté",
+        "日本": null
+       }
+      }
+     }
+    ],
+    "result": {
+     "ok": {
+      "q": {
+       "type": "choice",
+       "choice": "日本",
+       "confidence": 0.3999999999999999,
+       "probabilities": {}
+      }
+     }
+    }
+   },
+   {
+    "args": [
+     "{\"route\": {\"option\": \"1\", \"probability\": 0.95}, \"payload\": 0.8, \"span\": {\"option\": \"1\", \"probability\": 0.6}}",
+     {
+      "route": {
+       "type": "choice",
+       "instructions": "Which action?",
+       "criteria": {
+        "a_todo": "Todo list",
+        "none": "No action"
+       }
+      },
+      "payload": {
+       "type": "noul",
+       "instructions": "Is there a payload?"
+      },
+      "span": {
+       "type": "choice",
+       "instructions": "Which span?",
+       "criteria": {
+        "buy milk": null,
+        "Todo, buy milk": null
+       }
+      }
+     }
+    ],
+    "result": {
+     "ok": {
+      "route": {
+       "type": "choice",
+       "choice": "a_todo",
+       "confidence": 0.8999999999999999,
+       "probabilities": {}
+      },
+      "payload": {
+       "type": "noul",
+       "noul": 0.8
+      },
+      "span": {
+       "type": "choice",
+       "choice": "buy milk",
+       "confidence": 0.19999999999999996,
+       "probabilities": {}
+      }
+     }
+    }
+   },
+   {
+    "args": [
+     "{\"payload\": 0.8, \"route\": {\"option\": \"2\", \"probability\": 0.5}}",
+     {
+      "route": {
+       "type": "choice",
+       "instructions": "Which action?",
+       "criteria": {
+        "a_todo": "Todo list",
+        "none": "No action"
+       }
+      },
+      "payload": {
+       "type": "noul",
+       "instructions": "Is there a payload?"
+      },
+      "span": {
+       "type": "choice",
+       "instructions": "Which span?",
+       "criteria": {
+        "buy milk": null,
+        "Todo, buy milk": null
+       }
+      }
+     }
+    ],
+    "result": {
+     "error": "no choice on span"
+    }
+   }
+  ],
+  "confidence": [
+   {
+    "args": [
+     1.0,
+     4
+    ],
+    "result": 1.0
+   },
+   {
+    "args": [
+     0.25,
+     4
+    ],
+    "result": 0.0
+   },
+   {
+    "args": [
+     0.1,
+     4
+    ],
+    "result": 0.0
+   },
+   {
+    "args": [
+     0.7,
+     1
+    ],
+    "result": 0.7
+   },
+   {
+    "args": [
+     0.7,
+     0
+    ],
+    "result": 0.7
+   },
+   {
+    "args": [
+     0.9,
+     3
+    ],
+    "result": 0.8499999999999999
+   },
+   {
+    "args": [
+     0.5,
+     2
+    ],
+    "result": 0.0
+   },
+   {
+    "args": [
+     0.0,
+     2
+    ],
+    "result": 0.0
+   },
+   {
+    "args": [
+     1.0,
+     2
+    ],
+    "result": 1.0
+   },
+   {
+    "args": [
+     0.95,
+     3
+    ],
+    "result": 0.9249999999999999
+   },
+   {
+    "args": [
+     0.6,
+     10
+    ],
+    "result": 0.5555555555555556
+   }
+  ],
+  "_fit_context": [
+   {
+    "args": [
+     32768,
+     100,
+     104
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     4096,
+     24000,
+     104
+    ],
+    "result": {
+     "error": "the model's context of 4,096 tokens is too small for a judgment of about 8,357 tokens",
+     "window": 4096,
+     "needed": 8357
+    }
+   },
+   {
+    "args": [
+     4096,
+     11000,
+     104
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     4096,
+     11500,
+     104
+    ],
+    "result": {
+     "error": "the model's context of 4,096 tokens is too small for a judgment of about 4,191 tokens",
+     "window": 4096,
+     "needed": 4191
+    }
+   },
+   {
+    "args": [
+     1024,
+     0,
+     64
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     1024,
+     2400,
+     64
+    ],
+    "result": {
+     "error": "the model's context of 1,024 tokens is too small for a judgment of about 1,117 tokens",
+     "window": 1024,
+     "needed": 1117
+    }
+   },
+   {
+    "args": [
+     8192,
+     23000,
+     1024
+    ],
+    "result": {
+     "error": "the model's context of 8,192 tokens is too small for a judgment of about 8,944 tokens",
+     "window": 8192,
+     "needed": 8944
+    }
+   },
+   {
+    "args": [
+     500,
+     0,
+     0
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     100000,
+     24000,
+     2000000
+    ],
+    "result": {
+     "error": "the model's context of 100,000 tokens is too small for a judgment of about 2,008,253 tokens",
+     "window": 100000,
+     "needed": 2008253
+    }
+   }
+  ],
+  "_failure_reason": [
+   {
+    "args": [
+     "AuthenticationError",
+     401,
+     30.0
+    ],
+    "result": "127.0.0.1 rejected the key (HTTP 401)."
+   },
+   {
+    "args": [
+     "AuthenticationError",
+     401,
+     5
+    ],
+    "result": "127.0.0.1 rejected the key (HTTP 401)."
+   },
+   {
+    "args": [
+     "PermissionDeniedError",
+     403,
+     30.0
+    ],
+    "result": "127.0.0.1 rejected the key (HTTP 403)."
+   },
+   {
+    "args": [
+     "PermissionDeniedError",
+     403,
+     5
+    ],
+    "result": "127.0.0.1 rejected the key (HTTP 403)."
+   },
+   {
+    "args": [
+     "NotFoundError",
+     404,
+     30.0
+    ],
+    "result": "127.0.0.1 has no model judge-1 (HTTP 404)."
+   },
+   {
+    "args": [
+     "NotFoundError",
+     404,
+     5
+    ],
+    "result": "127.0.0.1 has no model judge-1 (HTTP 404)."
+   },
+   {
+    "args": [
+     "BadRequestError",
+     400,
+     30.0
+    ],
+    "result": "127.0.0.1 answered HTTP 400."
+   },
+   {
+    "args": [
+     "BadRequestError",
+     400,
+     5
+    ],
+    "result": "127.0.0.1 answered HTTP 400."
+   },
+   {
+    "args": [
+     "InternalServerError",
+     500,
+     30.0
+    ],
+    "result": "127.0.0.1 answered HTTP 500."
+   },
+   {
+    "args": [
+     "InternalServerError",
+     500,
+     5
+    ],
+    "result": "127.0.0.1 answered HTTP 500."
+   },
+   {
+    "args": [
+     "RateLimitError",
+     429,
+     30.0
+    ],
+    "result": "127.0.0.1 answered HTTP 429."
+   },
+   {
+    "args": [
+     "RateLimitError",
+     429,
+     5
+    ],
+    "result": "127.0.0.1 answered HTTP 429."
+   },
+   {
+    "args": [
+     "APITimeoutError",
+     null,
+     30.0
+    ],
+    "result": "My server · judge-1 did not answer within 30 s."
+   },
+   {
+    "args": [
+     "APITimeoutError",
+     null,
+     5
+    ],
+    "result": "My server · judge-1 did not answer within 5 s."
+   },
+   {
+    "args": [
+     "TimeoutError",
+     null,
+     30.0
+    ],
+    "result": "My server · judge-1 did not answer within 30 s."
+   },
+   {
+    "args": [
+     "TimeoutError",
+     null,
+     5
+    ],
+    "result": "My server · judge-1 did not answer within 5 s."
+   },
+   {
+    "args": [
+     "APIConnectionError",
+     null,
+     30.0
+    ],
+    "result": "Couldn't reach 127.0.0.1 (APIConnectionError)."
+   },
+   {
+    "args": [
+     "APIConnectionError",
+     null,
+     5
+    ],
+    "result": "Couldn't reach 127.0.0.1 (APIConnectionError)."
+   },
+   {
+    "args": [
+     "RuntimeError",
+     null,
+     30.0
+    ],
+    "result": "Couldn't reach 127.0.0.1 (RuntimeError)."
+   },
+   {
+    "args": [
+     "RuntimeError",
+     null,
+     5
+    ],
+    "result": "Couldn't reach 127.0.0.1 (RuntimeError)."
+   },
+   {
+    "args": [
+     "ValueError",
+     null,
+     30.0
+    ],
+    "result": "Couldn't reach 127.0.0.1 (ValueError)."
+   },
+   {
+    "args": [
+     "ValueError",
+     null,
+     5
+    ],
+    "result": "Couldn't reach 127.0.0.1 (ValueError)."
+   },
+   {
+    "args": [
+     "APITimeoutError",
+     null,
+     2.5
+    ],
+    "result": "My server · judge-1 did not answer within 2 s."
+   },
+   {
+    "args": [
+     "APITimeoutError",
+     null,
+     3.5
+    ],
+    "result": "My server · judge-1 did not answer within 4 s."
+   }
+  ]
+ }
+}

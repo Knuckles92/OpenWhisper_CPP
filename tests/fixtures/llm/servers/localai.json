@@ -1,0 +1,91 @@
+{
+ "note": "LocalAI v3.9: /v1/models/capabilities and the well-known file",
+ "routes": {
+  "GET /v1/models": {
+   "status": 200,
+   "json": {
+    "data": [
+     {
+      "id": "qwen3-8b",
+      "object": "model"
+     },
+     {
+      "id": "llama-3.2-1b",
+      "object": "model"
+     },
+     {
+      "id": "kokoro",
+      "object": "model"
+     },
+     {
+      "id": "whisper-base",
+      "object": "model"
+     },
+     {
+      "id": "bert-embeddings",
+      "object": "model"
+     },
+     {
+      "id": "piper-tts",
+      "object": "model"
+     }
+    ]
+   }
+  },
+  "GET /v1/models/capabilities": {
+   "status": 200,
+   "json": {
+    "data": [
+     {
+      "id": "qwen3-8b",
+      "capabilities": [
+       "chat",
+       "completion",
+       "tools",
+       "thinking"
+      ],
+      "context_size": 32768
+     },
+     {
+      "id": "llama-3.2-1b",
+      "capabilities": [
+       "chat",
+       "completion"
+      ],
+      "context_size": 0
+     },
+     {
+      "id": "kokoro",
+      "capabilities": [
+       "tts"
+      ],
+      "context_size": 0
+     },
+     {
+      "id": "whisper-base",
+      "capabilities": [
+       "transcript"
+      ],
+      "context_size": 0
+     },
+     {
+      "id": "bert-embeddings",
+      "capabilities": [
+       "embeddings"
+      ],
+      "context_size": 512
+     }
+    ]
+   }
+  },
+  "GET /.well-known/localai.json": {
+   "status": 200,
+   "json": {
+    "version": "v3.9.0",
+    "endpoints": {
+     "models": "/v1/models"
+    }
+   }
+  }
+ }
+}

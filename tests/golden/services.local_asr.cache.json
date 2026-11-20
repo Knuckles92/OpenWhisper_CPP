@@ -1,0 +1,182 @@
+{
+ "module": "services.local_asr.cache",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time",
+  "spec": {
+   "repo": "test/model",
+   "revision": "pinned",
+   "files": [
+    {
+     "name": "weights.gguf",
+     "url": "https://example.invalid/weights.gguf",
+     "sha256": "abababababababababababababababababababababababababababababababab",
+     "size_bytes": 14
+    },
+    {
+     "name": "notes.txt",
+     "url": "https://example.invalid/notes.txt",
+     "sha256": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+     "size_bytes": 3
+    }
+   ]
+  },
+  "scenario_note": "is_cached(installed.json text or None, {file name: size}) for parakeet-v3 with the pin replaced by 'spec'"
+ },
+ "functions": {
+  "is_cached": [
+   {
+    "args": [
+     null,
+     {
+      "weights.gguf": 14,
+      "notes.txt": 3
+     }
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "{\"repo\": \"test/model\", \"revision\": \"pinned\", \"files\": [{\"name\": \"weights.gguf\", \"url\": \"https://example.invalid/weights.gguf\", \"sha256\": \"abababababababababababababababababababababababababababababababab\", \"size_bytes\": 14}, {\"name\": \"notes.txt\", \"url\": \"https://example.invalid/notes.txt\", \"sha256\": \"cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\", \"size_bytes\": 3}]}",
+     {
+      "weights.gguf": 14,
+      "notes.txt": 3
+     }
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "{\"repo\": \"test/model\", \"revision\": \"pinned\", \"files\": [{\"name\": \"weights.gguf\", \"url\": \"https://example.invalid/weights.gguf\", \"sha256\": \"abababababababababababababababababababababababababababababababab\", \"size_bytes\": 14}, {\"name\": \"notes.txt\", \"url\": \"https://example.invalid/notes.txt\", \"sha256\": \"cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\", \"size_bytes\": 3}]}",
+     {
+      "weights.gguf": 14
+     }
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "{\"repo\": \"test/model\", \"revision\": \"pinned\", \"files\": [{\"name\": \"weights.gguf\", \"url\": \"https://example.invalid/weights.gguf\", \"sha256\": \"abababababababababababababababababababababababababababababababab\", \"size_bytes\": 14}, {\"name\": \"notes.txt\", \"url\": \"https://example.invalid/notes.txt\", \"sha256\": \"cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\", \"size_bytes\": 3}]}",
+     {
+      "weights.gguf": 13,
+      "notes.txt": 3
+     }
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "{\"repo\": \"test/model\", \"revision\": \"pinned\", \"files\": [{\"name\": \"weights.gguf\", \"url\": \"https://example.invalid/weights.gguf\", \"sha256\": \"abababababababababababababababababababababababababababababababab\", \"size_bytes\": 14}, {\"name\": \"notes.txt\", \"url\": \"https://example.invalid/notes.txt\", \"sha256\": \"cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\", \"size_bytes\": 3}]}",
+     {
+      "weights.gguf": 15,
+      "notes.txt": 3
+     }
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "{\"repo\": \"test/model\", \"revision\": \"pinned\", \"files\": [{\"name\": \"weights.gguf\", \"url\": \"https://example.invalid/weights.gguf\", \"sha256\": \"abababababababababababababababababababababababababababababababab\", \"size_bytes\": 14}, {\"name\": \"notes.txt\", \"url\": \"https://example.invalid/notes.txt\", \"sha256\": \"cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\", \"size_bytes\": 3}]}",
+     {
+      "weights.gguf": 14,
+      "notes.txt": 3,
+      "extra.bin": 9
+     }
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "{\"files\": [{\"name\": \"weights.gguf\", \"url\": \"https://example.invalid/weights.gguf\", \"sha256\": \"abababababababababababababababababababababababababababababababab\", \"size_bytes\": 14}, {\"name\": \"notes.txt\", \"url\": \"https://example.invalid/notes.txt\", \"sha256\": \"cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\", \"size_bytes\": 3}], \"revision\": \"pinned\", \"repo\": \"test/model\"}",
+     {
+      "weights.gguf": 14,
+      "notes.txt": 3
+     }
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "{\n  \"repo\": \"test/model\",\n  \"revision\": \"pinned\",\n  \"files\": [\n    {\n      \"name\": \"weights.gguf\",\n      \"url\": \"https://example.invalid/weights.gguf\",\n      \"sha256\": \"abababababababababababababababababababababababababababababababab\",\n      \"size_bytes\": 14\n    },\n    {\n      \"name\": \"notes.txt\",\n      \"url\": \"https://example.invalid/notes.txt\",\n      \"sha256\": \"cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\",\n      \"size_bytes\": 3\n    }\n  ]\n}",
+     {
+      "weights.gguf": 14,
+      "notes.txt": 3
+     }
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "{\"repo\": \"test/model\", \"revision\": \"pinned\", \"files\": [{\"name\": \"weights.gguf\", \"url\": \"https://example.invalid/weights.gguf\", \"sha256\": \"efefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefef\", \"size_bytes\": 14}, {\"name\": \"notes.txt\", \"url\": \"https://example.invalid/notes.txt\", \"sha256\": \"cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\", \"size_bytes\": 3}]}",
+     {
+      "weights.gguf": 14,
+      "notes.txt": 3
+     }
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "{\"repo\": \"test/model\", \"revision\": \"pinned\", \"files\": [{\"name\": \"weights.gguf\", \"url\": \"https://example.invalid/weights.gguf\", \"sha256\": \"abababababababababababababababababababababababababababababababab\", \"size_bytes\": 14.0}, {\"name\": \"notes.txt\", \"url\": \"https://example.invalid/notes.txt\", \"sha256\": \"cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\", \"size_bytes\": 3}]}",
+     {
+      "weights.gguf": 14,
+      "notes.txt": 3
+     }
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "",
+     {
+      "weights.gguf": 14,
+      "notes.txt": 3
+     }
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "{oops",
+     {
+      "weights.gguf": 14,
+      "notes.txt": 3
+     }
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "[]",
+     {
+      "weights.gguf": 14,
+      "notes.txt": 3
+     }
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "null",
+     {
+      "weights.gguf": 14,
+      "notes.txt": 3
+     }
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "{\"repo\": \"test/model\", \"revision\": \"pinned\", \"files\": [{\"name\": \"weights.gguf\", \"url\": \"https://example.invalid/weights.gguf\", \"sha256\": \"abababababababababababababababababababababababababababababababab\", \"size_bytes\": 14}, {\"name\": \"notes.txt\", \"url\": \"https://example.invalid/notes.txt\", \"sha256\": \"cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\", \"size_bytes\": 3}], \"extra\": 1}",
+     {
+      "weights.gguf": 14,
+      "notes.txt": 3
+     }
+    ],
+    "result": false
+   }
+  ]
+ }
+}

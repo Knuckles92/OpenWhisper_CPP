@@ -1,0 +1,277 @@
+{
+ "area": "a05-recording-audio",
+ "package": "M10 sweep",
+ "features": {
+  "A05-01": {
+   "status": "verified",
+   "cpp": ["src/recorder/recorder.cpp", "src/recorder/recorder.h"],
+   "tests": ["tests/recorder/test_recorder.cpp", "tests/recorder/test_device_fallback.cpp", "tests/recorder/test_golden.cpp"]
+  },
+  "A05-02": {
+   "status": "verified",
+   "cpp": ["src/recorder/recorder.cpp", "src/audio/devices.cpp"],
+   "tests": ["tests/recorder/test_device_fallback.cpp", "tests/audio/test_devices.cpp"]
+  },
+  "A05-03": {
+   "status": "verified",
+   "cpp": ["src/audio/devices.cpp"],
+   "tests": ["tests/audio/test_devices.cpp"]
+  },
+  "A05-04": {
+   "status": "verified",
+   "cpp": ["src/audio/devices.cpp"],
+   "tests": ["tests/audio/test_devices.cpp"]
+  },
+  "A05-05": {
+   "status": "verified",
+   "cpp": ["src/audio/devices.cpp", "src/appcore/mic_priority.cpp"],
+   "tests": ["tests/audio/test_devices.cpp"]
+  },
+  "A05-06": {
+   "status": "verified",
+   "cpp": ["src/audio/devices.cpp", "src/recorder/recorder.cpp"],
+   "tests": ["tests/audio/test_devices.cpp", "tests/recorder/test_from_settings.cpp", "tests/recorder/test_device_fallback.cpp"],
+   "note": "The migration runs as a task on the executor from_settings is given instead of a thread named dictation-mic-migration."
+  },
+  "A05-07": {
+   "status": "verified",
+   "cpp": ["src/audio/devices.cpp"],
+   "tests": ["tests/audio/test_devices.cpp", "tests/audio/test_fake_backend.cpp"]
+  },
+  "A05-08": {
+   "status": "verified",
+   "cpp": ["src/audio/devices.cpp", "src/audio/win/portaudio_platform.cpp"],
+   "tests": ["tests/audio/test_devices.cpp", "tests/recorder/test_device_fallback.cpp"],
+   "note": "The tests pin that a WASAPI device is checked and opened with the conversion flag; setting paWinWasapiAutoConvert on the real stream is Windows-only code not compiled on Linux."
+  },
+  "A05-09": {
+   "status": "verified",
+   "cpp": ["src/recorder/recorder.cpp", "src/recorder/recorder.h"],
+   "tests": ["tests/recorder/test_device_fallback.cpp"]
+  },
+  "A05-10": {
+   "status": "verified",
+   "cpp": ["src/recorder/recorder.cpp"],
+   "tests": ["tests/recorder/test_device_fallback.cpp", "tests/recorder/test_fail_capture.cpp"]
+  },
+  "A05-11": {
+   "status": "verified",
+   "cpp": ["src/recorder/post_roll.cpp", "src/recorder/post_roll.h", "src/recorder/recorder.cpp", "src/dsp/level.cpp"],
+   "tests": ["tests/recorder/test_post_roll.cpp", "tests/recorder/test_golden.cpp", "tests/dsp/test_level.cpp"]
+  },
+  "A05-12": {
+   "status": "verified",
+   "cpp": ["src/recorder/recorder.cpp"],
+   "tests": ["tests/recorder/test_post_roll.cpp", "tests/recorder/test_recorder.cpp"]
+  },
+  "A05-13": {
+   "status": "verified",
+   "cpp": ["src/recorder/recorder.cpp", "src/recorder/journal.cpp"],
+   "tests": ["tests/recorder/test_post_roll.cpp", "tests/recorder/test_journal.cpp", "tests/recorder/test_device_fallback.cpp"]
+  },
+  "A05-14": {
+   "status": "fixed",
+   "cpp": ["src/recorder/journal.cpp", "src/recorder/journal.h", "src/recorder/recorder.cpp"],
+   "tests": ["tests/recorder/test_journal.cpp", "tests/recorder/test_failure_strings.cpp", "tests/recorder/test_golden.cpp"],
+   "note": "The code matched; the write-failure text had only a substring check. Added 'a storage write that fails is reported as the recording not saved' (exact 'Recording could not be saved: <exc>'). The writer thread is named fv-journal-writer."
+  },
+  "A05-15": {
+   "status": "verified",
+   "cpp": ["src/recorder/journal.cpp", "src/dictation/recovery.cpp"],
+   "tests": ["tests/recorder/test_journal.cpp", "tests/recorder/test_golden.cpp", "tests/dictation/test_runtime_flow.cpp"]
+  },
+  "A05-16": {
+   "status": "fixed",
+   "cpp": ["src/recorder/recorder.cpp", "src/audio/wav_writer.cpp", "src/recorder/journal.cpp"],
+   "tests": ["tests/recorder/test_recorder.cpp", "tests/recorder/test_failure_strings.cpp", "tests/recorder/test_journal.cpp", "tests/audio/test_wav_writer.cpp"],
+   "note": "The code matched; no test pinned the two refusal texts. Added 'storage that does not finish after the stop is reported and nothing is saved' and 'blocks lost after storage stopped are named when the recording is saved' (exact strings, said once, partial save only with allow_incomplete)."
+  },
+  "A05-17": {
+   "status": "fixed",
+   "cpp": ["src/audio/wav_metadata.cpp", "src/audio/wav_writer.cpp", "src/audio/testing/origination_stamp.h"],
+   "tests": ["tests/audio/test_wav_metadata.cpp", "tests/audio/test_wav_writer.cpp", "tests/recorder/test_recorder.cpp"],
+   "note": "The code matched (ISFT and the bext originator are identity().product); nothing tested that a failed stamp costs only the tags at the save. Added the seam audio::testing::exchange_origination_stamp and ported test_save_recording_keeps_wav_when_metadata_stamp_fails ('save recording keeps wav when metadata stamp fails'), which was pending in tests/recorder/PARITY.json."
+  },
+  "A05-18": {
+   "status": "verified",
+   "cpp": ["src/audio/wav_metadata.cpp"],
+   "tests": ["tests/audio/test_wav_metadata.cpp"]
+  },
+  "A05-19": {
+   "status": "fixed",
+   "cpp": ["src/recorder/recorder.cpp", "src/recorder/recorder.h"],
+   "tests": ["tests/recorder/test_recorder.cpp", "tests/recorder/test_failure_strings.cpp"],
+   "note": "A level subscriber that threw inline ended the recording with 'Audio capture failed'; Python's _calculate_and_report_level swallows it. process_block now catches around level.emit (debug log 'Error calculating audio level'); test 'a level listener that throws costs its reading and not the recording'. The level is emitted on the fv-audio-io thread, not the device callback."
+  },
+  "A05-20": {
+   "status": "verified",
+   "cpp": ["src/recorder/recorder.cpp", "src/recorder/journal.cpp", "src/audio/pcm_tape.cpp"],
+   "tests": ["tests/recorder/test_recorder.cpp", "tests/recorder/test_journal.cpp", "tests/speech/test_incremental_session.cpp"]
+  },
+  "A05-21": {
+   "status": "verified",
+   "cpp": ["src/recorder/recorder.cpp"],
+   "tests": ["tests/recorder/test_device_fallback.cpp"]
+  },
+  "A05-22": {
+   "status": "verified",
+   "cpp": ["src/speech/window_preview.cpp", "src/speech/window_preview.h", "src/dsp/fft_resample.cpp", "src/dictation/streaming_runtime.cpp"],
+   "tests": ["tests/speech/test_window_preview.cpp", "tests/dsp/test_fft_resample.cpp", "tests/dictation/test_streaming_runtime.cpp"],
+   "note": "The preview follows the recorder's PcmTape in whole 1024-frame blocks instead of a queue fed by a streaming callback; the window, overlap, buffer and drop arithmetic are the same. beam_size and vad_filter are faster-whisper arguments with no Parakeet counterpart."
+  },
+  "A05-23": {
+   "status": "dropped",
+   "reason": "Native streaming preview exists only for Nemotron Streaming, Moonshine and Parakeet Unified; the owner dropped Nemotron (ARCHITECTURE.md section 13 item 43, M1.md scope row A05-23) and Parakeet TDT rejects streaming_recognize, so live preview is the window preview of A05-22."
+  },
+  "A05-24": {
+   "status": "dropped",
+   "reason": "Stream-final reuse applies only to a stream_final model (Nemotron Streaming), which the owner dropped (ARCHITECTURE.md section 13 item 43, M1.md scope row A05-24); no catalog model sets stream_final."
+  },
+  "A05-25": {
+   "status": "verified",
+   "cpp": ["src/speech/incremental_session.cpp", "src/speech/incremental_session.h", "src/dsp/window_splitter.cpp", "src/audio/resampler.cpp", "src/speech/file_windows.cpp"],
+   "tests": ["tests/speech/test_incremental_session.cpp", "tests/dsp/test_window_splitter.cpp", "tests/audio/test_resample.cpp", "tests/dictation/test_incremental_runtime.cpp"]
+  },
+  "A05-26": {
+   "status": "verified",
+   "cpp": ["src/audio/player.cpp", "src/audio/player.h"],
+   "tests": ["tests/audio/test_player.cpp"]
+  },
+  "A05-27": {
+   "status": "verified",
+   "cpp": ["src/audio/file_preview.cpp", "src/audio/file_preview.h"],
+   "tests": ["tests/audio/test_file_preview.cpp"]
+  },
+  "A05-28": {
+   "status": "verified",
+   "cpp": ["src/speech/upload_splitter.cpp", "src/speech/upload_splitter.h"],
+   "tests": ["tests/speech/test_upload_splitter.cpp"]
+  },
+  "A05-29": {
+   "status": "verified",
+   "cpp": ["src/speech/dictation_language.cpp", "src/speech/languages.cpp"],
+   "tests": ["tests/speech/test_dictation_language.cpp", "tests/speech/test_languages.cpp"],
+   "note": "The Whisper, Moonshine, MLX and Unified branches are not ported (other engines). The remote-engine branch keys the other computer's languages by the paired fingerprint; it belongs to a17."
+  },
+  "A05-30": {
+   "status": "verified",
+   "cpp": ["src/dictation/job.cpp", "src/dictation/job.h"],
+   "tests": ["tests/dictation/test_pipeline.cpp", "tests/dictation/test_pipeline_text.cpp", "tests/dictation/test_automation_pipeline.cpp"]
+  },
+  "A05-31": {
+   "status": "verified",
+   "cpp": ["src/dictation/recognition.cpp"],
+   "tests": ["tests/dictation/test_pipeline_text.cpp", "tests/dictation/test_recognition.cpp"]
+  },
+  "A05-32": {
+   "status": "verified",
+   "cpp": ["src/dictation/pipeline.cpp", "src/dictation/text_preparer.cpp"],
+   "tests": ["tests/dictation/test_pipeline_text.cpp", "tests/dictation/test_pipeline.cpp"]
+  },
+  "A05-33": {
+   "status": "verified",
+   "cpp": ["src/dictation/cleanup_prompt.cpp"],
+   "tests": ["tests/dictation/test_pipeline_text.cpp", "tests/dictation/test_cleanup_prompt.cpp"],
+   "note": "An installed-agent cleanup provider gets only the base prompt and the snippet guard: the difference a04-agent-cleanup-scope recorded in a04-agent-cleanup-consent.json."
+  },
+  "A05-34": {
+   "status": "verified",
+   "cpp": ["src/dictation/pipeline.cpp", "src/dictation/text_preparer.cpp"],
+   "tests": ["tests/dictation/test_pipeline_text.cpp"]
+  },
+  "A05-35": {
+   "status": "verified",
+   "cpp": ["src/dictation/pipeline.cpp", "src/dictation/pipeline.h"],
+   "tests": ["tests/dictation/test_pipeline.cpp", "tests/dictation/test_pipeline_text.cpp"]
+  },
+  "A05-36": {
+   "status": "verified",
+   "cpp": ["src/dictation/pipeline.cpp", "src/dictation/dictionary_learning.cpp"],
+   "tests": ["tests/dictation/test_pipeline_text.cpp", "tests/dictation/test_pipeline.cpp", "tests/dictation/test_dictionary_learning.cpp"]
+  },
+  "A05-37": {
+   "status": "verified",
+   "cpp": ["src/history/dictation_stats.cpp", "src/meeting_state/detail/sql_meetings.cpp"],
+   "tests": ["tests/history/test_dictation_stats.cpp", "tests/history/test_golden.cpp"]
+  },
+  "A05-38": {
+   "status": "verified",
+   "cpp": ["src/history/stats_summary.cpp", "src/history/dictation_stats.cpp"],
+   "tests": ["tests/history/test_stats_summary.cpp", "tests/history/test_dictation_stats.cpp", "tests/history/test_golden.cpp", "tests/history/test_golden_extras.cpp"]
+  },
+  "A05-39": {
+   "status": "verified",
+   "cpp": ["src/ui_record/microphone_check.cpp", "src/ui_record/microphone_check.h"],
+   "tests": ["tests/ui_record/test_microphone_check.cpp"]
+  },
+  "A05-40": {
+   "status": "verified",
+   "cpp": ["src/ui_snap/capture_delay.cpp", "src/ui_snap/capture_delay.h"],
+   "tests": ["tests/ui_snap/test_capture_delay.cpp", "tests/ui_snap/test_live_screenshots.cpp"],
+   "note": "Read against the Python and its tests; not run here: fv_ui_snap does not compile with GCC 13 in the shared tree (overlay.h:109 and live.h:160, a default argument '= {}' of a nested Options struct), a failure that predates this audit. The picker's macOS panel behaviour is another platform's."
+  },
+  "A05-41": {
+   "status": "fixed",
+   "cpp": ["src/recorder/recorder.cpp"],
+   "tests": ["tests/recorder/test_failure_strings.cpp", "tests/recorder/test_recorder.cpp"],
+   "note": "The strings were in the code but no test asserted them. Added tests/recorder/test_failure_strings.cpp for 'Audio capture stopped unexpectedly: <exc>' (a watcher whose stream query throws), 'Recording storage did not finish; audio kept for recovery.' and 'Audio blocks were lost; the partial recording was kept.'. 'Audio capture failed: <exc>' stays untested: with the capture ring nothing in process_block can throw short of an allocation failure. The level and capture_error setters are fv::Signal connections."
+  },
+  "A05-42": {
+   "status": "verified",
+   "cpp": ["src/dictation/job.cpp"],
+   "tests": ["tests/dictation/test_pipeline_text.cpp", "tests/dictation/test_pipeline.cpp", "tests/dictation/test_automation_pipeline.cpp"]
+  },
+  "A05-43": {
+   "status": "verified",
+   "cpp": ["src/dictation/job.cpp"],
+   "tests": ["tests/dictation/test_pipeline.cpp", "tests/dictation/test_pipeline_text.cpp"]
+  },
+  "A05-44": {
+   "status": "verified",
+   "cpp": ["src/dictation/pipeline.cpp"],
+   "tests": ["tests/dictation/test_golden.cpp", "tests/dictation/test_pipeline_text.cpp", "tests/dictation/test_cleanup_prompt.cpp"]
+  },
+  "A05-45": {
+   "status": "verified",
+   "cpp": ["src/dictation/pipeline.cpp"],
+   "tests": ["tests/dictation/test_pipeline_text.cpp", "tests/dictation/test_pipeline.cpp"]
+  },
+  "A05-46": {
+   "status": "verified",
+   "cpp": ["src/history/dictation_stats.cpp"],
+   "tests": ["tests/history/test_dictation_stats.cpp", "tests/history/test_golden.cpp"]
+  },
+  "A05-47": {
+   "status": "verified",
+   "cpp": ["src/history/dictation_stats.cpp", "src/history/stats_summary.cpp"],
+   "tests": ["tests/history/test_dictation_stats.cpp"]
+  },
+  "A05-48": {
+   "status": "verified",
+   "cpp": ["src/history/stats_summary.cpp", "src/history/stats_summary.h"],
+   "tests": ["tests/history/test_stats_summary.cpp", "tests/history/test_golden_extras.cpp"]
+  },
+  "A05-49": {
+   "status": "verified",
+   "cpp": ["src/history/stats_summary.cpp"],
+   "tests": ["tests/history/test_stats_summary.cpp", "tests/history/test_golden_extras.cpp"]
+  },
+  "A05-50": {
+   "status": "verified",
+   "cpp": ["src/speech/dictation_language.cpp"],
+   "tests": ["tests/speech/test_dictation_language.cpp"]
+  },
+  "A05-51": {
+   "status": "verified",
+   "cpp": ["src/audio/file_preview.cpp", "src/speech/upload_splitter.cpp"],
+   "tests": ["tests/audio/test_file_preview.cpp", "tests/speech/test_upload_splitter.cpp"]
+  },
+  "A05-52": {
+   "status": "verified",
+   "cpp": ["src/recorder/journal.cpp"],
+   "tests": ["tests/recorder/test_journal.cpp", "tests/recorder/test_golden.cpp"],
+   "note": "The invalid format (golden _session_format, and the session kept and logged) is tested. The short PCM source ('Incomplete recovery audio', the .wav.tmp removed and not promoted) is in recover_session and copy_pcm but has no test, here or upstream: it needs a file that shrinks between stat and read."
+  }
+ },
+ "differences": []
+}

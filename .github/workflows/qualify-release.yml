@@ -1,0 +1,155 @@
+# Verify a release candidate kept by release-build.yml and upload it to an existing draft
+# release. Started by hand only, and every job is skipped unless the repository variable
+# FIORIVOCE_RELEASE_REPO names this repository (Settings > Secrets and variables > Actions >
+# Variables): until the owner sets it, nothing here runs. Written for M10.17 and never run.
+#
+# qualify: the candidate run must be a successful, hand-started release-build.yml run of this
+# repository; the downloaded candidate must pass check_release_qualification.py for the commit
+# the release tag points at and for that run. It holds no write permission.
+# upload: downloads the same candidate again, repeats the checks, checks the draft (a draft,
+# tagged v<version> at that commit, holding nothing the candidate does not replace), uploads with
+# gh release upload --clobber, and validates what the draft then lists. The only job that may
+# write: it publishes nothing (the release stays a draft), and it never pushes or tags.
+name: Verify candidate and upload draft
+
+on:
+  workflow_dispatch:
+    inputs:
+      candidate_run_id:
+        description: Successful Build release candidate run containing the candidate
+        required: true
+        type: string
+      release_tag:
+        description: Existing draft release tag (vX.Y.Z) for that exact candidate
+        required: true
+        type: string
+      require_windows_signed:
+        description: Refuse a candidate whose Windows executables and installer are unsigned
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qualify-release-${{ inputs.release_tag }}
+  cancel-in-progress: false
+
+jobs:
+  qualify:
+    name: Verify the candidate
+    if: vars.FIORIVOCE_RELEASE_REPO != ''
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      actions: read
+      contents: read
+    steps:
+      - name: Check the release repository
+        env:
+          RELEASE_REPO: ${{ vars.FIORIVOCE_RELEASE_REPO }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          # The workflow token can only write to this repository.
+          test "$RELEASE_REPO" = "$REPOSITORY" || {
+            echo "FIORIVOCE_RELEASE_REPO is $RELEASE_REPO, not this repository ($REPOSITORY)." >&2
+            exit 1
+          }
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ inputs.release_tag }}
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.12"
+      - name: Verify the candidate run's provenance
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CANDIDATE_RUN: ${{ inputs.candidate_run_id }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          [[ "$CANDIDATE_RUN" =~ ^[1-9][0-9]*$ ]]
+          gh api "repos/$REPOSITORY/actions/runs/$CANDIDATE_RUN" > candidate-run.json
+          python -I -B - <<'PY'
+          import json
+          import os
+          run = json.load(open("candidate-run.json", encoding="utf-8"))
+          assert run["conclusion"] == "success", "Candidate build did not succeed"
+          assert run["event"] == "workflow_dispatch", "Unexpected candidate trigger"
+          assert run["path"] == ".github/workflows/release-build.yml", "Unexpected build workflow"
+          assert run["repository"]["full_name"] == os.environ["REPOSITORY"], "Unexpected repository"
+          PY
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4 (OpenWhisper's pin)
+        with:
+          name: fiorivoce-release-candidate
+          path: release
+          run-id: ${{ inputs.candidate_run_id }}
+          github-token: ${{ github.token }}
+      - name: Verify checksums, source qualification and signing record
+        env:
+          CANDIDATE_RUN: ${{ inputs.candidate_run_id }}
+          REQUIRE_WINDOWS_SIGNED: ${{ inputs.require_windows_signed }}
+        run: |
+          # Without pipefail, tee's success would hide a failed qualification.
+          set -o pipefail
+          require=()
+          if [[ "$REQUIRE_WINDOWS_SIGNED" == "true" ]]; then require=(--require-windows-signed); fi
+          python -I -B tools/release/check_release_qualification.py --dir release \
+            --require-source-qualification --expected-commit "$(git rev-parse HEAD)" \
+            --expected-run "$CANDIDATE_RUN" "${require[@]}" | tee qualification.txt
+          echo "::notice title=Windows signing::$(grep -m 1 '^Windows executables and installer:' qualification.txt)"
+
+  upload:
+    name: Upload the verified candidate to the draft
+    needs: qualify
+    if: vars.FIORIVOCE_RELEASE_REPO != ''
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      actions: read
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ inputs.release_tag }}
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.12"
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4 (OpenWhisper's pin)
+        with:
+          name: fiorivoce-release-candidate
+          path: release
+          run-id: ${{ inputs.candidate_run_id }}
+          github-token: ${{ github.token }}
+      - name: Upload the verified candidate to the existing draft
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_REPO: ${{ vars.FIORIVOCE_RELEASE_REPO }}
+          RELEASE_TAG: ${{ inputs.release_tag }}
+          CANDIDATE_RUN: ${{ inputs.candidate_run_id }}
+          REQUIRE_WINDOWS_SIGNED: ${{ inputs.require_windows_signed }}
+        run: |
+          set -euo pipefail
+          require=()
+          if [[ "$REQUIRE_WINDOWS_SIGNED" == "true" ]]; then require=(--require-windows-signed); fi
+          # The bytes about to be uploaded pass the same checks the qualify job made.
+          python -I -B tools/release/check_release_qualification.py --dir release \
+            --require-source-qualification --expected-commit "$(git rev-parse HEAD)" \
+            --expected-run "$CANDIDATE_RUN" "${require[@]}"
+          version="$(python -I -B -c 'import json; print(json.load(open("release/BUILD-METADATA.json", encoding="utf-8"))["version"])')"
+          test "$RELEASE_TAG" = "v$version"
+          git fetch --no-tags origin "refs/tags/$RELEASE_TAG"
+          test "$(git rev-parse 'FETCH_HEAD^{commit}')" = "$(git rev-parse HEAD)"
+          test "$(gh release view "$RELEASE_TAG" --repo "$RELEASE_REPO" --json isDraft --jq .isDraft)" = true
+          release_api="$(gh release view "$RELEASE_TAG" --repo "$RELEASE_REPO" --json apiUrl --jq .apiUrl)"
+          gh api "$release_api" > draft-assets.json
+          # An asset the candidate does not replace must be removed from the draft by hand.
+          for name in $(python -I -B -c 'import json; print("\n".join(a["name"] for a in json.load(open("draft-assets.json", encoding="utf-8"))["assets"]))'); do
+            test -f "release/$name" || { echo "The draft holds $name, which this candidate does not replace." >&2; exit 1; }
+          done
+          python -I -B tools/release/check_release_qualification.py --dir release \
+            --draft-assets draft-assets.json
+          gh release upload "$RELEASE_TAG" release/* --repo "$RELEASE_REPO" --clobber
+          gh api "$release_api" > uploaded-release.json
+          python -I -B tools/release/check_release_qualification.py --dir release \
+            --draft-assets uploaded-release.json --uploaded

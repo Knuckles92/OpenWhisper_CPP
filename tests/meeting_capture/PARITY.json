@@ -1,0 +1,522 @@
+{
+  "package": "M7.8, M7.12",
+  "files": {
+    "tests/test_meeting_clock.py": {
+      "TestMeetingClock::test_zero_before_start": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_meeting_clock.cpp"
+      },
+      "TestMeetingClock::test_advances_after_start": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_meeting_clock.cpp"
+      },
+      "TestMeetingClock::test_pause_freezes_meeting_time": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_meeting_clock.cpp"
+      },
+      "TestMeetingClock::test_resume_credits_paused_span": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_meeting_clock.cpp"
+      },
+      "TestMeetingClock::test_pause_resume_idempotent": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_meeting_clock.cpp"
+      },
+      "TestMeetingClock::test_recovery_reanchor_continues_timeline": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_meeting_clock.cpp"
+      }
+    },
+    "tests/test_meeting_capture_health.py": {
+      "test_quiet_blocks_are_receiving_but_do_not_pass_guided_signal_check": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_health.cpp"
+      },
+      "test_attenuated_audio_does_not_pass_but_healthy_signal_does": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_health.cpp"
+      },
+      "test_short_click_is_not_enough_and_continuous_signal_is_rate_limited": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_health.cpp"
+      },
+      "test_wrong_source_at_same_level_can_pass_signal_check": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_health.cpp"
+      },
+      "test_block_stall_and_source_restart_preserve_guided_check_counter": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_health.cpp"
+      },
+      "test_paused_capture_counts_buffers_but_not_signal": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_health.cpp"
+      }
+    },
+    "tests/test_meeting_spool.py": {
+      "TestGapFill::test_no_fill_when_expected_is_none": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp"
+      },
+      "TestGapFill::test_no_fill_within_tolerance": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp"
+      },
+      "TestGapFill::test_fills_gap_above_120ms": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp"
+      },
+      "TestGapFill::test_gap_just_over_tolerance": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp"
+      },
+      "TestFindCutPoint::test_no_cut_before_target": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp"
+      },
+      "TestFindCutPoint::test_quiet_cut_after_target_at_400ms": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp"
+      },
+      "TestFindCutPoint::test_hard_cut_at_max_without_quiet": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp"
+      },
+      "TestFindCutPoint::test_no_hard_cut_until_max": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp"
+      },
+      "TestFindCutPoint::test_native_rate_cut_matches_16k_cut": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp"
+      },
+      "test_queue_overflow_marks_audio_incomplete_and_keeps_accepted_blocks": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp",
+        "note": "the writer is held by SpoolOptions::before_block instead of a replaced _process_block"
+      },
+      "test_chunk_write_failure_marks_audio_incomplete": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp",
+        "note": "the first chunk's replace fails because a folder holds its name, instead of a patched os.replace, and the chunk comes from a flush"
+      },
+      "TestSpoolWriterTimeline::test_no_drift_over_60s_at_44100": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp"
+      },
+      "TestSpoolWriterTimeline::test_negative_gap_does_not_shift_the_channel": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp"
+      },
+      "TestSpoolWriterTimeline::test_positive_gap_is_zero_filled": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp"
+      },
+      "TestSpoolWriterTimeline::test_blocks_fed_while_paused_are_dropped": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp"
+      },
+      "TestSpoolWriterContract::test_registered_pending_before_on_chunk": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp"
+      },
+      "TestSpoolWriterContract::test_short_remainder_is_kept": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp"
+      },
+      "TestSpoolWriterContract::test_flush_is_idempotent": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp"
+      },
+      "TestSpoolWriterContract::test_registration_failure_orphans_the_wav": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp"
+      },
+      "TestSessionWav::test_flush_writes_16k_session_wav": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp"
+      },
+      "TestSessionWav::test_pause_does_not_create_session_files": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp"
+      },
+      "TestSessionWav::test_native_rate_session_matches_timeline": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp"
+      },
+      "TestSessionWav::test_chunk_concat_fallback": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp"
+      },
+      "TestRateChangeAndLargeGaps::test_rate_change_preserves_session_origin_and_gap": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp"
+      },
+      "TestRateChangeAndLargeGaps::test_large_gap_fill_uses_bounded_allocations": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_spool.cpp",
+        "note": "checks gap_fill_pieces, the pieces the writer appends silence in, where Python counts numpy.zeros allocations; the 30 s gap run is checked for its filled length"
+      }
+    },
+    "tests/test_meeting_sd_stream.py": {
+      "test_unavailable_callback_times_keep_monotonic_timestamp": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_mic_source.cpp",
+        "note": "the callback times arrive in audio::BlockStatus from FakeBackend"
+      },
+      "test_valid_callback_clock_preserves_adc_latency": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_mic_source.cpp"
+      },
+      "test_mme_batched_callbacks_preserve_audio_through_spool": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_mic_source.cpp"
+      }
+    },
+    "tests/test_meeting_capture_devices.py": {
+      "TestFindMicDevice::test_input_output_pair_uses_system_default_not_index_zero": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_devices.cpp"
+      },
+      "TestFindMicDevice::test_list_default_device_still_works": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_devices.cpp",
+        "note": "sounddevice's default-device shapes are one PortAudio default index in C++; the case runs that layout on FakeBackend"
+      },
+      "TestFindMicDevice::test_tuple_default_device_still_works": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_devices.cpp",
+        "note": "sounddevice's default-device shapes are one PortAudio default index in C++; the case runs that layout on FakeBackend"
+      },
+      "TestFindMicDevice::test_preferred_index_wins_when_valid": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_devices.cpp"
+      },
+      "TestFindMicDevice::test_invalid_preferred_falls_back_to_default": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_devices.cpp"
+      },
+      "TestFindMicDevice::test_hostapi_default_used_when_pair_unreadable": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_devices.cpp"
+      },
+      "TestFindMicDevice::test_skips_loopback_named_inputs": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_devices.cpp"
+      },
+      "TestDefaultDeviceHelpers::test_pair_indexes_are_read_without_type_check": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_devices.cpp",
+        "note": "over audio::default_input_index, which replaces _default_io_indexes"
+      },
+      "TestDefaultDeviceHelpers::test_unreadable_pair_returns_nones": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_devices.cpp",
+        "note": "over audio::default_input_index, which replaces _default_io_indexes"
+      },
+      "TestDefaultDeviceHelpers::test_default_output_name_accepts_pair": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_devices.cpp",
+        "note": "the default render endpoint's flag replaces the default output's name (WASAPI loopback endpoints, M7.md change 5)"
+      },
+      "TestFindLoopbackDevice::test_missing_wasapi_is_not_an_error_off_windows": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_devices.cpp"
+      },
+      "TestProbeLoggingIsRateLimited::test_missing_loopback_warns_once_per_outage": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_devices.cpp",
+        "note": "the loopback message names render endpoints, not '[Loopback]' input devices"
+      },
+      "TestProbeLoggingIsRateLimited::test_loopback_outage_is_logged_again_after_recovery": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_devices.cpp",
+        "note": "the loopback message names render endpoints, not '[Loopback]' input devices"
+      },
+      "TestProbeLoggingIsRateLimited::test_unchanged_mic_choice_logs_info_once": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_devices.cpp"
+      },
+      "TestProbeLoggingIsRateLimited::test_changed_mic_choice_is_logged_again": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_devices.cpp"
+      }
+    },
+    "tests/test_meeting_failure_logging.py": {
+      "TestFailureLog::test_first_failure_is_an_error_with_traceback_and_repeats_are_debug": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_failure_log.cpp"
+      },
+      "TestFailureLog::test_recovery_lets_the_next_failure_be_reported_again": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_failure_log.cpp"
+      },
+      "TestFailureLog::test_type_only_says_where_it_failed_and_drops_the_message": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_failure_log.cpp"
+      },
+      "TestWatchdogRateLimit::test_a_lasting_probe_failure_warns_once_per_channel": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_failure_log.cpp",
+        "note": "the watchdog's channel check fails through fake sources whose is_active() throws"
+      },
+      "TestDiarizationChunkReload::test_unreadable_chunks_are_skipped_and_the_rest_still_labeled": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_failure_log.cpp",
+        "note": "the reload's FailureLog key and handler over the WAV reader; the engine's _assign_speakers is M7.17's"
+      },
+      "TestDiarizationChunkReload::test_a_programming_error_is_not_swallowed_here": {"status": "dropped", "reason": "A chunk's path is a string in C++: there is no None path and no TypeError to tell a programming error from a bad file, so every reload failure is the reload's"},
+      "TestTypeOnlyLogging::test_term_corrections_read_failure_names_only_the_type": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_failure_log.cpp",
+        "note": "the handler's FailureLog call (key term_rules, type only); the engine's term-rule read itself is dropped with A24-54"
+      },
+      "TestTypeOnlyLogging::test_judge_setup_failure_hides_the_key_and_warns_once": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_failure_log.cpp",
+        "note": "the handler's FailureLog call (key typesafe_judge, type only); the judge is M8's"
+      }
+    },
+    "tests/test_meeting_asr.py": {
+      "TestAsrSuccessPath::test_emits_segments_with_meeting_timestamps": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_asr_engine.cpp",
+        "note": "the decode carries the language \"auto\" on the Meeting lane where Whisper's was None; beam size and prompt are not ported"
+      },
+      "TestAsrSuccessPath::test_next_chunk_receives_bounded_committed_context": {
+        "status": "dropped",
+        "reason": "the 50-word draft prompt is Whisper's; Parakeet takes no prompt (A25-31)"
+      },
+      "TestAsrSuccessPath::test_recovery_context_excludes_later_and_other_channel_rows": {
+        "status": "dropped",
+        "reason": "the draft prompt's recovery hydration is Whisper's; Parakeet takes no prompt (A25-31)"
+      },
+      "TestAsrSuccessPath::test_digital_silence_skips_whisper_but_commits_chunk": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_asr_engine.cpp"
+      },
+      "TestAsrSuccessPath::test_backlog_uses_fast_decode_until_queue_recovers": {
+        "status": "dropped",
+        "reason": "the backlog's single-beam fast decode is Whisper's; Parakeet has no beam size (A25-31)"
+      },
+      "TestAsrRetry::test_retries_three_times_then_gives_up": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_asr_engine.cpp"
+      },
+      "TestAsrRetry::test_succeeds_after_transient_failures": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_asr_engine.cpp"
+      },
+      "TestAsrRetry::test_missing_wav_is_blocked_without_retries": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_asr_engine.cpp"
+      },
+      "TestAsrRetry::test_transient_retries_are_spaced": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_asr_engine.cpp"
+      },
+      "TestAsrRetry::test_remote_disconnect_after_attempt_refunds_budget": {"status": "ported", "cpp": "tests/meeting_capture/test_asr_engine.cpp", "note": "case: TestAsrRetry::test_remote_disconnect_after_attempt_refunds_budget (a Connection EngineError with no suggested wait, as the remote meeting backend throws for a dropped request; AsrTiming::remote_retry_backoff_s is Python's REMOTE_RETRY_BACKOFF_S, newly configurable)"},
+      "TestAsrRetry::test_remote_host_busy_waits_without_spending_decode_budget": {"status": "ported", "cpp": "tests/meeting_capture/test_asr_engine.cpp", "note": "case: TestAsrRetry::test_remote_host_busy_waits_without_spending_decode_budget (MAX_ATTEMPTS+1 Capacity errors suggesting 20 ms; AsrTiming::remote_busy_min_retry_s is Python's REMOTE_BUSY_MIN_RETRY_S. Python records the waits it requests; here each gap between decodes is >= 20 ms and the fallback backoff is 30 s, so a 3 s drain proves the host's suggestion was used)"},
+      "TestAsrRetry::test_bounded_queue_refills_from_persisted_rows": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_asr_engine.cpp"
+      },
+      "TestAsrRetry::test_stop_keeps_deferred_chunks_replayable": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_asr_engine.cpp"
+      },
+      "TestAsrRetry::test_failed_refill_does_not_poll_database_in_a_hot_loop": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_asr_engine.cpp"
+      },
+      "TestOfflineLanguage::test_clear_single_language_carries_into_the_offline_pass": {
+        "status": "dropped",
+        "reason": "language votes need Whisper's language probabilities, which Parakeet does not report (A25-32)"
+      },
+      "TestOfflineLanguage::test_bilingual_or_thin_evidence_keeps_auto": {
+        "status": "dropped",
+        "reason": "language votes need Whisper's language probabilities, which Parakeet does not report (A25-32)"
+      },
+      "TestOfflineLanguage::test_configured_language_always_wins": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_asr_engine.cpp",
+        "note": "with no votes, the configured language reaches every live and offline decode"
+      },
+      "TestOfflineCutRanges::test_hard_cut_without_audio": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_offline.cpp"
+      },
+      "TestOfflineCutRanges::test_quiet_gap_cuts_before_max": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_offline.cpp"
+      },
+      "TestOverlapDrop::test_keeps_later_window_tail": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_offline.cpp"
+      },
+      "TestOverlapDrop::test_keeps_segment_that_starts_in_overlap_but_extends_past": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_offline.cpp"
+      },
+      "TestOverlapDrop::test_offline_ids_are_stable": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_offline.cpp"
+      },
+      "TestOverlapDrop::test_failed_window_aborts_instead_of_returning_partial_transcript": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_offline.cpp"
+      },
+      "test_offline_decoder_internal_typeerror_is_not_retried": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_offline.cpp",
+        "note": "a std::logic_error from the injected session decoder stands for Python's TypeError"
+      }
+    },
+    "tests/test_meeting_hallucination.py": {
+      "test_non_speech_is_dropped": {
+        "status": "dropped",
+        "reason": "the no-speech, log-probability and compression thresholds need Whisper's scores; Parakeet's segments carry none (A25-33)"
+      },
+      "test_real_speech_is_kept": {
+        "status": "dropped",
+        "reason": "the score thresholds need Whisper's scores; Parakeet's segments carry none (A25-33)"
+      },
+      "test_mic_copy_of_system_audio_is_dropped": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_offline.cpp"
+      },
+      "test_same_words_at_a_different_time_are_not_echo": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_offline.cpp"
+      },
+      "test_backends_without_scores_are_never_filtered": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_offline.cpp",
+        "note": "through transcribe_session_audio: only empty text is dropped"
+      }
+    },
+    "tests/test_meeting_voice_preview.py": {
+      "test_one_second_cadence_and_bounded_audio_window": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_window_preview.cpp"
+      },
+      "test_busy_durable_asr_skips_inference_and_retains_latest_window": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_window_preview.cpp"
+      },
+      "test_audio_gap_and_pause_reset_window": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_window_preview.cpp"
+      },
+      "test_preview_overflow_does_not_modify_capture_buffers_or_block": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_window_preview.cpp"
+      },
+      "test_backend_preview_never_waits_for_model_and_rechecks_durable_priority": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_window_preview.cpp",
+        "note": "with one speech thread there is no decode lock to try: a preview is skipped while a durable chunk is outstanding, and its job is coalesced per channel on the Preview lane"
+      },
+      "test_engine_records_before_preview_even_if_preview_fails": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_capture_session.cpp",
+        "note": "M7.8's \"blocks reach the spool before the preview, which may throw\""
+      },
+      "test_engine_preview_feeds_listener_without_committing_transcript": {"status": "ported", "cpp": "tests/meeting/test_engine_startup.cpp", "note": "the broadcast and the pause; the voice command listener that also observes the preview is M8's (ported in tests/meeting/PARITY.json)"}
+    },
+    "tests/test_meeting_data_lifecycle.py": {
+      "test_playback_mixes_channels_and_preserves_silence": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_playback.cpp"
+      },
+      "test_playback_rejects_chunk_outside_spool": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_playback.cpp"
+      }
+    },
+    "tests/test_local_asr.py": {
+      "test_meeting_preview_copies_capture_and_flushes_last_audio": {
+        "status": "ported",
+        "cpp": "tests/meeting_capture/test_window_preview.cpp",
+        "note": "on the window preview (the streaming preview is dropped): the block is copied before feed() returns, and the tail is not decoded at stop, as Python's window preview does not flush"
+      }
+    },
+    "tests/test_meeting_linux_capture.py": {
+      "TestArchitecturePolicy::test_linux_architecture_aliases": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestArchitecturePolicy::test_meeting_mode_supported_linux_architectures": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestLinuxProbe::test_unsupported_architecture": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestLinuxProbe::test_soundcard_missing": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestLinuxProbe::test_libpulse_checked_before_soundcard_import": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestLinuxProbe::test_libpulse_missing": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestLinuxProbe::test_valid_monitor": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestLinuxProbe::test_sink_keyed_soundcard_loopback_succeeds_without_pactl": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestLinuxProbe::test_nonstandard_monitor_name_uses_exact_pactl_fallback": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestLinuxProbe::test_missing_pactl_is_distinct_when_fallback_is_needed": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestLinuxProbe::test_non_loopback_rejected": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestLinuxProbe::test_name_only_monitor_device_without_flag_is_rejected": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestLinuxProbe::test_pipewire_without_pulse": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestLinuxProbe::test_audio_server_unavailable": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestLinuxProbe::test_default_sink_missing": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestLinuxProbe::test_monitor_open_failed": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestLinuxProbe::test_monitor_open_timeout_classified": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestLinuxProbe::test_resolve_linux_monitor_ids": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestLinuxProbe::test_wrong_sink_monitor_is_rejected": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestLinuxProbe::test_pactl_without_evidence_does_not_fabricate_monitor": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestLinuxProbe::test_monitor_open_timeout_leaves_only_daemon_workers": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSoundcardLoopbackSource::test_linux_available_uses_probe": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSoundcardLoopbackSource::test_start_emits_mono_blocks": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSoundcardLoopbackSource::test_is_default_device_current_fails_closed": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSoundcardLoopbackSource::test_is_default_device_current_detects_sink_change": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSoundcardLoopbackSource::test_is_default_device_current_skips_monitor_resolution": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSoundcardLoopbackSource::test_linux_recorder_requests_bounded_fragments": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSoundcardImportClassification::test_no_server_is_not_reported_as_a_missing_package": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSoundcardImportClassification::test_pipewire_without_pulse_layer_at_import": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSoundcardImportClassification::test_unloadable_pulse_library_at_import": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSoundcardImportClassification::test_unexpected_import_failure_is_unknown": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestServerDetectionFromConnection::test_pipewire_pulse_named_by_the_connection": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestServerDetectionFromConnection::test_native_pulse_named_by_the_connection": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestServerDetectionFromConnection::test_dead_connection_falls_back_to_heuristics": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestServerDetectionFromConnection::test_ready_without_pactl_or_systemd_user_units": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestLoadSoundcard::test_dead_connection_is_replaced": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestLoadSoundcard::test_server_still_down_after_reconnect": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestLoadSoundcard::test_queries_on_a_dead_connection_skip_null_unref": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestLoadSoundcard::test_default_sink_id_raises_stable_reason": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestPinnedMonitorRecorder::test_monitor_stream_may_not_be_moved_to_another_source": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestPinnedMonitorRecorder::test_unfamiliar_soundcard_falls_back_to_stock_recorder": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSampleClock::test_bursty_delivery_stays_contiguous": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSampleClock::test_backlog_after_a_stall_is_not_a_gap": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSampleClock::test_lost_frames_skip_ahead": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSampleClock::test_long_dropout_skips_ahead_at_once": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSpoolKeepsMonitorAudio::test_delivery_time_stamps_lose_bursty_audio": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSpoolKeepsMonitorAudio::test_sample_clock_keeps_bursty_audio": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSpoolKeepsMonitorAudio::test_sample_clock_keeps_monitor_blocksize_audio": {"status": "other-platform", "reason": "Linux Meeting Mode capture (the PulseAudio and PipeWire capability probe and the SoundCard source); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"}
+    },
+    "tests/test_meeting_macos_capture.py": {
+      "TestDecodeAudioBuffer::test_planar_stereo_averages_channel_planes": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestDecodeAudioBuffer::test_interleaved_stereo_averages_frame_pairs": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestDecodeAudioBuffer::test_full_scale_does_not_wrap": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestDecodeAudioBuffer::test_odd_tail_is_dropped_rather_than_reshaped": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestDecodeAudioBuffer::test_non_float_depth_is_refused": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestDecodeAudioBuffer::test_empty_buffer_is_refused": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestAvailability::test_unavailable_off_macos": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestAvailability::test_unavailable_before_macos_13": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestAvailability::test_availability_tracks_the_permission_preflight": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSourceContract::test_reports_the_loopback_channel": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSourceContract::test_device_id_is_not_an_int": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSourceContract::test_default_device_never_changes": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSourceContract::test_inactive_before_start": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSourceContract::test_active_during_the_first_block_grace_period": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSourceContract::test_dead_when_no_first_block_arrives": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSourceContract::test_dead_when_the_stream_stalls": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSourceContract::test_active_while_blocks_keep_arriving": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestSourceContract::test_start_failure_leaves_the_source_inactive": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestEngineFallbackChain::test_screencapturekit_is_preferred_when_available": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestEngineFallbackChain::test_soundcard_is_used_when_screencapturekit_is_not": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestEngineFallbackChain::test_no_backend_degrades_instead_of_raising": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestEngineFallbackChain::test_a_raising_backend_does_not_block_the_next_one": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestPermissionPolicy::test_only_macos_requires_a_grant": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestPermissionPolicy::test_granted_off_macos_where_no_grant_applies": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"},
+      "TestPermissionPolicy::test_preflight_result_is_passed_through": {"status": "other-platform", "reason": "macOS Meeting Mode capture (the ScreenCaptureKit source and its permission policy); FioriVoce captures meetings on Windows through WASAPI (M7.md, tests left open)"}
+    }
+  }
+}

@@ -1,0 +1,3562 @@
+{
+ "module": "meeting.recall",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time",
+  "repository": "a stub repository (search_transcripts returns the case's rows; get_meeting and get_segments read its dicts)",
+  "semantic": "semantic history search is off in the scratch settings, so recall's search is the keyword path"
+ },
+ "functions": {
+  "_date_label": [
+   {
+    "args": [
+     "2026-03-01T10:00:00"
+    ],
+    "result": "2026-03-01"
+   },
+   {
+    "args": [
+     "2026-03-01"
+    ],
+    "result": "2026-03-01"
+   },
+   {
+    "args": [
+     "2026-3-1"
+    ],
+    "result": "2026-3-1"
+   },
+   {
+    "args": [
+     "March 1st"
+    ],
+    "result": "March 1st"
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": "unknown date"
+   },
+   {
+    "args": [
+     "   "
+    ],
+    "result": "unknown date"
+   },
+   {
+    "args": [
+     null
+    ],
+    "result": "unknown date"
+   },
+   {
+    "args": [
+     "  2026-03-01T10:00:00  "
+    ],
+    "result": "2026-03-01"
+   },
+   {
+    "args": [
+     "20260301T1000"
+    ],
+    "result": "20260301T1000"
+   },
+   {
+    "args": [
+     5
+    ],
+    "result": "5"
+   },
+   {
+    "args": [
+     "abcd-efghij"
+    ],
+    "result": "abcd-efghi"
+   }
+  ],
+  "_title": [
+   {
+    "args": [
+     "Q1 review"
+    ],
+    "result": "Q1 review"
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": "Untitled meeting"
+   },
+   {
+    "args": [
+     "   "
+    ],
+    "result": "Untitled meeting"
+   },
+   {
+    "args": [
+     null
+    ],
+    "result": "Untitled meeting"
+   },
+   {
+    "args": [
+     "sg_abcdef123456"
+    ],
+    "result": "[id]"
+   },
+   {
+    "args": [
+     "  Spaced  "
+    ],
+    "result": "Spaced"
+   },
+   {
+    "args": [
+     7
+    ],
+    "result": "7"
+   },
+   {
+    "args": [
+     "Review sg_00aa11bb"
+    ],
+    "result": "Review [id]"
+   }
+  ],
+  "_start_s": [
+   {
+    "args": [
+     12.0
+    ],
+    "result": 12.0
+   },
+   {
+    "args": [
+     12
+    ],
+    "result": 12.0
+   },
+   {
+    "args": [
+     "7.5"
+    ],
+    "result": 7.5
+   },
+   {
+    "args": [
+     "abc"
+    ],
+    "result": 0.0
+   },
+   {
+    "args": [
+     null
+    ],
+    "result": 0.0
+   },
+   {
+    "args": [
+     true
+    ],
+    "result": 1.0
+   },
+   {
+    "args": [
+     1.2e-05
+    ],
+    "result": 1.2e-05
+   },
+   {
+    "args": [
+     1e+16
+    ],
+    "result": 1e+16
+   },
+   {
+    "args": [
+     "nan"
+    ],
+    "result": {
+     "$float": "nan"
+    }
+   }
+  ],
+  "_clip": [
+   {
+    "args": [
+     "",
+     5
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "",
+     6
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "",
+     180
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "  padded  ",
+     5
+    ],
+    "result": "padd…"
+   },
+   {
+    "args": [
+     "  padded  ",
+     6
+    ],
+    "result": "padded"
+   },
+   {
+    "args": [
+     "  padded  ",
+     180
+    ],
+    "result": "padded"
+   },
+   {
+    "args": [
+     "abcdef",
+     5
+    ],
+    "result": "abcd…"
+   },
+   {
+    "args": [
+     "abcdef",
+     6
+    ],
+    "result": "abcdef"
+   },
+   {
+    "args": [
+     "abcdef",
+     180
+    ],
+    "result": "abcdef"
+   },
+   {
+    "args": [
+     "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+     5
+    ],
+    "result": "budg…"
+   },
+   {
+    "args": [
+     "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+     6
+    ],
+    "result": "budge…"
+   },
+   {
+    "args": [
+     "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+     180
+    ],
+    "result": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+   },
+   {
+    "args": [
+     "sg_abcdef123456 x",
+     5
+    ],
+    "result": "[id]…"
+   },
+   {
+    "args": [
+     "sg_abcdef123456 x",
+     6
+    ],
+    "result": "[id] x"
+   },
+   {
+    "args": [
+     "sg_abcdef123456 x",
+     180
+    ],
+    "result": "[id] x"
+   },
+   {
+    "args": [
+     null,
+     5
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     null,
+     6
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     null,
+     180
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     3,
+     5
+    ],
+    "result": "3"
+   },
+   {
+    "args": [
+     3,
+     6
+    ],
+    "result": "3"
+   },
+   {
+    "args": [
+     3,
+     180
+    ],
+    "result": "3"
+   }
+  ],
+  "_sanitize": [
+   {
+    "args": [
+     "sg_abcdef"
+    ],
+    "result": "[id]"
+   },
+   {
+    "args": [
+     "sg_abcde"
+    ],
+    "result": "sg_abcde"
+   },
+   {
+    "args": [
+     "x sg_ABCDEF123 y"
+    ],
+    "result": "x [id] y"
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": ""
+   }
+  ],
+  "_clamp_limit": [
+   {
+    "args": [
+     10
+    ],
+    "result": 10
+   },
+   {
+    "args": [
+     0
+    ],
+    "result": 1
+   },
+   {
+    "args": [
+     -5
+    ],
+    "result": 1
+   },
+   {
+    "args": [
+     20
+    ],
+    "result": 20
+   },
+   {
+    "args": [
+     21
+    ],
+    "result": 20
+   },
+   {
+    "args": [
+     99
+    ],
+    "result": 20
+   },
+   {
+    "args": [
+     "7"
+    ],
+    "result": 7
+   },
+   {
+    "args": [
+     " 7 "
+    ],
+    "result": 7
+   },
+   {
+    "args": [
+     "abc"
+    ],
+    "result": 10
+   },
+   {
+    "args": [
+     null
+    ],
+    "result": 10
+   },
+   {
+    "args": [
+     3.9
+    ],
+    "result": 3
+   },
+   {
+    "args": [
+     true
+    ],
+    "result": 1
+   },
+   {
+    "args": [
+     1000000000000000000000000000000
+    ],
+    "result": 20
+   },
+   {
+    "args": [
+     -1000000000000000000000000000000
+    ],
+    "result": 1
+   },
+   {
+    "args": [
+     []
+    ],
+    "result": 10
+   },
+   {
+    "args": [
+     {}
+    ],
+    "result": 10
+   }
+  ],
+  "_format_hits": [
+   {
+    "args": [
+     [
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_live",
+       "text": "live budget talk",
+       "snippet": "live budget talk",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_deadbeef9999",
+       "meeting_id": "m_past",
+       "text": "we adopted the budget",
+       "snippet": "we adopted the budget",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_past",
+       "text": "budget again",
+       "snippet": "budget again",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 73.25
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_other",
+       "text": "see sg_abcdef123456 from last week",
+       "snippet": "see sg_abcdef123456 from last week",
+       "title": "sg_abcdef123456 sync",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "",
+       "text": "no meeting id",
+       "snippet": "no meeting id",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_blank",
+       "text": "",
+       "snippet": "",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_snip",
+       "text": "full text",
+       "snippet": "[budget] … snippet",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_untitled",
+       "text": "untitled one",
+       "snippet": "untitled one",
+       "title": null,
+       "started_at": null,
+       "start_s": null
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_odd",
+       "text": "odd date",
+       "snippet": "odd date",
+       "title": "Q1 review",
+       "started_at": "March 1st",
+       "start_s": "7.5"
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_short",
+       "text": "short date",
+       "snippet": "short date",
+       "title": "Q1 review",
+       "started_at": "2026-3-1",
+       "start_s": 1.2e-05
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_big",
+       "text": "big time",
+       "snippet": "big time",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 1234567.0
+      }
+     ],
+     10,
+     "m_live"
+    ],
+    "result": {
+     "ok": true,
+     "text": "past:m_past:1  \"Q1 review\" (2026-03-01) t=12s — we adopted the budget\npast:m_past:2  \"Q1 review\" (2026-03-01) t=73.25s — budget again\npast:m_other:1  \"[id] sync\" (2026-03-01) t=12s — see [id] from last week\npast:m_snip:1  \"Q1 review\" (2026-03-01) t=12s — [budget] … snippet\npast:m_untitled:1  \"Untitled meeting\" (unknown date) t=0s — untitled one\npast:m_odd:1  \"Q1 review\" (March 1st) t=7.5s — odd date\npast:m_short:1  \"Q1 review\" (2026-3-1) t=1.2e-05s — short date\npast:m_big:1  \"Q1 review\" (2026-03-01) t=1.23457e+06s — big time",
+     "hits": [
+      {
+       "ref": "past:m_past:1",
+       "meeting_id": "m_past",
+       "title": "Q1 review",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "we adopted the budget"
+      },
+      {
+       "ref": "past:m_past:2",
+       "meeting_id": "m_past",
+       "title": "Q1 review",
+       "started_at": "2026-03-01",
+       "start_s": 73.25,
+       "snippet": "budget again"
+      },
+      {
+       "ref": "past:m_other:1",
+       "meeting_id": "m_other",
+       "title": "[id] sync",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "see [id] from last week"
+      },
+      {
+       "ref": "past:m_snip:1",
+       "meeting_id": "m_snip",
+       "title": "Q1 review",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "[budget] … snippet"
+      },
+      {
+       "ref": "past:m_untitled:1",
+       "meeting_id": "m_untitled",
+       "title": "Untitled meeting",
+       "started_at": "unknown date",
+       "start_s": 0.0,
+       "snippet": "untitled one"
+      },
+      {
+       "ref": "past:m_odd:1",
+       "meeting_id": "m_odd",
+       "title": "Q1 review",
+       "started_at": "March 1st",
+       "start_s": 7.5,
+       "snippet": "odd date"
+      },
+      {
+       "ref": "past:m_short:1",
+       "meeting_id": "m_short",
+       "title": "Q1 review",
+       "started_at": "2026-3-1",
+       "start_s": 1.2e-05,
+       "snippet": "short date"
+      },
+      {
+       "ref": "past:m_big:1",
+       "meeting_id": "m_big",
+       "title": "Q1 review",
+       "started_at": "2026-03-01",
+       "start_s": 1234567.0,
+       "snippet": "big time"
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_live",
+       "text": "live budget talk",
+       "snippet": "live budget talk",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_deadbeef9999",
+       "meeting_id": "m_past",
+       "text": "we adopted the budget",
+       "snippet": "we adopted the budget",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_past",
+       "text": "budget again",
+       "snippet": "budget again",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 73.25
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_other",
+       "text": "see sg_abcdef123456 from last week",
+       "snippet": "see sg_abcdef123456 from last week",
+       "title": "sg_abcdef123456 sync",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "",
+       "text": "no meeting id",
+       "snippet": "no meeting id",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_blank",
+       "text": "",
+       "snippet": "",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_snip",
+       "text": "full text",
+       "snippet": "[budget] … snippet",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_untitled",
+       "text": "untitled one",
+       "snippet": "untitled one",
+       "title": null,
+       "started_at": null,
+       "start_s": null
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_odd",
+       "text": "odd date",
+       "snippet": "odd date",
+       "title": "Q1 review",
+       "started_at": "March 1st",
+       "start_s": "7.5"
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_short",
+       "text": "short date",
+       "snippet": "short date",
+       "title": "Q1 review",
+       "started_at": "2026-3-1",
+       "start_s": 1.2e-05
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_big",
+       "text": "big time",
+       "snippet": "big time",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 1234567.0
+      }
+     ],
+     2,
+     "m_live"
+    ],
+    "result": {
+     "ok": true,
+     "text": "past:m_past:1  \"Q1 review\" (2026-03-01) t=12s — we adopted the budget\npast:m_past:2  \"Q1 review\" (2026-03-01) t=73.25s — budget again",
+     "hits": [
+      {
+       "ref": "past:m_past:1",
+       "meeting_id": "m_past",
+       "title": "Q1 review",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "we adopted the budget"
+      },
+      {
+       "ref": "past:m_past:2",
+       "meeting_id": "m_past",
+       "title": "Q1 review",
+       "started_at": "2026-03-01",
+       "start_s": 73.25,
+       "snippet": "budget again"
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_live",
+       "text": "live budget talk",
+       "snippet": "live budget talk",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_deadbeef9999",
+       "meeting_id": "m_past",
+       "text": "we adopted the budget",
+       "snippet": "we adopted the budget",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_past",
+       "text": "budget again",
+       "snippet": "budget again",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 73.25
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_other",
+       "text": "see sg_abcdef123456 from last week",
+       "snippet": "see sg_abcdef123456 from last week",
+       "title": "sg_abcdef123456 sync",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "",
+       "text": "no meeting id",
+       "snippet": "no meeting id",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_blank",
+       "text": "",
+       "snippet": "",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_snip",
+       "text": "full text",
+       "snippet": "[budget] … snippet",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_untitled",
+       "text": "untitled one",
+       "snippet": "untitled one",
+       "title": null,
+       "started_at": null,
+       "start_s": null
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_odd",
+       "text": "odd date",
+       "snippet": "odd date",
+       "title": "Q1 review",
+       "started_at": "March 1st",
+       "start_s": "7.5"
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_short",
+       "text": "short date",
+       "snippet": "short date",
+       "title": "Q1 review",
+       "started_at": "2026-3-1",
+       "start_s": 1.2e-05
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_big",
+       "text": "big time",
+       "snippet": "big time",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 1234567.0
+      }
+     ],
+     20,
+     ""
+    ],
+    "result": {
+     "ok": true,
+     "text": "past:m_live:1  \"Q1 review\" (2026-03-01) t=12s — live budget talk\npast:m_past:1  \"Q1 review\" (2026-03-01) t=12s — we adopted the budget\npast:m_past:2  \"Q1 review\" (2026-03-01) t=73.25s — budget again\npast:m_other:1  \"[id] sync\" (2026-03-01) t=12s — see [id] from last week\npast:m_snip:1  \"Q1 review\" (2026-03-01) t=12s — [budget] … snippet\npast:m_untitled:1  \"Untitled meeting\" (unknown date) t=0s — untitled one\npast:m_odd:1  \"Q1 review\" (March 1st) t=7.5s — odd date\npast:m_short:1  \"Q1 review\" (2026-3-1) t=1.2e-05s — short date\npast:m_big:1  \"Q1 review\" (2026-03-01) t=1.23457e+06s — big time",
+     "hits": [
+      {
+       "ref": "past:m_live:1",
+       "meeting_id": "m_live",
+       "title": "Q1 review",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "live budget talk"
+      },
+      {
+       "ref": "past:m_past:1",
+       "meeting_id": "m_past",
+       "title": "Q1 review",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "we adopted the budget"
+      },
+      {
+       "ref": "past:m_past:2",
+       "meeting_id": "m_past",
+       "title": "Q1 review",
+       "started_at": "2026-03-01",
+       "start_s": 73.25,
+       "snippet": "budget again"
+      },
+      {
+       "ref": "past:m_other:1",
+       "meeting_id": "m_other",
+       "title": "[id] sync",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "see [id] from last week"
+      },
+      {
+       "ref": "past:m_snip:1",
+       "meeting_id": "m_snip",
+       "title": "Q1 review",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "[budget] … snippet"
+      },
+      {
+       "ref": "past:m_untitled:1",
+       "meeting_id": "m_untitled",
+       "title": "Untitled meeting",
+       "started_at": "unknown date",
+       "start_s": 0.0,
+       "snippet": "untitled one"
+      },
+      {
+       "ref": "past:m_odd:1",
+       "meeting_id": "m_odd",
+       "title": "Q1 review",
+       "started_at": "March 1st",
+       "start_s": 7.5,
+       "snippet": "odd date"
+      },
+      {
+       "ref": "past:m_short:1",
+       "meeting_id": "m_short",
+       "title": "Q1 review",
+       "started_at": "2026-3-1",
+       "start_s": 1.2e-05,
+       "snippet": "short date"
+      },
+      {
+       "ref": "past:m_big:1",
+       "meeting_id": "m_big",
+       "title": "Q1 review",
+       "started_at": "2026-03-01",
+       "start_s": 1234567.0,
+       "snippet": "big time"
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     [],
+     10,
+     "m_live"
+    ],
+    "result": {
+     "ok": true,
+     "text": "No past-meeting matches.",
+     "hits": []
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_0",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 0",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_1",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 1",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_2",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 2",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_3",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 3",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_4",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 4",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_5",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 5",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_6",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 6",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_7",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 7",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_8",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 8",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_9",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 9",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_10",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 10",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_11",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 11",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_12",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 12",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_13",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 13",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_14",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 14",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_15",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 15",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_16",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 16",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_17",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 17",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_18",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 18",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_19",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 19",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_20",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 20",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_21",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 21",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_22",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 22",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_23",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 23",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_24",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 24",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_25",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 25",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_26",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 26",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_27",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 27",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_28",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 28",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_29",
+       "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+       "title": "Meet 29",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      }
+     ],
+     20,
+     "m_live"
+    ],
+    "result": {
+     "ok": true,
+     "text": "past:m_0:1  \"Meet 0\" (2026-03-01) t=12s — budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_1:1  \"Meet 1\" (2026-03-01) t=12s — budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_2:1  \"Meet 2\" (2026-03-01) t=12s — budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_3:1  \"Meet 3\" (2026-03-01) t=12s — budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_4:1  \"Meet 4\" (2026-03-01) t=12s — budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_5:1  \"Meet 5\" (2026-03-01) t=12s — budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_6:1  \"Meet 6\" (2026-03-01) t=12s — budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_7:1  \"Meet 7\" (2026-03-01) t=12s — budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_8:1  \"Meet 8\" (2026-03-01) t=12s — budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_9:1  \"Meet 9\" (2026-03-01) t=12s — budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_10:1  \"Meet 10\" (2026-03-01) t=12s — budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_11:1  \"Meet 11\" (2026-03-01) t=12s — budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_12:1  \"Meet 12\" (2026-03-01) t=12s — budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_13:1  \"Meet 13\" (2026-03-01) t=12s — budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_14:1  \"Meet 14\" (2026-03-01) t=12s — budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_15:1  \"Meet 15\" (2026-03-01) t=12s — budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_16:1  \"Meet 16\" (2026-03-01) t=12s — budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…",
+     "hits": [
+      {
+       "ref": "past:m_0:1",
+       "meeting_id": "m_0",
+       "title": "Meet 0",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_1:1",
+       "meeting_id": "m_1",
+       "title": "Meet 1",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_2:1",
+       "meeting_id": "m_2",
+       "title": "Meet 2",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_3:1",
+       "meeting_id": "m_3",
+       "title": "Meet 3",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_4:1",
+       "meeting_id": "m_4",
+       "title": "Meet 4",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_5:1",
+       "meeting_id": "m_5",
+       "title": "Meet 5",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_6:1",
+       "meeting_id": "m_6",
+       "title": "Meet 6",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_7:1",
+       "meeting_id": "m_7",
+       "title": "Meet 7",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_8:1",
+       "meeting_id": "m_8",
+       "title": "Meet 8",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_9:1",
+       "meeting_id": "m_9",
+       "title": "Meet 9",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_10:1",
+       "meeting_id": "m_10",
+       "title": "Meet 10",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_11:1",
+       "meeting_id": "m_11",
+       "title": "Meet 11",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_12:1",
+       "meeting_id": "m_12",
+       "title": "Meet 12",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_13:1",
+       "meeting_id": "m_13",
+       "title": "Meet 13",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_14:1",
+       "meeting_id": "m_14",
+       "title": "Meet 14",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_15:1",
+       "meeting_id": "m_15",
+       "title": "Meet 15",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_16:1",
+       "meeting_id": "m_16",
+       "title": "Meet 16",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      }
+     ]
+    }
+   }
+  ],
+  "_slice_meeting": [
+   {
+    "args": [
+     {
+      "m_past": {
+       "id": "m_past",
+       "title": "Prior sync",
+       "started_at": "2026-02-02T09:00:00"
+      },
+      "m_empty": {
+       "id": "m_empty",
+       "title": "",
+       "started_at": ""
+      },
+      "m_live": {
+       "id": "m_live",
+       "title": "Now"
+      },
+      "m_falsy": {}
+     },
+     {
+      "m_past": [
+       {
+        "id": "sg_aaa111222333",
+        "text": "Ship Friday",
+        "start_s": 3.5
+       },
+       {
+        "id": "sg_bbb111222333",
+        "text": "Agreed",
+        "start_s": 8.0
+       },
+       {
+        "id": "sg_ccc111222333",
+        "text": "",
+        "start_s": 9.0
+       },
+       {
+        "id": "sg_ddd111222333",
+        "text": "see sg_abcdef1234 again",
+        "start_s": "11"
+       },
+       {
+        "id": "sg_eee111222333",
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+        "start_s": 12.0
+       }
+      ],
+      "m_empty": [
+       {
+        "id": "sg_x",
+        "text": "   ",
+        "start_s": 1.0
+       }
+      ]
+     },
+     "m_past",
+     "m_live",
+     10
+    ],
+    "result": {
+     "ok": true,
+     "text": "Meeting \"Prior sync\" (2026-02-02)\npast:m_past:1  t=3.5s  Ship Friday\npast:m_past:2  t=8s  Agreed\npast:m_past:4  t=11s  see [id] again\npast:m_past:5  t=12s  budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…",
+     "hits": [
+      {
+       "ref": "past:m_past:1",
+       "meeting_id": "m_past",
+       "title": "Prior sync",
+       "started_at": "2026-02-02",
+       "start_s": 3.5,
+       "snippet": "Ship Friday"
+      },
+      {
+       "ref": "past:m_past:2",
+       "meeting_id": "m_past",
+       "title": "Prior sync",
+       "started_at": "2026-02-02",
+       "start_s": 8.0,
+       "snippet": "Agreed"
+      },
+      {
+       "ref": "past:m_past:4",
+       "meeting_id": "m_past",
+       "title": "Prior sync",
+       "started_at": "2026-02-02",
+       "start_s": 11.0,
+       "snippet": "see [id] again"
+      },
+      {
+       "ref": "past:m_past:5",
+       "meeting_id": "m_past",
+       "title": "Prior sync",
+       "started_at": "2026-02-02",
+       "start_s": 12.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "m_past": {
+       "id": "m_past",
+       "title": "Prior sync",
+       "started_at": "2026-02-02T09:00:00"
+      },
+      "m_empty": {
+       "id": "m_empty",
+       "title": "",
+       "started_at": ""
+      },
+      "m_live": {
+       "id": "m_live",
+       "title": "Now"
+      },
+      "m_falsy": {}
+     },
+     {
+      "m_past": [
+       {
+        "id": "sg_aaa111222333",
+        "text": "Ship Friday",
+        "start_s": 3.5
+       },
+       {
+        "id": "sg_bbb111222333",
+        "text": "Agreed",
+        "start_s": 8.0
+       },
+       {
+        "id": "sg_ccc111222333",
+        "text": "",
+        "start_s": 9.0
+       },
+       {
+        "id": "sg_ddd111222333",
+        "text": "see sg_abcdef1234 again",
+        "start_s": "11"
+       },
+       {
+        "id": "sg_eee111222333",
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+        "start_s": 12.0
+       }
+      ],
+      "m_empty": [
+       {
+        "id": "sg_x",
+        "text": "   ",
+        "start_s": 1.0
+       }
+      ]
+     },
+     "m_past",
+     "m_live",
+     2
+    ],
+    "result": {
+     "ok": true,
+     "text": "Meeting \"Prior sync\" (2026-02-02)\npast:m_past:1  t=3.5s  Ship Friday\npast:m_past:2  t=8s  Agreed",
+     "hits": [
+      {
+       "ref": "past:m_past:1",
+       "meeting_id": "m_past",
+       "title": "Prior sync",
+       "started_at": "2026-02-02",
+       "start_s": 3.5,
+       "snippet": "Ship Friday"
+      },
+      {
+       "ref": "past:m_past:2",
+       "meeting_id": "m_past",
+       "title": "Prior sync",
+       "started_at": "2026-02-02",
+       "start_s": 8.0,
+       "snippet": "Agreed"
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "m_past": {
+       "id": "m_past",
+       "title": "Prior sync",
+       "started_at": "2026-02-02T09:00:00"
+      },
+      "m_empty": {
+       "id": "m_empty",
+       "title": "",
+       "started_at": ""
+      },
+      "m_live": {
+       "id": "m_live",
+       "title": "Now"
+      },
+      "m_falsy": {}
+     },
+     {
+      "m_past": [
+       {
+        "id": "sg_aaa111222333",
+        "text": "Ship Friday",
+        "start_s": 3.5
+       },
+       {
+        "id": "sg_bbb111222333",
+        "text": "Agreed",
+        "start_s": 8.0
+       },
+       {
+        "id": "sg_ccc111222333",
+        "text": "",
+        "start_s": 9.0
+       },
+       {
+        "id": "sg_ddd111222333",
+        "text": "see sg_abcdef1234 again",
+        "start_s": "11"
+       },
+       {
+        "id": "sg_eee111222333",
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+        "start_s": 12.0
+       }
+      ],
+      "m_empty": [
+       {
+        "id": "sg_x",
+        "text": "   ",
+        "start_s": 1.0
+       }
+      ]
+     },
+     "m_live",
+     "m_live",
+     10
+    ],
+    "result": {
+     "ok": false,
+     "text": "Cannot recall the current meeting; it is already in the transcript.",
+     "hits": []
+    }
+   },
+   {
+    "args": [
+     {
+      "m_past": {
+       "id": "m_past",
+       "title": "Prior sync",
+       "started_at": "2026-02-02T09:00:00"
+      },
+      "m_empty": {
+       "id": "m_empty",
+       "title": "",
+       "started_at": ""
+      },
+      "m_live": {
+       "id": "m_live",
+       "title": "Now"
+      },
+      "m_falsy": {}
+     },
+     {
+      "m_past": [
+       {
+        "id": "sg_aaa111222333",
+        "text": "Ship Friday",
+        "start_s": 3.5
+       },
+       {
+        "id": "sg_bbb111222333",
+        "text": "Agreed",
+        "start_s": 8.0
+       },
+       {
+        "id": "sg_ccc111222333",
+        "text": "",
+        "start_s": 9.0
+       },
+       {
+        "id": "sg_ddd111222333",
+        "text": "see sg_abcdef1234 again",
+        "start_s": "11"
+       },
+       {
+        "id": "sg_eee111222333",
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+        "start_s": 12.0
+       }
+      ],
+      "m_empty": [
+       {
+        "id": "sg_x",
+        "text": "   ",
+        "start_s": 1.0
+       }
+      ]
+     },
+     "m_unknown",
+     "m_live",
+     10
+    ],
+    "result": {
+     "ok": false,
+     "text": "Unknown meeting.",
+     "hits": []
+    }
+   },
+   {
+    "args": [
+     {
+      "m_past": {
+       "id": "m_past",
+       "title": "Prior sync",
+       "started_at": "2026-02-02T09:00:00"
+      },
+      "m_empty": {
+       "id": "m_empty",
+       "title": "",
+       "started_at": ""
+      },
+      "m_live": {
+       "id": "m_live",
+       "title": "Now"
+      },
+      "m_falsy": {}
+     },
+     {
+      "m_past": [
+       {
+        "id": "sg_aaa111222333",
+        "text": "Ship Friday",
+        "start_s": 3.5
+       },
+       {
+        "id": "sg_bbb111222333",
+        "text": "Agreed",
+        "start_s": 8.0
+       },
+       {
+        "id": "sg_ccc111222333",
+        "text": "",
+        "start_s": 9.0
+       },
+       {
+        "id": "sg_ddd111222333",
+        "text": "see sg_abcdef1234 again",
+        "start_s": "11"
+       },
+       {
+        "id": "sg_eee111222333",
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+        "start_s": 12.0
+       }
+      ],
+      "m_empty": [
+       {
+        "id": "sg_x",
+        "text": "   ",
+        "start_s": 1.0
+       }
+      ]
+     },
+     "m_falsy",
+     "m_live",
+     10
+    ],
+    "result": {
+     "ok": false,
+     "text": "Unknown meeting.",
+     "hits": []
+    }
+   },
+   {
+    "args": [
+     {
+      "m_past": {
+       "id": "m_past",
+       "title": "Prior sync",
+       "started_at": "2026-02-02T09:00:00"
+      },
+      "m_empty": {
+       "id": "m_empty",
+       "title": "",
+       "started_at": ""
+      },
+      "m_live": {
+       "id": "m_live",
+       "title": "Now"
+      },
+      "m_falsy": {}
+     },
+     {
+      "m_past": [
+       {
+        "id": "sg_aaa111222333",
+        "text": "Ship Friday",
+        "start_s": 3.5
+       },
+       {
+        "id": "sg_bbb111222333",
+        "text": "Agreed",
+        "start_s": 8.0
+       },
+       {
+        "id": "sg_ccc111222333",
+        "text": "",
+        "start_s": 9.0
+       },
+       {
+        "id": "sg_ddd111222333",
+        "text": "see sg_abcdef1234 again",
+        "start_s": "11"
+       },
+       {
+        "id": "sg_eee111222333",
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+        "start_s": 12.0
+       }
+      ],
+      "m_empty": [
+       {
+        "id": "sg_x",
+        "text": "   ",
+        "start_s": 1.0
+       }
+      ]
+     },
+     "m_empty",
+     "m_live",
+     10
+    ],
+    "result": {
+     "ok": true,
+     "text": "No transcript text in \"Untitled meeting\" (unknown date).",
+     "hits": []
+    }
+   },
+   {
+    "args": [
+     {
+      "m_many": {
+       "id": "m_many",
+       "title": "Long",
+       "started_at": "2026-01-01T00:00:00"
+      }
+     },
+     {
+      "m_many": [
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 0",
+        "start_s": 0.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 1",
+        "start_s": 10.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 2",
+        "start_s": 20.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 3",
+        "start_s": 30.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 4",
+        "start_s": 40.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 5",
+        "start_s": 50.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 6",
+        "start_s": 60.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 7",
+        "start_s": 70.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 8",
+        "start_s": 80.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 9",
+        "start_s": 90.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 10",
+        "start_s": 100.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 11",
+        "start_s": 110.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 12",
+        "start_s": 120.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 13",
+        "start_s": 130.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 14",
+        "start_s": 140.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 15",
+        "start_s": 150.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 16",
+        "start_s": 160.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 17",
+        "start_s": 170.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 18",
+        "start_s": 180.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 19",
+        "start_s": 190.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 20",
+        "start_s": 200.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 21",
+        "start_s": 210.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 22",
+        "start_s": 220.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 23",
+        "start_s": 230.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 24",
+        "start_s": 240.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 25",
+        "start_s": 250.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 26",
+        "start_s": 260.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 27",
+        "start_s": 270.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 28",
+        "start_s": 280.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 29",
+        "start_s": 290.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 30",
+        "start_s": 300.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 31",
+        "start_s": 310.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 32",
+        "start_s": 320.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 33",
+        "start_s": 330.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 34",
+        "start_s": 340.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 35",
+        "start_s": 350.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 36",
+        "start_s": 360.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 37",
+        "start_s": 370.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 38",
+        "start_s": 380.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 39",
+        "start_s": 390.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 40",
+        "start_s": 400.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 41",
+        "start_s": 410.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 42",
+        "start_s": 420.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 43",
+        "start_s": 430.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 44",
+        "start_s": 440.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 45",
+        "start_s": 450.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 46",
+        "start_s": 460.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 47",
+        "start_s": 470.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 48",
+        "start_s": 480.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 49",
+        "start_s": 490.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 50",
+        "start_s": 500.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 51",
+        "start_s": 510.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 52",
+        "start_s": 520.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 53",
+        "start_s": 530.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 54",
+        "start_s": 540.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 55",
+        "start_s": 550.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 56",
+        "start_s": 560.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 57",
+        "start_s": 570.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 58",
+        "start_s": 580.0
+       },
+       {
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 59",
+        "start_s": 590.0
+       }
+      ]
+     },
+     "m_many",
+     "m_live",
+     20
+    ],
+    "result": {
+     "ok": true,
+     "text": "Meeting \"Long\" (2026-01-01)\npast:m_many:1  t=0s  budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_many:2  t=10s  budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_many:3  t=20s  budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_many:4  t=30s  budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_many:5  t=40s  budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_many:6  t=50s  budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_many:7  t=60s  budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_many:8  t=70s  budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_many:9  t=80s  budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_many:10  t=90s  budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_many:11  t=100s  budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_many:12  t=110s  budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_many:13  t=120s  budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_many:14  t=130s  budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_many:15  t=140s  budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_many:16  t=150s  budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_many:17  t=160s  budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_many:18  t=170s  budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…\npast:m_many:19  t=180s  budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…",
+     "hits": [
+      {
+       "ref": "past:m_many:1",
+       "meeting_id": "m_many",
+       "title": "Long",
+       "started_at": "2026-01-01",
+       "start_s": 0.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_many:2",
+       "meeting_id": "m_many",
+       "title": "Long",
+       "started_at": "2026-01-01",
+       "start_s": 10.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_many:3",
+       "meeting_id": "m_many",
+       "title": "Long",
+       "started_at": "2026-01-01",
+       "start_s": 20.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_many:4",
+       "meeting_id": "m_many",
+       "title": "Long",
+       "started_at": "2026-01-01",
+       "start_s": 30.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_many:5",
+       "meeting_id": "m_many",
+       "title": "Long",
+       "started_at": "2026-01-01",
+       "start_s": 40.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_many:6",
+       "meeting_id": "m_many",
+       "title": "Long",
+       "started_at": "2026-01-01",
+       "start_s": 50.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_many:7",
+       "meeting_id": "m_many",
+       "title": "Long",
+       "started_at": "2026-01-01",
+       "start_s": 60.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_many:8",
+       "meeting_id": "m_many",
+       "title": "Long",
+       "started_at": "2026-01-01",
+       "start_s": 70.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_many:9",
+       "meeting_id": "m_many",
+       "title": "Long",
+       "started_at": "2026-01-01",
+       "start_s": 80.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_many:10",
+       "meeting_id": "m_many",
+       "title": "Long",
+       "started_at": "2026-01-01",
+       "start_s": 90.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_many:11",
+       "meeting_id": "m_many",
+       "title": "Long",
+       "started_at": "2026-01-01",
+       "start_s": 100.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_many:12",
+       "meeting_id": "m_many",
+       "title": "Long",
+       "started_at": "2026-01-01",
+       "start_s": 110.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_many:13",
+       "meeting_id": "m_many",
+       "title": "Long",
+       "started_at": "2026-01-01",
+       "start_s": 120.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_many:14",
+       "meeting_id": "m_many",
+       "title": "Long",
+       "started_at": "2026-01-01",
+       "start_s": 130.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_many:15",
+       "meeting_id": "m_many",
+       "title": "Long",
+       "started_at": "2026-01-01",
+       "start_s": 140.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_many:16",
+       "meeting_id": "m_many",
+       "title": "Long",
+       "started_at": "2026-01-01",
+       "start_s": 150.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_many:17",
+       "meeting_id": "m_many",
+       "title": "Long",
+       "started_at": "2026-01-01",
+       "start_s": 160.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_many:18",
+       "meeting_id": "m_many",
+       "title": "Long",
+       "started_at": "2026-01-01",
+       "start_s": 170.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      },
+      {
+       "ref": "past:m_many:19",
+       "meeting_id": "m_many",
+       "title": "Long",
+       "started_at": "2026-01-01",
+       "start_s": 180.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      }
+     ]
+    }
+   }
+  ],
+  "search_past_meetings": [
+   {
+    "args": [
+     false,
+     [
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_live",
+       "text": "live budget talk",
+       "snippet": "live budget talk",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_deadbeef9999",
+       "meeting_id": "m_past",
+       "text": "we adopted the budget",
+       "snippet": "we adopted the budget",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_past",
+       "text": "budget again",
+       "snippet": "budget again",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 73.25
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_other",
+       "text": "see sg_abcdef123456 from last week",
+       "snippet": "see sg_abcdef123456 from last week",
+       "title": "sg_abcdef123456 sync",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "",
+       "text": "no meeting id",
+       "snippet": "no meeting id",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_blank",
+       "text": "",
+       "snippet": "",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_snip",
+       "text": "full text",
+       "snippet": "[budget] … snippet",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_untitled",
+       "text": "untitled one",
+       "snippet": "untitled one",
+       "title": null,
+       "started_at": null,
+       "start_s": null
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_odd",
+       "text": "odd date",
+       "snippet": "odd date",
+       "title": "Q1 review",
+       "started_at": "March 1st",
+       "start_s": "7.5"
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_short",
+       "text": "short date",
+       "snippet": "short date",
+       "title": "Q1 review",
+       "started_at": "2026-3-1",
+       "start_s": 1.2e-05
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_big",
+       "text": "big time",
+       "snippet": "big time",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 1234567.0
+      }
+     ],
+     {},
+     {},
+     "budget",
+     "m_live",
+     null,
+     10
+    ],
+    "result": {
+     "ok": false,
+     "disabled": true,
+     "text": "Past-meeting recall is disabled.",
+     "hits": []
+    }
+   },
+   {
+    "args": [
+     true,
+     null,
+     {},
+     {},
+     "budget",
+     "m_live",
+     null,
+     10
+    ],
+    "result": {
+     "ok": false,
+     "disabled": true,
+     "text": "Past-meeting recall is not available.",
+     "hits": []
+    }
+   },
+   {
+    "args": [
+     true,
+     [
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_live",
+       "text": "live budget talk",
+       "snippet": "live budget talk",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_deadbeef9999",
+       "meeting_id": "m_past",
+       "text": "we adopted the budget",
+       "snippet": "we adopted the budget",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_past",
+       "text": "budget again",
+       "snippet": "budget again",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 73.25
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_other",
+       "text": "see sg_abcdef123456 from last week",
+       "snippet": "see sg_abcdef123456 from last week",
+       "title": "sg_abcdef123456 sync",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "",
+       "text": "no meeting id",
+       "snippet": "no meeting id",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_blank",
+       "text": "",
+       "snippet": "",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_snip",
+       "text": "full text",
+       "snippet": "[budget] … snippet",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_untitled",
+       "text": "untitled one",
+       "snippet": "untitled one",
+       "title": null,
+       "started_at": null,
+       "start_s": null
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_odd",
+       "text": "odd date",
+       "snippet": "odd date",
+       "title": "Q1 review",
+       "started_at": "March 1st",
+       "start_s": "7.5"
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_short",
+       "text": "short date",
+       "snippet": "short date",
+       "title": "Q1 review",
+       "started_at": "2026-3-1",
+       "start_s": 1.2e-05
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_big",
+       "text": "big time",
+       "snippet": "big time",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 1234567.0
+      }
+     ],
+     {},
+     {},
+     "   ",
+     "m_live",
+     null,
+     10
+    ],
+    "result": {
+     "ok": false,
+     "text": "Provide a search query or a past meeting id.",
+     "hits": []
+    }
+   },
+   {
+    "args": [
+     true,
+     [
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_live",
+       "text": "live budget talk",
+       "snippet": "live budget talk",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_deadbeef9999",
+       "meeting_id": "m_past",
+       "text": "we adopted the budget",
+       "snippet": "we adopted the budget",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_past",
+       "text": "budget again",
+       "snippet": "budget again",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 73.25
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_other",
+       "text": "see sg_abcdef123456 from last week",
+       "snippet": "see sg_abcdef123456 from last week",
+       "title": "sg_abcdef123456 sync",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "",
+       "text": "no meeting id",
+       "snippet": "no meeting id",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_blank",
+       "text": "",
+       "snippet": "",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_snip",
+       "text": "full text",
+       "snippet": "[budget] … snippet",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_untitled",
+       "text": "untitled one",
+       "snippet": "untitled one",
+       "title": null,
+       "started_at": null,
+       "start_s": null
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_odd",
+       "text": "odd date",
+       "snippet": "odd date",
+       "title": "Q1 review",
+       "started_at": "March 1st",
+       "start_s": "7.5"
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_short",
+       "text": "short date",
+       "snippet": "short date",
+       "title": "Q1 review",
+       "started_at": "2026-3-1",
+       "start_s": 1.2e-05
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_big",
+       "text": "big time",
+       "snippet": "big time",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 1234567.0
+      }
+     ],
+     {},
+     {},
+     "budget",
+     "m_live",
+     null,
+     10
+    ],
+    "result": {
+     "ok": true,
+     "text": "past:m_past:1  \"Q1 review\" (2026-03-01) t=12s — we adopted the budget\npast:m_past:2  \"Q1 review\" (2026-03-01) t=73.25s — budget again\npast:m_other:1  \"[id] sync\" (2026-03-01) t=12s — see [id] from last week\npast:m_snip:1  \"Q1 review\" (2026-03-01) t=12s — [budget] … snippet\npast:m_untitled:1  \"Untitled meeting\" (unknown date) t=0s — untitled one\npast:m_odd:1  \"Q1 review\" (March 1st) t=7.5s — odd date\npast:m_short:1  \"Q1 review\" (2026-3-1) t=1.2e-05s — short date\npast:m_big:1  \"Q1 review\" (2026-03-01) t=1.23457e+06s — big time",
+     "hits": [
+      {
+       "ref": "past:m_past:1",
+       "meeting_id": "m_past",
+       "title": "Q1 review",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "we adopted the budget"
+      },
+      {
+       "ref": "past:m_past:2",
+       "meeting_id": "m_past",
+       "title": "Q1 review",
+       "started_at": "2026-03-01",
+       "start_s": 73.25,
+       "snippet": "budget again"
+      },
+      {
+       "ref": "past:m_other:1",
+       "meeting_id": "m_other",
+       "title": "[id] sync",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "see [id] from last week"
+      },
+      {
+       "ref": "past:m_snip:1",
+       "meeting_id": "m_snip",
+       "title": "Q1 review",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "[budget] … snippet"
+      },
+      {
+       "ref": "past:m_untitled:1",
+       "meeting_id": "m_untitled",
+       "title": "Untitled meeting",
+       "started_at": "unknown date",
+       "start_s": 0.0,
+       "snippet": "untitled one"
+      },
+      {
+       "ref": "past:m_odd:1",
+       "meeting_id": "m_odd",
+       "title": "Q1 review",
+       "started_at": "March 1st",
+       "start_s": 7.5,
+       "snippet": "odd date"
+      },
+      {
+       "ref": "past:m_short:1",
+       "meeting_id": "m_short",
+       "title": "Q1 review",
+       "started_at": "2026-3-1",
+       "start_s": 1.2e-05,
+       "snippet": "short date"
+      },
+      {
+       "ref": "past:m_big:1",
+       "meeting_id": "m_big",
+       "title": "Q1 review",
+       "started_at": "2026-03-01",
+       "start_s": 1234567.0,
+       "snippet": "big time"
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     true,
+     [
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_live",
+       "text": "live budget talk",
+       "snippet": "live budget talk",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_deadbeef9999",
+       "meeting_id": "m_past",
+       "text": "we adopted the budget",
+       "snippet": "we adopted the budget",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_past",
+       "text": "budget again",
+       "snippet": "budget again",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 73.25
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_other",
+       "text": "see sg_abcdef123456 from last week",
+       "snippet": "see sg_abcdef123456 from last week",
+       "title": "sg_abcdef123456 sync",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "",
+       "text": "no meeting id",
+       "snippet": "no meeting id",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_blank",
+       "text": "",
+       "snippet": "",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_snip",
+       "text": "full text",
+       "snippet": "[budget] … snippet",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_untitled",
+       "text": "untitled one",
+       "snippet": "untitled one",
+       "title": null,
+       "started_at": null,
+       "start_s": null
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_odd",
+       "text": "odd date",
+       "snippet": "odd date",
+       "title": "Q1 review",
+       "started_at": "March 1st",
+       "start_s": "7.5"
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_short",
+       "text": "short date",
+       "snippet": "short date",
+       "title": "Q1 review",
+       "started_at": "2026-3-1",
+       "start_s": 1.2e-05
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_big",
+       "text": "big time",
+       "snippet": "big time",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 1234567.0
+      }
+     ],
+     {},
+     {},
+     "budget",
+     "  m_live  ",
+     null,
+     "3"
+    ],
+    "result": {
+     "ok": true,
+     "text": "past:m_past:1  \"Q1 review\" (2026-03-01) t=12s — we adopted the budget\npast:m_past:2  \"Q1 review\" (2026-03-01) t=73.25s — budget again\npast:m_other:1  \"[id] sync\" (2026-03-01) t=12s — see [id] from last week",
+     "hits": [
+      {
+       "ref": "past:m_past:1",
+       "meeting_id": "m_past",
+       "title": "Q1 review",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "we adopted the budget"
+      },
+      {
+       "ref": "past:m_past:2",
+       "meeting_id": "m_past",
+       "title": "Q1 review",
+       "started_at": "2026-03-01",
+       "start_s": 73.25,
+       "snippet": "budget again"
+      },
+      {
+       "ref": "past:m_other:1",
+       "meeting_id": "m_other",
+       "title": "[id] sync",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "see [id] from last week"
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     true,
+     [
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_live",
+       "text": "live budget talk",
+       "snippet": "live budget talk",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_deadbeef9999",
+       "meeting_id": "m_past",
+       "text": "we adopted the budget",
+       "snippet": "we adopted the budget",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_past",
+       "text": "budget again",
+       "snippet": "budget again",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 73.25
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_other",
+       "text": "see sg_abcdef123456 from last week",
+       "snippet": "see sg_abcdef123456 from last week",
+       "title": "sg_abcdef123456 sync",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "",
+       "text": "no meeting id",
+       "snippet": "no meeting id",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_blank",
+       "text": "",
+       "snippet": "",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_snip",
+       "text": "full text",
+       "snippet": "[budget] … snippet",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_untitled",
+       "text": "untitled one",
+       "snippet": "untitled one",
+       "title": null,
+       "started_at": null,
+       "start_s": null
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_odd",
+       "text": "odd date",
+       "snippet": "odd date",
+       "title": "Q1 review",
+       "started_at": "March 1st",
+       "start_s": "7.5"
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_short",
+       "text": "short date",
+       "snippet": "short date",
+       "title": "Q1 review",
+       "started_at": "2026-3-1",
+       "start_s": 1.2e-05
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_big",
+       "text": "big time",
+       "snippet": "big time",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 1234567.0
+      }
+     ],
+     {
+      "m_past": {
+       "id": "m_past",
+       "title": "Prior sync",
+       "started_at": "2026-02-02T09:00:00"
+      },
+      "m_empty": {
+       "id": "m_empty",
+       "title": "",
+       "started_at": ""
+      },
+      "m_live": {
+       "id": "m_live",
+       "title": "Now"
+      },
+      "m_falsy": {}
+     },
+     {
+      "m_past": [
+       {
+        "id": "sg_aaa111222333",
+        "text": "Ship Friday",
+        "start_s": 3.5
+       },
+       {
+        "id": "sg_bbb111222333",
+        "text": "Agreed",
+        "start_s": 8.0
+       },
+       {
+        "id": "sg_ccc111222333",
+        "text": "",
+        "start_s": 9.0
+       },
+       {
+        "id": "sg_ddd111222333",
+        "text": "see sg_abcdef1234 again",
+        "start_s": "11"
+       },
+       {
+        "id": "sg_eee111222333",
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+        "start_s": 12.0
+       }
+      ],
+      "m_empty": [
+       {
+        "id": "sg_x",
+        "text": "   ",
+        "start_s": 1.0
+       }
+      ]
+     },
+     "",
+     "m_live",
+     "m_live",
+     10
+    ],
+    "result": {
+     "ok": false,
+     "text": "Cannot recall the current meeting; it is already in the transcript.",
+     "hits": []
+    }
+   },
+   {
+    "args": [
+     true,
+     [
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_live",
+       "text": "live budget talk",
+       "snippet": "live budget talk",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_deadbeef9999",
+       "meeting_id": "m_past",
+       "text": "we adopted the budget",
+       "snippet": "we adopted the budget",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_past",
+       "text": "budget again",
+       "snippet": "budget again",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 73.25
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_other",
+       "text": "see sg_abcdef123456 from last week",
+       "snippet": "see sg_abcdef123456 from last week",
+       "title": "sg_abcdef123456 sync",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "",
+       "text": "no meeting id",
+       "snippet": "no meeting id",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_blank",
+       "text": "",
+       "snippet": "",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_snip",
+       "text": "full text",
+       "snippet": "[budget] … snippet",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_untitled",
+       "text": "untitled one",
+       "snippet": "untitled one",
+       "title": null,
+       "started_at": null,
+       "start_s": null
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_odd",
+       "text": "odd date",
+       "snippet": "odd date",
+       "title": "Q1 review",
+       "started_at": "March 1st",
+       "start_s": "7.5"
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_short",
+       "text": "short date",
+       "snippet": "short date",
+       "title": "Q1 review",
+       "started_at": "2026-3-1",
+       "start_s": 1.2e-05
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_big",
+       "text": "big time",
+       "snippet": "big time",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 1234567.0
+      }
+     ],
+     {
+      "m_past": {
+       "id": "m_past",
+       "title": "Prior sync",
+       "started_at": "2026-02-02T09:00:00"
+      },
+      "m_empty": {
+       "id": "m_empty",
+       "title": "",
+       "started_at": ""
+      },
+      "m_live": {
+       "id": "m_live",
+       "title": "Now"
+      },
+      "m_falsy": {}
+     },
+     {
+      "m_past": [
+       {
+        "id": "sg_aaa111222333",
+        "text": "Ship Friday",
+        "start_s": 3.5
+       },
+       {
+        "id": "sg_bbb111222333",
+        "text": "Agreed",
+        "start_s": 8.0
+       },
+       {
+        "id": "sg_ccc111222333",
+        "text": "",
+        "start_s": 9.0
+       },
+       {
+        "id": "sg_ddd111222333",
+        "text": "see sg_abcdef1234 again",
+        "start_s": "11"
+       },
+       {
+        "id": "sg_eee111222333",
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+        "start_s": 12.0
+       }
+      ],
+      "m_empty": [
+       {
+        "id": "sg_x",
+        "text": "   ",
+        "start_s": 1.0
+       }
+      ]
+     },
+     "",
+     "m_live",
+     "  m_past ",
+     10
+    ],
+    "result": {
+     "ok": true,
+     "text": "Meeting \"Prior sync\" (2026-02-02)\npast:m_past:1  t=3.5s  Ship Friday\npast:m_past:2  t=8s  Agreed\npast:m_past:4  t=11s  see [id] again\npast:m_past:5  t=12s  budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…",
+     "hits": [
+      {
+       "ref": "past:m_past:1",
+       "meeting_id": "m_past",
+       "title": "Prior sync",
+       "started_at": "2026-02-02",
+       "start_s": 3.5,
+       "snippet": "Ship Friday"
+      },
+      {
+       "ref": "past:m_past:2",
+       "meeting_id": "m_past",
+       "title": "Prior sync",
+       "started_at": "2026-02-02",
+       "start_s": 8.0,
+       "snippet": "Agreed"
+      },
+      {
+       "ref": "past:m_past:4",
+       "meeting_id": "m_past",
+       "title": "Prior sync",
+       "started_at": "2026-02-02",
+       "start_s": 11.0,
+       "snippet": "see [id] again"
+      },
+      {
+       "ref": "past:m_past:5",
+       "meeting_id": "m_past",
+       "title": "Prior sync",
+       "started_at": "2026-02-02",
+       "start_s": 12.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     true,
+     [
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_live",
+       "text": "live budget talk",
+       "snippet": "live budget talk",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_deadbeef9999",
+       "meeting_id": "m_past",
+       "text": "we adopted the budget",
+       "snippet": "we adopted the budget",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_past",
+       "text": "budget again",
+       "snippet": "budget again",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 73.25
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_other",
+       "text": "see sg_abcdef123456 from last week",
+       "snippet": "see sg_abcdef123456 from last week",
+       "title": "sg_abcdef123456 sync",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "",
+       "text": "no meeting id",
+       "snippet": "no meeting id",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_blank",
+       "text": "",
+       "snippet": "",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_snip",
+       "text": "full text",
+       "snippet": "[budget] … snippet",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_untitled",
+       "text": "untitled one",
+       "snippet": "untitled one",
+       "title": null,
+       "started_at": null,
+       "start_s": null
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_odd",
+       "text": "odd date",
+       "snippet": "odd date",
+       "title": "Q1 review",
+       "started_at": "March 1st",
+       "start_s": "7.5"
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_short",
+       "text": "short date",
+       "snippet": "short date",
+       "title": "Q1 review",
+       "started_at": "2026-3-1",
+       "start_s": 1.2e-05
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_big",
+       "text": "big time",
+       "snippet": "big time",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 1234567.0
+      }
+     ],
+     {
+      "m_past": {
+       "id": "m_past",
+       "title": "Prior sync",
+       "started_at": "2026-02-02T09:00:00"
+      },
+      "m_empty": {
+       "id": "m_empty",
+       "title": "",
+       "started_at": ""
+      },
+      "m_live": {
+       "id": "m_live",
+       "title": "Now"
+      },
+      "m_falsy": {}
+     },
+     {
+      "m_past": [
+       {
+        "id": "sg_aaa111222333",
+        "text": "Ship Friday",
+        "start_s": 3.5
+       },
+       {
+        "id": "sg_bbb111222333",
+        "text": "Agreed",
+        "start_s": 8.0
+       },
+       {
+        "id": "sg_ccc111222333",
+        "text": "",
+        "start_s": 9.0
+       },
+       {
+        "id": "sg_ddd111222333",
+        "text": "see sg_abcdef1234 again",
+        "start_s": "11"
+       },
+       {
+        "id": "sg_eee111222333",
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+        "start_s": 12.0
+       }
+      ],
+      "m_empty": [
+       {
+        "id": "sg_x",
+        "text": "   ",
+        "start_s": 1.0
+       }
+      ]
+     },
+     "",
+     "m_live",
+     "m_unknown",
+     10
+    ],
+    "result": {
+     "ok": false,
+     "text": "Unknown meeting.",
+     "hits": []
+    }
+   },
+   {
+    "args": [
+     true,
+     [
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_live",
+       "text": "live budget talk",
+       "snippet": "live budget talk",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_deadbeef9999",
+       "meeting_id": "m_past",
+       "text": "we adopted the budget",
+       "snippet": "we adopted the budget",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_past",
+       "text": "budget again",
+       "snippet": "budget again",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 73.25
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_other",
+       "text": "see sg_abcdef123456 from last week",
+       "snippet": "see sg_abcdef123456 from last week",
+       "title": "sg_abcdef123456 sync",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "",
+       "text": "no meeting id",
+       "snippet": "no meeting id",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_blank",
+       "text": "",
+       "snippet": "",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_snip",
+       "text": "full text",
+       "snippet": "[budget] … snippet",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_untitled",
+       "text": "untitled one",
+       "snippet": "untitled one",
+       "title": null,
+       "started_at": null,
+       "start_s": null
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_odd",
+       "text": "odd date",
+       "snippet": "odd date",
+       "title": "Q1 review",
+       "started_at": "March 1st",
+       "start_s": "7.5"
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_short",
+       "text": "short date",
+       "snippet": "short date",
+       "title": "Q1 review",
+       "started_at": "2026-3-1",
+       "start_s": 1.2e-05
+      },
+      {
+       "segment_id": "sg_abc123def",
+       "meeting_id": "m_big",
+       "text": "big time",
+       "snippet": "big time",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 1234567.0
+      }
+     ],
+     {
+      "m_past": {
+       "id": "m_past",
+       "title": "Prior sync",
+       "started_at": "2026-02-02T09:00:00"
+      },
+      "m_empty": {
+       "id": "m_empty",
+       "title": "",
+       "started_at": ""
+      },
+      "m_live": {
+       "id": "m_live",
+       "title": "Now"
+      },
+      "m_falsy": {}
+     },
+     {
+      "m_past": [
+       {
+        "id": "sg_aaa111222333",
+        "text": "Ship Friday",
+        "start_s": 3.5
+       },
+       {
+        "id": "sg_bbb111222333",
+        "text": "Agreed",
+        "start_s": 8.0
+       },
+       {
+        "id": "sg_ccc111222333",
+        "text": "",
+        "start_s": 9.0
+       },
+       {
+        "id": "sg_ddd111222333",
+        "text": "see sg_abcdef1234 again",
+        "start_s": "11"
+       },
+       {
+        "id": "sg_eee111222333",
+        "text": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+        "start_s": 12.0
+       }
+      ],
+      "m_empty": [
+       {
+        "id": "sg_x",
+        "text": "   ",
+        "start_s": 1.0
+       }
+      ]
+     },
+     "ignored",
+     "m_live",
+     "m_past",
+     null
+    ],
+    "result": {
+     "ok": true,
+     "text": "Meeting \"Prior sync\" (2026-02-02)\npast:m_past:1  t=3.5s  Ship Friday\npast:m_past:2  t=8s  Agreed\npast:m_past:4  t=11s  see [id] again\npast:m_past:5  t=12s  budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…",
+     "hits": [
+      {
+       "ref": "past:m_past:1",
+       "meeting_id": "m_past",
+       "title": "Prior sync",
+       "started_at": "2026-02-02",
+       "start_s": 3.5,
+       "snippet": "Ship Friday"
+      },
+      {
+       "ref": "past:m_past:2",
+       "meeting_id": "m_past",
+       "title": "Prior sync",
+       "started_at": "2026-02-02",
+       "start_s": 8.0,
+       "snippet": "Agreed"
+      },
+      {
+       "ref": "past:m_past:4",
+       "meeting_id": "m_past",
+       "title": "Prior sync",
+       "started_at": "2026-02-02",
+       "start_s": 11.0,
+       "snippet": "see [id] again"
+      },
+      {
+       "ref": "past:m_past:5",
+       "meeting_id": "m_past",
+       "title": "Prior sync",
+       "started_at": "2026-02-02",
+       "start_s": 12.0,
+       "snippet": "budget word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo…"
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

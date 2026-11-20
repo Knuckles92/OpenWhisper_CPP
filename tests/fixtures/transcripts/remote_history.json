@@ -1,0 +1,348 @@
+{
+ "scenario": "remote_history",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "python": "3.12.10",
+ "setup": {
+  "host_name": "studio",
+  "device_name": "laptop",
+  "addresses": [
+   "192.168.1.20",
+   "100.101.102.103"
+  ],
+  "pairing_code": "246810",
+  "fingerprint": "<fingerprint#1>",
+  "client_history_rows": [
+   {
+    "id": "h0",
+    "text": "Launch 0",
+    "timestamp": "2026-09-01T12:00:00+00:00",
+    "model": "test"
+   },
+   {
+    "id": "h1",
+    "text": "Launch 1",
+    "timestamp": "2026-09-01T12:00:00+00:00",
+    "model": "test"
+   },
+   {
+    "id": "h2",
+    "text": "Launch 2",
+    "timestamp": "2026-09-01T12:00:00+00:00",
+    "model": "test"
+   }
+  ],
+  "patches": [
+   "tailscale.status reports not_installed and tailscale.whois finds nobody (tests/fakes/remote.py no_real_tailscale)",
+   "discovery.find_host and discovery.search find nothing (no UDP leaves the process)",
+   "SpeechHost.start serves on 127.0.0.1 only, without discovery",
+   {
+    "step": "over_limit",
+    "patch": "HistoryReader.query answers check with a 9 MiB result"
+   }
+  ],
+  "steps": [
+   {
+    "name": "pair",
+    "client": "pair_with_host",
+    "outcomes": [
+     {
+      "call": "pair_with_host",
+      "returned": {
+       "token": "<token#1>",
+       "device_id": "<device_id#1>",
+       "host_name": "studio",
+       "fingerprint": "<fingerprint#1>",
+       "alternates": [
+        "192.168.1.20",
+        "100.101.102.103"
+       ],
+       "via": "code"
+      }
+     }
+    ]
+   },
+   {
+    "name": "connect",
+    "client": "HistoryClient",
+    "outcomes": [
+     {
+      "call": "clients",
+      "returned": [
+       {
+        "device_id": "<device_id#1>",
+        "name": "laptop",
+        "status": "online"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "name": "queries",
+    "client": "HistoryClient (answering HistoryBroker.query)",
+    "outcomes": [
+     {
+      "call": "HistoryBroker.query transcriptions",
+      "returned": {
+       "items": [
+        {
+         "id": "h0",
+         "device_id": null,
+         "title": null,
+         "timestamp": "2026-09-01T12:00:00+00:00",
+         "model": "test",
+         "source_name": null,
+         "audio_duration": null,
+         "origin_device_id": null,
+         "origin_device_name": null,
+         "preview": "Launch 0"
+        },
+        {
+         "id": "h1",
+         "device_id": null,
+         "title": null,
+         "timestamp": "2026-09-01T12:00:00+00:00",
+         "model": "test",
+         "source_name": null,
+         "audio_duration": null,
+         "origin_device_id": null,
+         "origin_device_name": null,
+         "preview": "Launch 1"
+        }
+       ],
+       "next_cursor": "eyJzY29wZSI6ICIxZmVhMzA4NDkxZWE2NDZlZmI5ZDhlOGQiLCAia2V5cyI6IFsyNDYxMjg1LjAsICJoMSJdfQ==",
+       "clients": []
+      }
+     },
+     {
+      "call": "HistoryBroker.query transcription",
+      "returned": {
+       "id": "h1",
+       "device_id": null,
+       "title": null,
+       "timestamp": "2026-09-01T12:00:00+00:00",
+       "model": "test",
+       "source_name": null,
+       "audio_duration": null,
+       "origin_device_id": null,
+       "origin_device_name": null,
+       "preview": "Launch 1",
+       "text": "Launch 1",
+       "raw_text": null,
+       "cleanup_provider": null,
+       "cleanup_model": null
+      }
+     },
+     {
+      "call": "HistoryBroker.query transcriptions",
+      "raised": {
+       "type": "ClientUnavailable",
+       "message": "Invalid client history query.",
+       "code": "invalid_query"
+      }
+     }
+    ]
+   },
+   {
+    "name": "over_limit",
+    "client": "HistoryClient (answering HistoryBroker.query)",
+    "outcomes": [
+     {
+      "call": "HistoryBroker.query check",
+      "raised": {
+       "type": "ClientUnavailable",
+       "message": "Client history is unavailable. The client may be offline.",
+       "code": "unavailable"
+      }
+     }
+    ]
+   },
+   {
+    "name": "stop",
+    "client": "HistoryClient.stop",
+    "outcomes": [
+     {
+      "call": "clients",
+      "returned": [
+       {
+        "device_id": "<device_id#1>",
+        "name": "laptop",
+        "status": "unavailable"
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "frames": [
+  {
+   "step": "pair",
+   "conn": 0,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair\", \"protocol\": 1, \"device_name\": \"laptop\", \"code\": \"246810\"}"
+  },
+  {
+   "step": "pair",
+   "conn": 0,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"paired\",\"token\":\"<token#1>\",\"device_id\":\"<device_id#1>\",\"host\":{\"name\":\"studio\",\"fingerprint\":\"<fingerprint#1>\",\"addresses\":[\"192.168.1.20\",\"100.101.102.103\"]}}"
+  },
+  {
+   "step": "pair",
+   "conn": 0,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 1000,
+   "reason": ""
+  },
+  {
+   "step": "pair",
+   "conn": 0,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 1000,
+   "reason": "",
+   "echo": true
+  },
+  {
+   "step": "connect",
+   "conn": 1,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"hello\", \"protocol\": 1, \"token\": \"<token#1>\", \"purpose\": \"history\", \"history_enabled\": true}"
+  },
+  {
+   "step": "connect",
+   "conn": 1,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\": \"ready\", \"capabilities\": {\"client_history\": true}}"
+  },
+  {
+   "step": "queries",
+   "conn": 1,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\": \"history_query\", \"id\": \"<uuid#1>\", \"operation\": \"transcriptions\", \"params\": {\"limit\": 2}}"
+  },
+  {
+   "step": "queries",
+   "conn": 1,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"result\": {\"items\": [{\"id\": \"h0\", \"device_id\": null, \"title\": null, \"timestamp\": \"2026-09-01T12:00:00+00:00\", \"model\": \"test\", \"source_name\": null, \"audio_duration\": null, \"origin_device_id\": null, \"origin_device_name\": null, \"preview\": \"Launch 0\"}, {\"id\": \"h1\", \"device_id\": null, \"title\": null, \"timestamp\": \"2026-09-01T12:00:00+00:00\", \"model\": \"test\", \"source_name\": null, \"audio_duration\": null, \"origin_device_id\": null, \"origin_device_name\": null, \"preview\": \"Launch 1\"}], \"next_cursor\": \"eyJzY29wZSI6ICIxZmVhMzA4NDkxZWE2NDZlZmI5ZDhlOGQiLCAia2V5cyI6IFsyNDYxMjg1LjAsICJoMSJdfQ==\", \"clients\": []}, \"type\": \"history_result\", \"id\": \"<uuid#1>\"}"
+  },
+  {
+   "step": "queries",
+   "conn": 1,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\": \"history_query\", \"id\": \"<uuid#2>\", \"operation\": \"transcription\", \"params\": {\"record_id\": \"h1\"}}"
+  },
+  {
+   "step": "queries",
+   "conn": 1,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"result\": {\"id\": \"h1\", \"device_id\": null, \"title\": null, \"timestamp\": \"2026-09-01T12:00:00+00:00\", \"model\": \"test\", \"source_name\": null, \"audio_duration\": null, \"origin_device_id\": null, \"origin_device_name\": null, \"preview\": \"Launch 1\", \"text\": \"Launch 1\", \"raw_text\": null, \"cleanup_provider\": null, \"cleanup_model\": null}, \"type\": \"history_result\", \"id\": \"<uuid#2>\"}"
+  },
+  {
+   "step": "queries",
+   "conn": 1,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\": \"history_query\", \"id\": \"<uuid#3>\", \"operation\": \"transcriptions\", \"params\": {\"limit\": 0}}"
+  },
+  {
+   "step": "queries",
+   "conn": 1,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"error\": \"invalid_query\", \"type\": \"history_result\", \"id\": \"<uuid#3>\"}"
+  },
+  {
+   "step": "over_limit",
+   "conn": 1,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\": \"history_query\", \"id\": \"<uuid#4>\", \"operation\": \"check\", \"params\": {}}"
+  },
+  {
+   "step": "over_limit",
+   "conn": 1,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"history_result\", \"id\": \"<uuid#4>\", \"error\": \"unavailable\"}"
+  },
+  {
+   "step": "stop",
+   "conn": 1,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 1000,
+   "reason": ""
+  },
+  {
+   "step": "stop",
+   "conn": 1,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 1000,
+   "reason": "",
+   "echo": true
+  }
+ ],
+ "normalize": [
+  {
+   "path": "1/token",
+   "as": "token"
+  },
+  {
+   "path": "1/device_id",
+   "as": "device_id"
+  },
+  {
+   "path": "1/host/fingerprint",
+   "as": "fingerprint"
+  },
+  {
+   "path": "4/token",
+   "as": "token"
+  },
+  {
+   "path": "6/id",
+   "as": "uuid"
+  },
+  {
+   "path": "7/id",
+   "as": "uuid"
+  },
+  {
+   "path": "8/id",
+   "as": "uuid"
+  },
+  {
+   "path": "9/id",
+   "as": "uuid"
+  },
+  {
+   "path": "10/id",
+   "as": "uuid"
+  },
+  {
+   "path": "11/id",
+   "as": "uuid"
+  },
+  {
+   "path": "12/id",
+   "as": "uuid"
+  },
+  {
+   "path": "13/id",
+   "as": "uuid"
+  }
+ ]
+}

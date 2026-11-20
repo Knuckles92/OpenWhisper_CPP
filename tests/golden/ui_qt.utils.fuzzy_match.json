@@ -1,0 +1,981 @@
+{
+ "module": "ui_qt.utils.fuzzy_match",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time"
+ },
+ "traced_from": [
+  "tests/test_fuzzy_match.py"
+ ],
+ "functions": {
+  "fuzzy_score": [
+   {
+    "args": [
+     "",
+     "anything"
+    ],
+    "result": 0
+   },
+   {
+    "args": [
+     "whisper",
+     "whisper"
+    ],
+    "result": 10000
+   },
+   {
+    "args": [
+     "Whisper",
+     "whisper large"
+    ],
+    "result": 4000
+   },
+   {
+    "args": [
+     "large",
+     "Whisper Large v3"
+    ],
+    "result": 3484
+   },
+   {
+    "args": [
+     "lv3",
+     "large-v3"
+    ],
+    "result": 779
+   },
+   {
+    "args": [
+     "large v3",
+     "large-v3"
+    ],
+    "result": 3000
+   },
+   {
+    "args": [
+     "v3 large",
+     "Whisper large-v3"
+    ],
+    "result": 1900
+   },
+   {
+    "args": [
+     "wlv",
+     "whisper large v3"
+    ],
+    "result": 778
+   },
+   {
+    "args": [
+     "parakeet",
+     "nvidia/parakeet-tdt-0.6b-v3"
+    ],
+    "result": 3986
+   },
+   {
+    "args": [
+     "tdt06",
+     "parakeet-tdt-0.6b"
+    ],
+    "result": 1484
+   },
+   {
+    "args": [
+     "straße",
+     "STRASSE"
+    ],
+    "result": 10000
+   },
+   {
+    "args": [
+     "é",
+     "Élan"
+    ],
+    "result": 4000
+   },
+   {
+    "args": [
+     "zzz",
+     "whisper"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "en",
+     "English"
+    ],
+    "result": 4000
+   },
+   {
+    "args": [
+     "eng",
+     "English (United States)"
+    ],
+    "result": 4000
+   },
+   {
+    "args": [
+     "us",
+     "English (United States)"
+    ],
+    "result": 719
+   },
+   {
+    "args": [
+     "ﬁle",
+     "FILE"
+    ],
+    "result": 10000
+   },
+   {
+    "args": [
+     "café",
+     "CAFÉ au lait"
+    ],
+    "result": 4000
+   },
+   {
+    "args": [
+     "日本",
+     "日本語モデル"
+    ],
+    "result": 4000
+   },
+   {
+    "args": [
+     "  padded  ",
+     "padded"
+    ],
+    "result": 10000
+   },
+   {
+    "args": [
+     "x",
+     "   "
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "a.b",
+     "a-b"
+    ],
+    "result": 3000
+   },
+   {
+    "args": [
+     "(",
+     "a(b"
+    ],
+    "result": 2998
+   },
+   {
+    "args": [
+     "model",
+     "my/model"
+    ],
+    "result": 3994
+   },
+   {
+    "args": [
+     "model",
+     "my model"
+    ],
+    "result": 3494
+   },
+   {
+    "args": [
+     "model",
+     "my_model"
+    ],
+    "result": 3494
+   },
+   {
+    "args": [
+     "model",
+     "my:model"
+    ],
+    "result": 3494
+   },
+   {
+    "args": [
+     "model",
+     "mymodel"
+    ],
+    "result": 2996
+   },
+   {
+    "args": [
+     "del",
+     "a-very-long-prefix-model"
+    ],
+    "result": 2958
+   },
+   {
+    "args": [
+     "x",
+     "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaax"
+    ],
+    "result": 2900
+   },
+   {
+    "args": [
+     "gpt 4o",
+     "openai gpt-4o"
+    ],
+    "result": 2686
+   },
+   {
+    "args": [
+     "my model",
+     "xmy-modelx"
+    ],
+    "result": 2198
+   },
+   {
+    "args": [
+     "4o gpt",
+     "openai/gpt-4o"
+    ],
+    "result": 1900
+   },
+   {
+    "args": [
+     "gpt 4o",
+     "gpt-4o gpt-4o"
+    ],
+    "result": 3000
+   },
+   {
+    "args": [
+     "o3 mini",
+     "openai/o3-mini"
+    ],
+    "result": 2686
+   },
+   {
+    "args": [
+     "o mi",
+     "openai/o3-mini"
+    ],
+    "result": 2000
+   },
+   {
+    "args": [
+     "ope min",
+     "openai/o3-mini"
+    ],
+    "result": 2000
+   },
+   {
+    "args": [
+     "pen ini",
+     "openai/o3-mini"
+    ],
+    "result": 2000
+   },
+   {
+    "args": [
+     "a a",
+     "a b"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "a a",
+     "a a"
+    ],
+    "result": 10000
+   },
+   {
+    "args": [
+     "b a",
+     "a b"
+    ],
+    "result": 1900
+   },
+   {
+    "args": [
+     "g37",
+     "google/gemini-3.7-flash"
+    ],
+    "result": 772
+   },
+   {
+    "args": [
+     "gf",
+     "google/gemini-3.7-flash"
+    ],
+    "result": 726
+   },
+   {
+    "args": [
+     "ab",
+     "axxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxb"
+    ],
+    "result": 540
+   },
+   {
+    "args": [
+     "abc",
+     "abc-def"
+    ],
+    "result": 4000
+   },
+   {
+    "args": [
+     "ac",
+     "abc"
+    ],
+    "result": 734
+   },
+   {
+    "args": [
+     "--",
+     "a--b"
+    ],
+    "result": 2998
+   },
+   {
+    "args": [
+     "!!",
+     "!!"
+    ],
+    "result": 10000
+   },
+   {
+    "args": [
+     "!!",
+     "x!!y"
+    ],
+    "result": 2998
+   },
+   {
+    "args": [
+     "  ",
+     ""
+    ],
+    "result": 0
+   },
+   {
+    "args": [
+     "",
+     ""
+    ],
+    "result": 0
+   },
+   {
+    "args": [
+     "A",
+     "a"
+    ],
+    "result": 10000
+   },
+   {
+    "args": [
+     "İ",
+     "i̇"
+    ],
+    "result": 10000
+   },
+   {
+    "args": [
+     "Σ",
+     "σς"
+    ],
+    "result": 4000
+   },
+   {
+    "args": [
+     "ǅ",
+     "ǆ"
+    ],
+    "result": 10000
+   },
+   {
+    "args": [
+     "model",
+     "😀😀😀 model"
+    ],
+    "result": 3492
+   },
+   {
+    "args": [
+     "mdl",
+     "😀/model"
+    ],
+    "result": 728
+   },
+   {
+    "args": [
+     "😀",
+     "a😀b"
+    ],
+    "result": 2998
+   },
+   {
+    "args": [
+     "naïve",
+     "NAÏVE approach"
+    ],
+    "result": 4000
+   },
+   {
+    "args": [
+     "ﬀ",
+     "FF"
+    ],
+    "result": 10000
+   },
+   {
+    "args": [
+     "x",
+     " x "
+    ],
+    "result": 10000
+   },
+   {
+    "args": [
+     "tab\tsep",
+     "tab sep"
+    ],
+    "result": 3000
+   },
+   {
+    "args": [
+     "line\nbreak",
+     "line-break"
+    ],
+    "result": 3000
+   },
+   {
+    "args": [
+     "",
+     "google/gemini-3.7-flash"
+    ],
+    "result": 0,
+    "traced": true
+   },
+   {
+    "args": [
+     "   ",
+     "anything"
+    ],
+    "result": 0,
+    "traced": true
+   },
+   {
+    "args": [
+     "gemini",
+     ""
+    ],
+    "result": null,
+    "traced": true
+   },
+   {
+    "args": [
+     "openai/gpt-4o",
+     "openai/gpt-4o"
+    ],
+    "result": 10000,
+    "traced": true
+   },
+   {
+    "args": [
+     "GEMINI",
+     "google/gemini-3.7-flash"
+    ],
+    "result": 3986,
+    "traced": true
+   },
+   {
+    "args": [
+     "gemini",
+     "GOOGLE/GEMINI-3.7-FLASH"
+    ],
+    "result": 3986,
+    "traced": true
+   },
+   {
+    "args": [
+     "gemini 3.7",
+     "google/gemini-3.7-flash"
+    ],
+    "result": 2686,
+    "traced": true
+   },
+   {
+    "args": [
+     "gemini 3.7",
+     "gemini-3.7"
+    ],
+    "result": 3000,
+    "traced": true
+   },
+   {
+    "args": [
+     "gpt 4o",
+     "openai/gpt-4o"
+    ],
+    "result": 2686,
+    "traced": true
+   },
+   {
+    "args": [
+     "gpt 4o mini",
+     "openai/gpt-4o-mini"
+    ],
+    "result": 2686,
+    "traced": true
+   },
+   {
+    "args": [
+     "claude 3.5 sonnet",
+     "anthropic/claude-3.5-sonnet"
+    ],
+    "result": 2680,
+    "traced": true
+   },
+   {
+    "args": [
+     "claude sonnet",
+     "anthropic/claude-3.5-sonnet"
+    ],
+    "result": 2100,
+    "traced": true
+   },
+   {
+    "args": [
+     "sonnet claude",
+     "anthropic/claude-3.5-sonnet"
+    ],
+    "result": 1900,
+    "traced": true
+   },
+   {
+    "args": [
+     "llama 70b",
+     "meta-llama/llama-3.1-70b-instruct"
+    ],
+    "result": 2100,
+    "traced": true
+   },
+   {
+    "args": [
+     "70b llama",
+     "meta-llama/llama-3.1-70b-instruct"
+    ],
+    "result": 1900,
+    "traced": true
+   },
+   {
+    "args": [
+     "gpt4o",
+     "openai/gpt-4o"
+    ],
+    "result": 1488,
+    "traced": true
+   },
+   {
+    "args": [
+     "gemini3.7",
+     "google/gemini-3.7-flash"
+    ],
+    "result": 1488,
+    "traced": true
+   },
+   {
+    "args": [
+     "o3mini",
+     "openai/o3-mini"
+    ],
+    "result": 1488,
+    "traced": true
+   },
+   {
+    "args": [
+     "g3.7",
+     "google/gemini-3.7-flash"
+    ],
+    "result": 772,
+    "traced": true
+   },
+   {
+    "args": [
+     "c35s",
+     "anthropic/claude-3.5-sonnet"
+    ],
+    "result": 781,
+    "traced": true
+   },
+   {
+    "args": [
+     "dskr1",
+     "deepseek/deepseek-r1"
+    ],
+    "result": 743,
+    "traced": true
+   },
+   {
+    "args": [
+     "gemini 3.7",
+     "google/gemini-2.5-flash"
+    ],
+    "result": null,
+    "traced": true
+   },
+   {
+    "args": [
+     "gemini 3.7",
+     "openai/gpt-4o"
+    ],
+    "result": null,
+    "traced": true
+   },
+   {
+    "args": [
+     "nonexistent",
+     "google/gemini-3.7-flash"
+    ],
+    "result": null,
+    "traced": true
+   },
+   {
+    "args": [
+     "xyz123",
+     "anthropic/claude-3.5-sonnet"
+    ],
+    "result": null,
+    "traced": true
+   },
+   {
+    "args": [
+     "gemini (3.7)",
+     "google/gemini-3.7-flash"
+    ],
+    "result": 2686,
+    "traced": true
+   },
+   {
+    "args": [
+     "gpt+4o",
+     "openai/gpt-4o"
+    ],
+    "result": 2686,
+    "traced": true
+   },
+   {
+    "args": [
+     "claude-3.5*",
+     "anthropic/claude-3.5-sonnet"
+    ],
+    "result": 2680,
+    "traced": true
+   },
+   {
+    "args": [
+     "[test]",
+     "test/model"
+    ],
+    "result": 3000,
+    "traced": true
+   },
+   {
+    "args": [
+     "???",
+     "google/gemini-3.7-flash"
+    ],
+    "result": null,
+    "traced": true
+   },
+   {
+    "args": [
+     "gemini-3.7",
+     "gemini-3.7"
+    ],
+    "result": 10000,
+    "traced": true
+   },
+   {
+    "args": [
+     "gemini-3.7",
+     "google/gemini-3.7-flash"
+    ],
+    "result": 3986,
+    "traced": true
+   }
+  ],
+  "fuzzy_match": [
+   {
+    "args": [
+     "lv3",
+     "large-v3"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "zzz",
+     "whisper"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "",
+     "x"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "x",
+     ""
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "claude sonnet",
+     "anthropic/claude-3.5-sonnet"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "???",
+     "gemini"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "",
+     "google/gemini-3.7-flash"
+    ],
+    "result": true,
+    "traced": true
+   },
+   {
+    "args": [
+     "   ",
+     "anything"
+    ],
+    "result": true,
+    "traced": true
+   },
+   {
+    "args": [
+     "gemini",
+     ""
+    ],
+    "result": false,
+    "traced": true
+   },
+   {
+    "args": [
+     "GEMINI",
+     "google/gemini-3.7-flash"
+    ],
+    "result": true,
+    "traced": true
+   },
+   {
+    "args": [
+     "gemini",
+     "GOOGLE/GEMINI-3.7-FLASH"
+    ],
+    "result": true,
+    "traced": true
+   },
+   {
+    "args": [
+     "gemini 3.7",
+     "google/gemini-3.7-flash"
+    ],
+    "result": true,
+    "traced": true
+   },
+   {
+    "args": [
+     "gemini 3.7",
+     "gemini-3.7"
+    ],
+    "result": true,
+    "traced": true
+   },
+   {
+    "args": [
+     "gpt 4o",
+     "openai/gpt-4o"
+    ],
+    "result": true,
+    "traced": true
+   },
+   {
+    "args": [
+     "gpt 4o mini",
+     "openai/gpt-4o-mini"
+    ],
+    "result": true,
+    "traced": true
+   },
+   {
+    "args": [
+     "claude 3.5 sonnet",
+     "anthropic/claude-3.5-sonnet"
+    ],
+    "result": true,
+    "traced": true
+   },
+   {
+    "args": [
+     "sonnet claude",
+     "anthropic/claude-3.5-sonnet"
+    ],
+    "result": true,
+    "traced": true
+   },
+   {
+    "args": [
+     "llama 70b",
+     "meta-llama/llama-3.1-70b-instruct"
+    ],
+    "result": true,
+    "traced": true
+   },
+   {
+    "args": [
+     "70b llama",
+     "meta-llama/llama-3.1-70b-instruct"
+    ],
+    "result": true,
+    "traced": true
+   },
+   {
+    "args": [
+     "gpt4o",
+     "openai/gpt-4o"
+    ],
+    "result": true,
+    "traced": true
+   },
+   {
+    "args": [
+     "gemini3.7",
+     "google/gemini-3.7-flash"
+    ],
+    "result": true,
+    "traced": true
+   },
+   {
+    "args": [
+     "o3mini",
+     "openai/o3-mini"
+    ],
+    "result": true,
+    "traced": true
+   },
+   {
+    "args": [
+     "g3.7",
+     "google/gemini-3.7-flash"
+    ],
+    "result": true,
+    "traced": true
+   },
+   {
+    "args": [
+     "c35s",
+     "anthropic/claude-3.5-sonnet"
+    ],
+    "result": true,
+    "traced": true
+   },
+   {
+    "args": [
+     "dskr1",
+     "deepseek/deepseek-r1"
+    ],
+    "result": true,
+    "traced": true
+   },
+   {
+    "args": [
+     "gemini 3.7",
+     "google/gemini-2.5-flash"
+    ],
+    "result": false,
+    "traced": true
+   },
+   {
+    "args": [
+     "gemini 3.7",
+     "openai/gpt-4o"
+    ],
+    "result": false,
+    "traced": true
+   },
+   {
+    "args": [
+     "nonexistent",
+     "google/gemini-3.7-flash"
+    ],
+    "result": false,
+    "traced": true
+   },
+   {
+    "args": [
+     "xyz123",
+     "anthropic/claude-3.5-sonnet"
+    ],
+    "result": false,
+    "traced": true
+   },
+   {
+    "args": [
+     "gemini (3.7)",
+     "google/gemini-3.7-flash"
+    ],
+    "result": true,
+    "traced": true
+   },
+   {
+    "args": [
+     "gpt+4o",
+     "openai/gpt-4o"
+    ],
+    "result": true,
+    "traced": true
+   },
+   {
+    "args": [
+     "claude-3.5*",
+     "anthropic/claude-3.5-sonnet"
+    ],
+    "result": true,
+    "traced": true
+   },
+   {
+    "args": [
+     "[test]",
+     "test/model"
+    ],
+    "result": true,
+    "traced": true
+   },
+   {
+    "args": [
+     "???",
+     "google/gemini-3.7-flash"
+    ],
+    "result": false,
+    "traced": true
+   }
+  ]
+ }
+}

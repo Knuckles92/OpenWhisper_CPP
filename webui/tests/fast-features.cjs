@@ -1,0 +1,464 @@
+const assert = require('node:assert/strict');
+const {test, afterEach} = require('node:test');
+const fs = require('node:fs');
+const ts = require('typescript');
+const {JSDOM} = require('jsdom');
+const dom = new JSDOM('<!doctype html><html><body></body></html>', {url:'http://localhost/'});
+global.window = dom.window;
+global.document = dom.window.document;
+global.navigator = dom.window.navigator;
+global.location = dom.window.location;
+global.IS_REACT_ACT_ENVIRONMENT = true;
+for (const ext of ['.ts', '.tsx']) require.extensions[ext] = (module, filename) => module._compile(ts.transpileModule(fs.readFileSync(filename, 'utf8'), {
+  compilerOptions:{module:ts.ModuleKind.CommonJS, jsx:ts.JsxEmit.ReactJSX, target:ts.ScriptTarget.ES2020},
+}).outputText, filename);
+require.extensions['.css'] = () => {};
+const React = require('react');
+const {act} = React;
+const {createRoot} = require('react-dom/client');
+const PulseStrip = require('../src/components/HighlightPulseStrip.tsx').default;
+const CitationBadge = require('../src/components/CitationBadge.tsx').default;
+const {playMoment, stopPlayback} = require('../src/playback.ts');
+const {correctionText} = require('../src/corrections.ts');
+let root;
+async function mount(component, props) {
+  const container = document.createElement('div'); document.body.append(container);
+  root = createRoot(container);
+  await act(async () => root.render(React.createElement(component, props)));
+  return container;
+}
+afterEach(async () => {if (root) {await act(async () => root.unmount()); root = null;} document.body.replaceChildren();});
+
+test('every pulse is labelled and passes its exact playback anchor on click', async () => {
+  const pulses = ['decision','disagreement','commitment','number','takeaway'].map((kind,i) => ({id:`p${i}`, kind, start_s:61+i, segment_id:`sg_${i}`, probability:.95, text:`Moment ${i}`}));
+  const picked = [];
+  const container = await mount(PulseStrip, {pulses, onSelect:p=>picked.push(p)});
+  const buttons = [...container.querySelectorAll('button')];
+  assert.equal(buttons.length, 5);
+  assert.equal(container.querySelector('.pulse-label.pulse-takeaway').textContent, 'Takeaways');
+  assert.match(container.querySelector('.pulse-mark.pulse-takeaway').getAttribute('aria-label'), /^Takeaways at 1:05:/);
+  for (const button of buttons) {
+    assert.match(button.getAttribute('aria-label'), /at 1:0[1-5]/);
+    await act(async () => button.click());
+  }
+  assert.deepEqual(picked, pulses);
+});
+
+test('citation badge is advisory and vanishes when its claim revision changes', async () => {
+  const item = {revision:2, citation_check:{status:'unsupported', revision:2}};
+  const container = await mount(CitationBadge, {item});
+  assert.match(container.textContent, /Check citation/);
+  assert.match(container.querySelector('span').title, /does not certify/);
+  await act(async () => root.render(React.createElement(CitationBadge, {item:{...item, revision:3}})));
+  assert.equal(container.textContent, '');
+});
+
+test('playback refreshes live audio and only the latest metadata seek runs', async () => {
+  const audio = document.createElement('audio');
+  let loads=0, plays=0;
+  audio.load = () => {loads++;};
+  audio.play = () => {plays++; return Promise.reject(new Error('autoplay blocked'));};
+  playMoment(audio, 65, '/audio?revision=1');
+  playMoment(audio, 125, '/audio?revision=2');
+  audio.dispatchEvent(new dom.window.Event('loadedmetadata'));
+  await Promise.resolve();
+  assert.equal(loads, 2);
+  assert.equal(plays, 1);
+  assert.equal(audio.currentTime, 125);
+});
+
+test('spoken term correction is reversible and cannot be forged by an agent', () => {
+  const note = {author_type:'system', author_id:'voice_command', status:'proposed', data:{kind:'term_correction',source:'voice_command',command:'fix_transcript',selected_text:'Myra',replacement:'Maya'}};
+  assert.equal(correctionText([note])('Myra owns it.'), 'Maya owns it.');
+  assert.equal(correctionText([{...note,status:'removed'}])('Myra owns it.'), 'Myra owns it.');
+  assert.equal(correctionText([{...note,author_type:'agent'}])('Myra owns it.'), 'Myra owns it.');
+});
+
+
+test('history meaning search exposes keyword fallback and ignores stale responses', async () => {
+  const {api} = require('../src/api.ts');
+  const HistoryPane = require('../src/components/HistoryPane.tsx').default;
+  const originalMeetings = api.meetings, originalSearch = api.searchHistory;
+  let resolve, mode;
+  api.meetings = async () => [];
+  api.searchHistory = async (token, query, selectedMode) => {mode=selectedMode; return new Promise(done => {resolve=done;});};
+  try {
+    const container = await mount(HistoryPane, {token:'demo', onClose:()=>{}});
+    const field = container.querySelector('input[type="search"]');
+    const type = async value => act(async () => {
+      Object.getOwnPropertyDescriptor(dom.window.HTMLInputElement.prototype,'value').set.call(field,value);
+      field.dispatchEvent(new dom.window.Event('input',{bubbles:true}));
+    });
+    const search = [...container.querySelectorAll('button')].find(b=>b.textContent==='Search');
+    await type('shipping delay');
+    await act(async () => search.click());
+    assert.equal(mode, 'semantic');
+    assert.equal(search.disabled, true);
+    await type('different question');
+    await act(async () => resolve({results:[{title:'Old result'}],mode:'semantic',message:'Old scope'}));
+    assert.doesNotMatch(container.textContent, /Old result/);
+    await act(async () => search.click());
+    await act(async () => resolve({results:[],mode:'keyword',message:'Semantic ranking unavailable. Showing keyword results.'}));
+    assert.match(container.textContent, /Showing keyword results/);
+    assert.equal(search.disabled, false);
+  } finally {api.meetings=originalMeetings; api.searchHistory=originalSearch;}
+});
+
+
+test('closing a replay while metadata is loading cancels the pending autoplay', () => {
+  const audio = document.createElement('audio');
+  let plays = 0, pauses = 0;
+  audio.load = () => {};
+  audio.play = () => { plays++; return Promise.resolve(); };
+  audio.pause = () => { pauses++; };
+  playMoment(audio, 60, '/recording');
+  stopPlayback(audio);
+  audio.dispatchEvent(new dom.window.Event('loadedmetadata'));
+  assert.equal(plays, 0);
+  assert.equal(pauses, 1);
+});
+
+test('replay keeps one controllable audio element and supports skipping, closing, and load failures', async () => {
+  const RecordingPlayer = require('../src/components/RecordingPlayer.tsx').default;
+  const audioRef = {current: null};
+  let closed = 0, plays = 0;
+  const props = {audioRef, src: '/recording', label: 'Meeting audio', moment: null, onClose: () => { closed++; }};
+  const container = await mount(RecordingPlayer, props);
+  const audio = audioRef.current;
+  audio.load = () => {};
+  audio.pause = () => {};
+  audio.play = () => { plays++; return Promise.resolve(); };
+  Object.defineProperty(audio, 'duration', {value: 150});
+  const moment = {kind: 'number', start_s: 60.874, text: 'Budget A needs a thousand dollars.'};
+  await act(async () => root.render(React.createElement(RecordingPlayer, {...props, moment})));
+  assert.equal(container.querySelector('audio'), audio);
+  assert.equal(audio.controls, true); // The original player is reused when the floating controls close.
+  assert.equal(container.querySelectorAll('audio').length, 1);
+  assert.match(document.body.textContent, /Budget A needs a thousand dollars/);
+  assert.ok(document.querySelector('.is-floating'));
+  const back = document.querySelector('[aria-label="Skip back 10 seconds"]');
+  const forward = document.querySelector('[aria-label="Skip forward 10 seconds"]');
+  assert.equal(back.disabled, true);
+  await act(async () => audio.dispatchEvent(new dom.window.Event('loadedmetadata')));
+  audio.currentTime = 60;
+  await act(async () => forward.click());
+  assert.equal(audio.currentTime, 70);
+  await act(async () => back.click());
+  assert.equal(audio.currentTime, 60);
+  audio.currentTime = 4;
+  await act(async () => back.click());
+  assert.equal(audio.currentTime, 0);
+  audio.currentTime = 149;
+  await act(async () => forward.click());
+  assert.equal(audio.currentTime, 150);
+  await act(async () => {
+    playMoment(audio, 60, '/fresh-recording');
+    document.querySelector('[aria-label="Close replay and stop audio"]').click();
+    audio.dispatchEvent(new dom.window.Event('loadedmetadata'));
+  });
+  assert.equal(closed, 1);
+  assert.equal(plays, 0);
+  await act(async () => audio.dispatchEvent(new dom.window.Event('error')));
+  assert.match(document.body.textContent, /Recording unavailable/);
+  assert.equal(forward.disabled, true);
+  await act(async () => [...document.querySelectorAll('button')].find(b => b.textContent === 'Retry').click());
+  await act(async () => audio.dispatchEvent(new dom.window.Event('loadedmetadata')));
+  assert.equal(plays, 1);
+  playMoment(audio, 80, '/another-recording');
+  await act(async () => root.unmount()); root = null;
+  audio.dispatchEvent(new dom.window.Event('loadedmetadata'));
+  assert.equal(plays, 1);
+});
+
+test('the inline player pops out where it sits and docks back without stopping', async () => {
+  const RecordingPlayer = require('../src/components/RecordingPlayer.tsx').default;
+  const audioRef = {current: null};
+  let popped = null, closed = 0, pauses = 0;
+  const props = {audioRef, src: '/recording', label: 'Meeting audio', moment: null,
+    onClose: () => { closed++; }, onPopOut: moment => { popped = moment; }};
+  const container = await mount(RecordingPlayer, props);
+  const audio = audioRef.current;
+  audio.load = () => {};
+  audio.play = () => Promise.resolve();
+  audio.pause = () => { pauses++; };
+  Object.defineProperty(audio, 'duration', {value: 150});
+  const popOut = () => container.querySelector('.recording-popout');
+  assert.equal(popOut().disabled, true); // Nothing to pop out until the recording reports a length.
+  await act(async () => audio.dispatchEvent(new dom.window.Event('loadedmetadata')));
+  assert.equal(popOut().disabled, false);
+  audio.currentTime = 42;
+  await act(async () => popOut().click());
+  assert.equal(popped.start_s, 42); // The panel opens where the audio already is, no seek.
+  await act(async () => root.render(React.createElement(RecordingPlayer, {...props, moment: popped})));
+  assert.equal(popOut(), null); // One player at a time.
+  assert.equal(audio.hidden, true);
+  assert.match(document.querySelector('.replay-heading-copy').textContent, /Full recording/);
+  await act(async () => document.querySelector('[aria-label="Return to the small player and keep playing"]').click());
+  assert.equal(closed, 1);
+  assert.equal(pauses, 0); // Docking hands the same playback back to the inline controls.
+  await act(async () => root.render(React.createElement(RecordingPlayer, {...props, moment: null})));
+  assert.equal(audio.hidden, false);
+  assert.equal(container.querySelectorAll('audio').length, 1);
+});
+
+test('highlights without a recording explain why playback is disabled', async () => {
+  let picked = false;
+  const container = await mount(PulseStrip, {pulses: [{id:'p',kind:'number',start_s:60,text:'Budget'}],
+    playbackAvailable: false, onSelect: () => { picked = true; }});
+  assert.match(container.textContent, /No recording available/);
+  const button = container.querySelector('button');
+  assert.equal(button.getAttribute('aria-disabled'), 'true');
+  await act(async () => button.focus());
+  assert.match(document.querySelector('[role=dialog]').textContent, /Detection probabilityUnavailable/);
+  assert.match(document.querySelector('[role=dialog]').textContent, /No recording available for this moment/);
+  await act(async () => button.click());
+  assert.equal(picked, false);
+});
+
+
+test('highlight status from hello and live updates replaces the empty message without losing pulses', async () => {
+  const {initialUiState, meetingReducer} = require('../src/state.ts');
+  const pulse = {id:'p', kind:'takeaway', start_s:60, text:'Early feedback prevents rework'};
+  let ui = meetingReducer(initialUiState, {type:'server_message', msg:{
+    type:'hello', role:'host', participant_id:null, segments:[], urls:{},
+    state:{status:'active', cloud_enabled:true, live_highlights_status:'off', live_highlights:[], participants:{}, cards:{}},
+  }});
+  const props = () => ({pulses:ui.state.live_highlights, highlightStatus:ui.state.live_highlights_status,
+    meetingStatus:ui.state.status, isHost:true, onSelect:() => {}});
+  const container = await mount(PulseStrip, props());
+  assert.match(container.querySelector('[role=status]').textContent, /Live highlights are off/);
+  assert.doesNotMatch(container.textContent, /Click a moment/);
+  const update = async msg => {
+    ui = meetingReducer(ui, {type:'server_message', msg});
+    await act(async () => root.render(React.createElement(PulseStrip, props())));
+  };
+  await update({type:'status', live_highlights_status:'on'});
+  assert.match(container.textContent, /Live highlights are on.*once a minute/);
+  await update({type:'status', intelligence_online:false});
+  assert.match(container.textContent, /Live highlights are on/);
+  await update({type:'patch', results:[{seq:1, effect:{entity:'live_highlights', pulses:[pulse]}}]});
+  await update({type:'status', live_highlights_status:'off'});
+  assert.match(container.textContent, /Live highlights are off/);
+  assert.equal(container.querySelectorAll('.pulse-mark').length, 1);
+  await update({type:'status', live_highlights_status:'on'});
+  await update({type:'status', live_highlights_status:'needs_insights'});
+  assert.match(container.textContent, /Live highlights are on, but AI insights are off/);
+});
+
+for (const [props, expected] of [
+  [{highlightStatus:'off', isHost:false}, /Live highlights are off.*host can enable/],
+  [{highlightStatus:'unavailable', isHost:true}, /Live highlights are on, but unavailable.*Meeting settings/],
+  [{highlightStatus:'needs_insights', isHost:false}, /host has AI insights turned off/],
+  [{highlightStatus:'on', meetingStatus:'paused'}, /Live highlights are on.*Resume the meeting/],
+  [{}, /Live highlight status is unavailable/],
+  [{highlightStatus:'on', meetingStatus:'ended'}, /No highlights were captured for this meeting/],
+]) {
+  test('highlights explain current availability: ' + expected, async () => {
+    const container = await mount(PulseStrip, {pulses:[], meetingStatus:'active', onSelect:() => {}, ...props});
+    assert.match(container.textContent, expected);
+    assert.doesNotMatch(container.textContent, /when live highlights are enabled/);
+  });
+}
+
+test('legacy pulse previews show individual saved scores, follow keyboard focus, and dismiss with Escape', async () => {
+  const pulses = ['decision','disagreement','commitment','number','takeaway'].map((kind,i) => ({
+    id:`preview-${i}`, kind, start_s:61+i, segment_id:`source-${i}`, probability:.81 + i * .04, text:`Quoted passage ${i}`,
+  }));
+  const props = {pulses, onSelect:() => {}};
+  const container = await mount(PulseStrip, props);
+  const buttons = [...container.querySelectorAll('.pulse-mark')];
+  assert.equal(document.querySelector('[role=dialog]'), null);
+  for (const [i, button] of buttons.entries()) {
+    await act(async () => button.focus());
+    const tooltip = document.querySelector('[role=dialog]');
+    assert.equal(document.querySelectorAll('[role=dialog]').length, 1);
+    assert.equal(button.hasAttribute('title'), false);
+    assert.equal(button.getAttribute('aria-controls'), tooltip.id);
+    assert.equal(tooltip.querySelector('.pulse-preview-body').firstElementChild, tooltip.querySelector('blockquote'));
+    assert.equal(tooltip.querySelector('blockquote').textContent, pulses[i].text);
+    assert.match(tooltip.textContent, new RegExp(`1:0${i+1}`));
+    assert.match(tooltip.querySelector('.pulse-preview-score').textContent, new RegExp(`${81 + i * 4}%`));
+    assert.match(tooltip.textContent, /Additional scoring details were not saved/);
+    assert.doesNotMatch(tooltip.textContent, /Flagged|Cutoff|Category scores|Source rank/);
+    assert.match(tooltip.textContent, /Click pulse to replay/);
+  }
+  await act(async () => document.dispatchEvent(new dom.window.KeyboardEvent('keydown', {key:'Escape',bubbles:true})));
+  assert.equal(document.querySelector('[role=dialog]'), null);
+  assert.equal(buttons[4].hasAttribute('aria-controls'), false);
+  assert.equal(document.activeElement, buttons[4]);
+  await act(async () => buttons[0].focus());
+  await act(async () => root.render(React.createElement(PulseStrip, {...props, pulses:[]})));
+  assert.equal(document.querySelector('[role=dialog]'), null);
+});
+
+test('hover preview can be read under the pointer and dismisses on leaving or meeting scroll', async () => {
+  const pulse = {id:'hover',kind:'number',start_s:53,text:'We need a thousand dollars.'};
+  let picked = null;
+  const container = await mount(PulseStrip, {pulses:[pulse], onSelect:p => {picked=p;}});
+  const button = container.querySelector('.pulse-mark');
+  const pointer = (target, type, relatedTarget=null) => target.dispatchEvent(new dom.window.MouseEvent(type, {bubbles:true, relatedTarget}));
+  const settle = () => new Promise(resolve => setTimeout(resolve, 200));
+  await act(async () => pointer(button, 'pointerover'));
+  let tooltip = document.querySelector('[role=dialog]');
+  assert.ok(tooltip);
+  await act(async () => {
+    pointer(button, 'pointerout', tooltip);
+    pointer(tooltip, 'pointerover', button);
+    await settle();
+  });
+  assert.equal(document.querySelector('[role=dialog]'), tooltip);
+  await act(async () => tooltip.querySelector('.pulse-preview-body').dispatchEvent(new dom.window.Event('scroll')));
+  assert.equal(document.querySelector('[role=dialog]'), tooltip);
+  await act(async () => {pointer(tooltip, 'pointerout', document.body); await settle();});
+  assert.equal(document.querySelector('[role=dialog]'), null);
+  await act(async () => pointer(button, 'pointerover'));
+  await act(async () => container.dispatchEvent(new dom.window.Event('scroll')));
+  assert.equal(document.querySelector('[role=dialog]'), null);
+  await act(async () => pointer(button, 'pointerover'));
+  await act(async () => button.click());
+  assert.equal(document.querySelector('[role=dialog]'), null);
+  assert.equal(picked, pulse);
+});
+
+test('pulse evidence shows detection probability without source selection', async () => {
+  const pulse = {id:'scored',kind:'takeaway',start_s:63,segment_id:'budget',probability:.81,text:'Budget is a thousand dollars.',
+    assessment:{threshold:.8,window_start_s:60,window_end_s:120,
+      scores:{takeaway:.81,decision:.95,commitment:.81,disagreement:0},
+      source_probability:.65,source_confidence:.4,source_rank:1,source_option_count:3}};
+  const props = {pulses:[pulse], onSelect:() => {}};
+  const container = await mount(PulseStrip, props);
+  await act(async () => container.querySelector('button').focus());
+  const tooltip = document.querySelector('[role=dialog]');
+  assert.match(tooltip.querySelector('.pulse-preview-score').textContent, /Detection probability81%Cutoff 80%\+1 pt above/);
+  assert.doesNotMatch(tooltip.textContent, /Source selection|Selected passage|Source rank|Selection confidence|Category scores|This pulse|Independent probabilities/);
+  assert.equal(tooltip.querySelector('details'), null);
+  const updated = {...pulse,probability:.9,assessment:{...pulse.assessment,threshold:.9,scores:{number:.9},source_confidence:0}};
+  await act(async () => root.render(React.createElement(PulseStrip, {...props,pulses:[updated]})));
+  assert.match(tooltip.querySelector('.pulse-preview-score').textContent, /90%Cutoff 90%At cutoff/);
+});
+
+test('unavailable pulse scores never become zero or fabricated rankings', async () => {
+  const pulse = {id:'missing',kind:'number',start_s:1,text:'A saved passage',probability:null};
+  const container = await mount(PulseStrip, {pulses:[pulse],onSelect:() => {}});
+  await act(async () => container.querySelector('button').focus());
+  const tooltip = document.querySelector('[role=dialog]');
+  assert.match(tooltip.textContent, /Detection probabilityUnavailable/);
+  assert.doesNotMatch(tooltip.textContent, /0%|NaN|Cutoff|Source rank/);
+});
+
+
+test('pulse preview keyboard access reaches Close without showing source options', async () => {
+  const pulse = {id:'options', kind:'number', start_s:63, segment_id:'budget', probability:.94, text:'Budget excerpt',
+    assessment:{threshold:.8, window_start_s:60, window_end_s:120, scores:{number:.94},
+      source_probability:.4998, source_rank:1, source_option_count:4, source_confidence:.2,
+      source_options:[
+        {segment_id:'tiny', probability:.0004, start_s:65, text:'A very unlikely passage'},
+        {segment_id:null, probability:0},
+        {segment_id:'other', probability:.4998, start_s:80, text:'Another amount'},
+        {segment_id:'budget', probability:.4998, start_s:63, text:'The full budget passage saved during evaluation.'},
+      ]}};
+  const picked = [];
+  const container = await mount(PulseStrip, {pulses:[pulse], onSelect:p => picked.push(p)});
+  const mark = container.querySelector('.pulse-mark');
+  await act(async () => mark.focus());
+  const preview = document.querySelector('[role=dialog]');
+  assert.equal(preview.querySelector('details'), null);
+  assert.doesNotMatch(preview.textContent, /Source selection|View all|No matching passage|Other source options/);
+  assert.equal(mark.getAttribute('aria-haspopup'), 'dialog');
+  await act(async () => mark.dispatchEvent(new dom.window.KeyboardEvent('keydown', {key:'Tab', bubbles:true, cancelable:true})));
+  assert.equal(document.activeElement, preview.querySelector('.pulse-preview-close'));
+  await act(async () => {
+    preview.dispatchEvent(new dom.window.MouseEvent('pointerout', {bubbles:true,relatedTarget:document.body}));
+    await new Promise(resolve => setTimeout(resolve, 200));
+  });
+  assert.equal(document.querySelector('[role=dialog]'), preview, 'keyboard focus keeps the preview open');
+  await act(async () => document.dispatchEvent(new dom.window.KeyboardEvent('keydown', {key:'Escape',bubbles:true})));
+  assert.equal(document.querySelector('[role=dialog]'), null);
+  assert.equal(document.activeElement, mark);
+  await act(async () => mark.click());
+  assert.deepEqual(picked, [pulse], 'original pulse playback is unchanged');
+});
+
+test('saved source fields stay off the preview when a recording is unavailable', async () => {
+  const pulse = {id:'partial', kind:'number', start_s:10, segment_id:'budget', probability:.9, text:'Budget',
+    assessment:{source_probability:.9, source_option_count:3, source_rank:1,
+      source_options:[{segment_id:'budget', start_s:10, text:'Budget', probability:.9}]}};
+  const container = await mount(PulseStrip, {pulses:[pulse], playbackAvailable:false, onSelect:() => assert.fail('playback')});
+  await act(async () => container.querySelector('.pulse-mark').click());
+  const preview = document.querySelector('[role=dialog]');
+  assert.equal(preview.querySelector('details'), null);
+  assert.doesNotMatch(preview.textContent, /Source selection|Other source options|Source rank/);
+  assert.match(preview.textContent, /No recording available for this moment/);
+});
+
+test('topic history becomes chapters offset from the meeting start', () => {
+  const {topicChapters} = require('../src/chapters.ts');
+  const start = '2026-09-22T16:00:00Z';
+  const at = s => new Date(Date.parse(start) + s * 1000).toISOString();
+  const rev = (s, text) => ({text, ts:at(s), evidence:[], actor_type:'agent'});
+  const history = [
+    rev(40, 'Goals & constraints'),
+    rev(250, 'Pump condition'),
+    rev(262, 'Pump condition findings'),
+    rev(600, 'pump condition findings'),
+    rev(1050, 'Budget & phasing'),
+  ];
+  assert.deepEqual(topicChapters(history, start, 1900), [
+    {label:'Goals & constraints', start_s:0, end_s:250},
+    {label:'Pump condition findings', start_s:250, end_s:1050},
+    {label:'Budget & phasing', start_s:1050, end_s:1900},
+  ]);
+  assert.deepEqual(topicChapters(history, start).at(-1), {label:'Budget & phasing', start_s:1050});
+  assert.deepEqual(topicChapters(history, null), []);
+  assert.deepEqual(topicChapters(history, 'not a date'), []);
+  assert.equal(topicChapters(history, start, 900).length, 2, 'chapters after the ruler end are dropped');
+});
+
+test('the moment ruler draws chapter bands, a now edge, activity and a counted legend', async () => {
+  const pulses = [
+    {id:'a', kind:'decision', start_s:1780, segment_id:'s2', probability:.9, text:'Phase 1 is Pump 2.'},
+    {id:'b', kind:'number', start_s:1745, segment_id:'s1', probability:.9, text:'Four-twelve.'},
+    {id:'c', kind:'decision', start_s:1782, segment_id:'s2', probability:.9, text:'Confirmed.'},
+  ];
+  const participants = [
+    {id:'me', display_name:'You', kind:'me', created_at:'1'},
+    {id:'p', display_name:'Priya Nair', kind:'others_cluster', created_at:'2'},
+  ];
+  const segments = [
+    {id:'s1', start_s:1745, end_s:1760, text:'If we split it…', speaker_participant_id:'p'},
+    {id:'s2', start_s:1780, end_s:1800, text:'Okay — so Phase 1…', speaker_participant_id:'me'},
+  ];
+  const chapters = [
+    {label:'Goals & constraints', start_s:0, end_s:250},
+    {label:'Budget & phasing', start_s:1050},
+  ];
+  const container = await mount(PulseStrip, {pulses, segments, participants, chapters, durationS:1908, nowEdge:true,
+    meetingStatus:'active', highlightStatus:'on', onSelect:() => {}});
+  const bands = [...container.querySelectorAll('.mr-band')];
+  assert.deepEqual(bands.map(b => b.querySelector('.mr-band-label').textContent), ['Goals & constraints', 'Budget & phasing']);
+  assert.ok(bands[1].classList.contains('current'));
+  assert.equal(bands[1].querySelector('.mr-band-time').textContent, '17:30–now');
+  assert.ok(container.querySelector('.mr-now'));
+  assert.match(container.querySelector('.mr-scale').textContent, /now 31:48/);
+  assert.equal(container.querySelectorAll('.mr-activity > span').length, 32);
+  assert.equal(container.querySelectorAll('button').length, 3, 'only markers are buttons');
+  const legend = [...container.querySelectorAll('.mr-legend-item')].map(item => item.textContent);
+  assert.deepEqual(legend, ['Decision2', 'Number1']);
+  assert.equal(container.querySelector('.pulse-label.pulse-number').textContent, 'Number');
+  const rows = [...container.querySelectorAll('.pulse-mark')].map(b => b.style.bottom);
+  assert.equal(new Set(rows).size > 1, true, 'colliding markers stack instead of overlapping');
+  await act(async () => container.querySelector('.pulse-mark.pulse-decision').focus());
+  const preview = document.querySelector('[role=dialog]');
+  assert.match(preview.textContent, /You · Budget & phasing/);
+  assert.ok(preview.querySelector('.mr-pop-play'));
+});
+
+test('play from here in the preview plays the pulse', async () => {
+  const pulse = {id:'p', kind:'commitment', start_s:90, segment_id:'x', probability:.9, text:'Luis pulls the logs.'};
+  const picked = [];
+  const container = await mount(PulseStrip, {pulses:[pulse], onSelect:p => picked.push(p)});
+  await act(async () => container.querySelector('.pulse-mark').focus());
+  await act(async () => document.querySelector('.mr-pop-play').click());
+  assert.deepEqual(picked, [pulse]);
+  assert.equal(document.querySelector('[role=dialog]'), null);
+});

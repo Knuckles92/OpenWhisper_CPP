@@ -1,0 +1,942 @@
+{
+ "area": "a21-actions-automation-ui",
+ "package": "M10 sweep (auditor AU7)",
+ "features": {
+  "A21-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/actions_page.cpp",
+    "src/ui_automation/actions_page.h"
+   ],
+   "tests": [
+    "tests/ui_automation/test_automation_feature.cpp",
+    "tests/ui_automation/test_actions_golden.cpp",
+    "tests/ui_automation/test_actions_page.cpp",
+    "tests/ui_automation/test_actions_screenshots.cpp"
+   ],
+   "note": "Title and subtitle are pinned by 'the automation feature registers the Actions page with its rail, search and controls'; the rail value (None yet / Agent hotkey set / N action(s), joined with ' · ') by the settings_actions.rail_value golden and test_rail_value_names_the_agent_hotkey_and_counts_the_rest; lazy build by test_the_page_builds_only_when_shown. The layout order with its 10 and 12 px gaps was read in ActionsPage's constructor against settings_actions.build; only the settings_actions_page reference tree holds it, and the reference test does not run to completion here (Linux font metrics)."
+  },
+  "A21-02": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/actions_page.cpp",
+    "src/ui_automation/action_gallery.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_automation_feature.cpp",
+    "tests/ui_automation/test_actions_page.cpp"
+   ],
+   "note": "Five search fields with their targets and labels, and the gallery left out of search, are pinned by the feature registration test, test_search_finds_the_actions_page_but_not_its_gallery and test_search_leaves_out_tiles_in_a_part_marked_as_choices."
+  },
+  "A21-03": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/action_agent_card.cpp",
+    "src/ui_automation/action_agent_card.h"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_audit.cpp",
+    "tests/ui_automation/test_actions_page.cpp"
+   ],
+   "note": "Scanning, none found, Look again and the Set it up gating were tested (test_agent_card_looks_for_agents_then_says_none_were_found); the invite sentence, the LOOKING/NONE_FOUND wording, Set it up's accessible name and Look again's tooltip were not. Added 'a21 audit: the agent hotkey card invites with OpenWhisper's words'."
+  },
+  "A21-04": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/action_agent_card.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_audit.cpp",
+    "tests/ui_automation/test_actions_page.cpp"
+   ],
+   "note": "Id, kind, params and spoken name were tested (test_the_agent_card_sets_up_the_agent_action); the retry without a spoken name already in use, the description 'Coding tasks for <Agent>', surface auto and 'Now press the shortcut you'd like to use.' were not. Added 'a21 audit: setting up the agent hotkey retries without a spoken name in use'."
+  },
+  "A21-05": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/action_agent_card.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_audit.cpp",
+    "tests/ui_automation/test_actions_page.cpp"
+   ],
+   "note": "Choices saving at once and the checked property were tested (test_agent_card_choices_save_as_they_change); the switch's accessible name 'Agent hotkey on' and the description summary + '.' are now pinned by the a21 audit card tests."
+  },
+  "A21-06": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/action_agent_card.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_actions_page.cpp"
+   ],
+   "note": "Spoken names and description follow the agent only while they equal the old agent's defaults: test_agent_card_choices_save_as_they_change (Codex) and the follow tests."
+  },
+  "A21-07": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/action_agent_card.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_audit.cpp",
+    "tests/ui_automation/test_actions_page.cpp"
+   ],
+   "note": "Capture saving, a refused save restoring, and capture pausing the app's hotkeys were tested (test_capturing_a_shortcut_pauses_the_app_hotkeys, test_a_taken_shortcut_is_refused_with_its_owner); the two messages ('Press <shortcut>, say what you need, and press it again.' and 'Shortcut removed. Route by voice and the API can still use it.') are now pinned by 'a21 audit: the agent hotkey's shortcut messages'. load() skipping during capture was read in AgentHotkeyCard::load."
+  },
+  "A21-08": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/action_agent_card.cpp",
+    "src/ui_automation/action_relay.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_audit.cpp",
+    "tests/ui_automation/test_action_relay.cpp",
+    "tests/ui_automation/test_actions_page.cpp"
+   ],
+   "note": "The quick-answer outcome was tested (test_the_agent_card_shows_a_quick_answer) and relay tokens drop late answers (test_action_relay.cpp); the sample sentence 'Say hello in one short sentence.', its tooltip and the error tone are now pinned by 'a21 audit: the agent hotkey's Try it sends the sample sentence'."
+  },
+  "A21-09": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/action_agent_card.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_audit.cpp",
+    "tests/ui_automation/test_actions_page.cpp"
+   ],
+   "note": "Removal closing the editor was tested; the confirmation's title and text, Cancel keeping the hotkey, and the removed agent staying picked are now pinned by 'a21 audit: removing the agent hotkey asks first'."
+  },
+  "A21-10": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/action_agent_card.cpp",
+    "src/ui_automation/action_relay.cpp",
+    "src/ui_automation/action_fields.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_actions_page.cpp",
+    "tests/ui_automation/test_agent_fields.cpp",
+    "tests/ui_automation/test_action_relay.cpp"
+   ],
+   "note": "ensureScanned once, Look again with refresh, the empty-before-scan rule and the 380 ms arrival (kArrivalMs) are pinned by test_agent_card_looks_for_agents_then_says_none_were_found, 'a found agent's mark warms up over the arrival' and the relay scan tests."
+  },
+  "A21-11": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/action_fields.cpp",
+    "src/ui_automation/action_fields.h"
+   ],
+   "tests": [
+    "tests/ui_automation/test_agent_fields.cpp",
+    "tests/ui_automation/test_actions_page.cpp"
+   ],
+   "note": "Chooser states, stacking, mode hints, session/answer boxes, the new-folder row (folder name from identity().product, by the identity rule), the Codex sentence, the answer combo without Nowhere and the app-awareness note are pinned in test_agent_fields.cpp and the agent-card tests."
+  },
+  "A21-12": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/action_fields.cpp",
+    "src/automation/action_copy.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_agent_fields.cpp",
+    "tests/ui_automation/test_actions_page.cpp"
+   ],
+   "note": "'OpenCode has no app: App switches to Auto and is disabled' pins the tooltip, the hint and the silent switch to Auto; test_opencode_sessions_open_in_a_terminal pins the saved surface."
+  },
+  "A21-13": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/action_fields.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_agent_fields.cpp"
+   ],
+   "note": "'a missing saved agent is named under the chooser' and 'a missing chosen agent stays checked and disabled' pin both sentences and the disabled-but-checked button."
+  },
+  "A21-14": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/action_panel.cpp",
+    "src/ui_automation/action_list.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_audit.cpp",
+    "tests/ui_automation/test_action_list.cpp",
+    "tests/ui_automation/test_actions_page.cpp"
+   ],
+   "note": "Empty state and the agent action's exclusion were tested (test_an_empty_page_invites_the_first_action, 'an empty action list invites the first action'); the 50-action limit (the agent hotkey counts, as in Python's len(load_actions)) with its tooltip is now pinned by 'a21 audit: Add action stops at 50 actions'."
+  },
+  "A21-15": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/action_list.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_action_list.cpp",
+    "tests/ui_automation/test_actions_screenshots.cpp"
+   ],
+   "note": "Card text, chips, switch/Edit/Delete names, the off property, two columns from 640 x font scale, shared row heights, reading-order tab and keeping the cards are each a test case in test_action_list.cpp."
+  },
+  "A21-16": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/action_copy.cpp",
+    "src/automation/action_copy.h"
+   ],
+   "tests": [
+    "tests/automation/test_action_copy.cpp",
+    "tests/golden/ui_qt.widgets.action_copy.json"
+   ],
+   "note": "summary, link_destination, try_outcome and shortened replay OpenWhisper's recorded values (ui_qt.widgets.action_copy golden)."
+  },
+  "A21-17": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/action_gallery.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_action_gallery.cpp"
+   ],
+   "note": "Every preset but agent plus 'Your own link' after the last link preset, the ChatGPT web caveat, click/Return/Enter/Space and two columns from 600 x scale are the four gallery test cases."
+  },
+  "A21-18": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/action_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_actions_golden.cpp",
+    "tests/ui_automation/test_actions_page.cpp"
+   ],
+   "note": "unique_name golden (casefolded, ' 2', ' 3'), test_adding_the_same_preset_twice_gets_a_new_name, test_a_preset_leaves_what_its_for_to_you and test_an_editor_opens_with_its_name_field_in_view."
+  },
+  "A21-19": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/action_editor.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_audit.cpp",
+    "tests/ui_automation/test_actions_page.cpp",
+    "tests/ui_automation/test_shaping_field.cpp"
+   ],
+   "note": "Sections, shaping and Try it were tested through the page tests; the name, spoken-name and purpose placeholders and limits (80, 300), the sample words, 'New action' and 'Save action' are now pinned by 'a21 audit: the action editor's fields carry OpenWhisper's words and limits'."
+  },
+  "A21-20": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/action_editor.cpp",
+    "src/automation/action_model.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_actions_page.cpp",
+    "tests/automation/test_models.cpp",
+    "tests/ui_automation/test_a21_audit.cpp"
+   ],
+   "note": "The preview line (the error text in warning tone for javascript:, 'Add {text} where your words should go.') is pinned by test_reasons_an_action_cant_be_saved_show_in_the_editor; refused schemes by the expand_link cases in tests/automation/test_models.cpp; the 2000 limit and placeholder by the a21 audit editor test. The 'Opens <link>' line with percent-encoded sample words was read in ActionEditor::updatePreview."
+  },
+  "A21-21": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/action_editor.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_audit.cpp",
+    "tests/ui_automation/test_actions_page.cpp"
+   ],
+   "note": "The unencrypted warning was tested (test_a_plain_http_address_off_this_network_is_flagged); the placeholder (product lower-cased by the identity rule), the secret buttons' accessible names, the hint and its Standard Webhooks tooltip are now pinned by the a21 audit editor test. The 240 px two-column rule was read in the constructor (Columns(..., 240))."
+  },
+  "A21-22": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/action_editor.cpp",
+    "src/ui_automation/action_relay.cpp",
+    "src/ui_automation/action_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_actions_page.cpp",
+    "tests/ui_automation/test_action_relay.cpp"
+   ],
+   "note": "Copy, the New confirmation, the worker thread, dropping the secret of an unsaved draft, the error sentence and forgetting a deleted webhook's secret are pinned by test_a_webhook_secret_is_copied_and_dropped_with_an_unsaved_draft, test_a_new_secret_replaces_the_old_one_after_asking, test_a_secret_the_store_cant_give_is_explained, test_replacing_a_new_webhook_drops_the_secret_it_made and test_deleting_asks_first_and_forgets_a_webhooks_secret."
+  },
+  "A21-23": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/action_editor.cpp",
+    "src/ui_automation/action_fields.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_audit.cpp",
+    "tests/ui_automation/test_actions_page.cpp",
+    "tests/ui_automation/test_action_fields.cpp"
+   ],
+   "note": "Full path, arguments one per line and the time limit read as Python reads it were tested; the arguments box (68 px, Tab changes focus, placeholder, name) and the spin box (1-300, ' s', 160 wide, 36 high, name) are now pinned by the a21 audit editor test."
+  },
+  "A21-24": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/action_editor.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_audit.cpp"
+   ],
+   "note": "No test read the kind notes; 'a21 audit: channel, clipboard and scripts actions say what happens' pins the three notes (product from identity()) and the Set up the channel link showing only for the channel."
+  },
+  "A21-25": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/action_fields.cpp",
+    "src/automation/action_model.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_shaping_field.cpp",
+    "tests/ui_automation/test_actions_page.cpp"
+   ],
+   "note": "The bar, disabled segments with their tooltips, the combo, the 'no longer exists' entry and the hints are the five cases of test_shaping_field.cpp; the save refusal by test_shaping_offers_profiles_and_transforms and the action_model validation tests."
+  },
+  "A21-26": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/action_fields.cpp",
+    "src/ui_automation/action_editor.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_action_fields.cpp",
+    "tests/ui_automation/test_actions_page.cpp"
+   ],
+   "note": "'a shortcut field clears and restores what it showed', test_a_taken_shortcut_is_refused_with_its_owner (the owner sentence) and test_capturing_a_shortcut_pauses_the_app_hotkeys; tooltip, placeholder and the 380 x scale width were read in ShortcutField."
+  },
+  "A21-27": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/actions_page.cpp",
+    "src/ui_automation/action_editor.cpp",
+    "src/automation/action_copy.cpp",
+    "src/ui_automation/automation_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_audit.cpp",
+    "tests/ui_automation/test_actions_page.cpp"
+   ],
+   "note": "Validation, Trying…, try_outcome, the no-app sentence, cancel on close and the 6 line / 500 char cut were tested; the 'Untitled action' probe without hotkey or spoken names and 'Couldn't try it: <exc>' are now pinned by 'a21 audit: Try it sends a nameless probe and reports a runtime failure'. In the app the tester is automation_feature.cpp's ManualActionTester, which runs the action on its own ActionRuntime (Python's runtime.test routes no answer either) after the owner's added 'Confirm action' prompt for every kind but clipboard."
+  },
+  "A21-28": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/action_editor.cpp",
+    "src/ui_automation/action_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_actions_page.cpp",
+    "tests/ui_automation/test_actions_golden.cpp"
+   ],
+   "note": "onto_saved golden, test_saving_an_edit_keeps_what_changed_since_it_was_opened, test_an_edit_of_an_action_removed_elsewhere_isnt_saved_back (the 'no longer exists' sentence), test_reasons_an_action_cant_be_saved_show_in_the_editor and the saved notice in test_adding_from_a_preset_saves_it_and_tells_the_app. The 'Couldn't save the action:' branch for a failed write was read, not tested."
+  },
+  "A21-29": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/action_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_actions_golden.cpp"
+   ],
+   "note": "The action_panel.saved_note golden. Its case #4 fails on this Linux tree only because hotkeys::platform_vocabulary() is pynput here ('Num *' for 'kp *'); on Windows it reads '*' as recorded."
+  },
+  "A21-30": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/action_panel.cpp",
+    "src/ui_automation/action_editor.cpp",
+    "src/ui_automation/actions_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_actions_page.cpp"
+   ],
+   "note": "test_more_options_asks_before_leaving_an_unsaved_edit (Unsaved action / Save your changes to <name>?), test_an_edited_draft_is_saved_on_leaving_and_an_untouched_one_is_not and test_an_invalid_draft_asks_before_it_is_discarded."
+  },
+  "A21-31": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/action_panel.cpp",
+    "src/ui_automation/action_editor.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_actions_page.cpp"
+   ],
+   "note": "test_the_agent_editor_follows_the_card_while_it_has_no_edits, test_the_agent_editor_keeps_its_edits_when_the_card_changes and test_removing_the_agent_hotkey_closes_its_editor_for_good ('<name> was removed.')."
+  },
+  "A21-32": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/action_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_audit.cpp",
+    "tests/ui_automation/test_actions_page.cpp"
+   ],
+   "note": "The switch saving and the Deleted notice were tested (test_the_enabled_switch_saves_at_once, test_deleting_asks_first_and_forgets_a_webhooks_secret); the question's title and text are now pinned by 'a21 audit: deleting an action asks with its name'."
+  },
+  "A21-33": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/action_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_actions_page.cpp"
+   ],
+   "note": "test_an_editor_opens_with_its_name_field_in_view; the 24 px margin and top alignment for tall targets were read in ActionsPanel::scrollTo."
+  },
+  "A21-34": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/actions_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_actions_page.cpp",
+    "tests/ui_automation/test_automation_feature.cpp"
+   ],
+   "note": "test_routing_switches_save_and_gate_each_other (persist, gate, snap back); tile texts come from search_fields(), pinned by the registration test; icons read in the constructor."
+  },
+  "A21-35": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/actions_page.cpp",
+    "src/ui_automation/action_fields.cpp",
+    "src/automation/routing.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_actions_page.cpp",
+    "tests/ui_automation/test_action_fields.cpp",
+    "tests/golden/services.actions.routing.json"
+   ],
+   "note": "Tones, messages and the Fast judgments link only for that fix: test_routing_status_shows_routings_own_words_and_links_to_its_fix, test_the_fast_judgments_link_shows_only_when_they_are_the_fix, test_route_by_voice_off_has_no_link, 'a status line shows a state, a sentence and its link', and the routing golden. The judge is ported (M5 change 6), so nothing here is undecided."
+  },
+  "A21-36": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/action_fields.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_action_fields.cpp",
+    "tests/ui_automation/test_actions_page.cpp"
+   ],
+   "note": "'the route shortcut saves through the standard hotkey path' and test_the_route_shortcut_saves_through_the_standard_hotkey_path."
+  },
+  "A21-37": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/actions_page.cpp",
+    "src/ui_automation/actions_page.h"
+   ],
+   "tests": [
+    "tests/ui_automation/test_actions_page.cpp"
+   ],
+   "note": "test_the_privacy_line_says_what_each_way_of_routing_sends and test_route_by_voice_has_no_caption_repeating_its_tile."
+  },
+  "A21-38": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/actions_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_actions_page.cpp",
+    "tests/ui_automation/test_automation_feature.cpp"
+   ],
+   "note": "test_route_by_voice_status_is_read_again_when_the_page_returns, the follow tests, test_capturing_a_shortcut_pauses_the_app_hotkeys and 'AutomationFeature connects every signal'."
+  },
+  "A21-39": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/hooks_page.cpp",
+    "src/ui_automation/hooks_page.h"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_hooks_audit.cpp",
+    "tests/ui_automation/test_hooks_page.cpp",
+    "tests/ui_automation/test_hooks_format.cpp",
+    "tests/ui_automation/test_hooks_screenshots.cpp"
+   ],
+   "note": "Lazy build, a tile per search field, the count pill (hidden when empty, 'N / MAX'), notify kinds and the rail value golden were tested; the title, subtitle and the three tiles' titles were pinned only by the reference tree. Added 'a21 audit: the Hooks page says what it is for'. Icons (webhook-blue, terminal-green, filter-purple) and the unindented body were read in HooksPage's constructor. In the running app the Hooks page's engines are the private-bus WebhookEngine and ProgramEngine automation_feature.cpp provides for Send test and Run test; saved hooks do not receive app events (difference a19-hooks-not-started)."
+  },
+  "A21-40": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/hooks_panel.cpp",
+    "src/ui_automation/hooks_format.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_hooks_page.cpp",
+    "tests/ui_automation/test_hooks_format.cpp"
+   ],
+   "note": "Status dots, Off · prefix, narrow rows ('a narrow column puts the row's buttons under its text'), netloc host keeping its port ('hooks_format: the host of an address keeps its port...'), events_summary, delivery_result and run_result goldens, test_the_row_switch_saves_and_the_editor_keeps_it. In the running app the Hooks page's engines are the private-bus WebhookEngine and ProgramEngine automation_feature.cpp provides for Send test and Run test; saved hooks do not receive app events (difference a19-hooks-not-started)."
+  },
+  "A21-41": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/hooks_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_hooks_audit.cpp",
+    "tests/ui_automation/test_hooks_page.cpp"
+   ],
+   "note": "Limits were tested (test_duplicate_names_and_the_limit_are_refused, tooltip 'up to 20'); the empty-state titles and hints and the Add buttons' text and accessible names are now pinned by 'a21 audit: each hook list invites its first item and names its editor'."
+  },
+  "A21-42": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/hooks_editors.cpp",
+    "src/ui_automation/hooks_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_hooks_audit.cpp",
+    "tests/ui_automation/test_hooks_page.cpp"
+   ],
+   "note": "Editor placement, Saved. and its clearing, error persistence, the row switch deciding enabled and one editor serving all items were tested (test_saved_goes_away_once_the_fields_change_again, test_an_error_stays_until_the_next_save, the late-result tests); name placeholders, the 80 limit, Cancel's tooltip and 'Save <noun>' are now pinned by the a21 hooks audit test."
+  },
+  "A21-43": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/hooks_editors.cpp",
+    "src/ui_automation/hooks_panel.cpp",
+    "src/ui_automation/hooks_format.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_hooks_audit.cpp",
+    "tests/ui_automation/test_hooks_page.cpp",
+    "tests/ui_automation/test_hooks_format.cpp"
+   ],
+   "note": "Events default, secret copy/rotate through the engine, Send test saving first, results and recent rows were tested; the placeholder (product lower-cased, identity rule), the 2000 limit, the unencrypted note's words, the secret buttons' labels and tooltip and the rotate confirmation's words are now pinned by 'a21 audit: the webhook editor's words, questions and tooltips'. In the running app the Hooks page's engines are the private-bus WebhookEngine and ProgramEngine automation_feature.cpp provides for Send test and Run test; saved hooks do not receive app events (difference a19-hooks-not-started)."
+  },
+  "A21-44": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/hooks_editors.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_hooks_audit.cpp",
+    "tests/ui_automation/test_hooks_page.cpp"
+   ],
+   "note": "Picker, arguments, time limit and Run test were tested (test_add_with_the_file_picker_arguments_and_time_limit, test_run_test_and_recent_runs); the editable program line, its placeholder, Choose…'s name, the arguments box and the 1-300 s spin are now pinned by 'a21 audit: the program editor's words'. In the running app the Hooks page's engines are the private-bus WebhookEngine and ProgramEngine automation_feature.cpp provides for Send test and Run test; saved hooks do not receive app events (difference a19-hooks-not-started)."
+  },
+  "A21-45": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/hooks_editors.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_hooks_audit.cpp",
+    "tests/ui_automation/test_hooks_page.cpp"
+   ],
+   "note": "Kind fields saved only for their kind and time limit validation were tested; the kind and stage bars' words, the 100-5000 ms step-100 spin with its 1500 default and both reply hints (product from identity()) are now pinned by 'a21 audit: the filter editor's words and time limit'. In the running app no filter runs on dictation (difference a19-hooks-not-started)."
+  },
+  "A21-46": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/hooks_panel.cpp",
+    "src/ui_automation/hooks_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_hooks_audit.cpp",
+    "tests/ui_automation/test_hooks_page.cpp"
+   ],
+   "note": "The countdown and rebuild rules are pinned by test_leased_filters_show_read_only_with_their_expiry and the Open API & MCP link by test_open_api_link_goes_to_api_and_mcp; the note's words are now pinned by 'a21 audit: the filter leases note points at API & MCP'. In the running app no FilterLeases is provided (the live API that grants leases is not mounted, difference a19-live-api-not-served), so the page always shows the note, which is what the empty-lease test asserts."
+  },
+  "A21-47": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/hooks_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_hooks_page.cpp"
+   ],
+   "note": "'the visible section polls the engines every second and stops when hidden' (LIVE_INTERVAL_MS 1000). In the running app the Hooks page's engines are the private-bus WebhookEngine and ProgramEngine automation_feature.cpp provides for Send test and Run test; saved hooks do not receive app events (difference a19-hooks-not-started)."
+  },
+  "A21-48": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/hooks_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_hooks_audit.cpp",
+    "tests/ui_automation/test_hooks_page.cpp"
+   ],
+   "note": "Delete persisting and forgetting the secret on a worker were tested (test_add_edit_and_delete_persist_and_forget_the_secret, test_delete_can_be_called_off); the question's title and the webhook text are now pinned by the a21 webhook audit test. The program and filter texts and the 'Deleted, but its signing secret couldn't be removed:' message were read in ProgramSection/FilterSection::deleteQuestion and WebhookSection::afterDelete."
+  },
+  "A21-49": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/hooks_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_hooks_page.cpp"
+   ],
+   "note": "test_tab_runs_through_rows_and_the_editor_in_screen_order, test_a_hook_added_later_takes_its_place and test_closing_the_editor_leaves_the_rows_in_order."
+  },
+  "A21-67": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/hooks_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_hooks_audit.cpp",
+    "tests/ui_automation/test_hooks_page.cpp"
+   ],
+   "note": "The three search descriptions had no test; now pinned by 'a21 audit: the Hooks page says what it is for'. CONTROL_ATTRS by test_a_section_attribute_builds_the_page."
+  },
+  "A21-72": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/hooks_panel.cpp",
+    "src/ui_automation/hooks_editors.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_hooks_audit.cpp",
+    "tests/ui_automation/test_hooks_page.cpp"
+   ],
+   "note": "Validation asking on leave and the Unsaved titles were tested; the 'Save your changes to this webhook?' text and the test/rotate tooltips are now pinned by the a21 webhook audit test. The chip fallbacks 'No secret yet.' and 'Couldn't make a new secret.' and the save/delete error prefixes were read in hooks_editors.cpp and hooks_panel.cpp."
+  },
+  "A21-73": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/hooks_editors.cpp",
+    "src/ui_automation/hooks_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_hooks_audit.cpp",
+    "tests/ui_automation/test_hooks_page.cpp"
+   ],
+   "note": "The picker call was tested (test_add_with_the_file_picker_arguments_and_time_limit); the program placeholder, 'Choose a program', the arguments placeholder and accessible name, 'Delete this <noun>' and the filter's labels are now pinned by the a21 hooks audit tests."
+  },
+  "A21-50": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/mcp_page.cpp",
+    "src/ui_automation/session_mcp.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_mcp_audit.cpp",
+    "tests/ui_automation/test_mcp_page.cpp",
+    "tests/ui_automation/test_mcp_extras.cpp"
+   ],
+   "note": "Status words, the escaped detail, Retry, the state property, saving and the failure notice are pinned by test_enable_status_setup_copy_and_stop, test_status_bar_state_drives_styling_and_escapes_messages, 'Retry shows only for an error while the switch is saved on' and 'starting passes the port and Tailscale access the page shows'; the switch's name and tooltip are now pinned by the a21 MCP audit test. Over the running app's local MCP session (session_mcp.cpp, session_only() true) the switch shows whether this session runs and is not saved, starting asks for confirmation, and the Tailscale parts are hidden (differences a20-listener and a20-listener-interface), pinned by 'a21 audit: over a local session the page hides Tailscale and the live cards'."
+  },
+  "A21-51": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/mcp_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_mcp_audit.cpp",
+    "tests/ui_automation/test_mcp_page.cpp"
+   ],
+   "note": "Copy at click time, the masked preview and copy needing a running server were tested (test_tailscale_setup_uses_host_url_and_masks_token_on_screen, 'a copy is refused unless the listener runs...'); the four hints with each token suffix and the four Copy labels are now pinned by 'a21 audit: the MCP connection card names and explains its controls'. Over the running app's local MCP session (session_mcp.cpp, session_only() true) the switch shows whether this session runs and is not saved, starting asks for confirmation, and the Tailscale parts are hidden (differences a20-listener and a20-listener-interface), pinned by 'a21 audit: over a local session the page hides Tailscale and the live cards'."
+  },
+  "A21-52": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/mcp_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_mcp_audit.cpp",
+    "tests/ui_automation/test_mcp_extras.cpp",
+    "tests/ui_automation/test_mcp_page.cpp"
+   ],
+   "note": "The port and Tailscale waiting for a stopped listener and the port revert are pinned by 'the port and Tailscale wait for a stopped listener and the switch off' and 'a failed port save shows the saved port again and says so'; the port's range, name and keyboard tracking by the a21 MCP audit test. Over the running app's local MCP session (session_mcp.cpp, session_only() true) the switch shows whether this session runs and is not saved, starting asks for confirmation, and the Tailscale parts are hidden (differences a20-listener and a20-listener-interface), pinned by 'a21 audit: over a local session the page hides Tailscale and the live cards'."
+  },
+  "A21-53": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/mcp_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_mcp_page.cpp"
+   ],
+   "note": "test_permissions_are_individual_persistent_and_configurable_while_off and test_failed_permission_save_rolls_back_ui_and_preserves_other_grants pin the rows, the per-preference grants, the disabled preferences and the rollback. Over the local session a permission change also stops the session (difference a20-listener)."
+  },
+  "A21-54": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/mcp_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_mcp_extras.cpp",
+    "tests/ui_automation/test_mcp_page.cpp"
+   ],
+   "note": "'the columns arrange again only when the width crosses 740 px', test_page_is_two_columns_at_settings_width..., and 'the page refreshes every 500 ms while it is shown and not otherwise'."
+  },
+  "A21-74": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/mcp_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_mcp_audit.cpp",
+    "tests/ui_automation/test_mcp_page.cpp",
+    "tests/ui_automation/test_mcp_screenshots.cpp"
+   ],
+   "note": "Card titles and section labels are in the settings_mcp_page reference trees (which do not run to completion here); the address label now pinned by the a21 MCP audit test. The baseline row and disclosure texts were read in McpSettingsPage's constructor against settings_mcp.py."
+  },
+  "A21-75": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/mcp_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_mcp_audit.cpp"
+   ],
+   "note": "No test read these; 'a21 audit: the MCP connection card names and explains its controls' pins every tooltip and accessible name of the row except 'Allow agents over Tailscale' and 'Preview <kind>', read in the constructor and renderSetup."
+  },
+  "A21-76": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/mcp_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_mcp_audit.cpp",
+    "tests/ui_automation/test_mcp_page.cpp"
+   ],
+   "note": "test_other_computer_setup_is_not_copyable_until_access_enabled pinned the disabled copy; the not-ready texts for stopped and for Another computer without Tailscale are now pinned by the a21 MCP audit test. Over the local session the Another computer choice is hidden (difference a20-listener-interface)."
+  },
+  "A21-77": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/mcp_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_mcp_extras.cpp",
+    "tests/ui_automation/test_mcp_page.cpp"
+   ],
+   "note": "'the notice stays through every refresh until the next write', 'a failed port save shows the saved port again and says so', 'a failed save of the switch leaves the listener alone' and test_failed_permission_save_rolls_back_ui_and_preserves_other_grants; the host problem notice belongs to A21-58."
+  },
+  "A21-55": {
+   "status": "difference",
+   "difference": "a21-live-cards-hidden"
+  },
+  "A21-56": {
+   "status": "difference",
+   "difference": "a21-live-cards-hidden"
+  },
+  "A21-57": {
+   "status": "difference",
+   "difference": "a21-live-cards-hidden"
+  },
+  "A21-78": {
+   "status": "difference",
+   "difference": "a21-live-cards-hidden"
+  },
+  "A21-79": {
+   "status": "difference",
+   "difference": "a21-live-cards-hidden"
+  },
+  "A21-58": {
+   "status": "difference",
+   "difference": "a21-paired-host-frame"
+  },
+  "A21-80": {
+   "status": "difference",
+   "difference": "a21-history-tile"
+  },
+  "A21-59": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_widgets/agent_picker.cpp",
+    "src/ui_widgets/agent_picker_text.cpp",
+    "src/ui_widgets/agent_picker.h"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_a21_picker_audit.cpp",
+    "tests/ui_widgets/test_agent_picker.cpp",
+    "tests/ui_widgets/test_agent_picker_text.cpp",
+    "tests/ui_widgets/test_agent_picker_references.cpp"
+   ],
+   "note": "Counts, the scanning line, the built-in tile's identities and the 4/2x2/1 grid were tested ('count line', 'fresh scan shimmers until the result arrives', 'native tile names pi...', 'packaged opencode is not mislabeled as pi', 'tiles wrap two by two when narrow' and the found_count_text golden); the 'Who runs <purpose>' heading, the intro and Look again's tooltip are now pinned by 'a21 audit: the agent picker's header names its purpose'. The picker is embedded by the Meeting Intelligence page (src/ui_meeting/intelligence_page.cpp); the AI cleanup page chooses its runner its own way (a04-agent-cleanup-scope), so the 'AI cleanup' purpose is exercised only by tests."
+  },
+  "A21-60": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/agent_picker_text.cpp",
+    "src/ui_widgets/agent_tile.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_agent_picker.cpp",
+    "tests/ui_widgets/test_agent_picker_text.cpp"
+   ],
+   "note": "describe_agent and command_text goldens, 'missing agent is not selectable', 'problem and sign in show amber with the fix', 'found tile click requests that agent', 'space on a found tile requests it', 'clicking the chosen tile again does nothing', 'get link opens the install page'."
+  },
+  "A21-61": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/agent_tile.cpp",
+    "src/ui_widgets/agent_mark.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_agent_picker.cpp",
+    "tests/ui_widgets/test_agent_mark.cpp",
+    "tests/ui_widgets/test_agent_picker_text.cpp"
+   ],
+   "note": "'an arrival fades the pill in and draws its check at fixed times', 'a chosen tile lifts by 2 px over 220 ms and hover lifts a selectable one', 'the shimmer sweeps once per period with a per tile offset', 'cached scan shows at once without animating', 'fresh result lights tiles up one after another' and 'agent picker states and timings are OpenWhisper's'."
+  },
+  "A21-62": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/agent_picker_text.cpp",
+    "src/ui_widgets/agent_picker.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_agent_picker.cpp",
+    "tests/ui_widgets/test_agent_picker_text.cpp"
+   ],
+   "note": "'blocked notice' and the blocked_notice/picker_blocked_notice goldens; 'a chosen agent that is signed out says why' places it."
+  },
+  "A21-63": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_widgets/agent_picker.cpp",
+    "src/ui_widgets/agent_picker_text.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_a21_picker_audit.cpp",
+    "tests/ui_widgets/test_agent_picker.cpp",
+    "tests/ui_widgets/test_agent_picker_text.cpp"
+   ],
+   "note": "'choosing an agent shows its models and sign in', 'a saved model the agent no longer lists is kept', 'models load off the ui thread and filter when long', 'an empty model list says opencode uses its default' and the usage_caption goldens pinned the behaviour; the 40 px combos and 'Type to filter models' are now pinned by the a21 picker audit test."
+  },
+  "A21-64": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/agent_picker.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_agent_picker.cpp"
+   ],
+   "note": "'look again scans with refresh', 'a stale scan result is ignored', 'a picker closed mid scan is not held by the worker', 'a failing scan reads as nothing found', 'the default seam scans through the set installed agents'."
+  },
+  "A21-81": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/agent_picker.cpp",
+    "src/ui_widgets/agent_tile.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_agent_picker.cpp",
+    "tests/ui_widgets/test_a21_picker_audit.cpp"
+   ],
+   "note": "'native tile names pi and does not use the app icon' (Pi, Built in, 'Your API key'), 'packaged opencode is not mislabeled as pi', 'cleanup picker labels usage and narrow layout' (API / local model), 'models are listed once until look again clears them', 'built in choice hides the model row'. The worker thread names were read in AgentPicker (settings-agent-scan, settings-<id>-models)."
+  },
+  "A21-65": {
+   "status": "fixed",
+   "cpp": [
+    "src/appkit/destinations.h",
+    "src/ui_automation/hooks_page.cpp",
+    "src/ui_automation/actions_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_audit.cpp"
+   ],
+   "note": "No test read the rail icons; 'a21 audit: Actions and Hooks keep their rail icons' pins bolt-green.svg and webhook-blue.svg in the destinations table. The tile icons were read in the page constructors (webhook-blue, terminal-green, filter-purple; microphone-blue, text-plus-green, keyboard-green)."
+  },
+  "A21-66": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/actions_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_audit.cpp",
+    "tests/ui_automation/test_automation_feature.cpp"
+   ],
+   "note": "Only the first label and last description were tested; 'a21 audit: the Actions page's search descriptions' pins all five and the eight control names."
+  },
+  "A21-68": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/action_agent_card.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_audit.cpp"
+   ],
+   "note": "Footer texts, accessible names and tooltips and the shortcut field's name are now pinned by 'a21 audit: the agent hotkey card invites with OpenWhisper's words'. The 'Couldn't save/remove the agent hotkey:' messages for a failed write were read in AgentHotkeyCard::save and remove."
+  },
+  "A21-69": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/action_list.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_action_list.cpp"
+   ],
+   "note": "'an action card shows what it does and how to start it' ('Shortcut Ctrl+Alt+C') and 'an action card without a shortcut or spoken name says so' ('No shortcut')."
+  },
+  "A21-70": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_automation/action_editor.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_a21_audit.cpp"
+   ],
+   "note": "The tooltip, labels and accessible names are now pinned by the a21 audit editor test; 'Couldn't save the action:' was read in ActionEditor::save."
+  },
+  "A21-71": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/action_fields.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_action_fields.cpp",
+    "tests/ui_automation/test_shaping_field.cpp"
+   ],
+   "note": "'a path field shows the chosen path from its start' (Choose/Clear working folder), 'a shortcut field clears and restores what it showed' (Clear shortcut) and the shaping bar's 'How the words are prepared'."
+  }
+ },
+ "differences": [
+  {
+   "id": "a21-live-cards-hidden",
+   "features": [
+    "A21-55",
+    "A21-56",
+    "A21-57",
+    "A21-78",
+    "A21-79",
+    "SM-02",
+    "SM-05"
+   ],
+   "openwhisper": "Settings > API & MCP shows 'Live events and automation' under the MCP cards: the Live API card (permissions, address, endpoints, curl), MCP Events (subscribe switch, count, Clear) and the Claude Code channel card.",
+   "fiorivoce": "The running app's MCP control is the local session (session_mcp.cpp, session_only() true), and McpSettingsView hides LiveAutomationSection over it; the section and its cards exist and are tested against a full listener (test_live_section.cpp, test_mcp_extras.cpp).",
+   "reason": "The local MCP session serves saved content only: the live API is never mounted and no McpEvents is built, so the cards would offer switches that do nothing.",
+   "source": "docs/port/audit/a19-actions-automation-services.json a19-live-api-not-served and docs/port/audit/a20-agent-api-mcp-services.json a20-local-mcp-saved-content (owner commit 8cf2b8e)"
+  },
+  {
+   "id": "a21-paired-host-frame",
+   "features": [
+    "A21-58"
+   ],
+   "openwhisper": "When a host is paired, Settings > API & MCP shows a segmented 'This computer / <host>' bar (details 'MCP on/off', 'Host · not allowed', 'Host · needs update', 'Host · unreachable', 'Host · checking…'); the host tab is a second McpSettingsPage over HostMcpSettings/HostMcpServer/HostMcpLink that polls the host every 500 ms and changes its MCP settings, with a gate card ('<host> hasn't allowed this yet', '<host> needs an update', 'Can't reach <host>') and Check again, a note that the live cards are per computer, and it opens on the host tab when only the host's MCP runs.",
+   "fiorivoce": "McpSettingsView::bindRemote adds a 'Paired computer: <host>' frame (mcpPairedHost) below this computer's page, shown only while paired: 'Check host MCP status' reads the granted session's state once per click, 'Start the authorized host session…' asks first and sends only {enabled: true} for the fixed loopback session, 'End host session' disconnects (the host then revokes the grant). Refusals read '<host> hasn't allowed this yet.' (naming the host's grant), '<host> needs an update.' and 'Can't reach <host>.' in the frame's status line. There are no tabs, host page, gate card or note: this computer's page and cards never hide.",
+   "reason": "A peer may not change the host's MCP configuration; it only starts and ends the read-only 15-minute session the host granted it, whose token stays on the host, so there is no host page to manage and nothing to poll.",
+   "source": "docs/port/differences.md a17-paired-mcp; docs/port/audit/a20-agent-api-mcp-services.json a20-host-mcp-read-only; tests/ui_automation/test_mcp_paired_host.cpp, tests/remote_host/test_mcp_grant.cpp, tests/remote_host/test_mcp_session.cpp"
+  },
+  {
+   "id": "a21-history-tile",
+   "features": [
+    "A21-80",
+    "SM-03"
+   ],
+   "openwhisper": "API & MCP has a 'Share this computer's history through the paired host's MCP' tile (mcpShareHistoryTile, disabled with ' Pair a host in Remote engine to enable this setting.' when unpaired) that persists remote_client_history through service.set_share_history, plus the gate bodies naming 'Allow paired computers to manage MCP', the per-computer host note and the tabs' 'Whose MCP to manage' name.",
+   "fiorivoce": "There is no persistent history-sharing consent: history is shared only in a session opened from Remote engine's 'Share history for this session…' (remote_history::Publication, at most 15 minutes, ended by closing it or disconnecting), which Settings search finds for 'share history'. RemoteEngineControl::set_share_history, which nothing called, was removed. The gate bodies and note belong to the replaced host tab (a21-paired-host-frame).",
+   "reason": "A named peer views this computer's latest dictations and meeting metadata only during an explicitly opened, time-limited session; a standing opt-in would expose history for as long as the pairing lasts.",
+   "source": "docs/port/differences.md a17-direct-history; docs/port/audit/a20-agent-api-mcp-services.json a20-peer-history-session; tests/ui_remote/test_history_publication.cpp, tests/ui_settings/test_search_history_session.cpp"
+  },
+  {
+   "id": "a21-route-status-key-part-later",
+   "features": [
+    "A21-35"
+   ],
+   "openwhisper": "Route by voice's status line is computed at once on the GUI thread, including the parts that depend on the judge's API key.",
+   "fiorivoce": "The status that needs no key (Route by voice off, for example) shows at once; a status that depends on the key is worked out on the io executor, and until that answer arrives the line is empty and the privacy caption shows.",
+   "reason": "Reading the credential store must not block the GUI thread.",
+   "source": "The lead's decision of 2026-11-19 on open item ui_automation (M5.13); src/ui_automation/actions_page.cpp requestStatus and automation::status_without_key (src/automation/routing.h); tests/ui_automation/test_sweep_relay_status.cpp ('the route by voice status that needs no key shows before the full answer')"
+  }
+ ]
+}

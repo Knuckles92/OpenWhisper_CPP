@@ -1,0 +1,860 @@
+{
+ "scenario": "remote_hello_ready",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "python": "3.12.10",
+ "setup": {
+  "host_name": "studio",
+  "device_name": "laptop",
+  "addresses": [
+   "192.168.1.20",
+   "100.101.102.103"
+  ],
+  "pairing_code": "246810",
+  "fingerprint": "<fingerprint#1>",
+  "models": [
+   {
+    "family": "parakeet",
+    "model": "parakeet-v3",
+    "label": "Parakeet TDT 0.6B v3"
+   },
+   {
+    "family": "parakeet",
+    "model": "parakeet-v2",
+    "label": "Parakeet TDT 0.6B v2"
+   }
+  ],
+  "runtime": {
+   "family": "parakeet",
+   "model": "parakeet-v3",
+   "selected": {
+    "device": "auto",
+    "language": "auto"
+   },
+   "devices": [
+    "auto",
+    "cpu",
+    "cuda"
+   ],
+   "compute_types": {},
+   "languages": [
+    "auto",
+    "en",
+    "de"
+   ],
+   "gpu": {
+    "name": "NVIDIA GeForce RTX 4070",
+    "total_mib": 12282
+   },
+   "dependencies": []
+  },
+  "records_summary": {
+   "dictation": {
+    "count": 3,
+    "bytes": 30720
+   },
+   "meeting": {
+    "count": 1,
+    "bytes": 4096
+   }
+  },
+  "patches": [
+   "tailscale.status reports not_installed and tailscale.whois finds nobody (tests/fakes/remote.py no_real_tailscale)",
+   "discovery.find_host and discovery.search find nothing (no UDP leaves the process)",
+   "SpeechHost.start serves on 127.0.0.1 only, without discovery"
+  ],
+  "steps": [
+   {
+    "name": "pair",
+    "client": "pair_with_host",
+    "outcomes": [
+     {
+      "call": "pair_with_host",
+      "returned": {
+       "token": "<token#1>",
+       "device_id": "<device_id#1>",
+       "host_name": "studio",
+       "fingerprint": "<fingerprint#1>",
+       "alternates": [
+        "192.168.1.20",
+        "100.101.102.103"
+       ],
+       "via": "code"
+      }
+     }
+    ]
+   },
+   {
+    "name": "ready_full",
+    "client": "RemoteConnection(reports_recording=True).connect",
+    "outcomes": [
+     {
+      "call": "connect",
+      "returned": {
+       "type": "ready",
+       "host": {
+        "name": "studio",
+        "fingerprint": "<fingerprint#1>",
+        "addresses": [
+         "192.168.1.20",
+         "100.101.102.103"
+        ]
+       },
+       "device": {
+        "id": "<device_id#1>",
+        "name": "laptop"
+       },
+       "engine": {
+        "family": "parakeet",
+        "model": "parakeet-v3",
+        "label": "Fake Parakeet",
+        "device": "cuda",
+        "streaming": false,
+        "available": true,
+        "status": "ready"
+       },
+       "models": [
+        {
+         "family": "parakeet",
+         "model": "parakeet-v3",
+         "label": "Parakeet TDT 0.6B v3"
+        },
+        {
+         "family": "parakeet",
+         "model": "parakeet-v2",
+         "label": "Parakeet TDT 0.6B v2"
+        }
+       ],
+       "runtime": {
+        "family": "parakeet",
+        "model": "parakeet-v3",
+        "selected": {
+         "device": "auto",
+         "language": "auto"
+        },
+        "devices": [
+         "auto",
+         "cpu",
+         "cuda"
+        ],
+        "compute_types": {},
+        "languages": [
+         "auto",
+         "en",
+         "de"
+        ],
+        "gpu": {
+         "name": "NVIDIA GeForce RTX 4070",
+         "total_mib": 12282
+        },
+        "dependencies": []
+       },
+       "capabilities": {
+        "model_management": true,
+        "runtime_installation": true,
+        "engine_controls": true,
+        "recognition_hints": false,
+        "recording_activity": true,
+        "mcp_control": true,
+        "records": true
+       },
+       "records": {
+        "dictation": {
+         "count": 3,
+         "bytes": 30720
+        },
+        "meeting": {
+         "count": 1,
+         "bytes": 4096
+        }
+       }
+      }
+     }
+    ]
+   },
+   {
+    "name": "ready_plain",
+    "client": "RemoteConnection.connect",
+    "outcomes": [
+     {
+      "call": "connect",
+      "returned": {
+       "type": "ready",
+       "host": {
+        "name": "studio",
+        "fingerprint": "<fingerprint#1>",
+        "addresses": [
+         "192.168.1.20",
+         "100.101.102.103"
+        ]
+       },
+       "device": {
+        "id": "<device_id#1>",
+        "name": "laptop"
+       },
+       "engine": {
+        "family": "parakeet",
+        "model": "parakeet-v3",
+        "label": "Fake Parakeet",
+        "device": "cuda",
+        "streaming": false,
+        "available": true,
+        "status": "ready"
+       },
+       "models": [],
+       "runtime": {},
+       "capabilities": {
+        "model_management": false,
+        "runtime_installation": false,
+        "engine_controls": false,
+        "recognition_hints": false,
+        "recording_activity": true
+       }
+      }
+     }
+    ]
+   },
+   {
+    "name": "unauthorized",
+    "client": "RemoteConnection.connect",
+    "outcomes": [
+     {
+      "call": "connect",
+      "raised": {
+       "type": "RemoteEngineError",
+       "message": "This computer isn't paired with the host anymore. Pair it again."
+      }
+     }
+    ]
+   },
+   {
+    "name": "loading",
+    "client": "RemoteConnection(reports_recording=True).connect",
+    "outcomes": [
+     {
+      "call": "connect",
+      "returned": {
+       "type": "ready",
+       "host": {
+        "name": "studio",
+        "fingerprint": "<fingerprint#1>",
+        "addresses": [
+         "192.168.1.20",
+         "100.101.102.103"
+        ]
+       },
+       "device": {
+        "id": "<device_id#1>",
+        "name": "laptop"
+       },
+       "engine": {
+        "family": "parakeet",
+        "model": "parakeet-v3",
+        "label": "Fake Parakeet",
+        "device": "cuda",
+        "streaming": false,
+        "available": false,
+        "status": "The host is loading its speech engine."
+       },
+       "models": [
+        {
+         "family": "parakeet",
+         "model": "parakeet-v3",
+         "label": "Parakeet TDT 0.6B v3"
+        },
+        {
+         "family": "parakeet",
+         "model": "parakeet-v2",
+         "label": "Parakeet TDT 0.6B v2"
+        }
+       ],
+       "runtime": {
+        "family": "parakeet",
+        "model": "parakeet-v3",
+        "selected": {
+         "device": "auto",
+         "language": "auto"
+        },
+        "devices": [
+         "auto",
+         "cpu",
+         "cuda"
+        ],
+        "compute_types": {},
+        "languages": [
+         "auto",
+         "en",
+         "de"
+        ],
+        "gpu": {
+         "name": "NVIDIA GeForce RTX 4070",
+         "total_mib": 12282
+        },
+        "dependencies": []
+       },
+       "capabilities": {
+        "model_management": true,
+        "runtime_installation": true,
+        "engine_controls": true,
+        "recognition_hints": false,
+        "recording_activity": true,
+        "mcp_control": true,
+        "records": true
+       },
+       "records": {
+        "dictation": {
+         "count": 3,
+         "bytes": 30720
+        },
+        "meeting": {
+         "count": 1,
+         "bytes": 4096
+        }
+       }
+      }
+     }
+    ]
+   },
+   {
+    "name": "update_hold",
+    "client": "RemoteConnection(reports_recording=True).connect",
+    "outcomes": [
+     {
+      "call": "prepare_update",
+      "returned": {
+       "token": true,
+       "expires_in": 60.0
+      }
+     },
+     {
+      "call": "connect",
+      "returned": {
+       "type": "ready",
+       "host": {
+        "name": "studio",
+        "fingerprint": "<fingerprint#1>",
+        "addresses": [
+         "192.168.1.20",
+         "100.101.102.103"
+        ]
+       },
+       "device": {
+        "id": "<device_id#1>",
+        "name": "laptop"
+       },
+       "engine": {
+        "family": "parakeet",
+        "model": "parakeet-v3",
+        "label": "Fake Parakeet",
+        "device": "cuda",
+        "streaming": false,
+        "available": false,
+        "status": "The host is preparing an OpenWhisper update. Try again shortly."
+       },
+       "models": [
+        {
+         "family": "parakeet",
+         "model": "parakeet-v3",
+         "label": "Parakeet TDT 0.6B v3"
+        },
+        {
+         "family": "parakeet",
+         "model": "parakeet-v2",
+         "label": "Parakeet TDT 0.6B v2"
+        }
+       ],
+       "runtime": {
+        "family": "parakeet",
+        "model": "parakeet-v3",
+        "selected": {
+         "device": "auto",
+         "language": "auto"
+        },
+        "devices": [
+         "auto",
+         "cpu",
+         "cuda"
+        ],
+        "compute_types": {},
+        "languages": [
+         "auto",
+         "en",
+         "de"
+        ],
+        "gpu": {
+         "name": "NVIDIA GeForce RTX 4070",
+         "total_mib": 12282
+        },
+        "dependencies": []
+       },
+       "capabilities": {
+        "model_management": true,
+        "runtime_installation": true,
+        "engine_controls": true,
+        "recognition_hints": false,
+        "recording_activity": true,
+        "mcp_control": true,
+        "records": true
+       },
+       "records": {
+        "dictation": {
+         "count": 3,
+         "bytes": 30720
+        },
+        "meeting": {
+         "count": 1,
+         "bytes": 4096
+        }
+       }
+      }
+     },
+     {
+      "call": "cancel_update",
+      "returned": true
+     }
+    ]
+   },
+   {
+    "name": "busy_connections",
+    "client": "RemoteConnection.connect (the second of two)",
+    "outcomes": [
+     {
+      "call": "connect (first)",
+      "returned": {
+       "type": "ready",
+       "host": {
+        "name": "studio",
+        "fingerprint": "<fingerprint#1>",
+        "addresses": [
+         "192.168.1.20",
+         "100.101.102.103"
+        ]
+       },
+       "device": {
+        "id": "<device_id#1>",
+        "name": "laptop"
+       },
+       "engine": {
+        "family": "parakeet",
+        "model": "parakeet-v3",
+        "label": "Fake Parakeet",
+        "device": "cuda",
+        "streaming": false,
+        "available": true,
+        "status": "ready"
+       },
+       "models": [],
+       "runtime": {},
+       "capabilities": {
+        "model_management": false,
+        "runtime_installation": false,
+        "engine_controls": false,
+        "recognition_hints": false,
+        "recording_activity": true
+       }
+      }
+     },
+     {
+      "call": "connect (second)",
+      "raised": {
+       "type": "RemoteHostBusy",
+       "message": "The host is busy. Try again shortly.",
+       "retry_after_s": 1.0,
+       "retryable": true
+      }
+     }
+    ],
+    "notes": [
+     "max_connections=1; the first connection holds the one slot"
+    ]
+   },
+   {
+    "name": "busy_handshakes",
+    "client": "raw (the second of two, reading before it sends)",
+    "outcomes": [
+     {
+      "call": "received (second)",
+      "returned": [
+       "{\"type\":\"error\",\"code\":\"busy\",\"message\":\"The host is busy. Try again shortly.\",\"retry_after_ms\":1000}"
+      ]
+     }
+    ],
+    "notes": [
+     "max_handshakes=1; the first connection holds the one slot by saying nothing"
+    ]
+   }
+  ]
+ },
+ "frames": [
+  {
+   "step": "pair",
+   "conn": 0,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair\", \"protocol\": 1, \"device_name\": \"laptop\", \"code\": \"246810\"}"
+  },
+  {
+   "step": "pair",
+   "conn": 0,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"paired\",\"token\":\"<token#1>\",\"device_id\":\"<device_id#1>\",\"host\":{\"name\":\"studio\",\"fingerprint\":\"<fingerprint#1>\",\"addresses\":[\"192.168.1.20\",\"100.101.102.103\"]}}"
+  },
+  {
+   "step": "pair",
+   "conn": 0,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 1000,
+   "reason": ""
+  },
+  {
+   "step": "pair",
+   "conn": 0,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 1000,
+   "reason": "",
+   "echo": true
+  },
+  {
+   "step": "ready_full",
+   "conn": 1,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"hello\", \"protocol\": 1, \"token\": \"<token#1>\", \"capabilities\": {\"recording_activity\": true}}"
+  },
+  {
+   "step": "ready_full",
+   "conn": 1,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"ready\",\"host\":{\"name\":\"studio\",\"fingerprint\":\"<fingerprint#1>\",\"addresses\":[\"192.168.1.20\",\"100.101.102.103\"]},\"device\":{\"id\":\"<device_id#1>\",\"name\":\"laptop\"},\"engine\":{\"family\":\"parakeet\",\"model\":\"parakeet-v3\",\"label\":\"Fake Parakeet\",\"device\":\"cuda\",\"streaming\":false,\"available\":true,\"status\":\"ready\"},\"models\":[{\"family\":\"parakeet\",\"model\":\"parakeet-v3\",\"label\":\"Parakeet TDT 0.6B v3\"},{\"family\":\"parakeet\",\"model\":\"parakeet-v2\",\"label\":\"Parakeet TDT 0.6B v2\"}],\"runtime\":{\"family\":\"parakeet\",\"model\":\"parakeet-v3\",\"selected\":{\"device\":\"auto\",\"language\":\"auto\"},\"devices\":[\"auto\",\"cpu\",\"cuda\"],\"compute_types\":{},\"languages\":[\"auto\",\"en\",\"de\"],\"gpu\":{\"name\":\"NVIDIA GeForce RTX 4070\",\"total_mib\":12282},\"dependencies\":[]},\"capabilities\":{\"model_management\":true,\"runtime_installation\":true,\"engine_controls\":true,\"recognition_hints\":false,\"recording_activity\":true,\"mcp_control\":true,\"records\":true},\"records\":{\"dictation\":{\"count\":3,\"bytes\":30720},\"meeting\":{\"count\":1,\"bytes\":4096}}}"
+  },
+  {
+   "step": "ready_full",
+   "conn": 1,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 1000,
+   "reason": ""
+  },
+  {
+   "step": "ready_full",
+   "conn": 1,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 1000,
+   "reason": "",
+   "echo": true
+  },
+  {
+   "step": "ready_plain",
+   "conn": 2,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"hello\", \"protocol\": 1, \"token\": \"<token#1>\"}"
+  },
+  {
+   "step": "ready_plain",
+   "conn": 2,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"ready\",\"host\":{\"name\":\"studio\",\"fingerprint\":\"<fingerprint#1>\",\"addresses\":[\"192.168.1.20\",\"100.101.102.103\"]},\"device\":{\"id\":\"<device_id#1>\",\"name\":\"laptop\"},\"engine\":{\"family\":\"parakeet\",\"model\":\"parakeet-v3\",\"label\":\"Fake Parakeet\",\"device\":\"cuda\",\"streaming\":false,\"available\":true,\"status\":\"ready\"},\"models\":[],\"runtime\":{},\"capabilities\":{\"model_management\":false,\"runtime_installation\":false,\"engine_controls\":false,\"recognition_hints\":false,\"recording_activity\":true}}"
+  },
+  {
+   "step": "ready_plain",
+   "conn": 2,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 1000,
+   "reason": ""
+  },
+  {
+   "step": "ready_plain",
+   "conn": 2,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 1000,
+   "reason": "",
+   "echo": true
+  },
+  {
+   "step": "unauthorized",
+   "conn": 3,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"hello\", \"protocol\": 1, \"token\": \"not-a-paired-token\"}"
+  },
+  {
+   "step": "unauthorized",
+   "conn": 3,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"error\",\"code\":\"unauthorized\",\"message\":\"This computer isn't paired with the host anymore. Pair it again.\"}"
+  },
+  {
+   "step": "unauthorized",
+   "conn": 3,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4401,
+   "reason": "unauthorized"
+  },
+  {
+   "step": "unauthorized",
+   "conn": 3,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4401,
+   "reason": "unauthorized",
+   "echo": true
+  },
+  {
+   "step": "loading",
+   "conn": 4,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"hello\", \"protocol\": 1, \"token\": \"<token#1>\", \"capabilities\": {\"recording_activity\": true}}"
+  },
+  {
+   "step": "loading",
+   "conn": 4,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"ready\",\"host\":{\"name\":\"studio\",\"fingerprint\":\"<fingerprint#1>\",\"addresses\":[\"192.168.1.20\",\"100.101.102.103\"]},\"device\":{\"id\":\"<device_id#1>\",\"name\":\"laptop\"},\"engine\":{\"family\":\"parakeet\",\"model\":\"parakeet-v3\",\"label\":\"Fake Parakeet\",\"device\":\"cuda\",\"streaming\":false,\"available\":false,\"status\":\"The host is loading its speech engine.\"},\"models\":[{\"family\":\"parakeet\",\"model\":\"parakeet-v3\",\"label\":\"Parakeet TDT 0.6B v3\"},{\"family\":\"parakeet\",\"model\":\"parakeet-v2\",\"label\":\"Parakeet TDT 0.6B v2\"}],\"runtime\":{\"family\":\"parakeet\",\"model\":\"parakeet-v3\",\"selected\":{\"device\":\"auto\",\"language\":\"auto\"},\"devices\":[\"auto\",\"cpu\",\"cuda\"],\"compute_types\":{},\"languages\":[\"auto\",\"en\",\"de\"],\"gpu\":{\"name\":\"NVIDIA GeForce RTX 4070\",\"total_mib\":12282},\"dependencies\":[]},\"capabilities\":{\"model_management\":true,\"runtime_installation\":true,\"engine_controls\":true,\"recognition_hints\":false,\"recording_activity\":true,\"mcp_control\":true,\"records\":true},\"records\":{\"dictation\":{\"count\":3,\"bytes\":30720},\"meeting\":{\"count\":1,\"bytes\":4096}}}"
+  },
+  {
+   "step": "loading",
+   "conn": 4,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 1000,
+   "reason": ""
+  },
+  {
+   "step": "loading",
+   "conn": 4,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 1000,
+   "reason": "",
+   "echo": true
+  },
+  {
+   "step": "update_hold",
+   "conn": 5,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"hello\", \"protocol\": 1, \"token\": \"<token#1>\", \"capabilities\": {\"recording_activity\": true}}"
+  },
+  {
+   "step": "update_hold",
+   "conn": 5,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"ready\",\"host\":{\"name\":\"studio\",\"fingerprint\":\"<fingerprint#1>\",\"addresses\":[\"192.168.1.20\",\"100.101.102.103\"]},\"device\":{\"id\":\"<device_id#1>\",\"name\":\"laptop\"},\"engine\":{\"family\":\"parakeet\",\"model\":\"parakeet-v3\",\"label\":\"Fake Parakeet\",\"device\":\"cuda\",\"streaming\":false,\"available\":false,\"status\":\"The host is preparing an OpenWhisper update. Try again shortly.\"},\"models\":[{\"family\":\"parakeet\",\"model\":\"parakeet-v3\",\"label\":\"Parakeet TDT 0.6B v3\"},{\"family\":\"parakeet\",\"model\":\"parakeet-v2\",\"label\":\"Parakeet TDT 0.6B v2\"}],\"runtime\":{\"family\":\"parakeet\",\"model\":\"parakeet-v3\",\"selected\":{\"device\":\"auto\",\"language\":\"auto\"},\"devices\":[\"auto\",\"cpu\",\"cuda\"],\"compute_types\":{},\"languages\":[\"auto\",\"en\",\"de\"],\"gpu\":{\"name\":\"NVIDIA GeForce RTX 4070\",\"total_mib\":12282},\"dependencies\":[]},\"capabilities\":{\"model_management\":true,\"runtime_installation\":true,\"engine_controls\":true,\"recognition_hints\":false,\"recording_activity\":true,\"mcp_control\":true,\"records\":true},\"records\":{\"dictation\":{\"count\":3,\"bytes\":30720},\"meeting\":{\"count\":1,\"bytes\":4096}}}"
+  },
+  {
+   "step": "update_hold",
+   "conn": 5,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 1000,
+   "reason": ""
+  },
+  {
+   "step": "update_hold",
+   "conn": 5,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 1000,
+   "reason": "",
+   "echo": true
+  },
+  {
+   "step": "busy_connections",
+   "conn": 6,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"hello\", \"protocol\": 1, \"token\": \"<token#1>\"}"
+  },
+  {
+   "step": "busy_connections",
+   "conn": 6,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"ready\",\"host\":{\"name\":\"studio\",\"fingerprint\":\"<fingerprint#1>\",\"addresses\":[\"192.168.1.20\",\"100.101.102.103\"]},\"device\":{\"id\":\"<device_id#1>\",\"name\":\"laptop\"},\"engine\":{\"family\":\"parakeet\",\"model\":\"parakeet-v3\",\"label\":\"Fake Parakeet\",\"device\":\"cuda\",\"streaming\":false,\"available\":true,\"status\":\"ready\"},\"models\":[],\"runtime\":{},\"capabilities\":{\"model_management\":false,\"runtime_installation\":false,\"engine_controls\":false,\"recognition_hints\":false,\"recording_activity\":true}}"
+  },
+  {
+   "step": "busy_connections",
+   "conn": 6,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 1000,
+   "reason": ""
+  },
+  {
+   "step": "busy_connections",
+   "conn": 6,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 1000,
+   "reason": "",
+   "echo": true
+  },
+  {
+   "step": "busy_connections",
+   "conn": 7,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"hello\", \"protocol\": 1, \"token\": \"<token#1>\"}"
+  },
+  {
+   "step": "busy_connections",
+   "conn": 7,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"error\",\"code\":\"busy\",\"message\":\"The host is busy. Try again shortly.\",\"retry_after_ms\":1000}"
+  },
+  {
+   "step": "busy_connections",
+   "conn": 7,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4429,
+   "reason": "host busy"
+  },
+  {
+   "step": "busy_connections",
+   "conn": 7,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4429,
+   "reason": "host busy",
+   "echo": true
+  },
+  {
+   "step": "busy_handshakes",
+   "conn": 8,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 1000,
+   "reason": ""
+  },
+  {
+   "step": "busy_handshakes",
+   "conn": 8,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 1000,
+   "reason": "",
+   "echo": true
+  },
+  {
+   "step": "busy_handshakes",
+   "conn": 9,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"error\",\"code\":\"busy\",\"message\":\"The host is busy. Try again shortly.\",\"retry_after_ms\":1000}"
+  },
+  {
+   "step": "busy_handshakes",
+   "conn": 9,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4429,
+   "reason": "host busy"
+  },
+  {
+   "step": "busy_handshakes",
+   "conn": 9,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4429,
+   "reason": "host busy",
+   "echo": true
+  }
+ ],
+ "normalize": [
+  {
+   "path": "1/token",
+   "as": "token"
+  },
+  {
+   "path": "1/device_id",
+   "as": "device_id"
+  },
+  {
+   "path": "1/host/fingerprint",
+   "as": "fingerprint"
+  },
+  {
+   "path": "4/token",
+   "as": "token"
+  },
+  {
+   "path": "5/host/fingerprint",
+   "as": "fingerprint"
+  },
+  {
+   "path": "5/device/id",
+   "as": "device_id"
+  },
+  {
+   "path": "8/token",
+   "as": "token"
+  },
+  {
+   "path": "9/host/fingerprint",
+   "as": "fingerprint"
+  },
+  {
+   "path": "9/device/id",
+   "as": "device_id"
+  },
+  {
+   "path": "16/token",
+   "as": "token"
+  },
+  {
+   "path": "17/host/fingerprint",
+   "as": "fingerprint"
+  },
+  {
+   "path": "17/device/id",
+   "as": "device_id"
+  },
+  {
+   "path": "20/token",
+   "as": "token"
+  },
+  {
+   "path": "21/engine/status",
+   "as": "product"
+  },
+  {
+   "path": "21/host/fingerprint",
+   "as": "fingerprint"
+  },
+  {
+   "path": "21/device/id",
+   "as": "device_id"
+  },
+  {
+   "path": "24/token",
+   "as": "token"
+  },
+  {
+   "path": "25/host/fingerprint",
+   "as": "fingerprint"
+  },
+  {
+   "path": "25/device/id",
+   "as": "device_id"
+  },
+  {
+   "path": "28/token",
+   "as": "token"
+  }
+ ]
+}

@@ -1,0 +1,1973 @@
+{
+ "module": "meeting.export.bulk",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time",
+  "now_utc": "2026-01-01T00:00:00+00:00",
+  "timezone_note": "the machine's zone is America/New_York while a case runs (US rules since 2007, fold=0); replay with a FakeClock at now_utc in that zone"
+ },
+ "functions": {
+  "meeting_file_stem": [
+   {
+    "args": [
+     {
+      "title": "Q3 / Roadmap?",
+      "started_at": "2026-03-15T14:30:00"
+     },
+     {
+      "title": "Q3 / Roadmap?"
+     }
+    ],
+    "result": "20260315_143000_Q3--Roadmap"
+   },
+   {
+    "args": [
+     {
+      "title": "  Spaced   out\ttitle  "
+     },
+     {}
+    ],
+    "result": "unknown_date_Spaced-out-title"
+   },
+   {
+    "args": [
+     {
+      "title": "",
+      "started_at": "2026-11-01T05:30:00Z"
+     },
+     {
+      "title": ""
+     }
+    ],
+    "result": "20261101_013000_Meeting-2026-11-01"
+   },
+   {
+    "args": [
+     {
+      "title": "--__..Dots and dashes..__--",
+      "started_at": "2026-03-08T07:30:00Z"
+     },
+     {}
+    ],
+    "result": "20260308_033000_Dots-and-dashes"
+   },
+   {
+    "args": [
+     {
+      "title": "Résumé & naïve: ü/ß 😀"
+     },
+     {}
+    ],
+    "result": "unknown_date_Résumé--naïve-üß"
+   },
+   {
+    "args": [
+     {
+      "title": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tail"
+     },
+     {}
+    ],
+    "result": "unknown_date_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+   },
+   {
+    "args": [
+     {
+      "title": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-.b"
+     },
+     {}
+    ],
+    "result": "unknown_date_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+   },
+   {
+    "args": [
+     {
+      "started_at": "garbage"
+     },
+     {
+      "title": "From state"
+     }
+    ],
+    "result": "unknown_date_From-state"
+   },
+   {
+    "args": [
+     {},
+     {}
+    ],
+    "result": "unknown_date_Meeting"
+   },
+   {
+    "args": [
+     {
+      "title": "!!!",
+      "started_at": "2026-03-15T14:30:00.999999"
+     },
+     {}
+    ],
+    "result": "20260315_143000"
+   }
+  ],
+  "filter_export_meetings": [
+   {
+    "args": [
+     [
+      {
+       "id": "m_old",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-01-01T10:00:00"
+      },
+      {
+       "id": "m_mid",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-15T14:30:00",
+       "content_summary": {
+        "has_transcript": true
+       }
+      },
+      {
+       "id": "m_utc_edge",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-04-01T02:30:00Z"
+      },
+      {
+       "id": "m_new",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-06-01T09:00:00"
+      },
+      {
+       "id": "m_silent",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-20T09:00:00",
+       "content_summary": {
+        "has_transcript": false
+       }
+      },
+      {
+       "id": "m_falsy",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-21T09:00:00",
+       "content_summary": {
+        "has_transcript": 0
+       }
+      },
+      {
+       "id": "m_unknown",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-22T09:00:00",
+       "content_summary": "not a dict"
+      },
+      {
+       "id": "m_live",
+       "title": "Planning",
+       "status": "active",
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_paused",
+       "title": "Planning",
+       "status": "PAUSED",
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_ending",
+       "title": "Planning",
+       "status": "ending",
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_none",
+       "title": "Planning",
+       "status": null,
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_undated",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": ""
+      },
+      {
+       "id": "m_bad",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "never"
+      }
+     ],
+     null,
+     null,
+     false
+    ],
+    "result": [
+     "m_old",
+     "m_mid",
+     "m_utc_edge",
+     "m_new",
+     "m_silent",
+     "m_falsy",
+     "m_unknown",
+     "m_none",
+     "m_undated",
+     "m_bad"
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "m_old",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-01-01T10:00:00"
+      },
+      {
+       "id": "m_mid",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-15T14:30:00",
+       "content_summary": {
+        "has_transcript": true
+       }
+      },
+      {
+       "id": "m_utc_edge",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-04-01T02:30:00Z"
+      },
+      {
+       "id": "m_new",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-06-01T09:00:00"
+      },
+      {
+       "id": "m_silent",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-20T09:00:00",
+       "content_summary": {
+        "has_transcript": false
+       }
+      },
+      {
+       "id": "m_falsy",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-21T09:00:00",
+       "content_summary": {
+        "has_transcript": 0
+       }
+      },
+      {
+       "id": "m_unknown",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-22T09:00:00",
+       "content_summary": "not a dict"
+      },
+      {
+       "id": "m_live",
+       "title": "Planning",
+       "status": "active",
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_paused",
+       "title": "Planning",
+       "status": "PAUSED",
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_ending",
+       "title": "Planning",
+       "status": "ending",
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_none",
+       "title": "Planning",
+       "status": null,
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_undated",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": ""
+      },
+      {
+       "id": "m_bad",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "never"
+      }
+     ],
+     null,
+     null,
+     true
+    ],
+    "result": [
+     "m_old",
+     "m_mid",
+     "m_utc_edge",
+     "m_new",
+     "m_falsy",
+     "m_unknown",
+     "m_none",
+     "m_undated",
+     "m_bad"
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "m_old",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-01-01T10:00:00"
+      },
+      {
+       "id": "m_mid",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-15T14:30:00",
+       "content_summary": {
+        "has_transcript": true
+       }
+      },
+      {
+       "id": "m_utc_edge",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-04-01T02:30:00Z"
+      },
+      {
+       "id": "m_new",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-06-01T09:00:00"
+      },
+      {
+       "id": "m_silent",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-20T09:00:00",
+       "content_summary": {
+        "has_transcript": false
+       }
+      },
+      {
+       "id": "m_falsy",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-21T09:00:00",
+       "content_summary": {
+        "has_transcript": 0
+       }
+      },
+      {
+       "id": "m_unknown",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-22T09:00:00",
+       "content_summary": "not a dict"
+      },
+      {
+       "id": "m_live",
+       "title": "Planning",
+       "status": "active",
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_paused",
+       "title": "Planning",
+       "status": "PAUSED",
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_ending",
+       "title": "Planning",
+       "status": "ending",
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_none",
+       "title": "Planning",
+       "status": null,
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_undated",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": ""
+      },
+      {
+       "id": "m_bad",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "never"
+      }
+     ],
+     "2026-03-01T00:00:00",
+     "2026-03-31T23:59:59",
+     true
+    ],
+    "result": [
+     "m_mid",
+     "m_utc_edge",
+     "m_falsy",
+     "m_unknown",
+     "m_none"
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "m_old",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-01-01T10:00:00"
+      },
+      {
+       "id": "m_mid",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-15T14:30:00",
+       "content_summary": {
+        "has_transcript": true
+       }
+      },
+      {
+       "id": "m_utc_edge",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-04-01T02:30:00Z"
+      },
+      {
+       "id": "m_new",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-06-01T09:00:00"
+      },
+      {
+       "id": "m_silent",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-20T09:00:00",
+       "content_summary": {
+        "has_transcript": false
+       }
+      },
+      {
+       "id": "m_falsy",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-21T09:00:00",
+       "content_summary": {
+        "has_transcript": 0
+       }
+      },
+      {
+       "id": "m_unknown",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-22T09:00:00",
+       "content_summary": "not a dict"
+      },
+      {
+       "id": "m_live",
+       "title": "Planning",
+       "status": "active",
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_paused",
+       "title": "Planning",
+       "status": "PAUSED",
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_ending",
+       "title": "Planning",
+       "status": "ending",
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_none",
+       "title": "Planning",
+       "status": null,
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_undated",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": ""
+      },
+      {
+       "id": "m_bad",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "never"
+      }
+     ],
+     "2026-03-15T14:30:00",
+     null,
+     false
+    ],
+    "result": [
+     "m_mid",
+     "m_utc_edge",
+     "m_new",
+     "m_silent",
+     "m_falsy",
+     "m_unknown",
+     "m_none"
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "m_old",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-01-01T10:00:00"
+      },
+      {
+       "id": "m_mid",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-15T14:30:00",
+       "content_summary": {
+        "has_transcript": true
+       }
+      },
+      {
+       "id": "m_utc_edge",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-04-01T02:30:00Z"
+      },
+      {
+       "id": "m_new",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-06-01T09:00:00"
+      },
+      {
+       "id": "m_silent",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-20T09:00:00",
+       "content_summary": {
+        "has_transcript": false
+       }
+      },
+      {
+       "id": "m_falsy",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-21T09:00:00",
+       "content_summary": {
+        "has_transcript": 0
+       }
+      },
+      {
+       "id": "m_unknown",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-22T09:00:00",
+       "content_summary": "not a dict"
+      },
+      {
+       "id": "m_live",
+       "title": "Planning",
+       "status": "active",
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_paused",
+       "title": "Planning",
+       "status": "PAUSED",
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_ending",
+       "title": "Planning",
+       "status": "ending",
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_none",
+       "title": "Planning",
+       "status": null,
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_undated",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": ""
+      },
+      {
+       "id": "m_bad",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "never"
+      }
+     ],
+     null,
+     "2026-03-31T22:30:00",
+     false
+    ],
+    "result": [
+     "m_old",
+     "m_mid",
+     "m_utc_edge",
+     "m_silent",
+     "m_falsy",
+     "m_unknown",
+     "m_none"
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "m_old",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-01-01T10:00:00"
+      },
+      {
+       "id": "m_mid",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-15T14:30:00",
+       "content_summary": {
+        "has_transcript": true
+       }
+      },
+      {
+       "id": "m_utc_edge",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-04-01T02:30:00Z"
+      },
+      {
+       "id": "m_new",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-06-01T09:00:00"
+      },
+      {
+       "id": "m_silent",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-20T09:00:00",
+       "content_summary": {
+        "has_transcript": false
+       }
+      },
+      {
+       "id": "m_falsy",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-21T09:00:00",
+       "content_summary": {
+        "has_transcript": 0
+       }
+      },
+      {
+       "id": "m_unknown",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-22T09:00:00",
+       "content_summary": "not a dict"
+      },
+      {
+       "id": "m_live",
+       "title": "Planning",
+       "status": "active",
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_paused",
+       "title": "Planning",
+       "status": "PAUSED",
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_ending",
+       "title": "Planning",
+       "status": "ending",
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_none",
+       "title": "Planning",
+       "status": null,
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_undated",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": ""
+      },
+      {
+       "id": "m_bad",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "never"
+      }
+     ],
+     null,
+     "2026-03-31T22:29:59",
+     false
+    ],
+    "result": [
+     "m_old",
+     "m_mid",
+     "m_silent",
+     "m_falsy",
+     "m_unknown",
+     "m_none"
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "m_old",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-01-01T10:00:00"
+      },
+      {
+       "id": "m_mid",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-15T14:30:00",
+       "content_summary": {
+        "has_transcript": true
+       }
+      },
+      {
+       "id": "m_utc_edge",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-04-01T02:30:00Z"
+      },
+      {
+       "id": "m_new",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-06-01T09:00:00"
+      },
+      {
+       "id": "m_silent",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-20T09:00:00",
+       "content_summary": {
+        "has_transcript": false
+       }
+      },
+      {
+       "id": "m_falsy",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-21T09:00:00",
+       "content_summary": {
+        "has_transcript": 0
+       }
+      },
+      {
+       "id": "m_unknown",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "2026-03-22T09:00:00",
+       "content_summary": "not a dict"
+      },
+      {
+       "id": "m_live",
+       "title": "Planning",
+       "status": "active",
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_paused",
+       "title": "Planning",
+       "status": "PAUSED",
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_ending",
+       "title": "Planning",
+       "status": "ending",
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_none",
+       "title": "Planning",
+       "status": null,
+       "started_at": "2026-03-15T14:30:00"
+      },
+      {
+       "id": "m_undated",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": ""
+      },
+      {
+       "id": "m_bad",
+       "title": "Planning",
+       "status": "ended",
+       "started_at": "never"
+      }
+     ],
+     "2026-03-15T14:30:00.000001",
+     "2026-12-31T00:00:00",
+     false
+    ],
+    "result": [
+     "m_utc_edge",
+     "m_new",
+     "m_silent",
+     "m_falsy",
+     "m_unknown"
+    ]
+   }
+  ],
+  "render_meeting_document": [
+   {
+    "args": [
+     {
+      "meeting": {
+       "id": "m_1",
+       "title": "Planning",
+       "started_at": "2026-03-15T14:30:00",
+       "ended_at": "2026-03-15T15:00:00",
+       "host_token": "secret"
+      },
+      "state": {
+       "title": "Planning",
+       "participants": {},
+       "cards": {
+        "decisions": [
+         {
+          "id": "it_1",
+          "card": "decisions",
+          "text": "Ship it",
+          "status": "confirmed",
+          "data": {},
+          "pinned": false,
+          "evidence": []
+         }
+        ]
+       },
+       "rolling_summary": "Aligned."
+      },
+      "segments": [
+       {
+        "id": "sg_1",
+        "start_s": 1.0,
+        "end_s": 2.0,
+        "text": "Hello",
+        "channel": "mic"
+       }
+      ]
+     },
+     "markdown",
+     true,
+     true
+    ],
+    "result": "# Planning\n\n2026-03-15 14:30 · Duration 00:00:02\n\n## Summary\n\nAligned.\n\n## Decisions\n\n- Ship it\n\n### Transcript\n\n[00:00:01] Me: Hello  \n"
+   },
+   {
+    "args": [
+     {
+      "meeting": {
+       "id": "m_1",
+       "title": "Planning",
+       "started_at": "2026-03-15T14:30:00",
+       "ended_at": "2026-03-15T15:00:00",
+       "host_token": "secret"
+      },
+      "state": {
+       "title": "Planning",
+       "participants": {},
+       "cards": {
+        "decisions": [
+         {
+          "id": "it_1",
+          "card": "decisions",
+          "text": "Ship it",
+          "status": "confirmed",
+          "data": {},
+          "pinned": false,
+          "evidence": []
+         }
+        ]
+       },
+       "rolling_summary": "Aligned."
+      },
+      "segments": [
+       {
+        "id": "sg_1",
+        "start_s": 1.0,
+        "end_s": 2.0,
+        "text": "Hello",
+        "channel": "mic"
+       }
+      ]
+     },
+     "markdown",
+     false,
+     false
+    ],
+    "result": "# Planning\n\n2026-03-15 14:30 · Duration 00:00:02\n"
+   },
+   {
+    "args": [
+     {
+      "meeting": {
+       "id": "m_1",
+       "title": "Planning",
+       "started_at": "2026-03-15T14:30:00",
+       "ended_at": "2026-03-15T15:00:00",
+       "host_token": "secret"
+      },
+      "state": {
+       "title": "Planning",
+       "participants": {},
+       "cards": {
+        "decisions": [
+         {
+          "id": "it_1",
+          "card": "decisions",
+          "text": "Ship it",
+          "status": "confirmed",
+          "data": {},
+          "pinned": false,
+          "evidence": []
+         }
+        ]
+       },
+       "rolling_summary": "Aligned."
+      },
+      "segments": [
+       {
+        "id": "sg_1",
+        "start_s": 1.0,
+        "end_s": 2.0,
+        "text": "Hello",
+        "channel": "mic"
+       }
+      ]
+     },
+     "txt",
+     true,
+     true
+    ],
+    "result": "Planning\n2026-03-15 14:30\n\n[00:00:01] Me: Hello\n"
+   },
+   {
+    "args": [
+     {
+      "meeting": {
+       "id": "m_1",
+       "title": "Planning",
+       "started_at": "2026-03-15T14:30:00",
+       "ended_at": "2026-03-15T15:00:00",
+       "host_token": "secret"
+      },
+      "state": {
+       "title": "Planning",
+       "participants": {},
+       "cards": {
+        "decisions": [
+         {
+          "id": "it_1",
+          "card": "decisions",
+          "text": "Ship it",
+          "status": "confirmed",
+          "data": {},
+          "pinned": false,
+          "evidence": []
+         }
+        ]
+       },
+       "rolling_summary": "Aligned."
+      },
+      "segments": [
+       {
+        "id": "sg_1",
+        "start_s": 1.0,
+        "end_s": 2.0,
+        "text": "Hello",
+        "channel": "mic"
+       }
+      ]
+     },
+     "txt",
+     false,
+     false
+    ],
+    "result": "Planning\n2026-03-15 14:30\n\n[00:00:01] Me: Hello\n"
+   },
+   {
+    "args": [
+     {
+      "meeting": {
+       "id": "m_1",
+       "title": "Planning",
+       "started_at": "2026-03-15T14:30:00",
+       "ended_at": "2026-03-15T15:00:00",
+       "host_token": "secret"
+      },
+      "state": {
+       "title": "Planning",
+       "participants": {},
+       "cards": {
+        "decisions": [
+         {
+          "id": "it_1",
+          "card": "decisions",
+          "text": "Ship it",
+          "status": "confirmed",
+          "data": {},
+          "pinned": false,
+          "evidence": []
+         }
+        ]
+       },
+       "rolling_summary": "Aligned."
+      },
+      "segments": [
+       {
+        "id": "sg_1",
+        "start_s": 1.0,
+        "end_s": 2.0,
+        "text": "Hello",
+        "channel": "mic"
+       }
+      ]
+     },
+     "json",
+     true,
+     true
+    ],
+    "result": "{\n  \"format_version\": 1,\n  \"meeting\": {\n    \"id\": \"m_1\",\n    \"title\": \"Planning\",\n    \"started_at\": \"2026-03-15T14:30:00\",\n    \"ended_at\": \"2026-03-15T15:00:00\"\n  },\n  \"state\": {\n    \"title\": \"Planning\",\n    \"participants\": {},\n    \"cards\": {\n      \"decisions\": [\n        {\n          \"id\": \"it_1\",\n          \"card\": \"decisions\",\n          \"text\": \"Ship it\",\n          \"status\": \"confirmed\",\n          \"data\": {},\n          \"pinned\": false,\n          \"evidence\": []\n        }\n      ]\n    },\n    \"rolling_summary\": \"Aligned.\"\n  },\n  \"segments\": [\n    {\n      \"id\": \"sg_1\",\n      \"start_s\": 1.0,\n      \"end_s\": 2.0,\n      \"text\": \"Hello\",\n      \"channel\": \"mic\"\n    }\n  ]\n}"
+   },
+   {
+    "args": [
+     {
+      "meeting": {
+       "id": "m_1",
+       "title": "Planning",
+       "started_at": "2026-03-15T14:30:00",
+       "ended_at": "2026-03-15T15:00:00",
+       "host_token": "secret"
+      },
+      "state": {
+       "title": "Planning",
+       "participants": {},
+       "cards": {
+        "decisions": [
+         {
+          "id": "it_1",
+          "card": "decisions",
+          "text": "Ship it",
+          "status": "confirmed",
+          "data": {},
+          "pinned": false,
+          "evidence": []
+         }
+        ]
+       },
+       "rolling_summary": "Aligned."
+      },
+      "segments": [
+       {
+        "id": "sg_1",
+        "start_s": 1.0,
+        "end_s": 2.0,
+        "text": "Hello",
+        "channel": "mic"
+       }
+      ]
+     },
+     "json",
+     false,
+     false
+    ],
+    "result": "{\n  \"format_version\": 1,\n  \"meeting\": {\n    \"id\": \"m_1\",\n    \"title\": \"Planning\",\n    \"started_at\": \"2026-03-15T14:30:00\",\n    \"ended_at\": \"2026-03-15T15:00:00\"\n  },\n  \"state\": {\n    \"title\": \"Planning\",\n    \"participants\": {},\n    \"cards\": {\n      \"decisions\": [\n        {\n          \"id\": \"it_1\",\n          \"card\": \"decisions\",\n          \"text\": \"Ship it\",\n          \"status\": \"confirmed\",\n          \"data\": {},\n          \"pinned\": false,\n          \"evidence\": []\n        }\n      ]\n    },\n    \"rolling_summary\": \"Aligned.\"\n  },\n  \"segments\": [\n    {\n      \"id\": \"sg_1\",\n      \"start_s\": 1.0,\n      \"end_s\": 2.0,\n      \"text\": \"Hello\",\n      \"channel\": \"mic\"\n    }\n  ]\n}"
+   },
+   {
+    "args": [
+     {
+      "meeting": {
+       "id": "m_1",
+       "title": "Planning",
+       "started_at": "2026-03-15T14:30:00",
+       "ended_at": "2026-03-15T15:00:00",
+       "host_token": "secret"
+      },
+      "state": {
+       "title": "Planning",
+       "participants": {},
+       "cards": {
+        "decisions": [
+         {
+          "id": "it_1",
+          "card": "decisions",
+          "text": "Ship it",
+          "status": "confirmed",
+          "data": {},
+          "pinned": false,
+          "evidence": []
+         }
+        ]
+       },
+       "rolling_summary": "Aligned."
+      },
+      "segments": [
+       {
+        "id": "sg_1",
+        "start_s": 1.0,
+        "end_s": 2.0,
+        "text": "Hello",
+        "channel": "mic"
+       }
+      ]
+     },
+     "md",
+     true,
+     true
+    ],
+    "result": "# Planning\n\n2026-03-15 14:30 · Duration 00:00:02\n\n## Summary\n\nAligned.\n\n## Decisions\n\n- Ship it\n\n### Transcript\n\n[00:00:01] Me: Hello  \n"
+   },
+   {
+    "args": [
+     {
+      "meeting": {
+       "id": "m_1",
+       "title": "Planning",
+       "started_at": "2026-03-15T14:30:00",
+       "ended_at": "2026-03-15T15:00:00",
+       "host_token": "secret"
+      },
+      "state": {
+       "title": "Planning",
+       "participants": {},
+       "cards": {
+        "decisions": [
+         {
+          "id": "it_1",
+          "card": "decisions",
+          "text": "Ship it",
+          "status": "confirmed",
+          "data": {},
+          "pinned": false,
+          "evidence": []
+         }
+        ]
+       },
+       "rolling_summary": "Aligned."
+      },
+      "segments": [
+       {
+        "id": "sg_1",
+        "start_s": 1.0,
+        "end_s": 2.0,
+        "text": "Hello",
+        "channel": "mic"
+       }
+      ]
+     },
+     "md",
+     false,
+     false
+    ],
+    "result": "# Planning\n\n2026-03-15 14:30 · Duration 00:00:02\n"
+   },
+   {
+    "args": [
+     {
+      "meeting": {
+       "id": "m_2",
+       "title": "Retro",
+       "started_at": "2026-07-04T18:05:00Z",
+       "ended_at": "2026-03-15T15:00:00",
+       "host_token": "secret"
+      },
+      "state": {
+       "title": "Retro",
+       "participants": {},
+       "cards": {}
+      },
+      "segments": [
+       {
+        "id": "sg_1",
+        "start_s": 1.0,
+        "end_s": 2.0,
+        "text": "Café ☕ talk",
+        "channel": "mic"
+       }
+      ]
+     },
+     "markdown",
+     true,
+     true
+    ],
+    "result": "# Retro\n\n2026-07-04 14:05 · Duration 00:00:02\n\n### Transcript\n\n[00:00:01] Me: Café ☕ talk  \n"
+   },
+   {
+    "args": [
+     {
+      "meeting": {
+       "id": "m_3",
+       "title": "",
+       "started_at": null,
+       "ended_at": "2026-03-15T15:00:00",
+       "host_token": "secret"
+      },
+      "state": {
+       "title": "",
+       "participants": {},
+       "cards": {}
+      },
+      "segments": [
+       {
+        "id": "sg_1",
+        "start_s": 1.0,
+        "end_s": 2.0,
+        "text": "  ",
+        "channel": "mic"
+       }
+      ]
+     },
+     "txt",
+     true,
+     true
+    ],
+    "result": "Meeting\n\n(no transcript)\n"
+   }
+  ],
+  "render_export_document": [
+   {
+    "args": [
+     [
+      {
+       "meeting": {
+        "id": "m_1",
+        "title": "Planning",
+        "started_at": "2026-03-15T14:30:00",
+        "ended_at": "2026-03-15T15:00:00",
+        "host_token": "secret"
+       },
+       "state": {
+        "title": "Planning",
+        "participants": {},
+        "cards": {
+         "decisions": [
+          {
+           "id": "it_1",
+           "card": "decisions",
+           "text": "Ship it",
+           "status": "confirmed",
+           "data": {},
+           "pinned": false,
+           "evidence": []
+          }
+         ]
+        },
+        "rolling_summary": "Aligned."
+       },
+       "segments": [
+        {
+         "id": "sg_1",
+         "start_s": 1.0,
+         "end_s": 2.0,
+         "text": "Hello",
+         "channel": "mic"
+        }
+       ]
+      },
+      {
+       "meeting": {
+        "id": "m_2",
+        "title": "Retro",
+        "started_at": "2026-07-04T18:05:00Z",
+        "ended_at": "2026-03-15T15:00:00",
+        "host_token": "secret"
+       },
+       "state": {
+        "title": "Retro",
+        "participants": {},
+        "cards": {}
+       },
+       "segments": [
+        {
+         "id": "sg_1",
+         "start_s": 1.0,
+         "end_s": 2.0,
+         "text": "Café ☕ talk",
+         "channel": "mic"
+        }
+       ]
+      },
+      {
+       "meeting": {
+        "id": "m_3",
+        "title": "",
+        "started_at": null,
+        "ended_at": "2026-03-15T15:00:00",
+        "host_token": "secret"
+       },
+       "state": {
+        "title": "",
+        "participants": {},
+        "cards": {}
+       },
+       "segments": [
+        {
+         "id": "sg_1",
+         "start_s": 1.0,
+         "end_s": 2.0,
+         "text": "  ",
+         "channel": "mic"
+        }
+       ]
+      }
+     ],
+     "markdown",
+     true,
+     true
+    ],
+    "result": "# Past Meetings Export\n\n3 meeting(s) · exported 2025-12-31 19:00\n\n---\n\n# Planning\n\n2026-03-15 14:30 · Duration 00:00:02\n\n## Summary\n\nAligned.\n\n## Decisions\n\n- Ship it\n\n### Transcript\n\n[00:00:01] Me: Hello\n\n---\n\n# Retro\n\n2026-07-04 14:05 · Duration 00:00:02\n\n### Transcript\n\n[00:00:01] Me: Café ☕ talk\n\n---\n\n# Meeting\n\nDuration 00:00:02\n"
+   },
+   {
+    "args": [
+     [
+      {
+       "meeting": {
+        "id": "m_1",
+        "title": "Planning",
+        "started_at": "2026-03-15T14:30:00",
+        "ended_at": "2026-03-15T15:00:00",
+        "host_token": "secret"
+       },
+       "state": {
+        "title": "Planning",
+        "participants": {},
+        "cards": {
+         "decisions": [
+          {
+           "id": "it_1",
+           "card": "decisions",
+           "text": "Ship it",
+           "status": "confirmed",
+           "data": {},
+           "pinned": false,
+           "evidence": []
+          }
+         ]
+        },
+        "rolling_summary": "Aligned."
+       },
+       "segments": [
+        {
+         "id": "sg_1",
+         "start_s": 1.0,
+         "end_s": 2.0,
+         "text": "Hello",
+         "channel": "mic"
+        }
+       ]
+      },
+      {
+       "meeting": {
+        "id": "m_2",
+        "title": "Retro",
+        "started_at": "2026-07-04T18:05:00Z",
+        "ended_at": "2026-03-15T15:00:00",
+        "host_token": "secret"
+       },
+       "state": {
+        "title": "Retro",
+        "participants": {},
+        "cards": {}
+       },
+       "segments": [
+        {
+         "id": "sg_1",
+         "start_s": 1.0,
+         "end_s": 2.0,
+         "text": "Café ☕ talk",
+         "channel": "mic"
+        }
+       ]
+      },
+      {
+       "meeting": {
+        "id": "m_3",
+        "title": "",
+        "started_at": null,
+        "ended_at": "2026-03-15T15:00:00",
+        "host_token": "secret"
+       },
+       "state": {
+        "title": "",
+        "participants": {},
+        "cards": {}
+       },
+       "segments": [
+        {
+         "id": "sg_1",
+         "start_s": 1.0,
+         "end_s": 2.0,
+         "text": "  ",
+         "channel": "mic"
+        }
+       ]
+      }
+     ],
+     "markdown",
+     false,
+     true
+    ],
+    "result": "# Past Meetings Export\n\n3 meeting(s) · exported 2025-12-31 19:00\n\n---\n\n# Planning\n\n2026-03-15 14:30 · Duration 00:00:02\n\n## Summary\n\nAligned.\n\n## Decisions\n\n- Ship it\n\n---\n\n# Retro\n\n2026-07-04 14:05 · Duration 00:00:02\n\n---\n\n# Meeting\n\nDuration 00:00:02\n"
+   },
+   {
+    "args": [
+     [
+      {
+       "meeting": {
+        "id": "m_1",
+        "title": "Planning",
+        "started_at": "2026-03-15T14:30:00",
+        "ended_at": "2026-03-15T15:00:00",
+        "host_token": "secret"
+       },
+       "state": {
+        "title": "Planning",
+        "participants": {},
+        "cards": {
+         "decisions": [
+          {
+           "id": "it_1",
+           "card": "decisions",
+           "text": "Ship it",
+           "status": "confirmed",
+           "data": {},
+           "pinned": false,
+           "evidence": []
+          }
+         ]
+        },
+        "rolling_summary": "Aligned."
+       },
+       "segments": [
+        {
+         "id": "sg_1",
+         "start_s": 1.0,
+         "end_s": 2.0,
+         "text": "Hello",
+         "channel": "mic"
+        }
+       ]
+      },
+      {
+       "meeting": {
+        "id": "m_2",
+        "title": "Retro",
+        "started_at": "2026-07-04T18:05:00Z",
+        "ended_at": "2026-03-15T15:00:00",
+        "host_token": "secret"
+       },
+       "state": {
+        "title": "Retro",
+        "participants": {},
+        "cards": {}
+       },
+       "segments": [
+        {
+         "id": "sg_1",
+         "start_s": 1.0,
+         "end_s": 2.0,
+         "text": "Café ☕ talk",
+         "channel": "mic"
+        }
+       ]
+      },
+      {
+       "meeting": {
+        "id": "m_3",
+        "title": "",
+        "started_at": null,
+        "ended_at": "2026-03-15T15:00:00",
+        "host_token": "secret"
+       },
+       "state": {
+        "title": "",
+        "participants": {},
+        "cards": {}
+       },
+       "segments": [
+        {
+         "id": "sg_1",
+         "start_s": 1.0,
+         "end_s": 2.0,
+         "text": "  ",
+         "channel": "mic"
+        }
+       ]
+      }
+     ],
+     "txt",
+     true,
+     true
+    ],
+    "result": "Planning\n2026-03-15 14:30\n\n[00:00:01] Me: Hello\n\n\n============================================================\n\nRetro\n2026-07-04 14:05\n\n[00:00:01] Me: Café ☕ talk\n\n\n============================================================\n\nMeeting\n\n(no transcript)\n"
+   },
+   {
+    "args": [
+     [
+      {
+       "meeting": {
+        "id": "m_1",
+        "title": "Planning",
+        "started_at": "2026-03-15T14:30:00",
+        "ended_at": "2026-03-15T15:00:00",
+        "host_token": "secret"
+       },
+       "state": {
+        "title": "Planning",
+        "participants": {},
+        "cards": {
+         "decisions": [
+          {
+           "id": "it_1",
+           "card": "decisions",
+           "text": "Ship it",
+           "status": "confirmed",
+           "data": {},
+           "pinned": false,
+           "evidence": []
+          }
+         ]
+        },
+        "rolling_summary": "Aligned."
+       },
+       "segments": [
+        {
+         "id": "sg_1",
+         "start_s": 1.0,
+         "end_s": 2.0,
+         "text": "Hello",
+         "channel": "mic"
+        }
+       ]
+      },
+      {
+       "meeting": {
+        "id": "m_2",
+        "title": "Retro",
+        "started_at": "2026-07-04T18:05:00Z",
+        "ended_at": "2026-03-15T15:00:00",
+        "host_token": "secret"
+       },
+       "state": {
+        "title": "Retro",
+        "participants": {},
+        "cards": {}
+       },
+       "segments": [
+        {
+         "id": "sg_1",
+         "start_s": 1.0,
+         "end_s": 2.0,
+         "text": "Café ☕ talk",
+         "channel": "mic"
+        }
+       ]
+      },
+      {
+       "meeting": {
+        "id": "m_3",
+        "title": "",
+        "started_at": null,
+        "ended_at": "2026-03-15T15:00:00",
+        "host_token": "secret"
+       },
+       "state": {
+        "title": "",
+        "participants": {},
+        "cards": {}
+       },
+       "segments": [
+        {
+         "id": "sg_1",
+         "start_s": 1.0,
+         "end_s": 2.0,
+         "text": "  ",
+         "channel": "mic"
+        }
+       ]
+      }
+     ],
+     "txt",
+     false,
+     true
+    ],
+    "result": "Planning\n2026-03-15 14:30\n\n[00:00:01] Me: Hello\n\n\n============================================================\n\nRetro\n2026-07-04 14:05\n\n[00:00:01] Me: Café ☕ talk\n\n\n============================================================\n\nMeeting\n\n(no transcript)\n"
+   },
+   {
+    "args": [
+     [
+      {
+       "meeting": {
+        "id": "m_1",
+        "title": "Planning",
+        "started_at": "2026-03-15T14:30:00",
+        "ended_at": "2026-03-15T15:00:00",
+        "host_token": "secret"
+       },
+       "state": {
+        "title": "Planning",
+        "participants": {},
+        "cards": {
+         "decisions": [
+          {
+           "id": "it_1",
+           "card": "decisions",
+           "text": "Ship it",
+           "status": "confirmed",
+           "data": {},
+           "pinned": false,
+           "evidence": []
+          }
+         ]
+        },
+        "rolling_summary": "Aligned."
+       },
+       "segments": [
+        {
+         "id": "sg_1",
+         "start_s": 1.0,
+         "end_s": 2.0,
+         "text": "Hello",
+         "channel": "mic"
+        }
+       ]
+      },
+      {
+       "meeting": {
+        "id": "m_2",
+        "title": "Retro",
+        "started_at": "2026-07-04T18:05:00Z",
+        "ended_at": "2026-03-15T15:00:00",
+        "host_token": "secret"
+       },
+       "state": {
+        "title": "Retro",
+        "participants": {},
+        "cards": {}
+       },
+       "segments": [
+        {
+         "id": "sg_1",
+         "start_s": 1.0,
+         "end_s": 2.0,
+         "text": "Café ☕ talk",
+         "channel": "mic"
+        }
+       ]
+      },
+      {
+       "meeting": {
+        "id": "m_3",
+        "title": "",
+        "started_at": null,
+        "ended_at": "2026-03-15T15:00:00",
+        "host_token": "secret"
+       },
+       "state": {
+        "title": "",
+        "participants": {},
+        "cards": {}
+       },
+       "segments": [
+        {
+         "id": "sg_1",
+         "start_s": 1.0,
+         "end_s": 2.0,
+         "text": "  ",
+         "channel": "mic"
+        }
+       ]
+      }
+     ],
+     "json",
+     true,
+     true
+    ],
+    "result": "{\n  \"format_version\": 1,\n  \"exported_at\": \"2025-12-31T19:00:00\",\n  \"meetings\": [\n    {\n      \"format_version\": 1,\n      \"meeting\": {\n        \"id\": \"m_1\",\n        \"title\": \"Planning\",\n        \"started_at\": \"2026-03-15T14:30:00\",\n        \"ended_at\": \"2026-03-15T15:00:00\"\n      },\n      \"state\": {\n        \"title\": \"Planning\",\n        \"participants\": {},\n        \"cards\": {\n          \"decisions\": [\n            {\n              \"id\": \"it_1\",\n              \"card\": \"decisions\",\n              \"text\": \"Ship it\",\n              \"status\": \"confirmed\",\n              \"data\": {},\n              \"pinned\": false,\n              \"evidence\": []\n            }\n          ]\n        },\n        \"rolling_summary\": \"Aligned.\"\n      },\n      \"segments\": [\n        {\n          \"id\": \"sg_1\",\n          \"start_s\": 1.0,\n          \"end_s\": 2.0,\n          \"text\": \"Hello\",\n          \"channel\": \"mic\"\n        }\n      ]\n    },\n    {\n      \"format_version\": 1,\n      \"meeting\": {\n        \"id\": \"m_2\",\n        \"title\": \"Retro\",\n        \"started_at\": \"2026-07-04T18:05:00Z\",\n        \"ended_at\": \"2026-03-15T15:00:00\"\n      },\n      \"state\": {\n        \"title\": \"Retro\",\n        \"participants\": {},\n        \"cards\": {}\n      },\n      \"segments\": [\n        {\n          \"id\": \"sg_1\",\n          \"start_s\": 1.0,\n          \"end_s\": 2.0,\n          \"text\": \"Café ☕ talk\",\n          \"channel\": \"mic\"\n        }\n      ]\n    },\n    {\n      \"format_version\": 1,\n      \"meeting\": {\n        \"id\": \"m_3\",\n        \"title\": \"\",\n        \"started_at\": null,\n        \"ended_at\": \"2026-03-15T15:00:00\"\n      },\n      \"state\": {\n        \"title\": \"\",\n        \"participants\": {},\n        \"cards\": {}\n      },\n      \"segments\": [\n        {\n          \"id\": \"sg_1\",\n          \"start_s\": 1.0,\n          \"end_s\": 2.0,\n          \"text\": \"  \",\n          \"channel\": \"mic\"\n        }\n      ]\n    }\n  ]\n}"
+   },
+   {
+    "args": [
+     [
+      {
+       "meeting": {
+        "id": "m_1",
+        "title": "Planning",
+        "started_at": "2026-03-15T14:30:00",
+        "ended_at": "2026-03-15T15:00:00",
+        "host_token": "secret"
+       },
+       "state": {
+        "title": "Planning",
+        "participants": {},
+        "cards": {
+         "decisions": [
+          {
+           "id": "it_1",
+           "card": "decisions",
+           "text": "Ship it",
+           "status": "confirmed",
+           "data": {},
+           "pinned": false,
+           "evidence": []
+          }
+         ]
+        },
+        "rolling_summary": "Aligned."
+       },
+       "segments": [
+        {
+         "id": "sg_1",
+         "start_s": 1.0,
+         "end_s": 2.0,
+         "text": "Hello",
+         "channel": "mic"
+        }
+       ]
+      },
+      {
+       "meeting": {
+        "id": "m_2",
+        "title": "Retro",
+        "started_at": "2026-07-04T18:05:00Z",
+        "ended_at": "2026-03-15T15:00:00",
+        "host_token": "secret"
+       },
+       "state": {
+        "title": "Retro",
+        "participants": {},
+        "cards": {}
+       },
+       "segments": [
+        {
+         "id": "sg_1",
+         "start_s": 1.0,
+         "end_s": 2.0,
+         "text": "Café ☕ talk",
+         "channel": "mic"
+        }
+       ]
+      },
+      {
+       "meeting": {
+        "id": "m_3",
+        "title": "",
+        "started_at": null,
+        "ended_at": "2026-03-15T15:00:00",
+        "host_token": "secret"
+       },
+       "state": {
+        "title": "",
+        "participants": {},
+        "cards": {}
+       },
+       "segments": [
+        {
+         "id": "sg_1",
+         "start_s": 1.0,
+         "end_s": 2.0,
+         "text": "  ",
+         "channel": "mic"
+        }
+       ]
+      }
+     ],
+     "json",
+     false,
+     true
+    ],
+    "result": "{\n  \"format_version\": 1,\n  \"exported_at\": \"2025-12-31T19:00:00\",\n  \"meetings\": [\n    {\n      \"format_version\": 1,\n      \"meeting\": {\n        \"id\": \"m_1\",\n        \"title\": \"Planning\",\n        \"started_at\": \"2026-03-15T14:30:00\",\n        \"ended_at\": \"2026-03-15T15:00:00\"\n      },\n      \"state\": {\n        \"title\": \"Planning\",\n        \"participants\": {},\n        \"cards\": {\n          \"decisions\": [\n            {\n              \"id\": \"it_1\",\n              \"card\": \"decisions\",\n              \"text\": \"Ship it\",\n              \"status\": \"confirmed\",\n              \"data\": {},\n              \"pinned\": false,\n              \"evidence\": []\n            }\n          ]\n        },\n        \"rolling_summary\": \"Aligned.\"\n      },\n      \"segments\": [\n        {\n          \"id\": \"sg_1\",\n          \"start_s\": 1.0,\n          \"end_s\": 2.0,\n          \"text\": \"Hello\",\n          \"channel\": \"mic\"\n        }\n      ]\n    },\n    {\n      \"format_version\": 1,\n      \"meeting\": {\n        \"id\": \"m_2\",\n        \"title\": \"Retro\",\n        \"started_at\": \"2026-07-04T18:05:00Z\",\n        \"ended_at\": \"2026-03-15T15:00:00\"\n      },\n      \"state\": {\n        \"title\": \"Retro\",\n        \"participants\": {},\n        \"cards\": {}\n      },\n      \"segments\": [\n        {\n          \"id\": \"sg_1\",\n          \"start_s\": 1.0,\n          \"end_s\": 2.0,\n          \"text\": \"Café ☕ talk\",\n          \"channel\": \"mic\"\n        }\n      ]\n    },\n    {\n      \"format_version\": 1,\n      \"meeting\": {\n        \"id\": \"m_3\",\n        \"title\": \"\",\n        \"started_at\": null,\n        \"ended_at\": \"2026-03-15T15:00:00\"\n      },\n      \"state\": {\n        \"title\": \"\",\n        \"participants\": {},\n        \"cards\": {}\n      },\n      \"segments\": [\n        {\n          \"id\": \"sg_1\",\n          \"start_s\": 1.0,\n          \"end_s\": 2.0,\n          \"text\": \"  \",\n          \"channel\": \"mic\"\n        }\n      ]\n    }\n  ]\n}"
+   },
+   {
+    "args": [
+     [],
+     "markdown",
+     true,
+     true
+    ],
+    "result": "# Past Meetings Export\n\n0 meeting(s) · exported 2025-12-31 19:00\n\n---\n\n\n"
+   },
+   {
+    "args": [
+     [],
+     "txt",
+     true,
+     true
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     [],
+     "json",
+     true,
+     true
+    ],
+    "result": "{\n  \"format_version\": 1,\n  \"exported_at\": \"2025-12-31T19:00:00\",\n  \"meetings\": []\n}"
+   }
+  ],
+  "fixture_export": [
+   {
+    "args": [
+     "m_fixture_ended",
+     "markdown",
+     true,
+     true
+    ],
+    "result": "# Budget review\n\n2026-10-04 05:00 · Duration 00:00:09 · Participants: Me, Speaker 1\n\n## Topic\n\nBudget — Q3 café plan\n\n## Decisions\n\n- Ship the budget on Friday\n\n## Notes\n\n- Correction: Entropic -> Anthropic\n- Friday -> Thursday (second)\n\n## Questions\n\n- **Open:** Who owns QA?\n\n### Transcript\n\n[00:00:00] Me: Anthropic ships the budget on Friday.  \n[00:00:02] Speaker 1: Who owns QA for the budget?  \n[00:00:04] Me: Friday works, Anthropic said Thursday.  \n"
+   },
+   {
+    "args": [
+     "m_fixture_ended",
+     "markdown",
+     false,
+     false
+    ],
+    "result": "# Budget review\n\n2026-10-04 05:00 · Duration 00:00:09 · Participants: Me, Speaker 1\n"
+   },
+   {
+    "args": [
+     "m_fixture_ended",
+     "txt",
+     true,
+     true
+    ],
+    "result": "Budget review\n2026-10-04 05:00\nParticipants: Me, Speaker 1\n\n[00:00:00] Me: Anthropic ships the budget on Friday.\n[00:00:02] Speaker 1: Who owns QA for the budget?\n[00:00:04] Me: Friday works, Anthropic said Thursday.\n"
+   },
+   {
+    "args": [
+     "m_fixture_ended",
+     "json",
+     true,
+     true
+    ],
+    "result": "{\n  \"format_version\": 1,\n  \"meeting\": {\n    \"id\": \"m_fixture_ended\",\n    \"title\": \"Budget review\",\n    \"status\": \"ended\",\n    \"started_at\": \"2026-10-04T09:00:00Z\",\n    \"ended_at\": \"2026-10-04T09:30:00Z\",\n    \"paused_total_s\": 12.5,\n    \"cloud_enabled\": false,\n    \"asr_model\": \"parakeet-v3\",\n    \"asr_remote_json\": null,\n    \"agent_provider\": null,\n    \"agent_model\": null,\n    \"agent_endpoint_json\": null,\n    \"spool_dir\": \"meetings/m_fixture_ended\",\n    \"state_seq\": 10,\n    \"origin_device_id\": null,\n    \"origin_device_name\": null\n  },\n  \"state\": {\n    \"meeting_id\": \"m_fixture_ended\",\n    \"seq\": 10,\n    \"status\": \"ended\",\n    \"cloud_enabled\": false,\n    \"intelligence_online\": false,\n    \"diarization_available\": false,\n    \"diarization_reason\": \"\",\n    \"speech\": {},\n    \"title\": \"Budget review\",\n    \"intent\": {\n      \"text\": \"\",\n      \"updated_at\": \"\",\n      \"author_id\": \"\"\n    },\n    \"topic\": {\n      \"current\": \"Budget — Q3 café plan\",\n      \"history\": [\n        {\n          \"text\": \"Budget — Q3 café plan\",\n          \"ts\": \"2026-11-16T16:51:15.243314Z\",\n          \"evidence\": [\n            \"sg_fx_mic_1\"\n          ],\n          \"actor_type\": \"agent\"\n        }\n      ]\n    },\n    \"rolling_summary\": \"\",\n    \"rolling_summary_evidence\": [],\n    \"capture\": {\n      \"mic_available\": false,\n      \"loopback_available\": false,\n      \"message\": \"\",\n      \"audio_incomplete\": false,\n      \"integrity_error\": \"\"\n    },\n    \"participants\": {\n      \"p_4f445f2f7ff5\": {\n        \"id\": \"p_4f445f2f7ff5\",\n        \"display_name\": \"Me\",\n        \"kind\": \"me\",\n        \"name_source\": \"human\",\n        \"is_provisional\": false,\n        \"created_at\": \"2026-11-16T16:51:15.236803Z\",\n        \"updated_at\": \"2026-11-16T16:51:15.236803Z\"\n      },\n      \"p_bd2f00736b36\": {\n        \"id\": \"p_bd2f00736b36\",\n        \"display_name\": \"Speaker 1\",\n        \"kind\": \"others_cluster\",\n        \"name_source\": \"agent_inferred\",\n        \"is_provisional\": true,\n        \"created_at\": \"2026-11-16T16:51:15.243314Z\",\n        \"updated_at\": \"2026-11-16T16:51:15.243314Z\"\n      }\n    },\n    \"cards\": {\n      \"key_points\": [],\n      \"decisions\": [\n        {\n          \"id\": \"it_4b6ee71c5486\",\n          \"card\": \"decisions\",\n          \"text\": \"Ship the budget on Friday\",\n          \"data\": {},\n          \"status\": \"proposed\",\n          \"author_type\": \"agent\",\n          \"author_id\": \"agent\",\n          \"pinned\": false,\n          \"revision\": 1,\n          \"evidence\": [\n            \"sg_fx_mic_1\"\n          ],\n          \"created_at\": \"2026-11-16T16:51:15.243314Z\",\n          \"updated_at\": \"2026-11-16T16:51:15.243314Z\",\n          \"review\": {},\n          \"citation_check\": {}\n        }\n      ],\n      \"action_items\": [],\n      \"risks\": [],\n      \"timeline\": [],\n      \"live_notes\": [],\n      \"user_notes\": [\n        {\n          \"id\": \"it_4639fe04fb54\",\n          \"card\": \"user_notes\",\n          \"text\": \"Correction: Entropic -> Anthropic\",\n          \"data\": {\n            \"kind\": \"term_correction\",\n            \"selected_text\": \"Entropic\",\n            \"replacement\": \"Anthropic\"\n          },\n          \"status\": \"edited\",\n          \"author_type\": \"user\",\n          \"author_id\": \"p_4f445f2f7ff5\",\n          \"pinned\": false,\n          \"revision\": 1,\n          \"evidence\": [],\n          \"created_at\": \"2026-11-16T16:51:15.265380Z\",\n          \"updated_at\": \"2026-11-16T16:51:15.265380Z\",\n          \"review\": {},\n          \"citation_check\": {}\n        },\n        {\n          \"id\": \"it_f624669ffffa\",\n          \"card\": \"user_notes\",\n          \"text\": \"Friday -> Thursday (second)\",\n          \"data\": {\n            \"kind\": \"occurrence_correction\",\n            \"selected_text\": \"Friday\",\n            \"replacement\": \"Thursday\",\n            \"occurrence_index\": 1,\n            \"base_fingerprint\": \"fnv1a64:0666bfe48ac8d9f6\"\n          },\n          \"status\": \"edited\",\n          \"author_type\": \"user\",\n          \"author_id\": \"p_4f445f2f7ff5\",\n          \"pinned\": false,\n          \"revision\": 1,\n          \"evidence\": [\n            \"sg_fx_mic_2\"\n          ],\n          \"created_at\": \"2026-11-16T16:51:15.268405Z\",\n          \"updated_at\": \"2026-11-16T16:51:15.268405Z\",\n          \"review\": {},\n          \"citation_check\": {}\n        }\n      ]\n    },\n    \"questions\": [\n      {\n        \"id\": \"q_18b999fae3ae\",\n        \"text\": \"Who owns QA?\",\n        \"status\": \"open\",\n        \"suggested_answer\": null,\n        \"suggested_confidence\": null,\n        \"answer\": \"Priya owns QA ✓\",\n        \"answer_source\": \"user\",\n        \"confidence\": null,\n        \"thread\": [\n          {\n            \"author_type\": \"user\",\n            \"author_id\": \"p_4f445f2f7ff5\",\n            \"text\": \"Priya owns QA ✓\",\n            \"ts\": \"2026-11-16T16:51:15.285442Z\"\n          }\n        ],\n        \"evidence\": [\n          \"sg_fx_loop_1\"\n        ],\n        \"asked_at\": \"2026-11-16T16:51:15.243314Z\",\n        \"resolved_at\": null,\n        \"resolved_by\": null\n      }\n    ],\n    \"finalization\": {\n      \"status\": \"pending\",\n      \"message\": \"\",\n      \"stage\": \"\",\n      \"current_step\": 0,\n      \"total_steps\": 0,\n      \"step_details\": \"\",\n      \"steps\": [],\n      \"summary_stats\": {},\n      \"card_deferred\": false\n    },\n    \"report_views\": [\n      \"ribbon\",\n      \"brief\",\n      \"signal\"\n    ],\n    \"insight_review\": {},\n    \"live_highlights\": [],\n    \"live_highlights_status\": \"unknown\",\n    \"voice_feedback\": {},\n    \"custom_reports\": []\n  },\n  \"segments\": [\n    {\n      \"id\": \"sg_fx_mic_1\",\n      \"meeting_id\": \"m_fixture_ended\",\n      \"chunk_id\": 1,\n      \"channel\": \"mic\",\n      \"start_s\": 0.5,\n      \"end_s\": 3.0,\n      \"text\": \"Anthropic ships the budget on Friday.\",\n      \"original_text\": \"Entropic ships the budget on Friday.\",\n      \"speaker_participant_id\": null,\n      \"speaker_source\": \"channel\",\n      \"speaker_pinned\": false,\n      \"created_at\": \"2026-11-16T16:51:15.054668Z\"\n    },\n    {\n      \"id\": \"sg_fx_loop_1\",\n      \"meeting_id\": \"m_fixture_ended\",\n      \"chunk_id\": 2,\n      \"channel\": \"loopback\",\n      \"start_s\": 2.0,\n      \"end_s\": 4.5,\n      \"text\": \"Who owns QA for the budget?\",\n      \"original_text\": \"Who owns QA for the budget?\",\n      \"speaker_participant_id\": \"p_bd2f00736b36\",\n      \"speaker_source\": \"human\",\n      \"speaker_pinned\": true,\n      \"created_at\": \"2026-11-16T16:51:15.108347Z\"\n    },\n    {\n      \"id\": \"sg_fx_mic_2\",\n      \"meeting_id\": \"m_fixture_ended\",\n      \"chunk_id\": 1,\n      \"channel\": \"mic\",\n      \"start_s\": 4.0,\n      \"end_s\": 6.5,\n      \"text\": \"Friday works, Anthropic said Thursday.\",\n      \"original_text\": \"Friday works, entropic said Friday.\",\n      \"speaker_participant_id\": null,\n      \"speaker_source\": \"channel\",\n      \"speaker_pinned\": false,\n      \"created_at\": \"2026-11-16T16:51:15.054668Z\"\n    },\n    {\n      \"id\": \"sg_fx_loop_2\",\n      \"meeting_id\": \"m_fixture_ended\",\n      \"chunk_id\": 2,\n      \"channel\": \"loopback\",\n      \"start_s\": 7.25,\n      \"end_s\": 9.75,\n      \"text\": \"   \",\n      \"original_text\": \"   \",\n      \"speaker_participant_id\": null,\n      \"speaker_source\": \"channel\",\n      \"speaker_pinned\": false,\n      \"created_at\": \"2026-11-16T16:51:15.108347Z\"\n    }\n  ]\n}"
+   },
+   {
+    "args": [
+     "m_fixture_paired",
+     "markdown",
+     true,
+     true
+    ],
+    "result": "# Café ☕ sync\n\n2026-10-03 08:00 · Duration 00:00:03\n\n### Transcript\n\n[00:00:01] Me: Naïve résumé budget 😀  \n"
+   },
+   {
+    "args": [
+     "m_fixture_paired",
+     "markdown",
+     false,
+     false
+    ],
+    "result": "# Café ☕ sync\n\n2026-10-03 08:00 · Duration 00:00:03\n"
+   },
+   {
+    "args": [
+     "m_fixture_paired",
+     "txt",
+     true,
+     true
+    ],
+    "result": "Café ☕ sync\n2026-10-03 08:00\n\n[00:00:01] Me: Naïve résumé budget 😀\n"
+   },
+   {
+    "args": [
+     "m_fixture_paired",
+     "json",
+     true,
+     true
+    ],
+    "result": "{\n  \"format_version\": 1,\n  \"meeting\": {\n    \"id\": \"m_fixture_paired\",\n    \"title\": \"Café ☕ sync\",\n    \"status\": \"ended\",\n    \"started_at\": \"2026-10-03T14:00:00+02:00\",\n    \"ended_at\": \"2026-10-03T14:20:00+02:00\",\n    \"paused_total_s\": 0.0,\n    \"cloud_enabled\": true,\n    \"asr_model\": null,\n    \"asr_remote_json\": null,\n    \"agent_provider\": null,\n    \"agent_model\": null,\n    \"agent_endpoint_json\": null,\n    \"spool_dir\": \"meetings/m_fixture_paired\",\n    \"state_seq\": 0,\n    \"origin_device_id\": \"device-42\",\n    \"origin_device_name\": \"Studio PC\"\n  },\n  \"state\": {},\n  \"segments\": [\n    {\n      \"id\": \"sg_fx_paired\",\n      \"meeting_id\": \"m_fixture_paired\",\n      \"chunk_id\": null,\n      \"channel\": \"mic\",\n      \"start_s\": 1.0,\n      \"end_s\": 3.0,\n      \"text\": \"Naïve résumé budget 😀\",\n      \"original_text\": \"Naïve résumé budget 😀\",\n      \"speaker_participant_id\": null,\n      \"speaker_source\": \"channel\",\n      \"speaker_pinned\": true,\n      \"created_at\": \"2026-11-16T16:51:15.293542Z\"\n    }\n  ]\n}"
+   },
+   {
+    "args": [
+     "m_fixture_interrupted",
+     "markdown",
+     true,
+     true
+    ],
+    "result": "# Meeting 2026-10-05\n\n2026-10-05 08:00\n"
+   },
+   {
+    "args": [
+     "m_fixture_interrupted",
+     "markdown",
+     false,
+     false
+    ],
+    "result": "# Meeting 2026-10-05\n\n2026-10-05 08:00\n"
+   },
+   {
+    "args": [
+     "m_fixture_interrupted",
+     "txt",
+     true,
+     true
+    ],
+    "result": "Meeting 2026-10-05\n2026-10-05 08:00\n\n(no transcript)\n"
+   },
+   {
+    "args": [
+     "m_fixture_interrupted",
+     "json",
+     true,
+     true
+    ],
+    "result": "{\n  \"format_version\": 1,\n  \"meeting\": {\n    \"id\": \"m_fixture_interrupted\",\n    \"title\": \"\",\n    \"status\": \"active\",\n    \"started_at\": \"2026-10-05T08:00:00\",\n    \"ended_at\": null,\n    \"paused_total_s\": 0.0,\n    \"cloud_enabled\": false,\n    \"asr_model\": null,\n    \"asr_remote_json\": null,\n    \"agent_provider\": null,\n    \"agent_model\": null,\n    \"agent_endpoint_json\": null,\n    \"spool_dir\": \"meetings/m_fixture_interrupted\",\n    \"state_seq\": 0,\n    \"origin_device_id\": null,\n    \"origin_device_name\": null\n  },\n  \"state\": {},\n  \"segments\": []\n}"
+   },
+   {
+    "args": [
+     "m_fixture_missing",
+     "markdown",
+     true,
+     true
+    ],
+    "result": null
+   }
+  ]
+ }
+}

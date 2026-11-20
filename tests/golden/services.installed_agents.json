@@ -1,0 +1,1872 @@
+{
+ "module": "services.installed_agents",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time",
+  "sign_in_note": "args of _claude_sign_in and _codex_sign_in are the canned (exit code, output) _run returns; the result is [signed_in, account]",
+  "config_note": "args start with the files written under a fresh folder: claude/ is CLAUDE_CONFIG_DIR, codex/ is CODEX_HOME, xdg/ is XDG_CONFIG_HOME",
+  "parse_version_note": "the result is [sort key as a list, the version as printed]"
+ },
+ "functions": {
+  "parse_version": [
+   {
+    "args": [
+     "2.1.281 (Claude Code)"
+    ],
+    "result": [
+     [
+      2,
+      1,
+      281,
+      1
+     ],
+     "2.1.281"
+    ]
+   },
+   {
+    "args": [
+     "codex-cli 0.158.0-alpha.2.1"
+    ],
+    "result": [
+     [
+      0,
+      158,
+      0,
+      0
+     ],
+     "0.158.0-alpha.2.1"
+    ]
+   },
+   {
+    "args": [
+     "opencode 2.0"
+    ],
+    "result": [
+     [
+      2,
+      0,
+      0,
+      1
+     ],
+     "2.0"
+    ]
+   },
+   {
+    "args": [
+     "no version here"
+    ],
+    "result": [
+     [],
+     ""
+    ]
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": [
+     [],
+     ""
+    ]
+   },
+   {
+    "args": [
+     "v1.2"
+    ],
+    "result": [
+     [
+      1,
+      2,
+      0,
+      1
+     ],
+     "1.2"
+    ]
+   },
+   {
+    "args": [
+     "1.2.3-beta+build"
+    ],
+    "result": [
+     [
+      1,
+      2,
+      3,
+      0
+     ],
+     "1.2.3-beta"
+    ]
+   },
+   {
+    "args": [
+     "abc 10.20.30-rc.1 more"
+    ],
+    "result": [
+     [
+      10,
+      20,
+      30,
+      0
+     ],
+     "10.20.30-rc.1"
+    ]
+   },
+   {
+    "args": [
+     "1.2.3.4"
+    ],
+    "result": [
+     [
+      1,
+      2,
+      3,
+      1
+     ],
+     "1.2.3"
+    ]
+   },
+   {
+    "args": [
+     "١٢.٣"
+    ],
+    "result": [
+     [
+      12,
+      3,
+      0,
+      1
+     ],
+     "١٢.٣"
+    ]
+   },
+   {
+    "args": [
+     "2.0-"
+    ],
+    "result": [
+     [
+      2,
+      0,
+      0,
+      1
+     ],
+     "2.0"
+    ]
+   },
+   {
+    "args": [
+     "1.2.-3"
+    ],
+    "result": [
+     [
+      1,
+      2,
+      0,
+      1
+     ],
+     "1.2"
+    ]
+   },
+   {
+    "args": [
+     "0.0.0-0"
+    ],
+    "result": [
+     [
+      0,
+      0,
+      0,
+      0
+     ],
+     "0.0.0-0"
+    ]
+   },
+   {
+    "args": [
+     "12.x 3.4"
+    ],
+    "result": [
+     [
+      3,
+      4,
+      0,
+      1
+     ],
+     "3.4"
+    ]
+   },
+   {
+    "args": [
+     "1.2.3-"
+    ],
+    "result": [
+     [
+      1,
+      2,
+      3,
+      1
+     ],
+     "1.2.3"
+    ]
+   },
+   {
+    "args": [
+     "9999999999.1.2"
+    ],
+    "result": [
+     [
+      9999999999,
+      1,
+      2,
+      1
+     ],
+     "9999999999.1.2"
+    ]
+   },
+   {
+    "args": [
+     "0.146.0"
+    ],
+    "result": [
+     [
+      0,
+      146,
+      0,
+      1
+     ],
+     "0.146.0"
+    ]
+   },
+   {
+    "args": [
+     "0.158.0-alpha.2"
+    ],
+    "result": [
+     [
+      0,
+      158,
+      0,
+      0
+     ],
+     "0.158.0-alpha.2"
+    ]
+   },
+   {
+    "args": [
+     "0.158.0"
+    ],
+    "result": [
+     [
+      0,
+      158,
+      0,
+      1
+     ],
+     "0.158.0"
+    ]
+   },
+   {
+    "args": [
+     "codex-cli 0.120.0\n"
+    ],
+    "result": [
+     [
+      0,
+      120,
+      0,
+      1
+     ],
+     "0.120.0"
+    ]
+   },
+   {
+    "args": [
+     "1.2.3-a_b"
+    ],
+    "result": [
+     [
+      1,
+      2,
+      3,
+      0
+     ],
+     "1.2.3-a"
+    ]
+   },
+   {
+    "args": [
+     "1.2.3--x"
+    ],
+    "result": [
+     [
+      1,
+      2,
+      3,
+      0
+     ],
+     "1.2.3--x"
+    ]
+   }
+  ],
+  "_strip_jsonc": [
+   {
+    "args": [
+     "{\"url\": \"https://a//b\", /* c */ \"x\": [1, 2,],}"
+    ],
+    "result": "{\"url\": \"https://a//b\",  \"x\": [1, 2]}"
+   },
+   {
+    "args": [
+     "{\n  // their favourite\n  \"model\": \"x\",\n  \"provider\": {\"x\": 1}, /* trailing */\n}\n"
+    ],
+    "result": "{\n  \n  \"model\": \"x\",\n  \"provider\": {\"x\": 1} \n}\n"
+   },
+   {
+    "args": [
+     "{\"a\": \",}\", \"b\": \"x, ]\"}"
+    ],
+    "result": "{\"a\": \"}\", \"b\": \"x ]\"}"
+   },
+   {
+    "args": [
+     "{\"a\": \"say \\\"hi\\\" // not a comment\", \"b\": 1 // comment\n}"
+    ],
+    "result": "{\"a\": \"say \\\"hi\\\" // not a comment\", \"b\": 1 \n}"
+   },
+   {
+    "args": [
+     "{\"a\": 1 /* unterminated"
+    ],
+    "result": "{\"a\": 1 "
+   },
+   {
+    "args": [
+     "{\"a\": 1} // no newline at the end"
+    ],
+    "result": "{\"a\": 1} "
+   },
+   {
+    "args": [
+     "{\"a\": [1, 2 ,\n\t]}"
+    ],
+    "result": "{\"a\": [1, 2 \n\t]}"
+   },
+   {
+    "args": [
+     "{\"a\": \"\\\\\"}, // after an escaped backslash"
+    ],
+    "result": "{\"a\": \"\\\\\"}, "
+   },
+   {
+    "args": [
+     "/**/{\"a\"/* x */:/**/1}"
+    ],
+    "result": "{\"a\":1}"
+   },
+   {
+    "args": [
+     "{\"e\": \"é // ü\", \"f\": 2, }"
+    ],
+    "result": "{\"e\": \"é // ü\", \"f\": 2 }"
+   },
+   {
+    "args": [
+     "{\"s\": \"a\\"
+    ],
+    "result": "{\"s\": \"a\\"
+   },
+   {
+    "args": [
+     "\"/* inside */\""
+    ],
+    "result": "\"/* inside */\""
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": ""
+   }
+  ],
+  "_claude_sign_in": [
+   {
+    "args": [
+     0,
+     "{\"loggedIn\": true, \"authMethod\": \"claude.ai\", \"subscriptionType\": \"team\"}"
+    ],
+    "result": [
+     true,
+     "Claude Team"
+    ]
+   },
+   {
+    "args": [
+     0,
+     "{\"loggedIn\": true, \"apiProvider\": \"bedrock\"}"
+    ],
+    "result": [
+     true,
+     "Amazon Bedrock"
+    ]
+   },
+   {
+    "args": [
+     0,
+     "{\"loggedIn\": true, \"apiProvider\": \"vertex\", \"subscriptionType\": \"max\"}"
+    ],
+    "result": [
+     true,
+     "Google Vertex AI"
+    ]
+   },
+   {
+    "args": [
+     0,
+     "{\"loggedIn\": true, \"apiProvider\": \"foundry\"}"
+    ],
+    "result": [
+     true,
+     "Microsoft Foundry"
+    ]
+   },
+   {
+    "args": [
+     0,
+     "{\"loggedIn\": true, \"authMethod\": \"api_key\"}"
+    ],
+    "result": [
+     true,
+     "API key"
+    ]
+   },
+   {
+    "args": [
+     0,
+     "{\"loggedIn\": false}"
+    ],
+    "result": [
+     false,
+     ""
+    ]
+   },
+   {
+    "args": [
+     0,
+     "{\"loggedIn\": false, \"subscriptionType\": \"pro\"}"
+    ],
+    "result": [
+     false,
+     ""
+    ]
+   },
+   {
+    "args": [
+     0,
+     "{\"loggedIn\": true}"
+    ],
+    "result": [
+     true,
+     "Claude account"
+    ]
+   },
+   {
+    "args": [
+     0,
+     "{\"loggedIn\": 1, \"subscriptionType\": \"PRO\"}"
+    ],
+    "result": [
+     true,
+     "Claude Pro"
+    ]
+   },
+   {
+    "args": [
+     0,
+     "{\"loggedIn\": 0}"
+    ],
+    "result": [
+     null,
+     ""
+    ]
+   },
+   {
+    "args": [
+     0,
+     "{}"
+    ],
+    "result": [
+     null,
+     ""
+    ]
+   },
+   {
+    "args": [
+     0,
+     "{\"subscriptionType\": \"Enterprise\"}"
+    ],
+    "result": [
+     true,
+     "Claude Enterprise"
+    ]
+   },
+   {
+    "args": [
+     0,
+     "{\"subscriptionType\": \"free\", \"loggedIn\": true}"
+    ],
+    "result": [
+     true,
+     "Claude"
+    ]
+   },
+   {
+    "args": [
+     0,
+     "{\"subscriptionType\": \"unknown-plan\", \"loggedIn\": true}"
+    ],
+    "result": [
+     true,
+     "Claude account"
+    ]
+   },
+   {
+    "args": [
+     0,
+     "{\"authMethod\": [\"key\"], \"loggedIn\": null}"
+    ],
+    "result": [
+     true,
+     "API key"
+    ]
+   },
+   {
+    "args": [
+     0,
+     "{\"authMethod\": {\"Key\": 1}}"
+    ],
+    "result": [
+     true,
+     "API key"
+    ]
+   },
+   {
+    "args": [
+     0,
+     "{\"authMethod\": \"OAuth Token\"}"
+    ],
+    "result": [
+     null,
+     ""
+    ]
+   },
+   {
+    "args": [
+     0,
+     "{\"apiProvider\": \"firstParty\", \"authMethod\": \"claude.ai\", \"loggedIn\": true}"
+    ],
+    "result": [
+     true,
+     "Claude account"
+    ]
+   },
+   {
+    "args": [
+     1,
+     "Warning: something\n{\"loggedIn\": true, \"subscriptionType\": \"pro\"}\nbye"
+    ],
+    "result": [
+     true,
+     "Claude Pro"
+    ]
+   },
+   {
+    "args": [
+     0,
+     "no json at all"
+    ],
+    "result": [
+     null,
+     ""
+    ]
+   },
+   {
+    "args": [
+     null,
+     ""
+    ],
+    "result": [
+     null,
+     ""
+    ]
+   },
+   {
+    "args": [
+     0,
+     "{\"loggedIn\": true"
+    ],
+    "result": [
+     null,
+     ""
+    ]
+   },
+   {
+    "args": [
+     0,
+     "} {\"loggedIn\": true"
+    ],
+    "result": [
+     null,
+     ""
+    ]
+   },
+   {
+    "args": [
+     0,
+     "[{\"loggedIn\": true}]"
+    ],
+    "result": [
+     true,
+     "Claude account"
+    ]
+   },
+   {
+    "args": [
+     0,
+     "{\"loggedIn\": true} trailing } brace"
+    ],
+    "result": [
+     null,
+     ""
+    ]
+   },
+   {
+    "args": [
+     0,
+     "{\"loggedIn\": NaN}"
+    ],
+    "result": [
+     true,
+     "Claude account"
+    ]
+   },
+   {
+    "args": [
+     0,
+     "{\"apiProvider\": 0, \"subscriptionType\": false, \"authMethod\": \"\", \"loggedIn\": \"yes\"}"
+    ],
+    "result": [
+     true,
+     "Claude account"
+    ]
+   }
+  ],
+  "_codex_sign_in": [
+   {
+    "args": [
+     0,
+     "Logged in using ChatGPT"
+    ],
+    "result": [
+     true,
+     "ChatGPT"
+    ]
+   },
+   {
+    "args": [
+     0,
+     "Logged in using an API key"
+    ],
+    "result": [
+     true,
+     "API key"
+    ]
+   },
+   {
+    "args": [
+     1,
+     "Not logged in"
+    ],
+    "result": [
+     false,
+     ""
+    ]
+   },
+   {
+    "args": [
+     0,
+     "Not logged in"
+    ],
+    "result": [
+     false,
+     ""
+    ]
+   },
+   {
+    "args": [
+     2,
+     "Logged in using ChatGPT"
+    ],
+    "result": [
+     false,
+     ""
+    ]
+   },
+   {
+    "args": [
+     null,
+     "Logged in using ChatGPT"
+    ],
+    "result": [
+     null,
+     ""
+    ]
+   },
+   {
+    "args": [
+     null,
+     ""
+    ],
+    "result": [
+     null,
+     ""
+    ]
+   },
+   {
+    "args": [
+     0,
+     "Logged in"
+    ],
+    "result": [
+     true,
+     ""
+    ]
+   },
+   {
+    "args": [
+     0,
+     "LOGGED IN USING CHATGPT"
+    ],
+    "result": [
+     true,
+     "ChatGPT"
+    ]
+   },
+   {
+    "args": [
+     0,
+     "Signed in with an API KEY"
+    ],
+    "result": [
+     true,
+     "API key"
+    ]
+   },
+   {
+    "args": [
+     0,
+     ""
+    ],
+    "result": [
+     true,
+     ""
+    ]
+   }
+  ],
+  "sign_in_hint": [
+   {
+    "args": [
+     "claude_code"
+    ],
+    "result": "Run `claude` once and sign in, or `claude auth login`."
+   },
+   {
+    "args": [
+     "codex"
+    ],
+    "result": "Run `codex login`."
+   },
+   {
+    "args": [
+     "opencode_cli"
+    ],
+    "result": "Run `opencode auth login`."
+   },
+   {
+    "args": [
+     "pi"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": ""
+   }
+  ],
+  "configured_default_model": [
+   {
+    "args": [
+     {
+      "claude/settings.json": "{\"model\": \"opus\"}"
+     },
+     "claude_code"
+    ],
+    "result": "opus"
+   },
+   {
+    "args": [
+     {
+      "claude/settings.json": "{\"model\": \"  sonnet \\n\"}"
+     },
+     "claude_code"
+    ],
+    "result": "sonnet"
+   },
+   {
+    "args": [
+     {
+      "claude/settings.json": "{\"model\": 4}"
+     },
+     "claude_code"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "claude/settings.json": "[\"opus\"]"
+     },
+     "claude_code"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "claude/settings.json": "{\"model\": \"opus\",}"
+     },
+     "claude_code"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "claude/settings.json": "﻿{\"model\": \"opus\"}"
+     },
+     "claude_code"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "claude/settings.json": "{\"model\": \"opus\"} // comment"
+     },
+     "claude_code"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {},
+     "claude_code"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "xdg/opencode/opencode.jsonc": "{\n  // their favourite\n  \"model\": \"openrouter/deepseek/deepseek-v4.1-flash\",\n  \"provider\": {\"x\": {\"baseURL\": \"https://example.com/v1\"}}, /* trailing */\n}\n"
+     },
+     "opencode_cli"
+    ],
+    "result": "openrouter/deepseek/deepseek-v4.1-flash"
+   },
+   {
+    "args": [
+     {
+      "xdg/opencode/opencode.jsonc": "{\"model\": 1}",
+      "xdg/opencode/opencode.json": "{\"model\": \"second\"}",
+      "xdg/opencode/config.json": "{\"model\": \"third\"}"
+     },
+     "opencode_cli"
+    ],
+    "result": "second"
+   },
+   {
+    "args": [
+     {
+      "xdg/opencode/opencode.jsonc": "not json",
+      "xdg/opencode/config.json": "{\"model\": \"third\",}"
+     },
+     "opencode_cli"
+    ],
+    "result": "third"
+   },
+   {
+    "args": [
+     {
+      "xdg/opencode/opencode.json": "{\"model\": \"a//b\"}"
+     },
+     "opencode_cli"
+    ],
+    "result": "a//b"
+   },
+   {
+    "args": [
+     {
+      "xdg/opencode/opencode.json": "{\"model\": \"x\"}\r// windows ending"
+     },
+     "opencode_cli"
+    ],
+    "result": "x"
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"o5\"\n"
+     },
+     "pi"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"gpt-6-sol\"\n"
+     },
+     "codex"
+    ],
+    "result": "gpt-6-sol"
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = 'literal\\path'\n"
+     },
+     "codex"
+    ],
+    "result": "literal\\path"
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "# comment\nmodel = \"  padded  \" # trailing\n"
+     },
+     "codex"
+    ],
+    "result": "padded"
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"esc\\u00e9\\t\\\"q\\\"\"\n"
+     },
+     "codex"
+    ],
+    "result": "escé\t\"q\""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"\"\"\nmulti\nline\"\"\"\n"
+     },
+     "codex"
+    ],
+    "result": "multi\nline"
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"\"\"one \\\n    two\"\"\"\n"
+     },
+     "codex"
+    ],
+    "result": "one two"
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = '''\nraw\\n'''\n"
+     },
+     "codex"
+    ],
+    "result": "raw\\n"
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model_reasoning_effort = \"high\"\nmodel = \"o5\"\n"
+     },
+     "codex"
+    ],
+    "result": "o5"
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "\"model\" = \"quoted-key\"\n"
+     },
+     "codex"
+    ],
+    "result": "quoted-key"
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "'model' = 'literal-key'\n"
+     },
+     "codex"
+    ],
+    "result": "literal-key"
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "[profiles.fast]\nmodel = \"inside a table\"\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "approval = \"never\"\n[tools]\nweb = true\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"first\"\n[model_providers.x]\nname = \"x\"\n"
+     },
+     "codex"
+    ],
+    "result": "first"
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = 5\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = [\"a\"]\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = { name = \"x\" }\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model.name = \"dotted\"\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"a\"\nmodel = \"b\"\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"unterminated\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"bad \\q escape\"\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "just junk\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"ok\"\nbroken = \n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "list = [\n  1,\n  2, # c\n]\nmodel = \"after array\"\n"
+     },
+     "codex"
+    ],
+    "result": "after array"
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "when = 1979-05-27T07:32:00Z\nday = 1979-05-27 07:32:00\nmodel = \"dates\"\n"
+     },
+     "codex"
+    ],
+    "result": "dates"
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "n = +1_000\nf = 6.626e-34\nh = 0xDEAD_beef\ni = inf\nmodel = \"numbers\"\n"
+     },
+     "codex"
+    ],
+    "result": "numbers"
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"crlf\"\r\nother = 1\r\n"
+     },
+     "codex"
+    ],
+    "result": "crlf"
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "﻿model = \"bom\"\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "[model]\nname = \"table\"\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"x\"\n[model]\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": ""
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"\"\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"tab\there\"\n"
+     },
+     "codex"
+    ],
+    "result": "tab\there"
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "a = { b = 1, c = [1, 2] }\nmodel = \"inline\"\n"
+     },
+     "codex"
+    ],
+    "result": "inline"
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"two\"  extra\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"\"\"quotes\"\"\"\"\"\n"
+     },
+     "codex"
+    ],
+    "result": "quotes\"\""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"abc\\"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"\\uD800\"\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"\\U0001F600 \\u00E9\"\n"
+     },
+     "codex"
+    ],
+    "result": "😀 é"
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = 'it''s'\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"\"\"a\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "  model   =   \"indented\"   \n"
+     },
+     "codex"
+    ],
+    "result": "indented"
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model=\"tight\""
+     },
+     "codex"
+    ],
+    "result": "tight"
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "a.b = 1\na.c = 2\nmodel = \"dotted siblings\"\n"
+     },
+     "codex"
+    ],
+    "result": "dotted siblings"
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "a = 1\na.b = 2\nmodel = \"value then table\"\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "[a]\n[a]\nmodel = \"x\"\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "[[items]]\nx = 1\n[[items]]\nx = 2\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"with arrays\"\n[[mcp]]\nname = \"a\"\n[[mcp]]\nname = \"b\"\n[mcp.env]\nk = 1\n"
+     },
+     "codex"
+    ],
+    "result": "with arrays"
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"array then table\"\n[[mcp]]\nname = \"a\"\n[mcp]\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"x\" # comment with \u0001 control\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = true\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = 1979-05-27\n"
+     },
+     "codex"
+    ],
+    "result": ""
+   }
+  ],
+  "default_model_label": [
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"gpt-6-sol\"\n"
+     },
+     "codex"
+    ],
+    "result": "Codex default (gpt-6-sol)"
+   },
+   {
+    "args": [
+     {},
+     "codex"
+    ],
+    "result": "Codex default"
+   },
+   {
+    "args": [
+     {
+      "claude/settings.json": "{\"model\": \"opus\"}"
+     },
+     "claude_code"
+    ],
+    "result": "Claude Code default (opus)"
+   },
+   {
+    "args": [
+     {},
+     "opencode_cli"
+    ],
+    "result": "OpenCode default"
+   }
+  ],
+  "_codex_models": [
+   {
+    "args": [
+     {
+      "codex/models_cache.json": "{\"models\": [{\"slug\": \"gpt-6-sol\", \"display_name\": \"GPT-6-Sol\", \"visibility\": \"list\", \"supported_reasoning_levels\": [{\"effort\": \"low\"}, {\"effort\": \"high\"}]},{\"slug\": \"internal\", \"display_name\": \"Hidden\", \"visibility\": \"hide\", \"supported_reasoning_levels\": [{\"effort\": \"medium\"}]},{\"slug\": \"gpt-6-mini\", \"visibility\": null, \"supported_reasoning_levels\": []},{\"slug\": \"\", \"display_name\": \"No slug\"},{\"slug\": \"no-name\", \"display_name\": \"\"},{\"slug\": 7, \"display_name\": \"Number\"},\"not an entry\",{\"slug\": \"odd-levels\", \"supported_reasoning_levels\": [{\"effort\": \"\"}, {\"effort\": null}, \"high\", {\"effort\": 3}, {\"other\": \"x\"}, {\"effort\": \"xhigh\"}]},{\"slug\": \"gpt-6-sol\", \"display_name\": \"Again\", \"visibility\": \"list\", \"supported_reasoning_levels\": [{\"effort\": \"minimal\"}]}]}"
+     }
+    ],
+    "result": [
+     [
+      "gpt-6-sol",
+      "GPT-6-Sol"
+     ],
+     [
+      "gpt-6-mini",
+      "gpt-6-mini"
+     ],
+     [
+      "no-name",
+      "no-name"
+     ],
+     [
+      "odd-levels",
+      "odd-levels"
+     ],
+     [
+      "gpt-6-sol",
+      "Again"
+     ]
+    ]
+   },
+   {
+    "args": [
+     {
+      "codex/models_cache.json": "{\"models\": null}"
+     }
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     {
+      "codex/models_cache.json": "{\"models\": {\"slug\": \"x\"}}"
+     }
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     {
+      "codex/models_cache.json": "[]"
+     }
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     {}
+    ],
+    "result": []
+   }
+  ],
+  "codex_model_efforts": [
+   {
+    "args": [
+     {
+      "codex/models_cache.json": "{\"models\": [{\"slug\": \"gpt-6-sol\", \"display_name\": \"GPT-6-Sol\", \"visibility\": \"list\", \"supported_reasoning_levels\": [{\"effort\": \"low\"}, {\"effort\": \"high\"}]},{\"slug\": \"internal\", \"display_name\": \"Hidden\", \"visibility\": \"hide\", \"supported_reasoning_levels\": [{\"effort\": \"medium\"}]},{\"slug\": \"gpt-6-mini\", \"visibility\": null, \"supported_reasoning_levels\": []},{\"slug\": \"\", \"display_name\": \"No slug\"},{\"slug\": \"no-name\", \"display_name\": \"\"},{\"slug\": 7, \"display_name\": \"Number\"},\"not an entry\",{\"slug\": \"odd-levels\", \"supported_reasoning_levels\": [{\"effort\": \"\"}, {\"effort\": null}, \"high\", {\"effort\": 3}, {\"other\": \"x\"}, {\"effort\": \"xhigh\"}]},{\"slug\": \"gpt-6-sol\", \"display_name\": \"Again\", \"visibility\": \"list\", \"supported_reasoning_levels\": [{\"effort\": \"minimal\"}]}]}"
+     }
+    ],
+    "result": {
+     "gpt-6-sol": [
+      "minimal"
+     ],
+     "internal": [
+      "medium"
+     ],
+     "odd-levels": [
+      "3",
+      "xhigh"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "codex/models_cache.json": "{\"models\": []}"
+     }
+    ],
+    "result": {}
+   },
+   {
+    "args": [
+     {}
+    ],
+    "result": {}
+   }
+  ],
+  "model_display_name": [
+   {
+    "args": [
+     {},
+     "claude_code",
+     "haiku",
+     null
+    ],
+    "result": "Haiku"
+   },
+   {
+    "args": [
+     {},
+     "claude_code",
+     "opus",
+     null
+    ],
+    "result": "Opus"
+   },
+   {
+    "args": [
+     {},
+     "claude_code",
+     "claude-opus-9",
+     null
+    ],
+    "result": "claude-opus-9"
+   },
+   {
+    "args": [
+     {},
+     "codex",
+     "haiku",
+     null
+    ],
+    "result": "haiku"
+   },
+   {
+    "args": [
+     {},
+     "opencode_cli",
+     "openrouter/deepseek/v4",
+     null
+    ],
+    "result": "v4"
+   },
+   {
+    "args": [
+     {},
+     "opencode_cli",
+     "openrouter/deepseek/v4",
+     [
+      [
+       "openrouter/deepseek/v4",
+       "DeepSeek V4 (OpenRouter)"
+      ]
+     ]
+    ],
+    "result": "DeepSeek V4"
+   },
+   {
+    "args": [
+     {},
+     "codex",
+     "gpt-6-sol",
+     [
+      [
+       "gpt-6-sol",
+       "GPT-6-Sol"
+      ]
+     ]
+    ],
+    "result": "GPT-6-Sol"
+   },
+   {
+    "args": [
+     {},
+     "codex",
+     "x",
+     [
+      [
+       "x",
+       "Name (a) (b)"
+      ]
+     ]
+    ],
+    "result": "Name"
+   },
+   {
+    "args": [
+     {},
+     "codex",
+     "x",
+     [
+      [
+       "x",
+       "(only)"
+      ]
+     ]
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {},
+     "codex",
+     "x",
+     [
+      [
+       "x",
+       "Trailing (paren) text"
+      ]
+     ]
+    ],
+    "result": "Trailing (paren) text"
+   },
+   {
+    "args": [
+     {},
+     "codex",
+     "x",
+     [
+      [
+       "x",
+       "Line (one)\n"
+      ]
+     ]
+    ],
+    "result": "Line\n"
+   },
+   {
+    "args": [
+     {},
+     "claude_code",
+     "",
+     null
+    ],
+    "result": "default model"
+   },
+   {
+    "args": [
+     {
+      "claude/settings.json": "{\"model\": \"opus\"}"
+     },
+     "claude_code",
+     "",
+     null
+    ],
+    "result": "opus"
+   },
+   {
+    "args": [
+     {
+      "xdg/opencode/opencode.json": "{\"model\": \"openrouter/deepseek/v4\"}"
+     },
+     "opencode_cli",
+     "",
+     null
+    ],
+    "result": "v4"
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"gpt-6-sol\"\n"
+     },
+     "codex",
+     "",
+     null
+    ],
+    "result": "gpt-6-sol"
+   },
+   {
+    "args": [
+     {},
+     "codex",
+     "a/b/",
+     null
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {},
+     "unknown",
+     "m/n",
+     null
+    ],
+    "result": "n"
+   }
+  ],
+  "describe_choice": [
+   {
+    "args": [
+     {},
+     "claude_code",
+     "haiku"
+    ],
+    "result": "Claude Code · Haiku"
+   },
+   {
+    "args": [
+     {},
+     "opencode_cli",
+     "openrouter/deepseek/v4"
+    ],
+    "result": "OpenCode · v4"
+   },
+   {
+    "args": [
+     {},
+     "claude_code",
+     ""
+    ],
+    "result": "Claude Code · default model"
+   },
+   {
+    "args": [
+     {
+      "codex/config.toml": "model = \"gpt-6-sol\"\n"
+     },
+     "codex",
+     ""
+    ],
+    "result": "Codex · gpt-6-sol"
+   },
+   {
+    "args": [
+     {},
+     "pi",
+     "x"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {},
+     "codex",
+     "o5"
+    ],
+    "result": "Codex · o5"
+   }
+  ],
+  "AGENT_SPECS": [
+   {
+    "args": [],
+    "result": [
+     {
+      "id": "claude_code",
+      "name": "Claude Code",
+      "vendor": "Anthropic",
+      "commands": [
+       "claude"
+      ],
+      "transport": "headless",
+      "install_url": "https://docs.anthropic.com/en/docs/claude-code/setup",
+      "install_hint": "npm install -g @anthropic-ai/claude-code",
+      "monogram": "CC",
+      "accent": "#D97757",
+      "min_version": [
+       2,
+       0,
+       0
+      ],
+      "update_hint": "Run `claude update`."
+     },
+     {
+      "id": "codex",
+      "name": "Codex",
+      "vendor": "OpenAI",
+      "commands": [
+       "codex"
+      ],
+      "transport": "headless",
+      "install_url": "https://developers.openai.com/codex/cli",
+      "install_hint": "npm install -g @openai/codex",
+      "monogram": "Cx",
+      "accent": "#10A37F",
+      "min_version": [
+       0,
+       120,
+       0
+      ],
+      "update_hint": "Run `npm install -g @openai/codex` or update the Codex app."
+     },
+     {
+      "id": "opencode_cli",
+      "name": "OpenCode",
+      "vendor": "OpenCode",
+      "commands": [
+       "opencode"
+      ],
+      "transport": "acp",
+      "install_url": "https://opencode.ai/docs/",
+      "install_hint": "npm install -g opencode-ai",
+      "monogram": "OC",
+      "accent": "#6D5DD3",
+      "min_version": [
+       2,
+       0,
+       0
+      ],
+      "update_hint": "Run `opencode upgrade`."
+     }
+    ]
+   }
+  ],
+  "usable": [
+   {
+    "args": [
+     "",
+     null
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "",
+     true
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "",
+     false
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "too old",
+     null
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "too old",
+     true
+    ],
+    "result": false
+   }
+  ]
+ }
+}

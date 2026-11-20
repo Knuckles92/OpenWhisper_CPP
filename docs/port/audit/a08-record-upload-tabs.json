@@ -1,0 +1,831 @@
+{
+ "area": "a08-record-upload-tabs",
+ "package": "M5.22",
+ "features": {
+  "A08-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/transcription_tab_base.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_quick_record_tab.cpp",
+    "tests/ui_record/test_upload_file_tab.cpp",
+    "tests/ui_record/test_reference_screenshots.cpp"
+   ],
+   "note": "Margins 24,14,24,16, spacing 12, column 500-700 px centered, horizontal bar off (read against _setup_ui). 'the tab starts collapsed with the quick record knobs', 'scroll area handles constrained height', 'transcription tabs do not scroll at minimum height'; the quick_record_tab reference cases hold the tree (the pixel half skips here and tree checks fail on Linux font metrics, MACHINE.md)."
+  },
+  "A08-02": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_record/transcription_tab_base.cpp",
+    "src/ui_widgets/remote_engine_controls.cpp",
+    "src/ui_widgets/remote_link_glyph.cpp",
+    "src/ui_widgets/remote_model_notice.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_remote_link_card.cpp",
+    "tests/ui_widgets/test_remote_link_glyph.cpp"
+   ],
+   "note": "The Remote slots are built as _setup_ui has them: remote model field (2) and RemoteEngineControls (2) after the API server in the field row, the runtime label under it, the link glyph after the dot and RemoteModelNotice after the readout in the footer, and the serving row (#remoteServingRow) below the footer. 'TestRemoteModelField card height is the same as for a local backend', 'test_the_card_shows_the_link_instead_of_the_dot'."
+  },
+  "A08-03": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/transcription_tab_base.cpp",
+    "src/ui_record/engine_selection.cpp",
+    "src/models/engine_resolution.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_quick_record_tab.cpp",
+    "tests/ui_record/test_engine_selection_sync.cpp",
+    "tests/ui_record/test_upload_file_tab.cpp"
+   ],
+   "note": "Populated from models::backend_choices (Parakeet, API, Remote computer; the other engines are dropped, a14-local-engine), value from the saved model, status dot inside the combo, _BACKEND_HELP verbatim with 'Open Settings → Voice model' (ondemand). BACKEND_CHIP_MAX_WIDTH is defined but never read upstream."
+  },
+  "A08-04": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_record/transcription_tab_base.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_remote_link_card.cpp"
+   ],
+   "note": "setBackendEnabled(false) now also locks the remote Model combo and the host's runtime fields (syncRemoteModelEnabled); a dropped link or a reload locks the runtime fields too. 'TestRemoteModelField locked while the engine reloads or a recording runs', 'the backend lock and a dropped link lock the host's runtime fields'."
+  },
+  "A08-05": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/transcription_tab_base.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_quick_record_tab.cpp"
+   ],
+   "note": "'the AI cleanup checkbox persists and announces; loading is silent'; the tooltip text matches _CLEANUP_TIP."
+  },
+  "A08-06": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/transcription_tab_base.cpp",
+    "src/ui_record/quick_record_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_live_preview_control.cpp",
+    "tests/ui_record/test_quick_record_tab.cpp"
+   ],
+   "note": "Thirteen test_live_preview_control cases: legacy keys dropped in one write, failed save reverts, the two reason tooltips, locked while recording, hidden on Upload, synced across tabs. The three Remote cases of that upstream file are pending with the Remote computer fields (open-items 'Remote computer')."
+  },
+  "A08-07": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_record/transcription_tab_base.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_remote_link_card.cpp"
+   ],
+   "note": "refreshEngineStatus shows the link text second in OpenWhisper's priority (Connected to <host> · route · N ms, Connecting to <host>..., the pairing hint, the offline reason with 'Trying again in N s.' ticked by a 1 s timer or 'Click to try again.'), lets it replace the generic loading lines and the initial status but not a specific message, and puts the link tooltip on the readout. 'test_the_card_counts_down_to_the_next_try', 'the countdown ticks the readout down each second', 'the link beats a generic loading line but not a specific one', 'an unpaired link says how to pair'."
+  },
+  "A08-08": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_record/transcription_tab_base.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_remote_link_card.cpp"
+   ],
+   "note": "'Transcribing on <host>...' while Remote is shown and connected, cleared like 'Transcribing...'. 'test_transcribing_names_the_computer_doing_it'."
+  },
+  "A08-09": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/transcription_tab_base.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_quick_record_tab.cpp",
+    "tests/ui_record/test_upload_file_tab.cpp"
+   ],
+   "note": "'device info tells the dot what the engine is', 'ready engine reads green', 'unusable engine reads as attention', 'unreported engine stays neutral', 'dots go with the local engine', 'resolved readout clears for api backends'."
+  },
+  "A08-10": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/transcription_tab_base.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_quick_record_tab.cpp",
+    "tests/ui_record/test_engine_status.cpp"
+   ],
+   "note": "'model downloads show their name and end independently', 'download and reload activity end independently'."
+  },
+  "A08-11": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_record/transcription_tab_base.cpp",
+    "src/ui_widgets/remote_link_glyph.cpp",
+    "src/ui_widgets/remote_engine_controls.cpp",
+    "src/ui_widgets/remote_model_notice.cpp",
+    "src/ui_record/stats_display.cpp",
+    "src/ui_record/upload_file_tab.cpp",
+    "src/ui_controller/ui_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_remote_link_card.cpp",
+    "tests/ui_widgets/test_remote_link_glyph.cpp"
+   ],
+   "note": "Ported: setRemoteLink (glyph instead of the dot, link text, tooltips, countdown, click-to-retry → remoteRetryRequested), the 'Running on <host>: ...' runtime label, setRemoteModels (family-grouped Model combo with separators, the five empty states and their tooltips, remoteModelSelected on activation only, Manage host models' available dot), RemoteEngineControls → remoteRuntimeSelected, setRemoteClients (the sliding 'Sharing this engine with / Transcribing for' row), remote stats on the strip and the upload card. UiController has setRemoteLink, refreshRemoteModels (also after every setDeviceInfo), setRemoteClients and the getRemoteModels / onRemoteModelSelected / onRemoteRuntimeSelected / onRemoteRetry hooks; connecting those hooks to the dictation slot's RemoteSpeechBackend and RemoteEngineService (link_changed, retry_now, request_model with remote::plan_remote_model_switch and the reload machine's note, connected_clients) is the remote runtime owner's (worker report). The runtime's TranscriptionStats carry no RemoteTiming yet, so setTranscriptionStats' remote argument is not passed by the controller."
+  },
+  "A08-12": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/transcription_tab_base.cpp",
+    "src/ui_record/record_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_file_tab.cpp",
+    "tests/ui_record/test_live_preview_control.cpp"
+   ],
+   "note": "setApiServer places SpeechServerControls after the local fields, changed and helpRequested forwarded, refreshApiModel; 'backend switch preserves each model and locks api choice', 'cleanup toggle stays reachable on api backend', 'card height is stable across backends'."
+  },
+  "A08-13": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/transcription_tab_base.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_quick_record_tab.cpp",
+    "tests/ui_record/test_upload_file_tab.cpp"
+   ],
+   "note": "'expanding the card tells the window and applies the stretch after the animation', 'expand and collapse transcription with scroll area'."
+  },
+  "A08-14": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/transcription_tab_base.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_quick_record_tab.cpp",
+    "tests/ui_record/test_upload_file_tab.cpp"
+   ],
+   "note": "'the transcript shows the fixed text and a distinct raw one on a switch', 'a raw text that is empty or the same keeps the switch away', 'fixed raw switch lives inside the transcript pane', 'transcript renders markdown but copies the source', 'raw view renders the same way'."
+  },
+  "A08-15": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/transcript_pane.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_quick_record_tab.cpp",
+    "tests/ui_record/test_upload_file_tab.cpp"
+   ],
+   "note": "'the corner widget sits in the pane's top right corner' and 'expand button sits in the pane corner only while there is a transcript'."
+  },
+  "A08-16": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/stats_display.cpp",
+    "src/ui_record/upload_file_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_compact_record_controller.cpp",
+    "tests/ui_record/test_quick_record_tab.cpp",
+    "tests/ui_record/test_upload_file_tab.cpp"
+   ],
+   "note": "'stats appear with the transcript and clear with it', the strip's format cases, and on Upload 'stats land in the card not the strip'."
+  },
+  "A08-17": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/quick_record_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_quick_record_tab.cpp"
+   ],
+   "note": "'the transcript editor is two lines tall empty and grows to twelve'; the placeholder is in the quick_record_tab reference tree."
+  },
+  "A08-18": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/quick_record_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_quick_record_tab.cpp",
+    "tests/ui_record/test_reference_screenshots.cpp"
+   ],
+   "note": "'record, stop and cancel ask and wait', 'the hotkey hints follow update hotkeys'; the layout (Start full width, Stop and Cancel side by side, spacing 12, ControlPanel 16,0,16,0) is in the quick_record_tab/idle and recording reference trees, which did not run to completion here (font metrics)."
+  },
+  "A08-19": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/quick_record_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_quick_record_tab.cpp",
+    "tests/ui_record/test_cleanup_profile_card.cpp"
+   ],
+   "note": "'record, stop and cancel ask and wait', 'the recording chrome locks the engine and unlocks after' ('Recording...', 'Recording in progress...', 'Ready to record'), and the profile card locked while recording."
+  },
+  "A08-20": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/quick_record_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_quick_record_tab.cpp"
+   ],
+   "note": "'partial text: a final text replaces, a draft is appended with an ellipsis'."
+  },
+  "A08-21": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/quick_record_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_quick_record_tab.cpp"
+   ],
+   "note": "'the copy buttons copy what is shown and say how it went' (Fixed or Raw source, accessible name and tooltip 'Copy transcript', 'Copied to clipboard' / 'Copy failed. Try again.', 'Copied' / 'Retry copy', reset after kCopyFeedbackMs 1500) and 'a blank transcript has nothing to copy'. The case failed once here on timing (reset seen 1427 ms after the second showCopyResult, under the 1450 the test asks; the 1500 ms timer started at the first call) and passed on the next run: the assertion measures from the wrong call."
+  },
+  "A08-22": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/cleanup_profile_card.cpp",
+    "src/ui_record/quick_record_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_cleanup_profile_card.cpp",
+    "tests/ui_record/test_reference_screenshots.cpp"
+   ],
+   "note": "Ten cases: Standard dictation first, shown only while cleanup is checked, the hints, a profile forcing cleanup on and locked, the recording profile kept when deleted, Manage, persisted selection; quick_record_tab/profile reference."
+  },
+  "A08-23": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/quick_record_tab.cpp",
+    "src/ui_record/command_readiness.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_command_hint.cpp",
+    "tests/ui_record/test_quick_record_tab.cpp",
+    "tests/ui_record/test_record_text_wiring.cpp"
+   ],
+   "note": "Hint text, both link texts and tooltips, settings_requested(commands), refreshed on WindowActivate and on the lookup relay."
+  },
+  "A08-24": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/drop_zone.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_widgets.cpp",
+    "tests/ui_record/test_upload_reference_screenshots.cpp"
+   ],
+   "note": "'the drop zone is a 150 px tall drop target named dropZone', accept and reject styles, notice, click opens the browser; drop_zone/idle and reject reference cases (pixel half skipped here)."
+  },
+  "A08-25": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/drop_zone.cpp",
+    "src/ui_record/upload_file_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_widgets.cpp",
+    "tests/ui_record/test_upload_file_tab.cpp"
+   ],
+   "note": "Six extensions in any case, non-local URLs ignored, 'a click asks for the file browser and the dialog's filters are OpenWhisper's', 'dropping only non audio on the zone says so' (NO_AUDIO_DROPPED)."
+  },
+  "A08-26": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/upload_file_tab.cpp",
+    "src/ui_record/upload_queue.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_file_tab.cpp",
+    "tests/ui_record/test_upload_widgets.cpp"
+   ],
+   "note": "'duplicate paths are added once', 'a path in another case or spelling is the same queued file', 'a queue item's key folds the path the way ntpath.normcase does', 'adding files is refused while a job runs', the '1 already queued' / '1 skipped (not audio)' notes."
+  },
+  "A08-27": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_record/upload_file_tab.cpp",
+    "src/ui_record/python_exception_name.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_file_tab.cpp",
+    "tests/ui_record/test_python_exception_name.cpp"
+   ],
+   "note": "'a preview worker says why a file could not be read' ('This file no longer exists.', the unreadable message, '{product} couldn't read this file ({type})' by the identity rule), 'previews arriving out of order land on the right row', 'a tab deleted mid preview is not held by the worker', 'unreadable single file returns to the drop zone with the reason'. {type} was the C++ type name (runtime_error); it is now the Python class OpenWhisper named for the same failure (pythonExceptionName): a pyport exception its own class (ValueError, OverflowError from the duration and split arithmetic), a filesystem_error/system_error the OSError subclass of its errno (PermissionError, FileNotFoundError, IsADirectoryError, NotADirectoryError, else OSError: os.path.getsize's failures), bad_alloc MemoryError, invalid_argument/domain_error ValueError, out_of_range IndexError, overflow_error OverflowError, any other runtime_error RuntimeError, anything else the neutral 'Exception' (as the catch-all already said). Tests: the worker test now expects (RuntimeError); test_python_exception_name.cpp covers the mapping."
+  },
+  "A08-28": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/upload_file_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_file_tab.cpp",
+    "tests/ui_record/test_upload_widgets.cpp"
+   ],
+   "note": "'local engine takes a large file in one pass without decoding', 'api counts the chunks and an engine switch rereads', 'a reread keeps finished rows and skips small files', 'a large file shows the chunk count as a warning'."
+  },
+  "A08-29": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/file_info_card.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_widgets.cpp",
+    "tests/ui_record/test_upload_file_tab.cpp",
+    "tests/ui_record/test_upload_reference_screenshots.cpp"
+   ],
+   "note": "'setPreview fills the chips', 'one channel is Mono and more than two read N ch', 'sample rates read in kHz', 'a file still being read shows ellipses and Reading', 'single file card appears before its preview lands', 'the card's controls match the Python layout'; upload_file_card reference cases."
+  },
+  "A08-30": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/upload_queue.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_widgets.cpp",
+    "tests/ui_record/test_upload_file_tab.cpp",
+    "tests/ui_record/test_upload_reference_screenshots.cpp"
+   ],
+   "note": "Rows in order with count, rebuilt only on a key-order change, Reading / Could not read, copy shown only with text, locking hides move and remove, dotted warn-toned tooltipped note, 'queue controls hide while a job runs', 'reorder buttons swap rows and the request order'; upload_queue/three reference."
+  },
+  "A08-31": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/upload_queue.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_widgets.cpp"
+   ],
+   "note": "'row state drives the state chip and both state properties'."
+  },
+  "A08-32": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/relation_picker.cpp",
+    "src/ui_record/upload_file_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_widgets.cpp",
+    "tests/ui_record/test_upload_file_tab.cpp"
+   ],
+   "note": "Three presets with hints, the custom summary truncated by code points, custom opens the dialog and Cancel reverts, the three settings persisted and read back."
+  },
+  "A08-33": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/batch_relation_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_batch_relation_dialog.cpp",
+    "tests/ui_record/test_upload_reference_screenshots.cpp"
+   ],
+   "note": "Prefill, strip and the 2000-character cap by code points, file list, OpenWhisper's texts; batch_relation_dialog/default reference."
+  },
+  "A08-34": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/upload_file_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_file_tab.cpp"
+   ],
+   "note": "'two files emit one batch request in order', 'transcribe waits until every preview has arrived', 'missing files at transcribe time are noted...' (singular and plural), 'a single file gone at transcribe time returns to the drop zone' ('That file no longer exists — drop it again'), 'files can be queued during a recording and transcribed afterward'."
+  },
+  "A08-35": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/transcription_progress.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_widgets.cpp",
+    "tests/ui_record/test_upload_reference_screenshots.cpp"
+   ],
+   "note": "Stages and steps, bar sweep vs determinate batch fraction, 'elapsed time formats as m:ss', 'the elapsed clock ticks each second, stops on hide and resumes on show'; upload_progress_panel/batch reference."
+  },
+  "A08-36": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/transcription_progress.cpp",
+    "src/ui_record/upload_file_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_widgets.cpp",
+    "tests/ui_record/test_upload_file_tab.cpp"
+   ],
+   "note": "'overlay states map onto stages', 'the large-file notice names the size', 'overlay states and status text land in the panel', 'none while running releases the card', 'progress state is ignored when nothing is running'."
+  },
+  "A08-37": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/upload_file_tab.cpp",
+    "src/ui_record/transcription_progress.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_file_tab.cpp",
+    "tests/ui_record/test_upload_widgets.cpp"
+   ],
+   "note": "'stop emits cancel requested and keeps the tab locked', 'a canceled job stays canceled when the error transcript lands', the three row endings."
+  },
+  "A08-38": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/upload_file_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_file_tab.cpp"
+   ],
+   "note": "'batch progress marks rows and the panel', 'finished files get their own copy button', 'row copy survives the job ending and clears when the next starts'."
+  },
+  "A08-39": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/file_info_card.cpp",
+    "src/ui_record/upload_file_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_widgets.cpp",
+    "tests/ui_record/test_upload_file_tab.cpp"
+   ],
+   "note": "'the result note reads time, speed and cleanup in bold runs' (with ' on {host}' and the network segment), 'an error note is danger-toned with the message as its tooltip', 'a canceled job leaves no error note', the DecodeLabel reveal cases."
+  },
+  "A08-40": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/upload_file_tab.cpp",
+    "src/ui_record/file_info_card.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_file_tab.cpp",
+    "tests/ui_record/test_upload_widgets.cpp"
+   ],
+   "note": "'transcript finishes the job and returns the actions', 'error transcript marks the job failed', 'no speech finishes the job with nothing to copy', 'finishing holds the result before the actions return' (settle 1400 ms)."
+  },
+  "A08-41": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/upload_file_tab.cpp",
+    "src/ui_record/transcript_viewer_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_file_tab.cpp",
+    "tests/ui_record/test_transcript_viewer.cpp",
+    "tests/ui_record/test_upload_widgets.cpp"
+   ],
+   "note": "'transcript display and copy signal', 'transcript renders markdown but copies the source', row copy, 'viewer copy goes through the tab', 'copy emits the shown source text', 'setCopyEnabled turns the Copy button's activity on and off'."
+  },
+  "A08-42": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_record/transcript_viewer_dialog.cpp",
+    "src/ui_record/transcript_viewer_dialog.h"
+   ],
+   "tests": [
+    "tests/ui_record/test_transcript_viewer.cpp",
+    "tests/ui_record/test_upload_reference_screenshots.cpp"
+   ],
+   "note": "Window size, centred capped column, zoom ends, Raw switch and batch tabs were pinned; the zoom step values were not. Added 'the zoom steps and keys are OpenWhisper's' (0.85-1.75, default index 1, the 780 px measure)."
+  },
+  "A08-43": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_record/upload_file_tab.cpp",
+    "src/ui_record/transcript_viewer_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_file_tab.cpp",
+    "tests/ui_record/test_transcript_viewer.cpp"
+   ],
+   "note": "The basename and empty titles were pinned; '{n} files' was not. 'viewer receives completed batch structure' now checks the title '2 files' and 'Transcript — 2 files'."
+  },
+  "A08-44": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/upload_file_tab.cpp",
+    "src/ui_record/transcription_tab_base.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_file_tab.cpp"
+   ],
+   "note": "'backend locks while transcribing', 'busy locks every field', 'files can be queued during a recording and transcribed afterward'."
+  },
+  "A08-45": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/upload_file_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_file_tab.cpp"
+   ],
+   "note": "'clear file flow', 'removing down to one file collapses back to the single card', 'removing the last file returns to the drop zone'."
+  },
+  "A08-46": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/batch.cpp",
+    "src/dictation/batch.h"
+   ],
+   "tests": [
+    "tests/dictation/test_batch.cpp",
+    "tests/golden/services.batch_upload.json"
+   ],
+   "note": "Golden vectors for combine, source_names, batch_context (252), result times, compose_batch_cleanup_prompt, join_raw_parts, format_batch_transcript, batch_source_name."
+  },
+  "A08-47": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/scratchpad.cpp",
+    "src/ui_record/record_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_scratchpad.cpp",
+    "tests/ui_record/test_scratchpad_feature.cpp"
+   ],
+   "note": "Created on first use, toggle hides only when focused, show_text without stealing focus, insert only when visible and active."
+  },
+  "A08-48": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_record/scratchpad.cpp",
+    "src/ui_record/scratchpad_saver.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_scratchpad.cpp",
+    "tests/ui_record/test_scratchpad_saver.cpp",
+    "tests/ui_record/test_scratchpad_feature.cpp"
+   ],
+   "note": "Notes unreadable because a folder stands where scratchpad.txt should be crashed the load with GCC (libstdc++ opens a folder and throws from the first read), so 'notes that cannot be read say so and are left alone' failed here: ScratchpadWindow::load now catches the read and shows 'Couldn't open your saved notes'. The rest was pinned: Atomic UTF-8 LF autosave, countdown restarted by edits, older text never over newer, nothing written before load, flush on hide and quit, unreadable notes left alone, invalid UTF-8 replaced, data folder's scratchpad.txt."
+  },
+  "A08-49": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/scratchpad.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_scratchpad.cpp"
+   ],
+   "note": "Default size by UI font scale, 40 px from the right and centred, saved on move and at once on hide, restored clamped, a bad saved value falls back, Python int() reading."
+  },
+  "A08-50": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/scratchpad.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_scratchpad.cpp",
+    "tests/ui_record/test_scratchpad_reference.cpp"
+   ],
+   "note": "The classic chrome (frameless Tool window, does not quit the app, header drag, close hides and is accepted, footer fits); scratchpad reference cases. The Wayland/compositor branch and macOS attribute are other-platform."
+  },
+  "A08-51": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/scratchpad.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_scratchpad.cpp"
+   ],
+   "note": "'on top is on until it is turned off', 'on top can be turned off and is remembered', 'changing the window flags keeps the place and shows the window again'."
+  },
+  "A08-52": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/scratchpad.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_scratchpad.cpp"
+   ],
+   "note": "Spacing cases, selection replaced, the context seen by the join step cut in UTF-16 units, a failing join keeps the dictation as spoken."
+  },
+  "A08-53": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/scratchpad.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_scratchpad.cpp"
+   ],
+   "note": "'an appended block is separated by the blank line the notes need', 'an appended block leaves the user's selection where it was'."
+  },
+  "A08-54": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/scratchpad.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_scratchpad.cpp"
+   ],
+   "note": "Word count with thousands separator, Copy all through the clipboard helper and its notices, a notice not overwritten by the count, footer styled and fitting at large fonts."
+  },
+  "A08-55": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/scratchpad.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_scratchpad.cpp"
+   ],
+   "note": "'Clear has a one-step undo', 'typing after Clear drops the undo', 'the undo offer expires', 'clearing saves the empty notes, and the undo saves them back'."
+  },
+  "A08-56": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/scratchpad_transforms.cpp",
+    "src/ui_record/scratchpad.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_scratchpad_transforms.cpp",
+    "tests/ui_record/test_record_text_wiring.cpp"
+   ],
+   "note": "Eighteen cases: menu, selection or all, U+2029 as newline, exact range replaced, off-thread with stale answers dropped, success notice with the undo shortcut, provider error, empty answer, nothing to transform."
+  },
+  "A08-57": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/compact_record_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_compact_record_controller.cpp",
+    "tests/ui_record/test_reference_screenshots.cpp"
+   ],
+   "note": "Status line and three buttons, at least 88x44, record and stop share the record key, state follows the recording; compact_record_controller reference cases."
+  },
+  "A08-58": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_record/upload_file_tab.cpp",
+    "src/ui_record/quick_record_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_file_tab.cpp",
+    "tests/ui_record/test_quick_record_tab.cpp",
+    "tests/ui_record/test_live_preview_control.cpp"
+   ],
+   "note": "Quick Record's knobs and the hidden live preview were pinned; the Upload placeholder and content name were not. 'init structure' now checks the placeholder 'Transcription will appear here...\\nUpload an audio file to begin.', #uploadFileContent and 'Ready to transcribe'."
+  },
+  "A08-59": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/transcription_tab_base.cpp",
+    "src/ui_record/quick_record_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_quick_record_tab.cpp",
+    "tests/ui_record/test_upload_file_tab.cpp"
+   ],
+   "note": "'quick record's language field steps aside for the dictation languages', 'upload keeps its language and quick record follows the chips', 'a languages change reaches the main window fields'."
+  },
+  "A08-60": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/upload_file_tab.cpp",
+    "src/ui_record/upload_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_file_tab.cpp",
+    "tests/ui_record/test_upload_presenter.cpp"
+   ],
+   "note": "'a status outside a job is dropped', 'overlay states and status text land in the panel', 'upload job messages stay in the upload panel'."
+  },
+  "A08-61": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_record/transcription_tab_base.cpp",
+    "src/ui_widgets/remote_engine_controls.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_remote_link_card.cpp",
+    "tests/ui_widgets/test_remote_link_glyph.cpp"
+   ],
+   "note": "The remote Model field carries kRemoteModelHelp with 'Open Settings → Remote engine' (remote_engine); the runtime fields carry the same link; a '· Set up on host' device and Manage host models emit remote_models. 'the Model field's help opens Settings > Remote engine', 'a device the host could set up opens its model management'."
+  },
+  "A08-62": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/upload_file_tab.cpp",
+    "src/ui_record/drop_zone.cpp",
+    "src/ui_record/file_info_card.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_file_tab.cpp",
+    "tests/ui_record/test_upload_widgets.cpp"
+   ],
+   "note": "'a drop with no audio leaves the drop zone up', 'dropping only non audio on the zone says so', 'a drop of queued files only keeps the result', 'the card accepts audio drops until a job runs'."
+  },
+  "A08-63": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_record/upload_file_tab.cpp",
+    "src/ui_record/upload_queue.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_file_tab.cpp"
+   ],
+   "note": "Only '1 could not be read' was checked. Added 'the unreadable note asks to remove it or them' (the full sentence for one and two files, warn tone, Transcribe disabled)."
+  },
+  "A08-64": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_record/upload_file_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_file_tab.cpp"
+   ],
+   "note": "Nothing tested a failing save. Added 'a relation that cannot be saved is still used' (MemorySettingsFile::fail_next_replace: the relation is not saved, the tab keeps it and the request carries it)."
+  },
+  "A08-65": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/upload_file_tab.cpp",
+    "src/ui_record/upload_queue.cpp",
+    "src/ui_record/file_info_card.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_file_tab.cpp",
+    "tests/ui_record/test_upload_widgets.cpp"
+   ],
+   "note": "Row copy only with text, 'an unread file reads Reading and an unreadable one Could not read', '1 file' / 'N files' titles, single vs queue mode, missing files re-render without a job, re-entrancy ('adding files is refused while a job runs', 'transcribe waits until every preview has arrived')."
+  },
+  "A08-66": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/upload_file_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_file_tab.cpp"
+   ],
+   "note": "'stop on a queue marks the working file stopped', 'stop after the first file keeps done...', 'a failed queue job marks the working file failed', 'a failed job says why on the card not in the transcript', 'none while running releases the card'."
+  },
+  "A08-67": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_record/upload_file_tab.cpp",
+    "src/ui_record/transcript_viewer_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_file_tab.cpp",
+    "tests/ui_record/test_transcript_viewer.cpp"
+   ],
+   "note": "Lazy creation, sync, title 'Transcript', zoom buttons at the ends and the typography refresh keeping the scroll fraction were pinned; Ctrl+= and Ctrl+0 were not: 'the zoom steps and keys are OpenWhisper's' fires both shortcuts."
+  },
+  "A08-68": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/transcription_progress.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_widgets.cpp"
+   ],
+   "note": "'the cleanup step only appears when cleanup is on', 'a batch position sets the header label and a determinate fraction', 'the batch position is clamped but the label shows what was given', 'Stop is disabled once the job ends', 'the elapsed clock reads the injected time and freezes at a terminal stage'."
+  },
+  "A08-69": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/scratchpad.cpp",
+    "src/ui_record/record_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_scratchpad.cpp",
+    "tests/ui_record/test_scratchpad_feature.cpp",
+    "tests/ui_record/test_scratchpad_transforms.cpp"
+   ]
+  },
+  "A08-70": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/scratchpad.cpp",
+    "src/ui_record/scratchpad_transforms.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_scratchpad.cpp",
+    "tests/ui_record/test_scratchpad_transforms.cpp"
+   ],
+   "note": "'a menu filler that fails leaves the menu saying there are none', 'a menu filler fills the menu again every time it opens', the running status and the cursor after the result."
+  },
+  "A08-71": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/compact_record_controller.cpp",
+    "src/ui_record/quick_record_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_compact_record_controller.cpp",
+    "tests/ui_record/test_main_window_relay.cpp",
+    "tests/ui_record/test_quick_record_tab.cpp"
+   ],
+   "note": "Default 'Ready to record', the window's status and recording state reaching both, the re-emitted signals, local engine and live preview locked while recording."
+  },
+  "A08-72": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/quick_record_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_quick_record_tab.cpp"
+   ],
+   "note": "'every partial update resets and hides the fixed raw switch'."
+  }
+ },
+ "differences": []
+}

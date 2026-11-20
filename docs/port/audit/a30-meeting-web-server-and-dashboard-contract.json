@@ -1,0 +1,607 @@
+{
+ "area": "a30-meeting-web-server-and-dashboard-contract",
+ "package": "M10 sweep",
+ "features": {
+  "A30-01": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/server.cpp",
+    "src/meeting_web/server.h",
+    "src/meeting/detail/engine_start.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_server.cpp",
+    "tests/meeting/test_engine_startup.cpp"
+   ],
+   "note": "The server binds synchronously on the shared reactor (M7.md, server.py row: 'binds synchronously (no 15 s poll)'), so there is no startup poll, thread-death or timeout error; a bind failure returns 'Meeting web server failed to start' ('a port in use fails the start'), a second start returns the same URL, stop gives open responses 1 s (kGracefulShutdown; 'stop does not wait for an open response') and is idempotent. The caller wraps it as 'Meeting dashboard could not start: ...' (test_engine_startup.cpp)."
+  },
+  "A30-02": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/server.cpp",
+    "src/net/lan_address.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_server.cpp",
+    "tests/net/test_lan_address.cpp"
+   ],
+   "note": "display_host: 127.0.0.1 unless 'lan', the LAN probe's address, else the warning and 127.0.0.1; an unknown bind serves on loopback; port 0 is the system's. Interface choice (LAN before VPN, never a bridge) is net::discover_lan_ipv4's tests. The LAN listen itself is the [interactive] case, not run."
+  },
+  "A30-03": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/server.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_server.cpp"
+   ],
+   "note": "'the links come from the current meeting row': fresh on each call, empty without base, meeting, token, or when the repository throws, and after stop."
+  },
+  "A30-04": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/auth.cpp",
+    "src/meeting_web/auth.h"
+   ],
+   "tests": [
+    "tests/meeting_web/test_auth.cpp",
+    "tests/meeting_web/test_golden.cpp",
+    "tests/golden/meeting.web.auth.json"
+   ],
+   "note": "32 bytes base64url without padding (43 characters), constant-time compare over the expected token, host checked first, empty expected never matches."
+  },
+  "A30-05": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/detail/routes_session.cpp",
+    "src/meeting_web/dashboard_root.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_dashboard_api.cpp",
+    "tests/meeting_web/test_api_transcript.cpp",
+    "tests/fixtures/transcripts/meeting_api.json"
+   ],
+   "note": "403 'invalid or expired link' and the served index.html are in the transcript; the missing-bundle page names identity().product where OpenWhisper's says 'OpenWhisper Meeting' (identity rule), asserted by test_missing_bundle_says_how_to_build_it."
+  },
+  "A30-06": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/detail/routes_session.cpp",
+    "src/meeting_web/dashboard_api.cpp",
+    "src/net/detail/file_response.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_dashboard_api.cpp",
+    "tests/meeting_web/test_api_transcript.cpp",
+    "tests/fixtures/transcripts/meeting_api.json",
+    "tests/net/test_file_response.cpp"
+   ],
+   "note": "/assets mounted only when dist/assets exists (DashboardApi::routes); traversal, a directory and a missing file are 404 {\"detail\":\"Not Found\"} (transcript); ETag and 304 in 'the vendored bundle is served from the dashboard root', which also checks licenses are not served; Range and Last-Modified in net's file response tests."
+  },
+  "A30-07": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/detail/routes_session.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_api_transcript.cpp",
+    "tests/fixtures/transcripts/meeting_api.json",
+    "tests/meeting_web/test_dashboard_api.cpp"
+   ],
+   "note": "Transcript: host, guest and bad-token sessions byte for byte; test_the_session_endpoint_hides_reports_from_guests for the removed custom_reports key."
+  },
+  "A30-08": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_web/dashboard_api.cpp",
+    "src/meeting_web/detail/routes_session.cpp",
+    "src/meeting_web/cursors.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_api_transcript.cpp",
+    "tests/fixtures/transcripts/meeting_api.json",
+    "tests/meeting_web/test_golden.cpp",
+    "tests/meeting_web/test_cursors.cpp",
+    "tests/meeting_web/test_audit_a30.cpp"
+   ],
+   "note": "Keyset pages, bad cursor 400 and FastAPI's 422s are in the transcript (which covers the lower clamp); the upper clamp of 1000 and the limit+1 fetch were untested: added 'a30: the routes ask the repository for the page sizes OpenWhisper asks for'. The no-meeting branch answers after require(), which fails first with no meeting, in both."
+  },
+  "A30-09": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_web/detail/routes_history.cpp",
+    "src/meeting_web/cursors.cpp",
+    "src/meeting_state/sql_repository.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_api_transcript.cpp",
+    "tests/fixtures/transcripts/meeting_api.json",
+    "tests/meeting_web/test_history_routes.cpp",
+    "tests/meeting_web/test_cursors.cpp",
+    "tests/meeting_web/test_audit_a30.cpp"
+   ],
+   "note": "Literal q, since, the three flags, filtered empty pages with a continuation, bad and over-1024-character cursors are in the transcript and test_history_routes.cpp; the upper clamp of 100 (101 fetched) was untested: added to 'a30: the routes ask the repository for the page sizes OpenWhisper asks for'."
+  },
+  "A30-10": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/public_meeting.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_golden.cpp",
+    "tests/golden/meeting.web.api.json",
+    "tests/meeting_web/test_dashboard_api.cpp"
+   ],
+   "note": "Golden _public_meeting vectors, and the list tests of test_dashboard_api.cpp (topic fallback, compact finalization fields, duration and digest, corrupt snapshot)."
+  },
+  "A30-11": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/public_meeting.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_golden.cpp",
+    "tests/golden/meeting.web.api.json",
+    "tests/meeting_web/test_history_routes.cpp"
+   ]
+  },
+  "A30-12": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/detail/routes_history.cpp",
+    "src/meeting_web/dashboard_api.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_api_transcript.cpp",
+    "tests/fixtures/transcripts/meeting_api.json",
+    "tests/meeting_web/test_history_routes.cpp",
+    "tests/meeting_web/test_dashboard_api.cpp"
+   ],
+   "note": "test_preview_and_poll_do_not_query_transcript_pages; test_historical_state_is_upgraded_to_current_wire_shape; detail, state and 404 in the transcript."
+  },
+  "A30-13": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/detail/routes_files.cpp",
+    "src/meeting_web/dashboard_api.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_api_transcript.cpp",
+    "tests/fixtures/transcripts/meeting_api.json",
+    "tests/meeting_web/test_dashboard_api.cpp"
+   ]
+  },
+  "A30-14": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/detail/routes_files.cpp",
+    "src/net/detail/file_response.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_dashboard_api.cpp",
+    "tests/meeting_web/test_api_transcript.cpp",
+    "tests/fixtures/transcripts/meeting_api.json",
+    "tests/net/test_file_response.cpp"
+   ],
+   "note": "test_audio_allows_current_guest_but_not_other_meetings asserts audio/wav, inline filename, no-store and a 206 range; 'a meeting without audio answers the playback error' the 404 and 400. The client's revision parameter is the bundle's."
+  },
+  "A30-15": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/detail/routes_meeting.cpp",
+    "src/meeting_web/dashboard_api.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_api_transcript.cpp",
+    "tests/fixtures/transcripts/meeting_api.json",
+    "tests/meeting_web/test_titles.cpp"
+   ],
+   "note": "Transcript: live, cached and saved renames, 404, three normalize_title 400s, guest 403, bad JSON."
+  },
+  "A30-16": {
+   "status": "difference",
+   "difference": "a30-dashboard-local-judgments"
+  },
+  "A30-17": {
+   "status": "difference",
+   "difference": "a30-dashboard-fresh-approval"
+  },
+  "A30-18": {
+   "status": "difference",
+   "difference": "a30-dashboard-speakers-local"
+  },
+  "A30-19": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_web/detail/routes_meeting.cpp",
+    "src/meeting_state/data_lifecycle.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_api_transcript.cpp",
+    "tests/fixtures/transcripts/meeting_api.json",
+    "tests/meeting_web/test_audit_a30.cpp"
+   ],
+   "note": "Active 409, unknown 404, guest 403 and the delete itself are in the transcript; the in-flight refusal 'Wait for the meeting update to finish before deleting' and the busy-state refusal were untested: added 'a30: a claimed meeting refuses review, speakers and delete in OpenWhisper's words' and 'a30: work in flight in the meeting's state refuses re-runs and delete'."
+  },
+  "A30-20": {
+   "status": "difference",
+   "difference": "a30-dashboard-local-judgments"
+  },
+  "A30-21": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_web/detail/routes_history.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_api_transcript.cpp",
+    "tests/fixtures/transcripts/meeting_api.json",
+    "tests/meeting_web/test_audit_a30.cpp"
+   ],
+   "note": "before_seq paging, its 422s and host-only are in the transcript; the unclamped limit (default 100, 5000 passed through) was untested: added to 'a30: the routes ask the repository for the page sizes OpenWhisper asks for'."
+  },
+  "A30-22": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/detail/routes_files.cpp",
+    "src/meeting_state/export_markdown.cpp",
+    "src/meeting_state/export_json.cpp",
+    "src/meeting_state/export_txt.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_api_transcript.cpp",
+    "tests/fixtures/transcripts/meeting_api.json",
+    "tests/meeting_web/test_dashboard_api.cpp"
+   ],
+   "note": "All three formats with Content-Disposition and media type byte for byte in the transcript; test_export_never_carries_capability_tokens; unknown format, no meeting and unknown meeting 404s."
+  },
+  "A30-23": {
+   "status": "difference",
+   "difference": "a30-dashboard-fresh-approval"
+  },
+  "A30-24": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/detail/routes_control.cpp",
+    "src/meeting_web/dashboard_engine.h"
+   ],
+   "tests": [
+    "tests/meeting_web/test_api_transcript.cpp",
+    "tests/fixtures/transcripts/meeting_api.json",
+    "tests/meeting_web/test_dashboard_api.cpp"
+   ],
+   "note": "Any role, 1..4000 characters (400 wording in the transcript), invalid_argument 400 and EngineRefusal 409 ('Turn on AI insights in an active meeting first.' from the default engine and the archive); 'a guest note request completes through the scheduler callback' for the asynchronous answer. The live engine queues the request on the approved insights session (open-items, 'The host dashboard supports')."
+  },
+  "A30-25": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/detail/routes_control.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_dashboard_api.cpp",
+    "tests/meeting_web/test_api_transcript.cpp",
+    "tests/fixtures/transcripts/meeting_api.json"
+   ],
+   "note": "test_slow_end_is_logged_with_where_the_time_went and test_quick_end_is_not_logged pin the 1.0 s log and its wording; end, pause, resume and their 403s in the transcript."
+  },
+  "A30-26": {
+   "status": "difference",
+   "difference": "a30-dashboard-fresh-approval"
+  },
+  "A30-27": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/detail/routes_control.cpp",
+    "src/meeting_web/ws_hub.cpp",
+    "src/meeting_web/archive.cpp",
+    "src/meeting/engine.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_api_transcript.cpp",
+    "tests/fixtures/transcripts/meeting_api.json",
+    "tests/meeting_web/test_ws_hub.cpp",
+    "tests/meeting_web/test_archive.cpp",
+    "tests/meeting_web/test_dashboard_api.cpp"
+   ],
+   "note": "{ok, host_url, guest_url} in the transcript; 'rotation closes every socket with 4401 after a short delay' (kRotationCloseDelay 250 ms); test_archive_adapter_rotates_links_and_stops_server."
+  },
+  "A30-28": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/ws_hub.cpp",
+    "src/meeting_web/ws_protocol.h"
+   ],
+   "tests": [
+    "tests/meeting_web/test_transcript.cpp",
+    "tests/fixtures/transcripts/meeting_ws.json",
+    "tests/meeting_web/test_ws_hub.cpp"
+   ],
+   "note": "4401 (bad, missing token, no meeting), 4400 (no or blank name) in the WS transcript; 4429 past 32 sockets, 1011 on a repository failure in test_ws_hub.cpp."
+  },
+  "A30-29": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/ws_hub.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_transcript.cpp",
+    "tests/fixtures/transcripts/meeting_ws.json",
+    "tests/meeting_web/test_ws_hub.cpp"
+   ],
+   "note": "Hello shape, guest without custom_reports or agent_activity, token leak check and the last 50 ticks ('a host hello carries the last 50 ticks') are tested; how many ticks the live engine keeps is A30-36's handoff."
+  },
+  "A30-30": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/ws_hub.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_ws_hub.cpp",
+    "tests/meeting_web/test_ws_hub_fanout.cpp"
+   ],
+   "note": "'patch during hello window is delivered', 'all 512 broadcasts buffered during a hello follow it in order', 'a pre-hello buffer that overflows closes the socket with 4409', 'host only tick skips not ready host'."
+  },
+  "A30-31": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/ws_hub.cpp",
+    "src/meeting_web/server.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_ws_hub_fanout.cpp",
+    "tests/meeting_web/test_server.cpp"
+   ],
+   "note": "Three consecutive 5 s timeouts drop with 1011, a written send resets the count, a failed send drops at once; broadcasts outside the server's run are dropped."
+  },
+  "A30-32": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/ws_protocol.cpp",
+    "src/meeting_web/ws_hub.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_golden.cpp",
+    "tests/golden/meeting.web.ws.json",
+    "tests/meeting_web/test_ws_hub.cpp"
+   ],
+   "note": "Golden _on_store_batch; host-only split and report-only batches in test_ws_hub.cpp; 'the hub follows a store created after it started'."
+  },
+  "A30-33": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/ws_hub.cpp",
+    "src/meeting_web/ws_protocol.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_transcript.cpp",
+    "tests/fixtures/transcripts/meeting_ws.json",
+    "tests/meeting_web/test_golden.cpp",
+    "tests/meeting_web/test_ws_hub.cpp"
+   ],
+   "note": "Golden _clean_guest_id; reuse with same id and name, new participant on a changed name, stripped name, joined and left presence in the WS transcript and test_ws_hub.cpp."
+  },
+  "A30-34": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/ws_protocol.cpp",
+    "src/meeting_web/ws_hub.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_transcript.cpp",
+    "tests/fixtures/transcripts/meeting_ws.json",
+    "tests/meeting_web/test_ws_hub.cpp"
+   ],
+   "note": "Every error code and sentence, including the character (not byte) count and the repr quoting of unknown types, is in the WS transcript."
+  },
+  "A30-35": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/ws_hub.cpp",
+    "src/meeting_web/ws_protocol.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_transcript.cpp",
+    "tests/fixtures/transcripts/meeting_ws.json",
+    "tests/meeting_web/test_golden.cpp",
+    "tests/meeting_web/test_ws_hub.cpp"
+   ],
+   "note": "ping, malformed_op, host_only, invalid_seq (1e400, 10^40), lenient '2' and 3.7, client_action_id echoed as sent: WS transcript and golden _coerce_seq. too_many_in_flight is unreachable in both: frames of one socket are handled one after another (ws.py awaits _dispatch; WsHub posts a connection's next frame when the last is done), so the 4-action cap never fills."
+  },
+  "A30-36": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/voice_control.cpp",
+    "src/meeting/detail/live_intelligence.cpp",
+    "src/meeting/engine.h"
+   ],
+   "tests": [
+    "tests/meeting/test_fast_features.cpp",
+    "tests/meeting_web/test_ws_hub.cpp",
+    "tests/meeting/test_engine_end.cpp",
+    "tests/meeting/test_engine_capture.cpp"
+   ],
+   "note": "MeetingEngine::emit_voice_feedback now follows engine.py _on_voice_feedback: nothing while the meeting is inactive or paused, an increasing 'seq' on each payload, a 'voice_feedback' listener event, and a broadcast to every socket (it was host_only; no decision for host-only feedback was found). The live agent keeps engine.py AGENT_ACTIVITY_HISTORY = 50 ticks (was 30). Tested by 'voice feedback reaches every socket numbered and the listeners' and 'a host hello carries the last 50 agent ticks' in test_fast_features.cpp; the transport and other producers as before."
+  },
+  "A30-37": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/dashboard_api.cpp",
+    "src/meeting_web/server.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_titles.cpp"
+   ],
+   "note": "15 s cross-thread wait, 'Meeting dashboard is unavailable.', a changed live title closing with 4409 without expiring the host token, and the cached store adopting the title."
+  },
+  "A30-38": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_web/dashboard_api.cpp",
+    "src/meeting_web/detail/routes_meeting.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_dashboard_api.cpp",
+    "tests/meeting_web/test_audit_a30.cpp"
+   ],
+   "note": "Check-and-claim under one lock, review_stores cache dropped on re-runs and delete. 'Wait for the post-meeting steps to finish' and the report case were tested by substring; 'Wait for insight review to finish' and the exact report sentence were untested: added 'a30: work in flight in the meeting's state refuses re-runs and delete'. The re-run executor is a one-thread pool named meeting-reinsights (DashboardApi constructor)."
+  },
+  "A30-39": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/archive.cpp",
+    "src/meeting_web/archive.h",
+    "src/meeting/detail/runtime_engine.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_archive.cpp"
+   ],
+   "note": "Historical store, inactive, no-op controls, guest name cut to 80 or 'Guest', rotation and shutdown are tested. The cloud toggle answers a clean 409 'AI insights are unavailable for archived playback' where OpenWhisper gives a bare 500, as the row allows. LLM options are not on the adapter: the runtime's post-meeting passes resolve the saved route with fresh approval (difference a30-dashboard-fresh-approval)."
+  },
+  "A30-40": {
+   "status": "verified",
+   "cpp": [
+    "webui/src/App.tsx",
+    "webui/dist/assets/index-BqkSL9Ir.js"
+   ],
+   "tests": [
+    "tests/meeting_web/test_webui_bundle.cpp",
+    "webui/dist.sha256"
+   ],
+   "note": "Client code of the vendored bundle (webui/src, built into webui/dist). Checked here: every file of webui/ equals OpenWhisper's at the reference commit after the literal replacements of tools/webui/rebrand_map.json (compared file by file; the map changes only the product name, the log name and three storage keys). test_webui_bundle.cpp pins dist/ to dist.sha256 and the served page to the product name. The 22 node tests of webui/tests that exercise this code were not run (no npm ci here)."
+  },
+  "A30-41": {
+   "status": "verified",
+   "cpp": [
+    "webui/src/api.ts",
+    "webui/dist/assets/index-BqkSL9Ir.js"
+   ],
+   "tests": [
+    "tests/meeting_web/test_webui_bundle.cpp",
+    "webui/dist.sha256"
+   ],
+   "note": "Client code of the vendored bundle (webui/src, built into webui/dist). Checked here: every file of webui/ equals OpenWhisper's at the reference commit after the literal replacements of tools/webui/rebrand_map.json (compared file by file; the map changes only the product name, the log name and three storage keys). test_webui_bundle.cpp pins dist/ to dist.sha256 and the served page to the product name. The 22 node tests of webui/tests that exercise this code were not run (no npm ci here)."
+  },
+  "A30-42": {
+   "status": "verified",
+   "cpp": [
+    "webui/src/ws.ts",
+    "webui/dist/assets/index-BqkSL9Ir.js"
+   ],
+   "tests": [
+    "tests/meeting_web/test_webui_bundle.cpp",
+    "webui/dist.sha256"
+   ],
+   "note": "Client code of the vendored bundle (webui/src, built into webui/dist). Checked here: every file of webui/ equals OpenWhisper's at the reference commit after the literal replacements of tools/webui/rebrand_map.json (compared file by file; the map changes only the product name, the log name and three storage keys). test_webui_bundle.cpp pins dist/ to dist.sha256 and the served page to the product name. The 22 node tests of webui/tests that exercise this code were not run (no npm ci here). The guest key sessionStorage['ow_meeting_guest_id'] is unchanged."
+  },
+  "A30-43": {
+   "status": "verified",
+   "cpp": [
+    "webui/src/state.ts",
+    "webui/dist/assets/index-BqkSL9Ir.js"
+   ],
+   "tests": [
+    "tests/meeting_web/test_webui_bundle.cpp",
+    "webui/dist.sha256"
+   ],
+   "note": "Client code of the vendored bundle (webui/src, built into webui/dist). Checked here: every file of webui/ equals OpenWhisper's at the reference commit after the literal replacements of tools/webui/rebrand_map.json (compared file by file; the map changes only the product name, the log name and three storage keys). test_webui_bundle.cpp pins dist/ to dist.sha256 and the served page to the product name. The 22 node tests of webui/tests that exercise this code were not run (no npm ci here)."
+  },
+  "A30-44": {
+   "status": "verified",
+   "cpp": [
+    "webui/src/report.ts",
+    "webui/dist/assets/index-BqkSL9Ir.js"
+   ],
+   "tests": [
+    "tests/meeting_web/test_webui_bundle.cpp",
+    "webui/dist.sha256"
+   ],
+   "note": "Client code of the vendored bundle (webui/src, built into webui/dist). Checked here: every file of webui/ equals OpenWhisper's at the reference commit after the literal replacements of tools/webui/rebrand_map.json (compared file by file; the map changes only the product name, the log name and three storage keys). test_webui_bundle.cpp pins dist/ to dist.sha256 and the served page to the product name. The 22 node tests of webui/tests that exercise this code were not run (no npm ci here). localStorage['ow_report_view'] is unchanged."
+  },
+  "A30-45": {
+   "status": "verified",
+   "cpp": [
+    "webui/src/theme.ts",
+    "webui/dist/assets/index-BqkSL9Ir.js"
+   ],
+   "tests": [
+    "tests/meeting_web/test_webui_bundle.cpp",
+    "webui/dist.sha256"
+   ],
+   "note": "Client code of the vendored bundle (webui/src, built into webui/dist). Checked here: every file of webui/ equals OpenWhisper's at the reference commit after the literal replacements of tools/webui/rebrand_map.json (compared file by file; the map changes only the product name, the log name and three storage keys). test_webui_bundle.cpp pins dist/ to dist.sha256 and the served page to the product name. The 22 node tests of webui/tests that exercise this code were not run (no npm ci here). The theme and design keys read 'fiorivoce.meeting.theme' and 'fiorivoce.meeting.design' (webui/README.md 'Product name'), so a FioriVoce tab never shares OpenWhisper's choice on the same origin; the values and behaviour are unchanged."
+  },
+  "A30-46": {
+   "status": "verified",
+   "cpp": [
+    "webui/src/playback.ts",
+    "webui/dist/assets/index-BqkSL9Ir.js"
+   ],
+   "tests": [
+    "tests/meeting_web/test_webui_bundle.cpp",
+    "webui/dist.sha256"
+   ],
+   "note": "Client code of the vendored bundle (webui/src, built into webui/dist). Checked here: every file of webui/ equals OpenWhisper's at the reference commit after the literal replacements of tools/webui/rebrand_map.json (compared file by file; the map changes only the product name, the log name and three storage keys). test_webui_bundle.cpp pins dist/ to dist.sha256 and the served page to the product name. The 22 node tests of webui/tests that exercise this code were not run (no npm ci here)."
+  },
+  "A30-47": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/dashboard_api.cpp",
+    "src/meeting_web/detail/api_support.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_api_transcript.cpp",
+    "tests/fixtures/transcripts/meeting_api.json"
+   ],
+   "note": "{detail: str} on every handled error, FastAPI's 422 list details (int_parsing, bool_parsing), 404 Not Found and 405 Method Not Allowed are in the transcript byte for byte."
+  },
+  "A30-48": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/dashboard_api.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_api_transcript.cpp",
+    "tests/fixtures/transcripts/meeting_api.json"
+   ],
+   "note": "GET /docs and /openapi.json answer 404 Not Found in the transcript; no docs routes exist."
+  }
+ },
+ "differences": [
+  {
+   "id": "a30-dashboard-fresh-approval",
+   "features": [
+    "A30-17",
+    "A30-23",
+    "A30-26",
+    "MD-08",
+    "MD-14"
+   ],
+   "openwhisper": "Once the desktop consent was given, the host dashboard can turn on AI insights, start a custom report or re-run insights, and the request reaches the hosted model or installed agent at once.",
+   "fiorivoce": "A dashboard request that would send meeting text to a hosted model or an installed agent (turning on AI insights, a custom report, a re-run that reaches saved AI steps) waits for fresh approval on the desktop naming the meeting and the destination; loopback and device-local work, deletes, downloads and local-only retry steps do not ask.",
+   "reason": "A browser tab holding the host link must not be able to send meeting text off the device on a consent given earlier, possibly in another session.",
+   "source": "docs/port/open-items.md ('The host dashboard supports ...', 'A desktop or dashboard retry that reaches saved AI steps needs fresh native approval ...'); pinned by tests/meeting_web/test_dashboard_api.cpp ('host browser opt-in requests local approval and opt-out cancels it', 'host report requests claim persisted work before the report worker completes') and tests/meeting/test_runtime_retry.cpp ('a restarted runtime requires a fresh saved-meeting approval for every retry', 'saved report destinations ask for fresh consent before starting their writer'); routes in src/meeting_web/detail/routes_control.cpp and routes_meeting.cpp, approval in src/meeting/detail/runtime_retry.cpp post_meeting_passes."
+  },
+  {
+   "id": "a30-dashboard-local-judgments",
+   "features": [
+    "A30-16",
+    "A30-20",
+    "MD-11",
+    "MR-01",
+    "MM-17"
+   ],
+   "openwhisper": "Insight review and semantic history search from the dashboard call the configured cloud LLM judge.",
+   "fiorivoce": "Both run only on a device-local judge: without one, review answers 409 'Turn on AI insights in an active meeting first.' and semantic search returns the keyword results with the settings' message. The review route keeps OpenWhisper's op check (400 'invalid review action'), host rule and 'Wait for final insights to finish' claim.",
+   "reason": "History review and search read every past meeting, which the port keeps on the device; the dashboard offers them only where no text leaves it.",
+   "source": "docs/port/open-items.md ('The host dashboard supports local semantic search and local insight review ...'); src/meeting/detail/runtime_retry.cpp post_meeting_passes (review and semantic_search only with local_fast_judge); pinned by tests/meeting_web/test_dashboard_api.cpp ('the review route admits a host to review and skip a saved question', 'only a host semantic search reaches the configured meeting ranker', 'semantic search falls back to keyword results with the settings' message', 'the intelligence routes refuse in plain words without the extensions') and tests/meeting_web/test_audit_a30.cpp."
+  },
+  {
+   "id": "a30-dashboard-speakers-local",
+   "features": [
+    "A30-18"
+   ],
+   "openwhisper": "POST /api/meetings/{id}/respeakers uploads the meeting's system audio to OpenAI for speaker identification when the backend is openai, upload consent was given and a key is set.",
+   "fiorivoce": "The route keeps its guards and wording (409 active, 400 no system audio, the gate's refusal, 409 busy), but the gate reads a saved openai backend as local, so the dashboard never starts an upload; the OpenAI pass runs only from the desktop Past Meetings action with fresh confirmation.",
+   "reason": "End-of-meeting processing, dashboard retries and stored grants must not start an upload of meeting audio on their own (the a30 half of a10-openai-speakers-read-local).",
+   "source": "docs/port/packages/M7.md 'Changes to the cut' item 4 and docs/port/open-items.md ('The optional OpenAI speaker pass runs from the desktop Past Meetings action ...'); src/meeting/rerun_options.cpp resolve_speaker_pass; pinned by tests/meeting/test_rerun_options.cpp, tests/meeting_web/test_dashboard_api.cpp (test_non_openai_backend_is_400, test_meeting_without_system_audio_is_400) and the transcript tests/fixtures/transcripts/meeting_api.json."
+  }
+ ]
+}

@@ -1,0 +1,41 @@
+[
+  {
+    "id": "chatcmpl-report-1",
+    "object": "chat.completion",
+    "model": "test-model",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_read",
+              "type": "function",
+              "function": {"name": "read_transcript", "arguments": "{\"start_s\": 0, \"end_s\": 30}"}
+            }
+          ]
+        },
+        "finish_reason": "tool_calls"
+      }
+    ],
+    "usage": {"prompt_tokens": 1200, "completion_tokens": 20, "total_tokens": 1220}
+  },
+  {
+    "id": "chatcmpl-report-2",
+    "object": "chat.completion",
+    "model": "test-model",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "# Vendor renewal commitments\n\n- Hold the discount at twelve percent [0:24].\n- Priya drafts the renewal note by Friday [0:14].\n\n## Not covered in this meeting\n\n- The contract term length."
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {"prompt_tokens": 1400, "completion_tokens": 60, "total_tokens": 1460}
+  }
+]

@@ -1,0 +1,354 @@
+{
+  "package": "M0.11, M1.21, M3.10",
+  "files": {
+    "tests/test_macos_dock.py": {
+      "test_hiding_last_window_removes_dock_icon_and_showing_restores_it": {
+        "status": "other-platform",
+        "reason": "macOS AppKit Dock activation policy; no Windows Dock."
+      },
+      "test_open_dialog_keeps_dock_icon_while_main_window_is_hidden": {
+        "status": "other-platform",
+        "reason": "macOS AppKit Dock activation policy; no Windows Dock."
+      },
+      "test_floating_tool_windows_do_not_bring_dock_icon_back": {
+        "status": "other-platform",
+        "reason": "macOS AppKit Dock activation policy; no Windows Dock."
+      }
+    },
+    "tests/test_bootstrap.py": {
+      "TestBootstrap::test_main_runs_startup_flow_and_cleans_up_controller": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_bootstrap.cpp",
+        "note": "Bootstrap's step hook records the order Python's fakes recorded"
+      },
+      "TestBootstrap::test_main_cleans_up_loading_screen_and_controller_on_run_error": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_bootstrap.cpp"
+      },
+      "TestBootstrap::test_main_tells_the_user_when_the_keyring_does_not_answer": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_bootstrap.cpp",
+        "note": "the warning log line; the ambient status on the window is M1.16's"
+      },
+      "TestCudaPreloadSummary::test_logs_the_preloaded_wheel_libraries": {
+        "status": "dropped",
+        "reason": "CUDA wheel preload summary, engine-specific; the NeMo runtime-load summary is M1.12's"
+      },
+      "TestCudaPreloadSummary::test_reports_when_nothing_was_preloaded": {
+        "status": "dropped",
+        "reason": "CUDA wheel preload summary, engine-specific; the NeMo runtime-load summary is M1.12's"
+      },
+      "TestCudaPreloadSummary::test_silent_on_non_linux": {
+        "status": "dropped",
+        "reason": "CUDA wheel preload summary, engine-specific; the NeMo runtime-load summary is M1.12's"
+      },
+      "test_update_health_requires_database_and_matching_transaction": {"status": "ported", "cpp": "tests/ui_shell/test_bootstrap.cpp", "note": "cases: update health waits for database and the running event loop (acknowledged or not); update health is never acknowledged when the database cannot be opened"},
+      "test_main_hands_off_to_the_running_ui": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_bootstrap.cpp"
+      },
+      "test_show_request_from_another_thread_runs_on_the_qt_thread": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_bootstrap.cpp"
+      }
+    },
+    "tests/test_ui_instance.py": {
+      "test_non_linux_stays_primary_without_locking": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_single_instance.cpp",
+        "note": "adapted: FioriVoce locks on every platform, so a second instance for the same folder is not primary"
+      },
+      "test_second_launch_asks_the_first_to_show_and_does_not_become_primary": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_single_instance.cpp"
+      },
+      "test_a_show_request_calls_the_activate_callback": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_single_instance.cpp"
+      },
+      "test_different_data_directories_can_each_have_a_ui": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_single_instance.cpp"
+      },
+      "test_a_new_process_can_become_primary_after_release": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_single_instance.cpp",
+        "note": "the next instance is in the same process; QLockFile refuses a live holder there as across processes"
+      },
+      "test_lock_holder_without_a_socket_blocks_a_second_copy": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_single_instance.cpp"
+      }
+    },
+    "tests/test_loading_screen.py": {
+      "test_loading_screen_drags_with_left_mouse": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_loading_screen.cpp"
+      }
+    },
+    "tests/test_system_tray.py": {
+      "TestMacStatusItemClicks::test_menu_is_not_attached_so_left_click_reaches_the_app": {
+        "status": "dropped",
+        "reason": "macOS status-item click semantics; FioriVoce does not build for macOS"
+      },
+      "TestMacStatusItemClicks::test_left_click_restores_hidden_window": {
+        "status": "dropped",
+        "reason": "macOS status-item click semantics; FioriVoce does not build for macOS"
+      },
+      "TestMacStatusItemClicks::test_right_click_opens_menu_without_restoring": {
+        "status": "dropped",
+        "reason": "macOS status-item click semantics; FioriVoce does not build for macOS"
+      },
+      "TestMacStatusItemClicks::test_ctrl_click_opens_menu_without_restoring": {
+        "status": "dropped",
+        "reason": "macOS status-item click semantics; FioriVoce does not build for macOS"
+      },
+      "TestOtherPlatformTrayClicks::test_context_menu_stays_attached": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_system_tray.cpp",
+        "note": "through TrayEnvironment: no icon reaches the desktop"
+      },
+      "TestOtherPlatformTrayClicks::test_double_click_restores_and_single_click_does_not": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_system_tray.cpp",
+        "note": "through TrayEnvironment: no icon reaches the desktop"
+      }
+    },
+    "tests/test_title_bar.py": {
+      "test_menu_items_fit_at_every_font_scale": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_title_bar.cpp"
+      },
+      "test_default_scale_keeps_menus_and_a_usable_bar": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_title_bar.cpp"
+      },
+      "test_larger_scale_does_not_shrink_the_bar": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_title_bar.cpp"
+      },
+      "test_window_buttons_paint_their_glyphs_not_font_characters": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_title_bar.cpp"
+      },
+      "test_maximize_turns_into_restore_and_back": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_title_bar.cpp"
+      }
+    },
+    "tests/test_window_fit_and_title_bar.py": {
+      "test_a_laptop_panel_at_150_percent_shrinks_the_window": {
+        "status": "ported",
+        "cpp": "tests/ui_settings/test_fit.cpp"
+      },
+      "test_a_big_screen_leaves_the_window_alone": {
+        "status": "ported",
+        "cpp": "tests/ui_settings/test_fit.cpp"
+      },
+      "test_a_screen_smaller_than_the_minimum_lowers_the_minimum": {
+        "status": "ported",
+        "cpp": "tests/ui_settings/test_fit.cpp"
+      },
+      "test_the_real_dialog_opens_inside_the_screen": {
+        "status": "ported",
+        "cpp": "tests/ui_settings/test_fit.cpp"
+      },
+      "test_a_window_already_on_screen_stays_put": {
+        "status": "ported",
+        "cpp": "tests/ui_settings/test_fit.cpp"
+      },
+      "test_a_window_off_the_right_edge_is_centred_on_the_screen": {
+        "status": "ported",
+        "cpp": "tests/ui_settings/test_fit.cpp"
+      },
+      "test_a_window_bigger_than_the_screen_keeps_its_title_bar_on_it": {
+        "status": "ported",
+        "cpp": "tests/ui_settings/test_fit.cpp"
+      },
+      "test_the_real_dialog_moves_wholly_onto_a_small_screen": {
+        "status": "ported",
+        "cpp": "tests/ui_settings/test_fit.cpp"
+      },
+      "test_title_bar_stylesheet_parses": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_title_bar.cpp"
+      }
+    },
+    "tests/test_window_fits_tab.py": {
+      "test_every_tab_fits_the_window_to_its_page": {
+        "status": "ported",
+        "cpp": "tests/ui_controller/test_window_with_tabs.cpp",
+        "note": "with the real Quick Record tab (M1.16); M2, M6 and M7 add their tabs"
+      },
+      "test_showing_the_window_again_fits_it_at_once": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_page_fit.cpp",
+        "note": "a stand-in page with Quick Record's scroll-area structure"
+      },
+      "test_the_walkthrough_tab_keeps_its_size_as_its_settings_change": {
+        "status": "ported",
+        "cpp": "tests/ui_walkthrough/test_tab_stage.cpp"
+      },
+      "test_a_dragged_walkthrough_height_stays": {
+        "status": "ported",
+        "cpp": "tests/ui_walkthrough/test_tab_stage.cpp"
+      },
+      "test_an_open_transcript_keeps_the_height_the_user_gives_it": {
+        "status": "ported",
+        "cpp": "tests/ui_controller/test_window_with_tabs.cpp",
+        "note": "Quick Record's half (M1.16); the Upload File half runs once M2's Upload tab exists"
+      },
+      "test_dragging_an_edge_of_a_maximized_window_leaves_maximized": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_main_window.cpp"
+      },
+      "test_restoring_from_maximized_leaves_the_maximized_state": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_main_window.cpp"
+      },
+      "test_the_left_edge_stops_at_the_width_cap_without_sliding": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_main_window.cpp"
+      },
+      "test_quick_record_fits_wrapped_text_and_shrinks_after_a_long_result": {
+        "status": "ported",
+        "cpp": "tests/ui_controller/test_window_with_tabs.cpp"
+      }
+    },
+    "tests/test_main_window_compact.py": {
+      "TestMainWindowCompactMode::test_result_stats_scroll_into_view_when_the_window_cannot_grow": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_stats_reveal.cpp",
+        "note": "a stand-in page shaped like a transcription tab (fv_ui_shell cannot link Quick Record); the controller connects both tabs' stats cards (M2.28)"
+      },
+      "test_native_wayland_session_detection": {
+        "status": "ported",
+        "cpp": "tests/base/test_desktop_session.cpp",
+        "note": "desktop session detection is fv_base's (M0.2)"
+      },
+      "TestMainWindowCompactMode::test_launch_restores_last_tab_and_reshow_keeps_current_tab": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_main_window.cpp"
+      },
+      "TestMainWindowCompactMode::test_compact_mode_uses_fixed_controller_and_restores_geometry": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_compact_mode.cpp",
+        "note": "a stand-in compact controller and side panel"
+      },
+      "TestMainWindowCompactMode::test_missing_system_tray_disables_tray_only_controls": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_main_window.cpp"
+      },
+      "TestMainWindowCompactMode::test_close_is_not_hidden_when_system_tray_is_unavailable": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_main_window.cpp"
+      },
+      "TestMainWindowCompactMode::test_footer_has_one_settings_entry_point": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_main_window.cpp"
+      },
+      "TestMainWindowCompactMode::test_footer_settings_button_opens_settings": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_main_window.cpp"
+      },
+      "TestMainWindowCompactMode::test_footer_stats_button_opens_stats": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_main_window.cpp"
+      },
+      "TestMainWindowCompactMode::test_file_menu_downloads_opens_downloads": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_main_window.cpp"
+      },
+      "TestMainWindowCompactMode::test_compact_controls_delegate_to_quick_record": {
+        "status": "ported",
+        "cpp": "tests/ui_controller/test_window_with_tabs.cpp"
+      },
+      "TestMainWindowCompactMode::test_compact_mode_selection_is_persisted": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_compact_mode.cpp"
+      },
+      "TestMainWindowCompactMode::test_persisted_compact_mode_is_restored": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_compact_mode.cpp"
+      },
+      "TestMainWindowCompactMode::test_restore_clamps_short_saved_geometry_to_scroll_free_height": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_main_window.cpp",
+        "note": "the clamp's maths is also replayed from tests/golden/ui_qt.main_window.json in tests/uimath/test_window_geometry.cpp"
+      },
+      "TestMainWindowCompactMode::test_restore_clamps_narrow_saved_geometry_to_full_ui_width": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_main_window.cpp",
+        "note": "_restored_width is also replayed from tests/golden/ui_qt.main_window.json in tests/uimath/test_window_geometry.cpp"
+      },
+      "TestMainWindowCompactMode::test_minimum_full_width_keeps_tabs_and_footer_controls_separate": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_main_window.cpp"
+      },
+      "TestMainWindowCompactMode::test_quick_record_controls_fit_at_minimum_height": {
+        "status": "ported",
+        "cpp": "tests/ui_controller/test_window_with_tabs.cpp",
+        "note": "the profile card arrives with cleanup profiles (M4)"
+      },
+      "TestMainWindowCompactMode::test_can_switch_tabs_during_a_recording": {"status": "ported", "cpp": "tests/ui_shell/test_recording_relay.cpp", "note": "walkthrough=False and True with stand-in screens; the button text is the tab's own (setRecordingState:1,1 while the walkthrough records)"},
+      "TestMainWindowCompactMode::test_a_walkthrough_ended_in_the_tray_reopens_on_its_tab": {"status": "ported", "cpp": "tests/ui_shell/test_walkthrough_window.cpp", "note": "case: a walkthrough ended in the tray reopens on its tab"},
+      "TestMainWindowCompactMode::test_compact_mode_keeps_a_walkthrough_on_quick_record": {"status": "ported", "cpp": "tests/ui_shell/test_recording_relay.cpp", "note": "case: in compact mode a walkthrough's recording stays on quick record"},
+      "TestMainWindowCompactMode::test_clamp_keeps_footer_on_short_screen": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_main_window.cpp",
+        "note": "the clamp's maths is also replayed from tests/golden/ui_qt.main_window.json in tests/uimath/test_window_geometry.cpp"
+      },
+      "TestMainWindowCompactMode::test_geometry_save_waits_until_initial_show": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_main_window.cpp"
+      },
+      "TestMainWindowCompactMode::test_history_toggle_preserves_height": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_side_panel.cpp",
+        "note": "a stand-in panel; the lockstep base comes from a toggle, where Python set it directly"
+      }
+    },
+    "tests/test_backup_startup.py": {
+      "test_shared_processes_coexist_and_exclusive_waits_for_exit": {
+        "status": "ported",
+        "cpp": "tests/base/test_data_lease.cpp",
+        "note": "the data lease is fv_base's (M0.2)"
+      },
+      "test_normal_startup_holds_shared_lease_without_restore": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_bootstrap.cpp"
+      },
+      "test_main_gates_restore_after_worker_modes_before_ui_import": {
+        "status": "ported",
+        "cpp": "tests/ui_shell/test_bootstrap.cpp",
+        "note": "adapted: the order is observed as appMain runs (early command line, lease, Qt application), where Python read main.py's source"
+      },
+      "test_pending_restore_never_runs_while_another_process_uses_data": {
+        "status": "ported",
+        "cpp": "tests/backup/test_startup_gate.cpp",
+        "note": "M3.4's gate; the app's start through it is tests/ui_shell/test_bootstrap.cpp (a pending restore another process blocks refuses the start)"
+      },
+      "test_restart_command_drops_update_and_restore_args": {
+        "status": "ported",
+        "cpp": "tests/backup/test_startup_gate.cpp",
+        "note": "M3.4's restart_command; main() starts it once Bootstrap returns 73"
+      }
+    },
+    "tests/test_omarchy_ui.py": {
+      "test_native_window_ignores_saved_offscreen_geometry": {"status": "ported", "cpp": "tests/ui_shell/test_saved_geometry_fit.cpp", "note": "case: host mode ignores a saved geometry off the screen (kept: the saved host geometry off and taller than the screen comes back on it; the tile's unbounded maximum width and keeping the tile's size are Omarchy's)"}
+    },
+    "tests/test_host_mode.py": {
+      "test_host_mode_swaps_the_tabs_for_the_dashboard_and_back": {"status": "ported", "cpp": "tests/ui_shell/test_host_mode_window.cpp", "note": "case of the same name over MainWindow with stand-in side panel, edge tab and dashboard"},
+      "test_host_mode_keeps_its_own_window_size_and_place": {"status": "ported", "cpp": "tests/ui_shell/test_host_mode_window.cpp", "note": "case of the same name over MainWindow with stand-in side panel, edge tab and dashboard"},
+      "test_host_mode_leaves_compact_mode_and_the_recording_views_stay_shut": {"status": "ported", "cpp": "tests/ui_shell/test_host_mode_window.cpp", "note": "case of the same name over MainWindow with stand-in side panel, edge tab and dashboard"},
+      "test_saved_host_mode_comes_back_at_launch": {"status": "ported", "cpp": "tests/ui_shell/test_host_mode_window.cpp", "note": "case of the same name over MainWindow with stand-in side panel, edge tab and dashboard"},
+      "test_a_dictation_finishing_behind_the_dashboard_leaves_its_size_alone": {"status": "ported", "cpp": "tests/ui_shell/test_host_mode_window.cpp", "note": "case of the same name over MainWindow with stand-in side panel, edge tab and dashboard"},
+      "test_a_meeting_starting_here_leaves_host_mode_for_its_tab": {"status": "ported", "cpp": "tests/ui_shell/test_host_mode_window.cpp", "note": "case of the same name: UIController.switch_to_tab is MainWindow::switchToTab, which MeetingPresenter calls when a meeting turns active (switch_to_meeting_mode)"},
+      "test_the_first_host_mode_window_grows_to_fit_the_dashboard": {"status": "ported", "cpp": "tests/ui_shell/test_main_window.cpp", "note": "case 'a first Host Mode grows the window to 780 square and names it Host': from 700x690 on a 1920x1080 screen to 780x780 (MAIN_WINDOW_HOST_DEFAULT_WIDTH/HEIGHT)"},
+      "test_the_view_menu_toggles_host_mode": {"status": "ported", "cpp": "tests/ui_shell/test_main_window.cpp", "note": "cases 'the title bar menus hold OpenWhisper's items in order' (History, History Calendar, Compact Mode, Host Mode first; Ctrl+Shift+H; checkable) and 'View Host Mode lazily replaces the recording tabs and keeps its own geometry' (triggering the item turns Host Mode on, then off)"}
+    },
+    "tests/test_deferred_screens.py": {
+      "test_host_dashboard_materializes_once_and_receives_queued_values": {"status": "ported", "cpp": "tests/ui_shell/test_host_dashboard_deferred.cpp", "note": "case: the host dashboard is built once and Host Mode builds no other screen. FioriVoce's dashboard reads the host's state when built (pull) instead of replaying queued set_device_info/set_engine_busy calls; the Python test asserts no value either. Values queued for Upload File and Meeting Mode stay unapplied"}
+    }
+  }
+}

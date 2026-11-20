@@ -1,0 +1,27 @@
+{
+ "source": "Hand-written. OpenRouter's stream as its Chat Completions SSE documentation describes it: ': OPENROUTER PROCESSING' comment lines while it waits, `reasoning` text beside `reasoning_details` pieces that continue the entry with the same type and index; the reply equals tests/fixtures/llm/generation/replies.json 'chat_reasoning_fields'.",
+ "protocol": "chat",
+ "equivalent": "chat_reasoning_fields",
+ "frames": [
+  ": OPENROUTER PROCESSING\n\n",
+  {"id": "gen-1", "object": "chat.completion.chunk", "choices": [{"index": 0, "delta": {"role": "assistant", "content": "", "reasoning": "short ", "reasoning_details": [{"type": "reasoning.text", "text": "st", "signature": null, "index": 0}]}, "finish_reason": null}]},
+  ": OPENROUTER PROCESSING\n\n",
+  {"id": "gen-1", "object": "chat.completion.chunk", "choices": [{"index": 0, "delta": {"content": "", "reasoning": "thought", "reasoning_details": [{"type": "reasoning.text", "text": "ep", "index": 0}]}, "finish_reason": null}]},
+  {"id": "gen-1", "object": "chat.completion.chunk", "choices": [{"index": 0, "delta": {"content": "Done."}, "finish_reason": "stop"}]},
+  "data: [DONE]\n\n"
+ ],
+ "events": [
+  ["thinking_start"],
+  ["thinking_delta", "short "],
+  ["thinking_delta", "thought"],
+  ["thinking_end"],
+  ["text_delta", "Done."]
+ ],
+ "result": {
+  "text": "Done.",
+  "tool_calls": [],
+  "assistant_message": {"role": "assistant", "content": "Done.", "reasoning": "short thought", "reasoning_details": [{"type": "reasoning.text", "text": "step", "signature": null, "index": 0}]},
+  "usage": null,
+  "finish_reason": "stop"
+ }
+}

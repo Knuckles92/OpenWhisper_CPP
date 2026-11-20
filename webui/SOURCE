@@ -1,0 +1,17 @@
+Vendored from OpenWhisper (https://github.com/Knuckles92/OpenWhisper), directory webui/,
+at commit 768b559edd932d40806c96eed05ef5a20e57e415 (tools/parity/reference.json "ow_commit").
+
+Copied file for file, as committed (git objects, not a working copy, whose line endings an
+editor or core.autocrlf may have changed): index.html, package.json, package-lock.json, tsconfig.json,
+vite.config.ts, src/, public/, tests/ (22 node tests), scripts/ (2 browser checks) and the
+committed dist/ (the built bundle the meeting server serves). Not copied: node_modules/, mocks/
+(design mock-ups, 236 KB) and benchmarks/ (one script).
+
+The only differences from the original are the product-name replacements in
+tools/webui/rebrand_map.json, applied by tools/webui/rebrand.py to the source, the tests that
+assert those names, and the built dist files. Nothing was rebuilt: dist/ is OpenWhisper's build
+with the same replacements, and its asset file names (content hashes) are unchanged.
+`python -I -B tools/webui/rebrand.py --against-commit <OpenWhisper>/.git` proves it (it reads
+the commit with `git ls-tree` and `git cat-file` only).
+
+Files here that are FioriVoce's own: SOURCE, README.md, dist.sha256, .gitattributes, .gitignore.

@@ -1,0 +1,1424 @@
+{
+ "module": "services.automation.meeting_events",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time"
+ },
+ "functions": {
+  "forward": [
+   {
+    "args": [
+     [
+      [
+       "server_started",
+       {
+        "url": "http://127.0.0.1:9/m?token=guest-secret"
+       },
+       "m_1"
+      ],
+      [
+       "status",
+       {
+        "status": "starting",
+        "_retry_generation": 3,
+        "_finalization_claim": {
+         "owner": "x"
+        }
+       },
+       "m_1"
+      ],
+      [
+       "status",
+       {
+        "status": "active",
+        "note": "Mic only",
+        "_retry_generation": 3,
+        "_finalization_claim": {
+         "owner": "x"
+        }
+       },
+       "m_1"
+      ],
+      [
+       "status",
+       {
+        "status": "paused"
+       },
+       "m_1"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_1"
+      ],
+      [
+       "status",
+       {
+        "status": "active",
+        "title": " Standup "
+       },
+       "m_2"
+      ],
+      [
+       "status",
+       {
+        "status": "paused",
+        "title": 5
+       },
+       "m_3"
+      ],
+      [
+       "status",
+       {
+        "status": "Active"
+       },
+       "m_4"
+      ],
+      [
+       "status",
+       {
+        "status": [
+         "active"
+        ]
+       },
+       "m_5"
+      ],
+      [
+       "status",
+       {
+        "status": "active",
+        "title": " Café 東京 "
+       },
+       "m_6"
+      ]
+     ]
+    ],
+    "result": [
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_1",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_2",
+       "title": "Standup"
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_3",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_6",
+       "title": "Café 東京"
+      }
+     ]
+    ]
+   },
+   {
+    "args": [
+     [
+      [
+       "status",
+       {
+        "status": "paused"
+       },
+       "m_1"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_1"
+      ]
+     ]
+    ],
+    "result": [
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_1",
+       "title": ""
+      }
+     ]
+    ]
+   },
+   {
+    "args": [
+     [
+      [
+       "ended",
+       {
+        "meeting_id": "m_1",
+        "canceled": false,
+        "status": "needs_recovery",
+        "unfinished_chunks": 2,
+        "capture_error": "device lost",
+        "_retry_generation": 3,
+        "_finalization_claim": {
+         "owner": "x"
+        }
+       },
+       ""
+      ],
+      [
+       "ended",
+       {
+        "status": ""
+       },
+       "m_2"
+      ],
+      [
+       "ended",
+       {
+        "status": 7
+       },
+       "m_3"
+      ],
+      [
+       "ended",
+       {},
+       "m_4"
+      ],
+      [
+       "ended",
+       {
+        "meeting_id": 12,
+        "status": "ended"
+       },
+       ""
+      ],
+      [
+       "ended",
+       {
+        "meeting_id": "m_6",
+        "status": "ended"
+       },
+       "m_7"
+      ]
+     ]
+    ],
+    "result": [
+     [
+      "meeting.ended",
+      {
+       "meeting_id": "m_1",
+       "status": "needs_recovery"
+      }
+     ],
+     [
+      "meeting.ended",
+      {
+       "meeting_id": "m_2",
+       "status": "ended"
+      }
+     ],
+     [
+      "meeting.ended",
+      {
+       "meeting_id": "m_3",
+       "status": "ended"
+      }
+     ],
+     [
+      "meeting.ended",
+      {
+       "meeting_id": "m_4",
+       "status": "ended"
+      }
+     ],
+     [
+      "meeting.ended",
+      {
+       "meeting_id": "12",
+       "status": "ended"
+      }
+     ],
+     [
+      "meeting.ended",
+      {
+       "meeting_id": "m_7",
+       "status": "ended"
+      }
+     ]
+    ]
+   },
+   {
+    "args": [
+     [
+      [
+       "segments",
+       {
+        "items": [
+         {
+          "id": "sg_1",
+          "meeting_id": "m_1",
+          "chunk_id": 4,
+          "channel": "mic",
+          "start_s": 1.23456,
+          "end_s": 3.5,
+          "text": "Ship it Friday.",
+          "original_text": "ship it friday",
+          "speaker_participant_id": "p_me",
+          "speaker_source": "mic",
+          "speaker_pinned": false,
+          "created_at": "x"
+         },
+         {
+          "id": "sg_2",
+          "text": "   ",
+          "start_s": 4,
+          "end_s": 5
+         },
+         {
+          "id": "sg_3",
+          "text": "No speaker yet.",
+          "start_s": 6,
+          "end_s": 7.25,
+          "speaker_participant_id": null
+         },
+         "not a row",
+         {
+          "segment_id": "sg_4",
+          "speaker": "Ana",
+          "text": "Hi.",
+          "start_s": true,
+          "end_s": "9"
+         },
+         {
+          "id": 17,
+          "text": 42,
+          "speaker": 3,
+          "speaker_participant_id": 9,
+          "start_s": 2.0005,
+          "end_s": 1e+20
+         },
+         {
+          "id": "",
+          "segment_id": "sg_6",
+          "text": "x",
+          "speaker": "",
+          "speaker_participant_id": "p_2",
+          "start_s": -0.0004
+         },
+         {
+          "text": "été à 東京"
+         }
+        ],
+        "_retry_generation": 3,
+        "_finalization_claim": {
+         "owner": "x"
+        }
+       },
+       "m_1"
+      ]
+     ]
+    ],
+    "result": [
+     [
+      "meeting.segments",
+      {
+       "meeting_id": "m_1",
+       "items": [
+        {
+         "segment_id": "sg_1",
+         "speaker": "p_me",
+         "text": "Ship it Friday.",
+         "start_s": 1.235,
+         "end_s": 3.5
+        },
+        {
+         "segment_id": "sg_3",
+         "speaker": "",
+         "text": "No speaker yet.",
+         "start_s": 6.0,
+         "end_s": 7.25
+        },
+        {
+         "segment_id": "sg_4",
+         "speaker": "Ana",
+         "text": "Hi.",
+         "start_s": null,
+         "end_s": null
+        },
+        {
+         "segment_id": "17",
+         "speaker": "9",
+         "text": "42",
+         "start_s": 2.001,
+         "end_s": 1e+20
+        },
+        {
+         "segment_id": "sg_6",
+         "speaker": "p_2",
+         "text": "x",
+         "start_s": -0.0,
+         "end_s": null
+        },
+        {
+         "segment_id": "",
+         "speaker": "",
+         "text": "été à 東京",
+         "start_s": null,
+         "end_s": null
+        }
+       ]
+      }
+     ]
+    ]
+   },
+   {
+    "args": [
+     [
+      [
+       "segments",
+       {
+        "items": [
+         {
+          "id": "sg_9",
+          "text": "Re-decoded."
+         }
+        ],
+        "removed_ids": [
+         "sg_1"
+        ]
+       },
+       "m_1"
+      ],
+      [
+       "segments",
+       {
+        "items": [],
+        "removed_ids": null
+       },
+       "m_1"
+      ],
+      [
+       "segments",
+       {
+        "items": []
+       },
+       "m_1"
+      ],
+      [
+       "segments",
+       {
+        "items": [
+         {
+          "id": "sg_1",
+          "text": ""
+         }
+        ]
+       },
+       "m_1"
+      ],
+      [
+       "segments",
+       {
+        "items": 5
+       },
+       "m_1"
+      ],
+      [
+       "segments",
+       {
+        "items": {
+         "id": "x"
+        }
+       },
+       "m_1"
+      ]
+     ]
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     [
+      [
+       "voice_command",
+       {
+        "command": "recap",
+        "applied": 1,
+        "rejected": 0
+       },
+       "m_1"
+      ],
+      [
+       "voice_command",
+       {
+        "command": ""
+       },
+       "m_1"
+      ],
+      [
+       "voice_command",
+       {
+        "command": "  "
+       },
+       "m_1"
+      ],
+      [
+       "voice_command",
+       {
+        "command": " next topic "
+       },
+       "m_1"
+      ],
+      [
+       "voice_command",
+       {
+        "command": 3
+       },
+       "m_1"
+      ]
+     ]
+    ],
+    "result": [
+     [
+      "meeting.voice_command",
+      {
+       "meeting_id": "m_1",
+       "command": "recap"
+      }
+     ],
+     [
+      "meeting.voice_command",
+      {
+       "meeting_id": "m_1",
+       "command": "next topic"
+      }
+     ]
+    ]
+   },
+   {
+    "args": [
+     [
+      [
+       "server_started",
+       {
+        "message": "guest link http://x/?t=secret",
+        "online": true,
+        "guest_url": "http://x/?t=secret",
+        "phase": "saved"
+       },
+       "m_1"
+      ],
+      [
+       "error",
+       {
+        "message": "guest link http://x/?t=secret",
+        "online": true,
+        "guest_url": "http://x/?t=secret",
+        "phase": "saved"
+       },
+       "m_1"
+      ],
+      [
+       "intelligence",
+       {
+        "message": "guest link http://x/?t=secret",
+        "online": true,
+        "guest_url": "http://x/?t=secret",
+        "phase": "saved"
+       },
+       "m_1"
+      ],
+      [
+       "background_ready",
+       {
+        "message": "guest link http://x/?t=secret",
+        "online": true,
+        "guest_url": "http://x/?t=secret",
+        "phase": "saved"
+       },
+       "m_1"
+      ],
+      [
+       "asr_released",
+       {
+        "message": "guest link http://x/?t=secret",
+        "online": true,
+        "guest_url": "http://x/?t=secret",
+        "phase": "saved"
+       },
+       "m_1"
+      ],
+      [
+       "voice_feedback",
+       {
+        "message": "guest link http://x/?t=secret",
+        "online": true,
+        "guest_url": "http://x/?t=secret",
+        "phase": "saved"
+       },
+       "m_1"
+      ],
+      [
+       "retry_status",
+       {
+        "message": "guest link http://x/?t=secret",
+        "online": true,
+        "guest_url": "http://x/?t=secret",
+        "phase": "saved"
+       },
+       "m_1"
+      ],
+      [
+       "unknown",
+       {
+        "message": "guest link http://x/?t=secret",
+        "online": true,
+        "guest_url": "http://x/?t=secret",
+        "phase": "saved"
+       },
+       "m_1"
+      ]
+     ]
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     [
+      [
+       "server_started",
+       {
+        "guest_url": "http://x/?t=guest-secret-token"
+       },
+       "m"
+      ],
+      [
+       "status",
+       {
+        "status": "active",
+        "capture": {
+         "message": "guest-secret-token"
+        },
+        "finalization": {
+         "message": "guest-secret-token"
+        },
+        "speech": {
+         "x": "guest-secret-token"
+        },
+        "_retry_generation": 1
+       },
+       "m"
+      ],
+      [
+       "segments",
+       {
+        "items": [
+         {
+          "id": "sg",
+          "text": "hello",
+          "original_text": "guest-secret-token",
+          "channel": "guest-secret-token",
+          "_private": "guest-secret-token"
+         }
+        ]
+       },
+       "m"
+      ],
+      [
+       "ended",
+       {
+        "status": "ended",
+        "error": "guest-secret-token",
+        "capture_error": "guest-secret-token"
+       },
+       "m"
+      ]
+     ]
+    ],
+    "result": [
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.segments",
+      {
+       "meeting_id": "m",
+       "items": [
+        {
+         "segment_id": "sg",
+         "speaker": "",
+         "text": "hello",
+         "start_s": null,
+         "end_s": null
+        }
+       ]
+      }
+     ],
+     [
+      "meeting.ended",
+      {
+       "meeting_id": "m",
+       "status": "ended"
+      }
+     ]
+    ]
+   },
+   {
+    "args": [
+     [
+      [
+       "status",
+       null,
+       "m_1"
+      ],
+      [
+       "segments",
+       null,
+       "m_1"
+      ],
+      [
+       "ended",
+       null,
+       "m_1"
+      ],
+      [
+       "voice_command",
+       null,
+       "m_1"
+      ],
+      [
+       "status",
+       [],
+       "m_1"
+      ],
+      [
+       "segments",
+       [],
+       "m_1"
+      ],
+      [
+       "ended",
+       [],
+       "m_1"
+      ],
+      [
+       "voice_command",
+       [],
+       "m_1"
+      ],
+      [
+       "status",
+       "status",
+       "m_1"
+      ],
+      [
+       "segments",
+       "status",
+       "m_1"
+      ],
+      [
+       "ended",
+       "status",
+       "m_1"
+      ],
+      [
+       "voice_command",
+       "status",
+       "m_1"
+      ],
+      [
+       "status",
+       {
+        "items": 5
+       },
+       "m_1"
+      ],
+      [
+       "segments",
+       {
+        "items": 5
+       },
+       "m_1"
+      ],
+      [
+       "ended",
+       {
+        "items": 5
+       },
+       "m_1"
+      ],
+      [
+       "voice_command",
+       {
+        "items": 5
+       },
+       "m_1"
+      ]
+     ]
+    ],
+    "result": [
+     [
+      "meeting.ended",
+      {
+       "meeting_id": "m_1",
+       "status": "ended"
+      }
+     ],
+     [
+      "meeting.ended",
+      {
+       "meeting_id": "m_1",
+       "status": "ended"
+      }
+     ],
+     [
+      "meeting.ended",
+      {
+       "meeting_id": "m_1",
+       "status": "ended"
+      }
+     ],
+     [
+      "meeting.ended",
+      {
+       "meeting_id": "m_1",
+       "status": "ended"
+      }
+     ]
+    ]
+   },
+   {
+    "args": [
+     [
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       ""
+      ],
+      [
+       "ended",
+       {
+        "status": "ended"
+       },
+       ""
+      ],
+      [
+       "status",
+       {
+        "status": "active",
+        "meeting_id": ""
+       },
+       ""
+      ],
+      [
+       "status",
+       {
+        "status": "active",
+        "meeting_id": 0
+       },
+       ""
+      ],
+      [
+       "status",
+       {
+        "status": "active",
+        "meeting_id": "m_9"
+       },
+       ""
+      ]
+     ]
+    ],
+    "result": [
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_9",
+       "title": ""
+      }
+     ]
+    ]
+   },
+   {
+    "args": [
+     [
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_7"
+      ],
+      [
+       "segments",
+       {
+        "items": [
+         {
+          "id": "sg_1",
+          "meeting_id": "m_7",
+          "text": "Hi.",
+          "start_s": 0.0,
+          "end_s": 1.0
+         }
+        ]
+       },
+       "m_7"
+      ],
+      [
+       "ended",
+       {
+        "meeting_id": "m_7",
+        "status": "ended"
+       },
+       "m_7"
+      ]
+     ]
+    ],
+    "result": [
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_7",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.segments",
+      {
+       "meeting_id": "m_7",
+       "items": [
+        {
+         "segment_id": "sg_1",
+         "speaker": "",
+         "text": "Hi.",
+         "start_s": 0.0,
+         "end_s": 1.0
+        }
+       ]
+      }
+     ],
+     [
+      "meeting.ended",
+      {
+       "meeting_id": "m_7",
+       "status": "ended"
+      }
+     ]
+    ]
+   },
+   {
+    "args": [
+     [
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_0"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_1"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_2"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_3"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_4"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_5"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_6"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_7"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_8"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_9"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_10"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_11"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_12"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_13"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_14"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_15"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_16"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_17"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_18"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_19"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_20"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_21"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_22"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_23"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_24"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_25"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_26"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_27"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_28"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_29"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_30"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_31"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_32"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_1"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_0"
+      ],
+      [
+       "status",
+       {
+        "status": "active"
+       },
+       "m_2"
+      ]
+     ]
+    ],
+    "result": [
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_0",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_1",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_2",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_3",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_4",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_5",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_6",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_7",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_8",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_9",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_10",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_11",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_12",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_13",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_14",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_15",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_16",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_17",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_18",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_19",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_20",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_21",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_22",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_23",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_24",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_25",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_26",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_27",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_28",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_29",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_30",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_31",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_32",
+       "title": ""
+      }
+     ],
+     [
+      "meeting.started",
+      {
+       "meeting_id": "m_0",
+       "title": ""
+      }
+     ]
+    ]
+   }
+  ]
+ }
+}

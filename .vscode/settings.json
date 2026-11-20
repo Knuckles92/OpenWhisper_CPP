@@ -1,0 +1,30 @@
+{
+  // CMake Tools drives configure/build/test from CMakePresets.json.
+  "cmake.useCMakePresets": "always",
+  "cmake.configureOnOpen": true,
+
+  // IntelliSense reads include paths and flags from the active CMake preset.
+  "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+  "C_Cpp.default.cppStandard": "c++20",
+
+  // Format with the repo's .clang-format and lint with its .clang-tidy
+  // (both tools ship inside the C/C++ extension).
+  "[cpp]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools",
+    "editor.formatOnSave": true
+  },
+  "C_Cpp.codeAnalysis.clangTidy.enabled": true,
+  "C_Cpp.codeAnalysis.clangTidy.useBuildPath": true,
+
+  // New terminals on Windows start with cl, link and ninja on PATH.
+  "terminal.integrated.profiles.windows": {
+    "MSVC Dev Shell": {
+      "source": "PowerShell",
+      "args": ["-NoExit", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}\\scripts\\vsenv.ps1"]
+    }
+  },
+  "terminal.integrated.defaultProfile.windows": "MSVC Dev Shell",
+
+  "files.associations": { "CMakePresets.json": "jsonc" },
+  "search.exclude": { "build": true, "out": true }
+}

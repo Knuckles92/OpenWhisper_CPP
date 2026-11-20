@@ -1,0 +1,903 @@
+{
+ "widget": "history_calendar_dialog/march",
+ "variant": "dark-windows11-dpr1-s130",
+ "builder": "a09",
+ "ow_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "logical_size": [
+  1180,
+  800
+ ],
+ "image_size": [
+  1180,
+  800
+ ],
+ "device_pixel_ratio": 1.0,
+ "qt": "6.11.0",
+ "pyqt": "6.11.0",
+ "platform": "offscreen",
+ "base_style": "QWindows11Style",
+ "style": "QStyleSheetStyle",
+ "theme": "dark",
+ "color_scheme": "Unknown",
+ "font_scale_percent": 130,
+ "app_font": "Segoe UI,13,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+ "font_resolved": "Segoe UI",
+ "qt_qpa_fontdir": "C:\\WINDOWS\\Fonts",
+ "stylesheet_sha1": "f35f7fbc79c82e2cde34c9f2985decaaa4c861e2",
+ "pixels_sha1": "409d55be4202f280208fe3271454697ab9e962a2",
+ "tree": {
+  "class": "HistoryCalendarDialog",
+  "qtClass": "QDialog",
+  "objectName": "historyCalendarDialog",
+  "geometry": [
+   0,
+   0,
+   1180,
+   800
+  ],
+  "visible": true,
+  "hasFocus": false,
+  "properties": {
+   "unscaledStyleSheet": "\n    QDialog#historyCalendarDialog {\n        background-color: @bg;\n    }\n    QPushButton#calendarMonthTitle {\n        color: @text-heading;\n        background: transparent;\n        border: none;\n        padding: 0px 30px 0px 8px;\n        text-align: left;\n        font-size: 24px;\n        font-weight: 700;\n    }\n    QPushButton#calendarNavBtn {\n        background-color: @surface;\n        color: @text;\n        border: 1px solid rgba(@overlay-rgb, 0.06);\n        border-radius: 16px;\n        padding: 0px;\n        font-size: 18px;\n        font-weight: 600;\n    }\n    QPushButton#calendarNavBtn:hover {\n        background-color: @surface-hover;\n        color: @accent-soft;\n    }\n    QPushButton#calendarTodayBtn {\n        background-color: rgba(@accent-rgb, 0.14);\n        color: @accent-soft;\n        border: 1px solid rgba(@accent-rgb, 0.3);\n        border-radius: 14px;\n        padding: 4px 14px;\n        font-size: 12px;\n        font-weight: 600;\n    }\n    QPushButton#calendarTodayBtn:hover {\n        background-color: rgba(@accent-rgb, 0.24);\n    }\n    QPushButton#calendarKindChip {\n        background-color: transparent;\n        color: @text-secondary;\n        border: 1px solid rgba(@overlay-rgb, 0.1);\n        border-radius: 14px;\n        padding: 4px 12px 4px 26px;\n        font-size: 12px;\n        font-weight: 600;\n    }\n    QPushButton#calendarKindChip:hover {\n        background-color: rgba(@overlay-rgb, 0.05);\n    }\n    QPushButton#calendarKindChip:checked {\n        background-color: @surface;\n        color: @text;\n        border: 1px solid rgba(@overlay-rgb, 0.14);\n    }\n    QComboBox#calendarPlaceCombo {\n        padding: 4px 12px;\n        font-size: 12px;\n        border-radius: 14px;\n    }\n    QLabel#calendarStats {\n        color: @text-secondary;\n        background: transparent;\n        font-size: 13px;\n    }\n    QPushButton#calendarBusiestBtn {\n        background: transparent;\n        color: @accent-soft;\n        border: none;\n        padding: 0px 2px;\n        font-size: 13px;\n        font-weight: 600;\n    }\n    QPushButton#calendarBusiestBtn:hover {\n        color: @accent;\n        text-decoration: underline;\n    }\n    QLabel#calendarStreak {\n        background-color: rgba(@warning-rgb, 0.14);\n        color: @warning-text;\n        border: 1px solid rgba(@warning-rgb, 0.3);\n        border-radius: 11px;\n        padding: 2px 10px;\n        font-size: 12px;\n        font-weight: 600;\n    }\n    QLabel#calendarNotice, QLabel#calendarHint {\n        color: @text-muted;\n        background: transparent;\n        font-size: 11px;\n    }\n    QFrame#calendarAgenda {\n        background-color: rgba(@surface-rgb, 0.45);\n        border: 1px solid rgba(@overlay-rgb, 0.06);\n        border-radius: 14px;\n    }\n    QLabel#calendarAgendaWeekday {\n        color: @accent-soft;\n        background: transparent;\n        font-size: 13px;\n        font-weight: 600;\n    }\n    QLabel#calendarTodayBadge {\n        color: @on-accent;\n        background-color: @accent;\n        border-radius: 8px;\n        padding: 1px 8px;\n        font-size: 10px;\n        font-weight: 700;\n    }\n    QLabel#calendarAgendaDate {\n        color: @text-heading;\n        background: transparent;\n        font-size: 21px;\n        font-weight: 700;\n    }\n    QLabel#calendarAgendaSummary {\n        color: @text-secondary;\n        background: transparent;\n        font-size: 12px;\n    }\n    QScrollArea#calendarAgendaScroll, QWidget#calendarAgendaList,\n    QWidget#calendarEmptyState {\n        background: transparent;\n        border: none;\n    }\n    QScrollArea#calendarAgendaScroll QScrollBar:vertical {\n        background: transparent;\n        width: 8px;\n    }\n    QScrollArea#calendarAgendaScroll QScrollBar::handle:vertical {\n        background: rgba(@overlay-rgb, 0.15);\n        border-radius: 4px;\n        min-height: 30px;\n    }\n    QScrollArea#calendarAgendaScroll QScrollBar::add-line:vertical,\n    QScrollArea#calendarAgendaScroll QScrollBar::sub-line:vertical {\n        height: 0px;\n    }\n    QFrame#calendarAgendaCard {\n        background-color: rgba(@surface-rgb, 0.8);\n        border: 1px solid rgba(@overlay-rgb, 0.05);\n        border-left: 3px solid @accent;\n        border-radius: 10px;\n    }\n    QFrame#calendarAgendaCard[kind=\"file\"] {\n        border-left: 3px solid @purple;\n    }\n    QFrame#calendarAgendaCard[kind=\"meeting\"] {\n        border-left: 3px solid @warning;\n    }\n    QFrame#calendarAgendaCard:hover {\n        background-color: rgba(@surface-hover-rgb, 0.9);\n        border-top: 1px solid rgba(@accent-rgb, 0.35);\n        border-right: 1px solid rgba(@accent-rgb, 0.35);\n        border-bottom: 1px solid rgba(@accent-rgb, 0.35);\n    }\n    QLabel#calendarCardTime {\n        color: @text-secondary-strong;\n        background: transparent;\n        font-size: 11px;\n        font-weight: 600;\n    }\n    QLabel#calendarKindPill {\n        color: @accent-soft;\n        background-color: rgba(@accent-rgb, 0.14);\n        border-radius: 6px;\n        padding: 1px 7px;\n        font-size: 10px;\n        font-weight: 700;\n    }\n    QLabel#calendarKindPill[kind=\"file\"] {\n        color: @purple-text;\n        background-color: rgba(@purple-rgb, 0.14);\n    }\n    QLabel#calendarKindPill[kind=\"meeting\"] {\n        color: @warning-text;\n        background-color: rgba(@warning-rgb, 0.14);\n    }\n    QLabel#calendarPlaceChip {\n        color: @success-text;\n        background-color: rgba(@success-rgb, 0.10);\n        border: 1px solid rgba(@success-rgb, 0.24);\n        border-radius: 6px;\n        padding: 0px 7px;\n        font-size: 10px;\n        font-weight: 600;\n    }\n    QLabel#calendarLengthChip {\n        color: @text-tertiary;\n        background-color: rgba(@overlay-rgb, 0.06);\n        border-radius: 6px;\n        padding: 1px 7px;\n        font-size: 10px;\n        font-weight: 600;\n    }\n    QLabel#calendarCardTitle {\n        color: @text;\n        background: transparent;\n        font-size: 13px;\n        font-weight: 600;\n    }\n    QLabel#calendarCardPreview {\n        color: @text-body;\n        background: transparent;\n        font-size: 12px;\n    }\n    QLabel#calendarMilestone {\n        color: @warning-text;\n        background: transparent;\n        font-size: 11px;\n        font-weight: 700;\n    }\n    QLabel#calendarCardProgress {\n        color: @text-secondary;\n        background: transparent;\n        font-size: 11px;\n    }\n    QLabel#calendarEmptyTitle {\n        color: @text-soft;\n        background: transparent;\n        font-size: 14px;\n        font-weight: 600;\n    }\n    QLabel#calendarEmptyBody {\n        color: @text-secondary;\n        background: transparent;\n        font-size: 12px;\n    }\n    QPushButton#calendarJumpBtn {\n        background-color: @surface;\n        color: @accent-soft;\n        border: 1px solid rgba(@overlay-rgb, 0.08);\n        border-radius: 14px;\n        padding: 5px 14px;\n        font-size: 12px;\n        font-weight: 600;\n    }\n    QPushButton#calendarJumpBtn:hover {\n        background-color: @surface-hover;\n    }\n",
+   "scaledStyleSheet": "\n    QDialog#historyCalendarDialog {\n        background-color: #1c1c1e;\n    }\n    QPushButton#calendarMonthTitle {\n        color: #ffffff;\n        background: transparent;\n        border: none;\n        padding: 0px 30px 0px 8px;\n        text-align: left;\n        font-size: 31px;\n        font-weight: 700;\n    }\n    QPushButton#calendarNavBtn {\n        background-color: #2c2c2e;\n        color: #f5f5f7;\n        border: 1px solid rgba(255, 255, 255, 0.06);\n        border-radius: 16px;\n        padding: 0px;\n        font-size: 23px;\n        font-weight: 600;\n    }\n    QPushButton#calendarNavBtn:hover {\n        background-color: #3a3a3c;\n        color: #6fb1ff;\n    }\n    QPushButton#calendarTodayBtn {\n        background-color: rgba(10, 132, 255, 0.14);\n        color: #6fb1ff;\n        border: 1px solid rgba(10, 132, 255, 0.3);\n        border-radius: 14px;\n        padding: 4px 14px;\n        font-size: 16px;\n        font-weight: 600;\n    }\n    QPushButton#calendarTodayBtn:hover {\n        background-color: rgba(10, 132, 255, 0.24);\n    }\n    QPushButton#calendarKindChip {\n        background-color: transparent;\n        color: #8e8e93;\n        border: 1px solid rgba(255, 255, 255, 0.1);\n        border-radius: 14px;\n        padding: 4px 12px 4px 26px;\n        font-size: 16px;\n        font-weight: 600;\n    }\n    QPushButton#calendarKindChip:hover {\n        background-color: rgba(255, 255, 255, 0.05);\n    }\n    QPushButton#calendarKindChip:checked {\n        background-color: #2c2c2e;\n        color: #f5f5f7;\n        border: 1px solid rgba(255, 255, 255, 0.14);\n    }\n    QComboBox#calendarPlaceCombo {\n        padding: 4px 12px;\n        font-size: 16px;\n        border-radius: 14px;\n    }\n    QLabel#calendarStats {\n        color: #8e8e93;\n        background: transparent;\n        font-size: 17px;\n    }\n    QPushButton#calendarBusiestBtn {\n        background: transparent;\n        color: #6fb1ff;\n        border: none;\n        padding: 0px 2px;\n        font-size: 17px;\n        font-weight: 600;\n    }\n    QPushButton#calendarBusiestBtn:hover {\n        color: #0a84ff;\n        text-decoration: underline;\n    }\n    QLabel#calendarStreak {\n        background-color: rgba(255, 159, 10, 0.14);\n        color: #ff9f0a;\n        border: 1px solid rgba(255, 159, 10, 0.3);\n        border-radius: 11px;\n        padding: 2px 10px;\n        font-size: 16px;\n        font-weight: 600;\n    }\n    QLabel#calendarNotice, QLabel#calendarHint {\n        color: #636366;\n        background: transparent;\n        font-size: 14px;\n    }\n    QFrame#calendarAgenda {\n        background-color: rgba(44, 44, 46, 0.45);\n        border: 1px solid rgba(255, 255, 255, 0.06);\n        border-radius: 14px;\n    }\n    QLabel#calendarAgendaWeekday {\n        color: #6fb1ff;\n        background: transparent;\n        font-size: 17px;\n        font-weight: 600;\n    }\n    QLabel#calendarTodayBadge {\n        color: #ffffff;\n        background-color: #0a84ff;\n        border-radius: 8px;\n        padding: 1px 8px;\n        font-size: 13px;\n        font-weight: 700;\n    }\n    QLabel#calendarAgendaDate {\n        color: #ffffff;\n        background: transparent;\n        font-size: 27px;\n        font-weight: 700;\n    }\n    QLabel#calendarAgendaSummary {\n        color: #8e8e93;\n        background: transparent;\n        font-size: 16px;\n    }\n    QScrollArea#calendarAgendaScroll, QWidget#calendarAgendaList,\n    QWidget#calendarEmptyState {\n        background: transparent;\n        border: none;\n    }\n    QScrollArea#calendarAgendaScroll QScrollBar:vertical {\n        background: transparent;\n        width: 8px;\n    }\n    QScrollArea#calendarAgendaScroll QScrollBar::handle:vertical {\n        background: rgba(255, 255, 255, 0.15);\n        border-radius: 4px;\n        min-height: 30px;\n    }\n    QScrollArea#calendarAgendaScroll QScrollBar::add-line:vertical,\n    QScrollArea#calendarAgendaScroll QScrollBar::sub-line:vertical {\n        height: 0px;\n    }\n    QFrame#calendarAgendaCard {\n        background-color: rgba(44, 44, 46, 0.8);\n        border: 1px solid rgba(255, 255, 255, 0.05);\n        border-left: 3px solid #0a84ff;\n        border-radius: 10px;\n    }\n    QFrame#calendarAgendaCard[kind=\"file\"] {\n        border-left: 3px solid #bf5af2;\n    }\n    QFrame#calendarAgendaCard[kind=\"meeting\"] {\n        border-left: 3px solid #ff9f0a;\n    }\n    QFrame#calendarAgendaCard:hover {\n        background-color: rgba(58, 58, 60, 0.9);\n        border-top: 1px solid rgba(10, 132, 255, 0.35);\n        border-right: 1px solid rgba(10, 132, 255, 0.35);\n        border-bottom: 1px solid rgba(10, 132, 255, 0.35);\n    }\n    QLabel#calendarCardTime {\n        color: #98989d;\n        background: transparent;\n        font-size: 14px;\n        font-weight: 600;\n    }\n    QLabel#calendarKindPill {\n        color: #6fb1ff;\n        background-color: rgba(10, 132, 255, 0.14);\n        border-radius: 6px;\n        padding: 1px 7px;\n        font-size: 13px;\n        font-weight: 700;\n    }\n    QLabel#calendarKindPill[kind=\"file\"] {\n        color: #d29bf5;\n        background-color: rgba(191, 90, 242, 0.14);\n    }\n    QLabel#calendarKindPill[kind=\"meeting\"] {\n        color: #ff9f0a;\n        background-color: rgba(255, 159, 10, 0.14);\n    }\n    QLabel#calendarPlaceChip {\n        color: #30d158;\n        background-color: rgba(48, 209, 88, 0.10);\n        border: 1px solid rgba(48, 209, 88, 0.24);\n        border-radius: 6px;\n        padding: 0px 7px;\n        font-size: 13px;\n        font-weight: 600;\n    }\n    QLabel#calendarLengthChip {\n        color: #aeaeb2;\n        background-color: rgba(255, 255, 255, 0.06);\n        border-radius: 6px;\n        padding: 1px 7px;\n        font-size: 13px;\n        font-weight: 600;\n    }\n    QLabel#calendarCardTitle {\n        color: #f5f5f7;\n        background: transparent;\n        font-size: 17px;\n        font-weight: 600;\n    }\n    QLabel#calendarCardPreview {\n        color: #d1d1d6;\n        background: transparent;\n        font-size: 16px;\n    }\n    QLabel#calendarMilestone {\n        color: #ff9f0a;\n        background: transparent;\n        font-size: 14px;\n        font-weight: 700;\n    }\n    QLabel#calendarCardProgress {\n        color: #8e8e93;\n        background: transparent;\n        font-size: 14px;\n    }\n    QLabel#calendarEmptyTitle {\n        color: #c7c7cc;\n        background: transparent;\n        font-size: 18px;\n        font-weight: 600;\n    }\n    QLabel#calendarEmptyBody {\n        color: #8e8e93;\n        background: transparent;\n        font-size: 16px;\n    }\n    QPushButton#calendarJumpBtn {\n        background-color: #2c2c2e;\n        color: #6fb1ff;\n        border: 1px solid rgba(255, 255, 255, 0.08);\n        border-radius: 14px;\n        padding: 5px 14px;\n        font-size: 16px;\n        font-weight: 600;\n    }\n    QPushButton#calendarJumpBtn:hover {\n        background-color: #3a3a3c;\n    }\n"
+  },
+  "styleSheet": "\n    QDialog#historyCalendarDialog {\n        background-color: #1c1c1e;\n    }\n    QPushButton#calendarMonthTitle {\n        color: #ffffff;\n        background: transparent;\n        border: none;\n        padding: 0px 30px 0px 8px;\n        text-align: left;\n        font-size: 31px;\n        font-weight: 700;\n    }\n    QPushButton#calendarNavBtn {\n        background-color: #2c2c2e;\n        color: #f5f5f7;\n        border: 1px solid rgba(255, 255, 255, 0.06);\n        border-radius: 16px;\n        padding: 0px;\n        font-size: 23px;\n        font-weight: 600;\n    }\n    QPushButton#calendarNavBtn:hover {\n        background-color: #3a3a3c;\n        color: #6fb1ff;\n    }\n    QPushButton#calendarTodayBtn {\n        background-color: rgba(10, 132, 255, 0.14);\n        color: #6fb1ff;\n        border: 1px solid rgba(10, 132, 255, 0.3);\n        border-radius: 14px;\n        padding: 4px 14px;\n        font-size: 16px;\n        font-weight: 600;\n    }\n    QPushButton#calendarTodayBtn:hover {\n        background-color: rgba(10, 132, 255, 0.24);\n    }\n    QPushButton#calendarKindChip {\n        background-color: transparent;\n        color: #8e8e93;\n        border: 1px solid rgba(255, 255, 255, 0.1);\n        border-radius: 14px;\n        padding: 4px 12px 4px 26px;\n        font-size: 16px;\n        font-weight: 600;\n    }\n    QPushButton#calendarKindChip:hover {\n        background-color: rgba(255, 255, 255, 0.05);\n    }\n    QPushButton#calendarKindChip:checked {\n        background-color: #2c2c2e;\n        color: #f5f5f7;\n        border: 1px solid rgba(255, 255, 255, 0.14);\n    }\n    QComboBox#calendarPlaceCombo {\n        padding: 4px 12px;\n        font-size: 16px;\n        border-radius: 14px;\n    }\n    QLabel#calendarStats {\n        color: #8e8e93;\n        background: transparent;\n        font-size: 17px;\n    }\n    QPushButton#calendarBusiestBtn {\n        background: transparent;\n        color: #6fb1ff;\n        border: none;\n        padding: 0px 2px;\n        font-size: 17px;\n        font-weight: 600;\n    }\n    QPushButton#calendarBusiestBtn:hover {\n        color: #0a84ff;\n        text-decoration: underline;\n    }\n    QLabel#calendarStreak {\n        background-color: rgba(255, 159, 10, 0.14);\n        color: #ff9f0a;\n        border: 1px solid rgba(255, 159, 10, 0.3);\n        border-radius: 11px;\n        padding: 2px 10px;\n        font-size: 16px;\n        font-weight: 600;\n    }\n    QLabel#calendarNotice, QLabel#calendarHint {\n        color: #636366;\n        background: transparent;\n        font-size: 14px;\n    }\n    QFrame#calendarAgenda {\n        background-color: rgba(44, 44, 46, 0.45);\n        border: 1px solid rgba(255, 255, 255, 0.06);\n        border-radius: 14px;\n    }\n    QLabel#calendarAgendaWeekday {\n        color: #6fb1ff;\n        background: transparent;\n        font-size: 17px;\n        font-weight: 600;\n    }\n    QLabel#calendarTodayBadge {\n        color: #ffffff;\n        background-color: #0a84ff;\n        border-radius: 8px;\n        padding: 1px 8px;\n        font-size: 13px;\n        font-weight: 700;\n    }\n    QLabel#calendarAgendaDate {\n        color: #ffffff;\n        background: transparent;\n        font-size: 27px;\n        font-weight: 700;\n    }\n    QLabel#calendarAgendaSummary {\n        color: #8e8e93;\n        background: transparent;\n        font-size: 16px;\n    }\n    QScrollArea#calendarAgendaScroll, QWidget#calendarAgendaList,\n    QWidget#calendarEmptyState {\n        background: transparent;\n        border: none;\n    }\n    QScrollArea#calendarAgendaScroll QScrollBar:vertical {\n        background: transparent;\n        width: 8px;\n    }\n    QScrollArea#calendarAgendaScroll QScrollBar::handle:vertical {\n        background: rgba(255, 255, 255, 0.15);\n        border-radius: 4px;\n        min-height: 30px;\n    }\n    QScrollArea#calendarAgendaScroll QScrollBar::add-line:vertical,\n    QScrollArea#calendarAgendaScroll QScrollBar::sub-line:vertical {\n        height: 0px;\n    }\n    QFrame#calendarAgendaCard {\n        background-color: rgba(44, 44, 46, 0.8);\n        border: 1px solid rgba(255, 255, 255, 0.05);\n        border-left: 3px solid #0a84ff;\n        border-radius: 10px;\n    }\n    QFrame#calendarAgendaCard[kind=\"file\"] {\n        border-left: 3px solid #bf5af2;\n    }\n    QFrame#calendarAgendaCard[kind=\"meeting\"] {\n        border-left: 3px solid #ff9f0a;\n    }\n    QFrame#calendarAgendaCard:hover {\n        background-color: rgba(58, 58, 60, 0.9);\n        border-top: 1px solid rgba(10, 132, 255, 0.35);\n        border-right: 1px solid rgba(10, 132, 255, 0.35);\n        border-bottom: 1px solid rgba(10, 132, 255, 0.35);\n    }\n    QLabel#calendarCardTime {\n        color: #98989d;\n        background: transparent;\n        font-size: 14px;\n        font-weight: 600;\n    }\n    QLabel#calendarKindPill {\n        color: #6fb1ff;\n        background-color: rgba(10, 132, 255, 0.14);\n        border-radius: 6px;\n        padding: 1px 7px;\n        font-size: 13px;\n        font-weight: 700;\n    }\n    QLabel#calendarKindPill[kind=\"file\"] {\n        color: #d29bf5;\n        background-color: rgba(191, 90, 242, 0.14);\n    }\n    QLabel#calendarKindPill[kind=\"meeting\"] {\n        color: #ff9f0a;\n        background-color: rgba(255, 159, 10, 0.14);\n    }\n    QLabel#calendarPlaceChip {\n        color: #30d158;\n        background-color: rgba(48, 209, 88, 0.10);\n        border: 1px solid rgba(48, 209, 88, 0.24);\n        border-radius: 6px;\n        padding: 0px 7px;\n        font-size: 13px;\n        font-weight: 600;\n    }\n    QLabel#calendarLengthChip {\n        color: #aeaeb2;\n        background-color: rgba(255, 255, 255, 0.06);\n        border-radius: 6px;\n        padding: 1px 7px;\n        font-size: 13px;\n        font-weight: 600;\n    }\n    QLabel#calendarCardTitle {\n        color: #f5f5f7;\n        background: transparent;\n        font-size: 17px;\n        font-weight: 600;\n    }\n    QLabel#calendarCardPreview {\n        color: #d1d1d6;\n        background: transparent;\n        font-size: 16px;\n    }\n    QLabel#calendarMilestone {\n        color: #ff9f0a;\n        background: transparent;\n        font-size: 14px;\n        font-weight: 700;\n    }\n    QLabel#calendarCardProgress {\n        color: #8e8e93;\n        background: transparent;\n        font-size: 14px;\n    }\n    QLabel#calendarEmptyTitle {\n        color: #c7c7cc;\n        background: transparent;\n        font-size: 18px;\n        font-weight: 600;\n    }\n    QLabel#calendarEmptyBody {\n        color: #8e8e93;\n        background: transparent;\n        font-size: 16px;\n    }\n    QPushButton#calendarJumpBtn {\n        background-color: #2c2c2e;\n        color: #6fb1ff;\n        border: 1px solid rgba(255, 255, 255, 0.08);\n        border-radius: 14px;\n        padding: 5px 14px;\n        font-size: 16px;\n        font-weight: 600;\n    }\n    QPushButton#calendarJumpBtn:hover {\n        background-color: #3a3a3c;\n    }\n",
+  "font": "Segoe UI,-1,18,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+  "children": [
+   {
+    "class": "QPushButton",
+    "qtClass": "QPushButton",
+    "objectName": "calendarTodayBtn",
+    "geometry": [
+     22,
+     23,
+     74,
+     30
+    ],
+    "visible": true,
+    "hasFocus": false,
+    "properties": {},
+    "text": "Today",
+    "isChecked": false,
+    "isDefault": true,
+    "font": "Segoe UI,-1,16,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+    "children": []
+   },
+   {
+    "class": "QPushButton",
+    "qtClass": "QPushButton",
+    "objectName": "calendarNavBtn",
+    "geometry": [
+     108,
+     22,
+     32,
+     32
+    ],
+    "visible": true,
+    "hasFocus": false,
+    "properties": {},
+    "text": "\u2039",
+    "isChecked": false,
+    "isDefault": false,
+    "font": "Segoe UI,-1,23,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+    "children": []
+   },
+   {
+    "class": "QPushButton",
+    "qtClass": "QPushButton",
+    "objectName": "calendarNavBtn",
+    "geometry": [
+     148,
+     22,
+     32,
+     32
+    ],
+    "visible": true,
+    "hasFocus": false,
+    "properties": {},
+    "text": "\u203a",
+    "isChecked": false,
+    "isDefault": false,
+    "font": "Segoe UI,-1,23,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+    "children": []
+   },
+   {
+    "class": "MonthTitleButton",
+    "qtClass": "QPushButton",
+    "objectName": "calendarMonthTitle",
+    "geometry": [
+     190,
+     18,
+     212,
+     40
+    ],
+    "visible": true,
+    "hasFocus": false,
+    "properties": {},
+    "text": "March 2026",
+    "isChecked": false,
+    "isDefault": false,
+    "font": "Segoe UI,-1,31,5,700,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+    "children": []
+   },
+   {
+    "class": "QLabel",
+    "qtClass": "QLabel",
+    "objectName": "calendarStreak",
+    "geometry": [
+     414,
+     26,
+     120,
+     24
+    ],
+    "visible": true,
+    "hasFocus": false,
+    "properties": {},
+    "text": "3-day streak",
+    "alignment": 129,
+    "wordWrap": false,
+    "font": "Segoe UI,-1,16,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+    "children": []
+   },
+   {
+    "class": "KindChip",
+    "qtClass": "QPushButton",
+    "objectName": "calendarKindChip",
+    "geometry": [
+     797,
+     23,
+     130,
+     30
+    ],
+    "visible": true,
+    "hasFocus": false,
+    "properties": {},
+    "text": "Dictations  8",
+    "isChecked": true,
+    "isDefault": false,
+    "font": "Segoe UI,-1,16,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+    "children": []
+   },
+   {
+    "class": "KindChip",
+    "qtClass": "QPushButton",
+    "objectName": "calendarKindChip",
+    "geometry": [
+     935,
+     23,
+     89,
+     30
+    ],
+    "visible": true,
+    "hasFocus": false,
+    "properties": {},
+    "text": "Files  3",
+    "isChecked": true,
+    "isDefault": false,
+    "font": "Segoe UI,-1,16,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+    "children": []
+   },
+   {
+    "class": "KindChip",
+    "qtClass": "QPushButton",
+    "objectName": "calendarKindChip",
+    "geometry": [
+     1032,
+     23,
+     126,
+     30
+    ],
+    "visible": true,
+    "hasFocus": false,
+    "properties": {},
+    "text": "Meetings  0",
+    "isChecked": true,
+    "isDefault": false,
+    "font": "Segoe UI,-1,16,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+    "children": []
+   },
+   {
+    "class": "QComboBox",
+    "qtClass": "QComboBox",
+    "objectName": "calendarPlaceCombo",
+    "geometry": [
+     0,
+     0,
+     640,
+     480
+    ],
+    "visible": false,
+    "hasFocus": false,
+    "properties": {},
+    "font": "Segoe UI,-1,16,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+    "children": []
+   },
+   {
+    "class": "QLabel",
+    "qtClass": "QLabel",
+    "objectName": "calendarStats",
+    "geometry": [
+     22,
+     68,
+     318,
+     23
+    ],
+    "visible": true,
+    "hasFocus": false,
+    "properties": {},
+    "text": "<b>11</b> recordings \u00b7 <b>53m 46s</b> of audio \u00b7 <b>7</b> days",
+    "alignment": 129,
+    "wordWrap": false,
+    "font": "Segoe UI,-1,17,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+    "children": []
+   },
+   {
+    "class": "QPushButton",
+    "qtClass": "QPushButton",
+    "objectName": "calendarBusiestBtn",
+    "geometry": [
+     350,
+     68,
+     179,
+     22
+    ],
+    "visible": true,
+    "hasFocus": false,
+    "properties": {},
+    "text": "Busiest: Sun, Mar 15 \u00b7 3",
+    "isChecked": false,
+    "isDefault": false,
+    "font": "Segoe UI,-1,17,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+    "children": []
+   },
+   {
+    "class": "QLabel",
+    "qtClass": "QLabel",
+    "objectName": "calendarNotice",
+    "geometry": [
+     0,
+     0,
+     640,
+     480
+    ],
+    "visible": false,
+    "hasFocus": false,
+    "properties": {},
+    "text": "",
+    "alignment": 129,
+    "wordWrap": true,
+    "font": "Segoe UI,-1,14,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+    "children": []
+   },
+   {
+    "class": "MonthGrid",
+    "qtClass": "QWidget",
+    "objectName": "calendarMonthGrid",
+    "geometry": [
+     22,
+     99,
+     772,
+     658
+    ],
+    "visible": true,
+    "hasFocus": true,
+    "properties": {},
+    "font": "Segoe UI,-1,18,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+    "children": []
+   },
+   {
+    "class": "YearStrip",
+    "qtClass": "QWidget",
+    "objectName": "calendarYearStrip",
+    "geometry": [
+     810,
+     68,
+     348,
+     65
+    ],
+    "visible": true,
+    "hasFocus": false,
+    "properties": {},
+    "font": "Segoe UI,-1,18,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+    "children": []
+   },
+   {
+    "class": "QFrame",
+    "qtClass": "QFrame",
+    "objectName": "calendarAgenda",
+    "geometry": [
+     810,
+     141,
+     348,
+     616
+    ],
+    "visible": true,
+    "hasFocus": false,
+    "properties": {},
+    "font": "Segoe UI,-1,18,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+    "children": [
+     {
+      "class": "QLabel",
+      "qtClass": "QLabel",
+      "objectName": "calendarAgendaWeekday",
+      "geometry": [
+       17,
+       15,
+       57,
+       22
+      ],
+      "visible": true,
+      "hasFocus": false,
+      "properties": {},
+      "text": "Sunday",
+      "alignment": 129,
+      "wordWrap": false,
+      "font": "Segoe UI,-1,17,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+      "children": []
+     },
+     {
+      "class": "QLabel",
+      "qtClass": "QLabel",
+      "objectName": "calendarTodayBadge",
+      "geometry": [
+       82,
+       15,
+       61,
+       22
+      ],
+      "visible": true,
+      "hasFocus": false,
+      "properties": {},
+      "text": "Today",
+      "alignment": 129,
+      "wordWrap": false,
+      "font": "Segoe UI,-1,13,5,700,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+      "children": []
+     },
+     {
+      "class": "QLabel",
+      "qtClass": "QLabel",
+      "objectName": "calendarAgendaDate",
+      "geometry": [
+       17,
+       41,
+       322,
+       36
+      ],
+      "visible": true,
+      "hasFocus": false,
+      "properties": {},
+      "text": "March 15",
+      "alignment": 129,
+      "wordWrap": false,
+      "font": "Segoe UI,-1,27,5,700,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+      "children": []
+     },
+     {
+      "class": "QLabel",
+      "qtClass": "QLabel",
+      "objectName": "calendarAgendaSummary",
+      "geometry": [
+       17,
+       81,
+       322,
+       42
+      ],
+      "visible": true,
+      "hasFocus": false,
+      "properties": {},
+      "text": "3 recordings \u00b7 12m 42s of audio\n2 dictations \u00b7 1 file",
+      "alignment": 129,
+      "wordWrap": true,
+      "font": "Segoe UI,-1,16,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+      "children": []
+     },
+     {
+      "class": "QScrollArea",
+      "qtClass": "QScrollArea",
+      "objectName": "calendarAgendaScroll",
+      "geometry": [
+       17,
+       135,
+       322,
+       468
+      ],
+      "visible": true,
+      "hasFocus": false,
+      "properties": {},
+      "alignment": 0,
+      "font": "Segoe UI,-1,18,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+      "children": [
+       {
+        "class": "QWidget",
+        "qtClass": "QWidget",
+        "objectName": "qt_scrollarea_viewport",
+        "geometry": [
+         0,
+         0,
+         322,
+         468
+        ],
+        "visible": true,
+        "hasFocus": false,
+        "properties": {},
+        "font": "Segoe UI,-1,18,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+        "children": [
+         {
+          "class": "QWidget",
+          "qtClass": "QWidget",
+          "objectName": "calendarAgendaList",
+          "geometry": [
+           0,
+           0,
+           322,
+           468
+          ],
+          "visible": true,
+          "hasFocus": false,
+          "properties": {},
+          "font": "Segoe UI,-1,18,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+          "children": [
+           {
+            "class": "AgendaCard",
+            "qtClass": "QFrame",
+            "objectName": "calendarAgendaCard",
+            "geometry": [
+             0,
+             0,
+             314,
+             118
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {
+             "kind": "file"
+            },
+            "font": "Segoe UI,-1,18,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": [
+             {
+              "class": "QLabel",
+              "qtClass": "QLabel",
+              "objectName": "calendarCardTime",
+              "geometry": [
+               17,
+               11,
+               52,
+               19
+              ],
+              "visible": true,
+              "hasFocus": false,
+              "properties": {},
+              "text": "2:00 PM",
+              "alignment": 129,
+              "wordWrap": false,
+              "font": "Segoe UI,-1,14,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+              "children": []
+             },
+             {
+              "class": "QLabel",
+              "qtClass": "QLabel",
+              "objectName": "calendarKindPill",
+              "geometry": [
+               75,
+               11,
+               43,
+               19
+              ],
+              "visible": true,
+              "hasFocus": false,
+              "properties": {
+               "kind": "file"
+              },
+              "text": "File",
+              "alignment": 129,
+              "wordWrap": false,
+              "font": "Segoe UI,-1,13,5,700,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+              "children": []
+             },
+             {
+              "class": "QLabel",
+              "qtClass": "QLabel",
+              "objectName": "calendarLengthChip",
+              "geometry": [
+               232,
+               11,
+               69,
+               19
+              ],
+              "visible": true,
+              "hasFocus": false,
+              "properties": {},
+              "text": "12m 34s",
+              "alignment": 129,
+              "wordWrap": false,
+              "font": "Segoe UI,-1,13,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+              "children": []
+             },
+             {
+              "class": "WrappedLabel",
+              "qtClass": "QLabel",
+              "objectName": "calendarCardTitle",
+              "geometry": [
+               17,
+               36,
+               284,
+               22
+              ],
+              "visible": true,
+              "hasFocus": false,
+              "properties": {},
+              "text": "interview.mp3",
+              "alignment": 129,
+              "wordWrap": true,
+              "font": "Segoe UI,-1,17,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+              "children": []
+             },
+             {
+              "class": "WrappedLabel",
+              "qtClass": "QLabel",
+              "objectName": "calendarCardPreview",
+              "geometry": [
+               17,
+               64,
+               284,
+               42
+              ],
+              "visible": true,
+              "hasFocus": false,
+              "properties": {},
+              "text": "We reviewed the interview notes and agreed on the next steps for the launch.",
+              "alignment": 129,
+              "wordWrap": true,
+              "font": "Segoe UI,-1,16,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+              "children": []
+             },
+             {
+              "class": "QLabel",
+              "qtClass": "QLabel",
+              "objectName": "calendarCardProgress",
+              "geometry": [
+               0,
+               0,
+               640,
+               480
+              ],
+              "visible": false,
+              "hasFocus": false,
+              "properties": {},
+              "text": "",
+              "alignment": 129,
+              "wordWrap": true,
+              "font": "Segoe UI,-1,14,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+              "children": []
+             }
+            ]
+           },
+           {
+            "class": "AgendaCard",
+            "qtClass": "QFrame",
+            "objectName": "calendarAgendaCard",
+            "geometry": [
+             0,
+             128,
+             314,
+             69
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {
+             "kind": "dictation"
+            },
+            "font": "Segoe UI,-1,18,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": [
+             {
+              "class": "QLabel",
+              "qtClass": "QLabel",
+              "objectName": "calendarCardTime",
+              "geometry": [
+               17,
+               11,
+               52,
+               19
+              ],
+              "visible": true,
+              "hasFocus": false,
+              "properties": {},
+              "text": "2:30 PM",
+              "alignment": 129,
+              "wordWrap": false,
+              "font": "Segoe UI,-1,14,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+              "children": []
+             },
+             {
+              "class": "QLabel",
+              "qtClass": "QLabel",
+              "objectName": "calendarKindPill",
+              "geometry": [
+               75,
+               11,
+               78,
+               19
+              ],
+              "visible": true,
+              "hasFocus": false,
+              "properties": {
+               "kind": "dictation"
+              },
+              "text": "Dictation",
+              "alignment": 129,
+              "wordWrap": false,
+              "font": "Segoe UI,-1,13,5,700,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+              "children": []
+             },
+             {
+              "class": "QLabel",
+              "qtClass": "QLabel",
+              "objectName": "calendarLengthChip",
+              "geometry": [
+               257,
+               11,
+               44,
+               19
+              ],
+              "visible": true,
+              "hasFocus": false,
+              "properties": {},
+              "text": "3.0s",
+              "alignment": 129,
+              "wordWrap": false,
+              "font": "Segoe UI,-1,13,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+              "children": []
+             },
+             {
+              "class": "WrappedLabel",
+              "qtClass": "QLabel",
+              "objectName": "calendarCardPreview",
+              "geometry": [
+               17,
+               36,
+               284,
+               21
+              ],
+              "visible": true,
+              "hasFocus": false,
+              "properties": {},
+              "text": "Nothing was transcribed",
+              "alignment": 129,
+              "wordWrap": true,
+              "font": "Segoe UI,-1,16,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+              "children": []
+             },
+             {
+              "class": "QLabel",
+              "qtClass": "QLabel",
+              "objectName": "calendarCardProgress",
+              "geometry": [
+               0,
+               0,
+               640,
+               480
+              ],
+              "visible": false,
+              "hasFocus": false,
+              "properties": {},
+              "text": "",
+              "alignment": 129,
+              "wordWrap": true,
+              "font": "Segoe UI,-1,14,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+              "children": []
+             }
+            ]
+           },
+           {
+            "class": "AgendaCard",
+            "qtClass": "QFrame",
+            "objectName": "calendarAgendaCard",
+            "geometry": [
+             0,
+             207,
+             314,
+             69
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {
+             "kind": "dictation"
+            },
+            "font": "Segoe UI,-1,18,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": [
+             {
+              "class": "QLabel",
+              "qtClass": "QLabel",
+              "objectName": "calendarCardTime",
+              "geometry": [
+               17,
+               11,
+               52,
+               19
+              ],
+              "visible": true,
+              "hasFocus": false,
+              "properties": {},
+              "text": "3:00 PM",
+              "alignment": 129,
+              "wordWrap": false,
+              "font": "Segoe UI,-1,14,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+              "children": []
+             },
+             {
+              "class": "QLabel",
+              "qtClass": "QLabel",
+              "objectName": "calendarKindPill",
+              "geometry": [
+               75,
+               11,
+               78,
+               19
+              ],
+              "visible": true,
+              "hasFocus": false,
+              "properties": {
+               "kind": "dictation"
+              },
+              "text": "Dictation",
+              "alignment": 129,
+              "wordWrap": false,
+              "font": "Segoe UI,-1,13,5,700,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+              "children": []
+             },
+             {
+              "class": "QLabel",
+              "qtClass": "QLabel",
+              "objectName": "calendarLengthChip",
+              "geometry": [
+               257,
+               11,
+               44,
+               19
+              ],
+              "visible": true,
+              "hasFocus": false,
+              "properties": {},
+              "text": "4.6s",
+              "alignment": 129,
+              "wordWrap": false,
+              "font": "Segoe UI,-1,13,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+              "children": []
+             },
+             {
+              "class": "WrappedLabel",
+              "qtClass": "QLabel",
+              "objectName": "calendarCardPreview",
+              "geometry": [
+               17,
+               36,
+               284,
+               21
+              ],
+              "visible": true,
+              "hasFocus": false,
+              "properties": {},
+              "text": "Hello from FioriVoce.",
+              "alignment": 129,
+              "wordWrap": true,
+              "font": "Segoe UI,-1,16,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+              "children": []
+             },
+             {
+              "class": "QLabel",
+              "qtClass": "QLabel",
+              "objectName": "calendarCardProgress",
+              "geometry": [
+               0,
+               0,
+               640,
+               480
+              ],
+              "visible": false,
+              "hasFocus": false,
+              "properties": {},
+              "text": "",
+              "alignment": 129,
+              "wordWrap": true,
+              "font": "Segoe UI,-1,14,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+              "children": []
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       },
+       {
+        "class": "QWidget",
+        "qtClass": "QWidget",
+        "objectName": "qt_scrollarea_hcontainer",
+        "geometry": [
+         0,
+         0,
+         100,
+         12
+        ],
+        "visible": false,
+        "hasFocus": false,
+        "properties": {},
+        "font": "Segoe UI,-1,18,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+        "children": [
+         {
+          "class": "QScrollBar",
+          "qtClass": "QScrollBar",
+          "objectName": "",
+          "geometry": [
+           0,
+           0,
+           100,
+           12
+          ],
+          "visible": false,
+          "hasFocus": false,
+          "properties": {},
+          "font": "Segoe UI,-1,18,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+          "children": []
+         }
+        ]
+       },
+       {
+        "class": "QWidget",
+        "qtClass": "QWidget",
+        "objectName": "qt_scrollarea_vcontainer",
+        "geometry": [
+         0,
+         0,
+         8,
+         30
+        ],
+        "visible": false,
+        "hasFocus": false,
+        "properties": {},
+        "font": "Segoe UI,-1,18,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+        "children": [
+         {
+          "class": "QScrollBar",
+          "qtClass": "QScrollBar",
+          "objectName": "",
+          "geometry": [
+           0,
+           0,
+           8,
+           30
+          ],
+          "visible": false,
+          "hasFocus": false,
+          "properties": {},
+          "font": "Segoe UI,-1,18,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+          "children": []
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "class": "QLabel",
+    "qtClass": "QLabel",
+    "objectName": "calendarHint",
+    "geometry": [
+     22,
+     767,
+     1136,
+     19
+    ],
+    "visible": true,
+    "hasFocus": false,
+    "properties": {},
+    "text": "Arrow keys move between days \u00b7 Page Up and Page Down change the month \u00b7 T goes to today \u00b7 Enter opens the day's first recording",
+    "alignment": 129,
+    "wordWrap": false,
+    "font": "Segoe UI,-1,14,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+    "children": []
+   }
+  ]
+ }
+}

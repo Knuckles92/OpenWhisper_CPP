@@ -1,0 +1,547 @@
+{
+ "area": "a09-history-stats",
+ "package": "M10 sweep",
+ "features": {
+  "A09-01": {
+   "status": "verified",
+   "cpp": [
+    "src/db/database.cpp",
+    "src/db/database.h",
+    "src/db/migrations.cpp",
+    "src/sql/connection.cpp",
+    "src/ui_shell/bootstrap.cpp"
+   ],
+   "tests": [
+    "tests/db/test_migrations.cpp",
+    "tests/db/test_database.cpp",
+    "tests/sql/test_connection.cpp"
+   ],
+   "note": "configure_connection sets foreign_keys=ON, journal_mode=WAL (retried while busy), synchronous=NORMAL and a 30 s busy timeout on the writer and every pooled reader; 'connections run in WAL with OpenWhisper's pragmas' reads each pragma back, and test_concurrent_first_access_creates_schema_once pins the concurrent first open. The file is identity().database_file (fiorivoce.db, ARCHITECTURE.md identity table and data layout); the lazy global becomes one Database opened by bootstrap off the GUI thread, which the architecture's threading rules decide."
+  },
+  "A09-02": {
+   "status": "verified",
+   "cpp": [
+    "src/db/migrations.cpp",
+    "src/db/schema.cpp",
+    "src/db/schema.h"
+   ],
+   "tests": [
+    "tests/db/test_database.cpp",
+    "tests/db/test_migrations.cpp",
+    "tests/db/test_golden.cpp"
+   ],
+   "note": "init_database runs maybe_run_migrations (nothing on a fresh or empty schema_version) before create_all, then the legacy drops, FTS, delivery trigger and ensure_version_row (DELETE + insert 18 when no row says 18). Python-made v5/v16/v17 fixtures migrate to the golden v18 DDL, a forced-back v16 re-runs cleanly, v18 adds the four INTEGER NOT NULL DEFAULT 0 columns."
+  },
+  "A09-03": {
+   "status": "verified",
+   "cpp": [
+    "src/db/history_json.cpp",
+    "src/db/database.cpp"
+   ],
+   "tests": [
+    "tests/db/test_migrations.cpp"
+   ],
+   "note": "Database::open_or_create imports transcription_history.json beside the database file only into an empty history, merges repeated ids, renames to .json.bak, keeps the file when entries is empty or the import fails, and never fails the start-up ('the JSON history import runs once, only into an empty history'). M3.7 also merges an imported OpenWhisper folder's JSON into the staged database (backup/legacy_history)."
+  },
+  "A09-04": {
+   "status": "verified",
+   "cpp": [
+    "src/history/repository.cpp",
+    "src/history/repository.h",
+    "src/history/detail/rows.cpp"
+   ],
+   "tests": [
+    "tests/history/test_repository.cpp",
+    "tests/history/test_origins.cpp"
+   ],
+   "note": "Newest first by timestamp string, LIMIT only for a non-zero limit, delete returns whether a row went, clear_history deletes only origin_device_id IS NULL, clear_history_audio_file nulls every entry naming the file, put_history_entry is an ON CONFLICT(id) upsert; each has a case in test_repository.cpp."
+  },
+  "A09-05": {
+   "status": "verified",
+   "cpp": [
+    "src/history/repository.cpp"
+   ],
+   "tests": [
+    "tests/history/test_golden.cpp",
+    "tests/history/test_repository.cpp",
+    "tests/history/test_versions.cpp"
+   ],
+   "note": "strip, empty needle lists; \\ % _ escaped with ESCAPE '\\'; lower(col) LIKE lower(pattern) over text, raw_text, timestamp, source_name, title, origin_device_name, app_name; newest first and limited. 21 golden search_history_entries cases from Python replay over those columns, including 100% / 100_ and a backslash. The sidebar lower-cases the query (history_sidebar.cpp)."
+  },
+  "A09-06": {
+   "status": "verified",
+   "cpp": [
+    "src/history/repository.cpp"
+   ],
+   "tests": [
+    "tests/history/test_repository.cpp"
+   ],
+   "note": "'range reads are oldest first in [start, end) and calendar rows carry no text' pins both queries."
+  },
+  "A09-07": {
+   "status": "verified",
+   "cpp": [
+    "src/history/repository.cpp",
+    "src/history/manager.cpp"
+   ],
+   "tests": [
+    "tests/history/test_repository.cpp",
+    "tests/history/test_manager.cpp"
+   ],
+   "note": "get_failed_recording filters local failed rows; complete_failed_recording updates only while the row is still a local failed one and HistoryManager throws 'The failed recording entry is no longer in History'; the retry keeps timestamp, audio_file, audio_duration and source_name (test_failed_recording_retry_replaces_the_row_and_keeps_the_audio)."
+  },
+  "A09-08": {
+   "status": "verified",
+   "cpp": [
+    "src/history/repository.cpp"
+   ],
+   "tests": [
+    "tests/history/test_versions.cpp"
+   ],
+   "note": "test_the_database_only_edits_the_text_fields asserts both TypeError messages verbatim and the None result for a missing id."
+  },
+  "A09-09": {
+   "status": "verified",
+   "cpp": [
+    "src/history/repository.cpp",
+    "src/history/repository.h"
+   ],
+   "tests": [
+    "tests/history/test_origins.cpp",
+    "tests/history/test_repository.cpp"
+   ],
+   "note": "Local half: HistoryOrigin any/own/device filters, history_origin_counts and rename_history_origin are tested here. Rows reach the table from a paired computer through remote_records (a17), which is audited there."
+  },
+  "A09-10": {
+   "status": "verified",
+   "cpp": [
+    "src/db/schema.cpp",
+    "src/db/schema.h",
+    "src/db/migrations.cpp"
+   ],
+   "tests": [
+    "tests/db/test_golden.cpp",
+    "tests/db/test_migrations.cpp",
+    "tests/db/test_database.cpp"
+   ],
+   "note": "The fresh-schema golden compares every CREATE (meeting tables, record_sync, delivery AUTOINCREMENT, FTS5 and triggers) with the DDL Python made; 'the meeting FTS index and delivery trigger follow meeting_segments' exercises the triggers and cascade; an FTS failure rolls back to a savepoint and only warns; the backfill runs only when counts differ; legacy meeting tables are dropped every start."
+  },
+  "A09-11": {
+   "status": "verified",
+   "cpp": [
+    "src/history/manager.cpp",
+    "src/history/entry.cpp",
+    "src/history/posix/exclusive_file.cpp",
+    "src/history/win/exclusive_file.cpp"
+   ],
+   "tests": [
+    "tests/history/test_manager.cpp",
+    "tests/history/test_retention.cpp"
+   ],
+   "note": "Context columns filtered (unknown ones logged at debug), cleaned_text = text when raw differs, exclusive-create copy recording_YYYYMMDD_HHMMSS(-N).wav in 1 MiB chunks with fsync and the partial removed on error (mode 0600 on POSIX; _S_IREAD|_S_IWRITE in win/, not compiled here), uuid4 id, UTC isoformat +00:00, rotation, failed rows return before the newest-dictation snapshot and record_saved. In the app HistoryServices.record_sync is not set (controller_feature.cpp), so record_saved goes to NullRecordSync: the host move is the remote area's."
+  },
+  "A09-12": {
+   "status": "verified",
+   "cpp": [
+    "src/history/manager.cpp",
+    "src/history/retention_settings.cpp",
+    "src/ui_settings/app_pages.cpp"
+   ],
+   "tests": [
+    "tests/history/test_retention.cpp"
+   ],
+   "note": "recordings_over_limit keeps min(len, count), stops the byte pass at the first index > 0 over the cap and always keeps the newest; per-file remove failures keep the entry's audio_file and continue; set_retention rotates at once (Settings page calls it). The TestResolveMaxSavedRecordings*/TestRecordingRotation ports cover each rule."
+  },
+  "A09-13": {
+   "status": "verified",
+   "cpp": [
+    "src/history/manager.cpp"
+   ],
+   "tests": [
+    "tests/history/test_retention.cpp"
+   ],
+   "note": "Usage cached 2 s keyed on the folder's mtime only (a comment explains Python's st_ctime is the creation time on Windows and never changes); invalidated on save/delete/rotation; names parsed with strptime's rules, falling back to the file time; stable newest-first sort. Cases: usage totals, cache, unparsable names, strptime rules, missing folder."
+  },
+  "A09-14": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/controller_feature.cpp",
+    "src/history/manager.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_action_cancel.cpp",
+    "tests/history/test_manager.cpp"
+   ],
+   "note": "The app's HistoryServices.forget_replayable_events is now automation::clear_bus() (src/ui_controller/controller_feature.cpp), as _forget_replayable_events clears services.automation.events, so a deleted entry's words are not replayed to a reconnecting stream. Pinned by tests/ui_controller/test_action_cancel.cpp 'test_deleting_history_drops_the_replay_buffer' over the composed app; the delete order by test_manager.cpp. record_sync is found through RecordSyncControl (the remote area's half)."
+  },
+  "A09-15": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/controller_feature.cpp",
+    "src/history/manager.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_action_cancel.cpp",
+    "tests/history/test_manager.cpp",
+    "tests/history/test_origins.cpp"
+   ],
+   "note": "clear_history and clear_history_and_recordings call the same hook as A09-14, which the app now sets to automation::clear_bus() (src/ui_controller/controller_feature.cpp). Pinned by tests/ui_controller/test_action_cancel.cpp 'test_deleting_history_drops_the_replay_buffer' (its generator covers delete_entry, clear_history and clear_history_and_recordings); the clears themselves by test_manager.cpp and test_origins.cpp."
+  },
+  "A09-16": {
+   "status": "verified",
+   "cpp": [
+    "src/history/manager.cpp"
+   ],
+   "tests": [
+    "tests/history/test_manager.cpp",
+    "tests/history/test_versions.cpp"
+   ],
+   "note": "Session snapshot reread by id, else carried with stored_on 'the host'; else nothing while dictations move to the host, else the newest 50 own entries scanned for kind 'dictation'. In the app dictations_move_to_host is not wired by the controller (no paired-host record sync yet), so the scan always runs: the host half is the remote area's."
+  },
+  "A09-17": {
+   "status": "verified",
+   "cpp": [
+    "src/history/manager.cpp"
+   ],
+   "tests": [
+    "tests/history/test_versions.cpp",
+    "tests/history/test_golden.cpp"
+   ],
+   "note": "entry_version/ai_text/is_local_entry/use_version replay 18/18/18/8 golden cases; use_version never swaps fields, fills cleaned_text on a legacy undo, refuses non-local entries, raises ValueError(\"Unknown history entry version: 'x'\") and calls record_edited."
+  },
+  "A09-18": {
+   "status": "verified",
+   "cpp": [
+    "src/history/manager.cpp"
+   ],
+   "tests": [
+    "tests/history/test_golden.cpp",
+    "tests/history/test_versions.cpp"
+   ],
+   "note": "18 golden kind_of cases."
+  },
+  "A09-19": {
+   "status": "verified",
+   "cpp": [
+    "src/history/format_utils.cpp",
+    "src/history/format_utils.h"
+   ],
+   "tests": [
+    "tests/history/test_format_utils.cpp",
+    "tests/history/test_golden.cpp"
+   ],
+   "note": "All seven helpers replay Python's vectors (29+9+14+16+16+12+31 cases); format_timestamp keeps the C locale's English %b/%p as the map's porting note allows; UNKNOWN_DATE is 'Unknown date'."
+  },
+  "A09-20": {
+   "status": "verified",
+   "cpp": [
+    "src/history/titles.cpp",
+    "src/history/titles.h"
+   ],
+   "tests": [
+    "tests/history/test_golden.cpp"
+   ],
+   "note": "title_error and normalize_title replay 24 golden cases each; the message is verbatim."
+  },
+  "A09-21": {
+   "status": "verified",
+   "cpp": [
+    "src/history/export.cpp",
+    "src/history/export.h",
+    "src/history/posix/export_file.cpp",
+    "src/history/win/export_file.cpp"
+   ],
+   "tests": [
+    "tests/history/test_export.cpp",
+    "tests/history/test_golden.cpp"
+   ],
+   "note": "serialize/render_entry/render_export/entry_file_stem/filter/write_per_entry/_cleanup_label replay 11/134/18/19/10/8/7 golden cases; per-entry Markdown files keep Python's '.markdown' extension on purpose (export.h)."
+  },
+  "A09-22": {
+   "status": "verified",
+   "cpp": [
+    "src/history/calendar.cpp",
+    "src/history/calendar.h",
+    "src/history/calendar_source.cpp"
+   ],
+   "tests": [
+    "tests/history/test_calendar.cpp",
+    "tests/history/test_golden.cpp"
+   ],
+   "note": "local_wall_time, classify_source, places, milestones, ordinal_suffix, month maths, query_bounds, entry/calendar items and CalendarIndex (streak, month_stats, nearest_month) replay the history_calendar golden (about 200 cases). CalendarSource's host listing is the remote half (A09-42)."
+  },
+  "A09-23": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/history_actions.cpp",
+    "src/ui_history/history_actions.h"
+   ],
+   "tests": [
+    "tests/ui_history/test_history_actions.cpp"
+   ],
+   "note": "All eight messages and both notices verbatim (Ctrl+V; the Cmd+V variant is macOS); paste marks the entry original and refreshes only when use_version succeeded; a refused paste returns silently. 10 cases ported from test_personalize_s9_paste_original / fix_f1_tray_copy_original."
+  },
+  "A09-24": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/history_sidebar.cpp",
+    "src/ui_history/history_sidebar.h",
+    "src/ui_widgets/collapse_animation.h"
+   ],
+   "tests": [
+    "tests/ui_history/test_sidebar_menus.cpp",
+    "tests/ui_history/test_sidebar_load.cpp",
+    "tests/ui_history/test_history_ui.cpp",
+    "tests/ui_history/test_history_feature.cpp"
+   ],
+   "note": "380 px, 300 ms InOutCubic on sidebarWidth with widthAnimated per frame ('the sidebar slides between 0 and 380 pixels'), first open fills before animating, refresh deferred while collapsed, page switch and collapse stop playback, one page per tab family. Past Meetings and Walkthroughs pages are a31/a23's."
+  },
+  "A09-25": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/history_item.cpp",
+    "src/ui_history/chip_flow.cpp",
+    "src/ui_history/history_text.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_history_ui.cpp",
+    "tests/ui_history/test_chip_flow.cpp",
+    "tests/ui_history/test_golden.cpp",
+    "tests/ui_history/test_reference_screenshots.cpp",
+    "tests/ui_history/test_sidebar_load.cpp"
+   ],
+   "note": "Object names, margins/spacing, chip order and tooltips, failed-recording hint, model/cleanup display tables (goldens for _format_model_name, _format_cleanup_info, _cleanup_tooltip, _kind_label, _location_chip, _failed_recording_hint) and card reuse by fingerprint are tested. The reference-screenshot pixel halves skip on this Linux tree; their widget-tree halves fail here only on Segoe UI label widths and elisions, the C locale date format and the Windows default export path, and the delete box's Fusion icon size (checked message by message). Host-kept cards: HistoryItemWidget::requestRetranscribe does nothing for a stored_on entry (Python fetches audio_for and shows 'Getting it from <host>…'): see A09-42."
+  },
+  "A09-26": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/history_item.cpp",
+    "src/ui_history/history_sidebar.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_sidebar_menus.cpp",
+    "tests/ui_history/test_show_in_folder.cpp",
+    "tests/ui_history/test_history_ui.cpp"
+   ],
+   "note": "buildContextMenu is line for line _show_context_menu (Copy/Copy Raw or Copy Text, none for a failed recording, Undo AI edit/Use AI version only for local versioned entries, retranscribe label, Show in Folder always listed and disabled without a file, separator, Delete). The Windows reveal cases of test_show_in_folder.cpp are [platform] and did not run here."
+  },
+  "A09-27": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/history_sidebar.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_sidebar_delete.cpp",
+    "tests/ui_history/test_reference_screenshots.cpp"
+   ],
+   "note": "Local half read against _confirm_delete/_add_audio_choice: title, texts, Yes/No with No default, the audio combo only when the WAV exists, 'Don't ask me again' saving confirm_history_entry_delete=false, an unreadable setting still asks. Remote half differs and is the remote area's: a copy kept on the host reads 'Its copy on X is kept.' where Python says 'is deleted too.' (the C++ is true today because HistoryManager's record_sync is NullRecordSync); a host-kept entry's confirmation has no 'Don't ask me again' and ignores the opt-out; a host delete failure is titled 'Couldn't delete the entry' with the bare error instead of 'Delete History Entry' / 'The entry couldn't be deleted: <err>'."
+  },
+  "A09-28": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/history_sidebar.cpp",
+    "src/ui_history/history_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_sidebar_menus.cpp",
+    "tests/ui_history/test_export_wiring.cpp"
+   ],
+   "note": "Menu items, separator, the two question boxes (No default) and Open recordings folder (absolute, created, opened) match. The clear questions lack _host_clear_note (\"This computer's entries on <host> are deleted too.\"), which needs record_sync.listing_wanted: remote half."
+  },
+  "A09-29": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/history_edge_tab.cpp",
+    "src/ui_shell/side_panel_host.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_sidebar_menus.cpp",
+    "tests/ui_history/test_reference_screenshots.cpp"
+   ],
+   "note": "Width 24, min height 80, ‹/›, 'Open/Close <panel> (Ctrl+H)' with the hint set by the side panel host; QSS verbatim."
+  },
+  "A09-30": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/history_entry_dialog.cpp",
+    "src/ui_history/history_entry_dialog.h"
+   ],
+   "tests": [
+    "tests/ui_history/test_entry_dialog.cpp",
+    "tests/ui_history/test_history_ui.cpp",
+    "tests/ui_history/test_history_feature.cpp",
+    "tests/ui_history/test_reference_screenshots.cpp"
+   ],
+   "note": "Ported test_history_entry_dialog.py cases plus version toggle, Use this version, details grid, Ctrl+C, retranscribe, playback stop on close."
+  },
+  "A09-31": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_history/history_playback.cpp",
+    "src/ui_history/history_playback.h"
+   ],
+   "tests": [
+    "tests/ui_history/test_entry_dialog.cpp",
+    "tests/ui_history/test_history_ui.cpp",
+    "tests/ui_history/test_golden.cpp"
+   ],
+   "note": "Local playback (Play/Stop, 4 px progress, m:ss clock, 50 ms poll, busy refusals, removed/can't-play notes, one global player) matched and was tested. While a host-kept recording was being fetched the button read 'Getting recording…'; Python's _set_idle says 'Getting it…'. Changed, and 'Closing History entry before host audio arrives cancels playback' now checks the label."
+  },
+  "A09-32": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/export_dialog_base.cpp",
+    "src/ui_history/history_export_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_export_dialog.cpp",
+    "tests/ui_history/test_export_wiring.cpp",
+    "tests/ui_history/test_stats_screenshots.cpp"
+   ],
+   "note": "Ported TestExportDialogBase/TestHistoryExportDialog cases: section animations, select-all on matches, cancel while busy, format keys shared with the meeting exporter, default paths following the format, worker not holding the dialog. The reference-screenshot pixel halves skip on this Linux tree; their widget-tree halves fail here only on Segoe UI label widths and elisions, the C locale date format and the Windows default export path, and the delete box's Fusion icon size (checked message by message)."
+  },
+  "A09-33": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/history_calendar_dialog.cpp",
+    "src/ui_history/history_calendar_dialog.h",
+    "src/history/calendar_source.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_calendar_dialog.cpp",
+    "tests/ui_history/test_calendar_wiring.cpp",
+    "tests/ui_history/test_calendar_screenshots.cpp"
+   ],
+   "note": "24 dialog cases ported from test_history_calendar_dialog.py (read-ahead, default day, nearest month, filters, place combo, reopen to today, refresh bursts, workers not holding the window) plus wiring. The reference-screenshot pixel halves skip on this Linux tree; their widget-tree halves fail here only on Segoe UI label widths and elisions, the C locale date format and the Windows default export path, and the delete box's Fusion icon size (checked message by message)."
+  },
+  "A09-34": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/history_calendar.cpp",
+    "src/ui_history/history_calendar.h"
+   ],
+   "tests": [
+    "tests/ui_history/test_calendar_dialog.cpp",
+    "tests/ui_history/test_calendar_golden.cpp",
+    "tests/ui_history/test_calendar_screenshots.cpp"
+   ],
+   "note": "Positions/keys to days, pick_lines, day tooltips and _heat replay Python; animation durations 190/130/280/1100 ms read in the code."
+  },
+  "A09-35": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/history_calendar.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_calendar_dialog.cpp",
+    "tests/ui_history/test_calendar_screenshots.cpp"
+   ],
+   "note": "Picker opens on the year shown, leaps years, keys run through the year, Escape steps out, no years view for one year, counts follow filters; 170/240 ms animations read in the code."
+  },
+  "A09-36": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_history/history_calendar.cpp",
+    "src/ui_history/history_calendar_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_calendar_dialog.cpp"
+   ],
+   "note": "The code matched _strip_months and YearStrip, but nothing tested the window of months or the click. Added 'the year strip runs up to now, centres an older month, and a click goes there'."
+  },
+  "A09-37": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/history_calendar.cpp",
+    "src/ui_history/history_calendar_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_calendar_dialog.cpp"
+   ],
+   "note": "'agenda card shows where and how long', opening/copying records and the host meeting fetch progress ('Getting it from jed… 50%') are tested; fade_in staggers the first 8 cards."
+  },
+  "A09-38": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/stats_dialog.cpp",
+    "src/ui_history/stats_dialog.h",
+    "src/history/stats_summary.cpp",
+    "src/history/dictation_stats.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_stats_dialog.cpp",
+    "tests/ui_history/test_stats_golden.cpp",
+    "tests/ui_history/test_stats_screenshots.cpp",
+    "tests/history/test_stats_summary.cpp"
+   ],
+   "note": "26 dialog cases (empty, period switch, refresh after a dictation, stale count dropped, off-thread count, reset, one window, narrow layout, feature rows and routing) plus stats_dialog helper goldens; intro and 'Across …' use identity().product. The reference-screenshot pixel halves skip on this Linux tree; their widget-tree halves fail here only on Segoe UI label widths and elisions, the C locale date format and the Windows default export path, and the delete box's Fusion icon size (checked message by message)."
+  },
+  "A09-39": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/stats_charts.cpp",
+    "src/ui_history/stats_charts.h"
+   ],
+   "tests": [
+    "tests/ui_history/test_stats_dialog.cpp",
+    "tests/ui_history/test_stats_golden.cpp"
+   ],
+   "note": "words_text/hour_text, level quartiles and HourGrid.peak replay Python; the chart's accessible text and the activity map summary are tested."
+  },
+  "A09-40": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_record/stats_display.cpp",
+    "src/ui_record/stats_display.h",
+    "src/dictation/transcription_runtime.cpp",
+    "src/dictation/transcription_runtime.h",
+    "src/remote/remote_backend.cpp",
+    "src/ui_remote/remote_feature.cpp",
+    "src/ui_controller/ui_controller.cpp",
+    "src/ui_record/upload_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_quick_record_tab.cpp",
+    "tests/ui_record/test_remote_link_card.cpp",
+    "tests/dictation/test_runtime_flow.cpp",
+    "tests/ui_controller/test_remote_engine_hooks.cpp",
+    "tests/ui_record/test_upload_presenter.cpp",
+    "tests/remote_host/test_remote_runtime_client.cpp"
+   ],
+   "note": "The remote line is now fed, as transcription.py _timed_decode and set_transcription_stats(remote=...): TranscriptionRuntime::set_remote_timing marks the dictation RemoteSpeechBackend (LinkHandle::timing_mark/timing_since, wired in RemoteFeature) just before the final pass (again before a pass re-sent after a reconnect), TranscriptionStats::remote carries the RemoteTiming, and UiController / UploadPresenter pass it to the Quick Record strip (#statsRemoteDetail, remoteTimingText) and the Upload card result. Tests: dictation a remote pass's request timing reaches the transcription stats, a local pass carries no remote timing; ui_controller a remote dictation's stats name the host and the network's share (on devbox · 31 ms network end to end through the controller rig); ui_record an upload job's result lands on the tab; remote_host the dictation link times the requests of one pass; test_remote_timing_text. OpenWhisper's History saves and shows no remote timing (history_manager.py, history_sidebar.py), so History is unchanged. The three items, separators and clearing were verified before."
+  },
+  "A09-41": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/calendar_glyph_button.cpp",
+    "src/ui_history/history_calendar.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_calendar_dialog.cpp",
+    "tests/ui_history/test_calendar_wiring.cpp",
+    "tests/ui_history/test_reference_screenshots.cpp"
+   ],
+   "note": "Kind chips ('Dictations  3', one always on) are tested; the glyph button (28x28, today's day number, calendarRequested) is in the sidebar tree and its click opens the one calendar ('the sidebar and menu open one calendar')."
+  },
+  "A09-42": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_history/history_sidebar.cpp",
+    "src/ui_history/history_playback.cpp",
+    "src/ui_history/history_item.cpp",
+    "src/ui_history/history_store.cpp",
+    "src/history/manager.cpp",
+    "src/remote_records/sync.cpp",
+    "src/ui_controller/controller_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_host_records.cpp",
+    "tests/ui_history/test_playback_fetch.cpp",
+    "tests/ui_history/test_sidebar_load.cpp",
+    "tests/ui_controller/test_history_record_sync.cpp"
+   ],
+   "note": "Fixed after the audit's handoff (remote records worker, 2026-11-19). (1) Two-phase load: local entries after 0.4 s, the merged list when the host answers (test_a_slow_host_doesnt_hold_up_this_computers_history). (2) The search query is passed to RecordSync::list_remote. (3) The notice is the sync's own error with the reachable suffix, at the top, none on an empty list (the host is asked with the search and says why it couldn't be). (4) Transcribe again on a host-kept card fetches the recording first and shows Getting it from <host>… (transcribing a host-kept entry again fetches its recording first; the shared download is test_playback_fetch.cpp). (5) Host rows get Don't ask me again and respect the opt-out; a failed host delete is titled Delete History Entry (a host-kept entry is deleted there as the History prompts say; a host delete that fails says so under History's title). (6) HistoryManager reaches the provided RecordSyncControl (HistoryServices::find_record_sync; History tells the provided record sync what changed). Still different on purpose, under a17-retention: the copy on the host is kept (the prompts say so) and clearing History carries no note about the host, because RecordSync's delete and clear reach no host copy (clearing History has no note about the host)."
+  }
+ },
+ "differences": []
+}

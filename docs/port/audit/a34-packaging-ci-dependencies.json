@@ -1,0 +1,222 @@
+{
+ "area": "a34-packaging-ci-dependencies",
+ "package": "M10.1",
+ "features": {
+  "A34-01": {
+   "status": "dropped",
+   "reason": "PyInstaller freeze of the Python app: FioriVoce is built by CMake and staged by packaging/windows/stage.ps1 (programs, vcpkg DLLs, windeployqt, app-local C++ runtime); docs/port/packages/M0.md scope row A34-01."
+  },
+  "A34-02": {
+   "status": "verified",
+   "cpp": [
+    "packaging/windows/stage.ps1",
+    "packaging/windows/build-installer.ps1",
+    "src/cli/installed_check.cpp",
+    "src/cli/win/installed_layout_win.cpp"
+   ],
+   "tests": [
+    "tests/cli/test_installed_check.cpp"
+   ],
+   "note": "Read against OpenWhisper.spec's _strip_qt: windeployqt runs with --release --no-translations --no-compiler-runtime and adds only qoffscreen beyond what the programs link, so QML, WebEngine, Multimedia and translations are never deployed and no Qt FFmpeg DLLs exist; opengl32sw is windeployqt's default. The ICU and platform-plugin insurance is the staged `fiorivoce-cli --self-test --installed` (import walk plus the plugin list that 'the windows layout lists the programs, qt, the runtime and the notices' pins, which ran here) and `fiorivoce.exe --self-test-gui`; Qt 6 on Windows needs no bundled ICU. Nothing Windows-only ran here (no Windows, Inno Setup, signtool or certificate); docs/port/open-items.md 'Waiting on the owner' ('M3 demos', 'Real signing', 'CI workflows', 'Installer choices') lists what has never run."
+  },
+  "A34-03": {
+   "status": "verified",
+   "cpp": [
+    "packaging/windows/stage.ps1",
+    "src/ui_theme/resources/theme.qss",
+    "src/cli/win/installed_layout_win.cpp",
+    "tools/release/generate_notices.py"
+   ],
+   "tests": [
+    "tests/cli/test_installed_check.cpp",
+    "tests/meeting_web/test_webui_bundle.cpp",
+    "tools/release/tests/test_generate_notices.py"
+   ],
+   "note": "Theme, Tabler SVGs, check and spin chevrons are Qt resources (M0.8, :/ui_theme/); webui\\dist is staged beside the exe and is in the installed self-test's list; THIRD_PARTY_NOTICES.md and licenses\\ are generated. whisper_models.json, local_asr JSON of other engines, integrations/omarchy and docs/linux-system-audio.md belong to dropped engines or Linux. python3 -m pytest -q tools/release/tests passed here (119 passed, 5 skipped); Nothing Windows-only ran here (no Windows, Inno Setup, signtool or certificate); docs/port/open-items.md 'Waiting on the owner' ('M3 demos', 'Real signing', 'CI workflows', 'Installer choices') lists what has never run."
+  },
+  "A34-04": {
+   "status": "dropped",
+   "reason": "PyInstaller hidden-import list for keyring backends; credentials use the Windows Credential Manager directly (docs/port/packages/M0.md scope row A34-04)."
+  },
+  "A34-05": {
+   "status": "other-platform",
+   "reason": "macOS application bundle; FioriVoce ships for Windows only (docs/port/packages/M0.md: 'dropped (macOS, not scheduled)')."
+  },
+  "A34-06": {
+   "status": "verified",
+   "cpp": [
+    "src/updater/main.cpp",
+    "src/update_native/updater_cli.cpp",
+    "packaging/windows/stage.ps1",
+    "packaging/windows/build-installer.ps1",
+    "packaging/windows/FioriVoce.iss"
+   ],
+   "tests": [
+    "tests/updater/test_program.cpp",
+    "tests/update_native/test_updater_cli.cpp",
+    "tools/release/tests/test_windows_installer.py"
+   ],
+   "note": "OpenWhisperUpdater.exe becomes the native fiorivoce-updater.exe (main.cpp only, logic in fv_update_native, M10 change 10): built by build-installer.ps1, staged by stage.ps1, signed with the programs, embedded dontcopy in the setup with the DLLs and the manifest and extracted to {tmp}\\fv-helper. update and update_native tests passed in the baseline run on this machine; python3 -m pytest -q tools/release/tests passed here (119 passed, 5 skipped); Nothing Windows-only ran here (no Windows, Inno Setup, signtool or certificate); docs/port/open-items.md 'Waiting on the owner' ('M3 demos', 'Real signing', 'CI workflows', 'Installer choices') lists what has never run."
+  },
+  "A34-07": {
+   "status": "verified",
+   "cpp": [
+    "packaging/windows/build-installer.ps1",
+    "packaging/windows/stage.ps1",
+    "packaging/windows/packaging-common.ps1",
+    "packaging/windows/inno_defines.py"
+   ],
+   "tests": [
+    "tools/release/tests/test_windows_installer.py",
+    "tools/release/tests/test_release_health.py",
+    "tools/release/tests/test_build_metadata.py"
+   ],
+   "note": "Read against scripts/build_installer.ps1: version (-Version or CMakeLists.txt's), build, stage, --version check, installed and GUI self-tests, the stage checked against [InstallDelete], the release health gate, signing, the installed manifest, ISCC, signature verification, the native archive packed and verified, BUILD-METADATA.json and SHA256SUMS.txt, size and SHA-256 printed; -Clean and -SkipInstaller kept. OpenWhisper's forbidden-package check (torch, nvidia, scipy...) has no meaning without a Python freeze. python3 -m pytest -q tools/release/tests passed here (119 passed, 5 skipped); only -Preset windows-ci has ever run it (open-items 'M3 demos'). Nothing Windows-only ran here (no Windows, Inno Setup, signtool or certificate); docs/port/open-items.md 'Waiting on the owner' ('M3 demos', 'Real signing', 'CI workflows', 'Installer choices') lists what has never run."
+  },
+  "A34-08": {
+   "status": "fixed",
+   "cpp": [
+    "packaging/windows/FioriVoce.iss",
+    "packaging/windows/smoke-update.ps1",
+    "packaging/windows/README.md"
+   ],
+   "tests": [
+    "tools/release/tests/test_windows_installer.py"
+   ],
+   "note": "Fixed after the audit's handoff. (1) [UninstallDelete] now lists every {app} name [InstallDelete] clears, with the same type (*.dll, fiorivoce*.exe, .fiorivoce-update.json, .fiorivoce-update-complete, THIRD_PARTY_NOTICES.md; licenses, platforms, styles, imageformats, iconengines, tls, generic, networkinformation, share, webui), plus the updates folder, as OpenWhisper's installer lists _internal, its programs, the manifest and the sentinel; nothing names unins*, {app} itself, the data folder, speech-models or the updater's .new-/.old-/.failed- siblings, and Inno removes the emptied {app}. The names were checked against update/update_contract.h (manifest and sentinel) and update_native/manifest.h (fiorivoce-updater.exe). test_upgrade_keeps_user_data_outside_the_replaced_install_tree now checks that the only {localappdata} entry is the updates folder, and test_uninstall_removes_the_install_names_a_native_update_left_unlogged pins the two lists equal. (2) [InstallDelete] is kept as a recorded decision against M10.17 change 8: the helper's prepare only copies managed files aside and never deletes a retired one, and an elevated setup (IsAdmin) runs no helper; a comment above the section and a paragraph in packaging/windows/README.md say so, pinned by test_install_delete_stays_as_a_recorded_decision. (3) packaging/windows/smoke-update.ps1 written per M10.17: installs 0.1.0 into a temporary folder with LOCALAPPDATA pointed at a temporary folder for every child, serves 0.1.1 and a 0.1.2 started with FIORIVOCE_TEST_FAIL_HEALTH=1 through serve_update_feed.py on 127.0.0.1, waits for the update and the rollback, uninstalls and checks the install folder is gone; it refuses without -OnThisComputer, on CI, elevated, with FioriVoce installed or running or a recovery pending, and refuses a 0.1.2 whose fiorivoce.exe lacks FIORIVOCE_TEST_FAIL_HEALTH (no source file in src/ reads that variable yet: M10.12's switch is missing). SmokeUpdateScript in test_windows_installer.py pins it statically (its parse check skips without PowerShell). Nothing here has been executed on Windows: no ISCC compile, no install, no uninstall, no smoke-update.ps1 run."
+  },
+  "A34-09": {
+   "status": "other-platform",
+   "reason": "Linux .deb and Arch packaging; FioriVoce ships for Windows only (docs/port/packages/M0.md: 'dropped (Linux packaging, not scheduled)')."
+  },
+  "A34-10": {
+   "status": "other-platform",
+   "reason": "macOS DMG builder; FioriVoce ships for Windows only (docs/port/packages/M0.md: 'dropped (macOS, not scheduled)')."
+  },
+  "A34-11": {
+   "status": "verified",
+   "cpp": [
+    "tools/release/windows_signing.py",
+    "packaging/windows/build-installer.ps1",
+    "packaging/windows/FioriVoce.iss"
+   ],
+   "tests": [
+    "tools/release/tests/test_windows_signing.py",
+    "tools/release/tests/test_windows_installer.py"
+   ],
+   "note": "Read against scripts/windows_signing.py: off unless configured, a partial or conflicting configuration fails, exactly one of FIORIVOCE_SIGN_CERT_SHA1, _PFX+_PASS or _DLIB+_METADATA (identity prefix), SHA-256 digest with RFC 3161 timestamp, the three programs signed before the manifest and archive, Inno's /S command only when configured, verify writes windows-signing.json and an unsigned build must carry no signature. python3 -m pytest -q tools/release/tests passed here (119 passed, 5 skipped); no file has ever been signed or a real signature verified (open-items 'Real signing'). Nothing Windows-only ran here (no Windows, Inno Setup, signtool or certificate); docs/port/open-items.md 'Waiting on the owner' ('M3 demos', 'Real signing', 'CI workflows', 'Installer choices') lists what has never run."
+  },
+  "A34-12": {
+   "status": "difference",
+   "difference": "a34-archive"
+  },
+  "A34-13": {
+   "status": "verified",
+   "cpp": [
+    "src/update_native/transaction.cpp",
+    "src/update_native/journal.cpp",
+    "src/update_native/prepare.cpp",
+    "src/update_native/startup_recovery.cpp",
+    "src/update_native/setup_backup.cpp",
+    "src/update_native/updater_cli.cpp"
+   ],
+   "tests": [
+    "tests/update_native/test_transaction.cpp",
+    "tests/update_native/test_journal.cpp",
+    "tests/update_native/test_prepare.cpp",
+    "tests/update_native/test_startup_recovery.cpp",
+    "tests/update_native/test_setup_backup.cpp",
+    "tests/update_native/test_updater_cli.cpp"
+   ],
+   "note": "The directory-swap transaction with journal, health check, rollback and crash recovery is the native helper of M10.5, M10.6 and M10.11; its details are area a16's (A16-18, A16-19, A16-23, A16-27 audited there, with their differences). The update_native tests passed in this machine's baseline (25 of 25), but their [platform] cases that drive the Windows registry, processes and directory swaps skip here; 29 Python functions of the native transactions are still pending (open-items 'Native update transactions'). Not re-run by this audit."
+  },
+  "A34-14": {
+   "status": "verified",
+   "cpp": [
+    "tools/gen/speech_catalog.py",
+    "tools/release/pin_component.py",
+    "src/models/data/speech_catalog.json"
+   ],
+   "tests": [
+    "tools/release/tests/test_pin_component.py"
+   ],
+   "note": "The NeMo-Speech.cpp runtime and Parakeet model pins (URL, size, SHA-256) are generated into src/models/data by tools/gen/speech_catalog.py, and pin_component.py measures a new archive. The gpu-accel wheels, the Pi and OpenCode sidecar bundles and the Python, MLX and other-engine runtime builders are dropped (M10.md lead note: Python tooling, A34-14; the TypeScript sidecars are replaced by the native agent loop). python3 -m pytest -q tools/release/tests passed here (119 passed, 5 skipped)."
+  },
+  "A34-15": {
+   "status": "fixed",
+   "cpp": [
+    ".github/workflows/qualify-release.yml"
+   ],
+   "tests": [
+    "tools/release/tests/test_workflows.py"
+   ],
+   "note": "Fixed after the audit's handoff, per lead decision 8. .github/workflows/qualify-release.yml written: workflow_dispatch only (candidate_run_id, release_tag, require_windows_signed), top-level contents: read, both jobs under if: vars.FIORIVOCE_RELEASE_REPO != '' (and the variable must name the repository it runs in). qualify (actions: read, contents: read) checks the candidate run is a successful hand-started release-build.yml run of this repository, downloads fiorivoce-release-candidate and runs check_release_qualification.py --require-source-qualification --expected-commit <tag commit> --expected-run <run>; upload (needs qualify, contents: write) repeats that on the bytes it uploads, checks the tag is v<version> at that commit and the release is a draft holding nothing the candidate does not replace, validates --draft-assets, runs gh release upload --clobber and re-validates with --uploaded. Actions are pinned by commit with a version comment (checkout, setup-python as in the other workflows; download-artifact at OpenWhisper's commit). test_workflows.py: three workflows; every workflow's triggers within workflow_dispatch/workflow_call; gh release upload found exactly once, in that guarded job, between the draft checks; the qualify-release jobs may call only gh api (no write flags), gh release view and that upload; every action commit-pinned with a version comment and one commit per action, except the two actions/cache@v4 uses already recorded in open-items 'CI workflows'; the existing ci.yml/release-build.yml assertions are unchanged. Never run, never pushed; actionlint is not installed here, so its case skips."
+  },
+  "A34-16": {
+   "status": "verified",
+   "cpp": [
+    "tools/release/check_release_qualification.py",
+    "tools/release/check_release_health.py",
+    "tools/release/build_metadata.py",
+    "tools/release/release_common.py"
+   ],
+   "tests": [
+    "tools/release/tests/test_release_qualification.py",
+    "tools/release/tests/test_release_health.py",
+    "tools/release/tests/test_build_metadata.py"
+   ],
+   "note": "Read against scripts/check_release_qualification.py and check_release_health.py: SHA256SUMS, BUILD-METADATA.json, the exact artifact inventory (setup, native archive, metadata, sums, signing report) and offline --draft-assets validation; the health gate times the staged CLI's headless lifecycle. FioriVoce's metadata schema is its own (schema 1, M10.17 contract), not OpenWhisper's schema 3. python3 -m pytest -q tools/release/tests passed here (119 passed, 5 skipped); nothing ran against a real draft release."
+  },
+  "A34-17": {
+   "status": "verified",
+   "cpp": [
+    "tools/release/serve_update_feed.py",
+    "src/update/release_feed.cpp",
+    "src/update/release_identity.h"
+   ],
+   "tests": [
+    "tools/release/tests/test_serve_update_feed.py",
+    "tests/update/test_release_feed.cpp",
+    "tests/update/test_version_channel.cpp"
+   ],
+   "note": "The prerelease flag is the only beta difference; serve_update_feed.py serves a loopback feed (setup, optional native archive with its sha256 digest, prerelease list) and refuses foreign hosts; the app reads FIORIVOCE_UPDATE_FEED_URL (<env_prefix>UPDATE_FEED_URL, the identity rule for OPENWHISPER_UPDATE_FEED_URL). python3 -m pytest -q tools/release/tests passed here (119 passed, 5 skipped); the update tests passed in this machine's baseline; the owner's real update soak (smoke-update.ps1) was never written or run."
+  },
+  "A34-18": {
+   "status": "dropped",
+   "reason": "Developer PATH installers for the Python venv launchers; a native build has no venv (docs/port/packages/M0.md scope row A34-18; M10.md lead note on install.ps1 and uninstall.ps1)."
+  },
+  "A34-19": {
+   "status": "dropped",
+   "reason": "Source launchers that find and run the Python venv; the native executables run directly (docs/port/packages/M0.md scope row A34-19; M10.md UP-07)."
+  },
+  "A34-20": {
+   "status": "fixed",
+   "cpp": [
+    "tools/release/notices/04-dashboard.md",
+    "tools/release/generate_notices.py",
+    "tools/release/README.md"
+   ],
+   "tests": [
+    "tools/release/tests/test_generate_notices.py"
+   ],
+   "note": "Fixed after the audit's handoff. tools/release/notices/04-dashboard.md names what webui/dist bundles, from webui/package-lock.json's non-dev packages: react 18.3.1, react-dom 18.3.1 and scheduler 0.23.2 (React DOM's dependency, bundled: unstable_scheduleCallback is in the minified JS; OpenWhisper's notice omits it) under the MIT License with its full text, plus Vite's module-preload helper (also in the bundle); loose-envify and js-tokens are build-time transforms a Vite build does not bundle. The DM Sans (@fontsource-variable/dm-sans 5.3.0) and Instrument Serif (@fontsource/instrument-serif 5.3.0) fonts under OFL-1.1 with the copyright lines quoted from webui/dist/licenses/*.txt (2014 The DM Sans Project Authors; 2022 The Instrument Serif Project Authors), linking those files. The React copyright holder is not stated: no React LICENSE file exists in the repository (no node_modules) and OpenWhisper's notice names none, so the notice points to each package's published LICENSE; the owner should add the line from node_modules/react/LICENSE after npm ci. test_the_notices_cover_every_runtime_package_of_the_dashboard_bundle reads the lock file and fails when a new runtime package of the dashboard has no notice. The repository has no committed THIRD_PARTY_NOTICES.md (stage.ps1 generates it into the install tree); a generator run here into a scratch folder includes the fragment. A shipping build still needs -RequireQtLicenses (open-items 'Installer choices'). Nothing Windows-only ran here."
+  },
+  "A34-21": {
+   "status": "other-platform",
+   "reason": "Shared speech host updates over the Linux session D-Bus (org.openwhisper.Control); the Windows product has no D-Bus (docs/port/packages/M0.md: 'dropped (Linux D-Bus)')."
+  }
+ },
+ "differences": [
+  {
+   "id": "a34-archive",
+   "features": [
+    "A34-12",
+    "UP-04"
+   ],
+   "openwhisper": "Packs its Windows release directory as a tar.xz with a SHA-256 manifest.",
+   "fiorivoce": "Packs the staged Qt application, CLI, helper and runtime libraries into a Zip64 archive with a SHA-256 manifest. The native helper verifies every payload file.",
+   "reason": "The project already ships minizip-ng for Zip64. Both packaging and verification share the native manifest code.",
+   "source": "docs/port/packages/M10.md, Changes to the cut, items 2 and 4"
+  }
+ ]
+}

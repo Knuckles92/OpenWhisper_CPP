@@ -1,0 +1,687 @@
+{
+ "area": "a22-walkthrough-services-snap",
+ "package": "M10 sweep",
+ "features": {
+  "A22-01": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/storage.cpp",
+    "src/walkthrough/storage.h",
+    "src/walkthrough/session.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_storage.cpp",
+    "tests/walkthrough/test_session.cpp",
+    "tests/golden/services.walkthrough.storage.json"
+   ],
+   "note": "captures_root = data_root/captures; stamp %Y-%m-%d_%H-%M-%S local; claimed by create_directory, a file or folder of that name moves on to -2, -3 ('a taken name gets the next number', 'a file with the name is never written into', golden new_capture_folder); the session makes it on the first shot or checkpoint ('the folder is made only when a screenshot needs it')."
+  },
+  "A22-02": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/storage.cpp",
+    "src/walkthrough/storage.h"
+   ],
+   "tests": [
+    "tests/walkthrough/test_storage.cpp"
+   ],
+   "note": "captures/screenshots/<stamp>.png then -2.png; folder created, file not ('a screenshot path is named for when it was taken', 'an unsaved screenshot path is offered again', golden new_screenshot_path)."
+  },
+  "A22-03": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/session.cpp",
+    "src/walkthrough/session.h"
+   ],
+   "tests": [
+    "tests/walkthrough/test_session.cpp"
+   ],
+   "note": "shot-N.png numbered 1..N on the session's own 'fv-walkthrough-shots' writer, kept_at clamped to 0, nothing once closed, ScreenshotNotSaved(errno, strerror) when the folder cannot be made ('screenshots are written in the background and numbered', 'a stopped walkthrough takes no more screenshots', 'a folder that cannot be made refuses the screenshot not the walkthrough', 'kept times and note times never go below zero')."
+  },
+  "A22-04": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/session.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_session.cpp"
+   ],
+   "note": "Partial file removed, save_failed(number) on the writer thread, shot leaves the board, lost_shots counts it ('a screenshot that fails to write is reported and leaves no partial file', 'a screenshot that could not be written is left out')."
+  },
+  "A22-05": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/session.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_session.cpp"
+   ],
+   "note": "remove/move/undo vectors as tests/test_walkthrough_session.py ('a removed screenshot leaves its words to the next section', 'a moved screenshot takes its words with it', 'the words still being spoken stay last', 'undo takes the newest screenshot wherever it moved', 'a stopped walkthrough keeps its board')."
+  },
+  "A22-06": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/session.cpp",
+    "src/walkthrough/session.h"
+   ],
+   "tests": [
+    "tests/walkthrough/test_session.cpp",
+    "tests/golden/services.walkthrough.session.json"
+   ],
+   "note": "golden _storyboard replays Python's cut/section vectors; section_at in 'the section a moment belongs to follows the board' and 'a moment no section reads is refused'."
+  },
+  "A22-07": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/session.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_session.cpp",
+    "tests/walkthrough/test_library.cpp"
+   ],
+   "note": "'held stretches reach the storyboard' (notes_s ((2.5,3.5),(7,inf))), zero-length dropped, ignored after close; 'a draft keeps held notes so recovery leaves them out'."
+  },
+  "A22-08": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/session.cpp",
+    "src/walkthrough/files.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_session.cpp",
+    "tests/walkthrough/test_library.cpp",
+    "tests/walkthrough/test_files.cpp"
+   ],
+   "note": "draft.json v1 {version, started_at naive iso, journal_id, shots in kept order of on-board shots, notes_s with null open end} via atomic_json after each write/delete/note/preserve ('four screenshots are written on the writer thread, the draft after each', 'checkpoint survives session recreation and keeps audio')."
+  },
+  "A22-09": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/session.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_session.cpp",
+    "tests/walkthrough/test_library.cpp"
+   ],
+   "note": "<folder>/audio.wav through .audio.tmp then rename; skipped when source is the destination ('the recording is preserved beside the screenshots')."
+  },
+  "A22-10": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/session.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_session.cpp"
+   ],
+   "note": "discard deletes the shots and the ten fixed names (walkthrough.md/.pdf/.json/.docx, write-up.md/.pdf/.docx, draft.json, audio.wav, walkthrough.original.json) then rmdir, kept if anything remains; end() lets the writer finish ('canceling deletes the screenshots but nothing else', 'canceling keeps a folder that holds an earlier write-up', 'ending keeps the files')."
+  },
+  "A22-11": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/sections.cpp",
+    "src/walkthrough/sections.h",
+    "src/walkthrough/detail/pcm_wav.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_sections.cpp",
+    "tests/golden/services.walkthrough.sections.json"
+   ],
+   "note": "REACH_S 0.75, FRAME_S 0.1 (step width/2), QUIET_RATIO 0.5, MIN_CLIP_S 0.25, 'expected 16-bit audio, got N-bit'; golden cut_frames/_quietest/_without/split_recording/clip_stretches."
+  },
+  "A22-12": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/finish.cpp",
+    "src/walkthrough/finish.h",
+    "src/dictation/walkthrough_job.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_finish.cpp",
+    "tests/dictation/test_walkthrough_job.cpp"
+   ],
+   "note": "Kept Python's shape (temporary section-N.wav / note-N.wav clips decoded one by one through the dictation's own transcribe call on the speech thread) rather than the map's in-memory spans; whole-file fallback into section 0, before_each(i,total) cancel ('audio that cannot be cut is decoded whole into the first section', 'a cancel before a clip stops the decoding and cleans up', 'each section is transcribed and the document copied')."
+  },
+  "A22-13": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/finish.cpp",
+    "src/walkthrough/library.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_finish.cpp",
+    "tests/walkthrough/test_library.cpp"
+   ],
+   "note": "'the history text marks where each screenshot sits'; load_result's history_raw is null and markers follow sections with a shot ('result round trip rebuilds paths for the current machine')."
+  },
+  "A22-14": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/finish.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_library.cpp",
+    "tests/dictation/test_walkthrough_job.cpp"
+   ],
+   "note": "Order md, pdf, docx, manifest, then draft.json deleted ('finished document removes recovery checkpoint'); clipboard text is the Markdown with absolute image targets."
+  },
+  "A22-15": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/finish.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_finish.cpp",
+    "tests/dictation/test_walkthrough_job.cpp"
+   ],
+   "note": "' — screenshots kept in <folder>' ('a failed walkthrough's status says where its screenshots are', 'a failed walkthrough keeps its screenshots and says where')."
+  },
+  "A22-16": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/document.cpp",
+    "src/walkthrough/document.h"
+   ],
+   "tests": [
+    "tests/walkthrough/test_markdown.cpp",
+    "tests/golden/services.walkthrough.document.json"
+   ],
+   "note": "Golden markdown/clock/_when/_escape_markers/_image_target; the about sentence's 'transcribed by OpenWhisper' is identity().product by the identity rule."
+  },
+  "A22-17": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/document.cpp",
+    "src/walkthrough/files.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_markdown.cpp"
+   ],
+   "note": "golden write_manifest; started_at local with offset ('a skipped or repeated local hour reads as Python's astimezone does'), omitted_shot/notes only when present ('a manifest keeps omitted screenshots and held notes'), atomic_json with allow_nan false."
+  },
+  "A22-18": {
+   "status": "verified",
+   "cpp": [
+    "src/documents/composer.cpp",
+    "src/documents/composer.h",
+    "src/documents/pages.cpp",
+    "src/documents/painting.cpp",
+    "src/documents/pdf.cpp"
+   ],
+   "tests": [
+    "tests/documents/test_pdf.cpp",
+    "tests/documents/test_golden.cpp",
+    "tests/golden/services.walkthrough.document_pdf.json"
+   ],
+   "note": "Constants match (margins 0.75/0.7 in, 0.62 image height, #dcd5cb frame, title 22 bold, meta 9.5 #6b645c, words 11 at 145 %, caption 8.5 #8a8278, Letter for ImperialUS else A4, LosslessImageRendering, creator identity().product). test_pdf.cpp passes here. The golden 'the walkthrough composer lays out and paginates as OpenWhisper's' fails on this machine from fonts, not a difference: page starts, groups and image sizes all match, only frame tops move by 8-11 layout units because the vectors were made with Segoe UI and this machine has only DejaVu Sans (kFontFamilies falls through)."
+  },
+  "A22-19": {
+   "status": "verified",
+   "cpp": [
+    "src/documents/markdown_composer.cpp",
+    "src/documents/markdown_composer.h",
+    "src/documents/painting.cpp",
+    "src/documents/pdf.cpp"
+   ],
+   "tests": [
+    "tests/documents/test_markdown_pdf.cpp",
+    "tests/documents/test_golden.cpp"
+   ],
+   "note": "test_markdown_pdf.cpp passes here (look colours not links, list markers as text, image column in lists, table rules, missing image removed and HTML as text, code shading, heading kept with screenshot). The golden 'the markdown composer lays out and paginates as OpenWhisper's' fails here on Segoe UI vs DejaVu Sans line heights, as for A22-18."
+  },
+  "A22-20": {
+   "status": "verified",
+   "cpp": [
+    "src/documents/docx.cpp",
+    "src/documents/docx.h",
+    "src/documents/ooxml.cpp",
+    "src/documents/ooxml.h"
+   ],
+   "tests": [
+    "tests/documents/test_docx.cpp",
+    "tests/documents/test_docx_golden.cpp",
+    "tests/golden/services.walkthrough.word.json"
+   ],
+   "note": "test_docx.cpp passes here (keep-with-next per section, points sizes, links, look, comment 'Made by '+identity().product). The two golden 'the word writer writes walkthroughs / write ups as OpenWhisper's' fail here only in word/styles.xml: the Normal style's font is QFontInfo(default).family(), recorded as 'Segoe UI' in the vectors and 'DejaVu Sans' on this machine."
+  },
+  "A22-21": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/finish.cpp",
+    "src/walkthrough/document.h"
+   ],
+   "tests": [
+    "tests/walkthrough/test_library.cpp",
+    "tests/walkthrough/test_library_golden.cpp",
+    "tests/walkthrough/test_markdown.cpp",
+    "tests/documents/test_pdf.cpp"
+   ],
+   "note": "golden finish document_settings; 'the saved settings become the format and paper', 'markdown without a header starts with the words', 'pdf uses the chosen title'."
+  },
+  "A22-22": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/write_up.cpp",
+    "src/walkthrough/write_up.h"
+   ],
+   "tests": [
+    "tests/walkthrough/test_write_up.cpp",
+    "tests/walkthrough/test_library_golden.cpp"
+   ],
+   "note": "TIMEOUT_S 300, STALL_S 150; 'canceled', '<Agent> failed', '<Agent> sent back no document', 'could not write its documents: ...'; golden prompts/document_text/split_look/notes; 'a missing agent points to the walkthroughs page'."
+  },
+  "A22-23": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/write_up.cpp",
+    "src/walkthrough/library.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_library.cpp",
+    "tests/walkthrough/test_library_golden.cpp"
+   ],
+   "note": "'writing up again keeps each earlier write up', 'an earlier write up saves in place', golden earlier_write_ups."
+  },
+  "A22-24": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/styles.cpp",
+    "src/walkthrough/styles.h"
+   ],
+   "tests": [
+    "tests/walkthrough/test_styles.cpp",
+    "tests/walkthrough/test_library_golden.cpp"
+   ],
+   "note": "Default first, four starters (ids step-by-step, bug-report, design-feedback, agent-task), MAX_NAME 60, MAX_STYLES 30, the five error texts, id = uuid4 hex[:12]; golden saved_styles/style_named/save_style/delete_style."
+  },
+  "A22-25": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/library.cpp",
+    "src/walkthrough/files.cpp",
+    "src/walkthrough/detail/patterns.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_library.cpp",
+    "tests/walkthrough/test_files.cpp",
+    "tests/walkthrough/test_library_golden.cpp"
+   ],
+   "note": "Error texts match the 'Added by check' list; 8 MiB limit ('read json refuses 8 MiB and one byte'), symlinks refused, golden load_document."
+  },
+  "A22-26": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/library.cpp",
+    "src/walkthrough/files.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_library.cpp"
+   ],
+   "note": "'review rejects stale editor shape' ('The document changed; reopen Review'), keeps walkthrough.original.json, rollback ('failed publication rolls back documents and write up'), reorder ('saving in a new order moves each screenshot with its words')."
+  },
+  "A22-27": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/library.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_library.cpp",
+    "tests/walkthrough/test_library_golden.cpp"
+   ],
+   "note": "golden write_up_parts/join_write_up/write_up_shot."
+  },
+  "A22-28": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/library.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_library.cpp",
+    "tests/walkthrough/test_styles.cpp"
+   ],
+   "note": "'retry uses the spoken document and current agent settings', 'retry follows the notes held while recording', 'a redo with instructions uses them instead of settings'."
+  },
+  "A22-29": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/controller_feature.cpp",
+    "src/dictation/transcription_runtime.cpp",
+    "src/walkthrough/library.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_walkthrough_recovery_attach.cpp",
+    "tests/ui_controller/test_walkthrough_recovery.cpp",
+    "tests/walkthrough/test_library.cpp",
+    "tests/dictation/test_walkthrough_job.cpp"
+   ],
+   "note": "The controller feature now sets services.captures_root = walkthrough::captures_root(paths), so startup recovery reaches the walkthrough half. Pinned in the composed app by tests/ui_controller/test_walkthrough_recovery_attach.cpp 'startup recovery joins an interrupted walkthrough to its recovered audio in the app' (a draft with a checkpointed journal and its recording_*-recovered-<journal>.wav get audio.wav, and the status says 'Recovered 1 walkthrough(s) — open Saved Walkthroughs to finish them') and test_walkthrough_recovery.cpp 'startup recovery prunes expired walkthroughs under the captures root'; the library half by test_library.cpp."
+  },
+  "A22-30": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/controller_feature.cpp",
+    "src/walkthrough/library.cpp",
+    "src/dictation/recovery.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_walkthrough_recovery.cpp",
+    "tests/walkthrough/test_library.cpp"
+   ],
+   "note": "With services.captures_root set by the controller feature, startup recovery prunes expired walkthroughs as Python does. Pinned by tests/ui_controller/test_walkthrough_recovery.cpp 'startup recovery prunes expired walkthroughs under the captures root' (a finished walkthrough ten days old with retention 1 is removed at start); retention.json and the prune rules by test_library.cpp."
+  },
+  "A22-31": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/library.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_library.cpp"
+   ],
+   "note": "'Not a walkthrough folder', 'Folder contains extra files; remove it in your file manager'; fixed set + shot-N.png + write-up-N.*, any sub-directory refused ('retention refuses extra files', 'deletion and document loading refuse symbolic links', 'review keeps every write up and deleting takes them along')."
+  },
+  "A22-32": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/session.cpp",
+    "src/walkthrough/session.h"
+   ],
+   "tests": [
+    "tests/walkthrough/test_session.cpp",
+    "tests/documents/test_docx.cpp",
+    "tests/dictation/test_walkthrough_job.cpp"
+   ],
+   "note": "Formats pdf/word/both/agent/agent_task with the agent prompt verbatim and 'PDF file (if the attachment is unavailable): <resolved path>' ('what a copy puts on the clipboard follows the format', 'agent copy includes selected pdf and action instructions')."
+  },
+  "A22-33": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/paste.cpp",
+    "src/walkthrough/paste.h",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_paste.cpp",
+    "tests/ui_controller/test_walkthrough_feature.cpp"
+   ],
+   "note": "All ten report strings verbatim, 800 ms delay, is_self refused, marker check; wired: the job's paste_walkthrough and the paste-walkthrough hotkey reach WalkthroughPaste (composition test 'walkthrough feature saves a captured screenshot and shows the ready card' sees four synthetic key sends). WalkthroughFeature now also ports paste_walkthrough's reports (busy refusal, warnings, the ready card's paste status; see A23-87); the composition test passes here."
+  },
+  "A22-34": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/paste.cpp",
+    "src/walkthrough/library.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_paste.cpp"
+   ],
+   "note": "'latest completed walkthrough skips a newer draft', '... propagates a broken manifest'; the hotkey path runs it on the io executor and says 'No walkthrough to paste' when there is none."
+  },
+  "A22-35": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_snap/session.cpp",
+    "src/ui_snap/session.h",
+    "src/ui_snap/snap_port.cpp"
+   ],
+   "tests": [
+    "tests/ui_snap/test_session.cpp",
+    "tests/ui_snap/test_live_ports.cpp"
+   ],
+   "note": "kCaptureFailed / kNoScreen verbatim, failure from a 0 ms timer after start returns, Qt thread only ('start snap refuses other threads', 'a failed capture is reported after start snap returns', 'an unsupported desktop fails with its reason without capturing')."
+  },
+  "A22-36": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_snap/session.cpp",
+    "src/ui_snap/capture.cpp"
+   ],
+   "tests": [
+    "tests/ui_snap/test_session.cpp",
+    "tests/ui_snap/test_capture.cpp"
+   ],
+   "note": "Read against snap/session.py. The multi-screen cases ('each screen is captured and covered', 'esc on any screen drops the whole snap', 'a screen that fails to capture is left uncovered', 'selecting on another screen moves the selection there') fail here at REQUIRE(screens.available()): this Qt kit lacks the offscreen setConfiguration resource, so they did not run; 'the pointer's screen is covered first' passes. Hyprland's single screen is other-platform."
+  },
+  "A22-37": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_presenter.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp",
+    "src/ui_snap/capture.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_presenter_glue.cpp",
+    "tests/ui_snap/test_session.cpp"
+   ],
+   "note": "WalkthroughFeature's QtSnapPort::Hooks now ask the WalkthroughPresenter: snapFloatAbove gives a Parkable over the overlay (park -> WaveformOverlay::park(area), unpark -> unpark) when the overlay is its own window, so a snap parks it in a corner instead of hiding it. Pinned by tests/ui_walkthrough/test_presenter_glue.cpp 'snaps keep the walkthrough column out while it shows' (floatAbove holds the overlay) and 'an overlay inside another window is neither kept out nor parked'; QtSnapPort parking a Parkable by test_session.cpp. The feature-to-presenter hook and the Parkable's park call are read in code."
+  },
+  "A22-38": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_snap/session.cpp",
+    "src/ui_snap/pointed.cpp",
+    "src/ui_snap/win/pointed_win.cpp"
+   ],
+   "tests": [
+    "tests/ui_snap/test_session.cpp",
+    "tests/ui_snap/test_pointed.cpp"
+   ],
+   "note": "'draw starts with the pen on the whole screen', 'the window under the pointer is cropped out of its screen', 'a window that cant be found leaves the whole screen'; pointed over the fake Win32 desktop ('front asks for the window in front'). pointed_win.cpp is not compiled here; 'only the pointers screen is grabbed' and 'windows click keeps native monitor mapping' need two offscreen screens and did not run here."
+  },
+  "A22-39": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_snap/overlay.cpp",
+    "src/ui_snap/overlay.h",
+    "src/ui_snap/chrome.cpp",
+    "src/ui_snap/geometry.cpp"
+   ],
+   "tests": [
+    "tests/ui_snap/test_overlay.cpp",
+    "tests/ui_snap/test_geometry.cpp",
+    "tests/ui_snap/test_snap_screenshots.cpp"
+   ],
+   "note": "kDim (18,12,9,150), kMinSelection 6, grab 10/4/16, badge in device pixels; 'double click with no selection takes the whole screen', 'dragging outside an unmarked selection starts over', 'shrinking below the minimum stops at the last size', golden grab_at/resized/badge_rect. Reference screenshots' pixel half skips here."
+  },
+  "A22-40": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_feature.cpp",
+    "src/ui_snap/live.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_walkthrough_live_and_write_up.cpp",
+    "tests/ui_snap/test_live.cpp"
+   ],
+   "note": "services.live builds QtLiveDrawingPort with LiveAnnotations::Options{&settings, &clock}, and services.clicks goes through the feature's click-hook seam (ControllerRig's walkthroughClicks), so a composition test can start Auto Mode. tests/ui_controller/test_walkthrough_live_and_write_up.cpp 'auto mode's live toolbar saves snap to edges and keep marks' toggles Snap and Keep marks on the live toolbar and checks snap_to_edges and walkthrough_keep_marks are saved; it runs only on Windows and macOS (Auto Mode is offered there only) and has never run: it skips on this Linux tree. The test and the code were read and agree."
+  },
+  "A22-41": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_snap/annotations.cpp",
+    "src/ui_snap/annotations.h"
+   ],
+   "tests": [
+    "tests/ui_snap/test_annotations.cpp",
+    "tests/ui_snap/test_reference_screenshots.cpp"
+   ],
+   "note": "Widths 4/3/4/18 (alpha 120), box radius 6 and 24-alpha infill, step 13 + 2 ring, label pad 8x3 radius 6, redact #181A20, arrow bend 0.1 max 26; golden bounds/meaningful/extend_draft/arrow_shapes/smooth_path."
+  },
+  "A22-42": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_snap/annotations.h",
+    "src/ui_snap/annotations.cpp"
+   ],
+   "tests": [
+    "tests/ui_snap/test_annotations.cpp"
+   ],
+   "note": "kSwatches Coral #FF4F3A, Amber #F5A524, Blue #3A7BFD, Green #1FA463; golden ink_for, 'badge ink is white on dark fills and dark on amber'."
+  },
+  "A22-43": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_snap/annotations.cpp",
+    "src/ui_snap/overlay.cpp"
+   ],
+   "tests": [
+    "tests/ui_snap/test_annotations.cpp",
+    "tests/ui_snap/test_overlay.cpp"
+   ],
+   "note": "'a new mark after undo forgets the redo', 'steps count up and undo gives the number back', 'undo while typing discards the label', golden next_step_number."
+  },
+  "A22-44": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_snap/overlay.cpp"
+   ],
+   "tests": [
+    "tests/ui_snap/test_overlay.cpp"
+   ],
+   "note": "'letters pick tools', 'digits pick colours', 'shifted letters are not shortcuts', 'escape while typing cancels only the label', 'enter while typing commits the label without keeping', 'tab keeps the keyboard in the label', 'undo and redo'."
+  },
+  "A22-45": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_snap/export.cpp",
+    "src/ui_snap/geometry.cpp",
+    "src/ui_snap/qimage_shot.cpp"
+   ],
+   "tests": [
+    "tests/ui_snap/test_geometry.cpp",
+    "tests/ui_snap/test_qimage_shot.cpp"
+   ],
+   "note": "golden device_rect; 'fractional ratios round outward', 'marks outside the selection are clipped', 'a pen line is drawn at device scale', 'redaction replaces all covered pixels in kept crops'."
+  },
+  "A22-46": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_snap/toolbar.cpp",
+    "src/ui_snap/toolbar.h"
+   ],
+   "tests": [
+    "tests/ui_snap/test_toolbar.cpp",
+    "tests/ui_snap/test_snap_screenshots.cpp",
+    "tests/ui_snap/test_live_screenshots.cpp"
+   ],
+   "note": "Constants 34/26/20/6/13/12.0, label pad 6 gap 4, tooltips verbatim, delay slot max(148, advance('Delay · Instant')+61). 'controls enable by the tool, the history and the drop rule' passes; the golden '_layout matches OpenWhisper' and '_wrap matches OpenWhisper' fail here because the labelled buttons' widths come from the 12 px label font's advances (Segoe UI in the vectors), as do the toolbar reference trees."
+  },
+  "A22-47": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_snap/icons.cpp",
+    "src/ui_snap/icons.h"
+   ],
+   "tests": [
+    "tests/ui_snap/test_chrome.cpp",
+    "tests/ui_snap/test_reference_screenshots.cpp"
+   ],
+   "note": "'every glyph draws, and region is the snap glyph', 'an unknown glyph is an error'; glyph geometry read against icons.py; the reference images' pixel half does not run here."
+  },
+  "A22-48": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_snap/chrome.cpp",
+    "src/ui_snap/chrome.h",
+    "src/ui_snap/session.cpp"
+   ],
+   "tests": [
+    "tests/ui_snap/test_chrome.cpp",
+    "tests/ui_snap/test_overlay.cpp"
+   ],
+   "note": "'the hint pill fits its pieces', 'a long hint is cut short so the keys fit', 'without room for the hint only the keys show', 'the size readout pads its text'; ' · S toggles snapping' appended by the session."
+  },
+  "A22-49": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_feature.cpp",
+    "src/ui_snap/live.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_walkthrough_live_and_write_up.cpp",
+    "tests/ui_snap/test_live.cpp"
+   ],
+   "note": "The live drawing reads and saves walkthrough_keep_marks, snap_box_infill, snap_to_edges and walkthrough_capture_delay through LiveAnnotations::Options{&context.settings(), &context.clock()} (walkthrough_feature.cpp services.live). The composition test 'auto mode's live toolbar saves snap to edges and keep marks' (tests/ui_controller/test_walkthrough_live_and_write_up.cpp) pins Keep marks and Snap through the click-hook seam; it runs only on Windows and macOS and has never run (it skips on this Linux tree). Infill and the delay chip are pinned only at the ui_snap level (test_live.cpp 'rectangle infill persists for live drawing', test_capture_delay.cpp). The test and the code were read and agree."
+  },
+  "A22-50": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_snap/live.cpp",
+    "src/ui_snap/live.h"
+   ],
+   "tests": [
+    "tests/ui_snap/test_live.cpp"
+   ],
+   "note": "kMarkLifetime 1500 ms PreciseTimer, 1-alpha fill while armed, pinned with Ctrl, Keep marks ('temporary marks survive countdown then clear with successful snap', 'a captured delayed shot clears only its own monitor's marks', 'mark shortcuts toggle Keep marks and clear only while shown', 'delay chip cancel keeps the tool and label escape cancels the shot')."
+  },
+  "A22-51": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_snap/live.cpp",
+    "src/ui_snap/live.h"
+   ],
+   "tests": [
+    "tests/ui_snap/test_live.cpp"
+   ],
+   "note": "kRegionHint 'Drag a capture region · Esc to cancel', close control 24x24 with title/accessible name/tooltip verbatim ('the region badge and close control sit where OpenWhisper puts them', 'tiny region drag does not replace region', 'a removed screen disarms, loses its region and canvas')."
+  },
+  "A22-52": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_snap/live.cpp",
+    "src/ui_snap/live_drawing_port.cpp"
+   ],
+   "tests": [
+    "tests/ui_snap/test_live.cpp",
+    "tests/ui_snap/test_live_ports.cpp"
+   ],
+   "note": "'pinned marks follow the clicked screen and are rendered once', 'the live drawing port reports regions, pinned marks and pending captures'."
+  },
+  "A22-53": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_snap/affinity.cpp",
+    "src/ui_snap/affinity.h",
+    "src/ui_snap/win/affinity_win.cpp"
+   ],
+   "tests": [
+    "tests/ui_snap/test_affinity.cpp",
+    "tests/ui_snap/test_interactive.cpp"
+   ],
+   "note": "The map's 'other-platform only (Windows)' means Windows-only code, which is the product's platform, so it is audited here. WDA_EXCLUDEFROMCAPTURE with the HWND remembered in a property: 'excludes then restores the window', 'a recreated native window counts as not excluded' run against FakeWin32Desktop here; affinity_win.cpp is not compiled here and the [interactive] test was not run."
+  },
+  "A22-54": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_snap/affinity.cpp",
+    "src/ui_snap/win/affinity_win.cpp"
+   ],
+   "tests": [
+    "tests/ui_snap/test_affinity.cpp"
+   ],
+   "note": "AttachThreadInput + SetForegroundWindow and return of the foreground after live drawing, over the fake desktop ('bringing to front attaches to the foreground thread for the call', 'the focus goes back only from our drawing surfaces'); the Win32 code is not compiled here."
+  },
+  "A22-55": {
+   "status": "other-platform",
+   "reason": "macOS only: Screen Recording grant, NSWindow levels 26/27, all-Spaces and nonactivating panels (macos.py); the Windows product has no such plumbing."
+  },
+  "A22-56": {
+   "status": "other-platform",
+   "reason": "macOS only: ScreenCaptureKit filtered capture (macos_capture.py); Windows keeps our windows out with SetWindowDisplayAffinity (A22-53)."
+  },
+  "A22-57": {
+   "status": "other-platform",
+   "reason": "Linux Hyprland only: grim/hyprctl capture (grim.py)."
+  },
+  "A22-58": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_snap/support.cpp",
+    "src/ui_snap/support.h"
+   ],
+   "tests": [
+    "tests/ui_snap/test_support.cpp"
+   ],
+   "note": "Golden 'snap_support matches OpenWhisper on every platform' and 'uses_grim ...'; the macOS reason names identity().product. Only the Windows answer (supported) matters to the product."
+  }
+ },
+ "differences": []
+}

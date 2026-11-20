@@ -1,0 +1,2038 @@
+{
+ "module": "meeting.corrections",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time"
+ },
+ "functions": {
+  "segment_fingerprint": [
+   {
+    "args": [
+     ""
+    ],
+    "result": "fnv1a64:cbf29ce484222325"
+   },
+   {
+    "args": [
+     "a"
+    ],
+    "result": "fnv1a64:af63dc4c8601ec8c"
+   },
+   {
+    "args": [
+     "hello world"
+    ],
+    "result": "fnv1a64:779a65e7023cd2e7"
+   },
+   {
+    "args": [
+     "é"
+    ],
+    "result": "fnv1a64:0ac21707b7181e01"
+   },
+   {
+    "args": [
+     "😀"
+    ],
+    "result": "fnv1a64:feff073875020288"
+   },
+   {
+    "args": [
+     "Entropic ships Entropic today, entropic!"
+    ],
+    "result": "fnv1a64:98e10f06aeb96c14"
+   },
+   {
+    "args": [
+     "line\nbreak"
+    ],
+    "result": "fnv1a64:d988adc228011a0a"
+   }
+  ],
+  "valid_segment_fingerprint": [
+   {
+    "args": [
+     "fnv1a64:af63f54c86021707"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "fnv1a64:0123456789abcdef"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "fnv1a64:0123456789ABCDEF"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "fnv1a64:0123456789abcde"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "fnv1a64:0123456789abcdef0"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "fnv1a64:0123456789abcdeg"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "fnv1a64:0123456789abcdef\n"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "FNV1A64:0123456789abcdef"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     null
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     5
+    ],
+    "result": false
+   }
+  ],
+  "is_correction_author": [
+   {
+    "args": [
+     {
+      "author_type": "user"
+     }
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     {
+      "author_type": "agent"
+     }
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     {}
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     {
+      "author_type": "system",
+      "author_id": "voice_command",
+      "data": {
+       "source": "voice_command",
+       "command": "fix_transcript"
+      }
+     }
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     {
+      "author_type": "system",
+      "author_id": "voice_command",
+      "data": {
+       "source": "voice_command",
+       "command": "remember"
+      }
+     }
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     {
+      "author_type": "system",
+      "author_id": "voice_command",
+      "data": null
+     }
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     {
+      "author_type": "system",
+      "author_id": "state_repair",
+      "data": {
+       "source": "voice_command",
+       "command": "fix_transcript"
+      }
+     }
+    ],
+    "result": false
+   }
+  ],
+  "term_rules_from_items": [
+   {
+    "args": [
+     [
+      {
+       "id": "it_Entropic",
+       "card": "user_notes",
+       "status": "edited",
+       "author_type": "user",
+       "text": "Correction: Entropic -> Anthropic",
+       "data": {
+        "kind": "term_correction",
+        "selected_text": "Entropic",
+        "replacement": "Anthropic"
+       }
+      },
+      {
+       "id": "it_gone",
+       "card": "user_notes",
+       "status": "removed",
+       "author_type": "user",
+       "text": "Correction: gone -> Gone",
+       "data": {
+        "kind": "term_correction",
+        "selected_text": "gone",
+        "replacement": "Gone"
+       }
+      },
+      {
+       "id": "it_agent",
+       "card": "user_notes",
+       "status": "edited",
+       "author_type": "agent",
+       "text": "Correction: agent -> Agent",
+       "data": {
+        "kind": "term_correction",
+        "selected_text": "agent",
+        "replacement": "Agent"
+       }
+      },
+      {
+       "id": "it_insight",
+       "card": "user_notes",
+       "status": "edited",
+       "author_type": "user",
+       "text": "Correction: insight -> Insight",
+       "data": {
+        "kind": "agent_insight",
+        "selected_text": "insight",
+        "replacement": "Insight"
+       }
+      },
+      {
+       "id": "it_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "card": "user_notes",
+       "status": "edited",
+       "author_type": "user",
+       "text": "Correction: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -> Long",
+       "data": {
+        "kind": "term_correction",
+        "selected_text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "replacement": "Long"
+       }
+      },
+      {
+       "id": "it_ yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy ",
+       "card": "user_notes",
+       "status": "edited",
+       "author_type": "user",
+       "text": "Correction:  yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy  -> Bounded",
+       "data": {
+        "kind": "term_correction",
+        "selected_text": " yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy ",
+        "replacement": "Bounded"
+       }
+      },
+      {
+       "id": "it_blank",
+       "card": "user_notes",
+       "status": "edited",
+       "author_type": "user",
+       "text": "Correction: blank ->    ",
+       "data": {
+        "kind": "term_correction",
+        "selected_text": "blank",
+        "replacement": "   "
+       }
+      },
+      {
+       "id": "it_  Padded  ",
+       "card": "user_notes",
+       "status": "edited",
+       "author_type": "user",
+       "text": "Correction:   Padded   ->   Clean  ",
+       "data": {
+        "kind": "term_correction",
+        "selected_text": "  Padded  ",
+        "replacement": "  Clean  "
+       }
+      },
+      {
+       "id": "it_entropic",
+       "card": "user_notes",
+       "status": "edited",
+       "author_type": "user",
+       "text": "Correction: entropic -> Acme",
+       "data": {
+        "kind": "term_correction",
+        "selected_text": "entropic",
+        "replacement": "Acme"
+       }
+      },
+      {
+       "id": "it_ÉCOLE",
+       "card": "user_notes",
+       "status": "edited",
+       "author_type": "user",
+       "text": "Correction: ÉCOLE -> École",
+       "data": {
+        "kind": "term_correction",
+        "selected_text": "ÉCOLE",
+        "replacement": "École"
+       }
+      },
+      {
+       "id": "it_5",
+       "card": "user_notes",
+       "status": "edited",
+       "author_type": "user",
+       "text": "Correction: 5 -> Number",
+       "data": {
+        "kind": "term_correction",
+        "selected_text": 5,
+        "replacement": "Number"
+       }
+      },
+      {
+       "text": "plain user note",
+       "status": "edited",
+       "author_type": "user"
+      },
+      {
+       "id": "it_cloud",
+       "card": "user_notes",
+       "status": "edited",
+       "author_type": "system",
+       "text": "Correction: cloud -> Claude",
+       "data": {
+        "kind": "term_correction",
+        "selected_text": "cloud",
+        "replacement": "Claude",
+        "source": "voice_command",
+        "command": "fix_transcript"
+       },
+       "author_id": "voice_command"
+      },
+      {
+       "id": "it_cloud",
+       "card": "user_notes",
+       "status": "edited",
+       "author_type": "system",
+       "text": "Correction: cloud -> Claude",
+       "data": {
+        "kind": "term_correction",
+        "selected_text": "cloud",
+        "replacement": "Claude",
+        "source": "voice_command",
+        "command": "other"
+       },
+       "author_id": "voice_command"
+      },
+      {
+       "author_type": "user",
+       "data": null
+      },
+      {
+       "author_type": "user",
+       "data": "junk"
+      },
+      null,
+      "junk",
+      5
+     ]
+    ],
+    "result": [
+     [
+      "entropic",
+      "Acme"
+     ],
+     [
+      "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+      "Bounded"
+     ],
+     [
+      "padded",
+      "Clean"
+     ],
+     [
+      "école",
+      "École"
+     ],
+     [
+      "cloud",
+      "Claude"
+     ]
+    ]
+   },
+   {
+    "args": [
+     []
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "it_a",
+       "card": "user_notes",
+       "status": "edited",
+       "author_type": "user",
+       "text": "Correction: a -> b",
+       "data": {
+        "kind": "term_correction",
+        "selected_text": "a",
+        "replacement": "b"
+       }
+      },
+      {
+       "id": "it_A",
+       "card": "user_notes",
+       "status": "edited",
+       "author_type": "user",
+       "text": "Correction: A -> c",
+       "data": {
+        "kind": "term_correction",
+        "selected_text": "A",
+        "replacement": "c"
+       }
+      }
+     ]
+    ],
+    "result": [
+     [
+      "a",
+      "c"
+     ]
+    ]
+   }
+  ],
+  "term_rules": [
+   {
+    "args": [
+     {
+      "cards": {
+       "user_notes": [
+        {
+         "id": "it_Entropic",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "Correction: Entropic -> Anthropic",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": "Entropic",
+          "replacement": "Anthropic"
+         }
+        },
+        {
+         "id": "it_gone",
+         "card": "user_notes",
+         "status": "removed",
+         "author_type": "user",
+         "text": "Correction: gone -> Gone",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": "gone",
+          "replacement": "Gone"
+         }
+        },
+        {
+         "id": "it_agent",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "agent",
+         "text": "Correction: agent -> Agent",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": "agent",
+          "replacement": "Agent"
+         }
+        },
+        {
+         "id": "it_insight",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "Correction: insight -> Insight",
+         "data": {
+          "kind": "agent_insight",
+          "selected_text": "insight",
+          "replacement": "Insight"
+         }
+        },
+        {
+         "id": "it_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "Correction: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -> Long",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "replacement": "Long"
+         }
+        },
+        {
+         "id": "it_ yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy ",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "Correction:  yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy  -> Bounded",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": " yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy ",
+          "replacement": "Bounded"
+         }
+        },
+        {
+         "id": "it_blank",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "Correction: blank ->    ",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": "blank",
+          "replacement": "   "
+         }
+        },
+        {
+         "id": "it_  Padded  ",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "Correction:   Padded   ->   Clean  ",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": "  Padded  ",
+          "replacement": "  Clean  "
+         }
+        },
+        {
+         "id": "it_entropic",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "Correction: entropic -> Acme",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": "entropic",
+          "replacement": "Acme"
+         }
+        },
+        {
+         "id": "it_ÉCOLE",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "Correction: ÉCOLE -> École",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": "ÉCOLE",
+          "replacement": "École"
+         }
+        },
+        {
+         "id": "it_5",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "Correction: 5 -> Number",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": 5,
+          "replacement": "Number"
+         }
+        },
+        {
+         "text": "plain user note",
+         "status": "edited",
+         "author_type": "user"
+        }
+       ]
+      }
+     }
+    ],
+    "result": [
+     [
+      "entropic",
+      "Acme"
+     ],
+     [
+      "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+      "Bounded"
+     ],
+     [
+      "padded",
+      "Clean"
+     ],
+     [
+      "école",
+      "École"
+     ]
+    ]
+   },
+   {
+    "args": [
+     {}
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     {
+      "cards": null
+     }
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     {
+      "cards": {
+       "user_notes": [
+        null,
+        "junk"
+       ]
+      }
+     }
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     {
+      "cards": {
+       "user_notes": null
+      }
+     }
+    ],
+    "result": []
+   }
+  ],
+  "occurrence_rules": [
+   {
+    "args": [
+     {
+      "cards": {
+       "user_notes": [
+        {
+         "id": "it_Entropic_1",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "fix",
+         "data": {
+          "kind": "occurrence_correction",
+          "selected_text": "Entropic",
+          "replacement": "Anthropic",
+          "occurrence_index": 1,
+          "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+         },
+         "evidence": [
+          "sg_1"
+         ]
+        },
+        {
+         "id": "it_Entropic_0",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "fix",
+         "data": {
+          "kind": "occurrence_correction",
+          "selected_text": "Entropic",
+          "replacement": "Acme",
+          "occurrence_index": 0,
+          "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+         },
+         "evidence": [
+          "sg_1"
+         ]
+        },
+        {
+         "id": "it_today_0",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "fix",
+         "data": {
+          "kind": "occurrence_correction",
+          "selected_text": "today",
+          "replacement": "now",
+          "occurrence_index": 0,
+          "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+         },
+         "evidence": [
+          "sg_2"
+         ]
+        },
+        {
+         "id": "it_bad_True",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "fix",
+         "data": {
+          "kind": "occurrence_correction",
+          "selected_text": "bad",
+          "replacement": "x",
+          "occurrence_index": true,
+          "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+         },
+         "evidence": [
+          "sg_1"
+         ]
+        },
+        {
+         "id": "it_bad_1001",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "fix",
+         "data": {
+          "kind": "occurrence_correction",
+          "selected_text": "bad",
+          "replacement": "x",
+          "occurrence_index": 1001,
+          "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+         },
+         "evidence": [
+          "sg_1"
+         ]
+        },
+        {
+         "id": "it_bad_2.0",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "fix",
+         "data": {
+          "kind": "occurrence_correction",
+          "selected_text": "bad",
+          "replacement": "x",
+          "occurrence_index": 2.0,
+          "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+         },
+         "evidence": [
+          "sg_1"
+         ]
+        },
+        {
+         "id": "it_bad_0",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "fix",
+         "data": {
+          "kind": "occurrence_correction",
+          "selected_text": "bad",
+          "replacement": "x",
+          "occurrence_index": 0,
+          "base_fingerprint": "fnv1a64:nothex"
+         },
+         "evidence": [
+          "sg_1"
+         ]
+        },
+        {
+         "id": "it_bad_0",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "fix",
+         "data": {
+          "kind": "occurrence_correction",
+          "selected_text": "bad",
+          "replacement": "  ",
+          "occurrence_index": 0,
+          "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+         },
+         "evidence": [
+          "sg_1"
+         ]
+        },
+        {
+         "id": "it_gone_0",
+         "card": "user_notes",
+         "status": "removed",
+         "author_type": "user",
+         "text": "fix",
+         "data": {
+          "kind": "occurrence_correction",
+          "selected_text": "gone",
+          "replacement": "x",
+          "occurrence_index": 0,
+          "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+         },
+         "evidence": [
+          "sg_1"
+         ]
+        },
+        {
+         "id": "it_agent_0",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "agent",
+         "text": "fix",
+         "data": {
+          "kind": "occurrence_correction",
+          "selected_text": "agent",
+          "replacement": "x",
+          "occurrence_index": 0,
+          "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+         },
+         "evidence": [
+          "sg_1"
+         ]
+        },
+        {
+         "id": "it_two_0",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "fix",
+         "data": {
+          "kind": "occurrence_correction",
+          "selected_text": "two",
+          "replacement": "x",
+          "occurrence_index": 0,
+          "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+         },
+         "evidence": [
+          "sg_1",
+          "sg_2"
+         ]
+        },
+        {
+         "id": "it_num_0",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "fix",
+         "data": {
+          "kind": "occurrence_correction",
+          "selected_text": "num",
+          "replacement": "x",
+          "occurrence_index": 0,
+          "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+         },
+         "evidence": [
+          5
+         ]
+        },
+        {
+         "id": "it_none_0",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "fix",
+         "data": {
+          "kind": "occurrence_correction",
+          "selected_text": "none",
+          "replacement": "x",
+          "occurrence_index": 0,
+          "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+         },
+         "evidence": null
+        },
+        {
+         "id": "it_ spaced _3",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "fix",
+         "data": {
+          "kind": "occurrence_correction",
+          "selected_text": " spaced ",
+          "replacement": " out ",
+          "occurrence_index": 3,
+          "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+         },
+         "evidence": [
+          "sg_1"
+         ]
+        },
+        {
+         "id": "it_Entropic",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "Correction: Entropic -> Anthropic",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": "Entropic",
+          "replacement": "Anthropic"
+         }
+        }
+       ]
+      }
+     }
+    ],
+    "result": {
+     "sg_1": [
+      {
+       "selected_text": "Entropic",
+       "replacement": "Anthropic",
+       "occurrence_index": 1,
+       "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+      },
+      {
+       "selected_text": "Entropic",
+       "replacement": "Acme",
+       "occurrence_index": 0,
+       "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+      },
+      {
+       "selected_text": "spaced",
+       "replacement": "out",
+       "occurrence_index": 3,
+       "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+      }
+     ],
+     "sg_2": [
+      {
+       "selected_text": "today",
+       "replacement": "now",
+       "occurrence_index": 0,
+       "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     {}
+    ],
+    "result": {}
+   }
+  ],
+  "correct_text": [
+   {
+    "args": [
+     "Entropic and ENTROPIC, entropic.",
+     [
+      [
+       "entropic",
+       "Anthropic"
+      ]
+     ]
+    ],
+    "result": "Anthropic and Anthropic, Anthropic."
+   },
+   {
+    "args": [
+     "entropically unentropic",
+     [
+      [
+       "entropic",
+       "Anthropic"
+      ]
+     ]
+    ],
+    "result": "entropically unentropic"
+   },
+   {
+    "args": [
+     "a b",
+     [
+      [
+       "a",
+       "b"
+      ],
+      [
+       "b",
+       "c"
+      ]
+     ]
+    ],
+    "result": "b c"
+   },
+   {
+    "args": [
+     "open whisper uses whisper",
+     [
+      [
+       "a",
+       "b"
+      ],
+      [
+       "b",
+       "c"
+      ],
+      [
+       "open whisper",
+       "OpenWhisper"
+      ],
+      [
+       "whisper",
+       "Whisper"
+      ]
+     ]
+    ],
+    "result": "OpenWhisper uses Whisper"
+   },
+   {
+    "args": [
+     "we use c++ (fast)",
+     [
+      [
+       "c++",
+       "C++"
+      ],
+      [
+       "(fast)",
+       "quick"
+      ]
+     ]
+    ],
+    "result": "we use C++ quick"
+   },
+   {
+    "args": [
+     "Entropic",
+     []
+    ],
+    "result": "Entropic"
+   },
+   {
+    "args": [
+     "",
+     [
+      [
+       "entropic",
+       "Anthropic"
+      ]
+     ]
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "École et ÉCOLE",
+     [
+      [
+       "école",
+       "École"
+      ]
+     ]
+    ],
+    "result": "École et École"
+   },
+   {
+    "args": [
+     "Straße and STRASSE",
+     [
+      [
+       "strasse",
+       "Street"
+      ]
+     ]
+    ],
+    "result": "Street and Street"
+   }
+  ],
+  "correct_segment_text": [
+   {
+    "args": [
+     "Entropic ships Entropic today, entropic!",
+     "sg_1",
+     [],
+     {
+      "sg_1": [
+       {
+        "selected_text": "Entropic",
+        "replacement": "Acme",
+        "occurrence_index": 1,
+        "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+       }
+      ]
+     }
+    ],
+    "result": "Entropic ships Acme today, entropic!"
+   },
+   {
+    "args": [
+     "Entropic ships Entropic today, entropic!",
+     "sg_2",
+     [],
+     {
+      "sg_1": [
+       {
+        "selected_text": "Entropic",
+        "replacement": "Acme",
+        "occurrence_index": 1,
+        "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+       }
+      ]
+     }
+    ],
+    "result": "Entropic ships Entropic today, entropic!"
+   },
+   {
+    "args": [
+     "Entropic ships Entropic today, entropic!",
+     "sg_1",
+     [
+      [
+       "entropic",
+       "Anthropic"
+      ]
+     ],
+     {
+      "sg_1": [
+       {
+        "selected_text": "Anthropic",
+        "replacement": "Acme",
+        "occurrence_index": 2,
+        "base_fingerprint": "fnv1a64:11202b8d61ddf312"
+       }
+      ]
+     }
+    ],
+    "result": "Anthropic ships Anthropic today, Acme!"
+   },
+   {
+    "args": [
+     "Entropic ships Entropic today, entropic!",
+     "sg_1",
+     [
+      [
+       "entropic",
+       "Anthropic"
+      ]
+     ],
+     {
+      "sg_1": [
+       {
+        "selected_text": "Entropic",
+        "replacement": "Acme",
+        "occurrence_index": 0,
+        "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+       }
+      ]
+     }
+    ],
+    "result": "Anthropic ships Anthropic today, Anthropic!"
+   },
+   {
+    "args": [
+     "Entropic ships Entropic today, entropic!",
+     "sg_1",
+     [],
+     {
+      "sg_1": [
+       {
+        "selected_text": "Entropic ships",
+        "replacement": "X",
+        "occurrence_index": 0,
+        "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+       },
+       {
+        "selected_text": "ships",
+        "replacement": "Y",
+        "occurrence_index": 0,
+        "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+       },
+       {
+        "selected_text": "entropic",
+        "replacement": "Z",
+        "occurrence_index": 2,
+        "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+       },
+       {
+        "selected_text": "today",
+        "replacement": "now",
+        "occurrence_index": 5,
+        "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+       }
+      ]
+     }
+    ],
+    "result": "X Entropic today, Z!"
+   },
+   {
+    "args": [
+     "Entropic ships Entropic today, entropic!",
+     "sg_1",
+     [],
+     {
+      "sg_1": [
+       {
+        "selected_text": "entropic",
+        "replacement": "First",
+        "occurrence_index": 0,
+        "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+       },
+       {
+        "selected_text": "Entropic",
+        "replacement": "Second",
+        "occurrence_index": 0,
+        "base_fingerprint": "fnv1a64:98e10f06aeb96c14"
+       }
+      ]
+     }
+    ],
+    "result": "Second ships Entropic today, entropic!"
+   },
+   {
+    "args": [
+     "café au lait, CAFÉ",
+     "sg_1",
+     [],
+     {
+      "sg_1": [
+       {
+        "selected_text": "café",
+        "replacement": "coffee",
+        "occurrence_index": 1,
+        "base_fingerprint": "fnv1a64:c645e885eec972b1"
+       }
+      ]
+     }
+    ],
+    "result": "café au lait, coffee"
+   },
+   {
+    "args": [
+     "un_entropic entropic",
+     "sg_1",
+     [],
+     {
+      "sg_1": [
+       {
+        "selected_text": "entropic",
+        "replacement": "X",
+        "occurrence_index": 0,
+        "base_fingerprint": "fnv1a64:6b7c06af2a2e4755"
+       }
+      ]
+     }
+    ],
+    "result": "un_entropic X"
+   },
+   {
+    "args": [
+     "c++ and c++",
+     "sg_1",
+     [],
+     {
+      "sg_1": [
+       {
+        "selected_text": "c++",
+        "replacement": "C plus plus",
+        "occurrence_index": 1,
+        "base_fingerprint": "fnv1a64:aecd70d1a73b4d46"
+       }
+      ]
+     }
+    ],
+    "result": "c++ and C plus plus"
+   },
+   {
+    "args": [
+     "",
+     "sg_1",
+     [],
+     {
+      "sg_1": []
+     }
+    ],
+    "result": ""
+   }
+  ],
+  "vocabulary_terms": [
+   {
+    "args": [
+     [
+      [
+       "entropic",
+       "Anthropic"
+      ],
+      [
+       "antropic",
+       "anthropic"
+      ],
+      [
+       "cloud",
+       "Claude"
+      ]
+     ],
+     12,
+     160
+    ],
+    "result": [
+     "Anthropic",
+     "Claude"
+    ]
+   },
+   {
+    "args": [
+     [
+      [
+       "0",
+       "Term0"
+      ],
+      [
+       "1",
+       "Term1"
+      ],
+      [
+       "2",
+       "Term2"
+      ],
+      [
+       "3",
+       "Term3"
+      ],
+      [
+       "4",
+       "Term4"
+      ],
+      [
+       "5",
+       "Term5"
+      ],
+      [
+       "6",
+       "Term6"
+      ],
+      [
+       "7",
+       "Term7"
+      ],
+      [
+       "8",
+       "Term8"
+      ],
+      [
+       "9",
+       "Term9"
+      ],
+      [
+       "10",
+       "Term10"
+      ],
+      [
+       "11",
+       "Term11"
+      ],
+      [
+       "12",
+       "Term12"
+      ],
+      [
+       "13",
+       "Term13"
+      ],
+      [
+       "14",
+       "Term14"
+      ],
+      [
+       "15",
+       "Term15"
+      ],
+      [
+       "16",
+       "Term16"
+      ],
+      [
+       "17",
+       "Term17"
+      ],
+      [
+       "18",
+       "Term18"
+      ],
+      [
+       "19",
+       "Term19"
+      ],
+      [
+       "20",
+       "Term20"
+      ],
+      [
+       "21",
+       "Term21"
+      ],
+      [
+       "22",
+       "Term22"
+      ],
+      [
+       "23",
+       "Term23"
+      ],
+      [
+       "24",
+       "Term24"
+      ],
+      [
+       "25",
+       "Term25"
+      ],
+      [
+       "26",
+       "Term26"
+      ],
+      [
+       "27",
+       "Term27"
+      ],
+      [
+       "28",
+       "Term28"
+      ],
+      [
+       "29",
+       "Term29"
+      ],
+      [
+       "30",
+       "Term30"
+      ],
+      [
+       "31",
+       "Term31"
+      ],
+      [
+       "32",
+       "Term32"
+      ],
+      [
+       "33",
+       "Term33"
+      ],
+      [
+       "34",
+       "Term34"
+      ],
+      [
+       "35",
+       "Term35"
+      ],
+      [
+       "36",
+       "Term36"
+      ],
+      [
+       "37",
+       "Term37"
+      ],
+      [
+       "38",
+       "Term38"
+      ],
+      [
+       "39",
+       "Term39"
+      ]
+     ],
+     12,
+     160
+    ],
+    "result": [
+     "Term0",
+     "Term1",
+     "Term2",
+     "Term3",
+     "Term4",
+     "Term5",
+     "Term6",
+     "Term7",
+     "Term8",
+     "Term9",
+     "Term10",
+     "Term11"
+    ]
+   },
+   {
+    "args": [
+     [
+      [
+       "a",
+       "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      ],
+      [
+       "b",
+       "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+      ]
+     ],
+     12,
+     160
+    ],
+    "result": [
+     "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    ]
+   },
+   {
+    "args": [
+     [
+      [
+       "a",
+       "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      ],
+      [
+       "b",
+       "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+      ],
+      [
+       "c",
+       "z"
+      ]
+     ],
+     12,
+     160
+    ],
+    "result": [
+     "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+     "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+    ]
+   },
+   {
+    "args": [
+     [
+      [
+       "a",
+       "éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"
+      ],
+      [
+       "b",
+       "c"
+      ]
+     ],
+     12,
+     160
+    ],
+    "result": [
+     "éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"
+    ]
+   },
+   {
+    "args": [
+     [
+      [
+       "a",
+       "One"
+      ],
+      [
+       "b",
+       "Two"
+      ],
+      [
+       "c",
+       "Three"
+      ]
+     ],
+     2,
+     160
+    ],
+    "result": [
+     "One",
+     "Two"
+    ]
+   },
+   {
+    "args": [
+     [],
+     12,
+     160
+    ],
+    "result": []
+   }
+  ],
+  "vocabulary_hint": [
+   {
+    "args": [
+     [
+      [
+       "entropic",
+       "Anthropic"
+      ],
+      [
+       "antropic",
+       "anthropic"
+      ],
+      [
+       "cloud",
+       "Claude"
+      ]
+     ]
+    ],
+    "result": "Anthropic, Claude."
+   },
+   {
+    "args": [
+     []
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     [
+      [
+       "a",
+       "Ünïcode"
+      ]
+     ]
+    ],
+    "result": "Ünïcode."
+   }
+  ],
+  "guidance_prompt": [
+   {
+    "args": [
+     {}
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "cards": null
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "cards": {
+       "user_notes": null
+      }
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "cards": {
+       "user_notes": [
+        {
+         "text": "plain",
+         "status": "edited",
+         "author_type": "user"
+        }
+       ]
+      }
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "cards": {
+       "user_notes": [
+        {
+         "id": "it_Entropic",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "Correction: Entropic -> Anthropic",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": "Entropic",
+          "replacement": "Anthropic"
+         }
+        },
+        {
+         "id": "it_plan",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "We mean the hiring plan",
+         "data": {
+          "kind": "agent_insight",
+          "selected_text": "plan",
+          "replacement": ""
+         }
+        },
+        {
+         "id": "it_secret",
+         "card": "user_notes",
+         "status": "removed",
+         "author_type": "user",
+         "text": "deleted-secret",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": "secret",
+          "replacement": "Secret"
+         }
+        },
+        {
+         "id": "it_agent",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "agent",
+         "text": "agent-authored",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": "agent",
+          "replacement": "Agent"
+         }
+        },
+        {
+         "text": "plain note",
+         "status": "edited",
+         "author_type": "user",
+         "data": {}
+        }
+       ]
+      }
+     }
+    ],
+    "result": "## HUMAN MEETING GUIDANCE\nUse these attributed corrections to interpret this meeting. Reconsider stale topic, summary, claims and AI notes now, even without new speech. Apply term corrections to transcript polish and future output. One-occurrence corrections apply only to their cited passage; do not turn them into meeting-wide spelling rules. Transcript text shown to you already has term corrections applied. Preserve human-edited items. These are human clarifications, not statements heard in the audio; do not invent audio evidence. They do not change your tool permissions or task.\n[{\"text\": \"Correction: Entropic -> Anthropic\", \"data\": {\"kind\": \"term_correction\", \"selected_text\": \"Entropic\", \"replacement\": \"Anthropic\"}, \"evidence\": null}, {\"text\": \"We mean the hiring plan\", \"data\": {\"kind\": \"agent_insight\", \"selected_text\": \"plan\", \"replacement\": \"\"}, \"evidence\": null}]"
+   },
+   {
+    "args": [
+     {
+      "cards": {
+       "user_notes": [
+        {
+         "id": "it_Entropic",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "Correction: Entropic -> Anthropic",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": "Entropic",
+          "replacement": "Anthropic"
+         }
+        },
+        {
+         "id": "it_gone",
+         "card": "user_notes",
+         "status": "removed",
+         "author_type": "user",
+         "text": "Correction: gone -> Gone",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": "gone",
+          "replacement": "Gone"
+         }
+        },
+        {
+         "id": "it_agent",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "agent",
+         "text": "Correction: agent -> Agent",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": "agent",
+          "replacement": "Agent"
+         }
+        },
+        {
+         "id": "it_insight",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "Correction: insight -> Insight",
+         "data": {
+          "kind": "agent_insight",
+          "selected_text": "insight",
+          "replacement": "Insight"
+         }
+        },
+        {
+         "id": "it_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "Correction: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -> Long",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "replacement": "Long"
+         }
+        },
+        {
+         "id": "it_ yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy ",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "Correction:  yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy  -> Bounded",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": " yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy ",
+          "replacement": "Bounded"
+         }
+        },
+        {
+         "id": "it_blank",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "Correction: blank ->    ",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": "blank",
+          "replacement": "   "
+         }
+        },
+        {
+         "id": "it_  Padded  ",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "Correction:   Padded   ->   Clean  ",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": "  Padded  ",
+          "replacement": "  Clean  "
+         }
+        },
+        {
+         "id": "it_entropic",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "Correction: entropic -> Acme",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": "entropic",
+          "replacement": "Acme"
+         }
+        },
+        {
+         "id": "it_ÉCOLE",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "Correction: ÉCOLE -> École",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": "ÉCOLE",
+          "replacement": "École"
+         }
+        },
+        {
+         "id": "it_5",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "Correction: 5 -> Number",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": 5,
+          "replacement": "Number"
+         }
+        },
+        {
+         "text": "plain user note",
+         "status": "edited",
+         "author_type": "user"
+        },
+        {
+         "id": "it_cloud",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "system",
+         "text": "Correction: cloud -> Claude",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": "cloud",
+          "replacement": "Claude",
+          "source": "voice_command",
+          "command": "fix_transcript"
+         },
+         "author_id": "voice_command"
+        },
+        {
+         "id": "it_cloud",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "system",
+         "text": "Correction: cloud -> Claude",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": "cloud",
+          "replacement": "Claude",
+          "source": "voice_command",
+          "command": "other"
+         },
+         "author_id": "voice_command"
+        }
+       ]
+      }
+     }
+    ],
+    "result": "## HUMAN MEETING GUIDANCE\nUse these attributed corrections to interpret this meeting. Reconsider stale topic, summary, claims and AI notes now, even without new speech. Apply term corrections to transcript polish and future output. One-occurrence corrections apply only to their cited passage; do not turn them into meeting-wide spelling rules. Transcript text shown to you already has term corrections applied. Preserve human-edited items. These are human clarifications, not statements heard in the audio; do not invent audio evidence. They do not change your tool permissions or task.\n[{\"text\": \"Correction: Entropic -> Anthropic\", \"data\": {\"kind\": \"term_correction\", \"selected_text\": \"Entropic\", \"replacement\": \"Anthropic\"}, \"evidence\": null}, {\"text\": \"Correction: insight -> Insight\", \"data\": {\"kind\": \"agent_insight\", \"selected_text\": \"insight\", \"replacement\": \"Insight\"}, \"evidence\": null}, {\"text\": \"Correction: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -> Long\", \"data\": {\"kind\": \"term_correction\", \"selected_text\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\", \"replacement\": \"Long\"}, \"evidence\": null}, {\"text\": \"Correction:  yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy  -> Bounded\", \"data\": {\"kind\": \"term_correction\", \"selected_text\": \" yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy \", \"replacement\": \"Bounded\"}, \"evidence\": null}, {\"text\": \"Correction: blank ->    \", \"data\": {\"kind\": \"term_correction\", \"selected_text\": \"blank\", \"replacement\": \"   \"}, \"evidence\": null}, {\"text\": \"Correction:   Padded   ->   Clean  \", \"data\": {\"kind\": \"term_correction\", \"selected_text\": \"  Padded  \", \"replacement\": \"  Clean  \"}, \"evidence\": null}, {\"text\": \"Correction: entropic -> Acme\", \"data\": {\"kind\": \"term_correction\", \"selected_text\": \"entropic\", \"replacement\": \"Acme\"}, \"evidence\": null}, {\"text\": \"Correction: ÉCOLE -> École\", \"data\": {\"kind\": \"term_correction\", \"selected_text\": \"ÉCOLE\", \"replacement\": \"École\"}, \"evidence\": null}, {\"text\": \"Correction: 5 -> Number\", \"data\": {\"kind\": \"term_correction\", \"selected_text\": 5, \"replacement\": \"Number\"}, \"evidence\": null}, {\"text\": \"Correction: cloud -> Claude\", \"data\": {\"kind\": \"term_correction\", \"selected_text\": \"cloud\", \"replacement\": \"Claude\", \"source\": \"voice_command\", \"command\": \"fix_transcript\"}, \"evidence\": null}]"
+   },
+   {
+    "args": [
+     {
+      "cards": {
+       "user_notes": [
+        {
+         "id": "it_cloud",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "system",
+         "text": "Correction: cloud -> Claude",
+         "data": {
+          "kind": "term_correction",
+          "selected_text": "cloud",
+          "replacement": "Claude",
+          "source": "voice_command",
+          "command": "fix_transcript"
+         },
+         "author_id": "voice_command"
+        },
+        {
+         "author_type": "user",
+         "data": null,
+         "text": "no data"
+        },
+        {
+         "author_type": "user",
+         "data": {
+          "kind": "agent_insight"
+         },
+         "text": "Ünïcode ✓",
+         "evidence": [
+          "sg_1"
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "result": "## HUMAN MEETING GUIDANCE\nUse these attributed corrections to interpret this meeting. Reconsider stale topic, summary, claims and AI notes now, even without new speech. Apply term corrections to transcript polish and future output. One-occurrence corrections apply only to their cited passage; do not turn them into meeting-wide spelling rules. Transcript text shown to you already has term corrections applied. Preserve human-edited items. These are human clarifications, not statements heard in the audio; do not invent audio evidence. They do not change your tool permissions or task.\n[{\"text\": \"Correction: cloud -> Claude\", \"data\": {\"kind\": \"term_correction\", \"selected_text\": \"cloud\", \"replacement\": \"Claude\", \"source\": \"voice_command\", \"command\": \"fix_transcript\"}, \"evidence\": null}, {\"text\": \"Ünïcode ✓\", \"data\": {\"kind\": \"agent_insight\"}, \"evidence\": [\"sg_1\"]}]"
+   },
+   {
+    "args": [
+     {
+      "cards": {
+       "user_notes": [
+        {
+         "id": "it_word_2",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "fix",
+         "data": {
+          "kind": "occurrence_correction",
+          "selected_text": "word",
+          "replacement": "third",
+          "occurrence_index": 2,
+          "base_fingerprint": "fnv1a64:0cd0971b7b209e91"
+         },
+         "evidence": [
+          "sg_one"
+         ]
+        },
+        {
+         "id": "it_word_0",
+         "card": "user_notes",
+         "status": "edited",
+         "author_type": "user",
+         "text": "fix",
+         "data": {
+          "kind": "occurrence_correction",
+          "selected_text": "word",
+          "replacement": "first",
+          "occurrence_index": 0,
+          "base_fingerprint": "fnv1a64:0cd0971b7b209e91"
+         },
+         "evidence": [
+          "sg_one"
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "result": "## HUMAN MEETING GUIDANCE\nUse these attributed corrections to interpret this meeting. Reconsider stale topic, summary, claims and AI notes now, even without new speech. Apply term corrections to transcript polish and future output. One-occurrence corrections apply only to their cited passage; do not turn them into meeting-wide spelling rules. Transcript text shown to you already has term corrections applied. Preserve human-edited items. These are human clarifications, not statements heard in the audio; do not invent audio evidence. They do not change your tool permissions or task.\n[{\"text\": \"fix\", \"data\": {\"kind\": \"occurrence_correction\", \"selected_text\": \"word\", \"replacement\": \"third\", \"occurrence_index\": 2, \"base_fingerprint\": \"fnv1a64:0cd0971b7b209e91\"}, \"evidence\": [\"sg_one\"]}, {\"text\": \"fix\", \"data\": {\"kind\": \"occurrence_correction\", \"selected_text\": \"word\", \"replacement\": \"first\", \"occurrence_index\": 0, \"base_fingerprint\": \"fnv1a64:0cd0971b7b209e91\"}, \"evidence\": [\"sg_one\"]}]"
+   },
+   {
+    "args": [
+     {
+      "cards": {
+       "user_notes": [
+        {
+         "author_type": "user",
+         "data": "junk"
+        }
+       ]
+      }
+     }
+    ],
+    "raises": "AttributeError"
+   },
+   {
+    "args": [
+     {
+      "cards": {
+       "user_notes": [
+        {
+         "author_type": "user",
+         "data": [
+          "kind"
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "raises": "AttributeError"
+   },
+   {
+    "args": [
+     {
+      "cards": {
+       "user_notes": [
+        null,
+        "junk",
+        5
+       ]
+      }
+     }
+    ],
+    "result": ""
+   }
+  ]
+ }
+}

@@ -1,0 +1,968 @@
+{
+ "area": "a12-text-ai-personalize-services",
+ "package": "M10 sweep (AU5)",
+ "features": {
+  "A12-01": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/profiles.cpp",
+    "src/llm/profiles.h"
+   ],
+   "tests": [
+    "tests/llm/test_profiles.cpp",
+    "tests/golden/services.text_llm.json"
+   ],
+   "note": "builtin_profiles, get_profile and list_profiles golden vectors pin the ten built-ins, their order, URLs and key variables."
+  },
+  "A12-02": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/profiles.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_profiles.cpp",
+    "tests/golden/services.text_llm.json"
+   ],
+   "note": "normalize_local_server_url, save_local_server and get_profile vectors pin the /v1 suffix, the credentials/query refusal text and the silent fallback for a bad saved URL."
+  },
+  "A12-03": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/profiles.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_profiles.cpp",
+    "tests/golden/services.text_llm.json"
+   ],
+   "note": "Every error text is in the validate_*/upsert/remove vectors; 'upserting the 51st endpoint is refused' and 'new custom ids are custom_ and eight hex digits' pin the cap and id shape."
+  },
+  "A12-04": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/credentials.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_credentials.cpp",
+    "tests/golden/services.text_llm.json"
+   ],
+   "note": "credential_label and credential_status vectors (16 and 64 cases)."
+  },
+  "A12-05": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/catalog_client.cpp",
+    "src/llm/catalog_client.h"
+   ],
+   "tests": [
+    "tests/llm/test_catalog_client.cpp",
+    "tests/llm/test_credentials.cpp",
+    "tests/golden/services.text_llm.json"
+   ],
+   "note": "verify_api_key vectors (33) give each message; a loopback-server test checks that only the status class is reported, never the body. The speech-endpoint half is speech/endpoint_key_check.cpp (M2.4)."
+  },
+  "A12-06": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/catalog_client.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_catalog_client.cpp",
+    "tests/golden/services.text_llm.json"
+   ],
+   "note": "filter_openai_chat_models and list_chat_models vectors; 'list chat models propagates catalog failure' pins the raised failure."
+  },
+  "A12-07": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/catalog_client.cpp",
+    "src/llm/cleanup_settings.cpp",
+    "src/settings/keys.inc"
+   ],
+   "tests": [
+    "tests/llm/test_catalog_client.cpp",
+    "tests/llm/test_cleanup_settings.cpp",
+    "tests/settings/test_typed.cpp"
+   ],
+   "note": "The nine values are the keys.inc enum (setting_types vectors replayed by tests/settings/test_typed.cpp); OpenRouter alone gets ?sort= and alphabetical keeps the A-Z sort."
+  },
+  "A12-08": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/local_servers.cpp",
+    "src/llm/model_catalog.cpp",
+    "src/llm/transcript_cleanup.cpp",
+    "src/llm/text_judge.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_local_servers.cpp",
+    "tests/llm/test_generation.cpp",
+    "tests/llm/test_text_judge.cpp",
+    "tests/golden/services.local_text_servers.json"
+   ],
+   "note": "discover_chat_models, _spec and _by_name vectors; the cleanup and the judge call learn_server_models with a 3 s budget ('first cleanup learns the server before its request', 'first judgment learns the server once')."
+  },
+  "A12-09": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/local_servers.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_local_servers.cpp",
+    "tests/golden/services.local_text_servers.json"
+   ],
+   "note": "identify_server vectors; probes use 600 ms; 'detection probes only this computer' and 'nothing listening is not running'."
+  },
+  "A12-10": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/model_catalog.cpp",
+    "src/llm/data/text_model_catalog.json"
+   ],
+   "tests": [
+    "tests/llm/test_model_catalog.cpp",
+    "tests/golden/services.text_model_catalog.json"
+   ],
+   "note": "model_spec vectors (1220 cases) and spec_from_mapping (45); route/capability tables are the generated JSON resource."
+  },
+  "A12-11": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/generation.cpp",
+    "src/llm/detail/sdk_request.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_generation.cpp",
+    "tests/llm/test_stream_errors.cpp",
+    "tests/golden/services.text_generation.json"
+   ],
+   "note": "generate vectors (85) build every protocol's request against a fake client and carry each error text."
+  },
+  "A12-12": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/credentials.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_credentials.cpp",
+    "tests/golden/services.text_llm.json"
+   ],
+   "note": "OpenRouter X-Title and OpenCode User-Agent carry identity().product (ARCHITECTURE 'Provider attribution (M4)'); the provider_headers vectors are compared after golden::rebrand."
+  },
+  "A12-13": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/profiles.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_profiles.cpp",
+    "tests/golden/services.text_llm.json"
+   ],
+   "note": "consent_destination and destination_is_remote vectors."
+  },
+  "A12-14": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/profiles.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_profiles.cpp",
+    "tests/golden/services.text_llm.json"
+   ],
+   "note": "snapshot_from_mapping, snapshot_from_meeting and profile_from_agent_config vectors; 'deleted endpoint uses the chosen meeting endpoint not a cloud'. Writing the snapshot on meeting rows is a28/a24's (M7.17, M7.7, M8.10)."
+  },
+  "A12-15": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/transcript_cleanup.cpp",
+    "src/llm/transcript_cleanup.h"
+   ],
+   "tests": [
+    "tests/llm/test_transcript_cleanup.cpp",
+    "tests/llm/test_cleanup_deadline.cpp",
+    "tests/golden/services.transcript_cleanup.json"
+   ],
+   "note": "cleanup vectors (16) and the last_error tests; an empty system prompt sends the legacy default."
+  },
+  "A12-16": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/transcript_cleanup.cpp",
+    "src/llm/transcript_cleanup.h",
+    "src/llm/cleanup_settings.h"
+   ],
+   "tests": [
+    "tests/llm/test_cleanup_deadline.cpp",
+    "tests/llm/test_transcript_cleanup.cpp",
+    "tests/golden/services.transcript_cleanup.json"
+   ],
+   "note": "8 s x 2 + 1 = 17 s ('a hosted cleanup whose server never answers gives up at seventeen seconds'), 120 s self-hosted, 60 s agent, 2 retries for batch, 50 ms cancel poll; _attempt_budget vectors. The reply is abandoned, not left on a daemon thread."
+  },
+  "A12-17": {
+   "status": "fixed",
+   "cpp": [
+    "src/agents/agent_actions.h",
+    "src/agents/agent_actions.cpp",
+    "src/agents/detail/opencode_cleanup.cpp",
+    "src/llm/transcript_cleanup.cpp"
+   ],
+   "tests": [
+    "tests/agents/test_cleanup_closing.cpp",
+    "tests/llm/test_transcript_cleanup.cpp"
+   ],
+   "note": "agents::kCleanupClosing (used by ask_for_cleanup and the OpenCode cleanup) is Python's closing again, 'Return only the finished text requested by the instructions, without commentary.', followed by ' No tools are available.' as FioriVoce's addition (its cleanup path sends no tool contract). Pinned by tests/agents/test_cleanup_closing.cpp 'agent cleanup closes its instructions with OpenWhisper's sentence'. The runner, the 60 s budget and stopping the CLI stay pinned by test_transcript_cleanup.cpp; what the CLI receives is difference a04-agent-cleanup-scope."
+  },
+  "A12-18": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/credentials.cpp",
+    "src/llm/generation.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_transcript_cleanup.cpp",
+    "tests/llm/test_generation.cpp",
+    "tests/golden/services.text_llm.json",
+    "tests/golden/services.text_generation.json"
+   ],
+   "note": "chat_request_options vectors (20) and generate vectors; 'reasoning off sends temperature zero', 'reasoning openrouter uses extra body'."
+  },
+  "A12-19": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/thinking_levels.cpp",
+    "src/llm/thinking_levels.h"
+   ],
+   "tests": [
+    "tests/llm/test_thinking_levels.cpp",
+    "tests/golden/services.thinking_levels.json"
+   ],
+   "note": "levels_for, nearest and effective_level vectors; labels test; Codex per-model efforts come through set_codex_efforts (personalize_wiring.cpp)."
+  },
+  "A12-20": {
+   "status": "verified",
+   "cpp": [
+    "src/text/cleanup_prompts.cpp",
+    "src/text/cleanup_levels.cpp",
+    "src/text/data/cleanup_prompts.json"
+   ],
+   "tests": [
+    "tests/text/test_cleanup_prompts.cpp",
+    "tests/golden/services.cleanup_prompts.json"
+   ],
+   "note": "resolve_level, preset, base_prompt, is_built_in, level_label vectors."
+  },
+  "A12-21": {
+   "status": "verified",
+   "cpp": [
+    "src/text/cleanup_prompts.cpp"
+   ],
+   "tests": [
+    "tests/text/test_cleanup_prompts.cpp",
+    "tests/golden/services.cleanup_prompts.json"
+   ],
+   "note": "inline_lists_block vectors (49)."
+  },
+  "A12-22": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/transcript_cleanup.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_transcript_cleanup.cpp",
+    "tests/golden/services.cleanup_prompts.json"
+   ],
+   "note": "polish_cleanup_rule tests (empty instruction, unavailable/API error -> stripped instruction, polish prompt sent); TRANSCRIPT_CLEANUP_RULE_POLISH_PROMPT is in the config vectors."
+  },
+  "A12-23": {
+   "status": "verified",
+   "cpp": [
+    "src/text/cleanup_profiles.cpp",
+    "src/text/cleanup_profiles.h"
+   ],
+   "tests": [
+    "tests/text/test_cleanup_profiles.cpp",
+    "tests/golden/services.cleanup_profiles.json"
+   ],
+   "note": "STARTER_PROFILES, load, validate_profile (38), save (76), delete (42, incl. the Quick Record profile), normalize_hotkey and profile_hotkey_conflict vectors."
+  },
+  "A12-24": {
+   "status": "verified",
+   "cpp": [
+    "src/text/cleanup_profiles.cpp"
+   ],
+   "tests": [
+    "tests/text/test_cleanup_profiles.cpp",
+    "tests/golden/services.cleanup_profiles.json"
+   ],
+   "note": "compose_profile_prompt vectors."
+  },
+  "A12-25": {
+   "status": "verified",
+   "cpp": [
+    "src/text/cleanup_profiles.cpp"
+   ],
+   "tests": [
+    "tests/text/test_cleanup_profiles.cpp",
+    "tests/golden/services.cleanup_profiles.json"
+   ],
+   "note": "cleanup_may_run vectors (18)."
+  },
+  "A12-26": {
+   "status": "verified",
+   "cpp": [
+    "src/text/transforms.cpp",
+    "src/text/transforms.h"
+   ],
+   "tests": [
+    "tests/text/test_transforms.cpp",
+    "tests/golden/services.text_transforms.json"
+   ],
+   "note": "STARTER_TRANSFORMS, load, validate (57), save (95), delete and conflict vectors."
+  },
+  "A12-27": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/rewrite.cpp",
+    "src/llm/rewrite.h"
+   ],
+   "tests": [
+    "tests/llm/test_rewrite.cpp",
+    "tests/golden/services.text_rewrite.json"
+   ],
+   "note": "compose_rewrite_prompt, _describe_error and rewrite_with vectors pin prompts, budgets and every message."
+  },
+  "A12-28": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/rewrite.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_rewrite.cpp"
+   ],
+   "note": "'provider ready needs a model and its key'. A saved installed-agent provider reads as not ready for rewrites, so provider_readiness never waits on an agent lookup: that is difference a04-agent-cleanup-scope (a04-agent-cleanup-consent.json), Command Mode and transforms use the text-model endpoint."
+  },
+  "A12-29": {
+   "status": "verified",
+   "cpp": [
+    "src/text/dictionary.cpp",
+    "src/text/dictionary.h"
+   ],
+   "tests": [
+    "tests/text/test_dictionary.cpp",
+    "tests/golden/services.dictionary.json"
+   ],
+   "note": "_parse (19) and load_dictionary vectors: caps, order, casefold dedupe and t+sha1 ids."
+  },
+  "A12-30": {
+   "status": "verified",
+   "cpp": [
+    "src/text/dictionary.cpp"
+   ],
+   "tests": [
+    "tests/text/test_dictionary.cpp",
+    "tests/golden/services.dictionary.json"
+   ],
+   "note": "TestMutators cases assert each error text; add_term/update_term/... and summary vectors."
+  },
+  "A12-31": {
+   "status": "verified",
+   "cpp": [
+    "src/text/dictionary.cpp",
+    "src/text/vocabulary.cpp"
+   ],
+   "tests": [
+    "tests/text/test_dictionary.cpp",
+    "tests/text/test_vocabulary.cpp",
+    "tests/golden/services.dictionary.json",
+    "tests/golden/services.vocabulary.json"
+   ],
+   "note": "apply_replacements, replace_terms (239) and _fold_with_origin (60) vectors, incl. İ and ß."
+  },
+  "A12-32": {
+   "status": "verified",
+   "cpp": [
+    "src/text/dictionary.cpp"
+   ],
+   "tests": [
+    "tests/text/test_dictionary.cpp",
+    "tests/text/test_dictionary_learning.cpp",
+    "tests/golden/services.dictionary.json"
+   ],
+   "note": "prompt_block vectors and the protected-words prompt tests."
+  },
+  "A12-33": {
+   "status": "verified",
+   "cpp": [
+    "src/text/dictionary.cpp",
+    "src/dictation/recognition.cpp"
+   ],
+   "tests": [
+    "tests/text/test_dictionary.cpp",
+    "tests/dictation/test_pipeline_text.cpp",
+    "tests/golden/services.dictionary.json"
+   ],
+   "note": "recognition_phrases vectors; empty while dictionary_steer_recognition is off. Parakeet's support is 'after' (ARCHITECTURE 'Dictionary and Parakeet (M4)'), so the phrases drive replacements and the prompt only."
+  },
+  "A12-34": {
+   "status": "verified",
+   "cpp": [
+    "src/text/dictionary.cpp"
+   ],
+   "tests": [
+    "tests/text/test_dictionary.cpp",
+    "tests/golden/services.dictionary.json"
+   ],
+   "note": "spelling_rule (28), spelling_rules and move_spelling_rules vectors."
+  },
+  "A12-35": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/dictionary_learning.cpp",
+    "src/dictation/dictionary_learning.h",
+    "src/text/dictionary_learning.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_dictionary_learning.cpp",
+    "tests/text/test_dictionary_learning.cpp",
+    "tests/golden/services.dictionary.json"
+   ],
+   "note": "LEARN_DELAY 4000 ms; learned_correction/_correction vectors; two sightings, one for a revert (protected), the gate and callback in tests/dictation/test_dictionary_learning.cpp."
+  },
+  "A12-36": {
+   "status": "verified",
+   "cpp": [
+    "src/text/snippets.cpp",
+    "src/text/snippets.h"
+   ],
+   "tests": [
+    "tests/text/test_snippets.cpp",
+    "tests/golden/services.snippets.json"
+   ],
+   "note": "load_snippets and validate_snippet vectors; the 200-cap text names identity().product and is compared rebranded."
+  },
+  "A12-37": {
+   "status": "verified",
+   "cpp": [
+    "src/text/snippets.cpp"
+   ],
+   "tests": [
+    "tests/text/test_snippets.cpp",
+    "tests/golden/services.snippets.json"
+   ],
+   "note": "trigger_note vectors (13)."
+  },
+  "A12-38": {
+   "status": "verified",
+   "cpp": [
+    "src/text/snippets.cpp",
+    "src/dictation/pipeline.cpp",
+    "src/dictation/cleanup_prompt.cpp"
+   ],
+   "tests": [
+    "tests/text/test_snippets.cpp",
+    "tests/dictation/test_pipeline.cpp",
+    "tests/dictation/test_pipeline_text.cpp",
+    "tests/golden/services.snippets.json"
+   ],
+   "note": "plan_expansion (32), prompt_guard and expand vectors; finish_text falls back to the uncleaned expansion when a placeholder is lost."
+  },
+  "A12-39": {
+   "status": "verified",
+   "cpp": [
+    "src/text/snippet_markdown.cpp"
+   ],
+   "tests": [
+    "tests/text/test_snippet_markdown.cpp",
+    "tests/golden/services.snippets.json"
+   ],
+   "note": "markdown_to_html and markdown_to_plain vectors (52 each)."
+  },
+  "A12-40": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/typesafe.cpp",
+    "src/llm/judge.cpp",
+    "src/llm/judge.h"
+   ],
+   "tests": [
+    "tests/llm/test_typesafe.cpp",
+    "tests/golden/services.typesafe.json"
+   ],
+   "note": "Endpoint, model, key variable, 4 s, 24,000 chars, 60 s warning spacing are judge.h constants; validate_answers vectors (57); failures return no judgment. The meeting features that ask the judge are a26/a29's."
+  },
+  "A12-41": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/judge.cpp",
+    "src/llm/judge.h"
+   ],
+   "tests": [
+    "tests/llm/test_typesafe.cpp"
+   ],
+   "note": "'judge posts to openrouter with its key model and header', 'model is openrouters id for the pinned release', 'the default endpoints are the pinned TypeSafe and OpenRouter URLs'."
+  },
+  "A12-42": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/text_judge.cpp",
+    "src/llm/judge.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_text_judge.cpp",
+    "tests/golden/services.text_judge.json"
+   ],
+   "note": "render/parse/confidence/_fit_context vectors; route locality tests."
+  },
+  "A12-43": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/detail/keep_alive.cpp",
+    "src/llm/detail/keep_alive.h"
+   ],
+   "tests": [
+    "tests/llm/test_typesafe.cpp"
+   ],
+   "note": "kPoolMaxIdle 4, kPoolIdleS 115; the [test_network_reuse] cases run here against a loopback server (reuse, half budget >= 1 s, one fresh resend, proxied one-shot)."
+  },
+  "A12-44": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/typesafe.cpp",
+    "src/llm/text_judge.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_typesafe.cpp",
+    "tests/llm/test_text_judge.cpp",
+    "tests/golden/services.typesafe.json",
+    "tests/golden/services.text_judge.json"
+   ],
+   "note": "verify_key (17) and _status_outcome (30) vectors, text-route verify tests."
+  },
+  "A12-45": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/typesafe.cpp",
+    "src/llm/typesafe.h"
+   ],
+   "tests": [
+    "tests/llm/test_typesafe.cpp"
+   ],
+   "note": "'each question goes to the judge provided at that moment'."
+  },
+  "A12-46": {
+   "status": "verified",
+   "cpp": [
+    "src/speech/endpoints.cpp",
+    "src/speech/endpoints.h"
+   ],
+   "tests": [
+    "tests/speech/test_endpoints.cpp",
+    "tests/golden/services.speech_endpoints.json"
+   ],
+   "note": "Ported by M2.4 (the cloud backend was kept); configured_endpoint, destination, audio_destination_sentence and the other vectors replay in test_endpoints.cpp; kSelfHostedTimeoutS 600."
+  },
+  "A12-47": {
+   "status": "verified",
+   "cpp": [
+    "src/text/recognition.cpp",
+    "src/text/recognition.h",
+    "src/dictation/recognition.cpp"
+   ],
+   "tests": [
+    "tests/text/test_recognition.cpp",
+    "tests/dictation/test_recognition_seam.cpp",
+    "tests/golden/services.recognition_context.json"
+   ],
+   "note": "language_code, keywords, vocabulary_prompt and engine_support vectors; context reaches only a backend that takes one. faster-whisper hotwords are dropped (no local Whisper); Parakeet is 'after'."
+  },
+  "A12-48": {
+   "status": "fixed",
+   "cpp": [
+    "src/llm/cleanup_agent_offer.cpp",
+    "src/ui_personalize/cleanup_agent_offer.cpp",
+    "src/ui_controller/personalize_wiring.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_cleanup_agent_offer.cpp",
+    "tests/ui_personalize/test_cleanup_agent_offer.cpp"
+   ],
+   "note": "Ported: llm/cleanup_agent_offer (pending, offerable, accept, decline) and the dialog in ui_personalize/cleanup_agent_offer, connected by PersonalizeWiring to the cleanup toggles. Accepting selects the agent only after the same consent question the AI cleanup settings ask; that consent step is FioriVoce's (difference a04-agent-cleanup-scope), and declining it declines the offer. Pinned by tests/llm/test_cleanup_agent_offer.cpp 'test_pending', 'test_only_signed_in_claude_code_and_codex_are_offered_claude_first', 'accepting the offer with consent authorizes the agent with its remembered model' and tests/ui_personalize/test_cleanup_agent_offer.cpp 'test_yes_switches_and_refreshes', 'declining the consent question declines the offer'."
+  },
+  "A12-49": {
+   "status": "dropped",
+   "reason": "No Python ssl context to build: M1.7's curl client verifies with the OS trust store, set up once per process; no bundled CA (M4.md Scope row A12-49)."
+  },
+  "A12-50": {
+   "status": "dropped",
+   "reason": "Python import cost of the openai SDK; the deferred client that keeps startup off the network is M4.5's (tests/llm/test_transcript_cleanup.cpp 'deferred cleanup builds its client on first configure') (M4.md Scope row A12-50)."
+  },
+  "A12-51": {
+   "status": "fixed",
+   "cpp": [
+    "src/text/data/cleanup_prompts.json",
+    "src/text/cleanup_prompts.cpp",
+    "src/text/cleanup_profiles.cpp",
+    "src/text/transforms.cpp",
+    "src/llm/rewrite.cpp",
+    "src/llm/text_judge.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_text_judge.cpp",
+    "tests/text/test_cleanup_prompts.cpp",
+    "tests/text/test_cleanup_profiles.cpp",
+    "tests/text/test_transforms.cpp",
+    "tests/llm/test_rewrite.cpp",
+    "tests/golden/services.cleanup_prompts.json"
+   ],
+   "note": "The config sentences, polish prompt and level order are in the config/base_prompt vectors; starters, the profile preamble and the rewrite prompts in their vectors. text_judge.SYSTEM_PROMPT was compared only to its own C++ constant (and its length via _fit_context); added 'the judgment system prompt is OpenWhisper's text' to tests/llm/test_text_judge.cpp, which pins the words. The text already matched."
+  },
+  "A12-52": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/profiles.cpp",
+    "src/llm/cleanup_settings.h"
+   ],
+   "tests": [
+    "tests/llm/test_profiles.cpp",
+    "tests/llm/test_cleanup_settings.cpp",
+    "tests/golden/services.text_llm.json"
+   ],
+   "note": "default_model_for_profile vectors; 'default models per provider'."
+  },
+  "A12-53": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/profiles.cpp",
+    "src/llm/transcript_cleanup.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_profiles.cpp",
+    "tests/llm/test_transcript_cleanup.cpp",
+    "tests/golden/services.text_llm.json",
+    "tests/golden/services.transcript_cleanup.json"
+   ],
+   "note": "profile_display_name (20) and provider_env_key (15) vectors."
+  },
+  "A12-54": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/catalog_client.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_catalog_client.cpp",
+    "tests/golden/services.text_llm.json"
+   ],
+   "note": "verify_api_key vectors include the no-base-URL and no-host cases."
+  },
+  "A12-55": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/catalog_client.cpp",
+    "src/llm/local_servers.cpp",
+    "src/llm/openai_client.cpp",
+    "src/llm/profiles.cpp",
+    "src/llm/model_catalog.cpp",
+    "src/llm/transcript_cleanup.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_openai_client.cpp",
+    "tests/llm/test_local_servers.cpp",
+    "tests/llm/test_transcript_cleanup.cpp",
+    "tests/golden/services.text_llm.json",
+    "tests/golden/services.text_model_catalog.json"
+   ],
+   "note": "Each text appears in a vector or test: 'No API key found for' (test_openai_client, test_local_servers), save_local_server and snapshot vectors for the local-server and metadata errors, 'Unknown text model endpoint' in test_transcript_cleanup."
+  },
+  "A12-56": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/transcript_cleanup.cpp",
+    "src/llm/rewrite.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_transcript_cleanup.cpp",
+    "tests/llm/test_rewrite.cpp",
+    "tests/llm/test_generation.cpp"
+   ],
+   "note": "'timeout override is sent per request', 'rewrites wait longer than a dictation but ask once', 'a local model keeps its own longer timeout', 'first cleanup learns the server before its request'."
+  },
+  "A12-57": {
+   "status": "verified",
+   "cpp": [
+    "src/text/dictionary.cpp"
+   ],
+   "tests": [
+    "tests/text/test_dictionary.cpp",
+    "tests/golden/services.dictionary.json"
+   ],
+   "note": "add_term/update_term/set_starred/delete_term/undo_learned/clear_new vectors replayed by check_mutator, plus TestMutators cases."
+  },
+  "A12-58": {
+   "status": "verified",
+   "cpp": [
+    "src/text/dictionary.cpp"
+   ],
+   "tests": [
+    "tests/text/test_dictionary.cpp",
+    "tests/golden/services.dictionary.json"
+   ],
+   "note": "parse_heard vectors and the variant-limit error case."
+  },
+  "A12-59": {
+   "status": "verified",
+   "cpp": [
+    "src/text/dictionary.cpp",
+    "src/dictation/dictionary_learning.cpp"
+   ],
+   "tests": [
+    "tests/text/test_dictionary.cpp",
+    "tests/dictation/test_dictionary_learning.cpp",
+    "tests/golden/services.dictionary.json"
+   ],
+   "note": "add_learned (10) and find_term vectors; the log line names no word; listener exceptions are caught."
+  },
+  "A12-60": {
+   "status": "verified",
+   "cpp": [
+    "src/text/dictionary_learning.cpp",
+    "src/text/data/common_words.json"
+   ],
+   "tests": [
+    "tests/text/test_dictionary_learning.cpp",
+    "tests/golden/services.dictionary.json"
+   ],
+   "note": "_correction (34), learned_correction (19) and reverted_cleanup vectors; 'the learning stoplist is the generated COMMON_WORDS'."
+  },
+  "A12-61": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/dictionary_learning.cpp",
+    "src/dictation/dictionary_learning.h"
+   ],
+   "tests": [
+    "tests/dictation/test_dictionary_learning.cpp"
+   ],
+   "note": "Gate on non-blank text, a non-self identity and caret text; settings re-read at re-read time; the write is posted to the persistence strand, off the capture thread ('off unless learning and text reading are on', 'needs the caret text of another app', 'scheduling returns before the delay')."
+  },
+  "A12-62": {
+   "status": "verified",
+   "cpp": [
+    "src/text/dictionary.cpp"
+   ],
+   "tests": [
+    "tests/text/test_dictionary.cpp",
+    "tests/golden/services.dictionary.json"
+   ],
+   "note": "spelling_rule (28) and move_spelling_rules vectors."
+  },
+  "A12-63": {
+   "status": "verified",
+   "cpp": [
+    "src/text/dictionary.cpp"
+   ],
+   "tests": [
+    "tests/text/test_dictionary.cpp",
+    "tests/golden/services.dictionary.json"
+   ],
+   "note": "prompt_block vectors and the budget test cases."
+  },
+  "A12-64": {
+   "status": "verified",
+   "cpp": [
+    "src/text/snippets.cpp"
+   ],
+   "tests": [
+    "tests/text/test_snippets.cpp",
+    "tests/golden/services.snippets.json"
+   ],
+   "note": "save_snippet, delete_snippet, validate_snippet and load_snippets vectors."
+  },
+  "A12-65": {
+   "status": "verified",
+   "cpp": [
+    "src/text/snippets.cpp"
+   ],
+   "tests": [
+    "tests/text/test_snippets.cpp",
+    "tests/golden/services.snippets.json"
+   ],
+   "note": "trigger_note and find_duplicate vectors."
+  },
+  "A12-66": {
+   "status": "verified",
+   "cpp": [
+    "src/text/snippets.cpp"
+   ],
+   "tests": [
+    "tests/text/test_snippets.cpp",
+    "tests/golden/services.snippets.json"
+   ],
+   "note": "prompt_guard vectors."
+  },
+  "A12-67": {
+   "status": "verified",
+   "cpp": [
+    "src/text/snippets.cpp"
+   ],
+   "tests": [
+    "tests/text/test_snippets.cpp",
+    "tests/golden/services.snippets.json"
+   ],
+   "note": "expand, plain_text and snippet_html vectors."
+  },
+  "A12-68": {
+   "status": "verified",
+   "cpp": [
+    "src/text/snippet_markdown.cpp",
+    "src/text/snippet_markdown.h"
+   ],
+   "tests": [
+    "tests/text/test_snippet_markdown.cpp",
+    "tests/golden/services.snippets.json"
+   ],
+   "note": "markdown_to_html/markdown_to_plain vectors (52 each)."
+  },
+  "A12-69": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/rewrite.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_rewrite.cpp",
+    "tests/golden/services.text_rewrite.json"
+   ],
+   "note": "rewrite_with vectors (25); 'the sentinel means select first', 'a selection containing the sentinel is still rewritten', 'standalone rewrite uses its own client'."
+  },
+  "A12-70": {
+   "status": "fixed",
+   "cpp": [
+    "src/llm/transcript_cleanup.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_transcript_cleanup.cpp"
+   ],
+   "note": "A failed agent run now sets last_error 'Agent cleanup failed' (Python's case) for a run that returned nothing and for one that threw; 'empty response', 'not run' and 'canceled' as before. Pinned by tests/llm/test_transcript_cleanup.cpp 'installed agent failure and empty output preserve raw transcript'. Python would carry the runner's own outcome.error when it had one; FioriVoce's runner reports none (its message could hold transcript text), so the fallback text is always used, as the map row (no detail) describes."
+  },
+  "A12-71": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/typesafe.cpp",
+    "src/llm/text_judge.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_typesafe.cpp",
+    "tests/llm/test_text_judge.cpp"
+   ],
+   "note": "Labels 'TypeSafe', 'TypeSafe via <route>', 'Fast judgments on <name> (<model>)'; 'warning rate limited', 'requires key' ('TypeSafe API key is required'), 'empty questions short circuit', 'a state JSON cannot hold is skipped', 'a text-model judge needs a profile'."
+  },
+  "A12-72": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/typesafe.cpp",
+    "src/llm/text_judge.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_typesafe.cpp",
+    "tests/llm/test_text_judge.cpp",
+    "tests/golden/services.typesafe.json",
+    "tests/golden/services.text_judge.json"
+   ],
+   "note": "_status_outcome and _failure_reason vectors; 'context advice names each server's setting'."
+  },
+  "A12-73": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/text_judge.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_text_judge.cpp",
+    "tests/golden/services.text_judge.json"
+   ],
+   "note": "render/parse/_fit_context vectors; 'noul is the stated probability' checks schema, temperature 0 and max_tokens 64+40n."
+  },
+  "A12-74": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/judge.cpp",
+    "src/llm/judge.h"
+   ],
+   "tests": [
+    "tests/llm/test_typesafe.cpp",
+    "tests/llm/test_text_judge.cpp",
+    "tests/golden/services.typesafe.json"
+   ],
+   "note": "route_from_settings vectors; text-route tests (defaults to AI insights, can use cleanup, local needs no key)."
+  },
+  "A12-75": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/judge.cpp",
+    "src/llm/judge.h"
+   ],
+   "tests": [
+    "tests/llm/test_typesafe.cpp",
+    "tests/golden/services.typesafe.json"
+   ],
+   "note": "route_copy vectors (key_label, key_phrase)."
+  },
+  "A12-76": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/thinking_levels.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_thinking_levels.cpp",
+    "tests/golden/services.thinking_levels.json"
+   ],
+   "note": "Codex tests (per model, intersection for an unknown model, low/medium/high without a cache) and levels_for vectors."
+  },
+  "A12-77": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/generation.cpp",
+    "src/llm/model_catalog.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_generation.cpp",
+    "tests/golden/services.text_generation.json",
+    "tests/golden/services.text_model_catalog.json"
+   ],
+   "note": "generate vectors per reasoning_format; 'reasoning responses request encrypted context and omit temperature'."
+  },
+  "A12-78": {
+   "status": "verified",
+   "cpp": [
+    "src/speech/endpoints.cpp"
+   ],
+   "tests": [
+    "tests/speech/test_endpoints.cpp",
+    "tests/golden/services.speech_endpoints.json"
+   ],
+   "note": "Preset table and errors through the configured_endpoint (200), endpoint_model (400), save_* vectors."
+  },
+  "A12-79": {
+   "status": "verified",
+   "cpp": [
+    "src/text/recognition.h",
+    "src/text/dictionary.h",
+    "src/dictation/recognition.cpp"
+   ],
+   "tests": [
+    "tests/text/test_recognition.cpp",
+    "tests/dictation/test_recognition_seam.cpp",
+    "tests/golden/services.cleanup_prompts.json"
+   ],
+   "note": "MAX_PHRASE_CHARS 64, OPENAI_MAX_KEYWORDS 50, OPENAI_PROMPT_MAX_CHARS 600, MAX_RECOGNITION_PHRASES 50 (config vectors); 'empty or unsupported calls as before'. WHISPER_HOTWORDS_MAX_CHARS is dropped with faster-whisper."
+  },
+  "A12-80": {
+   "status": "fixed",
+   "cpp": [
+    "src/llm/cleanup_agent_offer.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_cleanup_agent_offer.cpp"
+   ],
+   "note": "pending/accept/decline are ported in llm/cleanup_agent_offer.cpp: the stored-provider check, ids limited to claude_code/codex, the remembered model written back with the provider in one mutation, decline setting cleanup_agent_offer_answered. Accept selects the agent only after the AI cleanup consent question (FioriVoce's step, difference a04-agent-cleanup-scope). Pinned by tests/llm/test_cleanup_agent_offer.cpp 'test_accept_switches_cleanup_to_the_agent', 'accepting the offer with consent authorizes the agent with its remembered model', 'test_decline_keeps_the_default_and_is_not_asked_again', 'test_pending'."
+  }
+ },
+ "differences": []
+}

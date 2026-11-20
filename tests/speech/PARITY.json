@@ -1,0 +1,1340 @@
+{
+ "package": "M1.12, M2.4, M2.9",
+ "files": {
+  "tests/test_engine_warmup.py": {
+   "test_warmup_sends_quiet_non_silent_audio_through_transcribe": {
+    "status": "ported",
+    "cpp": "tests/speech/test_warmup.cpp"
+   },
+   "test_warmup_failure_is_non_fatal_and_keeps_engine_loaded": {
+    "status": "ported",
+    "cpp": "tests/speech/test_warmup.cpp"
+   },
+   "test_warmup_logs_its_duration": {
+    "status": "ported",
+    "cpp": "tests/speech/test_warmup.cpp"
+   },
+   "test_warmup_skips_an_unloaded_engine": {
+    "status": "ported",
+    "cpp": "tests/speech/test_warmup.cpp"
+   },
+   "test_warmup_never_queues_behind_another_decode": {
+    "status": "ported",
+    "cpp": "tests/speech/test_warmup.cpp"
+   },
+   "test_cleanup_during_warmup_ends_it_quietly": {
+    "status": "ported",
+    "cpp": "tests/speech/test_warmup.cpp"
+   },
+   "test_reload_during_warmup_leaves_the_new_worker_untouched": {
+    "status": "ported",
+    "cpp": "tests/speech/test_warmup.cpp"
+   },
+   "test_generation_change_while_waiting_for_the_lock_skips_the_decode": {
+    "status": "ported",
+    "cpp": "tests/speech/test_warmup.cpp"
+   },
+   "test_engines_outside_the_warmup_list_are_not_warmed": {"status": "dropped", "reason": "dropped engine: Moonshine is not ported; FioriVoce's one local engine, Parakeet, is always warmed after it loads (tests/appcore/test_engine_reload.cpp)"},
+   "test_a_loaded_engine_has_its_recording_reader_ready": {"status": "dropped", "reason": "Python plumbing: the reload preloads PyAV (import av) so the first recording read pays no import; FioriVoce's recording reader is compiled in and has nothing to preload"},
+   "test_recording_reader_is_not_loaded_for_an_engine_that_did_not_load": {"status": "dropped", "reason": "Python plumbing: the reload preloads PyAV (import av) so the first recording read pays no import; FioriVoce's recording reader is compiled in and has nothing to preload"}
+  },
+  "tests/test_local_asr.py": {
+   "test_cancel_during_load_cannot_publish_stale_model": {
+    "status": "ported",
+    "cpp": "tests/speech/test_parakeet_backend.cpp"
+   },
+   "test_chunk_results_keep_offsets_and_silence_is_empty": {
+    "status": "ported",
+    "cpp": "tests/speech/test_parakeet_backend.cpp"
+   },
+   "test_audio_windows_preserve_resampled_stereo_samples": {
+    "status": "ported",
+    "cpp": "tests/speech/test_file_windows.cpp"
+   },
+   "test_a_mono_recording_decodes_the_same_without_the_codec_search": {
+    "status": "ported",
+    "cpp": "tests/speech/test_file_windows.cpp"
+   },
+   "test_a_stereo_file_keeps_ffmpegs_full_stream_analysis": {
+    "status": "ported",
+    "cpp": "tests/speech/test_file_windows.cpp"
+   },
+   "test_vulkan_runs_on_the_nvidia_card_not_the_integrated_gpu": {"status": "other-platform", "reason": "other-platform: the Linux Vulkan release's GPU pick (nvidia_device_index over ggml's device list, run only when libggml-vulkan.so is present); the Windows product runs the CUDA and CPU releases, which take the first GPU"},
+   "test_linux_vulkan_runtime_passes_the_nvidia_cards_index": {"status": "other-platform", "reason": "other-platform: the Linux Vulkan release's GPU pick (nvidia_device_index over ggml's device list, run only when libggml-vulkan.so is present); the Windows product runs the CUDA and CPU releases, which take the first GPU"},
+   "test_linux_recognizer_loads_the_release_library_after_system_libstdcxx": {"status": "other-platform", "reason": "other-platform: Linux loading of libnemo_speech_asr_c.so (the system libstdc++ first, libcuda.so.1 missing named as the NVIDIA driver); Windows loads nemo_speech_asr_c.dll by path (NemoApi::get)"},
+   "test_linux_gpu_runtime_without_the_driver_says_so": {"status": "other-platform", "reason": "other-platform: Linux loading of libnemo_speech_asr_c.so (the system libstdc++ first, libcuda.so.1 missing named as the NVIDIA driver); Windows loads nemo_speech_asr_c.dll by path (NemoApi::get)"}
+  },
+  "tests/test_local_asr_languages.py": {
+   "test_switching_mandarin_to_parakeet_selects_auto_without_saving": {
+    "status": "ported",
+    "cpp": "tests/speech/test_languages.cpp"
+   },
+   "test_requests_use_a_supported_language_even_before_controls_open": {
+    "status": "ported",
+    "cpp": "tests/speech/test_parakeet_backend.cpp"
+   },
+   "test_moonshine_model_change_cannot_preserve_russian": {
+    "status": "dropped",
+    "reason": "dropped engine: Moonshine is not ported (FioriVoce keeps only Parakeet)"
+   },
+   "test_worker_passes_qwen_language_names_to_sdk": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen is not ported (FioriVoce keeps only Parakeet)"
+   },
+   "test_worker_uses_nemotron_mandarin_prompt_for_file_and_stream": {
+    "status": "dropped",
+    "reason": "dropped engine: Nemotron is not ported (FioriVoce keeps only Parakeet)"
+   },
+   "test_remote_mandarin_uses_label_and_transmits_code": {"status": "ported", "cpp": "tests/ui_widgets/test_remote_engine_mandarin.cpp", "note": "case of the same name in tests/ui_widgets"}
+  },
+  "tests/test_personalize_s8_language.py": {
+   "TestChoices::test_only_languages_the_engine_takes": {
+    "status": "ported",
+    "cpp": "tests/speech/test_dictation_language.cpp"
+   },
+   "TestChoices::test_saved_list_is_cleaned_up_without_losing_order": {
+    "status": "ported",
+    "cpp": "tests/speech/test_dictation_language.cpp"
+   },
+   "TestChoices::test_single_language_engines_say_why": {
+    "status": "ported",
+    "cpp": "tests/speech/test_dictation_language.cpp"
+   },
+   "TestJobLanguage::test_active_language_is_used_only_when_the_engine_takes_it": {
+    "status": "ported",
+    "cpp": "tests/speech/test_dictation_language.cpp"
+   },
+   "TestJobLanguage::test_current_language_falls_back_to_the_engine": {
+    "status": "ported",
+    "cpp": "tests/speech/test_dictation_language.cpp"
+   },
+   "TestMutators::test_cycle_wraps_through_the_choices": {
+    "status": "ported",
+    "cpp": "tests/speech/test_dictation_language.cpp"
+   },
+   "TestMutators::test_cycle_starts_after_the_engines_own_language": {
+    "status": "ported",
+    "cpp": "tests/speech/test_dictation_language.cpp"
+   },
+   "TestMutators::test_cycle_leaves_one_or_no_choice_alone": {
+    "status": "ported",
+    "cpp": "tests/speech/test_dictation_language.cpp"
+   },
+   "TestMutators::test_set_chosen_keeps_the_active_language_valid": {
+    "status": "ported",
+    "cpp": "tests/speech/test_dictation_language.cpp"
+   },
+   "TestMutators::test_set_active_ignores_languages_that_are_not_choices": {
+    "status": "ported",
+    "cpp": "tests/speech/test_dictation_language.cpp"
+   },
+   "TestMutators::test_switching_never_touches_the_engine_language": {
+    "status": "ported",
+    "cpp": "tests/speech/test_dictation_language.cpp"
+   },
+   "test_labels": {
+    "status": "ported",
+    "cpp": "tests/speech/test_dictation_language.cpp"
+   },
+   "TestChoices::test_english_only_whisper_models_take_english": {
+    "status": "dropped",
+    "reason": "dropped engine: local Whisper is not ported"
+   },
+   "TestChoices::test_legacy_api_selection_counts_as_the_api": {
+    "status": "ported",
+    "cpp": "tests/speech/test_dictation_language.cpp"
+   },
+   "TestChoices::test_remote_host_languages_once_known": {"status": "ported", "cpp": "tests/speech/test_remote_host_languages.cpp", "note": "case: remote host languages once known; an OpenWhisper Whisper host's empty list now reads as every Whisper language (was none)"}
+  },
+  "tests/test_local_transcription_contracts.py": {
+   "test_lazy_failure_resets_busy_and_next_call_can_succeed": {
+    "status": "ported",
+    "cpp": "tests/speech/test_parakeet_backend.cpp"
+   },
+   "test_unavailable_model_is_not_transcribed": {
+    "status": "ported",
+    "cpp": "tests/speech/test_parakeet_backend.cpp"
+   },
+   "test_public_transcribe_consumes_lazy_segments_and_forwards_options": {
+    "status": "dropped",
+    "reason": "dropped engine: faster-whisper's lazy segments and VAD options (local Whisper is not ported)"
+   }
+  },
+  "tests/test_isolated_cancellation.py": {
+   "test_native_cancel_reaps_stalled_worker_and_next_decode_reloads": {
+    "status": "dropped",
+    "reason": "worker processes: Parakeet runs in process, and cancel between windows, dropped queued windows and stale generations are pinned by tests/speech/test_speech_service.cpp"
+   },
+   "test_preview_numpy_audio_uses_same_cancelable_model_contract": {
+    "status": "dropped",
+    "reason": "worker processes: Parakeet runs in process, and cancel between windows, dropped queued windows and stale generations are pinned by tests/speech/test_speech_service.cpp"
+   },
+   "test_quit_during_native_model_construction_cannot_publish_model": {
+    "status": "dropped",
+    "reason": "worker processes: Parakeet runs in process, and cancel between windows, dropped queued windows and stale generations are pinned by tests/speech/test_speech_service.cpp"
+   },
+   "test_external_startup_cancel_interrupts_native_model_load": {
+    "status": "dropped",
+    "reason": "worker processes: Parakeet runs in process, and cancel between windows, dropped queued windows and stale generations are pinned by tests/speech/test_speech_service.cpp"
+   },
+   "test_deferred_meeting_stop_reaps_loading_native_model": {
+    "status": "dropped",
+    "reason": "worker processes: Parakeet runs in process, and cancel between windows, dropped queued windows and stale generations are pinned by tests/speech/test_speech_service.cpp"
+   },
+   "test_hub_cancel_interrupts_download_without_waiting_for_next_byte": {
+    "status": "dropped",
+    "reason": "worker processes: Parakeet runs in process, and cancel between windows, dropped queued windows and stale generations are pinned by tests/speech/test_speech_service.cpp"
+   },
+   "test_request_deadline_reaps_worker": {
+    "status": "dropped",
+    "reason": "worker processes: Parakeet runs in process, and cancel between windows, dropped queued windows and stale generations are pinned by tests/speech/test_speech_service.cpp"
+   },
+   "test_rejected_chunk_interrupts_other_stalled_uploads": {
+    "status": "dropped",
+    "reason": "worker processes: Parakeet runs in process, and cancel between windows, dropped queued windows and stale generations are pinned by tests/speech/test_speech_service.cpp"
+   },
+   "test_cancel_recording_interrupts_preview_and_next_recording_works": {
+    "status": "dropped",
+    "reason": "worker processes: Parakeet runs in process, and cancel between windows, dropped queued windows and stale generations are pinned by tests/speech/test_speech_service.cpp"
+   },
+   "test_recovery_removes_only_preview_audio_owned_by_dead_processes": {
+    "status": "dropped",
+    "reason": "worker processes: Parakeet runs in process, and cancel between windows, dropped queued windows and stale generations are pinned by tests/speech/test_speech_service.cpp"
+   },
+   "test_worker_launch_uses_real_bootstrap_and_exits_without_ui": {
+    "status": "dropped",
+    "reason": "worker processes: Parakeet runs in process, and cancel between windows, dropped queued windows and stale generations are pinned by tests/speech/test_speech_service.cpp"
+   },
+   "test_cloud_cancel_interrupts_stalled_http_and_fresh_job_succeeds": {
+    "status": "dropped",
+    "reason": "worker processes: Parakeet runs in process, and cancel between windows, dropped queued windows and stale generations are pinned by tests/speech/test_speech_service.cpp"
+   }
+  },
+  "tests/test_local_asr_package_isolation.py": {
+   "test_packaged_worker_loads_qwen_with_runtime_tokenizers": {
+    "status": "dropped",
+    "reason": "worker processes: the speech worker's frozen-build package isolation (Parakeet runs in process)"
+   },
+   "test_worker_directory_does_not_shadow_runtime_modules": {
+    "status": "dropped",
+    "reason": "worker processes: the speech worker's frozen-build package isolation (Parakeet runs in process)"
+   }
+  },
+  "tests/test_local_backend_fallback.py": {
+   "test_missing_cuda_libraries_select_cpu_up_front": {
+    "status": "dropped",
+    "reason": "dropped engine: faster-whisper's CTranslate2 GPU fallback (local Whisper is not ported)"
+   },
+   "test_working_cuda_libraries_stay_on_gpu": {
+    "status": "dropped",
+    "reason": "dropped engine: faster-whisper's CTranslate2 GPU fallback (local Whisper is not ported)"
+   },
+   "test_cpu_selection_skips_the_probe": {
+    "status": "dropped",
+    "reason": "dropped engine: faster-whisper's CTranslate2 GPU fallback (local Whisper is not ported)"
+   },
+   "test_construction_failure_falls_back_to_cpu": {
+    "status": "dropped",
+    "reason": "dropped engine: faster-whisper's CTranslate2 GPU fallback (local Whisper is not ported)"
+   },
+   "test_cpu_fallback_keeps_the_selected_model": {
+    "status": "dropped",
+    "reason": "dropped engine: faster-whisper's CTranslate2 GPU fallback (local Whisper is not ported)"
+   },
+   "test_cpu_fallback_is_visible_in_device_info": {
+    "status": "dropped",
+    "reason": "dropped engine: faster-whisper's CTranslate2 GPU fallback (local Whisper is not ported)"
+   },
+   "test_non_gpu_errors_do_not_switch_devices": {
+    "status": "dropped",
+    "reason": "dropped engine: faster-whisper's CTranslate2 GPU fallback (local Whisper is not ported)"
+   },
+   "test_out_of_memory_is_not_reported_as_missing_libraries": {
+    "status": "dropped",
+    "reason": "dropped engine: faster-whisper's CTranslate2 GPU fallback (local Whisper is not ported)"
+   },
+   "test_missing_libraries_advise_installing_them": {
+    "status": "dropped",
+    "reason": "dropped engine: faster-whisper's CTranslate2 GPU fallback (local Whisper is not ported)"
+   },
+   "test_unclassified_gpu_failure_gets_a_neutral_note": {
+    "status": "dropped",
+    "reason": "dropped engine: faster-whisper's CTranslate2 GPU fallback (local Whisper is not ported)"
+   },
+   "test_gpus_without_float16_prefer_int8_over_float32": {
+    "status": "dropped",
+    "reason": "dropped engine: faster-whisper's CTranslate2 GPU fallback (local Whisper is not ported)"
+   },
+   "test_gpus_with_float16_are_unaffected": {
+    "status": "dropped",
+    "reason": "dropped engine: faster-whisper's CTranslate2 GPU fallback (local Whisper is not ported)"
+   },
+   "test_reload_after_fixing_the_gpu_clears_the_fallback_state": {
+    "status": "dropped",
+    "reason": "dropped engine: faster-whisper's CTranslate2 GPU fallback (local Whisper is not ported)"
+   },
+   "test_deferred_construction_skips_model_load": {
+    "status": "dropped",
+    "reason": "dropped engine: faster-whisper's CTranslate2 GPU fallback (local Whisper is not ported)"
+   },
+   "test_cpu_load_failure_still_reports_unavailable": {
+    "status": "dropped",
+    "reason": "dropped engine: faster-whisper's CTranslate2 GPU fallback (local Whisper is not ported)"
+   },
+   "test_auto_on_a_pascal_card_says_int8_float32_before_loading": {
+    "status": "dropped",
+    "reason": "dropped engine: faster-whisper's CTranslate2 GPU fallback (local Whisper is not ported)"
+   },
+   "test_auto_with_float16_keeps_float16": {
+    "status": "dropped",
+    "reason": "dropped engine: faster-whisper's CTranslate2 GPU fallback (local Whisper is not ported)"
+   },
+   "test_a_chosen_model_keeps_its_name_and_gets_a_fitting_compute_type": {
+    "status": "dropped",
+    "reason": "dropped engine: faster-whisper's CTranslate2 GPU fallback (local Whisper is not ported)"
+   },
+   "test_cpu_device_with_a_cuda_card_keeps_turbo": {
+    "status": "dropped",
+    "reason": "dropped engine: faster-whisper's CTranslate2 GPU fallback (local Whisper is not ported)"
+   },
+   "test_no_cuda_is_base_on_the_cpu": {
+    "status": "dropped",
+    "reason": "dropped engine: faster-whisper's CTranslate2 GPU fallback (local Whisper is not ported)"
+   },
+   "test_compute_type_is_public_for_the_remote_host": {
+    "status": "dropped",
+    "reason": "dropped engine: faster-whisper's CTranslate2 GPU fallback (local Whisper is not ported)"
+   }
+  },
+  "tests/test_macos_runtimes.py": {
+   "test_every_engine_has_a_pinned_mac_runtime": {
+    "status": "dropped",
+    "reason": "other-platform: Apple Silicon runtimes (Qwen, Moonshine, Metal)"
+   },
+   "test_qwen_auto_uses_the_apple_gpu": {
+    "status": "dropped",
+    "reason": "other-platform: Apple Silicon runtimes (Qwen, Moonshine, Metal)"
+   },
+   "test_nvidia_speech_auto_prefers_metal_but_keeps_an_installed_cpu_runtime": {
+    "status": "dropped",
+    "reason": "other-platform: Apple Silicon runtimes (Qwen, Moonshine, Metal)"
+   },
+   "test_missing_mac_runtimes_point_to_downloads": {
+    "status": "dropped",
+    "reason": "other-platform: Apple Silicon runtimes (Qwen, Moonshine, Metal)"
+   },
+   "test_moonshine_explains_its_macos_15_requirement": {
+    "status": "dropped",
+    "reason": "other-platform: Apple Silicon runtimes (Qwen, Moonshine, Metal)"
+   },
+   "test_download_prompt_skips_a_runtime_this_mac_cannot_load": {
+    "status": "dropped",
+    "reason": "other-platform: Apple Silicon runtimes (Qwen, Moonshine, Metal)"
+   },
+   "test_macos_version_gate_ignores_other_platforms": {
+    "status": "dropped",
+    "reason": "other-platform: Apple Silicon runtimes (Qwen, Moonshine, Metal)"
+   },
+   "test_mac_wheel_runtimes_install_into_site_packages": {
+    "status": "dropped",
+    "reason": "other-platform: Apple Silicon runtimes (Qwen, Moonshine, Metal)"
+   },
+   "test_metal_runtime_requires_the_metal_backend": {
+    "status": "dropped",
+    "reason": "other-platform: Apple Silicon runtimes (Qwen, Moonshine, Metal)"
+   },
+   "test_mac_nemo_adapter_refuses_cuda_and_a_cpu_only_runtime": {
+    "status": "dropped",
+    "reason": "other-platform: Apple Silicon runtimes (Qwen, Moonshine, Metal)"
+   },
+   "test_worker_puts_a_mac_wheel_tree_first": {
+    "status": "dropped",
+    "reason": "other-platform: Apple Silicon runtimes (Qwen, Moonshine, Metal)"
+   },
+   "test_mac_remote_host_offers_auto_and_cpu": {
+    "status": "dropped",
+    "reason": "other-platform: Apple Silicon runtimes (Qwen, Moonshine, Metal)"
+   },
+   "test_intel_macs_run_parakeet_and_nemotron_on_the_cpu_runtime": {
+    "status": "dropped",
+    "reason": "other-platform: Apple Silicon runtimes (Qwen, Moonshine, Metal)"
+   }
+  },
+  "tests/test_parakeet_mlx.py": {
+   "test_mlx_downloads_and_runtime_are_separate_from_gguf": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet MLX (macOS)"
+   },
+   "test_mlx_auto_uses_metal_without_probing_cuda": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet MLX (macOS)"
+   },
+   "test_mlx_unavailable_runtime_has_no_download_prompt": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet MLX (macOS)"
+   },
+   "test_mlx_backend_loads_local_weights_in_its_worker": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet MLX (macOS)"
+   },
+   "test_real_worker_routes_mlx_requests_to_the_platform_guard": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet MLX (macOS)"
+   },
+   "test_mlx_decodes_pcm_and_preserves_meeting_timestamps": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet MLX (macOS)"
+   },
+   "test_mlx_handles_empty_and_very_short_audio": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet MLX (macOS)"
+   },
+   "test_mlx_missing_metal_does_not_silently_switch_devices": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet MLX (macOS)"
+   },
+   "test_mlx_installer_keeps_native_libraries_and_license_files": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet MLX (macOS)"
+   },
+   "test_mlx_remote_host_exposes_auto_and_cpu_without_nvidia": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet MLX (macOS)"
+   },
+   "test_mlx_controls_expose_auto_and_cpu_and_automatic_language": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet MLX (macOS)"
+   },
+   "test_mlx_can_be_selected_in_transcription_tabs": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet MLX (macOS)"
+   },
+   "test_mlx_meeting_starts_window_preview": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet MLX (macOS)"
+   }
+  },
+  "tests/test_parakeet_mlx_hardware.py": {
+   "test_real_speech_upload_preview_and_timestamps": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet MLX on Apple hardware (macOS)"
+   },
+   "test_real_short_audio_and_silence": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet MLX on Apple hardware (macOS)"
+   },
+   "test_real_cancellation_and_reload": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet MLX on Apple hardware (macOS)"
+   }
+  },
+  "tests/test_parakeet_unified.py": {
+   "test_unified_is_an_english_streaming_engine_on_the_transcribe_runtime": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet Unified on transcribe.cpp"
+   },
+   "test_unified_artifacts_pin_the_q8_gguf_and_upstream_release_archives": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet Unified on transcribe.cpp"
+   },
+   "test_release_archive_extracts_under_transcribe_native": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet Unified on transcribe.cpp"
+   },
+   "test_release_archive_from_another_root_is_refused": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet Unified on transcribe.cpp"
+   },
+   "test_windows_runtime_needs_python_binding_and_vulkan_library": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet Unified on transcribe.cpp"
+   },
+   "test_gpu_choice_prefers_the_biggest_dedicated_card_and_auto_skips_integrated": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet Unified on transcribe.cpp"
+   },
+   "test_english_requests_reach_the_model_as_en": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet Unified on transcribe.cpp"
+   },
+   "test_other_languages_are_refused": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet Unified on transcribe.cpp"
+   },
+   "test_auto_loads_on_the_dedicated_gpu_through_vulkan": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet Unified on transcribe.cpp"
+   },
+   "test_auto_without_a_dedicated_gpu_runs_on_the_cpu": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet Unified on transcribe.cpp"
+   },
+   "test_explicit_gpu_without_one_is_an_error": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet Unified on transcribe.cpp"
+   },
+   "test_a_gpu_that_cannot_load_lets_auto_retry_on_the_cpu": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet Unified on transcribe.cpp"
+   },
+   "test_worker_reports_the_vulkan_gpu": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet Unified on transcribe.cpp"
+   },
+   "test_transcribe_returns_text_and_timed_segments": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet Unified on transcribe.cpp"
+   },
+   "test_stream_returns_one_revised_line_and_closes_on_finish": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet Unified on transcribe.cpp"
+   },
+   "test_a_decode_ends_the_open_preview_stream_which_then_stops": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet Unified on transcribe.cpp"
+   },
+   "test_a_newer_stream_supersedes_the_open_one": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet Unified on transcribe.cpp"
+   },
+   "test_a_stopped_stream_reports_its_text_and_the_audio_it_heard": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet Unified on transcribe.cpp"
+   },
+   "test_a_dropped_block_means_no_finished_stream": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet Unified on transcribe.cpp"
+   },
+   "test_a_canceled_stream_has_no_finished_text": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet Unified on transcribe.cpp"
+   },
+   "test_stream_final_needs_a_long_dictation_the_stream_fully_heard": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet Unified on transcribe.cpp"
+   },
+   "test_stream_final_is_only_for_stream_final_models_and_their_own_engine": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet Unified on transcribe.cpp"
+   },
+   "test_a_long_dictation_pastes_the_kept_stream_once": {
+    "status": "dropped",
+    "reason": "dropped engine: Parakeet Unified on transcribe.cpp"
+   }
+  },
+  "tests/test_qwen_batch.py": {
+   "test_batch_size_follows_free_gpu_memory": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen"
+   },
+   "test_windows_are_decoded_in_order_as_few_calls_as_memory_allows": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen"
+   },
+   "test_out_of_memory_halves_the_limit_without_repeating_decoded_windows": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen"
+   },
+   "test_any_other_batch_failure_decodes_that_batch_one_window_at_a_time": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen"
+   },
+   "test_a_window_that_fails_alone_raises_its_own_error": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen"
+   },
+   "test_out_of_memory_on_a_single_window_raises": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen"
+   },
+   "test_file_is_read_only_as_far_as_the_next_batch": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen"
+   },
+   "test_windows_without_speech_keep_their_place_but_not_a_batch_slot": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen"
+   },
+   "test_running_out_of_memory_shrinks_the_rest_of_the_file": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen"
+   },
+   "test_a_cancel_or_reload_mid_file_never_mixes_two_workers": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen"
+   },
+   "test_other_engines_devices_and_remote_hosts_decode_one_window_per_request": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen"
+   },
+   "test_dictation_preview_meeting_and_host_decodes_stay_single_window": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen"
+   },
+   "test_transcript_has_no_extra_spaces_where_a_window_had_no_text": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen"
+   }
+  },
+  "tests/test_qwen_batch_worker.py": {
+   "test_worker_recovers_failed_batches_and_still_decodes_single_windows": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen's worker batch request"
+   },
+   "test_worker_refuses_batches_off_cuda": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen's worker batch request"
+   }
+  },
+  "tests/test_qwen_gpu_support.py": {
+   "test_cuda_arch_supported": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen on PyTorch"
+   },
+   "test_worker_refuses_a_gpu_its_torch_has_no_code_for": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen on PyTorch"
+   },
+   "test_worker_loads_on_a_gpu_its_torch_supports": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen on PyTorch"
+   },
+   "test_auto_falls_back_to_the_cpu_and_says_why": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen on PyTorch"
+   },
+   "test_explicit_cuda_fails_and_logs_the_worker_output": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen on PyTorch"
+   },
+   "test_a_reload_forgets_an_earlier_fallback": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen on PyTorch"
+   },
+   "test_other_load_errors_are_not_retried_on_the_cpu": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen on PyTorch"
+   }
+  },
+  "tests/test_qwen_silence.py": {
+   "test_real_detector_rejects_quiet_noise_with_peaks_that_pass_old_gate": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen's speech detector"
+   },
+   "test_every_qwen_decode_path_skips_non_speech": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen's speech detector"
+   },
+   "test_speech_window_is_sent_intact_with_language_and_no_timestamp_changes": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen's speech detector"
+   },
+   "test_other_engines_never_run_the_qwen_detector": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen's speech detector"
+   },
+   "test_detector_failure_preserves_transcription": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen's speech detector"
+   },
+   "test_silence_cannot_hide_unloaded_or_canceled_backend": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen's speech detector"
+   },
+   "test_cancel_during_detection_still_cancels": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen's speech detector"
+   },
+   "test_upload_file_skips_quiet_noise_after_resampling": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen's speech detector"
+   },
+   "test_detector_keeps_short_speech_and_does_not_modify_audio": {
+    "status": "dropped",
+    "reason": "dropped engine: Qwen's speech detector"
+   }
+  },
+  "tests/test_whisper_av_compat.py": {
+   "test_readme_and_release_installs_agree_on_pyav_below_19": {
+    "status": "dropped",
+    "reason": "dropped engine: faster-whisper's PyAV pin (local Whisper is not ported)"
+   },
+   "test_faster_whisper_decode_audio_accepts_a_wav": {
+    "status": "dropped",
+    "reason": "dropped engine: faster-whisper's PyAV pin (local Whisper is not ported)"
+   }
+  },
+  "tests/test_openai_backend.py": {
+   "TestChunkedTranscription::test_transcripts_keep_chunk_order": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_backend.cpp"
+   },
+   "TestChunkedTranscription::test_uploads_actually_overlap": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_backend.cpp"
+   },
+   "TestChunkedTranscription::test_concurrency_is_capped": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_backend.cpp"
+   },
+   "TestChunkedTranscription::test_a_single_chunk_skips_the_pool": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_backend.cpp"
+   },
+   "TestChunkedTranscription::test_cancel_before_start_stops_the_run": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_backend.cpp"
+   },
+   "TestChunkedTranscription::test_cancel_while_splitting_uploads_nothing": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_backend.cpp"
+   },
+   "TestChunkedTranscription::test_cancel_mid_flight_stops_later_chunks": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_backend.cpp"
+   },
+   "TestChunkedTranscription::test_a_failed_upload_propagates_and_temp_files_go": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_backend.cpp"
+   },
+   "TestChunkedTranscription::test_is_transcribing_is_cleared_on_failure": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_backend.cpp"
+   },
+   "TestChunkedTranscription::test_unavailable_backend_refuses_before_splitting": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_backend.cpp"
+   },
+   "TestChunkedTranscription::test_a_file_under_the_limit_is_one_upload": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_backend.cpp"
+   },
+   "TestChunkedTranscription::test_a_large_file_reports_each_step_and_cleans_up": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_backend.cpp"
+   },
+   "test_selected_api_model_and_response_format": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_backend.cpp"
+   },
+   "test_chunks_keep_model_when_setting_changes_mid_upload": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_backend.cpp"
+   },
+   "test_sdk_sends_model_and_parses_response_without_network": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_backend.cpp"
+   }
+  },
+  "tests/test_personalize_s4_openai.py": {
+   "TestHintFields::test_gpt_transcribe_takes_keywords_and_languages": {
+    "status": "ported",
+    "cpp": "tests/speech/test_transcription_hints.cpp"
+   },
+   "TestHintFields::test_older_models_take_a_prompt_and_language": {
+    "status": "ported",
+    "cpp": "tests/speech/test_transcription_hints.cpp"
+   },
+   "TestHintFields::test_nothing_without_hints": {
+    "status": "ported",
+    "cpp": "tests/speech/test_transcription_hints.cpp"
+   },
+   "TestHintFields::test_keywords_are_capped": {
+    "status": "ported",
+    "cpp": "tests/speech/test_transcription_hints.cpp"
+   },
+   "TestRequests::test_hints_go_with_the_request": {
+    "status": "ported",
+    "cpp": "tests/speech/test_transcription_hints.cpp"
+   },
+   "TestRequests::test_no_context_sends_exactly_what_it_did": {
+    "status": "ported",
+    "cpp": "tests/speech/test_transcription_hints.cpp"
+   },
+   "TestRequests::test_a_rejected_request_is_retried_once_without_hints": {
+    "status": "ported",
+    "cpp": "tests/speech/test_transcription_hints.cpp"
+   },
+   "TestRequests::test_other_failures_are_not_retried": {
+    "status": "ported",
+    "cpp": "tests/speech/test_transcription_hints.cpp"
+   },
+   "TestRequests::test_a_rejection_without_hints_is_not_retried": {
+    "status": "ported",
+    "cpp": "tests/speech/test_transcription_hints.cpp"
+   },
+   "TestRequests::test_the_retired_model_fallback_gets_its_own_hints": {
+    "status": "ported",
+    "cpp": "tests/speech/test_transcription_hints.cpp"
+   },
+   "TestRequests::test_every_chunk_carries_the_hints": {
+    "status": "ported",
+    "cpp": "tests/speech/test_transcription_hints.cpp"
+   },
+   "test_sdk_sends_the_hint_fields_without_network": {
+    "status": "ported",
+    "cpp": "tests/speech/test_transcription_hints.cpp"
+   },
+   "test_sdk_rejection_is_retried_without_hints": {
+    "status": "ported",
+    "cpp": "tests/speech/test_transcription_hints.cpp"
+   },
+   "test_isolated_client_forwards_only_the_hints_given": {
+    "status": "dropped",
+    "reason": "they test the request OpenWhisper's isolated upload worker process passes on; FioriVoce uploads in-process with no worker, and the fields each request carries are pinned by TestRequests and the loopback tests"
+   },
+   "test_worker_op_passes_hints_to_the_sdk": {
+    "status": "dropped",
+    "reason": "they test the request OpenWhisper's isolated upload worker process passes on; FioriVoce uploads in-process with no worker, and the fields each request carries are pinned by TestRequests and the loopback tests"
+   }
+  },
+  "tests/test_openai_retirement.py": {
+   "TestShutdownDate::test_boundary_is_the_shutdown_day": {
+    "status": "ported",
+    "cpp": "tests/speech/test_api_models.cpp"
+   },
+   "TestShutdownDate::test_default_reads_the_pinned_clock": {
+    "status": "ported",
+    "cpp": "tests/speech/test_api_models.cpp"
+   },
+   "TestApiModelChoices::test_retiring_models_stay_listed_with_a_label_until_shutdown": {
+    "status": "ported",
+    "cpp": "tests/speech/test_api_models.cpp"
+   },
+   "TestApiModelChoices::test_only_gpt_transcribe_remains_after_shutdown": {
+    "status": "ported",
+    "cpp": "tests/speech/test_api_models.cpp"
+   },
+   "TestApiModelChoices::test_saved_retiring_model_is_kept_until_shutdown": {
+    "status": "ported",
+    "cpp": "tests/speech/test_api_models.cpp"
+   },
+   "TestApiModelChoices::test_legacy_selected_model_resolves_to_gpt_transcribe_after_shutdown": {
+    "status": "ported",
+    "cpp": "tests/speech/test_api_models.cpp"
+   },
+   "TestModelGoneError::test_not_found_counts": {
+    "status": "ported",
+    "cpp": "tests/speech/test_api_models.cpp"
+   },
+   "TestModelGoneError::test_model_not_found_code_counts_on_any_status": {
+    "status": "ported",
+    "cpp": "tests/speech/test_api_models.cpp"
+   },
+   "TestModelGoneError::test_unsupported_format_does_not_count": {
+    "status": "ported",
+    "cpp": "tests/speech/test_api_models.cpp"
+   },
+   "TestTranscriptionRetry::test_gone_retiring_model_retries_with_gpt_transcribe": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_backend.cpp"
+   },
+   "TestTranscriptionRetry::test_other_errors_are_not_retried": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_backend.cpp"
+   },
+   "TestTranscriptionRetry::test_gpt_transcribe_itself_is_not_retried": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_backend.cpp"
+   },
+   "TestTranscriptionRetry::test_explicit_retiring_model_type_maps_after_shutdown": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_backend.cpp"
+   }
+  },
+  "tests/test_api_upload_warmup.py": {
+   "test_an_upload_uses_the_worker_readied_for_it": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_warmup.cpp"
+   },
+   "test_an_upload_without_a_readied_worker_starts_its_own": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_warmup.cpp"
+   },
+   "test_each_upload_takes_at_most_one_readied_worker": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_warmup.cpp"
+   },
+   "test_a_failed_warm_up_leaves_the_upload_to_start_its_own": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_warmup.cpp"
+   },
+   "test_an_upload_waits_for_a_warm_up_still_under_way": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_warmup.cpp"
+   },
+   "test_a_readied_worker_that_died_is_replaced": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_warmup.cpp"
+   },
+   "test_closing_the_client_ends_a_warm_up_and_the_upload_waiting_on_it": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_warmup.cpp"
+   },
+   "test_a_readied_worker_nobody_uses_is_closed": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_warmup.cpp"
+   },
+   "test_the_idle_limit_never_closes_a_worker_an_upload_took": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_warmup.cpp"
+   },
+   "test_the_worker_uploads_with_the_client_it_prepared": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_warmup.cpp"
+   },
+   "test_a_client_prepared_for_another_connection_is_not_used": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_warmup.cpp"
+   },
+   "test_preparing_again_closes_the_client_prepared_before": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_warmup.cpp"
+   },
+   "test_the_api_backend_readies_its_client_and_never_raises": {
+    "status": "ported",
+    "cpp": "tests/speech/test_cloud_warmup.cpp"
+   },
+   "test_only_an_engine_that_asks_is_prepared_when_a_recording_starts": {
+    "status": "ported",
+    "cpp": "tests/speech/test_service_facade.cpp",
+    "note": "only a backend whose prepares_for_transcription() is true is prepared, through SpeechService::prepare_for_transcription; the runtime's half (the hook is called once as a recording starts) is tests/dictation/test_uploads.cpp 'the engine prepares for transcription as a recording starts'"
+   },
+   "test_readying_the_real_worker_sends_nothing_until_the_upload": {
+    "status": "dropped",
+    "reason": "they start OpenWhisper's upload worker process; FioriVoce uploads in-process, and test_isolated_upload_reaches_a_local_server sends a real upload to a loopback server"
+   },
+   "test_the_real_worker_answers_prepare_then_uploads_on_the_same_client": {
+    "status": "dropped",
+    "reason": "they start OpenWhisper's upload worker process; FioriVoce uploads in-process, and test_isolated_upload_reaches_a_local_server sends a real upload to a loopback server"
+   }
+  },
+  "tests/test_speech_endpoints.py": {
+   "TestSelection::test_existing_users_stay_on_openai_with_their_model": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestSelection::test_an_unknown_endpoint_is_openai": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestSelection::test_a_custom_slot_without_an_address_is_openai": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestSelection::test_each_server_keeps_its_own_model": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestSelection::test_openai_takes_only_its_own_models": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestSelection::test_hosted_services_have_fixed_addresses": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestServerSettings::test_saved_address_key_variable_and_model": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestServerSettings::test_rejected_addresses": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestServerSettings::test_a_damaged_saved_server_falls_back_to_the_preset": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestServerSettings::test_servers_the_user_runs_get_the_long_timeout": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestServerSettings::test_custom_server_is_usable_once_it_has_an_address": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestServerSettings::test_only_endpoints_that_send_a_key_are_credential_owners": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestDestination::test_names_where_audio_goes": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestDestination::test_privacy_sentence": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestDestination::test_local_servers_need_no_key_but_hosted_ones_do": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestRequestFields::test_whisper_servers_take_a_prompt_and_one_language": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestRequestFields::test_whisper_cpp_is_asked_to_detect_an_unknown_language": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestRequestFields::test_openai_fields_are_unchanged": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestCatalogs::test_speaches_lists_only_its_speech_models": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestCatalogs::test_localai_lists_models_that_transcribe": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestCatalogs::test_groq_offers_its_whisper_models_without_asking": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestCatalogs::test_a_server_without_a_catalog_lists_nothing": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestCatalogs::test_openai_lists_its_curated_models": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestBackend::test_a_selected_server_gets_its_model_and_json": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestBackend::test_a_missing_model_on_another_server_is_not_swapped_for_openais": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "TestBackend::test_a_server_needing_an_unset_key_is_unavailable": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "test_worker_sends_to_the_chosen_server": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   },
+   "test_isolated_upload_reaches_a_local_server": {
+    "status": "ported",
+    "cpp": "tests/speech/test_endpoints.cpp"
+   }
+  },
+  "tests/test_audio_processor.py": {
+   "TestSplitting::test_split_produces_files_and_cleanup_removes_them": {
+    "status": "ported",
+    "cpp": "tests/speech/test_upload_splitter.cpp"
+   },
+   "TestSplitting::test_pcm_waveform_survives_splitting_exactly": {
+    "status": "ported",
+    "cpp": "tests/speech/test_upload_splitter.cpp"
+   },
+   "TestSplitting::test_overlap_and_header_never_exceed_upload_limit": {
+    "status": "ported",
+    "cpp": "tests/speech/test_upload_splitter.cpp"
+   },
+   "TestSplitting::test_streaming_writes_before_reading_entire_input": {
+    "status": "ported",
+    "cpp": "tests/speech/test_upload_splitter.cpp"
+   },
+   "TestSplitting::test_exact_chunk_size_does_not_emit_overlap_only_tail": {
+    "status": "ported",
+    "cpp": "tests/speech/test_upload_splitter.cpp"
+   },
+   "TestSplitting::test_silence_boundary_keeps_every_sample_with_overlap": {
+    "status": "ported",
+    "cpp": "tests/speech/test_upload_splitter.cpp"
+   },
+   "TestSplitting::test_small_minimum_duration_still_advances_past_overlap": {
+    "status": "ported",
+    "cpp": "tests/speech/test_upload_splitter.cpp"
+   },
+   "TestSplitting::test_failure_or_cancel_removes_partial_files_and_closes_decoder": {
+    "status": "ported",
+    "cpp": "tests/speech/test_upload_splitter.cpp"
+   },
+   "TestPcmConversion::test_real_stereo_keeps_duration_and_source_channels": {
+    "status": "ported",
+    "cpp": "tests/speech/test_upload_splitter.cpp"
+   },
+   "TestPcmConversion::test_integer_float_and_packed_planar_formats": {
+    "status": "ported",
+    "cpp": "tests/speech/test_upload_splitter.cpp"
+   },
+   "TestMovingAverage::test_matches_numpy_convolve": {
+    "status": "ported",
+    "cpp": "tests/speech/test_upload_splitter.cpp"
+   },
+   "TestMovingAverage::test_matches_across_block_boundaries": {
+    "status": "ported",
+    "cpp": "tests/speech/test_upload_splitter.cpp"
+   },
+   "TestMovingAverage::test_stays_far_below_the_silence_threshold": {
+    "status": "ported",
+    "cpp": "tests/speech/test_upload_splitter.cpp"
+   },
+   "TestMovingAverage::test_degenerate_inputs_are_passed_through": {
+    "status": "ported",
+    "cpp": "tests/speech/test_upload_splitter.cpp"
+   },
+   "TestMovingAverage::test_split_points_are_unchanged_by_the_faster_smoothing": {
+    "status": "ported",
+    "cpp": "tests/speech/test_upload_splitter.cpp"
+   },
+   "test_cleanup_survives_a_temp_file_it_cannot_remove": {
+    "status": "ported",
+    "cpp": "tests/speech/test_upload_splitter.cpp"
+   }
+  },
+  "tests/test_chunking.py": {
+   "test_chunking": {
+    "status": "ported",
+    "cpp": "tests/speech/test_upload_splitter.cpp"
+   }
+  },
+  "tests/test_settings.py": {
+   "test_api_model_resolution_defaults_and_preserves_explicit_choice": {
+    "status": "ported",
+    "cpp": "tests/speech/test_api_models.cpp"
+   }
+  },
+  "tests/test_streaming_transcriber.py": {
+   "test_window_decode_uses_the_backend_decoder_and_appends_text": {
+    "status": "ported",
+    "cpp": "tests/speech/test_window_preview.cpp"
+   },
+   "test_window_is_skipped_while_the_engine_is_unloaded": {
+    "status": "ported",
+    "cpp": "tests/speech/test_window_preview.cpp"
+   },
+   "test_optional_engine_worker_decodes_preview_windows": {
+    "status": "ported",
+    "cpp": "tests/speech/test_window_preview.cpp"
+   },
+   "test_quiet_window_never_reaches_the_optional_engine_worker": {
+    "status": "ported",
+    "cpp": "tests/speech/test_window_preview.cpp"
+   },
+   "test_native_stream_pushes_each_interval_and_finishes_on_stop": {
+    "status": "dropped",
+    "reason": "Native streaming (Nemotron, Parakeet Unified) and Moonshine's line ledger are dropped engines; FioriVoce previews with windows only"
+   },
+   "test_native_stop_wakes_the_worker_instead_of_waiting_out_its_poll": {
+    "status": "dropped",
+    "reason": "Native streaming (Nemotron, Parakeet Unified) and Moonshine's line ledger are dropped engines; FioriVoce previews with windows only"
+   },
+   "test_native_stream_keeps_silence_flowing_to_the_engine": {
+    "status": "dropped",
+    "reason": "Native streaming (Nemotron, Parakeet Unified) and Moonshine's line ledger are dropped engines; FioriVoce previews with windows only"
+   },
+   "test_native_stream_without_audio_never_opens_a_session": {
+    "status": "dropped",
+    "reason": "Native streaming (Nemotron, Parakeet Unified) and Moonshine's line ledger are dropped engines; FioriVoce previews with windows only"
+   },
+   "test_native_stream_failure_cancels_the_session_and_stops_pushing": {
+    "status": "dropped",
+    "reason": "Native streaming (Nemotron, Parakeet Unified) and Moonshine's line ledger are dropped engines; FioriVoce previews with windows only"
+   },
+   "test_native_restart_drops_a_session_the_engine_still_holds": {
+    "status": "dropped",
+    "reason": "Native streaming (Nemotron, Parakeet Unified) and Moonshine's line ledger are dropped engines; FioriVoce previews with windows only"
+   },
+   "test_native_ledger_replaces_interims_and_commits_finals_once": {
+    "status": "dropped",
+    "reason": "Native streaming (Nemotron, Parakeet Unified) and Moonshine's line ledger are dropped engines; FioriVoce previews with windows only"
+   },
+   "test_native_ledger_orders_moonshine_lines_by_start_without_duplicates": {
+    "status": "dropped",
+    "reason": "Native streaming (Nemotron, Parakeet Unified) and Moonshine's line ledger are dropped engines; FioriVoce previews with windows only"
+   },
+   "test_overlap_join_is_bounded_and_preserves_ambiguous_repetitions": {
+    "status": "ported",
+    "cpp": "tests/speech/test_window_preview.cpp"
+   },
+   "test_window_overlap_removes_redecoded_phrase_but_zero_overlap_preserves_it": {
+    "status": "ported",
+    "cpp": "tests/speech/test_window_preview.cpp"
+   },
+   "test_window_finalize_flushes_recording_shorter_than_one_window": {
+    "status": "ported",
+    "cpp": "tests/speech/test_window_preview.cpp"
+   },
+   "test_window_finalize_consumes_inflight_generator_and_partial_tail": {
+    "status": "ported",
+    "cpp": "tests/speech/test_window_preview.cpp"
+   },
+   "test_preview_buffer_absorbs_a_decode_stall_without_dropping_recorder_blocks": {
+    "status": "ported",
+    "cpp": "tests/speech/test_window_preview.cpp"
+   },
+   "test_timed_out_worker_cannot_publish_late_or_join_the_next_recording": {
+    "status": "ported",
+    "cpp": "tests/speech/test_window_preview.cpp"
+   },
+   "test_abandoned_preview_suppresses_late_output_and_releases_native_session": {
+    "status": "ported",
+    "cpp": "tests/speech/test_window_preview.cpp"
+   }
+  },
+  "tests/test_preview_lazy_tail.py": {
+   "test_fast_stop_returns_without_decoding_and_wakes_the_worker": {
+    "status": "ported",
+    "cpp": "tests/speech/test_window_preview.cpp"
+   },
+   "test_finalize_matches_the_old_drain_when_stop_finds_the_worker_idle": {
+    "status": "ported",
+    "cpp": "tests/speech/test_window_preview.cpp"
+   },
+   "test_finalize_matches_the_old_drain_across_a_kept_window_and_queued_blocks": {
+    "status": "ported",
+    "cpp": "tests/speech/test_window_preview.cpp"
+   },
+   "test_finalize_matches_the_old_drain_after_a_window_in_flight_at_stop": {
+    "status": "ported",
+    "cpp": "tests/speech/test_window_preview.cpp"
+   },
+   "test_in_flight_window_lands_for_the_fallback_but_never_reaches_the_ui": {
+    "status": "ported",
+    "cpp": "tests/speech/test_window_preview.cpp"
+   },
+   "test_next_recording_starts_right_after_a_fast_stop_and_drops_the_old_tail": {
+    "status": "ported",
+    "cpp": "tests/speech/test_window_preview.cpp"
+   },
+   "test_cancel_discards_the_kept_tail_and_late_output_without_waiting": {
+    "status": "ported",
+    "cpp": "tests/speech/test_window_preview.cpp"
+   },
+   "test_cancel_wakes_an_idle_worker_so_the_next_preview_can_start": {
+    "status": "ported",
+    "cpp": "tests/speech/test_window_preview.cpp"
+   },
+   "test_finalize_deadline_ignores_late_output_and_holds_off_a_replacement": {
+    "status": "ported",
+    "cpp": "tests/speech/test_window_preview.cpp"
+   },
+   "test_cleanup_drops_the_kept_tail": {
+    "status": "ported",
+    "cpp": "tests/speech/test_window_preview.cpp"
+   },
+   "test_finalize_decodes_once_and_leaves_a_live_preview_alone": {
+    "status": "ported",
+    "cpp": "tests/speech/test_window_preview.cpp"
+   }
+  },
+  "tests/test_incremental_dictation.py": {
+   "test_windows_refactor_is_bit_identical_to_the_original": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   },
+   "test_splitter_windows_do_not_depend_on_how_the_stream_was_cut": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   },
+   "test_incremental_stream_is_bit_identical_to_the_saved_files_windows": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   },
+   "test_long_dictation_decodes_windows_while_recording_and_matches_the_file_path": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   },
+   "test_join_keeps_empty_windows_exactly_like_transcribe": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   },
+   "test_silent_windows_are_skipped_the_same_way": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   },
+   "test_short_dictation_costs_nothing_and_falls_through": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   },
+   "test_nothing_decoded_early_means_the_plain_path": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   },
+   "test_state_changes_during_recording_fall_back_to_the_file": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   },
+   "test_early_decode_error_falls_back": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   },
+   "test_saved_file_that_differs_from_the_followed_audio_falls_back": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   },
+   "test_resampled_length_mismatch_falls_back": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   },
+   "test_discard_never_waits_for_a_window_in_flight": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   },
+   "test_cancel_while_stop_waits_for_an_early_window_ends_the_job": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   },
+   "test_cancel_at_stop_raises_the_file_paths_cancel": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   },
+   "test_cancel_during_the_final_decode_raises_like_the_file_path": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   },
+   "test_thread_follows_capture_and_exits_when_it_ends": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   },
+   "test_thread_exits_when_the_engine_is_cleaned_up": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   },
+   "test_uploads_and_retranscribes_never_use_the_session": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   },
+   "test_a_new_recording_supersedes_a_stale_session": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   },
+   "test_ineligible_engines_and_recorders_get_no_session": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   },
+   "test_read_recorded_bytes_restores_the_write_position": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   }
+  },
+  "tests/test_personalize_s4_incremental.py": {
+   "test_early_windows_decode_with_the_context": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   },
+   "test_a_different_final_context_decodes_the_file": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   },
+   "test_an_empty_context_matches_none": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   },
+   "test_a_settings_language_change_still_invalidates": {
+    "status": "ported",
+    "cpp": "tests/speech/test_incremental_session.cpp"
+   }
+  },
+  "tests/test_personalize_s4_recognition.py": {
+   "TestLocalSpeech::test_an_engine_without_languages_keeps_the_code": {"status": "dropped", "reason": "dropped engine: a remote host's local Whisper as the engine the host runs; FioriVoce's host engine is Parakeet, which lists its languages (an unlisted code becomes auto, TestLocalSpeech::test_language_comes_from_the_context_per_request)"}
+  }
+ }
+}

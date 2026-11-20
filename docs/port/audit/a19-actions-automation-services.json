@@ -1,0 +1,776 @@
+{
+ "area": "a19-actions-automation-services",
+ "package": "M10 sweep (AU6)",
+ "features": {
+  "A19-01": {
+   "status": "fixed",
+   "cpp": [
+    "src/automation/action_model.cpp",
+    "src/automation/action_model.h"
+   ],
+   "tests": [
+    "tests/automation/test_golden.cpp",
+    "tests/automation/test_models.cpp",
+    "tests/golden/services.actions.model.json",
+    "tests/backup/test_golden.cpp"
+   ],
+   "note": "load_actions' 13 vectors were replayed only through backup's own reader (backup::detail::load_action_rows); added 'golden services.actions.model load_actions', which replays them through automation::load_actions in the Windows shortcut vocabulary (the vectors are win32) so it runs on every platform. Limits 50/80/300/8x40/2000, coercion (bool before int, lists of <=32 strings), 12-hex ids (new_id = random_hex(12)), duplicate ids and rows past 50 skipped: as the row says."
+  },
+  "A19-02": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/action_model.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_golden.cpp",
+    "tests/automation/test_models.cpp",
+    "tests/golden/services.actions.model.json"
+   ],
+   "note": "validate_action's 51 vectors replay every message of the row; they are win32 vectors and skip on Linux (paths, shortcut names), test_models.cpp's test_kind_parameters_are_checked and test_spoken_names_must_be_unique_across_actions run everywhere."
+  },
+  "A19-03": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/action_model.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_golden.cpp",
+    "tests/golden/services.actions.model.json"
+   ],
+   "note": "PRESETS replays the gallery (id, name, kind, params, description, icon, note); 'OpenWhisper' in the channel and scripts descriptions becomes identity().product (product_text), compared through rebranded()."
+  },
+  "A19-04": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/action_model.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_golden.cpp",
+    "tests/automation/test_models.cpp",
+    "tests/golden/services.actions.model.json"
+   ],
+   "note": "link_scheme (14) and expand_link (16) vectors; quote() encodes everything but ASCII letters, digits and _.-~ as Python's quote(safe='')."
+  },
+  "A19-05": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/action_model.cpp",
+    "src/agentapi/app_control.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_golden.cpp",
+    "tests/golden/services.actions.model.json",
+    "tests/agentapi/test_app_control.cpp"
+   ],
+   "note": "public_dict vectors; UiAppControl::list_actions lists enabled actions only (test_listed_actions_are_the_enabled_ones_without_private_settings). The live API that serves the list is not mounted in the running app (a19-live-api-not-served)."
+  },
+  "A19-06": {
+   "status": "difference",
+   "difference": "a19-explicit-routing",
+   "note": "The gate itself (names, mishearings, lead-ins, trailing names for the shortcut) replays 772 gate vectors and the benchmark in tests/automation/test_routing_gate.cpp; the shortcut path uses it through plan(). Plain-dictation ('auto') routing never runs in the app."
+  },
+  "A19-07": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/routing.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_routing_gate.cpp",
+    "tests/golden/services.actions.routing.json"
+   ],
+   "note": "_spans (11), _without_polite_end (12) and _sentence_start (13) vectors and the test_spans_* cases."
+  },
+  "A19-08": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/routing.cpp",
+    "src/automation/routing.h"
+   ],
+   "tests": [
+    "tests/automation/test_routing_gate.cpp",
+    "tests/automation/test_routing_decide.cpp",
+    "tests/golden/services.actions.routing.json"
+   ],
+   "note": "'routing requests replay OpenWhisper byte for byte' (525 plan vectors) pins the instructions, criteria, description levels 300/8,160/4,80/2,0/0 under 20,000 chars and the 1500+400 / 200+80 clips."
+  },
+  "A19-09": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/routing.cpp",
+    "src/automation/routing.h"
+   ],
+   "tests": [
+    "tests/automation/test_routing_decide.cpp",
+    "tests/golden/services.actions.routing.json"
+   ],
+   "note": "44 read vectors; ROUTE_CONFIDENCE 0.5 inclusive (test_the_threshold_is_inclusive). The app's own judge run in action_wiring.cpp also uses plan.read and ROUTE_CONFIDENCE."
+  },
+  "A19-10": {
+   "status": "fixed",
+   "cpp": [
+    "src/automation/dictation_bridge.cpp",
+    "src/automation/routing.cpp",
+    "src/ui_controller/action_wiring.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_route_by_voice.cpp",
+    "tests/automation/test_routing_decide.cpp"
+   ],
+   "note": "The running app's route goes through automation::decide: the ConfirmedAutomation port delegates to DictationAutomation::route, which calls decide with the process's judge provider, so route.decided is published and a timeout or unreachable judge sets RouteDecision::failure. Pinned by tests/ui_controller/test_route_by_voice.cpp 'a judge that does not answer in time is published and the paste says why' (route.decided with fallback true and no action, and the 'Couldn't reach Fast judgments' notice)."
+  },
+  "A19-11": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/action_wiring.cpp",
+    "src/ui_controller/application_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_route_by_voice.cpp"
+   ],
+   "note": "The Route by voice shortcut refuses when routing.status is not ready: ActionWiring reads automation::status(settings, provider) on the io executor (it reads the judge's key) and on the GUI thread emits status.message instead of recording; a press while recording still stops. Pinned by tests/ui_controller/test_route_by_voice.cpp 'the Route by voice shortcut says what it needs instead of recording' (Fast judgments off: the status says what it needs, nothing records). The 'Route by voice is off' wording itself is pinned by test_routing_status.cpp's vectors."
+  },
+  "A19-12": {
+   "status": "difference",
+   "difference": "a19-confirmed-actions",
+   "note": "ActionRuntime::deliver keeps the row's dispatch, 4-worker pool, 8-pending cap and copy (test_action_runtime.cpp, test_a_missing_action_copies_the_words_and_says_so, test_runs_beyond_the_pending_cap_are_refused); the app reaches it through ConfirmedAutomation and deliver_approved."
+  },
+  "A19-13": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/action_runtime.cpp",
+    "src/automation/action_runtime.h"
+   ],
+   "tests": [
+    "tests/automation/test_action_runtime.cpp",
+    "tests/golden/services.actions.runtime.json"
+   ],
+   "note": "test_paste_lands_only_in_the_app_the_job_started_in, test_paste_into_another_app_is_copied_instead, test_a_long_answer_is_shortened_for_a_notice, _short vectors; approved runs in the app take the same route."
+  },
+  "A19-14": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/action_runtime.cpp",
+    "src/automation/action_runtime.h"
+   ],
+   "tests": [
+    "tests/automation/test_action_runtime.cpp"
+   ],
+   "note": "test_a_failed_webhook_copies_the_words, test_a_failed_run_the_user_started_still_copies_the_words, test_a_failed_run_from_a_program_leaves_the_clipboard_alone."
+  },
+  "A19-15": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/action_wiring.cpp",
+    "src/automation/action_runtime.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_action_cancel.cpp",
+    "tests/automation/test_action_cancel.cpp"
+   ],
+   "note": "The user's Cancel now reaches ActionRuntime::cancel: ActionWiring adds a CancelRouter step at order 30 (after the transcription and the write-up) that returns whether the runtime canceled anything, so 'Nothing to cancel' comes only when nothing ran, and the step's target is cleared at close. Pinned by tests/ui_controller/test_action_cancel.cpp 'test_cancel_stops_running_actions_only_with_no_job_to_cancel', 'test_the_users_cancel_while_a_delivered_job_is_saved_stops_its_quick_answer', 'test_cancel_that_reached_actions_leaves_them_to_say_what_it_did', 'test_a_cancel_from_the_hotkey_thread_reaches_actions_on_the_qt_thread'."
+  },
+  "A19-16": {
+   "status": "difference",
+   "difference": "a19-confirmed-actions",
+   "note": "ActionRuntime::test keeps the row (test_trying_an_action_reports_to_settings_only, test_trying_a_channel_action_counts_listeners_without_sending); ManualActionTester (src/ui_automation/automation_feature.cpp) asks 'Run this action and send the following text?' first."
+  },
+  "A19-17": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/action_runtime.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_action_runtime.cpp"
+   ],
+   "note": "'That's too long for the Claude app (14,000 characters at most)' with the thousands separator (test_action_runtime.cpp:1516)."
+  },
+  "A19-18": {
+   "status": "fixed",
+   "cpp": [
+    "src/automation/action_runtime.cpp",
+    "src/automation/secrets.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_action_runtime.cpp",
+    "tests/golden/services.actions.runtime.json",
+    "tests/automation/test_secrets_and_control.cpp"
+   ],
+   "note": "Payload (5 _webhook_payload vectors), per-action secret under identity().env_prefix + ACTION_SECRET_{id}, 5 s timeout, reply_text vectors and 'the address answered N' were pinned; 'the address didn't answer' (no status) was not: added 'a webhook that never answered and a kind nobody runs say so'."
+  },
+  "A19-19": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/action_runtime.cpp",
+    "src/process/run_once.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_action_runtime.cpp",
+    "tests/process/test_run_once.cpp"
+   ],
+   "note": "test_program_gets_the_words_on_stdin_and_its_output_is_routed, test_a_failed_program_copies_the_words ('the program stopped with code N'), test_a_program_action_never_sees_openwhisper_keys; ACTION_ID/ACTION_NAME/JOB_ID are set under both identity().env_prefix and the legacy OPENWHISPER_ prefix for scripts written for OpenWhisper."
+  },
+  "A19-20": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/action_runtime.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_action_runtime.cpp",
+    "tests/golden/services.actions.runtime.json"
+   ],
+   "note": "15 prompt_with_context vectors (rebranded source attribute) and test_agent_context_* cases."
+  },
+  "A19-21": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/action_runtime.cpp",
+    "src/agentapi/app_control.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_action_runtime.cpp",
+    "tests/golden/services.actions.runtime.json",
+    "tests/automation/test_filters.cpp"
+   ],
+   "note": "40 program_words_allowed vectors; filter leases skip such actions (leases of an action whose action refuses a program's words are skipped). In the running app program words never reach an action (a19-live-api-not-served)."
+  },
+  "A19-22": {
+   "status": "difference",
+   "difference": "a19-confirmed-actions",
+   "note": "ActionRuntime keeps the rule (test_scripts_only_announce_the_run, test_scripts_with_nothing_listening_copies_the_words_and_says_so, test_a_hook_listens_only_when_it_takes_action_ran); ConfirmedAutomation::deliver refuses the kind."
+  },
+  "A19-23": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/action_runtime.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_action_runtime.cpp"
+   ],
+   "note": "test_channel_with_no_listener_copies_instead, test_channel_publishes_the_words_to_listening_sessions. In the running app nothing can subscribe as claude-channel because the live event stream is not served (a19-live-api-not-served), so the action always reads 'No Claude Code session is listening'."
+  },
+  "A19-24": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/agent_actions.cpp",
+    "src/agents/agent_actions.h"
+   ],
+   "tests": [
+    "tests/agents/test_handoff.cpp",
+    "tests/agents/test_agent_actions_golden.cpp",
+    "tests/golden/services.actions.agents.json"
+   ],
+   "note": "app_links vectors (17); surfaces, NoAnswer stop, new-folder naming under '~/<product> Agent Tasks/task-...' (identity().product) and the refusals in test_handoff.cpp."
+  },
+  "A19-25": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/agent_actions.cpp"
+   ],
+   "tests": [
+    "tests/agents/test_agent_actions_golden.cpp",
+    "tests/agents/test_ask.cpp",
+    "tests/golden/services.actions.agents.json"
+   ],
+   "note": "terminal_argv (13) and npm_shim_command (15) vectors; shim resolution and the installed-.exe preference in test_ask.cpp ('a terminal prefers an installed exe over a newer npm shim')."
+  },
+  "A19-26": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/agent_actions.cpp",
+    "src/process/agent_process.cpp"
+   ],
+   "tests": [
+    "tests/agents/test_ask.cpp",
+    "tests/agents/test_agent_actions_golden.cpp",
+    "tests/golden/services.actions.agents.json"
+   ],
+   "note": "'claude command line has no tools and keeps the words off it', 'codex command line ignores user config and switches tools off', _codex_tool_features vectors, 4 MiB stdout and timeout/cancel cases."
+  },
+  "A19-27": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/agent_actions.cpp",
+    "src/agents/acp.cpp"
+   ],
+   "tests": [
+    "tests/agents/test_ask.cpp",
+    "tests/agents/test_agent_actions_golden.cpp",
+    "tests/golden/services.actions.agents.json",
+    "tests/agents/test_acp.cpp"
+   ],
+   "note": "'opencode answers in a locked down session it then deletes', permission rejection, model selection and _refuse_acp_request/_opencode_model vectors."
+  },
+  "A19-28": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/agent_actions.cpp"
+   ],
+   "tests": [
+    "tests/agents/test_agent_actions_golden.cpp",
+    "tests/agents/test_ask.cpp",
+    "tests/golden/services.actions.agents.json"
+   ],
+   "note": "_claude_result, _claude_answer, _codex_answer, _codex_message, _failure, _signed_out, _stopped vectors."
+  },
+  "A19-29": {
+   "status": "fixed",
+   "cpp": [
+    "src/process/launch.cpp",
+    "src/process/launch.h",
+    "src/process/win/explorer_open.cpp"
+   ],
+   "tests": [
+    "tests/process/test_launch.cpp",
+    "tests/process/test_explorer_open.cpp"
+   ],
+   "note": "Handler refusal copy and the Explorer path were pinned; the empty/CR/LF/NUL and over-30,000 refusals were checked only by substring or not at all: added 'terminal and link refusals say why in OpenWhisper's words'. win/explorer_open.cpp is Windows code, read not compiled here; macOS open and Linux xdg-open are other-platform (M5.1)."
+  },
+  "A19-30": {
+   "status": "verified",
+   "cpp": [
+    "src/process/launch.cpp",
+    "src/process/win/assoc.cpp"
+   ],
+   "tests": [
+    "tests/process/test_launch.cpp"
+   ],
+   "note": "Windows AssocQueryStringW order (DelegateExecute, command, executable), 60 s cache and 'handler lookup never raises' in test_launch.cpp; the macOS and Linux lookups are other-platform (M5.1)."
+  },
+  "A19-31": {
+   "status": "verified",
+   "cpp": [
+    "src/process/launch.cpp",
+    "src/process/win/console.cpp"
+   ],
+   "tests": [
+    "tests/process/test_launch.cpp"
+   ],
+   "note": "Windows: .exe only, new console, scripts refused, 32,000-char limit (test_launch.cpp windows_* cases). The macOS .command and Linux terminal scripts are other-platform (M5.1) and not ported."
+  },
+  "A19-32": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/event_bus.cpp",
+    "src/automation/event_bus.h"
+   ],
+   "tests": [
+    "tests/automation/test_event_bus.cpp",
+    "tests/automation/test_golden.cpp",
+    "tests/golden/services.automation.events.json"
+   ],
+   "note": "Replay buffer, ms-since-epoch seq base, evicted/restarted gaps per followed type, slow-subscriber warning, refusal of non-UTF-8 data (test_a_lone_surrogate_is_refused_at_the_publisher)."
+  },
+  "A19-33": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/catalog.cpp",
+    "src/automation/catalog.h"
+   ],
+   "tests": [
+    "tests/automation/test_golden.cpp",
+    "tests/golden/services.automation.catalog.json",
+    "tests/dictation/test_golden.cpp"
+   ],
+   "note": "Catalog tables, payload builders and user_started vectors."
+  },
+  "A19-34": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/permissions.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_golden.cpp",
+    "tests/automation/test_models.cpp",
+    "tests/golden/services.automation.permissions.json"
+   ],
+   "note": "305 granted, 12 require and 60 describe vectors; denial copy names identity().product ('a refused permission says what to turn on in this product's Settings')."
+  },
+  "A19-35": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/signing.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_signing.cpp",
+    "tests/automation/test_golden.cpp",
+    "tests/golden/services.automation.signing.json"
+   ]
+  },
+  "A19-36": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/hooks_model.cpp",
+    "src/automation/hooks_model.h"
+   ],
+   "tests": [
+    "tests/automation/test_golden.cpp",
+    "tests/automation/test_models.cpp",
+    "tests/golden/services.automation.models.json"
+   ],
+   "note": "validate_program/validate_filter vectors are win32 and skip on Linux; validate_webhook, loaders and test_models.cpp run everywhere."
+  },
+  "A19-37": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/hooks_model.cpp",
+    "src/net/address.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_golden.cpp",
+    "tests/automation/test_models.cpp",
+    "tests/golden/services.automation.models.json"
+   ],
+   "note": "40 url_is_private vectors."
+  },
+  "A19-38": {
+   "status": "difference",
+   "difference": "a19-hooks-not-started",
+   "note": "WebhookEngine keeps the row (lanes, 500-queue with 'Dropped: too many deliveries were waiting.' now asserted word for word, 1/5/25 s retries, Retry-After cap 60 s, redirects refused, proxies bypassed for private addresses, secrets) in tests/automation/test_webhooks.cpp and the retry_after/transport golden vectors; nothing subscribes it to app events."
+  },
+  "A19-39": {
+   "status": "fixed",
+   "cpp": [
+    "src/automation/webhooks.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_webhooks.cpp"
+   ],
+   "note": "send_test (once, no retry, even when disabled, 'Save the webhook first.') was pinned but not the test event's message: test_send_test_delivers_one_signed_test_event_even_when_disabled now asserts 'This is a test delivery from <product>.'. Reachable in the app from Settings > Hooks' Send test."
+  },
+  "A19-40": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/webhooks.cpp",
+    "src/automation/hook_http.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_webhooks.cpp"
+   ],
+   "note": "test_post_signed_* cases: signs with the given secret, never raises, reply cap ('The reply was too large'), message id and extra headers that cannot override signature or content type."
+  },
+  "A19-41": {
+   "status": "difference",
+   "difference": "a19-hooks-not-started",
+   "note": "ProgramEngine keeps the row (event JSON on stdin, EVENT_TYPE/ID/SEQ env, one run at a time, queue 20 with 'Dropped: too many events were waiting.' and the program.test message now asserted, tests jump the queue) in tests/automation/test_programs.cpp (those two cases need a real program start and skip on this Linux machine; the new assertions were not run here); Run test is reachable from Settings > Hooks, event delivery is not."
+  },
+  "A19-42": {
+   "status": "verified",
+   "cpp": [
+    "src/process/run_once.cpp",
+    "src/process/run_once.h"
+   ],
+   "tests": [
+    "tests/process/test_run_once.cpp",
+    "tests/automation/test_programs.cpp"
+   ],
+   "note": "No shell, own group/job, stdout cap, timeout and cancel kill the tree, children outlive a clean exit, start-error copy (test_run_once.cpp)."
+  },
+  "A19-43": {
+   "status": "difference",
+   "difference": "a19-hooks-not-started",
+   "note": "automation::filters keeps the row (contract request, reply reading, 3 s stage budget, 50 ms floor, cancel keeps the original) in tests/automation/test_filters.cpp and 39 interpret vectors; ConfirmedAutomation::filter_stage returns no stage, so no filter runs on dictation."
+  },
+  "A19-44": {
+   "status": "difference",
+   "difference": "a19-live-api-not-served",
+   "note": "FilterLeases keeps the row (loopback only, TTL 60 s, max 10, flt_ ids) in test_filters.cpp and the register_lease vectors; leases are registered only through the live API, which is not mounted."
+  },
+  "A19-45": {
+   "status": "difference",
+   "difference": "a19-live-api-not-served",
+   "note": "LiveApi (src/agentapi/live_api.cpp) is tested in tests/agentapi/test_live_api.cpp and test_live_golden.cpp but never mounted."
+  },
+  "A19-46": {
+   "status": "difference",
+   "difference": "a19-live-api-not-served",
+   "note": "SseStream (src/agentapi/sse_stream.cpp) keeps retry 2000, replay, gaps, pings and the 1000-event queue (tests/agentapi/test_live_api.cpp, sse_frame/gap_event vectors); not served in the app."
+  },
+  "A19-47": {
+   "status": "difference",
+   "difference": "a19-live-api-not-served",
+   "note": "UiAppControl (src/agentapi/app_control.cpp) keeps the 2 s + 2 s marshalling and every refusal string (tests/agentapi/test_app_control.cpp), but no UiAppControl is constructed and set_app_control is never called with one."
+  },
+  "A19-48": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/meeting_events.cpp",
+    "src/meeting/detail/runtime_bridge.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_meeting_events.cpp",
+    "tests/golden/services.automation.meeting_events.json"
+   ],
+   "note": "12 forward vectors; the meeting runtime forwards through meeting/detail/runtime_bridge.cpp:143."
+  },
+  "A19-49": {
+   "status": "difference",
+   "difference": "a19-hooks-not-started",
+   "note": "AutomationService (src/automation/service.cpp) does the row and is tested in tests/automation/test_automation_service.cpp; nothing in src/ui_controller or src/ui_shell constructs it."
+  },
+  "A19-50": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/channel_bridge.cpp",
+    "src/automation/channel_link.cpp",
+    "src/cli/channel_command.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_channel_bridge.cpp",
+    "tests/automation/test_channel_golden.cpp",
+    "tests/golden/services.automation.channel_bridge.json",
+    "tests/cli/test_channel_e2e.cpp"
+   ],
+   "note": "The bridge is fiorivoce-cli --channel (fiorivoce.exe --channel forwards to it, src/app/main.cpp); overrides are <PREFIX>URL/TOKEN with OPENWHISPER_ read too (channel_link.cpp), and the channel client header is X-FioriVoce-Client with X-OpenWhisper-Client accepted (ARCHITECTURE). The live event stream it follows is not served by this app (a19-live-api-not-served), so in practice it reports the app unreachable."
+  },
+  "A19-51": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/channel_bridge.cpp",
+    "src/automation/channel_link.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_channel_bridge.cpp",
+    "tests/automation/test_channel_golden.cpp",
+    "tests/golden/services.automation.channel_bridge.json",
+    "tests/cli/test_channel_e2e.cpp"
+   ],
+   "note": "reply_arguments (26), reply_refusal (16) and tool_result vectors; 401 re-read in test_notify_rereads_a_rejected_token_once."
+  },
+  "A19-52": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_shell/bootstrap.cpp",
+    "src/process/process_env.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_bootstrap.cpp",
+    "tests/process/test_process_env.cpp"
+   ],
+   "note": "Bootstrap::run calls ProcessEnv::instance().adopt_dotenv(*state.dotenv) once the .env reader exists, so a variable the user's .env holds that an editor also put in the environment stays away from agents, terminals, programs and filters, and the file is never copied into the process environment. Pinned by tests/ui_shell/test_bootstrap.cpp 'startup keeps .env values an editor also set away from programs it starts'."
+  },
+  "A19-53": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/webhooks.cpp",
+    "src/automation/programs.cpp",
+    "src/automation/filters.cpp",
+    "src/automation/action_runtime.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_webhooks.cpp",
+    "tests/automation/test_programs.cpp",
+    "tests/automation/test_filters.cpp",
+    "tests/automation/test_action_runtime.cpp"
+   ],
+   "note": "test_logs_never_carry_urls_event_data_or_secrets, test_logs_never_carry_arguments_output_or_event_data, test_logs_never_carry_the_text_or_the_address, test_words_links_arguments_and_replies_are_never_logged."
+  },
+  "A19-54": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/action_model.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_golden.cpp",
+    "tests/golden/services.actions.model.json"
+   ],
+   "note": "validate_action vectors (win32, skip on Linux) carry each message; 'Choose the program to run.' and the URL rule also in test_models.cpp."
+  },
+  "A19-55": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/hooks_model.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_golden.cpp",
+    "tests/automation/test_models.cpp",
+    "tests/golden/services.automation.models.json"
+   ],
+   "note": "validate_url (26) runs everywhere; program/filter vectors are win32 and skip on Linux."
+  },
+  "A19-56": {
+   "status": "fixed",
+   "cpp": [
+    "src/automation/action_runtime.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_action_runtime.cpp"
+   ],
+   "note": "Copy/Put in the Scratchpad, Pasted/Showed/Copied answers were pinned; added 'an answer that can be neither pasted nor copied is recorded as going nowhere' (Couldn't paste or copy ..., output none), 'a clipboard answer is recorded by whether the copy worked' (Copied/Couldn't copy ...'s answer) and the unknown-kind copy ('<product> can't run this kind of action')."
+  },
+  "A19-57": {
+   "status": "fixed",
+   "cpp": [
+    "src/process/launch.cpp",
+    "src/process/win/console.cpp"
+   ],
+   "tests": [
+    "tests/process/test_launch.cpp"
+   ],
+   "note": "Windows copy was pinned by substring; added 'terminal and link refusals say why in OpenWhisper's words' for 'There's no program to open.', 'Those words can't be passed to a program.' and 'The working folder doesn't exist.'. The Linux argument styles, $TERMINAL and the one-shot scripts are other-platform (M5.1) and not ported."
+  },
+  "A19-58": {
+   "status": "fixed",
+   "cpp": [
+    "src/process/launch.cpp",
+    "src/agents/agent_actions.cpp"
+   ],
+   "tests": [
+    "tests/process/test_launch.cpp",
+    "tests/agents/test_handoff.cpp",
+    "tests/agents/test_agent_actions_golden.cpp",
+    "tests/golden/services.actions.agents.json"
+   ],
+   "note": "Scheme hints were pinned ('a missing handler names the app to install'), signed-out words by _signed_out vectors; the agent no-app copy was only matched by substring: added 'app surface without an app names what to install' (all four sentences)."
+  },
+  "A19-59": {
+   "status": "verified",
+   "cpp": [
+    "src/process/run_once.cpp",
+    "src/automation/webhooks.cpp",
+    "src/automation/programs.cpp",
+    "src/automation/filters.cpp",
+    "src/automation/hook_http.cpp"
+   ],
+   "tests": [
+    "tests/process/test_run_once.cpp",
+    "tests/automation/test_webhooks.cpp",
+    "tests/automation/test_programs.cpp",
+    "tests/automation/test_filters.cpp",
+    "tests/automation/test_hooks_golden.cpp",
+    "tests/golden/services.automation.filters.json"
+   ],
+   "note": "Pinned: run_once copy, 'The message isn't valid JSON.', 'The signing secret is missing.', 'This webhook has no id.', the reply-reading reasons (interpret vectors) and 'Exited with code N'. Only read, not tested: the exception-path texts 'The program couldn't run ({Type}).', 'The delivery failed ({Type}).', 'The test couldn't run ({Type}).', 'The filter couldn't run ({Type})'. 'The time limit isn't a number.' has no caller: run_once takes a double and load_actions coerces timeout_s to an int."
+  },
+  "A19-60": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/filters.cpp",
+    "src/agentapi/live_api.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_filters.cpp",
+    "tests/automation/test_hooks_golden.cpp",
+    "tests/golden/services.automation.filters.json"
+   ],
+   "note": "lease_timeout (22), lease_modes (18) and register_lease (27) vectors. The HTTP-only rules (only url/stage/timeout_ms, 422 'timeout_ms must be a whole number of milliseconds.') live in live_api.cpp, which is not mounted (a19-live-api-not-served), and that 422 text has no test."
+  },
+  "A19-61": {
+   "status": "difference",
+   "difference": "a19-live-api-not-served",
+   "note": "The live API counts X-FioriVoce-Client (and X-OpenWhisper-Client) 'claude-channel' streams and keeps the operation ids (tests/agentapi/test_live_api.cpp:757); the bridge sends the header (test_headers_identify_the_channel_client). Not served in the app."
+  },
+  "A19-62": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/catalog.cpp",
+    "src/automation/permissions.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_golden.cpp",
+    "tests/golden/services.automation.catalog.json",
+    "tests/golden/services.automation.permissions.json"
+   ],
+   "note": "Descriptions from the event_types table vector; denial copy from 60 describe vectors with 'OpenWhisper Settings' as identity().product."
+  },
+  "A19-63": {
+   "status": "verified",
+   "cpp": [
+    "src/cli/channel_command.cpp",
+    "src/automation/channel_bridge.cpp"
+   ],
+   "tests": [
+    "tests/cli/test_channel_setup.cpp",
+    "tests/cli/test_channel_e2e.cpp",
+    "tests/automation/test_channel_golden.cpp"
+   ],
+   "note": "--help exit 0, 'Unexpected arguments. Run --channel --help for usage.' exit 2, no pipes exit, initialize log and protocol fallback (initialize vectors). Log level comes from <PREFIX>LOG_LEVEL. tests/cli's test_windowed_interpreter_speaks_over_inherited_pipes is a known failure on this Linux machine."
+  },
+  "A19-64": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/channel_bridge.cpp",
+    "src/automation/channel_link.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_channel_bridge.cpp",
+    "tests/automation/test_channel_golden.cpp",
+    "tests/golden/services.automation.channel_bridge.json"
+   ],
+   "note": "GAP_NOTICE and constants, unreachable_message (8), reply_refusal (16), stream_refusal (10), reply_arguments and channel_params vectors, with 'OpenWhisper' as identity().product."
+  },
+  "A19-65": {
+   "status": "verified",
+   "cpp": [
+    "src/automation/meeting_events.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_meeting_events.cpp",
+    "tests/golden/services.automation.meeting_events.json"
+   ]
+  }
+ },
+ "differences": [
+  {
+   "id": "a19-confirmed-actions",
+   "openwhisper": "An action's words run as soon as the recording ends: a missing or turned-off action copies them with 'That action no longer exists' / 'That action is turned off', and 'Send to my scripts' publishes action.ran with the words for whatever listens.",
+   "fiorivoce": "The running app shows each action's destination and exact material (webhook body, link, program and arguments, agent prompt with its context) and sends only after the user accepts; Copy only needs no confirmation; a declined or canceled run sends nothing ('Action canceled.'), a missing or turned-off action reads 'That action is unavailable.', 'Send to my scripts' is refused, only jobs the user started are delivered, and action shaping is sent raw. Settings' Try it asks the same way before a run other than Copy only.",
+   "reason": "Dictated words leave the computer only for a destination the user has just seen; a listener count names no recipient, so script delivery fails closed. ActionRuntime itself keeps OpenWhisper's dispatch and copy and is tested as such.",
+   "source": "src/automation/confirmed_automation.h and .cpp, src/ui_controller/action_wiring.cpp, src/dictation/transcription_runtime.cpp ('consent_declined'); tests/automation/test_confirmed_automation.cpp, tests/ui_controller/test_action_wiring.cpp; docs/port/open-items.md summary ('explicit hook and action tests ... are available', 'startup restoration of external hooks and unattended sharing remain differences')",
+   "features": [
+    "A19-12",
+    "A19-16",
+    "A19-22",
+    "SX-01",
+    "SX-02",
+    "SX-03"
+   ]
+  },
+  {
+   "id": "a19-explicit-routing",
+   "openwhisper": "With 'Also listen to normal dictations' on, plain dictations that start with an action's name are judged too, and the judge is asked without a prompt.",
+   "fiorivoce": "Only the Route by voice shortcut routes (ConfirmedAutomation::route returns no decision for route 'auto'); before the judge is asked the user sees its route and the exact request and confirms, and declining cancels the job instead of pasting.",
+   "reason": "The judgment sends the dictation to a model; it happens only on the explicit shortcut and after the user has seen where it goes.",
+   "source": "src/automation/confirmed_automation.h and .cpp, src/ui_controller/action_wiring.cpp, src/dictation/transcription_runtime.cpp ('consent_declined'); tests/automation/test_confirmed_automation.cpp, tests/ui_controller/test_action_wiring.cpp; docs/port/open-items.md summary ('explicit hook and action tests ... are available', 'startup restoration of external hooks and unattended sharing remain differences')",
+   "features": [
+    "A19-06",
+    "SX-05"
+   ]
+  },
+  {
+   "id": "a19-hooks-not-started",
+   "openwhisper": "After the window shows, AutomationService installs the AppControl, subscribes saved webhooks and program hooks to app events and starts MCP Events delivery; saved text filters (and API leases) rewrite each dictation before and after cleanup.",
+   "fiorivoce": "Nothing constructs AutomationService: Settings > Hooks' Send test and Run test drive the engines on a private bus, no saved webhook, program hook or MCP Events subscription receives app events, and no text filter runs on dictation (ConfirmedAutomation::filter_stage is empty). The engines, filters and the service are complete and tested on their own.",
+   "reason": "External hooks are not restored at startup without the user's action; only explicit hook tests send anything.",
+   "source": "src/ui_automation/automation_feature.cpp ('neither engine's start() is called here'), src/automation/confirmed_automation.h ('No saved filters run through this port'); tests/ui_automation/test_manual_controls.cpp; docs/port/open-items.md summary ('Persisted startup restoration of external hooks and unattended sharing remain differences')",
+   "features": [
+    "A19-38",
+    "A19-41",
+    "A19-43",
+    "A19-49",
+    "AG-06",
+    "SH-01",
+    "SH-02",
+    "SH-03"
+   ]
+  },
+  {
+   "id": "a19-live-api-not-served",
+   "openwhisper": "When API & MCP is on, the in-app listener also serves the live API (/v1/live/state, /v1/events SSE, actions, recording start/stop/cancel, filter leases, notify) through a Qt AppControl, which the channel bridge and 'Tell my Claude Code session' use.",
+   "fiorivoce": "The local MCP session is built with allow_live_tools=false; mount_live_api is never called and no UiAppControl is installed, so programs cannot read live state, stream live events, run actions, control recording, lease filters or show notices. LiveApi, SseStream, UiAppControl and FilterLeases are complete and tested on their own.",
+   "reason": "The local MCP session serves saved content; its tools exclude live dictation text, microphone control and action requests.",
+   "source": "src/ui_automation/session_mcp.cpp (deps.allow_live_tools = false); docs/port/open-items.md summary ('Its tool list excludes live dictation text, microphone control and action requests')",
+   "features": [
+    "A19-44",
+    "A19-45",
+    "A19-46",
+    "A19-47",
+    "A19-61",
+    "AG-04",
+    "AG-05",
+    "AG-07",
+    "SX-04",
+    "SX-06"
+   ]
+  }
+ ]
+}

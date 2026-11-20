@@ -1,0 +1,29 @@
+{
+  // F5 debugs the target picked in the CMake status bar ("Set Launch/Debug
+  // Target"): fiorivoce, fiorivoce-cli or an fv_<dir>_tests. Put program arguments in
+  // "args". Run widget tests through ctest instead; they need CTest's environment.
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug (Windows, MSVC)",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${command:cmake.launchTargetPath}",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Debug (Linux / WSL, gdb)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${command:cmake.launchTargetPath}",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "MIMode": "gdb",
+      "setupCommands": [
+        { "description": "Pretty-print STL containers", "text": "-enable-pretty-printing", "ignoreFailures": true }
+      ]
+    }
+  ]
+}

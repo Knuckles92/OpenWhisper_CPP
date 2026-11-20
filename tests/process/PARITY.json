@@ -1,0 +1,447 @@
+{
+  "package": "M3.5, M5.1",
+  "files": {
+    "tests/test_updater_helper.py": {
+      "test_start_detached_uses_independent_process_and_reports_failure": {
+        "status": "ported",
+        "cpp": "tests/process/test_detached.cpp"
+      },
+      "test_helper_requires_transaction_id": {"status": "ported", "cpp": "tests/update_native/test_updater_cli.cpp", "note": "case: the helper started without a transaction does nothing and exits 2. Exit code 2 as OpenWhisper; the notice is the usage on standard error, not a message box: the program is a console tool the build scripts run too"},
+      "test_helper_commits_prepared_journal": {"status": "ported", "cpp": "tests/update_native/test_updater_cli.cpp", "note": "case: the helper leaves its launch directory and then commits the journal; the commit itself is test_transaction_runner.cpp \"the helper commits a prepared journal and then collects its leftovers\""},
+      "test_helper_recover_path": {"status": "ported", "cpp": "tests/update_native/test_updater_cli.cpp", "note": "case: the helper recovers the transaction it is given; the recovery itself is test_transaction_runner.cpp \"the helper recovers an interrupted journal, says so and starts the old version\""},
+      "test_helper_cleanup_path": {"status": "dropped", "reason": "FioriVoce has no cleanup copy of the updater and no --cleanup-transaction mode: a finished transaction is collected in the helper's own run and by the application's next start, once the updater has released its gates (docs/port/differences.md a16-cleanup). tests/update_native/test_startup_recovery.cpp \"a finished transaction is collected by the next start\"."},
+      "test_cleanup_failure_is_not_reported_as_an_update_failure": {"status": "ported", "cpp": "tests/update_native/test_transaction_runner.cpp", "note": "case: a cleanup failure is not reported as an update failure (cleanup is part of the helper's one run; there is no cleanup process)"},
+      "test_helper_reports_apply_error": {"status": "ported", "cpp": "tests/update_native/test_updater_cli.cpp", "note": "case: the helper shows an update failure nobody else will show"},
+      "test_helper_leaves_its_launch_directory_before_committing": {"status": "ported", "cpp": "tests/update_native/test_updater_cli.cpp", "note": "case: the helper leaves its launch directory and then commits the journal"},
+      "test_helper_exits_after_handing_off_to_a_restarted_copy": {"status": "dropped", "reason": "PyInstaller onefile plumbing: the bootloader parent keeps the launch directory, so the frozen helper restarts itself from the updates root. A native program is one process and only changes directory (docs/port/packages/M10.md change 7)."}
+    },
+    "tests/test_automation_agents_launch.py": {
+      "test_windows_classic_handler_counts_only_while_its_program_exists": {
+        "status": "ported",
+        "cpp": "tests/process/test_launch.cpp"
+      },
+      "test_windows_packaged_app_protocol_counts": {
+        "status": "ported",
+        "cpp": "tests/process/test_launch.cpp"
+      },
+      "test_windows_without_a_handler": {
+        "status": "ported",
+        "cpp": "tests/process/test_launch.cpp"
+      },
+      "test_windows_lookup_answers_for_an_unknown_scheme": {
+        "status": "ported",
+        "cpp": "tests/process/test_launch.cpp"
+      },
+      "test_macos_asks_launch_services": {
+        "status": "dropped",
+        "reason": "other-platform: macOS's Launch Services lookup and Terminal scripts have no milestone"
+      },
+      "test_macos_without_pyobjc_cannot_tell": {
+        "status": "dropped",
+        "reason": "other-platform: macOS's Launch Services lookup and Terminal scripts have no milestone"
+      },
+      "test_linux_asks_xdg_mime": {
+        "status": "dropped",
+        "reason": "other-platform: Linux's xdg-mime, xdg-open and terminal scripts have no milestone"
+      },
+      "test_handler_answers_are_cached_for_a_minute": {
+        "status": "ported",
+        "cpp": "tests/process/test_launch.cpp"
+      },
+      "test_handler_lookup_never_raises": {
+        "status": "ported",
+        "cpp": "tests/process/test_launch.cpp"
+      },
+      "test_malformed_schemes_have_no_handler": {
+        "status": "ported",
+        "cpp": "tests/process/test_launch.cpp"
+      },
+      "test_terminal_refuses_bad_input": {
+        "status": "ported",
+        "cpp": "tests/process/test_launch.cpp"
+      },
+      "test_terminal_dispatches_with_home_as_the_default_folder": {
+        "status": "ported",
+        "cpp": "tests/process/test_launch.cpp"
+      },
+      "test_windows_refuses_scripts_that_would_parse_the_words": {
+        "status": "ported",
+        "cpp": "tests/process/test_launch.cpp"
+      },
+      "test_windows_refuses_non_programs": {
+        "status": "ported",
+        "cpp": "tests/process/test_launch.cpp"
+      },
+      "test_windows_starts_the_exe_in_a_new_console": {
+        "status": "ported",
+        "cpp": "tests/process/test_launch.cpp"
+      },
+      "test_windows_refuses_a_command_line_over_the_limit": {
+        "status": "ported",
+        "cpp": "tests/process/test_launch.cpp"
+      },
+      "test_macos_writes_a_one_shot_script_with_every_argument_quoted": {
+        "status": "dropped",
+        "reason": "other-platform: macOS's Launch Services lookup and Terminal scripts have no milestone"
+      },
+      "test_macos_script_is_private_and_executable": {
+        "status": "dropped",
+        "reason": "other-platform: macOS's Launch Services lookup and Terminal scripts have no milestone"
+      },
+      "test_macos_failure_removes_the_script": {
+        "status": "dropped",
+        "reason": "other-platform: macOS's Launch Services lookup and Terminal scripts have no milestone"
+      },
+      "test_linux_prefers_terminal_env_with_its_own_arguments": {
+        "status": "dropped",
+        "reason": "other-platform: Linux's xdg-mime, xdg-open and terminal scripts have no milestone"
+      },
+      "test_linux_terminal_styles": {
+        "status": "dropped",
+        "reason": "other-platform: Linux's xdg-mime, xdg-open and terminal scripts have no milestone"
+      },
+      "test_linux_tries_the_next_terminal_when_one_fails": {
+        "status": "dropped",
+        "reason": "other-platform: Linux's xdg-mime, xdg-open and terminal scripts have no milestone"
+      },
+      "test_linux_without_a_terminal_says_so": {
+        "status": "dropped",
+        "reason": "other-platform: Linux's xdg-mime, xdg-open and terminal scripts have no milestone"
+      }
+    },
+    "tests/test_automation_fix_actions_launch.py": {
+      "test_linux_terminals_get_one_private_script_with_every_argument_quoted": {
+        "status": "dropped",
+        "reason": "other-platform: Linux's xdg-mime, xdg-open and terminal scripts have no milestone"
+      },
+      "test_every_terminal_style_takes_just_the_script": {
+        "status": "dropped",
+        "reason": "other-platform: Linux's xdg-mime, xdg-open and terminal scripts have no milestone"
+      },
+      "test_a_terminal_that_dies_at_once_falls_through_to_the_next": {
+        "status": "dropped",
+        "reason": "other-platform: Linux's xdg-mime, xdg-open and terminal scripts have no milestone"
+      },
+      "test_a_launcher_that_hands_off_and_exits_cleanly_counts": {
+        "status": "dropped",
+        "reason": "other-platform: Linux's xdg-mime, xdg-open and terminal scripts have no milestone"
+      },
+      "test_when_no_terminal_opens_the_script_is_removed": {
+        "status": "dropped",
+        "reason": "other-platform: Linux's xdg-mime, xdg-open and terminal scripts have no milestone"
+      },
+      "test_xdg_open_counts_as_opened_while_its_handler_runs": {
+        "status": "dropped",
+        "reason": "other-platform: Linux's xdg-mime, xdg-open and terminal scripts have no milestone"
+      },
+      "test_open_uri_uses_open_or_xdg_open_off_windows": {
+        "status": "dropped",
+        "reason": "other-platform: Linux's xdg-mime, xdg-open and terminal scripts have no milestone"
+      },
+      "test_a_terminal_without_an_env_gets_the_users_without_openwhispers_keys": {
+        "status": "ported",
+        "cpp": "tests/process/test_launch.cpp",
+        "note": "the Windows console path; the .env key is adopted, not loaded (M0.7)"
+      },
+      "test_xdg_mime_runs_without_openwhispers_keys": {
+        "status": "dropped",
+        "reason": "other-platform: Linux's xdg-mime, xdg-open and terminal scripts have no milestone"
+      },
+      "test_macos_terminal_runs_open_without_openwhispers_keys": {
+        "status": "dropped",
+        "reason": "other-platform: macOS's Launch Services lookup and Terminal scripts have no milestone"
+      },
+      "test_a_link_too_long_for_any_handler_says_so": {
+        "status": "ported",
+        "cpp": "tests/process/test_launch.cpp"
+      },
+      "test_a_missing_handler_names_the_app_to_install": {
+        "status": "ported",
+        "cpp": "tests/process/test_launch.cpp"
+      },
+      "test_an_unknown_scheme_without_a_handler_is_not_opened": {
+        "status": "ported",
+        "cpp": "tests/process/test_launch.cpp"
+      },
+      "test_web_links_and_unknown_handlers_still_open": {
+        "status": "ported",
+        "cpp": "tests/process/test_launch.cpp"
+      },
+      "test_the_limits_are_the_ones_agent_links_use": {
+        "status": "ported",
+        "cpp": "tests/process/test_launch.cpp",
+        "note": "checks launch.h's limits; agents.py's side is M5.7's"
+      },
+      "test_the_handler_lookup_asks_for_the_delegate_execute_handler": {
+        "status": "ported",
+        "cpp": "tests/process/test_launch.cpp"
+      }
+    },
+    "tests/test_automation_r2c_launch.py": {
+      "test_a_com_handler_counts": {
+        "status": "ported",
+        "cpp": "tests/process/test_launch.cpp"
+      },
+      "test_only_no_handler_at_all_is_refused": {
+        "status": "ported",
+        "cpp": "tests/process/test_launch.cpp"
+      },
+      "test_a_worker_thread_sees_windows_own_packaged_protocols": {
+        "status": "ported",
+        "cpp": "tests/process/test_launch.cpp"
+      },
+      "test_open_uri_on_windows_opens_the_link_as_it_is": {
+        "status": "ported",
+        "cpp": "tests/process/test_launch.cpp"
+      },
+      "test_the_script_runs_even_where_it_cant_be_executed": {
+        "status": "dropped",
+        "reason": "other-platform: Linux's xdg-mime, xdg-open and terminal scripts have no milestone"
+      }
+    },
+    "tests/test_automation_r3c_launch.py": {
+      "test_every_link_goes_to_explorer_as_it_is": {
+        "status": "ported",
+        "cpp": "tests/process/test_explorer_open.cpp"
+      },
+      "test_without_explorers_desktop_the_link_opens_from_here": {
+        "status": "ported",
+        "cpp": "tests/process/test_explorer_open.cpp"
+      },
+      "test_when_nothing_opens_it_says_so": {
+        "status": "ported",
+        "cpp": "tests/process/test_explorer_open.cpp"
+      },
+      "test_explorer_is_asked_with_the_default_verb": {
+        "status": "ported",
+        "cpp": "tests/process/test_explorer_open.cpp"
+      },
+      "test_no_desktop_or_no_answer_from_explorer_means_not_opened": {
+        "status": "ported",
+        "cpp": "tests/process/test_explorer_open.cpp"
+      },
+      "test_what_a_link_opens_gets_explorers_environment_not_openwhispers": {
+        "status": "ported",
+        "cpp": "tests/process/test_explorer_open.cpp",
+        "note": "[interactive]: written and not run by workers (it drives the real Windows shell)"
+      },
+      "test_a_link_reaches_its_handler_as_shellexecute_passes_it": {
+        "status": "ported",
+        "cpp": "tests/process/test_explorer_open.cpp",
+        "note": "[interactive]: written and not run by workers (it drives the real Windows shell)"
+      },
+      "test_the_checks_that_drive_the_real_shell_run_only_when_asked": {
+        "status": "ported",
+        "cpp": "tests/process/test_explorer_open.cpp",
+        "note": "checks the two real-shell tests carry the [interactive] tag"
+      },
+      "test_a_test_scheme_is_removed_however_the_test_ends": {
+        "status": "ported",
+        "cpp": "tests/process/test_explorer_open.cpp",
+        "note": "against an in-memory registry, as OpenWhisper's FakeRegistry"
+      },
+      "test_schemes_a_killed_run_left_behind_go_before_the_next_is_registered": {
+        "status": "ported",
+        "cpp": "tests/process/test_explorer_open.cpp",
+        "note": "against an in-memory registry, as OpenWhisper's FakeRegistry"
+      },
+      "test_a_rundll32_handler_counts": {
+        "status": "ported",
+        "cpp": "tests/process/test_explorer_open.cpp"
+      }
+    },
+    "tests/test_automation_r4b_launch.py": {
+      "test_an_explorer_that_doesnt_answer_in_time_means_not_opened": {
+        "status": "ported",
+        "cpp": "tests/process/test_explorer_open.cpp"
+      },
+      "test_no_more_links_queue_behind_one_explorer_hasnt_answered": {
+        "status": "ported",
+        "cpp": "tests/process/test_explorer_open.cpp"
+      },
+      "test_explorer_answering_in_time_opens_the_link_once": {
+        "status": "ported",
+        "cpp": "tests/process/test_explorer_open.cpp"
+      },
+      "test_without_pywin32_a_link_opens_from_here": {
+        "status": "ported",
+        "cpp": "tests/process/test_explorer_open.cpp",
+        "note": "no extra library asks Explorer here; an Explorer that can't be asked stands in"
+      },
+      "test_pywin32_is_a_declared_windows_dependency": {
+        "status": "dropped",
+        "reason": "Python packaging: FioriVoce asks Explorer through COM with no extra library"
+      },
+      "test_a_failure_while_asking_explorer_reaches_the_caller": {
+        "status": "ported",
+        "cpp": "tests/process/test_explorer_open.cpp"
+      },
+      "test_opening_a_link_leaves_the_workers_thread_without_com": {
+        "status": "ported",
+        "cpp": "tests/process/test_explorer_open.cpp"
+      }
+    },
+    "tests/test_automation_hooks_programs.py": {
+      "test_run_once_passes_stdin_and_returns_stdout_and_exit_code": {
+        "status": "ported",
+        "cpp": "tests/process/test_run_once.cpp"
+      },
+      "test_run_once_passes_arguments_literally_without_a_shell": {
+        "status": "ported",
+        "cpp": "tests/process/test_run_once.cpp"
+      },
+      "test_run_once_starts_its_own_windowless_process_group": {
+        "status": "ported",
+        "cpp": "tests/process/test_run_once.cpp",
+        "note": "the flags through FakeProcessLauncher's recorded spec, the job through the child"
+      },
+      "test_run_once_keeps_at_most_the_stdout_limit_and_discards_stderr": {
+        "status": "ported",
+        "cpp": "tests/process/test_run_once.cpp",
+        "note": "the limit is a constant here, so the program writes past the real 1 MiB"
+      },
+      "test_run_once_survives_a_program_that_ignores_a_large_stdin": {
+        "status": "ported",
+        "cpp": "tests/process/test_run_once.cpp"
+      },
+      "test_run_once_explains_a_missing_program": {
+        "status": "ported",
+        "cpp": "tests/process/test_run_once.cpp"
+      },
+      "test_run_once_runs_in_the_home_folder_unless_told_otherwise": {
+        "status": "ported",
+        "cpp": "tests/process/test_run_once.cpp"
+      },
+      "test_run_once_strips_openwhispers_secrets_from_the_environment": {
+        "status": "ported",
+        "cpp": "tests/process/test_run_once.cpp"
+      },
+      "test_a_timeout_stops_the_program_and_everything_it_started": {
+        "status": "ported",
+        "cpp": "tests/process/test_run_once.cpp"
+      }
+    },
+    "tests/test_automation_fix_actions_programs.py": {
+      "test_an_app_the_program_opened_outlives_its_clean_exit": {
+        "status": "ported",
+        "cpp": "tests/process/test_run_once.cpp"
+      },
+      "test_a_helper_holding_the_output_open_survives_too": {
+        "status": "ported",
+        "cpp": "tests/process/test_run_once.cpp"
+      },
+      "test_cancel_stops_the_program_and_everything_it_started": {
+        "status": "ported",
+        "cpp": "tests/process/test_run_once.cpp"
+      },
+      "test_a_cancel_before_the_start_runs_nothing": {
+        "status": "ported",
+        "cpp": "tests/process/test_run_once.cpp"
+      }
+    },
+    "tests/test_automation_r2c_programs.py": {
+      "test_a_clean_run_lets_go_of_the_output_a_helper_still_holds": {
+        "status": "ported",
+        "cpp": "tests/process/test_run_once.cpp",
+        "note": "no thread is left because run_once joins its pipe threads before it returns"
+      },
+      "test_output_is_still_read_in_full_and_quickly": {
+        "status": "ported",
+        "cpp": "tests/process/test_run_once.cpp"
+      },
+      "test_output_written_just_before_the_exit_is_kept": {
+        "status": "ported",
+        "cpp": "tests/process/test_run_once.cpp"
+      },
+      "test_a_timed_out_run_lets_go_too": {
+        "status": "ported",
+        "cpp": "tests/process/test_run_once.cpp"
+      }
+    },
+    "tests/test_automation_r3c_programs.py": {
+      "test_a_clean_run_lets_go_of_the_input_a_helper_holds_without_reading": {
+        "status": "ported",
+        "cpp": "tests/process/test_run_once.cpp"
+      },
+      "test_a_helper_still_gets_the_input_it_reads_in_time": {
+        "status": "ported",
+        "cpp": "tests/process/test_run_once.cpp",
+        "note": "with the real 1 s grace: fv_process_child starts fast, where Python needed 15 s"
+      },
+      "test_a_program_that_reads_its_input_gets_all_of_it": {
+        "status": "ported",
+        "cpp": "tests/process/test_run_once.cpp"
+      }
+    },
+    "tests/test_agent_process.py": {
+      "test_cleanup_reaps_helpers_even_after_parent_exit": {
+        "status": "ported",
+        "cpp": "tests/process/test_agent_process.cpp"
+      },
+      "test_probe_timeout_closes_owned_process": {
+        "status": "ported",
+        "cpp": "tests/process/test_agent_process.cpp"
+      },
+      "test_group_kill_tolerates_macos_eperm_for_an_exited_leader": {
+        "status": "dropped",
+        "reason": "other-platform: macOS process-group signals; the POSIX launcher has no milestone"
+      }
+    },
+    "tests/test_automation_r3c_child_env.py": {
+      "test_a_key_rotated_in_dotenv_never_reaches_a_child": {
+        "status": "ported",
+        "cpp": "tests/process/test_process_env.cpp"
+      },
+      "test_a_key_deleted_from_dotenv_never_reaches_a_child": {
+        "status": "ported",
+        "cpp": "tests/process/test_process_env.cpp"
+      },
+      "test_the_app_still_reads_its_keys_from_dotenv": {
+        "status": "ported",
+        "cpp": "tests/process/test_process_env.cpp"
+      },
+      "test_a_dotenv_key_is_dropped_whatever_case_the_file_writes_it_in": {
+        "status": "ported",
+        "cpp": "tests/process/test_process_env.cpp"
+      },
+      "test_names_are_matched_the_way_the_system_matches_them": {
+        "status": "ported",
+        "cpp": "tests/process/test_process_env.cpp"
+      },
+      "test_openwhispers_internal_names_are_dropped_too": {
+        "status": "ported",
+        "cpp": "tests/process/test_process_env.cpp"
+      }
+    },
+    "tests/test_process_env.py": {
+      "test_variables_the_app_set_are_restored": {
+        "status": "ported",
+        "cpp": "tests/process/test_process_env.cpp"
+      },
+      "test_a_user_value_is_kept_when_asked": {
+        "status": "ported",
+        "cpp": "tests/process/test_process_env.cpp"
+      },
+      "test_path_entries_the_app_prepended_are_removed": {
+        "status": "ported",
+        "cpp": "tests/process/test_process_env.cpp"
+      },
+      "test_the_frozen_loader_environment_is_undone": {
+        "status": "dropped",
+        "reason": "PyInstaller loader plumbing: FioriVoce is not a frozen Python build"
+      },
+      "test_the_apps_own_virtualenv_is_left_out": {
+        "status": "dropped",
+        "reason": "virtualenv plumbing: FioriVoce runs in no virtualenv"
+      },
+      "test_a_users_own_virtualenv_is_kept": {
+        "status": "dropped",
+        "reason": "virtualenv plumbing: VIRTUAL_ENV is never touched, as the services.process_env vectors show"
+      },
+      "test_agents_hooks_and_actions_start_from_the_users_environment": {
+        "status": "ported",
+        "cpp": "tests/process/test_process_env.cpp"
+      }
+    }
+  }
+}

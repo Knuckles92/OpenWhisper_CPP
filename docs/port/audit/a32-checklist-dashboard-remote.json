@@ -1,0 +1,598 @@
+{
+ "area": "a32-user-facing-features",
+ "package": "M10 sweep",
+ "features": {},
+ "differences": [],
+ "checklist": {
+  "MD-01": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_web/server.cpp",
+    "src/meeting_web/dashboard_api.cpp",
+    "src/ui_meeting/dashboard_page.cpp",
+    "src/meeting/build_options.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_server.cpp",
+    "tests/meeting_web/test_dashboard_api.cpp",
+    "tests/ui_settings/test_meeting_pages.cpp",
+    "tests/meeting_web/test_audit_a32_dashboard.cpp",
+    "tests/meeting_web/test_webui_bundle.cpp"
+   ],
+   "note": "The browser half is OpenWhisper's webui carried over unchanged except the product-name replacements (webui/SOURCE; diff -r against OpenWhisper's webui/src shows only those), and test_webui_bundle.cpp pins dist/ to dist.sha256 byte for byte, so the page renders what OpenWhisper's does; the checks below are of the server half and the payload. Bind 'lan' listens on 0.0.0.0 and anything else on 127.0.0.1 (normalized_bind; 'an unknown bind serves on loopback', the LAN half only in the [interactive] 'a LAN-bound server answers on the machine's LAN address'), port 0 is OS-chosen and a fixed port in use fails the start; Settings > Meeting Mode > Dashboard has 'Localhost only (this computer)' / 'Share on local network', the LAN warning and the port spin with 'Automatic' for 0, saved as meeting_server_bind/meeting_server_port and passed to the server by build_options. Added tests/meeting_web/test_audit_a32_dashboard.cpp 'a32 MD-01: the dashboard bundle carries its fonts and loads nothing from elsewhere': DM Sans and Instrument Serif woff2 files are in dist/assets and served from /assets, and no script, stylesheet or page names a host to fetch (only XML namespaces and React's error-decoder text)."
+  },
+  "MD-02": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_web/auth.cpp",
+    "src/meeting_web/dashboard_api.cpp",
+    "src/meeting_web/ws_hub.cpp",
+    "src/meeting/engine.cpp",
+    "src/meeting_web/archive.cpp",
+    "src/meeting_state/patches.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_dashboard_api.cpp",
+    "tests/meeting_web/test_ws_hub.cpp",
+    "tests/meeting_web/test_archive.cpp",
+    "tests/meeting/test_engine_startup.cpp",
+    "tests/meeting_state/test_intent.cpp",
+    "tests/meeting_web/test_audit_a32_dashboard.cpp",
+    "tests/meeting_web/test_webui_bundle.cpp"
+   ],
+   "note": "The browser half is OpenWhisper's webui carried over unchanged except the product-name replacements (webui/SOURCE; diff -r against OpenWhisper's webui/src shows only those), and test_webui_bundle.cpp pins dist/ to dist.sha256 byte for byte, so the page renders what OpenWhisper's does; the checks below are of the server half and the payload. Host and guest links from the current row ('the links come from the current meeting row'); POST /api/meeting/tokens/regenerate host-only returning both new links, the engine and the archive write a new 43-character pair and invalidate the server, whose sockets close with 4401 ('rotation closes every socket with 4401 after a short delay', 'test_archive_adapter_rotates_links_and_stops_server'). Guests: set_meeting_intent (the brief) is host_only, reports are host-only and their patches never reach guests, agent_activity is host-only and absent from a guest hello. The REST half of 'old tokens die at once' was unpinned: added 'a32 MD-02: once the links are rotated the old tokens are refused at once' (old host and guest tokens 401 'invalid token', /m/<old> 403, the new pair honoured). 'Copy guest link' is the carried-over HeaderBar."
+  },
+  "MD-03": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/ws_hub.cpp",
+    "src/meeting_web/detail/routes_session.cpp",
+    "src/meeting/detail/live_intelligence.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_ws_hub.cpp",
+    "tests/meeting_web/test_dashboard_api.cpp",
+    "tests/meeting_web/test_webui_bundle.cpp"
+   ],
+   "note": "The browser half is OpenWhisper's webui carried over unchanged except the product-name replacements (webui/SOURCE; diff -r against OpenWhisper's webui/src shows only those), and test_webui_bundle.cpp pins dist/ to dist.sha256 byte for byte, so the page renders what OpenWhisper's does; the checks below are of the server half and the payload. The workspace (Conversation / summary or report / Captured rail with 'Top insights' then 'Everything captured', sticky header, narrow stacking, ConfirmDialog instead of confirm()) is client layout only. Its payload: the hello snapshot shape and the last 200 segments ('hello snapshot shape'), the activity strip's agent_activity ticks to hosts only and the host hello carrying the last 50 ('host receives agent activity guest does not', 'a host hello carries the last 50 ticks', 'guest hello omits agent activity key')."
+  },
+  "MD-04": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/patches.cpp",
+    "src/meeting_state/detail/patches_items.cpp",
+    "src/meeting_state/detail/patches_people.cpp",
+    "src/meeting_state/schema.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_patches.cpp",
+    "tests/meeting_state/test_store.cpp",
+    "tests/meeting_state/test_schema.cpp",
+    "tests/golden/meeting.state.patches.json",
+    "tests/meeting_web/test_webui_bundle.cpp"
+   ],
+   "note": "The browser half is OpenWhisper's webui carried over unchanged except the product-name replacements (webui/SOURCE; diff -r against OpenWhisper's webui/src shows only those), and test_webui_bundle.cpp pins dist/ to dist.sha256 byte for byte, so the page renders what OpenWhisper's does; the checks below are of the server half and the payload. The state the cards render: topic, rolling summary, key points, decisions, action items with owner/deadline, risks with severity, timeline (agent beats need start_s), participants, and the questions inbox ops ask/resolve/answer/dismiss/reopen with the agent's cap of seven open questions (MAX_OPEN_QUESTIONS 7, 50 for people; 'TestQuestions::test_open_question_cap_applies_to_agent', resolution thresholds, human answer beating the agent) and item evidence ids, replayed by the patches golden. Evidence chips as meeting-clock times and '+N more' are the carried-over EvidenceChip."
+  },
+  "MD-05": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/detail/patches_items.cpp",
+    "src/meeting_state/export_markdown.cpp",
+    "src/meeting/meeting_intelligence.cpp",
+    "src/meeting/detail/engine_end.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_notes.cpp",
+    "tests/meeting_state/test_export.cpp",
+    "tests/meeting_state/test_store.cpp",
+    "tests/meeting/test_engine_end.cpp",
+    "tests/meeting_web/test_webui_bundle.cpp"
+   ],
+   "note": "The browser half is OpenWhisper's webui carried over unchanged except the product-name replacements (webui/SOURCE; diff -r against OpenWhisper's webui/src shows only those), and test_webui_bundle.cpp pins dist/ to dist.sha256 byte for byte, so the page renders what OpenWhisper's does; the checks below are of the server half and the payload. live_notes is a card of timestamped (data.start_s, heading) evidence-linked blocks: the agent's blocks are proposed, a human edit makes a block authoritative and the agent's rewrite is refused 'human_edited', people add notes directly ('TestNotesPatchOps::*'), confirm/update/remove go through the store with host undo, End runs the consolidation pass over the whole meeting (MeetingIntelligence::consolidate, engine_end.cpp, test_engine_end.cpp), and the Markdown export has '## Meeting Notes' (test_export.cpp)."
+  },
+  "MD-06": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/corrections.cpp",
+    "src/meeting_state/segment_ops.cpp",
+    "src/meeting_web/detail/routes_control.cpp",
+    "src/meeting_agent/detail/prompt_text.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_corrections.cpp",
+    "tests/meeting_state/test_scoped_corrections.cpp",
+    "tests/meeting_web/test_dashboard_api.cpp",
+    "tests/golden/meeting.corrections.json",
+    "tests/golden/meeting.agent.prompts.json",
+    "tests/meeting_web/test_webui_bundle.cpp"
+   ],
+   "note": "The browser half is OpenWhisper's webui carried over unchanged except the product-name replacements (webui/SOURCE; diff -r against OpenWhisper's webui/src shows only those), and test_webui_bundle.cpp pins dist/ to dist.sha256 byte for byte, so the page renders what OpenWhisper's does; the checks below are of the server half and the payload. 'Offer insight to agent' (SelectionInsight) posts a human note: term corrections apply whole-word to transcript, exports and previews, one-occurrence corrections only to their passage, each individually undoable (test_scoped_corrections.cpp); POST /api/meeting/notes/request (1..4000 characters, any role); the guidance prompt tells the agent to 'Reconsider stale topic, summary, claims and AI notes now' (corrections and prompts goldens). 'Primes the recognizer' is Whisper's initial_prompt (vocabulary_hint): ported in meeting_state but Parakeet takes no prompt, the engine-specific drop recorded as A25-31."
+  },
+  "MD-07": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/capture_session.cpp",
+    "src/meeting/engine.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_capture_session.cpp",
+    "tests/meeting/test_engine_capture.cpp",
+    "tests/meeting_web/test_webui_bundle.cpp"
+   ],
+   "note": "The browser half is OpenWhisper's webui carried over unchanged except the product-name replacements (webui/SOURCE; diff -r against OpenWhisper's webui/src shows only those), and test_webui_bundle.cpp pins dist/ to dist.sha256 byte for byte, so the page renders what OpenWhisper's does; the checks below are of the server half and the payload. AudioCheck and the health panel read state.capture: mic/loopback available, receiving, signal windows and source generation, which the capture session reports (capture_session.cpp) and the engine publishes (test_engine_capture.cpp)."
+  },
+  "MD-08": {
+   "status": "difference",
+   "difference": "a30-dashboard-fresh-approval",
+   "cpp": [
+    "src/meeting_state/report_views.cpp",
+    "src/meeting_web/detail/routes_meeting.cpp",
+    "src/meeting_intel/custom_report.cpp",
+    "src/meeting_state/export_markdown.cpp",
+    "src/ui_meeting/after_end_page.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_report_views.cpp",
+    "tests/meeting_web/test_report_route.cpp",
+    "tests/meeting_state/test_custom_report_ops.cpp",
+    "tests/golden/meeting.custom_report.json",
+    "tests/ui_settings/test_meeting_pages.cpp",
+    "tests/meeting_web/test_webui_bundle.cpp"
+   ],
+   "note": "'Ask for a report' from the host dashboard waits for a fresh desktop approval naming the meeting and destination (a30-dashboard-fresh-approval). Otherwise verified: Ribbon/Brief/Signal from the Settings checkboxes stored per meeting (meeting_report_* -> report_views), Editorial and Handoff appended client-side; custom reports host-only, one at a time ('test_a_second_request_while_one_runs_is_refused_in_plain_words'), saved with the meeting, in the Markdown export ('TestExport::test_finished_reports_join_the_markdown_export'), downloadable alone (/reports/<id>/download), clipped with '*(Report truncated.)*' (golden). Header dropdown, Download and Copy guest link are the carried-over HeaderBar."
+  },
+  "MD-09": {
+   "status": "difference",
+   "difference": "a24-local-fast-features",
+   "cpp": [
+    "src/meeting_intel/live_highlights.cpp",
+    "src/meeting_state/fast_ops.cpp",
+    "src/meeting_state/export_markdown.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_live_highlights.cpp",
+    "tests/meeting_state/test_fast_ops.cpp",
+    "tests/meeting_state/test_export_features.cpp",
+    "tests/meeting_web/test_webui_bundle.cpp"
+   ],
+   "note": "Pulses come only from a Fast judgments judge on this computer (a24-local-fast-features). Verified: the five kinds (decisions, disagreements, dated commitments, meaningful numbers, takeaways), pulses merged by id and ordered by start, persisted ('test_persisted_signals_round_trip') and exported (append_highlights, test_export_features.cpp); seeking and transcript highlighting are the carried-over HighlightPulseStrip."
+  },
+  "MD-10": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/voice_control.cpp",
+    "src/meeting/engine.cpp",
+    "src/meeting_state/fast_ops.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_fast_features.cpp",
+    "tests/meeting_state/test_fast_ops.cpp",
+    "tests/meeting_web/test_ws_hub.cpp",
+    "tests/meeting_web/test_webui_bundle.cpp"
+   ],
+   "note": "The browser half is OpenWhisper's webui carried over unchanged except the product-name replacements (webui/SOURCE; diff -r against OpenWhisper's webui/src shows only those), and test_webui_bundle.cpp pins dist/ to dist.sha256 byte for byte, so the page renders what OpenWhisper's does; the checks below are of the server half and the payload. The bubble renders voice_feedback: the engine emits heard/working/saved/uncertain/error phases with a rising seq to every socket while the meeting runs (A30-36's fix, test_fast_features.cpp, 'fast ops: voice feedback while the meeting runs'); 'unavailable' is the status without a local judge (a24-local-fast-features, see MR-07). Dismissal and reduced motion are client-only."
+  },
+  "MD-11": {
+   "status": "difference",
+   "difference": "a30-dashboard-local-judgments",
+   "cpp": [
+    "src/meeting_web/detail/routes_meeting.cpp",
+    "src/meeting_intel/insight_review.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_review_route.cpp",
+    "tests/meeting_web/test_dashboard_api.cpp"
+   ],
+   "note": "The panel's review route runs only on a device-local judge (a30-dashboard-local-judgments); the panel's behaviour is MR-01."
+  },
+  "MD-12": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/archive.cpp",
+    "src/meeting_state/stored.cpp",
+    "src/meeting_web/detail/routes_history.cpp",
+    "src/meeting/detail/runtime_card.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_archive.cpp",
+    "tests/meeting_state/test_stored.cpp",
+    "tests/meeting_web/test_dashboard_api.cpp",
+    "tests/meeting/test_runtime_card.cpp",
+    "tests/meeting_web/test_webui_bundle.cpp"
+   ],
+   "note": "The browser half is OpenWhisper's webui carried over unchanged except the product-name replacements (webui/SOURCE; diff -r against OpenWhisper's webui/src shows only those), and test_webui_bundle.cpp pins dist/ to dist.sha256 byte for byte, so the page renders what OpenWhisper's does; the checks below are of the server half and the payload. A past meeting is served by ArchivedMeetingDashboard over a historical store (in-flight work shown interrupted) with the same session payload; a speaker correction on it saves ('test_historical_store_can_correct_a_speaker'); rename, events paging (before_seq, 'Load older') and link rotation ('test_archive_adapter_rotates_links_and_stops_server') are the shared routes; an unreadable snapshot loads fresh with the row's identity and Keep for later persists card_deferred ('test_defer_persists_flag_and_hides_card'). History's archive view and its tabs are the carried-over HistoryPane; desktop Past Meetings is a31."
+  },
+  "MD-13": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/ws_hub.cpp",
+    "src/meeting_state/schema.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_webui_bundle.cpp",
+    "tests/meeting_web/test_ws_hub.cpp"
+   ],
+   "note": "The browser half is OpenWhisper's webui carried over unchanged except the product-name replacements (webui/SOURCE; diff -r against OpenWhisper's webui/src shows only those), and test_webui_bundle.cpp pins dist/ to dist.sha256 byte for byte, so the page renders what OpenWhisper's does; the checks below are of the server half and the payload. Rendering **bold** and *italic* in reports, the History preview and the Room display while questions, quotes and the recap email stay plain is client-only (webui/src/markdown.ts, RoomDisplay.tsx, carried over unchanged); the server sends item text as stored."
+  },
+  "MD-14": {
+   "status": "difference",
+   "difference": "a30-dashboard-fresh-approval",
+   "cpp": [
+    "src/meeting_web/detail/routes_meeting.cpp",
+    "src/meeting_web/detail/routes_history.cpp",
+    "src/meeting_web/detail/routes_session.cpp",
+    "src/meeting_web/ws_hub.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_dashboard_api.cpp",
+    "tests/meeting_web/test_history_routes.cpp",
+    "tests/meeting_web/test_audit_a30.cpp",
+    "tests/meeting_web/test_ws_hub.cpp",
+    "tests/meeting_web/test_api_transcript.cpp"
+   ],
+   "note": "A re-run of insights that reaches saved AI steps waits for a fresh desktop approval (a30-dashboard-fresh-approval); semantic search runs only on a local judge (a30-dashboard-local-judgments, keyword search unchanged). Verified: rename, delete with its guards, audit events with undoable and host undo over the socket, keyset transcript paging (1..1000, limit+1), search results opening /api/meetings/{id}?include_transcript=1 (A30-08, -12, -15, -19, -21, -35 tests)."
+  },
+  "MR-01": {
+   "status": "difference",
+   "difference": "a30-dashboard-local-judgments",
+   "cpp": [
+    "src/meeting_intel/insight_review.cpp",
+    "src/meeting_state/review_ops.cpp",
+    "src/ui_meeting/after_end_page.cpp",
+    "src/meeting_web/detail/routes_meeting.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_review_worker.cpp",
+    "tests/meeting_intel/test_audit_a29_review.cpp",
+    "tests/meeting_intel/test_audit_a32_review.cpp",
+    "tests/meeting_web/test_review_route.cpp",
+    "tests/ui_settings/test_meeting_pages.cpp"
+   ],
+   "note": "The review needs a Fast judgments judge on this computer, not a TypeSafe key and sharing disclosure (a30-dashboard-local-judgments; a31-meeting-judge-stays-local). Verified: 'Review uncertain insights at the end' off by default with Normal sensitivity; action items, decisions and risks checked (at most 40), ranked questions all kept ('test_all_ranked_questions_survive_reload'; the 3-then-'Review more' paging, 'Review later' and 'Retry review' are the carried-over InsightReview); answers become protected clarifications in the report ('test_answer_updates_linked_insight_notes_and_durable_report'), revisable, skip/reopen; the dashboard route works on past meetings. The 0.85/0.95 thresholds were untested: added tests/meeting_intel/test_audit_a32_review.cpp 'a32 MR-01: Thorough asks below 0.95 where Normal asks only below 0.85'."
+  },
+  "MR-02": {
+   "status": "difference",
+   "difference": "a26-native-agent-loop",
+   "cpp": [
+    "src/meeting_agent/agent_settings.cpp",
+    "src/ui_meeting/intelligence_page.cpp",
+    "src/agents/detail/claude_driver.cpp",
+    "src/agents/detail/codex_driver.cpp",
+    "src/agents/detail/opencode_driver.cpp",
+    "src/meeting_agent/installed_core.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_agent_settings.cpp",
+    "tests/ui_meeting/test_intelligence_page.cpp",
+    "tests/agents/test_drivers.cpp",
+    "tests/meeting_agent/test_installed_core.cpp"
+   ],
+   "note": "Pi and the OpenCode SDK are the in-process native agent loop, not packaged components (a26-native-agent-loop). Verified: meeting_agent_core default pi, legacy 'direct' resolves to Pi ('test_legacy_direct_selection_shows_pi_without_an_api_option', test_agent_settings.cpp), installed Claude Code / Codex / OpenCode tiles with installed and sign-in status and their own model or default, a missing saved agent stays selected with a notice (no silent fallback), installed agents run headless with built-in tools off and only the meeting's own MCP server (claude --tools '' --strict-mcp-config, codex verifying server isolation, the OpenCode overlay refusing other permissions: test_drivers.cpp 'claude command line', 'codex refuses a pass when server isolation cannot be verified', 'a meeting pass reads no files'), and installed agents get their own slower cadence ('test_installed_agents_get_their_own_cadence')."
+  },
+  "MR-03": {
+   "status": "difference",
+   "difference": "a31-ai-insights-consent-per-meeting",
+   "cpp": [
+    "src/meeting/detail/live_intelligence.cpp",
+    "src/ui_meeting/intelligence_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_intelligence_page.cpp",
+    "tests/meeting/test_engine_intelligence.cpp",
+    "tests/meeting/test_engine_end.cpp",
+    "tests/meeting/test_engine_audit_fixes.cpp"
+   ],
+   "note": "The backup agent is authorized by its own consent for its own route (a31-ai-insights-consent-per-meeting). Verified: off until chosen ('test_backup_agent_is_off_until_chosen'), takes over once when insights fail and catches up on undelivered transcript ('repeated checkpoints hand undelivered transcript to an approved backup', 'test_backup_is_tried_once'), 'Your backup agent took over AI insights. <why>', and 'The AI provider rejected the API key (401)...' (test_engine_intelligence.cpp)."
+  },
+  "MR-04": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/intelligence_page.cpp",
+    "src/meeting/rerun_options.cpp",
+    "src/meeting_intel/custom_report.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_intelligence_page.cpp",
+    "tests/meeting/test_refinalize_intelligence.cpp",
+    "tests/meeting/test_rerun_options.cpp",
+    "tests/meeting_intel/test_custom_report.cpp"
+   ],
+   "note": "One meeting_insights_model_tile for the built-in agent and installed agents; Live and Final thinking default Low and Medium ('test_agent_thinking_levels_load_and_save'); the built-in agent shows Medium, disabled, '<product> thinks at Medium...' ('test_packaged_sdk_thinks_at_medium'); re-runs use the meeting's stored endpoint snapshot ('TestEndpointSnapshot::*') and custom reports the meeting's route."
+  },
+  "MR-05": {
+   "status": "fixed",
+   "cpp": [
+    "src/llm/thinking_levels.cpp",
+    "src/ui_meeting/intelligence_page.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_thinking_levels.cpp",
+    "tests/ui_personalize/test_cleanup_model_section.cpp",
+    "tests/ui_meeting/test_audit_a32_thinking.cpp"
+   ],
+   "note": "Claude Code low..max, each Codex model's own (up to ultra), catalog levels for endpoints, nearest offered level (test_thinking_levels.cpp), and the cleanup page's 'Your Off setting runs at Low' were pinned; the meeting page's note was not: added tests/ui_meeting/test_audit_a32_thinking.cpp 'a32 MR-05: a saved level the agent lacks runs at the nearest and the page says so' (Claude Code with Ultra and Off saved shows Max and Low and reads '... With this model, Ultra runs at Max and Off runs at Low.')."
+  },
+  "MR-06": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_intel/recall.cpp",
+    "src/meeting_intel/context_folder.cpp",
+    "src/meeting_intel/detail/report_prompt.cpp",
+    "src/meeting_intel/detail/report_corpus.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_recall.cpp",
+    "tests/meeting_intel/test_context_folder.cpp",
+    "tests/meeting_intel/test_custom_report.cpp",
+    "tests/golden/meeting.custom_report.json"
+   ],
+   "note": "Past-meeting recall and the knowledge folder are off until enabled and their tools search other meetings / the folder with clamped limits ('TestRecallConsent::*', 'TestConsent::*'); report agents get search_transcript and read_transcript for stretches not shown (report_corpus.cpp '... Use read_transcript or search_transcript ...', golden)."
+  },
+  "MR-07": {
+   "status": "difference",
+   "difference": "a31-meeting-judge-stays-local",
+   "cpp": [
+    "src/ui_settings/fast_judgments_page.cpp",
+    "src/meeting_intel/voice_commands.cpp",
+    "src/meeting_intel/intel_settings.cpp",
+    "src/meeting_intel/citation_verifier.cpp",
+    "src/meeting/detail/voice_control.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_fast_judgments_page.cpp",
+    "tests/ui_settings/test_fast_judgments_golden.cpp",
+    "tests/meeting_intel/test_voice_commands.cpp",
+    "tests/meeting_intel/test_voice_command_parity.cpp",
+    "tests/meeting_intel/test_citations.cpp",
+    "tests/meeting_intel/test_intel_settings.cpp"
+   ],
+   "note": "Meetings use only a judge on this computer (a31-meeting-judge-stays-local, with a24-local-fast-features and a29-local-meeting-judgments), and the last two default wake names are identity()'s product (a29-wake-names-from-identity). Verified: the page's master and feature switches off by default, TypeSafe / OpenRouter / your text model routes, Test with the probe, the no-key notice with its one-click switch (test_fast_judgments_page.cpp); commands mark_decision, mark_action, note_this, recap, fix_transcript, set_topic (voice_commands.cpp tests); citation statuses."
+  },
+  "MR-08": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/after_end_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_meeting_pages.cpp",
+    "tests/ui_settings/test_meeting_pages_screenshots.cpp"
+   ],
+   "note": "After End page: final report, polish, re-decode switches, 'Review uncertain insights at the end' and the report-view tiles following the report toggle; the rail reads Report / Polish / Re-decode / Off by the first step on ('the After the meeting rail names the first step on')."
+  },
+  "MW-09": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/main_window.cpp",
+    "src/ui_shell/shell_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_host_mode_window.cpp",
+    "tests/ui_shell/test_main_window.cpp",
+    "tests/ui_shell/test_saved_geometry_fit.cpp"
+   ],
+   "note": "Host Mode hides the tabs, the side panel and its edge tab for the dashboard, titles the window '<product> Host', disables History and Compact Mode, is saved as host_mode and comes back at launch, and keeps its own host_window_geometry ('test_host_mode_swaps_the_tabs_for_the_dashboard_and_back', 'test_host_mode_keeps_its_own_window_size_and_place', 'test_saved_host_mode_comes_back_at_launch')."
+  },
+  "SRE-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp",
+    "tests/ui_remote/test_remote_page.cpp"
+   ],
+   "note": "Remote engine page with the 'Use another computer' (detail 'Not paired' / 'Paired · <host>') and 'Share this computer' (sharing and paired count) tabs, and the rail value (A18-01, A18-02 tests)."
+  },
+  "RE-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/remote_host/service.cpp",
+    "src/remote_host/speech_host.cpp",
+    "src/remote_host/pairing_host.cpp"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp",
+    "tests/ui_remote/test_a18_audit.cpp",
+    "tests/ui_remote/test_remote_page.cpp",
+    "tests/remote_host/test_audit_a17.cpp",
+    "tests/remote/test_client.cpp"
+   ],
+   "note": "'Share this computer's engine' tile and its description (Windows may ask once to allow private networks), switched off the GUI thread; port 1024-65535 default 47821 applied once after the arrows settle (PORT_SETTLE_MS 600, 'port arrows restart sharing once on the last port') and moving sharing only while it is on; the sharing line with address, Tailscale line and identity code; a waiting pairing request is told '<host> stopped sharing its engine.' within the 2 s stop_grace (pinned in test_audit_a17.cpp and test_client.cpp)."
+  },
+  "RE-02": {
+   "status": "verified",
+   "cpp": [
+    "src/remote/discovery_search.cpp",
+    "src/remote/discovery_codec.cpp",
+    "src/remote/scans.cpp",
+    "src/remote_host/pairing_host.cpp",
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/pair_request_dialog.cpp",
+    "src/remote/pairing_settings.cpp"
+   ],
+   "tests": [
+    "tests/remote/test_discovery_codec.cpp",
+    "tests/remote/test_discovery_search.cpp",
+    "tests/remote/test_scans.cpp",
+    "tests/remote_host/test_pairing_host.cpp",
+    "tests/ui_remote/test_a18_page_rows.cpp",
+    "tests/ui_remote/test_pair_request_dialog.cpp",
+    "tests/remote/test_pairing_settings.cpp",
+    "tests/ui_remote/test_a18_audit.cpp"
+   ],
+   "note": "LAN discovery on UDP 47821 with the 512-byte query and tailnet probing, rows naming each host's engine; approval pairing with the six-digit SAS on both screens and Allow on the host (PairRequestDialog); code-free pairing only for the host's own untagged Tailscale login over tailnet addresses, which the host can turn off; 'Enter an address' and 'Show a pairing code'; 'Check every address' sweep; local-only renames of the host and of paired computers (A17-09..12, A17-34..37, A17-41, A18-03..10, A18-16, A18-25, A18-27, A18-32 tests)."
+  },
+  "RE-03": {
+   "status": "verified",
+   "cpp": [
+    "src/remote_host/identity.cpp",
+    "src/remote/connection.cpp",
+    "src/remote_host/registry.cpp",
+    "src/remote/pairing_settings.cpp"
+   ],
+   "tests": [
+    "tests/remote_host/test_identity.cpp",
+    "tests/remote/test_connection.cpp",
+    "tests/remote/test_client.cpp",
+    "tests/remote_host/test_registry.cpp",
+    "tests/remote/test_pairing_settings.cpp",
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "TLS WebSocket to the host's self-signed EC P-256 certificate pinned by fingerprint at pairing (a different certificate is refused, a moved host is followed by fingerprint); each computer's token stored on the host only as its SHA-256 and removable from Paired computers; the connection key only in the credential store under a per-data-root name, so another data folder pairs as another device (A17-04, -08, -13, -21, -39, -40, A18-29). The macOS Keychain retry flow is macOS-only (A18-48, other-platform)."
+  },
+  "RE-04": {
+   "status": "verified",
+   "cpp": [
+    "src/remote/remote_backend.cpp",
+    "src/ui_record/transcription_tab_base.cpp",
+    "src/ui_widgets/remote_link_glyph.cpp",
+    "src/remote/connection.cpp",
+    "src/ui_remote/remote_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_remote_link_card.cpp",
+    "tests/remote_host/test_remote_backend.cpp",
+    "tests/ui_widgets/test_remote_link_glyph.cpp",
+    "tests/remote/test_audit_a17.cpp",
+    "tests/ui_controller/test_remote_engine_hooks.cpp"
+   ],
+   "note": "The card draws RemoteLinkGlyph in place of the dot with 'Connected to jed · Tailscale · 24 ms' ('test_the_card_shows_the_link_instead_of_the_dot'), the keepalive beat, 'Transcribing on jed...', 20 s ping / 20 s pong timeout, a dropped host reported at once and retried after REMOTE_RETRY_DELAYS 2, 5, 15, 30, 60 s with a ticking countdown, clicking the offline link or a readiness check retrying now, the host's 'Sharing this engine with <who>' / 'Transcribing for <who>' row, and '<host> switched engines. Reconnecting...'. The '· N ms network' stats line is A09-40 (in progress, worker R7), not part of this line."
+  },
+  "RE-05": {
+   "status": "fixed",
+   "cpp": [
+    "src/remote/remote_backend.cpp",
+    "src/remote_host/model_management.cpp",
+    "src/remote_host/service.cpp",
+    "src/ui_remote/remote_models_dialog.cpp",
+    "src/ui_widgets/remote_engine_controls.cpp",
+    "src/ui_record/transcription_tab_base.cpp"
+   ],
+   "tests": [
+    "tests/remote_host/test_remote_runtime_client.cpp",
+    "tests/remote_host/test_model_management.cpp",
+    "tests/ui_remote/test_remote_models_jobs.cpp",
+    "tests/ui_record/test_remote_engine_card.cpp"
+   ],
+   "note": "Closed with A17-28 and the ported functions of test_remote_runtime.py, test_remote_dependencies.py and test_remote_model_management.py: the client's runtime requests over a real host (test_remote_runtime_client.cpp), the host's download and runtime installation jobs with files served by a FakeHttpClient (test_download_survives_disconnect_and_is_observable_without_selecting, test_failed_download_is_sanitized_releases_claim_and_can_retry, test_incomplete_download_is_never_reported_as_ready, test_install_survives_disconnect_reports_progress_and_uses_host_archive, test_install_failure_releases_claim_and_reports_recovery; fixed on the way: a download job read failed while it ran), the client's legacy-host refusals (test_legacy_host_explains_runtime_upgrade), and the Manage host models dialog's confirmations, polling and in-flight locks (test_remote_models_jobs.cpp). Verified before: the main Model field lists the host's models by engine with the running one selected and choosing one switches the host (TestRemoteModelField *, test_choosing_a_host_model_switches_the_host_and_reconnects_to_it), a recording or meeting host keeps its model and says why (test_a_host_that_keeps_its_model_says_why), model management needs Allow paired computers to manage models (A17-29, A18-24). The Mac host Auto (Apple GPU) install is another platform's."
+  },
+  "RE-06": {
+   "status": "difference",
+   "difference": "a17-backup-transfer",
+   "cpp": [
+    "src/remote_host/admission.cpp",
+    "src/remote_host/speech_host.cpp",
+    "src/remote_host/dispatch.cpp",
+    "src/remote/remote_backend.cpp",
+    "src/remote_records/gate.cpp"
+   ],
+   "tests": [
+    "tests/remote_host/test_admission.cpp",
+    "tests/remote_host/test_audit_a17.cpp",
+    "tests/remote_host/test_transcripts.cpp",
+    "tests/remote_host/test_remote_backend.cpp"
+   ],
+   "note": "During a backup a new record transfer gets 'busy' and is retried by hand instead of waiting (a17-backup-transfer). Verified: 12 greeting-stage and 32 paired connections, 2 costly requests with 4 FIFO waiters and a 30 s wait, busy with retry_after_ms, record ops skipping the work pool (HostLimits defaults pinned in test_audit_a17.cpp), the client's 90 s busy wait (BUSY_RETRY_S, A14-59), host_ms including the queue wait so the client splits host from network time ('test_timing_splits_the_host_from_the_network')."
+  },
+  "RE-07": {
+   "status": "verified",
+   "cpp": [
+    "src/remote_host/speech_host.cpp",
+    "src/remote_host/service.cpp",
+    "src/dictation/transcription_runtime.cpp",
+    "src/remote/remote_backend.cpp"
+   ],
+   "tests": [
+    "tests/remote_host/test_runtime_links.cpp",
+    "tests/remote_host/test_speech_host.cpp",
+    "tests/dictation/test_runtime_flow.cpp",
+    "tests/remote_host/test_remote_backend.cpp"
+   ],
+   "note": "A reloading host answers engine_reloading / 'The host is loading its speech engine.' and the client retries an unstarted decode ('test_recording_retries_a_decode_the_remote_host_refused_before_starting'); Quick Record waits for the reconnect (Retrying connection (n/3)...), then keeps the audio in History with Retry transcription ('a recording waits briefly for the remote engine, then keeps the audio'); a host restart recovers without switching model. The recording reservation and the D-Bus PrepareUpdate/CancelUpdate/UpdateStatus hold are the Omarchy updater's, another platform's: the client half is not ported and the host half is (A04-46, A17-25; docs/port/packages/M9.md decision 9)."
+  },
+  "RE-08": {
+   "status": "difference",
+   "difference": "a17-retention",
+   "cpp": [
+    "src/ui_meeting/meeting_presenter.cpp",
+    "src/ui_meeting/past_meetings_panel.cpp",
+    "src/remote_records/sync.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_past_meetings_presenter_host.cpp",
+    "tests/ui_meeting/test_past_meetings_panel.cpp",
+    "tests/ui_meeting/test_past_meetings_host_copies.cpp"
+   ],
+   "note": "Host-kept meetings in Past Meetings are now done (A31-31, A31-56 fixed by R8): this computer's meetings show first and the host's are merged in when it answers (0.4 s), the host searches itself, local copies it keeps read 'Also on <host>', and opening a host-kept meeting downloads it first with 'Getting it from <host>… N%' (tests/ui_meeting/test_past_meetings_presenter_host.cpp, test_past_meetings_panel.cpp, test_past_meetings_host_copies.cpp). Deliberate differences: transfers are chosen per record and by hand, with the manual-transfer wording (a17-retention, a18-records-transfer-by-hand), and deleting here keeps the host's copy (a28-delete-keeps-host-copy). Verified: This computer / Host / Both with Move or Copy existing records and Bring records back (A18-18..20, A18-53, A17-57, A17-61), History marks host-kept entries and Transcribe again fetches the audio (A17-49, A17-59), 'Keep records for paired computers' off by default (A18-24), per-computer records on the host, removing a computer asks keep or delete (A18-29), 'Recover stored records...' (A18-30, A17-50)."
+  },
+  "RE-09": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_remote/host_dashboard.cpp",
+    "src/ui_remote/host_beacon.cpp",
+    "src/ui_remote/host_text.cpp",
+    "src/remote_host/activity.cpp",
+    "src/ui_shell/shell_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_remote/test_host_mode.cpp",
+    "tests/ui_remote/test_host_text.cpp",
+    "tests/ui_remote/test_host_client_glyph.cpp",
+    "tests/remote_host/test_activity.cpp",
+    "tests/ui_shell/test_host_mode_window.cpp"
+   ],
+   "note": "View > Host Mode (Ctrl+Shift+H, MW-04); hero with start/stop, address, port, Tailscale and identity; the four tiles Connected / Transcriptions / Audio transcribed / Speed; the engine card with device, preview, why-not-serving and a model picker; connected computers grouped per device with duration and requests; 'Pair a computer' with the code and countdown; paired list with connected/last seen/how paired/what it keeps; the MCP card; recent activity (12 rows); the beacon moving only on events; counts in memory (A18-34..45, A18-54..60, A17-31)."
+  },
+  "RE-10": {
+   "status": "fixed",
+   "cpp": [
+    "src/remote_host/reachability.cpp",
+    "src/remote_host/service.cpp",
+    "src/ui_remote/remote_engine_page.cpp"
+   ],
+   "tests": [
+    "tests/remote_host/test_reachability.cpp",
+    "tests/ui_remote/test_remote_host_notes.cpp",
+    "tests/net/test_lan_address.cpp"
+   ],
+   "note": "Closed with A17-33: the Windows public-network note with its Open network settings button (on the Remote engine page, as OpenWhisper's settings_remote.py _show_host_notes; its Host Mode dashboard shows no notes) opening the adapter's ms-settings page, the VPN note and the discovery note, tested on the service (the sharing host notes a VPN and discovery that could not listen) and on the page (the sharing host's notes show each fix, and the public network's opens Settings). The PowerShell profile read is Windows-only and not run here. Verified before: a host that answered the search but refuses the connection reads as a probable firewall block, a host not found says what to do, the Tailscale hint for use away from home (A18-05, A18-09, A18-13), and the LAN address picked from the interface list ignoring a VPN default route and virtual bridges (A17-53, tests/net/test_lan_address.cpp)."
+  },
+  "RE-11": {
+   "status": "difference",
+   "difference": "a25-remote-meeting-consent",
+   "cpp": [
+    "src/remote/meeting_route.cpp",
+    "src/meeting/detail/runtime_engine.cpp",
+    "src/meeting/detail/engine_start.cpp",
+    "src/meeting_capture/capture_session.cpp"
+   ],
+   "tests": [
+    "tests/remote/test_meeting_route.cpp",
+    "tests/meeting/test_engine_remote_route.cpp",
+    "tests/meeting/test_runtime_remote.cpp",
+    "tests/meeting_capture/test_asr_engine.cpp",
+    "tests/remote_host/test_remote_backend.cpp"
+   ],
+   "note": "A remote meeting needs its own confirmation of the named host, and recovery never resends saved audio (a25-remote-meeting-consent). Verified: only audio goes to the host, capture, chunks and transcript stay on the meeting computer with the route persisted before capture ('test_engine_persists_actual_remote_route_before_capture'), congestion refunds and resumes the same chunk, the live worker resumes pending audio after the host returns and a restarted host recovers without switching model (remote_host PARITY: test_live_worker_resumes_pending_audio_after_host_returns, test_host_restart_recovers_without_switching_model)."
+  },
+  "RE-12": {
+   "status": "verified",
+   "cpp": [
+    "src/remote_host/dispatch.cpp",
+    "src/remote/remote_backend.cpp",
+    "src/remote_records/dictation_records.cpp",
+    "src/remote/protocol.cpp"
+   ],
+   "tests": [
+    "tests/remote_host/test_speech_host.cpp",
+    "tests/remote/test_remote_backend.cpp",
+    "tests/remote_records/test_kinds.cpp",
+    "tests/remote/test_protocol.cpp",
+    "tests/fixtures/transcripts/remote_hello_ready.json"
+   ],
+   "note": "The host's ready advertises recognition_hints from its engine and the client sends phrases only to a host that uses them ('test_client_sends_phrases_only_to_a_host_that_uses_them'); PROTOCOL_VERSION 1 on /openwhisper/v1/engine for interop (A17-02); dictation records carry entry_kind, cleanup_level, cleaned_text and language in entry_ext while app fields stay on this computer, and older or malformed entry_ext still imports (test_kinds.cpp)."
+  }
+ }
+}

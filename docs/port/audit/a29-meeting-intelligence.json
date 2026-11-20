@@ -1,0 +1,518 @@
+{
+ "area": "a29-meeting-intelligence",
+ "package": "M8.9 and M8.11",
+ "features": {
+  "A29-02": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_intel/detail/report_pass.cpp",
+    "src/meeting_intel/custom_report.h"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_report_golden.cpp",
+    "tests/golden/meeting.custom_report.json",
+    "tests/meeting_intel/test_custom_report.cpp"
+   ],
+   "note": "13 generate_report vectors (a fake OpenAI client) replay the requests: system prompt plus one user prompt, up to 6 rounds at temperature 0.2, the last round's 'Stop reading and write the report now…' with the tools dropped; 'a model without tools gets one round with the whole prompt' and 'a pass past its deadline asks for a narrower request' (420 s) are the C++ cases. A report started from the dashboard toward a hosted model waits for fresh desktop approval (a30-dashboard-fresh-approval); this pass is unchanged."
+  },
+  "A29-03": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_intel/detail/report_corpus.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_report_golden.cpp",
+    "tests/golden/meeting.custom_report.json",
+    "tests/meeting_intel/test_custom_report.cpp"
+   ],
+   "note": "format_clock (26), corpus (9) and render_edges (7) vectors: [M:SS]/[H:MM:SS] lines, display name else Me/Others, empty lines dropped, whole transcript up to 60000 characters, else 14000-character edges with the gap marker."
+  },
+  "A29-04": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_intel/detail/report_corpus.cpp",
+    "src/meeting_intel/detail/report_pass.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_report_golden.cpp",
+    "tests/golden/meeting.custom_report.json",
+    "tests/meeting_intel/test_custom_report.cpp"
+   ],
+   "note": "search (21), terms (8), window (10), clip_lines (7), tool_schemas (4) and run_tool (14) vectors: overlap ranking with the stop list, the 'N matching lines; showing K in time order.' header, 9000/18000 caps, the empty-window sentence, the overflow marker, the parse/object/failed/unknown tool answers, and the recall and folder tools offered only when their switches are on ('past meeting recall is offered only when it is enabled')."
+  },
+  "A29-05": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_intel/detail/report_prompt.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_report_golden.cpp",
+    "tests/golden/meeting.custom_report.json",
+    "tests/meeting_intel/test_custom_report.cpp"
+   ],
+   "note": "build_digest (5) and build_corpus_prompt (4) vectors pin every digest line, the card order and labels, the per-item qualifiers, corrections and questions and the 28000 cap with '[… dashboard digest truncated …]'; 'the digest carries qualifiers the report must not drop'."
+  },
+  "A29-06": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_intel/detail/report_pass.cpp",
+    "src/meeting_intel/detail/report_prompt.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_report_golden.cpp",
+    "tests/golden/meeting.custom_report.json",
+    "tests/meeting_intel/test_custom_report.cpp"
+   ],
+   "note": "report_title (13) and _clean_markdown (11) vectors: one wrapping fence stripped only when the last line is a fence, 60000 with '*(Report truncated.)*' counted, '# ' title <=200, else the collapsed request clipped to 77 + '…'."
+  },
+  "A29-07": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_intel/custom_report.cpp",
+    "src/meeting_intel/detail/report_pass.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_custom_report.cpp",
+    "tests/meeting_intel/test_report_golden.cpp",
+    "tests/golden/meeting.custom_report.json"
+   ],
+   "note": "validated_request vectors give the empty and over-2000 messages; test_custom_report.cpp has the empty answer, the 420 s 'took too long', the missing model and missing key ('an endpoint without its key and a route without a model say what to fix'), the generic failure that never leaves a running record, 'a worker that cannot start fails the report it claimed' and 'a failure message is stored clipped to 500 code points'. 'The report model could not be reached…' is in report_pass.cpp and reached by 'a transport failure becomes a readable message'."
+  },
+  "A29-08": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_intel/custom_report.cpp",
+    "src/meeting_intel/detail/report_pass.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_custom_report.cpp"
+   ],
+   "note": "'a report through an installed agent', 'a report from a missing agent says so', 'an installed agent that stops early says why' (The report was canceled.) and 'an installed agent's failing read tool answers as an error'. From the dashboard, a report that would reach an installed agent waits for fresh desktop approval (a30-dashboard-fresh-approval)."
+  },
+  "A29-09": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_intel/detail/report_pass.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_report_golden.cpp",
+    "tests/golden/meeting.custom_report.json",
+    "tests/meeting_intel/test_custom_report.cpp"
+   ],
+   "note": "generate_report vectors compare the whole sources object (transcript_lines, duration_s to 1 dp, transcript_complete, sorted tools_used, past_meetings, knowledge_folder, model, provider); 'a two-round report is stored ready with the document's title and its tool use'."
+  },
+  "A29-12": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_intel/insight_review.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_review_worker.cpp"
+   ],
+   "note": "The deadline trigger and the word split had lost their backslashes in the source (\\b had become a literal backspace character, [\\w]+ had become [w]+, so evidence_context related no later speech at all). Both are now fv_pyport Regex with Python semantics: \\b(by|before|...|deadline)\\b case-insensitive, and _words as Unicode [\\w]+ over str.lower() with len > 3 in code points. Pinned by \"a deadline question needs a deadline word, not a word containing one\", \"test_context_includes_later_resolution_in_chronological_order\", \"insight review evidence context matches words across scripts\" and the scoring cases of test_meeting_insight_review.py now run against the real worker (test_review_worker.cpp)."
+  },
+  "A29-16": {
+   "status": "difference",
+   "difference": "a29-local-meeting-judgments"
+  },
+  "A29-17": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_intel/citation_verifier.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_audit_a29.cpp",
+    "tests/meeting_intel/test_citation_queue.cpp"
+   ],
+   "note": "CitationVerifier::observe queues the segment of revise_segment_text and reassign_segment_speaker, invalidates every check on any user_notes item change and writes invalidate_citations only when some item has a check ('no advisory writes when no checks exist'). Nothing tested the per-segment path: 'A29-17 a revised or reassigned segment invalidates only the checks citing it' (new) revises sg_two as the agent and reassigns sg_one as the diarizer and checks that only the citing item is cleared and asked again."
+  },
+  "A29-18": {
+   "status": "difference",
+   "difference": "a29-local-meeting-judgments"
+  },
+  "A29-19": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_intel/live_highlights.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_live_signals.cpp"
+   ],
+   "note": "The question-start pattern had the same lost-backslash fault (a literal backspace where \\b was). radar_candidates now uses live_signals.py _QUESTION_START, (?i)^(who|...|are)\\b, and _SENTENCE_BREAK, (?<=[.!?])\\s+ split without stripping, through fv_pyport Regex (Unicode \\s). Pinned by \"the question radar needs a whole question word at the start\" (Issues, Canada, Doing are not candidates; Is and can are)."
+  },
+  "A29-20": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_intel/live_highlights.cpp",
+    "src/meeting_intel/live_highlights.h"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_live_signals.cpp",
+    "tests/meeting/test_fast_features.cpp"
+   ],
+   "note": "observe marks completed minutes below the frontier and dirty earlier minutes (at most 80 waiting), one drain loop oldest minute first, a fingerprint of the passages and the two switches skips a minute already checked, the switches are read before and after the judge call, the publish rechecks the passages under the store lock and records the minute only when every op applied: 'busy worker retains all completed minutes', 'silence advances check and duplicate does not call again', 'late channel rechecks the earlier minute', 'revised evidence is checked again and old pulse removed', 'failed live request can be retried after a late arrival', 'minute consent revoked in flight discards answers', 'minute discards source changed during request'; the empty-chunk frontier is test_fast_features 'empty committed audio advances pulse frontier'. Only a device-local judge is asked (a29-local-meeting-judgments)."
+  },
+  "A29-21": {
+   "status": "difference",
+   "difference": "a29-local-meeting-judgments"
+  },
+  "A29-22": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/fast_ops.cpp",
+    "src/meeting_state/fast_ops.h",
+    "src/meeting_state/register_all.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_fast_ops.cpp",
+    "tests/meeting_state/test_golden_extras.cpp",
+    "tests/golden/meeting.fast_state.json"
+   ],
+   "note": "The six meeting.fast_state script vectors replay publish_highlights (system live-signals only, active/paused or ending/ended with final, at most five pulses, minute stamp replacing that minute, unknown evidence, the newest 240 x 5 kept by start_s), citation_check (stale_check, no revision bump), invalidate_citations and voice_feedback (voice_command only, active/paused, message clipped to 500 code points, at)."
+  },
+  "A29-23": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_intel/recall.cpp",
+    "src/meeting_intel/recall.h",
+    "src/meeting_intel/history_source.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_recall.cpp",
+    "tests/meeting_intel/test_golden.cpp",
+    "tests/golden/meeting.recall.json"
+   ],
+   "note": "Golden vectors of _clamp_limit, _clip, _sanitize, _date_label, _start_s (%g), _format_hits, _slice_meeting and search_past_meetings pin the off switch, the current-meeting exclusion and refusal, 10/20 hits, 180/4000 characters, 40 slice segments, the past:<mid>:<n> line and the sg_ masking; test_recall.cpp runs it over the in-memory and SQL repositories."
+  },
+  "A29-24": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_intel/context_folder.cpp",
+    "src/meeting_intel/context_folder.h",
+    "src/meeting_intel/detail/office_text.cpp",
+    "src/meeting_intel/detail/paths.cpp",
+    "src/meeting_intel/pdf_text.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_context_folder.cpp",
+    "tests/meeting_intel/test_golden.cpp",
+    "tests/golden/meeting.context_folder.json",
+    "tests/meeting_intel/test_pdf_text.cpp"
+   ],
+   "note": "Golden vectors of _query_tokens, _score, _snippet, _clip, _sanitize, _extract_plain, _extract_text, _safe_join and search_context_files (over tests/fixtures/meeting_intel/knowledge) pin the walk, the skips, the size caps, the score and the slice refusals; test_context_folder.cpp adds the 200-file count of accepted files and the 64-entry insertion-order cache. PDF text is PDFium loaded by path: test_pdf_text.cpp and the PDF cases of the folder tests skip here (FIORIVOCE_TEST_PDFIUM unset), so the 40-page cap and the empty-password decrypt rest on tests not run on this machine, and PDFium has no published artifact yet (docs/port/open-items.md, 'PDFium')."
+  },
+  "A29-25": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_intel/semantic_search.cpp",
+    "src/meeting_intel/semantic_search.h",
+    "src/meeting_intel/history_source.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_semantic_search.cpp",
+    "tests/meeting_intel/test_golden.cpp",
+    "tests/golden/meeting.semantic_search.json"
+   ],
+   "note": "The constants vector (48 candidates, batches of 8, 0.5, 20 s, SCOPE, LOCAL_SCOPE, the disabled and unavailable messages, RELEVANCE_QUESTION) and 22 search_history vectors with a scripted judge pin the clips, the fallback messages, the per-batch rechecks and the semantic ordering. The callers hand it only a device-local judge (a30-dashboard-local-judgments), so LOCAL_SCOPE is what users see; the hosted path stays as OpenWhisper's for the vectors."
+  },
+  "A29-26": {
+   "status": "difference",
+   "difference": "a29-wake-names-from-identity"
+  },
+  "A29-27": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_intel/voice_commands.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_voice_commands.cpp",
+    "tests/meeting_intel/test_voice_command_parity.cpp"
+   ],
+   "note": "set_topic cites [command id] only and fix_transcript the correction_op evidence only, as build_ops and voice_actions.correction_op; card items still carry a split wake stub ids (_evidence_ids). \"split voice wake and instruction cite both committed transcript rows\" now pins the topic evidence as [sg_order] and the note_this split as [sg_wake, sg_body] (test_split_wake_and_instruction_preserve_both_evidence_ids)."
+  },
+  "A29-28": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_intel/voice_commands.cpp",
+    "src/meeting_intel/voice_commands.h"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_voice_commands.cpp"
+   ],
+   "note": "The listener keeps the last 32 handled command rows (_handled); observe_preview returns before any feedback or version bump when a handled row on the same channel ends at or after the preview start and its normalised words (re.findall(r\"\\w+\", lower), joined) are contained in the preview. Pinned by the full \"test_preview_acknowledges_without_mutating_and_commit_saves_once\" including its last step (a rolling preview ending at 4 s adds no event and no write)."
+  },
+  "A29-29": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_intel/voice_commands.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_voice_commands.cpp",
+    "tests/meeting_intel/test_voice_command_parity.cpp"
+   ],
+   "note": "correction() tries the replace/change/correct form, then the it is / I said form, falling through when a form does not match, its pair is unusable or it changes no earlier segment (voice_actions.correction_op); both patterns are fv_pyport Regex with Python re.I semantics. The existing correction cases still pass."
+  },
+  "A29-30": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_intel/voice_commands.cpp",
+    "src/meeting/detail/voice_control.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_fast_features.cpp",
+    "tests/meeting_intel/test_audit_a29.cpp",
+    "tests/meeting_intel/test_voice_commands.cpp"
+   ],
+   "note": "A recap choice goes to the engine's request_spoken_recap (the note agent's request_note_adjustment with the fixed prompt and the spoken text clipped to 1000), never to a card op: 'recap routes to note agent and reports completion' (Preparing a recap…, Recap added to the live notes.), 'spoken recap requests the note scheduler only after commit', and 'A29-30 A29-36 a spoken recap goes to the recap handler, or is unavailable'. The engine's failure texts are A29-38's."
+  },
+  "A29-31": {
+   "status": "difference",
+   "difference": "a29-wake-names-from-identity"
+  },
+  "A29-32": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/refinalize.cpp",
+    "src/meeting/rerun_options.h",
+    "src/meeting_agent/scheduler.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_refinalize_intelligence.cpp"
+   ],
+   "note": "There is no standalone rerun_insights: the re-run is rerun_finalization(from_step 'consolidation') through MeetingIntelligence::consolidate with a throwaway core (900 s, kRerunTimeoutS), repair_meeting_state afterwards and the core always shut down. The TestGuards (ValueError 'unknown meeting'; 'meeting has no transcript' recorded on the step), TestHappyPath and TestFailure cases of tests/test_meeting_reinsight.py are ported there. MeetingIntelligence refuses a store whose AI insights are off, where reinsight.py runs on a meeting recorded with them off: that consent is per meeting and names its destination (a04-meeting-insights-per-meeting)."
+  },
+  "A29-33": {
+   "status": "difference",
+   "difference": "a29-revoked-agent-reads"
+  },
+  "A29-34": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_intel/voice_commands.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_voice_command_parity.cpp",
+    "tests/meeting_intel/test_voice_commands.cpp"
+   ],
+   "note": "prepare_command uses _INLINE_CONTENT_RE as written (\\s+ after you and please), and the wake pattern, topic lead-ins and trailers, the wake-stub check (re.sub of the polite prefix, then the set or fullmatch) and the prefix/body cuts now use fv_pyport Regex with Python lookbehind and Unicode \\s, replacing std::regex. The TestTopicExtraction and inline-content cases pass unchanged."
+  },
+  "A29-35": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_intel/voice_commands.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_voice_commands.cpp",
+    "tests/meeting_intel/test_voice_command_parity.cpp",
+    "tests/meeting_intel/test_audit_a29.cpp"
+   ],
+   "note": "wake_stub strips .,!?:; and the optional (can|could|would) you / please lead and accepts the listed tails or (take|make|add) a note (that); prepare_command joins a same-channel row within 0..3 s as stub + ', ' + text with the stub's start_s and stub + body evidence ids. Pinned by 'split voice wake and instruction cite both committed transcript rows', 'voice wake continuation cannot cross a channel or a long gap', 'polite dictation and split note preamble preserve the requested content', 'budget note from real meeting uses dictation not prior praise' and 'A29-35 A29-28 a wake stub and a preview only acknowledge' (the stub's own words)."
+  },
+  "A29-36": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_intel/voice_commands.cpp",
+    "src/meeting_intel/voice_commands.h"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_audit_a29.cpp",
+    "tests/meeting_intel/test_voice_command_parity.cpp"
+   ],
+   "note": "Most of the listener's words were untested. New cases pin every payload {phase, message, command}: 'A29-28 A29-36 card commands say what they are doing and what they saved' (Recording the decision… / Decision noted, Adding an action item… / Action item added, Taking a note… / Added to Meeting Notes, Updating the topic… / Topic updated), 'A29-28 A29-36 commands that save nothing say why' (Working on it… and Nothing saved yet… for an unknown choice, No command saved… for none and for 0.59, Could not recognize the command… for a judge that throws, The command could not be saved. for a refused op, and the unavailable message), 'A29-30 A29-36 a spoken recap goes to the recap handler, or is unavailable' (This command is currently unavailable.) and the preview's Heard you — listening… / Got it — waiting for the transcript…. OpenWhisper's missing-key message ('Add {key_phrase} in Settings to use voice commands.') is replaced by the device-local message under a29-local-meeting-judgments."
+  },
+  "A29-37": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/voice_control.cpp",
+    "src/meeting/engine.h"
+   ],
+   "tests": [
+    "tests/meeting/test_fast_features.cpp"
+   ],
+   "note": "(1) The listener applied callback calls notify_intelligence_guidance(results) (_notify_human_guidance), so a spoken correction note wakes the agent. (2) emit_voice_feedback(feedback, persist) stores with the voice_feedback op ({message, at}, clipped to 500) only what engine._voice_feedback stores: the recap messages and the correction outcomes (uncertain, saved, error); the listener acknowledgements and card saves are only heard, as in OpenWhisper. Pinned by \"a spoken correction wakes the agent and keeps its outcome\" and the recap tests, which now read the stored {message, at}."
+  },
+  "A29-38": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/voice_control.cpp",
+    "src/meeting/detail/live_intelligence.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_fast_features.cpp"
+   ],
+   "note": "MeetingEngine::request_spoken_recap sends the fixed prompt verbatim with the spoken text clipped to 1000 code points, says 'Preparing a recap…' only once the note agent took the request, then 'Recap added to the live notes.' (saved), 'The recap produced no saved notes. Try again from the notes request box.' for a failed pass or one that saved nothing (engine.py finished(): the note request completes with the failed AgentResult; M4 corrected the earlier 'could not finish' for a failed pass, which now reads only for a result that cannot be read), and 'Recap is unavailable while the note agent is offline.' for a refused start; the log names no speech. Pinned by 'recap routes to note agent and reports completion' and 'a spoken recap says it is preparing only once the note agent took it' (changed while this audit ran; both passed here). How these messages are persisted in the meeting state is A29-37's point (2)."
+  },
+  "A29-39": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_intel/detail/report_prompt.cpp",
+    "src/meeting_intel/detail/report_pass.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_report_golden.cpp",
+    "tests/golden/meeting.custom_report.json"
+   ],
+   "note": "The prompt texts are data in the vectors: generate_report records the system prompt of every request (20 system messages), build_corpus_prompt the '## NOW WRITE THE REPORT' closing in its complete, partial and empty forms with both transcript headers, tool_schemas the four tool descriptions, build_digest the card labels; the C++ replays compare them byte for byte."
+  },
+  "A29-40": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_intel/insight_review.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_review_worker.cpp"
+   ],
+   "note": "\"the review asks OpenWhisper questions word for word\" compares the questions the worker sends for an action item with a deadline, a decision and a risk with insight_review.py _SHARED_INSTRUCTIONS and its eight prompts verbatim."
+  },
+  "A29-41": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_intel/context_folder.cpp",
+    "src/meeting_intel/recall.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_audit_a29.cpp",
+    "tests/meeting_intel/test_golden.cpp",
+    "tests/golden/meeting.context_folder.json",
+    "tests/golden/meeting.recall.json",
+    "tests/meeting_intel/test_context_folder.cpp",
+    "tests/meeting_intel/test_recall.cpp"
+   ],
+   "note": "The recall strings, the folder's query/unknown-file/no-text/outside/no-match strings, the token rule, the slice centring and the hit and slice shapes are in the golden vectors; 'not available' and 'disabled' are in TestConsent. ' Scan limit reached.' was untested: 'A29-41 a folder search that hits the scan limit says so' (new) checks 199 files give 'No knowledge-folder matches.' and 201 give 'No knowledge-folder matches. Scan limit reached.'. 'Knowledge-folder search failed.' (an exception in the walk) and 'Past-meeting recall failed.' ('a failing source reads as a failed recall') are in the code; only the latter is tested."
+  },
+  "A29-01": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_intel/custom_report.cpp",
+    "src/meeting_state/custom_report_ops.cpp",
+    "src/meeting_web/detail/routes_meeting.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_custom_report_ops.cpp",
+    "tests/meeting_intel/test_custom_report.cpp",
+    "tests/meeting_web/test_report_route.cpp",
+    "tests/meeting_web/test_audit_a29_report.cpp"
+   ],
+   "note": "start_custom_report claims with request_custom_report under the store lock before any model call (host_only, meeting_not_ready, invalid_request, request_too_long over MAX_REQUEST_CHARS 2000 code points, invalid_run_id, report_running, report_limit_reached at MAX_CUSTOM_REPORTS 20) and returns {ok, report_id, error}; the worker is posted to the report executor or a thread named fv-meeting-custom-report, and a worker that cannot start fails the claimed report with 'The report could not be started. Retry later.'. The route's 400 'Describe the report you want, in 1 to 2000 characters.' and 409 'already being written' were pinned; the 'once the meeting has ended and its insights have finished' and 'maximum number of reports' refusals were not: new test_audit_a29_report.cpp pins both over the store's real claim."
+  },
+  "A29-10": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_intel/intel_settings.cpp",
+    "src/meeting/engine_options.cpp",
+    "src/meeting_intel/insight_review.cpp",
+    "src/meeting_state/review_ops.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_intel_settings.cpp",
+    "tests/meeting_intel/test_review_worker.cpp",
+    "tests/meeting/test_engine_audit_fixes.cpp",
+    "tests/meeting_intel/test_insight_review.cpp"
+   ],
+   "note": "resolve_meeting_insight_review: enabled = setting and consent == typesafe-text-v1 and resolve_typesafe_enabled ('the review is enabled only with its consent and the master switch', test_explicit_consent_and_enabled_are_both_required). review_config(config, cloud_enabled) gives enabled only with the current consent and status disabled / pending / unavailable with 'AI insights are off for this meeting.' ('review_config is insight_review.py's'); the worker's allowed() re-reads it, so a master switch turned off answers the _OFF text (test_master_switch_revocation_prevents_the_next_http_request)."
+  },
+  "A29-42": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_intel/insight_review.cpp",
+    "src/meeting_state/review_ops.cpp",
+    "src/meeting/engine_options.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_review_worker.cpp",
+    "tests/meeting/test_engine_audit_fixes.cpp"
+   ],
+   "note": "consented() in insight_review.cpp and review_ops.cpp both require state cloud_enabled with review.enabled and the consent; review_begin refuses review_disabled and the worker marks the review unavailable without asking the judge (test_cloud_revocation_does_not_leave_a_review_pending); review_config with cloud_enabled false is status unavailable with 'AI insights are off for this meeting.' ('review_config is insight_review.py's')."
+  },
+  "A29-11": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_intel/insight_review.cpp",
+    "src/meeting_state/review_ops.cpp",
+    "src/meeting/detail/runtime_retry.cpp",
+    "src/meeting/detail/voice_control.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_review_worker.cpp",
+    "tests/meeting_intel/test_insight_review.cpp",
+    "tests/meeting_intel/test_audit_a29_review.cpp"
+   ],
+   "note": "run_insight_review claims with review_begin (review_running refused, test_background_start_is_nonblocking_and_duplicate_start_is_rejected), takes proposed unpinned action_items, decisions and risks, checks at most 40 on up to four workers, each re-checking that the run is still current and consented, compares the transcript before and after ('The transcript changed during review. Retry to check the latest version.') and finishes ready / partial / failed / unavailable. New test_audit_a29_review.cpp pins what was not: 41 items ask the judge 40 times and finish partial with 'Some insights could not be checked. You can retry.', and the ready messages 'Review the details below, or skip and return later.' and 'No questions were selected. This does not certify that every insight is correct.'. The run executes on its caller's thread (the dashboard's post-meeting pass worker, or the engine's wrap-up) with unnamed pool threads instead of meeting-insight-review / insight-check, so Python's 'Review could not start. Retry later.' has no counterpart; the review route replies when the pass ends (area a30's run_post_meeting_pass)."
+  },
+  "A29-13": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_intel/insight_review.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_review_worker.cpp",
+    "tests/meeting_intel/test_insight_review.cpp",
+    "tests/meeting_intel/test_audit_a29_review.cpp"
+   ],
+   "note": "evidence_context compared with insight_review.py line by line: anchors, then their +-2 neighbours, then rows sharing _words (Unicode [\\w]+ over str.lower(), more than 3 code points, the same 35 stop words; the regex matches Python's character for character) ranked by (overlap, index) descending, each row the six _CONTEXT_FIELDS, skipped (not stopped) when len(json.dumps(row)) would pass 16000, returned in time order. Only the later-resolution and cross-script cases were pinned; new test_audit_a29_review.cpp pins the exact neighbour window and order (sg3, sg8..sg13, sg25), the null-filled fields, and the 16000 budget skipping an oversized best row while smaller later rows still fit."
+  },
+  "A29-14": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_intel/insight_review.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_review_worker.cpp",
+    "tests/meeting_intel/test_audit_a29_review.cpp"
+   ],
+   "note": "question_for and choices_for hold _FIELD_QUESTIONS and _DEFAULT_CHOICES / _FIELD_CHOICES verbatim and in Python's order; the question cites up to three evidence rows of the context plus the last context row, offers non-provisional grounded participants as owners, reason 'The evidence needs clarification on this point.' (or 'Source evidence is missing.') and priority issue x 2 (commitments) or 1.5. Only the acceptance field and the missing-evidence reason were exercised before; new test_audit_a29_review.cpp pins the text, ordered choices, status and priority of the support, acceptance, resolution, owner and deadline questions, the sources (first three cited, then the last context row), the owners and the participants sent to the judge."
+  },
+  "A29-15": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_intel/insight_review.h",
+    "src/meeting_intel/insight_review.cpp",
+    "src/meeting/runtime.h",
+    "src/meeting/engine.h",
+    "src/meeting/detail/runtime_retry.cpp",
+    "src/meeting/detail/runtime_engine.cpp",
+    "src/meeting/detail/voice_control.cpp",
+    "src/ui_meeting/meeting_feature.cpp"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_review_worker.cpp"
+   ],
+   "note": "Fixed as insight_review._default_reviewer does it: InsightReviewDeps::judge now takes the least per-question budget (REVIEW_TIMEOUT_S 12) and the review asks with no timeout of its own, so the judge's own budget applies. The app builds the review judge with build_review_judge: null unless Fast judgments are on and the chosen route is device-local (a29-local-meeting-judgments), else judge_from_settings with JudgeOptions.timeout_s = max(12, route.timeout_s): 30 s on the local text-model route, 12 s for a route with a shorter budget. RuntimeDeps/EngineDeps::local_review_judge carries it to the dashboard review and End's review (falls back to local_fast_judge when a composition sets none). Python has no total budget over a review: four workers each ask one question per item with the judge's per-question budget, as here. Tests: 'the review builds its judge with at least the review timeout and asks without one', 'the review judge waits the longer of the review timeout and the route's budget'."
+  }
+ },
+ "differences": [
+  {
+   "id": "a29-wake-names-from-identity",
+   "features": [
+    "A29-26",
+    "A29-31"
+   ],
+   "openwhisper": "The default wake names are 'note taker', 'notetaker', 'assistant', 'openwhisper' and 'open whisper', and the guide shows the last two as 'OpenWhisper'.",
+   "fiorivoce": "The last two defaults are the spoken forms of identity()'s product name and the guide shows the product name; names stored in imported settings, OpenWhisper's included, still match and display as 'OpenWhisper'. Matching (whole words, case-insensitive, spaces matching hyphens or nothing, no name never judged) and the guide's dedupe and order are OpenWhisper's: test_voice_command_parity.cpp TestWakeNames, tests/meeting_intel/test_intel_settings.cpp, tests/meeting_web/test_golden.cpp 'voice_command_guide matches OpenWhisper' (replayed with legacy_identity()) and tests/meeting_web/test_voice_help.cpp.",
+   "reason": "Participants call the note taker by the product's name; FioriVoce is not OpenWhisper.",
+   "source": "docs/port/ARCHITECTURE.md ('Wake names (M7, M8)'), docs/port/packages/M7.md decision 7 (legacy wake names) and docs/port/packages/M8.md ('Wake names from identity() (amendment 19)')"
+  },
+  {
+   "id": "a29-revoked-agent-reads",
+   "features": [
+    "A29-33"
+   ],
+   "openwhisper": "reinsight.py's StoreToolHost gates only the write tools on revoked agent writes (inactive / agent_writes_revoked); search_past_meetings and search_context_files keep answering a revoked or cancelled agent.",
+   "fiorivoce": "Once the host's writes_allowed() is false (the pass cancelled, agent writes revoked, or its destination no longer authorised) search_past_meetings and search_context_files answer {ok: false, disabled: true, hits: [], text: 'This meeting agent no longer has access to meeting sources.'}; the write tools refuse as OpenWhisper's do.",
+   "reason": "Past meetings and the knowledge folder are disclosed to an agent only under the current, per-meeting consent for its destination; an agent whose access was revoked or whose pass was cancelled must not keep reading other meetings. Added deliberately with its own test in the commit that connected the meetings (73bec5e); to be confirmed by the owner.",
+   "source": "src/meeting_intel/store_tool_host.cpp (search_past_meetings, search_context_files); tests/meeting_intel/test_store_tool_host.cpp 'a revoked meeting agent cannot read the past or the knowledge folder'"
+  },
+  {
+   "id": "a29-local-meeting-judgments",
+   "features": [
+    "A29-16",
+    "A29-18",
+    "A29-21"
+   ],
+   "openwhisper": "Uses a configured judge to annotate citations and identify live and final highlights from meeting text.",
+   "fiorivoce": "Runs those optional judgments against an explicitly configured loopback judge. Live highlights retain the cited segment text and its timestamp. Final catch-up includes the partial last minute. Voice commands without such a judge say 'Voice commands need Fast judgments on a model that runs on this computer.' (phase unavailable), replacing OpenWhisper's NEEDS_CONSENT and its 'Add {key_phrase} in Settings to use voice commands.'; with highlights on and a hosted Fast judgments model, live_highlights_status reads 'unavailable' where OpenWhisper shows 'needs_insights'. The insight review after a meeting also checks only with such a judge: without one it reads 'Choose a local Fast Judgments model to check this meeting.' (status unavailable), replacing OpenWhisper's 'Add {key_phrase} in Settings → App → API keys or {credential_env} in your environment, then retry.'; its judge waits max(12 s, the route's budget) per question, as OpenWhisper's does.",
+   "reason": "These background judgments stay on the device. Users can independently choose an agent destination for meeting insights.",
+   "source": "src/meeting_intel/citation_verifier.cpp, src/meeting_intel/live_highlights.cpp and their fake-judge tests; src/meeting_intel/voice_commands.h VOICE_NEEDS_LOCAL_JUDGE and src/meeting/detail/voice_control.cpp refresh_live_highlights_status (tests/meeting_intel/test_audit_a29.cpp, tests/meeting/test_fast_features.cpp 'fast-feature gate matrix', 'highlight status reaches snapshots and live clients'); src/meeting_intel/insight_review.cpp run_insight_review and build_review_judge (tests/meeting_intel/test_review_worker.cpp 'insight review without a local judge names what to choose')"
+  }
+ ]
+}

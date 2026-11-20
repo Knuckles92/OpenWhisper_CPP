@@ -1,0 +1,1106 @@
+{
+ "area": "a32-user-facing-features",
+ "package": "M10 sweep",
+ "features": {},
+ "differences": [],
+ "checklist": {
+  "MW-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/title_bar.cpp",
+    "src/ui_shell/main_window.cpp",
+    "src/ui_shell/compact_mode.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_title_bar.cpp",
+    "tests/ui_shell/test_main_window.cpp",
+    "tests/ui_shell/test_compact_mode.cpp"
+   ],
+   "note": "Title label is identity().product; File/View/Help in the title bar with the native menu bar hidden; glyph-painted buttons with Minimize/Maximize|Restore/Close tooltips; bar height follows the menu at 90-130% font scale; title drag moves, edge drag of a maximized window leaves maximized in place, Restore un-maximizes to the saved geometry; toggleMaximize is a no-op and the button hidden in compact mode."
+  },
+  "MW-02": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_presenter.cpp",
+    "src/ui_widgets/tabbed_content.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_presenter_flow.cpp",
+    "tests/ui_meeting/test_meeting_readiness.cpp",
+    "tests/ui_widgets/test_tabbed_content.cpp",
+    "tests/ui_shell/test_main_window.cpp"
+   ],
+   "note": "A meeting start brings the Meeting Mode tab forward: MeetingPresenter::applyState's patch.contains(\"active\") branch calls setRecordingState(true, TabMeetingMode). Pinned through the presenter by test_meeting_presenter_flow.cpp 'a meeting started from the tray or the hotkey brings Meeting Mode forward' (from Quick Record, the Meeting page never built: the start request moves nothing, the runtime's active state selects and builds the tab, locks Quick Record and shows no intro over the live meeting), and from Host Mode by test_meeting_readiness.cpp 'the state payload reaches the tab, the tabs, Past Meetings and the tray'. Also verified: tab order Quick Record, Upload File, Walkthrough, Meeting Mode (test_main_window 'the window chrome is the title bar, the tabs and the footer'); last tab restored at launch ('launch restores last tab'); a recording start brings Quick Record forward and a full-window walkthrough its tab (test_recording_relay); height fits each page, animates, and a dragged height on an elastic (open transcript) page is kept (test_page_fit); TabbedContentWidget::setRecordingState selecting the source tab (test_tabbed_content.cpp 'recording selects source without visiting other tabs')."
+  },
+  "MW-03": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/main_window.cpp",
+    "src/ui_setup/guided_setup_offer.cpp",
+    "src/ui_settings/settings_feature.cpp",
+    "src/ui_settings/settings_window.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_main_window.cpp",
+    "tests/ui_setup/test_guided_setup_offer.cpp",
+    "tests/ui_settings/test_app_pages.cpp",
+    "tests/ui_settings/test_feature.cpp"
+   ],
+   "note": "File menu Settings, Guided setup…, Downloads... (three dots as main_window.py writes it), Hotkeys, separator, Minimize to Tray, Exit (Ctrl+Q), roles NoRole; Downloads emits the downloads destination; Hotkeys reaches SettingsWindow::openHotkeys; Guided setup reopens the singleton on its first step after Welcome (Record), as GuidedSetupController.open(welcome=False) does. macOS Quit label is another platform."
+  },
+  "MW-04": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/main_window.cpp",
+    "src/ui_shell/side_panel_host.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_main_window.cpp",
+    "tests/ui_shell/test_side_panel.cpp"
+   ],
+   "note": "View menu History, History Calendar, Compact Mode, Host Mode, separator, Scratchpad, Stats, separator, Open Meeting Dashboard; Ctrl+H, Ctrl+Shift+D, Ctrl+Shift+C, Ctrl+Shift+H, Host Mode checkable; the History item reads Past Meetings on the Meeting Mode tab (and Walkthroughs on the Walkthrough tab) and toggles the side panel (\"Ctrl+H and the edge tab toggle the panel\")."
+  },
+  "MW-05": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/main_window.cpp",
+    "src/ui_controller/update_presenter.cpp",
+    "src/ui_controller/about_box.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_main_window.cpp",
+    "tests/ui_controller/test_about_box.cpp",
+    "tests/ui_controller/test_update_presenter.cpp"
+   ],
+   "note": "Help menu Check for Updates... then About (NoRole); About box \"About FioriVoce\" with version and install channel shown over the window; Check for Updates runs a manual check through UpdatePresenter::requestCheck (no updater: nothing opens). The macOS app-menu placement is another platform."
+  },
+  "MW-08": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/compact_mode.cpp",
+    "src/ui_shell/main_window.cpp",
+    "src/ui_record/compact_record_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_compact_mode.cpp",
+    "tests/ui_shell/test_recording_relay.cpp"
+   ],
+   "note": "Compact Mode shows only the compact Quick Record controller, hides the tabs, side panel, Stats and maximize, keeps and restores its own geometry and position, is persisted, and a switch to another tab leaves it. The line says a walkthrough started in compact mode keeps the Walkthrough tab forward; docs/walkthrough.md says it stays in compact mode, and main_window.py set_walkthrough_active/_update_recording_state keep Quick Record there; MainWindow::setWalkthroughActive does the same, pinned by \"in compact mode a walkthrough recording stays on quick record\"."
+  },
+  "MW-10": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/side_panel_host.cpp",
+    "src/ui_history/history_sidebar.cpp",
+    "src/ui_history/history_item.cpp",
+    "src/ui_walkthrough/past_walkthroughs.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_side_panel.cpp",
+    "tests/ui_history/test_history_feature.cpp",
+    "tests/ui_history/test_sidebar_load.cpp",
+    "tests/ui_history/test_golden.cpp",
+    "tests/ui_walkthrough/test_past_walkthroughs.cpp",
+    "tests/ui_controller/test_walkthrough_window.cpp"
+   ],
+   "note": "Right-edge panel with edge tab and Ctrl+H, one animation widening the window by the panel width; page follows the tab (History for Quick Record and Upload File, Walkthroughs, Past Meetings); walkthrough page shows the newest MAX_SHOWN=60 with word search over titles and spoken text and Open library; section headers count cards; cards carry the model badge (format_model_name golden)."
+  },
+  "MW-12": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_meeting/meeting_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_recovery_startup.cpp",
+    "tests/ui_shell/test_loading_screen.cpp",
+    "tests/ui_shell/test_bootstrap.cpp"
+   ],
+   "note": "Was: MeetingFeature::install called runtime->setup() while Bootstrap was still on the splash, so the recovery scan and its meeting_recovery_found / scan-failed dialog could arrive behind it. Now install waits for ActivityState::startup_ready (set by ApplicationController::on_startup_database_ready, which follows notify_main_ui_ready, which ShellLifecycle::mainWindowShown starts after EngineSetup and the Hugging Face consent) and starts setup() once then, as OpenWhisper's _on_startup_database_ready does. Pinned by tests/ui_meeting/test_meeting_recovery_startup.cpp: through Bootstrap with MeetingFeature and an interrupted meeting saved, 'no meeting recovery scan runs while the startup database is not ready' (fails with the old call) and 'the meeting recovery scan runs once the startup database is ready, after the main window is shown' (order shown, found). Verified earlier: splash is a fixed frameless tool window, draggable with the left button (test_loading_screen.cpp); destroyed before main_window_shown and the model load starts from mainWindowShown (test_bootstrap 'main runs startup flow...', test_engine_setup, test_application_controller test_notify_main_ui_ready_*). Opaque and static on Wayland is Linux-only."
+  },
+  "MW-13": {
+   "status": "difference",
+   "difference": "a11-no-staged-settings-build",
+   "cpp": [
+    "src/ui_settings/settings_window.cpp",
+    "src/ui_settings/settings_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_fit.cpp",
+    "tests/ui_settings/test_shell.cpp"
+   ],
+   "note": "The idle staged build (2.5 s after launch, 60 ms pieces, waiting during recording/meetings, finished on an early open) is dropped by decision (M2 Changes to the cut item 6; A03-62 dropped): SettingsWindow builds the dialog on first open with lazy pages. Verified: a window that would not fit moves onto (or is centred on) the screen (on_screen_position cases and \"the real dialog moves wholly onto a small screen\"); Done tooltip \"Close Settings (Esc)\"."
+  },
+  "MW-14": {
+   "status": "difference",
+   "difference": "a01-single-instance-every-platform",
+   "cpp": [
+    "src/ui_shell/single_instance.cpp",
+    "src/ui_shell/bootstrap.cpp",
+    "src/ui_shell/main_window.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_single_instance.cpp",
+    "tests/ui_shell/test_bootstrap.cpp"
+   ],
+   "note": "OpenWhisper does this on Linux only; FioriVoce on every platform. A later launch activates the running instance, whose restoreFromTray shows a hidden (tray) window (\"a show request from a later launch restores the running window\")."
+  },
+  "MW-17": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_theme/theme_manager.cpp",
+    "src/ui_settings/appearance_page.cpp",
+    "src/ui_controller/settings_bindings.cpp",
+    "src/ui_shell/application.cpp"
+   ],
+   "tests": [
+    "tests/ui_theme/test_theme.cpp",
+    "tests/ui_theme/test_markdown_render.cpp",
+    "tests/ui_controller/test_settings_bindings.cpp",
+    "tests/ui_shell/test_reference_screenshots.cpp",
+    "tests/ui_overlay/test_language_chip.cpp"
+   ],
+   "note": "Dark, Light and Match system: a fresh install resolves dark, invalid values fall back to dark; Match system follows a platform colorSchemeChanged live and an explicit choice ignores it; a Settings change applies through the application theme manager without restart and redraws rendered Markdown, whose colours follow the active palette; splash, title bar, footer and overlay have light references and every look paints in both themes. The Omarchy desktop theme is Linux-only (other platform)."
+  },
+  "MW-19": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_theme/resources/theme.qss",
+    "src/ui_widgets/setting_tile.cpp",
+    "src/ui_shell/title_bar.cpp"
+   ],
+   "tests": [
+    "tests/ui_theme/test_stylesheet_reference.cpp",
+    "tests/ui_widgets/test_settings_polish_widgets.cpp",
+    "tests/ui_widgets/test_composite_widgets.cpp",
+    "tests/ui_shell/test_title_bar.cpp",
+    "tests/ui_history/test_stats_screenshots.cpp"
+   ],
+   "note": "The resolved application stylesheet and QPalette are pinned against dumps of OpenWhisper (outlined combos, switch on/off/disabled greys, danger buttons, dialog greys) in both themes; setting tiles use switches at the right edge (\"setting tiles use switches that say what they toggle\"); the title bar paints its own glyphs. Consent-dialog fit is fitDialog (its one height case fails here on Linux font metrics, MACHINE.md)."
+  },
+  "MW-20": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/stats_charts.cpp",
+    "src/ui_history/stats_dialog.cpp",
+    "src/ui_shell/title_bar.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_stats_dialog.cpp",
+    "tests/ui_shell/test_title_bar.cpp"
+   ],
+   "note": "Stats charts carry accessible names and descriptions (words per day, activity squares, hour grid, trends, breakdown bars); feature rows are opened with Space and Return; window buttons are named Minimize/Maximize|Restore/Close window."
+  },
+  "TR-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/system_tray.cpp",
+    "src/ui_shell/main_window.cpp",
+    "src/ui_shell/footer_bar.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_system_tray.cpp",
+    "tests/ui_shell/test_main_window.cpp"
+   ],
+   "note": "A desktop without a tray never shows the icon and logs that close-to-tray and tray controls are disabled; the footer tray button hides, disables and says why, File > Minimize to Tray hides, and Close is accepted (exits) instead of hiding; a double-click restores and a single click does not. The macOS single-click behaviour is another platform."
+  },
+  "TR-02": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/system_tray.cpp",
+    "src/ui_shell/shell_feature.cpp",
+    "src/ui_controller/ui_controller.cpp",
+    "src/ui_overlay/language_menu.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_system_tray.cpp",
+    "tests/ui_overlay/test_language_menu.cpp",
+    "tests/ui_controller/test_update_presenter.cpp"
+   ],
+   "note": "Show, Hide, Start/Stop Recording, Copy original of last dictation, Start/Finish Walkthrough, Take Screenshot, Language, Start/End Meeting, Open Meeting Dashboard (enabled only with a dashboard), Scratchpad, Stats, Settings, Update to x.y.z… (visible only with a pending update), Exit; each reaches its handler. The Language submenu is always present as in system_tray.py, filled on open (fewer than two languages: \"No other languages\" disabled plus Choose languages…); the line reads PERS \"with two or more\" as the item being hidden, which the code does not do in either app."
+  },
+  "TR-03": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/main_window.cpp",
+    "src/hotkeys/defaults.cpp",
+    "src/dictation/hotkey_runtime.cpp",
+    "src/ui_controller/application_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_main_window.cpp",
+    "tests/settings/test_store.cpp",
+    "tests/ui_controller/test_application_controller.cpp",
+    "tests/hotkeys/test_physical_keys.cpp"
+   ],
+   "note": "Minimize to Tray hides the window (toggleTrayVisibility); minimize_tray defaults to ctrl+alt+m and the hotkey toggles the window on the GUI thread. The macOS Dock removal is another platform."
+  },
+  "TR-04": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp",
+    "src/ui_walkthrough/walkthrough_presenter.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp",
+    "tests/ui_walkthrough/test_presenter_glue.cpp"
+   ],
+   "note": "The Minimize to tray switch (walkthrough_minimize_to_tray, off until switched on, saved) hides the window when a walkthrough starts with the window visible, and finishing leaves the window where it is."
+  },
+  "QR-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/quick_record_tab.cpp",
+    "src/ui_widgets/buttons.cpp",
+    "src/ui_walkthrough/walkthrough_tab.cpp",
+    "src/ui_meeting/meeting_mode_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_quick_record_tab.cpp",
+    "tests/ui_widgets/test_buttons.cpp",
+    "tests/ui_record/test_reference_screenshots.cpp"
+   ],
+   "note": "Start Recording / Stop / Cancel: Stop and Cancel are inactive (the inactive property drops their colour, \"idle stop and cancel drop their colour\") until a recording starts and swallow clicks; Start waits for the answer; Quick Record, Walkthrough and Meeting Mode Start are all SuccessButton."
+  },
+  "QR-02": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/transcription_tab_base.cpp",
+    "src/ui_record/quick_record_tab.cpp",
+    "src/ui_widgets/local_engine_controls.cpp",
+    "src/ui_widgets/engine_field.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_quick_record_tab.cpp",
+    "tests/ui_record/test_engine_status.cpp",
+    "tests/ui_record/test_engine_selection_sync.cpp",
+    "tests/ui_widgets/test_engine_field.cpp",
+    "tests/ui_record/test_reference_screenshots.cpp"
+   ],
+   "note": "Backend (Parakeet, API, Remote computer) with its status dot (Ready green, Attention amber, Unknown before load and while loading), Model/Device for Parakeet, the resolved-engine footer line with its Downloads link, AI cleanup and Live preview checkboxes; API hides the local fields and the dot. Quant is Whisper compute type: local_engine_controls.py hides it for the non-Whisper families, and the other engines are dropped (difference a14-local-engine), so FioriVoce has no Quant column."
+  },
+  "QR-03": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/transcription_tab_base.cpp",
+    "src/ui_controller/settings_bindings.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_live_preview_control.cpp",
+    "tests/ui_controller/test_settings_bindings.cpp"
+   ],
+   "note": "The Live preview checkbox beside AI cleanup writes the Settings key (dropping legacy switches, reverting on a failed save), syncs the other tab, reconfigures streaming at once (test_tab_toggle_reconfigures_streaming) and is locked with the backend while recording; API greys it out with the reason (amendment 16)."
+  },
+  "QR-04": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/cleanup_profile_card.cpp",
+    "src/ui_record/quick_record_tab.cpp",
+    "src/ui_controller/ui_controller.cpp",
+    "src/ui_controller/personalize_wiring.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_cleanup_profile_card.cpp",
+    "tests/ui_controller/test_personalize_wiring.cpp"
+   ],
+   "note": "The card shows only while AI cleanup is checked, lists Standard dictation first, persists the Quick Record choice; Manage opens Settings > Profiles and Start Recording starts through start_profile_recording with the chosen id (\"Quick Record profile starts through the profile start and Manage opens Profiles\")."
+  },
+  "QR-05": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/quick_record_tab.cpp",
+    "src/ui_record/command_readiness.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_command_hint.cpp",
+    "tests/ui_record/test_quick_record_tab.cpp"
+   ],
+   "note": "The hint shows the Command Mode shortcut, or the link \"Set a Command Mode shortcut  →\" (\"Set up Command Mode  →\" until AI is ready) opening Settings > Commands, refreshed on hotkey changes and window activation. The Walkthrough settings link on that row (CL 2.8.0) is gone from quick_record_tab.py at the reference commit (the Walkthrough tab has its own controls since 2.8.2), and FioriVoce follows the code."
+  },
+  "QR-07": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/transcription_tab_base.cpp",
+    "src/ui_shell/page_fit.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_quick_record_tab.cpp",
+    "tests/ui_shell/test_page_fit.cpp"
+   ],
+   "note": "The transcript editor is two lines tall empty and grows to twelve; the window fits its height to the page as rows grow and shrink and an open transcript makes the page elastic."
+  },
+  "QR-08": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/delivery.cpp",
+    "src/dictation/transcription_runtime.cpp",
+    "src/dictation/uploads.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_delivery.cpp",
+    "tests/dictation/test_transcription_runtime.cpp",
+    "tests/dictation/test_paste_latency.cpp",
+    "tests/dictation/test_uploads.cpp"
+   ],
+   "note": "A dictation is copied and pasted per auto_paste / copy settings (copy-only says Ready; paste before History; no prefetch with auto-paste off); Upload File results are neither copied nor pasted (test_single_upload_result_is_neither_copied_nor_pasted, test_upload_displays_ready_then_saves_history_and_never_pastes). OUT-01..04 detail belongs to its own lines."
+  },
+  "QR-06": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_record/quick_record_tab.cpp",
+    "src/ui_record/stats_display.cpp",
+    "src/dictation/transcription_runtime.cpp",
+    "src/ui_controller/ui_controller.cpp",
+    "src/ui_remote/remote_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_quick_record_tab.cpp",
+    "tests/ui_controller/test_remote_engine_hooks.cpp",
+    "tests/dictation/test_runtime_flow.cpp"
+   ],
+   "note": "The remote part is now fixed (A09-40): a dictation decoded on the paired computer shows on <host> · N ms network under the stats strip (ui_controller a remote dictation's stats name the host and the network's share; dictation a remote pass's request timing reaches the transcription stats). Verified before: Fixed / Raw switch appears only when a distinct raw text exists, a new transcript starts on Fixed, Copy sits in the pane corner and copies what is shown, and the stats strip shows Transcription Time / Audio Duration / File Size (2.4s, 12.7s, 393.8 KB) and clears with the transcript (test_quick_record_tab, quick_record_tab/transcript reference). The line overstates two things the code does not do in OpenWhisper either: Quick Record transcripts are plain text (TRANSCRIPT_MARKDOWN is False except on Upload File) and the realtime factor is the Upload File result line (UF-05), not Quick Record."
+  },
+  "QR-10": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp",
+    "src/ui_record/quick_record_tab.cpp",
+    "src/ui_controller/ui_controller.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_transcription_runtime.cpp",
+    "tests/dictation/test_paste_latency.cpp",
+    "tests/ui_record/test_quick_record_tab.cpp"
+   ],
+   "note": "The tab only asks to start and its chrome waits for the answer (\"record, stop and cancel ask and wait\"); a recorder that cannot start leaves the app idle with \"Failed to start recording: No audio device available\" (\"start recording failure stays idle\"); a refused start reverts the chrome."
+  },
+  "QR-11": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp",
+    "src/recorder/recorder.cpp",
+    "src/recorder/journal.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_runtime_flow.cpp",
+    "tests/dictation/test_transcription_runtime.cpp",
+    "tests/recorder/test_recorder.cpp",
+    "tests/recorder/test_failure_strings.cpp",
+    "tests/recorder/test_journal.cpp"
+   ],
+   "note": "A lost microphone keeps its audio as a failed-recording History entry with no paste; a storage error refuses even a partial save and keeps the journal; startup recovery turns an interrupted journal into a recording; a stop timeout preserves the journal; an engine not ready says \"recording saved in History. Select Retry transcription.\"."
+  },
+  "QR-12": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp",
+    "src/ui_controller/overlay_router.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_runtime_audit.cpp",
+    "tests/dictation/test_cleanup_runtime.cpp"
+   ],
+   "note": "A start while a job runs is refused with the notice \"A transcription is already in progress — wait before starting another recording\" (shown near the pointer through notice_requested) and no recorder start."
+  },
+  "QR-13": {
+   "status": "dropped",
+   "reason": "Superseded in OpenWhisper 2.8.2: the Start Walkthrough button left Quick Record for the Walkthrough tab; the checklist line itself says not to port it (M10 a32 table: dropped QR-13)."
+  },
+  "MW-06": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_shell/footer_bar.cpp",
+    "src/ui_shell/main_window.cpp",
+    "src/ui_shell/compact_mode.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_audit_a32_shell.cpp",
+    "tests/ui_shell/test_main_window.cpp",
+    "tests/ui_shell/test_compact_mode.cpp",
+    "tests/ui_shell/test_system_tray.cpp"
+   ],
+   "note": "Added \"a32 MW-06: the Quit button hint is Ctrl+Q\" (the Quit hint had no test). Verified: 48 px footer with centred Minimize to Tray / Stats / Settings / Quit, 10 px gaps, the Stats and Settings tooltips verbatim, the tray button hint shows the minimize hotkey; compact mode hides Stats and the tray menu keeps it. The compositor-managed \"Hide\" label is Omarchy/Linux only."
+  },
+  "MW-16": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_shell/main_window.cpp",
+    "src/ui_shell/restart_tail.cpp",
+    "src/app/main.cpp",
+    "src/ui_controller/update_handoff.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_audit_a32_shell.cpp",
+    "tests/ui_shell/test_restart_tail.cpp",
+    "tests/ui_controller/test_update_handoff.cpp"
+   ],
+   "note": "Added \"a32 MW-16: a confirmed Quit is not vetoed by close to tray\": after requestQuit is confirmed, the window close is accepted with minimize_tray on (forceQuit_). Verified: main() leaves through std::_Exit on Bootstrap code once every cleanup ran (A01-22, test_restart_tail); the update handoff exits without asking or waiting on dialogs (\"the update handoff quits without asking again\"). \"No crash log at exit\" has no test beyond the clean shutdown order of test_bootstrap."
+  },
+  "MW-11": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_shell/main_window.cpp",
+    "src/ui_shell/main_window.h"
+   ],
+   "tests": [
+    "tests/ui_shell/test_audit_a32_mw11_screens.cpp",
+    "tests/ui_shell/test_audit_a32_shell.cpp",
+    "tests/ui_shell/test_main_window.cpp"
+   ],
+   "note": "MainWindow::applySavedGeometry now reads MainWindow::screenAreas (a std::function beside availableScreenRect, default: QGuiApplication screens, primary first) and takes the first available area the saved rectangle intersects, as main_window.py _apply_saved_geometry does (by overlap, not by screen name). test_audit_a32_mw11_screens.cpp with a fake two-monitor list: a geometry saved on the second monitor comes back there; a monitor that is gone leaves the window centred on availableScreenRect; a saved height taller than a 1280x800 screen is clamped to it and moved up onto it. Verified before and kept: test_audit_a32_shell.cpp a32 MW-11 (a saved on-screen position restored, one off every screen ignored and centred); size and position saved half a second after a move (test_main_window), short saved heights clamp to the 660 minimum, 1280x800 keeps the footer, tray restore shows the window normal and syncs the maximize glyph (as main_window.py restore_from_tray; the preserves maximized wording is CL 2.6.x for Omarchy)."
+  },
+  "UF-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/drop_zone.cpp",
+    "src/ui_record/upload_file_tab.cpp",
+    "src/audio/file_preview.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_widgets.cpp",
+    "tests/ui_record/test_upload_file_tab.cpp",
+    "tests/audio/test_file_preview.cpp"
+   ],
+   "note": "Drop zone accepts the six audio extensions in any case, a mixed drop keeps the audio in order, a click opens the browser with OpenWhisper filters and multi-select queues them; only non-audio says so (noAudioDroppedMessage); an unreadable single file returns to the drop zone with \"broken.wav: This file is empty.\"; previews raise \"This file is empty.\" / \"This doesn't look like an audio file.\" and a failed queue row carries its reason."
+  },
+  "UF-02": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/file_info_card.cpp",
+    "src/ui_record/upload_file_tab.cpp",
+    "src/audio/file_preview.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_widgets.cpp",
+    "tests/ui_record/test_upload_file_tab.cpp",
+    "tests/ui_record/test_upload_reference_screenshots.cpp"
+   ],
+   "note": "Card chips for size, duration, sample rate in kHz (44.1 kHz), Mono / N ch, One pass vs the chunk count as a warning (API over the split limit only; \"local engine takes a large file in one pass without decoding\"); the card controls match the Python layout (corner Remove, compact Copy, Transcribe primary); the preview runs on a worker and the card shows Reading until it lands."
+  },
+  "UF-03": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/upload_queue.cpp",
+    "src/ui_record/upload_file_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_widgets.cpp",
+    "tests/ui_record/test_upload_file_tab.cpp"
+   ],
+   "note": "Two or more files list as rows with size, duration and a state chip (Queued, Working, Done, Stopped), reorder buttons, Remove, add by drop or browser, a per-row Copy once a file finishes (none for a combined job), and Copy all on the card."
+  },
+  "UF-04": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/relation_picker.cpp",
+    "src/ui_record/batch_relation_dialog.cpp",
+    "src/dictation/uploads.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_file_tab.cpp",
+    "tests/ui_record/test_batch_relation_dialog.cpp",
+    "tests/dictation/test_uploads.cpp"
+   ],
+   "note": "Separate recordings by default, one History row per file and no batch context; Parts of one recording joins the raw text, cleans once with TRANSCRIPT_BATCH_CLEANUP_TIMEOUT_S, saves one row named after the files and on a cleanup failure shows the raw text and says so; Custom opens the dialog, stores the description and combine choice and is remembered; a relation that cannot be saved is still used."
+  },
+  "UF-05": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/transcription_progress.cpp",
+    "src/ui_record/file_info_card.cpp",
+    "src/ui_record/upload_presenter.cpp",
+    "src/ui_controller/overlay_router.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_widgets.cpp",
+    "tests/ui_record/test_upload_presenter.cpp",
+    "tests/ui_record/test_upload_file_tab.cpp"
+   ],
+   "note": "The panel replaces the footer while transcribing: stage title, m:ss elapsed clock, sweeping bar (determinate per file in a batch), Prepare/Transcribe/Clean up steps with the cleanup step only when cleanup is on, \"File 2 of 3  ·  b.mp3\", Stop; upload stages go to the card, not the overlay; the result holds, then \"Transcribed in 1m 2s · 13.6× realtime\" decodes in; the large-file notice names the size."
+  },
+  "UF-06": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/transcription_tab_base.cpp",
+    "src/ui_record/upload_file_tab.cpp",
+    "src/ui_theme/markdown_render.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_file_tab.cpp",
+    "tests/ui_theme/test_markdown_render.cpp"
+   ],
+   "note": "\"transcript renders markdown but copies the source\" and \"raw view renders the same way\"; headings, inline code, fenced code, quotes, tables and links are pinned by the Markdown renderer tests."
+  },
+  "UF-07": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/transcript_viewer_dialog.cpp",
+    "src/ui_record/upload_file_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_transcript_viewer.cpp",
+    "tests/ui_record/test_upload_file_tab.cpp"
+   ],
+   "note": "The corner expand button (only while there is a transcript) opens one resizable non-modal viewer (940x760) with a centred capped column, Fixed/Raw when raw differs, zoom by buttons, Ctrl+plus/minus, Ctrl+wheel and Ctrl+0 at OpenWhisper steps, Copy of the source; it follows the tab, is reused (keeping its size) and its zoom survives the next transcript."
+  },
+  "UF-08": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/transcript_viewer_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_transcript_viewer.cpp",
+    "tests/ui_record/test_upload_file_tab.cpp"
+   ],
+   "note": "Overview plus one tab per completed transcript, AI Output only when cleanup ran, a stitched batch keeps its parts beside the AI output, no tabs without several completed files."
+  },
+  "UF-09": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/upload_file_tab.cpp",
+    "src/ui_record/file_info_card.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_file_tab.cpp",
+    "tests/ui_record/test_upload_widgets.cpp"
+   ],
+   "note": "\"starting a job clears the previous transcript\", \"starting a job clears the previous result note\", \"a finished result clears when other files come up\", \"a new job clears the previous result\"."
+  },
+  "UF-10": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/uploads.cpp",
+    "src/history/entry.cpp",
+    "src/history/format_utils.cpp",
+    "src/ui_history/history_item.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_uploads.cpp",
+    "tests/history/test_format_utils.cpp",
+    "tests/history/test_golden.cpp",
+    "tests/ui_history/test_history_title.cpp"
+   ],
+   "note": "The preview duration (3.72) is the pending audio duration with the file name as source_name; format_audio_duration(3.72) is \"3.7s\"; an empty transcript previews as \"Empty transcript\" (preview_text golden) and the card shows the source name."
+  },
+  "UF-11": {
+   "status": "verified",
+   "cpp": [
+    "src/audio/file_preview.cpp",
+    "src/speech/upload_splitter.cpp",
+    "src/speech/cloud_backend.cpp",
+    "src/audio/wav_metadata.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_file_tab.cpp",
+    "tests/speech/test_upload_splitter.cpp",
+    "tests/speech/test_cloud_backend.cpp",
+    "tests/audio/test_wav_metadata.cpp"
+   ],
+   "note": "Cloud transcription is kept (ARCHITECTURE.md CloudSpeechBackend), so splitting is ported: previews do not decode (local engine one pass), the splitter streams (test_streaming_writes_before_reading_entire_input), WAV tags follow audio still in the writer buffer, an unavailable backend refuses before splitting, a cancel while splitting uploads nothing."
+  },
+  "UF-12": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/uploads.cpp",
+    "src/ui_record/upload_file_tab.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_uploads.cpp",
+    "tests/ui_record/test_upload_file_tab.cpp"
+   ],
+   "note": "A cancel mid separate batch keeps the finished files and says \"Canceled — kept 1 of 3 files\"; a cancel after the last file of a combined batch keeps the transcript uncleaned and says so; a canceled job stays canceled when the error transcript lands; Stop keeps Done rows and marks the working file Stopped."
+  },
+  "HI-02": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/history_entry_dialog.cpp",
+    "src/ui_history/history_playback.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_entry_dialog.cpp",
+    "tests/ui_history/test_history_ui.cpp"
+   ],
+   "note": "Full transcript and details (facts only when present), Original/AI toggle with Use this version, Copy of the shown version, Copy Raw, Transcribe Again when audio exists (Retry for failed recordings), Delete after confirmation, and a playback bar that stops when the dialog closes."
+  },
+  "HI-03": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/history_item.cpp",
+    "src/ui_history/history_actions.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_sidebar_menus.cpp",
+    "tests/ui_history/test_history_ui.cpp",
+    "tests/ui_history/test_show_in_folder.cpp"
+   ],
+   "note": "The card menu has Copy (Copy Raw / Copy Text for a cleaned entry), Undo AI edit / Use AI version, Transcribe Again, Show in Folder (disabled without a recording; Windows selects the file with a quoted explorer /select, which is a [platform] case that skips here) and Delete."
+  },
+  "HI-04": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/history_playback.cpp",
+    "src/audio/player.cpp",
+    "src/dictation/transcription_runtime.cpp",
+    "src/ui_meeting/meeting_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_history_ui.cpp",
+    "tests/ui_history/test_playback_fetch.cpp",
+    "tests/ui_history/test_entry_dialog.cpp",
+    "tests/dictation/test_cleanup_runtime.cpp"
+   ],
+   "note": "Play/Stop with a progress line on cards and in the dialog, playing to the end resets; refused with kRecordingBusy / kMeetingBusy; a recording start stops playback first (stop_playback hook, traced in test_cleanup_runtime) and a meeting start through playback_stop_requested; host-kept recordings are fetched before they play."
+  },
+  "HI-05": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp",
+    "src/ui_history/history_item.cpp",
+    "src/ui_history/history_entry_dialog.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_transcription_runtime.cpp",
+    "tests/dictation/test_runtime_flow.cpp",
+    "tests/ui_history/test_entry_dialog.cpp"
+   ],
+   "note": "A failed decode keeps the recording as a failed entry (\"Audio saved. Retry with the currently selected speech engine.\"), Retry transcription is offered on the card and in the dialog, and a successful retry fills the same entry (\"retry from history reuses the failed entry\")."
+  },
+  "HI-06": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/history_calendar_dialog.cpp",
+    "src/ui_history/calendar_glyph_button.cpp",
+    "src/history/calendar.cpp",
+    "src/ui_shell/main_window.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_calendar_dialog.cpp",
+    "tests/ui_history/test_calendar_wiring.cpp",
+    "tests/history/test_calendar.cpp",
+    "tests/ui_history/test_calendar_golden.cpp",
+    "tests/ui_shell/test_main_window.cpp"
+   ],
+   "note": "View > History Calendar (Ctrl+Shift+D) and the sidebar glyph open one calendar; month grid tinted by amount, agenda cards with time, length and place, kind chips that always keep one on, where filter with more than one place, year strip, title click or M opens the month picker and PageUp leaps years, arrows/PageDown/T move, header streak and busiest day."
+  },
+  "HI-07": {
+   "status": "verified",
+   "cpp": [
+    "src/history/export.cpp",
+    "src/ui_history/history_export_dialog.cpp",
+    "src/ui_history/export_dialog_base.cpp"
+   ],
+   "tests": [
+    "tests/history/test_export.cpp",
+    "tests/ui_history/test_export_dialog.cpp",
+    "tests/ui_history/test_export_wiring.cpp"
+   ],
+   "note": "Markdown / txt / JSON, cleaned and raw toggles (Markdown only), date range and audio-only filters, combined documents or per-entry files that never overwrite and disambiguate stems, JSON with every column and the context columns."
+  },
+  "HI-08": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/history_sidebar.cpp",
+    "src/history/manager.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_sidebar_menus.cpp",
+    "tests/ui_history/test_sidebar_delete.cpp",
+    "tests/history/test_manager.cpp",
+    "tests/history/test_origins.cpp",
+    "tests/ui_history/test_host_records.cpp"
+   ],
+   "note": "Header menu Export history…, Open recordings folder (made then opened), Clear history (recordings kept) and Clear history + recordings, each asking with No as default; per-entry Delete with a saved Don't ask again; a clear on the host keeps paired computers' entries."
+  },
+  "HI-10": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/history_actions.cpp",
+    "src/hotkeys/defaults.cpp",
+    "src/dictation/hotkey_runtime.cpp",
+    "src/ui_shell/system_tray.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_history_actions.cpp",
+    "tests/hotkeys/test_physical_keys.cpp",
+    "tests/ui_shell/test_system_tray.cpp"
+   ],
+   "note": "paste_last_original is an optional (unset) shortcut that pastes the last dictation's original and keeps it, skipping uploads and rewrites; the tray's Copy original of last dictation copies it without changing the entry version; failures and nothing-to-copy say so."
+  },
+  "HI-11": {
+   "status": "verified",
+   "cpp": [
+    "src/history/entry.cpp",
+    "src/history/format_utils.cpp",
+    "src/history/calendar.cpp"
+   ],
+   "tests": [
+    "tests/history/test_format_utils.cpp",
+    "tests/history/test_calendar.cpp",
+    "tests/history/test_dictation_stats.cpp"
+   ],
+   "note": "New entries store the clock UTC with +00:00; display converts aware values to local and keeps naive legacy wall time; the calendar places UTC entries on their local day."
+  },
+  "HI-12": {
+   "status": "verified",
+   "cpp": [
+    "src/db/history_json.cpp",
+    "src/db/database.cpp"
+   ],
+   "tests": [
+    "tests/db/test_migrations.cpp"
+   ],
+   "note": "Ported (A09-03): transcription_history.json beside the database is imported once into an empty history, renamed to .json.bak, never failing the start."
+  },
+  "HI-13": {
+   "status": "verified",
+   "cpp": [
+    "src/history/entry.cpp",
+    "src/history/manager.cpp",
+    "src/dictation/transcription_runtime.cpp",
+    "src/agentapi/agent_controls.cpp"
+   ],
+   "tests": [
+    "tests/history/test_manager.cpp",
+    "tests/history/test_export.cpp",
+    "tests/history/test_versions.cpp",
+    "tests/dictation/test_cleanup_runtime.cpp",
+    "tests/agentapi/test_agent_controls.cpp"
+   ],
+   "note": "Context columns are exactly app_id, app_name, app_category, cleanup_level, entry_kind, cleaned_text, language; window_title raises in create_entry and is dropped by the manager; raw / cleaned / chosen text versions; the title column is set by the MCP retitle; the profile name is recorded as source_name \"Quick Record · <profile>\" as transcription.py does."
+  },
+  "HI-09": {
+   "status": "verified",
+   "cpp": [
+    "src/history/retention_settings.cpp",
+    "src/history/manager.cpp",
+    "src/ui_settings/recording_page.cpp",
+    "src/audio/wav_metadata.cpp"
+   ],
+   "tests": [
+    "tests/history/test_retention.cpp",
+    "tests/ui_settings/test_retention.cpp",
+    "tests/audio/test_wav_metadata.cpp"
+   ],
+   "note": "Keep all / by count / by folder size resolve to limits (count clamped to at least one, size in MB), the Settings tile shows the saved count and space, and recordings get LIST INFO and BWF origination tags (golden append origination)."
+  },
+  "MW-07": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/update_presenter.cpp",
+    "src/ui_setup/app_update_dialog.cpp",
+    "src/ui_widgets/update_notice.cpp",
+    "src/ui_shell/system_tray.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_audit_a32_controller.cpp",
+    "tests/ui_controller/test_update_presenter.cpp",
+    "tests/ui_setup/test_app_update_dialog.cpp"
+   ],
+   "note": "Added \"a32 MW-07: Later keeps the update notice and Don't notify me again withdraws it\" (no test showed the notice surviving Later). Verified: an automatic check lights \"Update to 2.2.0\" in the title bar and \"Update to 2.2.0…\" in the tray without a dialog; a failed check keeps it; only an up-to-date result or the notify setting withdraws it; Later persists the opt-outs."
+  },
+  "MW-15": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_shell/main_window.cpp",
+    "src/ui_controller/quit_confirm.cpp",
+    "src/ui_controller/ui_controller.cpp",
+    "src/appcore/activity.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_audit_a32_shell.cpp",
+    "tests/ui_controller/test_audit_a32_controller.cpp",
+    "tests/ui_controller/test_update_handoff.cpp",
+    "tests/appcore/test_golden_gates.cpp",
+    "tests/ui_shell/test_main_window.cpp"
+   ],
+   "note": "Added \"a32 MW-15: the Quit button and File > Exit both ask before quitting\" and \"a32 MW-15: the quit question names the work it would stop\" (title \"Quit FioriVoce?\" and the busy text were unasserted). Verified: tray Exit goes through the window confirmation; busy reasons are a recording, a meeting, transcription, a component install in that order; Yes/No with No as default; a refused quit keeps the app running."
+  },
+  "MW-18": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_theme/font_scale.cpp",
+    "src/ui_settings/appearance_page.cpp",
+    "src/ui_controller/settings_bindings.cpp",
+    "src/ui_overlay/waveform_overlay.cpp",
+    "src/ui_shell/title_bar.cpp"
+   ],
+   "tests": [
+    "tests/ui_overlay/test_audit_a32_overlay.cpp",
+    "tests/ui_settings/test_app_pages.cpp",
+    "tests/ui_theme/test_font_scale.cpp",
+    "tests/ui_controller/test_settings_bindings.cpp",
+    "tests/ui_shell/test_title_bar.cpp"
+   ],
+   "note": "Added \"a32 MW-18: the live transcription overlay keeps its size at every font scale\" (nothing pinned the overlay against the UI scale). Verified: Small/Default/Large/Extra large (90/100/115/130) persist and apply at once through applyUiFontScale, rescaling the stylesheet and app font, redrawing rendered transcripts; Settings tiles fit at every scale; the title bar grows."
+  },
+  "QR-09": {
+   "status": "fixed",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp",
+    "src/dictation/delivery.cpp",
+    "src/ui_controller/ui_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_audit_a32_controller.cpp",
+    "tests/dictation/test_transcription_runtime.cpp",
+    "tests/dictation/test_paste_latency.cpp",
+    "tests/dictation/test_delivery.cpp"
+   ],
+   "note": "Added \"a32 QR-09: a failed transcription clears Quick Record's transcript\" (UiController::displayTranscriptionError had no test). Verified: Ready (Pasted) only after the paste; a paste failure still records History; an empty ASR shows \"No speech detected (empty after VAD)\" in status and transcript, keeps the stats and skips clipboard, paste and History (as transcription.py does)."
+  },
+  "HI-01": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_history/history_sidebar.cpp",
+    "src/remote_records/sync.cpp",
+    "src/remote_records/dictation_records.cpp",
+    "src/history/repository.cpp"
+   ],
+   "tests": [
+    "tests/remote_records/test_host_search.cpp",
+    "tests/ui_history/test_host_search.cpp",
+    "tests/history/test_audit_a32_history.cpp"
+   ],
+   "note": "Search over host-kept entries (A09-42): the sidebar passes its query (lower-cased) to RecordSync::list_remote (R3, history_sidebar.cpp startRemoteListing), RecordSync sends it as records_list query, and the host answers with HistoryRepository::search_history_entries over the owner rows, the same seven ilike columns as local search and as OpenWhisper (database.py search_history_entries via remote_records DictationRecords.list): text, raw_text, timestamp, source_name, title, origin_device_name, app_name. No code differed. app_name never reaches the host in either app (remote_records/kinds.py: which app an entry was dictated into stays on this computer), so a host copy is not found by its app, as in OpenWhisper. Tests: remote_records \"a host-kept entry is found by its text, raw text, time, file name, title and owner\" (real host over 127.0.0.1); ui_history \"a host-kept entry the host matched by another column than its text is listed\" (no local refiltering of host rows). Local search stays pinned by tests/history/test_audit_a32_history.cpp \"a32 HI-01: History search reads text, raw text, time, app, file name and title\". Verified otherwise: cards for dictations, files, failed recordings and rewrites with kind chips Command / Transform · <name> / Action / Walkthrough / Transcription failed (_kind_label golden), model badge (_format_model_name golden), app and cleanup level and model (_format_cleanup_info golden), the On <host> / Also on / From location chip, and a search that waits for typing to pause and drops the load in flight (test_sidebar_load)."
+  },
+  "SP-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/scratchpad.cpp",
+    "src/ui_record/record_feature.cpp",
+    "src/ui_shell/main_window.cpp",
+    "src/ui_shell/system_tray.cpp",
+    "src/backup/names.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_scratchpad.cpp",
+    "tests/ui_record/test_scratchpad_feature.cpp",
+    "tests/ui_controller/test_wiring.cpp",
+    "tests/backup/test_create_inspect.cpp"
+   ],
+   "note": "Floating notepad, on top until scratchpad_always_on_top is turned off (remembered); opened and toggled from View > Scratchpad, the tray and the scratchpad_toggle shortcut; notes autosave atomically to <data root>/scratchpad.txt, which backups carry (data/scratchpad.txt). The Omarchy button is Linux only."
+  },
+  "SP-02": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/scratchpad.cpp",
+    "src/dictation/transcription_runtime.cpp",
+    "src/dictation/scratchpad_text.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_scratchpad.cpp",
+    "tests/dictation/test_cleanup_runtime.cpp",
+    "tests/dictation/test_uploads.cpp",
+    "tests/dictation/test_scratchpad_text.cpp"
+   ],
+   "note": "A dictation goes into a visible, focused Scratchpad at the cursor (spaced, replacing a selection) instead of being pasted; an upload never does. The window carries the hotkey-window property; in OpenWhisper that property feeds only the pynput focused-window fallback (macOS/Linux), and on Windows the global hook already reaches it."
+  },
+  "SP-03": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/scratchpad.cpp",
+    "src/ui_record/scratchpad_transforms.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_scratchpad.cpp",
+    "tests/ui_record/test_scratchpad_transforms.cpp"
+   ],
+   "note": "Copy all through the app clipboard helper (says when refused), Clear with a one-step undo that expires and is dropped by typing, Transform menu of saved transforms (starters before any is saved) rewriting the selection or everything off the Qt thread; a delayed transform keeps answers appended beyond its selection."
+  },
+  "SP-04": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/action_wiring.cpp",
+    "src/ui_record/scratchpad.cpp",
+    "src/automation/action_runtime.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_audit_a32_scratchpad.cpp",
+    "tests/automation/test_action_runtime.cpp",
+    "tests/ui_record/test_scratchpad.cpp"
+   ],
+   "note": "The app-side bridge is now pinned: test_audit_a32_scratchpad.cpp runs an agent ask action (output scratchpad) from its hotkey through the ControllerRig, and the answer reaches the app ScratchpadService window through action_wiring.cpp Host::show_in_scratchpad -> showScratchpadText: the hidden pad is shown, the answer is appended after the user notes on a block of its own (Earlier note.\\n\\nForty-two.), nothing is pasted. This matches scratchpad.py show_text (ensure_loaded, append_block, reveal: shown and raised without taking focus, never replacing). Verified before and kept: automation::ActionRuntime calls ActionHost::show_in_scratchpad (test_agent_ask_routes_the_answer_to_the_scratchpad_by_default, test_a_programs_answer_is_shown_in_the_scratchpad_never_pasted), showScratchpadText appends and opens the pad quietly (tests/ui_record/test_scratchpad.cpp); the Settings Test button host in ui_automation/automation_feature.cpp returns false for the Scratchpad on purpose."
+  },
+  "OV-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_overlay/waveform_overlay.cpp",
+    "src/ui_controller/overlay_router.cpp"
+   ],
+   "tests": [
+    "tests/ui_overlay/test_drag.cpp",
+    "tests/ui_overlay/test_overlay_window.cpp",
+    "tests/uimath/test_overlay_position.cpp"
+   ],
+   "note": "Opens by the pointer, drags aside and stays there through the recording, the next opens by the pointer again, a drag cannot leave the screen; the standalone overlay never takes focus. The Windows non-activating window case is a [platform] test that skips here."
+  },
+  "OV-02": {
+   "status": "verified",
+   "cpp": [
+    "src/uimath/overlay_look.cpp",
+    "src/ui_overlay/waveform_overlay.cpp",
+    "src/ui_overlay/recording_look_preview.cpp",
+    "src/uimath/sample_voice.cpp",
+    "src/ui_overlay/moments_painter.cpp"
+   ],
+   "tests": [
+    "tests/ui_overlay/test_looks.cpp",
+    "tests/ui_overlay/test_recording_look.cpp",
+    "tests/ui_overlay/test_look_preview.cpp",
+    "tests/ui_overlay/test_moments.cpp",
+    "tests/uimath/test_sample_voice.cpp",
+    "tests/settings/test_kinds.cpp"
+   ],
+   "note": "Eleven looks Ribbon, Bars (default; unknown values fall back), Mirror wave, Aurora, Pulse, Dots, Bait ball, Real fish, Deep-sea glow, Fizz, Classic, each finishing through processing and transcribing; a finished result fades; toggles, copies and cancels play moments; dot, label and clock switches in any mix; the Settings preview loops recording 0-4.8 s, processing 4.8, transcribing 6.6, done 8.4, loop 9.4 s (1.8 s stages, 1 s pause; sample_voice golden)."
+  },
+  "OV-03": {
+   "status": "verified",
+   "cpp": [
+    "src/uimath/tidy_lines.cpp",
+    "src/ui_overlay/tidy_lines_painter.cpp",
+    "src/ui_overlay/waveform_overlay.cpp"
+   ],
+   "tests": [
+    "tests/uimath/test_tidy_lines.cpp",
+    "tests/ui_overlay/test_recording_look.cpp",
+    "tests/ui_overlay/test_overlay_window.cpp"
+   ],
+   "note": "Cleaning up takes over from every look's finish with the tidy-lines animation (geometry golden-pinned), Rewriting shimmers like cleanup, a command's rewrite has nothing to hand off."
+  },
+  "OV-04": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_overlay/waveform_overlay.cpp",
+    "src/uimath/overlay_layout.cpp",
+    "src/ui_settings/appearance_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_overlay/test_preview_layout.cpp",
+    "tests/ui_settings/test_app_pages.cpp",
+    "tests/ui_controller/test_m2_end_to_end.cpp"
+   ],
+   "note": "Live preview words in the overlay; streaming_overlay_layout Header (default, unknown falls back) shrinks the look into the header between the hands-free badge and language chip, Footer puts the full look under the words; the header is shorter than the footer; preview text size (streaming_overlay_font_size) reaches the overlay through refreshStreamingFontSize."
+  },
+  "OV-06": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_overlay/waveform_overlay.cpp",
+    "src/ui_controller/overlay_router.cpp",
+    "src/appcore/cancel_router.cpp"
+   ],
+   "tests": [
+    "tests/ui_overlay/test_notices.cpp",
+    "tests/ui_controller/test_notices.cpp",
+    "tests/appcore/test_cancel_router.cpp",
+    "tests/ui_history/test_history_actions.cpp"
+   ],
+   "note": "Notices show by the pointer (25 ms longer per character, ellipsised when too long), become the caption over a recording or job, and are skipped when the main window is active (the status line says it); \"Nothing to cancel\", cancel results and \"Copied — paste with Ctrl+V\" go through them."
+  },
+  "OV-07": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_overlay/walkthrough_controls.cpp",
+    "src/ui_overlay/waveform_overlay.cpp"
+   ],
+   "tests": [
+    "tests/ui_overlay/test_walkthrough_controls.cpp",
+    "tests/ui_overlay/test_preview_layout.cpp",
+    "tests/ui_overlay/test_overlay_window.cpp"
+   ],
+   "note": "Walkthrough destination badge, Snap (accent chip) and Done (ghost) shown only while a walkthrough records and where the platform takes overlay clicks, shortcut tooltips on hover, the work stages stay under the badge row."
+  },
+  "OV-08": {
+   "status": "other-platform",
+   "reason": "Wayland (Linux) keeps the overlay inside the app window with opaque, static styling, and macOS keeps it visible across spaces; FioriVoce is a Windows product (CL 2.6.11; the line is tagged Linux/Mac)."
+  },
+  "OV-09": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_overlay/waveform_overlay.cpp"
+   ],
+   "tests": [
+    "tests/ui_overlay/test_error_frame.cpp"
+   ],
+   "note": "\"a frame that cannot be drawn is logged once and the pill reads Error\"."
+  },
+  "ST-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/stats_dialog.cpp",
+    "src/history/stats_summary.cpp",
+    "src/ui_history/history_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_stats_dialog.cpp",
+    "tests/ui_history/test_stats_golden.cpp",
+    "tests/history/test_stats_summary.cpp"
+   ],
+   "note": "One non-modal window from the footer, View > Stats and the tray; 7 days / 30 days / all time recount every section; the banner reads \"Dictated · last 7 days\" with the words, the trend against the previous span (_trend golden), time saved against TYPING_WPM = 40, and \"Next milestone: 1,000 words\" / \"984 to go\"."
+  },
+  "ST-03": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/stats_dialog.cpp",
+    "src/ui_history/history_feature.cpp",
+    "src/history/dictation_stats.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_stats_dialog.cpp",
+    "tests/ui_history/test_stats_golden.cpp",
+    "tests/history/test_stats_summary.cpp"
+   ],
+   "note": "A row per feature ever used with its trend (_feature_text golden: meetings, files, walkthroughs, actions, commands, snippets, dictionary); click, Space or Return opens it: Meetings / Files / Walkthroughs bring the main window forward on the tab with its list open, Actions / Commands / Snippets / Dictionary open their Settings page; the heading is \"Across FioriVoce\" through identity().product."
+  },
+  "ST-02": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_history/stats_dialog.cpp",
+    "src/ui_history/stats_charts.cpp",
+    "src/history/stats_summary.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_audit_a32_stats.cpp",
+    "tests/ui_history/test_stats_dialog.cpp",
+    "tests/ui_history/test_stats_golden.cpp",
+    "tests/history/test_stats_summary.cpp"
+   ],
+   "note": "Added \"a32 ST-02: hovering a day of the words chart names it and its words\" (no test sent the pointer over a chart). Verified: pace \"107 wpm\" and \"2.7× faster than typing\", dictations \"3\" with \"5 words each\" (commands are a feature row, as stats_dialog.py has it), \"AI cleanup changed 3 words\", streak with best (_streak_detail golden), words per day/month bars, hour x weekday grid with its busiest slot, top five apps, a year of activity squares; a new dictation refreshes the open window."
+  },
+  "ST-04": {
+   "status": "fixed",
+   "cpp": [
+    "src/history/dictation_stats.cpp",
+    "src/history/stats_summary.cpp",
+    "src/history/manager.cpp",
+    "src/ui_history/stats_dialog.cpp"
+   ],
+   "tests": [
+    "tests/history/test_audit_a32_history.cpp",
+    "tests/history/test_dictation_stats.cpp",
+    "tests/history/test_stats_summary.cpp",
+    "tests/ui_history/test_stats_dialog.cpp",
+    "tests/dictation/test_runtime_audit.cpp"
+   ],
+   "note": "Added \"a32 ST-04: clearing History leaves the Stats\" (no test cleared History under counted stats). Verified: breakdowns by app kind, cleanup level and language; features add no dictated words and keep no streak; meetings outlive deletion; Reset asks and restarts the counts while History stays; earlier history and meetings are counted once on first load; a retranscribed recording is saved but not counted as a file."
+  },
+  "OV-05": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_overlay/waveform_overlay.cpp",
+    "src/ui_overlay/language_menu.cpp",
+    "src/ui_controller/ui_controller.cpp",
+    "src/ui_controller/overlay_router.cpp",
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_audit_a32_controller.cpp",
+    "tests/ui_overlay/test_overlay_window.cpp",
+    "tests/ui_overlay/test_language_chip.cpp",
+    "tests/ui_controller/test_wiring.cpp",
+    "tests/ui_overlay/test_moments.cpp",
+    "tests/dictation/test_runtime_flow.cpp"
+   ],
+   "note": "Added \"a32 OV-05: a remote reconnect attempt shows on the overlay\": transcription_retry_progress now reaches OverlayRouter::showTranscriptionRetry (A03-35 said nothing called it; the call is in UiController and is now pinned). Verified: hands-free latch for the recording; language chip clickable on Windows/X11/macOS, display-only elsewhere; \"Switched to <mic>\" caption (test_hands_free_and_device_switch_reach_the_overlay); REMOTE_RECOVERY_DELAYS three attempts within REMOTE_RECOVERY_WAIT 12 s, \"Retrying connection (n/3)...\"."
+  }
+ }
+}

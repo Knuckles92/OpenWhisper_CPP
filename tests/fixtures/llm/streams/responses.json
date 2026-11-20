@@ -1,0 +1,28 @@
+{
+ "source": "Hand-written. The Responses stream of sidecar/src/pi-integration.test.ts:43-61 (o4-mini: an encrypted reasoning item, then a message whose text arrives as output_text deltas), with the final response.completed carrying the whole output; the reply equals tests/fixtures/llm/generation/replies.json 'responses'.",
+ "protocol": "responses",
+ "equivalent": "responses",
+ "frames": [
+  {"type": "response.created", "response": {"id": "resp_1", "object": "response", "created_at": 1, "status": "in_progress", "model": "synthetic", "output": []}},
+  {"type": "response.output_item.added", "output_index": 0, "item": {"type": "reasoning", "id": "rs_1", "summary": [], "encrypted_content": "signed-reasoning"}},
+  {"type": "response.output_item.done", "output_index": 0, "item": {"type": "reasoning", "id": "rs_1", "summary": [], "encrypted_content": "signed-reasoning"}},
+  {"type": "response.output_item.added", "output_index": 1, "item": {"type": "message", "id": "msg_1", "role": "assistant", "status": "in_progress", "content": []}},
+  {"type": "response.output_text.delta", "output_index": 1, "item_id": "msg_1", "content_index": 0, "delta": "Clean "},
+  {"type": "response.output_text.delta", "output_index": 1, "item_id": "msg_1", "content_index": 0, "delta": "text."},
+  {"type": "response.output_item.done", "output_index": 1, "item": {"type": "message", "id": "msg_1", "role": "assistant", "status": "completed", "content": [{"type": "output_text", "text": "Clean text.", "annotations": []}]}},
+  {"type": "response.completed", "response": {"id": "resp_1", "status": "completed", "output": [{"type": "reasoning", "id": "rs_1", "summary": [], "encrypted_content": "signed-reasoning"}, {"type": "message", "id": "msg_1", "role": "assistant", "status": "completed", "content": [{"type": "output_text", "text": "Clean text.", "annotations": []}]}]}}
+ ],
+ "events": [
+  ["thinking_start"],
+  ["thinking_end"],
+  ["text_delta", "Clean "],
+  ["text_delta", "text."]
+ ],
+ "result": {
+  "text": "Clean text.",
+  "tool_calls": [],
+  "assistant_message": {"role": "assistant", "content": "Clean text.", "_responses": [{"type": "reasoning", "id": "rs_1", "summary": [], "encrypted_content": "signed-reasoning"}, {"type": "message", "id": "msg_1", "role": "assistant", "status": "completed", "content": [{"type": "output_text", "text": "Clean text.", "annotations": []}]}]},
+  "usage": null,
+  "finish_reason": "completed"
+ }
+}

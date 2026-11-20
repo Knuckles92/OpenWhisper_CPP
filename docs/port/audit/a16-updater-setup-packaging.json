@@ -1,0 +1,692 @@
+{
+ "area": "a16-updater-setup-packaging",
+ "package": "M10",
+ "features": {
+  "A16-19": {
+   "status": "verified",
+   "cpp": [
+    "src/app/main.cpp",
+    "src/update_native/startup_recovery.cpp",
+    "src/update_native/transaction.cpp"
+   ],
+   "tests": [
+    "tests/update_native/test_prepare.cpp",
+    "tests/update_native/test_native_platform.cpp"
+   ]
+  },
+  "A16-18": {
+   "status": "difference",
+   "difference": "a16-parent-exit"
+  },
+  "A16-23": {
+   "status": "difference",
+   "difference": "a16-installer-recovery"
+  },
+  "A16-27": {
+   "status": "difference",
+   "difference": "a16-cleanup"
+  },
+  "A16-01": {
+   "status": "verified",
+   "cpp": [
+    "src/update/check.cpp",
+    "src/update/update_contract.cpp"
+   ],
+   "tests": [
+    "tests/update/test_version_channel.cpp",
+    "tests/update/test_golden.cpp"
+   ]
+  },
+  "A16-02": {
+   "status": "difference",
+   "difference": "a16-two-channels"
+  },
+  "A16-03": {
+   "status": "verified",
+   "cpp": [
+    "src/update/release_feed.cpp",
+    "src/update/check.cpp",
+    "src/update/schedule.cpp"
+   ],
+   "tests": [
+    "tests/update/test_release_track.cpp"
+   ]
+  },
+  "A16-04": {
+   "status": "verified",
+   "cpp": [
+    "src/update/release_feed.cpp",
+    "src/update/trust.cpp",
+    "src/http/user_agent.cpp"
+   ],
+   "tests": [
+    "tests/update/test_release_feed.cpp",
+    "tests/update/test_check.cpp"
+   ],
+   "note": "The repository is the release identity's update source (src/update/data/release_identity.json, none by default: M3.md change 3, so a manual check says the build has no update source); the request, Accept, FioriVoce/<version> User-Agent, 30 s timeout and the two error texts match the row."
+  },
+  "A16-05": {
+   "status": "verified",
+   "cpp": [
+    "src/update/release_feed.cpp",
+    "src/update/trust.cpp"
+   ],
+   "tests": [
+    "tests/update/test_rate_limit.cpp",
+    "tests/update/test_release_track.cpp"
+   ]
+  },
+  "A16-06": {
+   "status": "verified",
+   "cpp": [
+    "src/update/trust.cpp",
+    "src/download/verified_download.cpp"
+   ],
+   "tests": [
+    "tests/update/test_trust.cpp",
+    "tests/update/test_golden.cpp",
+    "tests/update/test_check.cpp"
+   ]
+  },
+  "A16-07": {
+   "status": "verified",
+   "cpp": [
+    "src/update/release_feed.cpp"
+   ],
+   "tests": [
+    "tests/update/test_loopback_feed.cpp",
+    "tests/update/test_release_feed.cpp",
+    "tests/update/test_rate_limit.cpp"
+   ],
+   "note": "The variable is FIORIVOCE_UPDATE_FEED_URL (identity env prefix)."
+  },
+  "A16-08": {
+   "status": "verified",
+   "cpp": [
+    "src/update/release_feed.cpp",
+    "src/update/update_contract.cpp"
+   ],
+   "tests": [
+    "tests/update/test_release_feed.cpp",
+    "tests/update/test_golden.cpp",
+    "tests/update/test_rate_limit.cpp"
+   ],
+   "note": "Names are FioriVoce-Setup-<ver>.exe and FioriVoce-<ver>-win64.zip (the zip archive is a34-archive); the macOS DMG asset is not recognised (other platform)."
+  },
+  "A16-09": {
+   "status": "verified",
+   "cpp": [
+    "src/update/schedule.cpp",
+    "src/update/runtime.cpp",
+    "src/update/runtime.h"
+   ],
+   "tests": [
+    "tests/update/test_schedule.cpp",
+    "tests/update/test_runtime.cpp"
+   ],
+   "note": "8 s launch delay (kUpdateCheckDelay), 4 h interval, 1 h failure wait and 1 h re-check floor; there is no git channel to exclude (a16-two-channels)."
+  },
+  "A16-10": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/update_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_update_presenter.cpp"
+   ]
+  },
+  "A16-11": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/update_notice.cpp",
+    "src/ui_shell/system_tray.cpp",
+    "src/ui_controller/update_presenter.cpp",
+    "src/update/schedule.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_update_notice.cpp",
+    "tests/ui_shell/test_system_tray.cpp",
+    "tests/ui_controller/test_update_presenter.cpp",
+    "tests/update/test_schedule.cpp"
+   ]
+  },
+  "A16-12": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_setup/app_update_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_setup/test_app_update_dialog.cpp",
+    "tests/ui_setup/test_app_update_dialog_screenshots.cpp",
+    "tests/update/test_golden.cpp"
+   ]
+  },
+  "A16-13": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_setup/app_update_dialog.cpp",
+    "src/update/schedule.cpp",
+    "src/ui_controller/update_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_setup/test_app_update_dialog.cpp"
+   ],
+   "note": "The opt-outs, their initial values, the one write and when it happens are pinned; the settingsChanged(\"updates\") the presenter sends after the dialog closes (update_presenter.cpp, end of the dialog's finished handler) is read, not tested."
+  },
+  "A16-14": {
+   "status": "fixed",
+   "cpp": [
+    "src/update/download.cpp",
+    "src/download/verified_download.cpp"
+   ],
+   "tests": [
+    "tests/update/test_download.cpp",
+    "tests/update/test_download_fallback.cpp",
+    "tests/update/test_resilience.cpp"
+   ],
+   "note": "The behaviour matched; the updater's own wording for the shared downloader's failures was untested. Added 'an update download fails in the updater's own words' (download path a folder, a partial with a second link, an announced size that differs, more data than listed)."
+  },
+  "A16-15": {
+   "status": "verified",
+   "cpp": [
+    "src/update/check.cpp",
+    "src/update_native/eligibility.cpp"
+   ],
+   "tests": [
+    "tests/update/test_version_channel.cpp",
+    "tests/update/test_check.cpp",
+    "tests/update/test_apply.cpp",
+    "tests/update_native/test_eligibility.cpp"
+   ],
+   "note": "The macOS DMG mode is not ported (other platform); Linux and every non-installer channel notify only."
+  },
+  "A16-16": {
+   "status": "fixed",
+   "cpp": [
+    "src/update_native/eligibility.cpp",
+    "src/update_native/desktop.h",
+    "src/update_native/win/desktop.cpp",
+    "src/update_native/prepare.cpp"
+   ],
+   "tests": [
+    "tests/update_native/test_eligibility.cpp",
+    "tests/update_native/test_prepare.cpp"
+   ],
+   "note": "The Program Files rule (_is_under_program_files over ProgramFiles, ProgramFiles(x86), ProgramW6432; M10.6 acceptance) was missing: added NativeEligibility::under_program_files, under_program_files() and its test; win/desktop.cpp reads the three variables (not compiled here). The registered-uninstaller shape, the reparse-free chain and the staged updater are checked when the preparation starts and answer UpdateRequiresSetup, which apply_update turns into the verified setup, so the outcome matches although the check result reads Native. Not ported: the strict parse of the registered DisplayVersion (the commit rewrites it)."
+  },
+  "A16-20": {
+   "status": "verified",
+   "cpp": [
+    "src/update/gates.cpp",
+    "src/update/win/gates.cpp",
+    "src/app/main.cpp"
+   ],
+   "tests": [
+    "tests/update/test_gates.cpp"
+   ],
+   "note": "A second instance is handled by the single-instance channel (a01-single-instance-every-platform), not by leaving silently on the app mutex."
+  },
+  "A16-21": {
+   "status": "verified",
+   "cpp": [
+    "src/update_native/data_snapshot.cpp",
+    "src/update_native/transaction_storage.cpp"
+   ],
+   "tests": [
+    "tests/update_native/test_data_snapshot.cpp",
+    "tests/update_native/test_transaction_storage.cpp"
+   ]
+  },
+  "A16-22": {
+   "status": "verified",
+   "cpp": [
+    "src/update/apply.cpp",
+    "src/ui_controller/update_handoff.cpp",
+    "src/ui_setup/app_update_dialog.cpp"
+   ],
+   "tests": [
+    "tests/update/test_apply.cpp",
+    "tests/ui_controller/test_update_handoff.cpp",
+    "tests/ui_setup/test_app_update_dialog.cpp"
+   ],
+   "note": "The setup half. The native helper's launch failure is A16-25's handoff."
+  },
+  "A16-24": {
+   "status": "other-platform",
+   "reason": "macOS in-place update (app_update_macos.py); FioriVoce ships for Windows."
+  },
+  "A16-25": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/update_handoff.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_update_native_launch.cpp",
+    "tests/ui_controller/test_update_handoff.cpp"
+   ],
+   "note": "Fixed after the audit's handoff: when the native helper (a hand-off with a transaction_id) cannot be started, UpdateHandoff::onDownloadFinished abandons the transaction and says \"The updater could not be started.\" with offerSetup true, as _report_launch_failure (ui_qt/ui_controller.py:229-239); a setup that cannot be started still says \"The installer could not be started.\" without the offer. New case 'an updater that cannot be started abandons the transaction and offers the setup'. The app mutexes are re-taken in both branches, because FioriVoce's startSetup releases them before either launch. The rest of the row (busy confirmation text, 'The update was not started.', 'The update was not installed. Your work is still open.', exit(0), the watchdog) is ported and tested in test_update_handoff.cpp."
+  },
+  "A16-26": {
+   "status": "verified",
+   "cpp": [
+    "src/update/runtime.cpp",
+    "src/ui_controller/update_handoff.cpp",
+    "src/ui_setup/app_update_dialog.cpp"
+   ],
+   "tests": [
+    "tests/update/test_resilience.cpp",
+    "tests/ui_setup/test_app_update_dialog.cpp",
+    "tests/ui_controller/test_update_handoff.cpp"
+   ]
+  },
+  "A16-17": {
+   "status": "fixed",
+   "cpp": [
+    "src/update_native/prepare.cpp",
+    "src/update_native/archive.cpp",
+    "src/update_native/manifest.cpp",
+    "src/update_native/transaction_gates.cpp",
+    "src/update_native/native_platform.cpp"
+   ],
+   "tests": [
+    "tests/update_native/test_prepare.cpp",
+    "tests/update_native/test_archive.cpp",
+    "tests/update_native/test_native_platform.cpp",
+    "tests/update_native/test_preparation_limits.cpp"
+   ],
+   "note": "Request checks, manifest validation, extraction limits, uninstaller compatibility files, completion marker, staged helper, cancel after the extraction and after the hashing, free space (check_preparation_space) and the gate refusals were ported and tested earlier. Fixed now, by the lead's decision of 2026-11-19 to follow OpenWhisper: a preparation canceled or failed after its journal exists, and a prepared hand-off that is abandoned, remove the archive they were prepared from with the candidate and the transaction (_discard_preparation, _remove_transaction_payloads, abandon_prepared_update; app_update_apply.py:1528-1537, 2476-2512); a failure before the journal keeps it, as OpenWhisper's first except clause does. Each removal is tried on its own, so a transaction that cannot be collected does not keep the archive. The end state differs in name only: OpenWhisper writes rolled_back, FioriVoce keeps superseded, its state for a transaction that never reached the commit (recovery of an unstarted preparation ends there too, difference a16-prepared-recovery-superseded); in FioriVoce rolled_back means the installation was displaced and restored, and makes cleanup look for a moved-aside failed tree. Nothing reads the state of a discarded preparation to report anything in either program. Tests (test_prepare.cpp): 'a cancel after the extraction still cancels and leaves nothing behind' (cancel after extraction, after the uninstaller hashing, after the helper staging; each attempt downloads again and a final one prepares), 'a preparation that fails part way removes what it wrote', 'a discarded preparation ends superseded and loses its archive even when its transaction stays', 'a preparation refused before its journal keeps the archive', 'an abandoned hand-off releases its candidate and transaction'."
+  },
+  "A16-28": {
+   "status": "difference",
+   "difference": "a16-failure-reported-once",
+   "cpp": [
+    "src/update_native/updater_cli.cpp",
+    "src/update_native/transaction_runner.cpp",
+    "src/update/apply_error.cpp",
+    "src/ui_controller/code_change_restart.cpp",
+    "src/update/win/gates.cpp"
+   ],
+   "tests": [
+    "tests/update_native/test_updater_cli.cpp",
+    "tests/update_native/test_transaction_runner.cpp",
+    "tests/update/test_apply.cpp",
+    "tests/ui_controller/test_code_change_restart.cpp"
+   ],
+   "note": "write_apply_error/consume_apply_error, the helper writing apply_error.txt and the Update failed box at the next normal launch are ported and tested. The helper's box is shown only when the application will not report the failure (difference a16-failure-reported-once). Checking that claim found one case where neither side reported: when apply_error.txt could not be written, run_transaction still threw ReportedByApplication after relaunching the previous version, so the helper stayed silent and the application had nothing to show. Fixed: ReportedByApplication now needs the report to have been written (src/update_native/transaction_runner.cpp; test 'a failure the application was not told about stays the helper's to report', which also pins a rollback that itself fails). A failure before the journal exists never reaches run_transaction and gets the box ('the helper shows an update failure nobody else will show'). Remaining risk, inherent in the decision: a previous version that starts and then dies before its window opens shows nothing; OpenWhisper's box would still have appeared."
+  },
+  "A16-29": {
+   "status": "difference",
+   "difference": "a16-health-database",
+   "note": "The rest is ported: --update-health and --transaction-id, check_health against the journal state, running folder and executable hash (src/update_native/health.cpp; tests/update_native/test_journal.cpp), the disabled window and the 1500 ms acknowledgement (src/ui_shell/bootstrap.cpp; tests/ui_shell/test_bootstrap.cpp). That a health launch skips the guided-setup offer (src/ui_setup/guided_setup_offer.cpp, UpdateHealthLaunch) and the apply-error box (src/ui_controller/controller_feature.cpp, UpdateHealthLaunch) is read, not tested; there is no idle Settings build to skip (a11-no-staged-settings-build)."
+  },
+  "A16-30": {
+   "status": "difference",
+   "difference": "a16-code-identity-installed"
+  },
+  "A16-31": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/update_presenter.cpp",
+    "src/ui_controller/about_box.cpp",
+    "src/update/check.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_update_presenter.cpp",
+    "tests/ui_controller/test_about_box.cpp"
+   ],
+   "note": "The four status lines pass here. 'the About box shows the update status of the last check' then fails on this Linux tree only at its last-but-one check: channel_label(detect_channel(probe)) uses python_platform(), which is 'linux' here, so the install line reads 'Linux package', not 'Windows installer'; the test does not inject the platform (a test portability gap, not a port defect)."
+  },
+  "A16-32": {
+   "status": "verified",
+   "cpp": [
+    "src/uimath/release_notes.cpp"
+   ],
+   "tests": [
+    "tests/uimath/test_release_notes.cpp",
+    "tests/golden/ui_qt.utils.release_notes.json"
+   ]
+  },
+  "A16-33": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/guided_setup_state.cpp",
+    "src/ui_setup/setup_feature.cpp"
+   ],
+   "tests": [
+    "tests/appcore/test_guided_setup_state.cpp",
+    "tests/ui_setup/test_guided_setup_offer.cpp"
+   ]
+  },
+  "A16-34": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_setup/guided_setup_offer.cpp"
+   ],
+   "tests": [
+    "tests/ui_setup/test_guided_setup_offer.cpp"
+   ]
+  },
+  "A16-35": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_setup/guided_setup_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_setup/test_guided_setup.cpp",
+    "tests/ui_setup/test_guided_setup_screenshots.cpp"
+   ]
+  },
+  "A16-36": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_setup/guided_setup_dialog.cpp",
+    "src/ui_setup/setup_speech.cpp"
+   ],
+   "tests": [
+    "tests/ui_setup/test_guided_setup.cpp",
+    "tests/ui_setup/test_guided_setup_golden.cpp"
+   ]
+  },
+  "A16-37": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_setup/guided_setup_dialog.cpp",
+    "src/ui_setup/cleanup_provider_row.cpp"
+   ],
+   "tests": [
+    "tests/ui_setup/test_guided_setup_cleanup.cpp",
+    "tests/ui_setup/test_cleanup_provider_row.cpp",
+    "tests/ui_setup/test_guided_setup_cleanup_screenshots.cpp"
+   ]
+  },
+  "A16-38": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_setup/guided_setup_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_setup/test_guided_setup.cpp",
+    "tests/ui_setup/test_guided_setup_screenshots.cpp"
+   ],
+   "note": "The Wayland/Hyprland and macOS Accessibility variants of the paste detail are other-platform."
+  },
+  "A16-39": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_setup/guided_setup_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_setup/test_guided_setup.cpp",
+    "tests/ui_setup/test_guided_setup_screenshots.cpp"
+   ]
+  },
+  "A16-40": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_setup/guided_setup_dialog.cpp",
+    "src/ui_setup/setup_speech.cpp"
+   ],
+   "tests": [
+    "tests/ui_setup/test_guided_setup.cpp",
+    "tests/ui_setup/test_guided_setup_golden.cpp"
+   ],
+   "note": "Parakeet's model and its runtime only (the row's adapt)."
+  },
+  "A16-41": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_setup/guided_setup_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_setup/test_guided_setup.cpp",
+    "tests/ui_setup/test_guided_setup_screenshots.cpp"
+   ]
+  },
+  "A16-42": {
+   "status": "other-platform",
+   "reason": "Linux shared-library preflight before Qt (linux_deps.py); FioriVoce ships for Windows."
+  },
+  "A16-43": {
+   "status": "other-platform",
+   "reason": "Linux Meeting Mode remediation text for PulseAudio/PipeWire packages (linux_deps.py); FioriVoce ships for Windows."
+  },
+  "A16-44": {
+   "status": "dropped",
+   "reason": "Python freeze and import-completeness plumbing (package_checks.py, --self-test of the PyInstaller bundle); a C++ executable has no lazy imports to audit. The release smoke is A16-45."
+  },
+  "A16-45": {
+   "status": "verified",
+   "cpp": [
+    "src/cli/workflow_smoke.cpp",
+    "src/cli/commands.cpp"
+   ],
+   "tests": [
+    "tests/cli/test_workflow_smoke.cpp",
+    "tests/cli/test_cli.cpp"
+   ],
+   "note": "It runs as fiorivoce-cli --workflow-smoke (M3.md change 6), with the same schema 2 synthetic_service_lifecycle report."
+  },
+  "A16-46": {
+   "status": "verified",
+   "cpp": [
+    "packaging/windows/FioriVoce.iss",
+    "packaging/windows/build-installer.ps1",
+    "packaging/windows/inno_defines.py",
+    "src/update_native/updater_cli.cpp"
+   ],
+   "tests": [
+    "tools/release/tests/test_windows_installer.py",
+    "tests/updater/test_program.cpp",
+    "tests/update_native/test_updater_cli.cpp"
+   ],
+   "note": "Read against the row and OpenWhisper's installer/OpenWhisper.iss: per-user by default (PrivilegesRequired=lowest) with PrivilegesRequiredOverridesAllowed=dialog, CloseApplications=force, AppMutex and SetupMutex, [InstallDelete]/[UninstallDelete], the updater extracted to {tmp} for --setup-action; build-installer.ps1 writes the manifest and packs the zip archive with fiorivoce-updater. Executed here: tools/release/tests/test_windows_installer.py and test_serve_update_feed.py (40 passed, 3 skipped) and the built updater's manifest/pack/verify round trip. Never run: Inno Setup compilation, signing and an install (docs/port/open-items.md, Waiting on the owner: real signing, the M3 demos, installer choices). The PyInstaller specs and the .deb/pacman/DMG builders are not ported (other platforms and Python freezing)."
+  },
+  "A16-47": {
+   "status": "fixed",
+   "cpp": [
+    "src/update_native/updater_log.cpp",
+    "src/update_native/updater_cli.cpp",
+    "src/updater/main.cpp"
+   ],
+   "tests": [
+    "tests/update_native/test_updater_log.cpp",
+    "tests/updater/test_program.cpp"
+   ],
+   "note": "Fixed after the audit's handoff: update_native/updater_log.{h,cpp} ports updater_log_path and setup_updater_logging: <local app dir>/updater.log (identity().data_dir_name under %LOCALAPPDATA%, FIORIVOCE_DATA_DIR does not move it, as it does not move updates/), fv_log's RotatingFileSink at 512 KiB x 1 in the application log's format, root level INFO while it is open. run_updater opens it before anything else for every command line but --help and the packaging commands (run by build scripts); a log that cannot be opened is skipped silently. fiorivoce-updater sets UpdaterActions::log_file and links fv_log. A failed setup action now logs 'Setup <action> failed: ...' (logger.exception in _run_setup), and a command line the updater does not know logs a WARNING (FioriVoce only; Python showed a box). Tests: a failed transaction's 'The update transaction failed in state ...' line lands in the file and DEBUG does not, rollover at 512 KiB with one backup, an unwritable log does not fail the update, packaging commands open no log; the built program writes the file in the product's local folder (tests/updater, LOCALAPPDATA/XDG_DATA_HOME pointed at a temporary folder)."
+  },
+  "A16-48": {
+   "status": "verified",
+   "cpp": [
+    "src/update/apply.cpp",
+    "src/update_native/win/desktop.cpp"
+   ],
+   "tests": [
+    "tests/update/test_apply.cpp"
+   ],
+   "note": "force_setup, native-then-setup order, the UpdateRequiresSetup fallback only to a ready setup, canceled and other UpdateApplyError mapping, 'No installer is available.' and the cannot-install message are pinned. A registration that vanishes between the check and the apply reads 'This installation needs the setup package to update.' (registered_context's RequiresSetup) rather than OpenWhisper's 'This installation is not registered for native updates.'; the macOS branch is other-platform."
+  },
+  "A16-49": {
+   "status": "fixed",
+   "cpp": [
+    "src/update/download.cpp",
+    "src/update/release_feed.cpp"
+   ],
+   "tests": [
+    "tests/update/test_download.cpp",
+    "tests/update/test_rate_limit.cpp"
+   ],
+   "note": "'The update download path is not a regular file.' had no test: covered by the new 'an update download fails in the updater's own words'. Digest, filename, the stable-tag sentence and the source-checkout refusal were already pinned. 'The downloaded update could not be inspected.' and 'The old update download could not be replaced.' need a stat or delete failure that cannot be staged portably; read only."
+  },
+  "A16-50": {
+   "status": "verified",
+   "cpp": [
+    "src/update/check.cpp",
+    "src/update/schedule.cpp",
+    "src/ui_setup/app_update_dialog.cpp"
+   ],
+   "tests": [
+    "tests/update/test_check.cpp",
+    "tests/update/test_schedule.cpp",
+    "tests/ui_setup/test_app_update_dialog.cpp"
+   ],
+   "note": "git_summary is not ported (no git channel: a16-two-channels)."
+  },
+  "A16-51": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_setup/guided_setup_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_setup/test_guided_setup.cpp"
+   ]
+  },
+  "A16-52": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_setup/guided_setup_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_setup/test_guided_setup.cpp",
+    "tests/ui_setup/test_guided_setup_cleanup.cpp"
+   ]
+  },
+  "A16-53": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_setup/guided_setup_dialog.cpp",
+    "src/ui_setup/setup_speech.cpp"
+   ],
+   "tests": [
+    "tests/ui_setup/test_guided_setup.cpp",
+    "tests/ui_setup/test_guided_setup_golden.cpp"
+   ],
+   "note": "The keycap help without a shortcut ('Set a shortcut on the Record step, or use the Record button.') is read, not tested."
+  },
+  "A16-54": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/guided_setup_state.cpp"
+   ],
+   "tests": [
+    "tests/appcore/test_guided_setup_state.cpp",
+    "tests/golden/services.guided_setup.json"
+   ]
+  }
+ },
+ "differences": [
+  {
+   "id": "a16-parent-exit",
+   "features": [
+    "A16-18"
+   ],
+   "openwhisper": "OpenWhisper can terminate a registered parent that outlasts its update timeout.",
+   "fiorivoce": "FioriVoce checks the parent executable and creation time and leaves a still-running application open when the deadline expires.",
+   "reason": "The user can close the application and retry without losing an active recording.",
+   "source": "docs/port/map/a16-updater-setup-packaging.md, A16-18"
+  },
+  {
+   "id": "a16-installer-recovery",
+   "features": [
+    "A16-23"
+   ],
+   "openwhisper": "The reference installer invokes its backup helper on the Python distribution tree.",
+   "fiorivoce": "The per-user installer authenticates its staged Qt payload, snapshots managed files and can restore a failed upgrade. Setup checks the named application and update locks again immediately before writing. An elevated installation uses Inno Setup's built-in recovery.",
+   "reason": "An elevated process must not restore executable files from a per-user writable backup.",
+   "source": "docs/port/map/a16-updater-setup-packaging.md, A16-23"
+  },
+  {
+   "id": "a16-two-channels",
+   "features": [
+    "A16-02",
+    "UP-01"
+   ],
+   "openwhisper": "OpenWhisper has three install channels: installer when frozen, git when a .git folder sits beside the source, else source, with labels including \"Source checkout (git)\".",
+   "fiorivoce": "FioriVoce has two: Installer when a registration names the running folder, else Source (a development build, labelled \"Source copy\"); there is no git channel or git hint.",
+   "reason": "FioriVoce never runs from a Python source tree, so a git checkout of the app does not exist at run time.",
+   "source": "docs/port/packages/M3.md, M3.2 API (enum class InstallChannel { Installer, Source }) and the test_app_update.py row of its Tests to port table (git channel and git hint dropped); change 9"
+  },
+  {
+   "id": "a16-helper-without-transaction",
+   "features": [
+    "A16-28",
+    "A16-46"
+   ],
+   "openwhisper": "OpenWhisperUpdater.exe started without a transaction shows the box \"OpenWhisper updater was started without a transaction.\" and exits 2.",
+   "fiorivoce": "fiorivoce-updater started with a command line it does not know (no transaction among them) prints its usage to standard error and exits 2 without a box; --help prints the usage and exits 0.",
+   "reason": "fiorivoce-updater is also the console tool the build scripts run (--write-manifest, --pack-archive, --verify-archive), and a modal box would hang an unattended build.",
+   "source": "tests/update_native/test_updater_cli.cpp ('the helper started without a transaction does nothing and exits 2'); tests/updater/test_program.cpp; docs/port/packages/M10.md M10.11 and M10.17 (the updater writes the manifest and packs the archive)"
+  },
+  {
+   "id": "a16-prepared-recovery-superseded",
+   "features": [
+    "A16-19"
+   ],
+   "openwhisper": "Recovering a PREPARED transaction whose installation was never touched goes through the rollback path: it ends rolled_back, writes \"The previous update was interrupted and was rolled back.\" and relaunches the app.",
+   "fiorivoce": "Recovering a prepared, never-started transaction ends superseded: the installation and data are left alone, nothing is reported and nothing is relaunched.",
+   "reason": "Nothing was rolled back, so reporting a rollback would be untrue, and superseded is the state a helper can never act on again.",
+   "source": "tests/update_native/test_transaction.cpp ('recovering a prepared transaction retires it without touching the installation'); tests/update_native/test_transaction_runner.cpp"
+  },
+  {
+   "id": "a16-code-identity-installed",
+   "features": [
+    "A16-30"
+   ],
+   "openwhisper": "The code-changed prompt compares the installed executable's inode, size and mtime, or in a git checkout the HEAD commit read from .git.",
+   "fiorivoce": "Only the installed executable's identity (file index, size, modification time) is compared; there is no git-checkout identity.",
+   "reason": "FioriVoce never runs from a Python source tree, so the lazily imported code a git checkout could change under a running app does not exist.",
+   "source": "docs/port/packages/M3.md, Changes to the cut 9; tests/update/test_code_identity.cpp; tests/ui_controller/test_code_change_restart.cpp"
+  },
+  {
+   "id": "a16-failure-reported-once",
+   "features": [
+    "A16-28"
+   ],
+   "openwhisper": "updater_helper.py shows a native message box for every update failure, and after a rolled-back commit the relaunched application shows \"Update failed\" again from apply_error.txt, so the user is told twice.",
+   "fiorivoce": "fiorivoce-updater stays silent only when a rolled-back commit started the previous version again and the failure was left in apply_error.txt for it to show; every other failure (no journal, a rollback that itself failed, a relaunch or an apply_error.txt write that failed, any recovery) gets the helper's box.",
+   "reason": "One failure is reported once, by the window the user returns to; the helper still speaks whenever the application would not.",
+   "source": "The lead's decision of 2026-11-19 on audit A16-28 (for the owner to confirm); tests/update_native/test_updater_cli.cpp ('the helper shows an update failure nobody else will show') and tests/update_native/test_transaction_runner.cpp ('a failure the application was not told about stays the helper's to report')"
+  },
+  {
+   "id": "a16-cleanup",
+   "features": [
+    "A16-27"
+   ],
+   "openwhisper": "The reference prunes abandoned directories by age, including older transactions without journals.",
+   "fiorivoce": "FioriVoce cleans verified files from terminal transactions, and the downloaded archive their journal names (as the reference does in every terminal cleanup), and leaves unknown contents and unauthenticated legacy backups for inspection; only an archive a crash left behind waits for the pruning of stale downloads. A later setup can recover its own interrupted backup.",
+   "reason": "Age alone cannot establish that the files belong to this updater.",
+   "source": "docs/port/map/a16-updater-setup-packaging.md, A16-27"
+  },
+  {
+   "id": "a16-health-database",
+   "features": [
+    "A16-29"
+   ],
+   "openwhisper": "A health launch records a startup failure as update_readiness_error and the acknowledgement then fails with exit code 1, so the helper rolls back. The acknowledgement runs 1500 ms after the event loop starts and reads update_readiness_error then, so a database still being initialized at that moment is acknowledged.",
+   "fiorivoce": "The database opens on first use, and one that will not open leaves the app running with failing saves, as in OpenWhisper. The acknowledgement task, 1500 ms after the event loop starts, opens the database first; when it cannot, it logs 'Update readiness failed: <error>', writes no token and exits 1, so the helper rolls back.",
+   "reason": "An update is acknowledged only once the database it runs on has opened, however long the opening takes.",
+   "source": "tests/ui_shell/test_bootstrap.cpp ('update health waits for database and the running event loop', 'update health is never acknowledged when the database cannot be opened', 'a database that cannot be opened leaves the app running with failing saves'); the shell sweep of 2026-11-19 (open item ui_shell/bootstrap.cpp openDatabase): src/ui_shell/bootstrap.cpp, Database::deferred (tests/db/test_sweep_deferred.cpp)"
+  },
+  {
+   "id": "a16-updater-log-and-unknown-command",
+   "features": [
+    "A16-47"
+   ],
+   "openwhisper": "The updater helper opens updater.log for every command line, and one without a transaction shows the box 'OpenWhisper updater was started without a transaction.' and exits 2.",
+   "fiorivoce": "fiorivoce-updater opens no log for --help or the packaging commands (--write-manifest, --pack-archive, --verify-archive); a command line it does not know logs a WARNING, prints the usage to standard error and exits 2, with no box.",
+   "reason": "Build scripts run the same program: its packaging commands must not write the user's updater log, and a command line it does not know must not stop a script with a box.",
+   "source": "docs/port/audit/a16-updater-setup-packaging.json A16-47's note; src/update_native/updater_cli.cpp; tests/update_native/test_updater_log.cpp ('the packaging commands and --help open no updater log'), tests/update_native/test_updater_cli.cpp ('the helper started without a transaction does nothing and exits 2')"
+  },
+  {
+   "id": "a16-helper-command-line",
+   "features": [
+    "A16-18",
+    "A16-19",
+    "A16-27"
+   ],
+   "openwhisper": "The helper commits with --transaction-id <id>, recovers with --recover [--parent-pid], and a cleanup copy of the helper runs --cleanup-transaction --parent-pid after the commit to delete the transaction once the helper has exited.",
+   "fiorivoce": "The command line is --apply --transaction-id <id> or --recover --transaction-id <id> [--wait-for-launcher <pid> <creation time>]; there is no cleanup copy and no --cleanup-transaction: the helper collects a finished transaction's trees and the downloaded archive its journal names in its own run, and the next start of the app collects the rest once the update gates are free.",
+   "reason": "A native helper does not need a second copy of itself to outlive its own folder: what it cannot delete while it runs from the transaction folder is authenticated and collected at the next start.",
+   "source": "tests/update_native/test_updater_cli.cpp ('the helper leaves its launch directory and then commits the journal', 'the helper recovers the transaction it is given'); tests/update_native/test_prepare.cpp (the recovery command line); tests/update_native/test_transaction_runner.cpp ('the helper commits a prepared journal and then collects its leftovers'); tests/update_native/test_startup_recovery.cpp ('a finished transaction is collected by the next start'); src/update_native/terminal_cleanup.cpp remove_transaction_archive, tests/update_native/test_sweep_archive_cleanup.cpp ('sweep A37: the helper removes the archive once the update is healthy')"
+  }
+ ]
+}

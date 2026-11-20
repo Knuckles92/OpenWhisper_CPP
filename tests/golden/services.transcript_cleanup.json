@@ -1,0 +1,1221 @@
+{
+ "module": "services.transcript_cleanup",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time",
+  "secret": "the key every request carries; vectors record only whether it was the one given",
+  "session": "a uuid4 x-opencode-session header is recorded as <uuid4>"
+ },
+ "functions": {
+  "_attempt_budget": [
+   {
+    "args": [
+     8.0,
+     null,
+     null
+    ],
+    "result": {
+     "give_up_s": 17.0,
+     "batch_retries": null
+    }
+   },
+   {
+    "args": [
+     120.0,
+     null,
+     null
+    ],
+    "result": {
+     "give_up_s": 241.0,
+     "batch_retries": null
+    }
+   },
+   {
+    "args": [
+     60.0,
+     null,
+     null
+    ],
+    "result": {
+     "give_up_s": 121.0,
+     "batch_retries": null
+    }
+   },
+   {
+    "args": [
+     8.0,
+     120.0,
+     null
+    ],
+    "result": {
+     "give_up_s": 361.0,
+     "batch_retries": 2
+    }
+   },
+   {
+    "args": [
+     8.0,
+     30.0,
+     30.0
+    ],
+    "result": {
+     "give_up_s": 30.0,
+     "batch_retries": 2
+    }
+   },
+   {
+    "args": [
+     120.0,
+     120.0,
+     120.0
+    ],
+    "result": {
+     "give_up_s": 120.0,
+     "batch_retries": 2
+    }
+   },
+   {
+    "args": [
+     8.0,
+     null,
+     5.0
+    ],
+    "result": {
+     "give_up_s": 5.0,
+     "batch_retries": null
+    }
+   },
+   {
+    "args": [
+     0.5,
+     0.5,
+     0.5
+    ],
+    "result": {
+     "give_up_s": 0.5,
+     "batch_retries": 2
+    }
+   },
+   {
+    "args": [
+     8.0,
+     0.0,
+     null
+    ],
+    "result": {
+     "give_up_s": 1.0,
+     "batch_retries": 2
+    }
+   },
+   {
+    "args": [
+     2.5,
+     null,
+     null
+    ],
+    "result": {
+     "give_up_s": 6.0,
+     "batch_retries": null
+    }
+   }
+  ],
+  "provider_env_key": [
+   {
+    "args": [
+     "openai",
+     {}
+    ],
+    "result": "OPENAI_API_KEY"
+   },
+   {
+    "args": [
+     "openrouter",
+     {}
+    ],
+    "result": "OPENROUTER_API_KEY"
+   },
+   {
+    "args": [
+     "ollama",
+     {}
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "groq",
+     {}
+    ],
+    "result": "GROQ_API_KEY"
+   },
+   {
+    "args": [
+     "opencode_go",
+     {}
+    ],
+    "result": "OPENCODE_GO_API_KEY"
+   },
+   {
+    "args": [
+     "opencode_zen",
+     {}
+    ],
+    "result": "OPENCODE_ZEN_API_KEY"
+   },
+   {
+    "args": [
+     "lm_studio",
+     {
+      "lm_studio_api_key_env": "LMSTUDIO_KEY"
+     }
+    ],
+    "result": "LMSTUDIO_KEY"
+   },
+   {
+    "args": [
+     "claude_code",
+     {}
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "codex",
+     {}
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "opencode_cli",
+     {}
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "missing",
+     {}
+    ],
+    "result": "OPENAI_API_KEY"
+   },
+   {
+    "args": [
+     "",
+     {}
+    ],
+    "result": "OPENAI_API_KEY"
+   },
+   {
+    "args": [
+     "custom_abcd1234",
+     {
+      "text_llm_profiles": [
+       {
+        "id": "custom_abcd1234",
+        "name": "Gateway",
+        "base_url": "https://gateway.test/v1",
+        "api_key_env": "GATEWAY_KEY"
+       }
+      ]
+     }
+    ],
+    "result": "GATEWAY_KEY"
+   },
+   {
+    "args": [
+     "custom_local01",
+     {
+      "text_llm_profiles": [
+       {
+        "id": "custom_local01",
+        "name": "Local",
+        "base_url": "http://127.0.0.1:1234/v1",
+        "api_key_env": ""
+       }
+      ]
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "custom_abcd1234",
+     {}
+    ],
+    "result": "OPENAI_API_KEY"
+   }
+  ],
+  "cleanup": [
+   {
+    "args": [
+     {
+      "text": "um raw text",
+      "system_prompt": "Rewrite as bullet points only.",
+      "reply": {
+       "status": 200,
+       "json": {
+        "choices": [
+         {
+          "message": {
+           "role": "assistant",
+           "content": "  Clean text.  "
+          },
+          "finish_reason": "stop"
+         }
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "text": "Clean text.",
+     "last_error": null,
+     "model": "openrouter/free",
+     "reasoning": "off",
+     "attempt_timeout_s": 8.0,
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "bearer": true,
+       "timeout": 8.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Rewrite as bullet points only."
+         },
+         {
+          "role": "user",
+          "content": "um raw text"
+         }
+        ],
+        "model": "openrouter/free",
+        "temperature": 0
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "provider": "openrouter",
+      "reasoning": "low",
+      "text": "raw",
+      "system_prompt": "Rewrite as bullet points only.",
+      "reply": {
+       "status": 200,
+       "json": {
+        "choices": [
+         {
+          "message": {
+           "role": "assistant",
+           "content": "  Clean text.  "
+          },
+          "finish_reason": "stop"
+         }
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "text": "Clean text.",
+     "last_error": null,
+     "model": "openrouter/free",
+     "reasoning": "low",
+     "attempt_timeout_s": 8.0,
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "bearer": true,
+       "timeout": 8.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Rewrite as bullet points only."
+         },
+         {
+          "role": "user",
+          "content": "raw"
+         }
+        ],
+        "model": "openrouter/free",
+        "reasoning": {
+         "effort": "low"
+        }
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "provider": "openrouter",
+      "model": "meta-llama/llama-3-8b",
+      "reasoning": "extreme",
+      "text": "raw",
+      "system_prompt": "  Spaced prompt.  ",
+      "reply": {
+       "status": 200,
+       "json": {
+        "choices": [
+         {
+          "message": {
+           "role": "assistant",
+           "content": "  Clean text.  "
+          },
+          "finish_reason": "stop"
+         }
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "text": "Clean text.",
+     "last_error": null,
+     "model": "meta-llama/llama-3-8b",
+     "reasoning": "off",
+     "attempt_timeout_s": 8.0,
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "bearer": true,
+       "timeout": 8.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Spaced prompt."
+         },
+         {
+          "role": "user",
+          "content": "raw"
+         }
+        ],
+        "model": "meta-llama/llama-3-8b",
+        "temperature": 0
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "provider": "openai",
+      "text": "raw transcript",
+      "system_prompt": "Rewrite as bullet points only.",
+      "reasoning": "medium",
+      "reply": {
+       "status": 200,
+       "json": {
+        "id": "resp_1",
+        "status": "completed",
+        "output": [
+         {
+          "type": "message",
+          "id": "msg_1",
+          "role": "assistant",
+          "status": "completed",
+          "content": [
+           {
+            "type": "output_text",
+            "text": "Clean text.",
+            "annotations": []
+           }
+          ]
+         }
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "text": "Clean text.",
+     "last_error": null,
+     "model": "gpt-6-luna",
+     "reasoning": "medium",
+     "attempt_timeout_s": 8.0,
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "bearer": true,
+       "timeout": 8.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "system",
+          "content": "Rewrite as bullet points only."
+         },
+         {
+          "role": "user",
+          "content": "raw transcript"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-6-luna",
+        "reasoning": {
+         "effort": "medium"
+        },
+        "store": false
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "provider": "openai",
+      "model": "o4-mini",
+      "text": "raw",
+      "system_prompt": "Rewrite as bullet points only.",
+      "reasoning": "high",
+      "timeout_s": 120.0,
+      "reply": {
+       "status": 200,
+       "json": {
+        "id": "resp_1",
+        "status": "completed",
+        "output": [
+         {
+          "type": "message",
+          "id": "msg_1",
+          "role": "assistant",
+          "status": "completed",
+          "content": [
+           {
+            "type": "output_text",
+            "text": "Clean text.",
+            "annotations": []
+           }
+          ]
+         }
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "text": "Clean text.",
+     "last_error": null,
+     "model": "o4-mini",
+     "reasoning": "high",
+     "attempt_timeout_s": 8.0,
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "bearer": true,
+       "timeout": 120.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "system",
+          "content": "Rewrite as bullet points only."
+         },
+         {
+          "role": "user",
+          "content": "raw"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "o4-mini",
+        "reasoning": {
+         "effort": "high"
+        },
+        "store": false
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "provider": "openai",
+      "model": "gpt-3.5-turbo",
+      "text": "raw",
+      "system_prompt": "Rewrite as bullet points only.",
+      "reply": {
+       "status": 200,
+       "json": {
+        "choices": [
+         {
+          "message": {
+           "role": "assistant",
+           "content": "  Clean text.  "
+          },
+          "finish_reason": "stop"
+         }
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "text": "Clean text.",
+     "last_error": null,
+     "model": "gpt-3.5-turbo",
+     "reasoning": "off",
+     "attempt_timeout_s": 8.0,
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/chat/completions",
+       "bearer": true,
+       "timeout": 8.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Rewrite as bullet points only."
+         },
+         {
+          "role": "user",
+          "content": "raw"
+         }
+        ],
+        "model": "gpt-3.5-turbo",
+        "temperature": 0
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "provider": "groq",
+      "model": "llama-3.3-70b-versatile",
+      "text": "raw",
+      "system_prompt": "Rewrite as bullet points only.",
+      "reasoning": "high",
+      "reply": {
+       "status": 200,
+       "json": {
+        "choices": [
+         {
+          "message": {
+           "role": "assistant",
+           "content": "  Clean text.  "
+          },
+          "finish_reason": "stop"
+         }
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "text": "Clean text.",
+     "last_error": null,
+     "model": "llama-3.3-70b-versatile",
+     "reasoning": "high",
+     "attempt_timeout_s": 8.0,
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/openai/v1/chat/completions",
+       "bearer": true,
+       "timeout": 8.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Rewrite as bullet points only."
+         },
+         {
+          "role": "user",
+          "content": "raw"
+         }
+        ],
+        "model": "llama-3.3-70b-versatile",
+        "max_tokens": 4096
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "provider": "opencode_go",
+      "model": "glm-5.2",
+      "text": "raw",
+      "system_prompt": "Rewrite as bullet points only.",
+      "reply": {
+       "status": 200,
+       "json": {
+        "choices": [
+         {
+          "message": {
+           "role": "assistant",
+           "content": "  Clean text.  "
+          },
+          "finish_reason": "stop"
+         }
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "text": "Clean text.",
+     "last_error": null,
+     "model": "glm-5.2",
+     "reasoning": "off",
+     "attempt_timeout_s": 8.0,
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/zen/go/v1/chat/completions",
+       "bearer": true,
+       "timeout": 8.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper",
+        "x-opencode-session": "<uuid4>"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Rewrite as bullet points only."
+         },
+         {
+          "role": "user",
+          "content": "raw"
+         }
+        ],
+        "model": "glm-5.2",
+        "max_tokens": 16384
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "provider": "custom_abcd1234",
+      "model": "gw-model",
+      "text": "raw",
+      "system_prompt": "Rewrite as bullet points only.",
+      "settings": {
+       "text_llm_profiles": [
+        {
+         "id": "custom_abcd1234",
+         "name": "Gateway",
+         "base_url": "https://gateway.test/v1",
+         "api_key_env": "GATEWAY_KEY"
+        }
+       ]
+      },
+      "keys": {
+       "GATEWAY_KEY": "k"
+      },
+      "reasoning": "high",
+      "reply": {
+       "status": 200,
+       "json": {
+        "choices": [
+         {
+          "message": {
+           "role": "assistant",
+           "content": "  Clean text.  "
+          },
+          "finish_reason": "stop"
+         }
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "text": "Clean text.",
+     "last_error": null,
+     "model": "gw-model",
+     "reasoning": "high",
+     "attempt_timeout_s": 8.0,
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/chat/completions",
+       "bearer": true,
+       "timeout": 8.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Rewrite as bullet points only."
+         },
+         {
+          "role": "user",
+          "content": "raw"
+         }
+        ],
+        "model": "gw-model",
+        "temperature": 0
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "text": "keep me",
+      "system_prompt": "Rewrite as bullet points only.",
+      "reply": {
+       "status": 200,
+       "json": {
+        "choices": [
+         {
+          "message": {
+           "role": "assistant",
+           "content": "   "
+          },
+          "finish_reason": "stop"
+         }
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "text": "keep me",
+     "last_error": "empty response",
+     "model": "openrouter/free",
+     "reasoning": "off",
+     "attempt_timeout_s": 8.0,
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "bearer": true,
+       "timeout": 8.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Rewrite as bullet points only."
+         },
+         {
+          "role": "user",
+          "content": "keep me"
+         }
+        ],
+        "model": "openrouter/free",
+        "temperature": 0
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "text": "raw text",
+      "system_prompt": "Rewrite as bullet points only.",
+      "reply": {
+       "status": 401,
+       "json": {
+        "error": {
+         "message": "Incorrect API key"
+        }
+       }
+      }
+     }
+    ],
+    "result": {
+     "text": "raw text",
+     "last_error": "Error code: 401 - {'error': {'message': 'Incorrect API key'}}",
+     "model": "openrouter/free",
+     "reasoning": "off",
+     "attempt_timeout_s": 8.0,
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "bearer": true,
+       "timeout": 8.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Rewrite as bullet points only."
+         },
+         {
+          "role": "user",
+          "content": "raw text"
+         }
+        ],
+        "model": "openrouter/free",
+        "temperature": 0
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "text": "raw text",
+      "system_prompt": "Rewrite as bullet points only.",
+      "reply": {
+       "status": 500,
+       "json": {
+        "error": {
+         "message": "synthetic"
+        }
+       }
+      }
+     }
+    ],
+    "result": {
+     "text": "raw text",
+     "last_error": "Error code: 500 - {'error': {'message': 'synthetic'}}",
+     "model": "openrouter/free",
+     "reasoning": "off",
+     "attempt_timeout_s": 8.0,
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "bearer": true,
+       "timeout": 8.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Rewrite as bullet points only."
+         },
+         {
+          "role": "user",
+          "content": "raw text"
+         }
+        ],
+        "model": "openrouter/free",
+        "temperature": 0
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "bearer": true,
+       "timeout": 8.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Rewrite as bullet points only."
+         },
+         {
+          "role": "user",
+          "content": "raw text"
+         }
+        ],
+        "model": "openrouter/free",
+        "temperature": 0
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "text": "raw text",
+      "system_prompt": "Rewrite as bullet points only.",
+      "timeout_s": 30.0,
+      "deadline_s": 30.0,
+      "reply": {
+       "status": 500,
+       "json": {
+        "error": {
+         "message": "synthetic"
+        }
+       }
+      }
+     }
+    ],
+    "result": {
+     "text": "raw text",
+     "last_error": "Error code: 500 - {'error': {'message': 'synthetic'}}",
+     "model": "openrouter/free",
+     "reasoning": "off",
+     "attempt_timeout_s": 8.0,
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "bearer": true,
+       "timeout": 30.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Rewrite as bullet points only."
+         },
+         {
+          "role": "user",
+          "content": "raw text"
+         }
+        ],
+        "model": "openrouter/free",
+        "temperature": 0
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "bearer": true,
+       "timeout": 30.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Rewrite as bullet points only."
+         },
+         {
+          "role": "user",
+          "content": "raw text"
+         }
+        ],
+        "model": "openrouter/free",
+        "temperature": 0
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "bearer": true,
+       "timeout": 30.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Rewrite as bullet points only."
+         },
+         {
+          "role": "user",
+          "content": "raw text"
+         }
+        ],
+        "model": "openrouter/free",
+        "temperature": 0
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "text": "   ",
+      "system_prompt": "Rewrite as bullet points only.",
+      "reply": {
+       "status": 200,
+       "json": {
+        "choices": [
+         {
+          "message": {
+           "role": "assistant",
+           "content": "  Clean text.  "
+          },
+          "finish_reason": "stop"
+         }
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "text": "   ",
+     "last_error": "empty input",
+     "model": "openrouter/free",
+     "reasoning": "off",
+     "attempt_timeout_s": 8.0,
+     "requests": []
+    }
+   },
+   {
+    "args": [
+     {
+      "text": "",
+      "system_prompt": "Rewrite as bullet points only.",
+      "reply": {
+       "status": 200,
+       "json": {
+        "choices": [
+         {
+          "message": {
+           "role": "assistant",
+           "content": "  Clean text.  "
+          },
+          "finish_reason": "stop"
+         }
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "text": "",
+     "last_error": "empty input",
+     "model": "openrouter/free",
+     "reasoning": "off",
+     "attempt_timeout_s": 8.0,
+     "requests": []
+    }
+   },
+   {
+    "args": [
+     {
+      "provider": "bogus",
+      "model": "",
+      "text": "raw",
+      "system_prompt": "Rewrite as bullet points only.",
+      "reply": {
+       "status": 200,
+       "json": {
+        "choices": [
+         {
+          "message": {
+           "role": "assistant",
+           "content": "  Clean text.  "
+          },
+          "finish_reason": "stop"
+         }
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "text": "Clean text.",
+     "last_error": null,
+     "model": "openrouter/free",
+     "reasoning": "off",
+     "attempt_timeout_s": 8.0,
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "bearer": true,
+       "timeout": 8.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Rewrite as bullet points only."
+         },
+         {
+          "role": "user",
+          "content": "raw"
+         }
+        ],
+        "model": "openrouter/free",
+        "temperature": 0
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

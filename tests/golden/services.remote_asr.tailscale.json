@@ -1,0 +1,4900 @@
+{
+ "module": "services.remote_asr.tailscale",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time"
+ },
+ "functions": {
+  "is_tailscale_address": [
+   {
+    "args": [
+     "100.64.0.2"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "100.127.255.254"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "100.128.0.1"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "100.63.255.255"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "100.64.0.0"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "100.100.100.100"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "192.168.1.20"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "127.0.0.1"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "fd7a:115c:a1e0::9636:1603"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "FD7A:115C:A1E0::1"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "fd7a:115c:a1e0:ffff:ffff:ffff:ffff:ffff"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "fd7a:115c:a1e1::1"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "fd7a:115c:a1df::1"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "::ffff:100.64.0.2"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "::ffff:192.168.0.1"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "::100.64.0.1"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "fe80::1%eth0"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "fd7a:115c:a1e0::1%3"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "100.64.0.1%5"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "100.64.0.1%"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "devbox.local"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "junk"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "1.2.3"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     " 100.64.0.1"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "100.64.0.1/32"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "100.064.0.1"
+    ],
+    "result": false
+   }
+  ],
+  "parse_status": [
+   {
+    "args": [
+     {
+      "BackendState": "Running",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "running",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "devbox",
+       "dns_name": "devbox.tail0000.ts.net",
+       "address": "100.64.0.2",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "phone",
+       "dns_name": "phone.tail0000.ts.net",
+       "address": "100.64.0.5",
+       "os": "iOS",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": false
+      },
+      {
+       "name": "friends-pc",
+       "dns_name": "friends-pc.tail0000.ts.net",
+       "address": "100.64.0.3",
+       "os": "windows",
+       "online": true,
+       "owner": "friend@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "gpu",
+       "dns_name": "gpu.tail0000.ts.net",
+       "address": "100.64.0.4",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": true,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "mac",
+       "dns_name": "mac.other.ts.net",
+       "address": "100.64.0.6",
+       "os": "macOS",
+       "online": false,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      }
+     ],
+     "running": true
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Stopped",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "stopped",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "devbox",
+       "dns_name": "devbox.tail0000.ts.net",
+       "address": "100.64.0.2",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "phone",
+       "dns_name": "phone.tail0000.ts.net",
+       "address": "100.64.0.5",
+       "os": "iOS",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": false
+      },
+      {
+       "name": "friends-pc",
+       "dns_name": "friends-pc.tail0000.ts.net",
+       "address": "100.64.0.3",
+       "os": "windows",
+       "online": true,
+       "owner": "friend@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "gpu",
+       "dns_name": "gpu.tail0000.ts.net",
+       "address": "100.64.0.4",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": true,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "mac",
+       "dns_name": "mac.other.ts.net",
+       "address": "100.64.0.6",
+       "os": "macOS",
+       "online": false,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      }
+     ],
+     "running": false
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "NeedsLogin",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "needs_login",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "devbox",
+       "dns_name": "devbox.tail0000.ts.net",
+       "address": "100.64.0.2",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "phone",
+       "dns_name": "phone.tail0000.ts.net",
+       "address": "100.64.0.5",
+       "os": "iOS",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": false
+      },
+      {
+       "name": "friends-pc",
+       "dns_name": "friends-pc.tail0000.ts.net",
+       "address": "100.64.0.3",
+       "os": "windows",
+       "online": true,
+       "owner": "friend@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "gpu",
+       "dns_name": "gpu.tail0000.ts.net",
+       "address": "100.64.0.4",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": true,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "mac",
+       "dns_name": "mac.other.ts.net",
+       "address": "100.64.0.6",
+       "os": "macOS",
+       "online": false,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      }
+     ],
+     "running": false
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "NeedsMachineAuth",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "needs_login",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "devbox",
+       "dns_name": "devbox.tail0000.ts.net",
+       "address": "100.64.0.2",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "phone",
+       "dns_name": "phone.tail0000.ts.net",
+       "address": "100.64.0.5",
+       "os": "iOS",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": false
+      },
+      {
+       "name": "friends-pc",
+       "dns_name": "friends-pc.tail0000.ts.net",
+       "address": "100.64.0.3",
+       "os": "windows",
+       "online": true,
+       "owner": "friend@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "gpu",
+       "dns_name": "gpu.tail0000.ts.net",
+       "address": "100.64.0.4",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": true,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "mac",
+       "dns_name": "mac.other.ts.net",
+       "address": "100.64.0.6",
+       "os": "macOS",
+       "online": false,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      }
+     ],
+     "running": false
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Starting",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "starting",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "devbox",
+       "dns_name": "devbox.tail0000.ts.net",
+       "address": "100.64.0.2",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "phone",
+       "dns_name": "phone.tail0000.ts.net",
+       "address": "100.64.0.5",
+       "os": "iOS",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": false
+      },
+      {
+       "name": "friends-pc",
+       "dns_name": "friends-pc.tail0000.ts.net",
+       "address": "100.64.0.3",
+       "os": "windows",
+       "online": true,
+       "owner": "friend@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "gpu",
+       "dns_name": "gpu.tail0000.ts.net",
+       "address": "100.64.0.4",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": true,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "mac",
+       "dns_name": "mac.other.ts.net",
+       "address": "100.64.0.6",
+       "os": "macOS",
+       "online": false,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      }
+     ],
+     "running": false
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "NoState",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "starting",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "devbox",
+       "dns_name": "devbox.tail0000.ts.net",
+       "address": "100.64.0.2",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "phone",
+       "dns_name": "phone.tail0000.ts.net",
+       "address": "100.64.0.5",
+       "os": "iOS",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": false
+      },
+      {
+       "name": "friends-pc",
+       "dns_name": "friends-pc.tail0000.ts.net",
+       "address": "100.64.0.3",
+       "os": "windows",
+       "online": true,
+       "owner": "friend@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "gpu",
+       "dns_name": "gpu.tail0000.ts.net",
+       "address": "100.64.0.4",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": true,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "mac",
+       "dns_name": "mac.other.ts.net",
+       "address": "100.64.0.6",
+       "os": "macOS",
+       "online": false,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      }
+     ],
+     "running": false
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "unavailable",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "devbox",
+       "dns_name": "devbox.tail0000.ts.net",
+       "address": "100.64.0.2",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "phone",
+       "dns_name": "phone.tail0000.ts.net",
+       "address": "100.64.0.5",
+       "os": "iOS",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": false
+      },
+      {
+       "name": "friends-pc",
+       "dns_name": "friends-pc.tail0000.ts.net",
+       "address": "100.64.0.3",
+       "os": "windows",
+       "online": true,
+       "owner": "friend@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "gpu",
+       "dns_name": "gpu.tail0000.ts.net",
+       "address": "100.64.0.4",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": true,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "mac",
+       "dns_name": "mac.other.ts.net",
+       "address": "100.64.0.6",
+       "os": "macOS",
+       "online": false,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      }
+     ],
+     "running": false
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "running",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "unavailable",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "devbox",
+       "dns_name": "devbox.tail0000.ts.net",
+       "address": "100.64.0.2",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "phone",
+       "dns_name": "phone.tail0000.ts.net",
+       "address": "100.64.0.5",
+       "os": "iOS",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": false
+      },
+      {
+       "name": "friends-pc",
+       "dns_name": "friends-pc.tail0000.ts.net",
+       "address": "100.64.0.3",
+       "os": "windows",
+       "online": true,
+       "owner": "friend@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "gpu",
+       "dns_name": "gpu.tail0000.ts.net",
+       "address": "100.64.0.4",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": true,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "mac",
+       "dns_name": "mac.other.ts.net",
+       "address": "100.64.0.6",
+       "os": "macOS",
+       "online": false,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      }
+     ],
+     "running": false
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Weird",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "unavailable",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "devbox",
+       "dns_name": "devbox.tail0000.ts.net",
+       "address": "100.64.0.2",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "phone",
+       "dns_name": "phone.tail0000.ts.net",
+       "address": "100.64.0.5",
+       "os": "iOS",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": false
+      },
+      {
+       "name": "friends-pc",
+       "dns_name": "friends-pc.tail0000.ts.net",
+       "address": "100.64.0.3",
+       "os": "windows",
+       "online": true,
+       "owner": "friend@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "gpu",
+       "dns_name": "gpu.tail0000.ts.net",
+       "address": "100.64.0.4",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": true,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "mac",
+       "dns_name": "mac.other.ts.net",
+       "address": "100.64.0.6",
+       "os": "macOS",
+       "online": false,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      }
+     ],
+     "running": false
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": null,
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "unavailable",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "devbox",
+       "dns_name": "devbox.tail0000.ts.net",
+       "address": "100.64.0.2",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "phone",
+       "dns_name": "phone.tail0000.ts.net",
+       "address": "100.64.0.5",
+       "os": "iOS",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": false
+      },
+      {
+       "name": "friends-pc",
+       "dns_name": "friends-pc.tail0000.ts.net",
+       "address": "100.64.0.3",
+       "os": "windows",
+       "online": true,
+       "owner": "friend@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "gpu",
+       "dns_name": "gpu.tail0000.ts.net",
+       "address": "100.64.0.4",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": true,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "mac",
+       "dns_name": "mac.other.ts.net",
+       "address": "100.64.0.6",
+       "os": "macOS",
+       "online": false,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      }
+     ],
+     "running": false
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": 1,
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "unavailable",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "devbox",
+       "dns_name": "devbox.tail0000.ts.net",
+       "address": "100.64.0.2",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "phone",
+       "dns_name": "phone.tail0000.ts.net",
+       "address": "100.64.0.5",
+       "os": "iOS",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": false
+      },
+      {
+       "name": "friends-pc",
+       "dns_name": "friends-pc.tail0000.ts.net",
+       "address": "100.64.0.3",
+       "os": "windows",
+       "online": true,
+       "owner": "friend@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "gpu",
+       "dns_name": "gpu.tail0000.ts.net",
+       "address": "100.64.0.4",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": true,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "mac",
+       "dns_name": "mac.other.ts.net",
+       "address": "100.64.0.6",
+       "os": "macOS",
+       "online": false,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      }
+     ],
+     "running": false
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": true,
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "unavailable",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "devbox",
+       "dns_name": "devbox.tail0000.ts.net",
+       "address": "100.64.0.2",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "phone",
+       "dns_name": "phone.tail0000.ts.net",
+       "address": "100.64.0.5",
+       "os": "iOS",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": false
+      },
+      {
+       "name": "friends-pc",
+       "dns_name": "friends-pc.tail0000.ts.net",
+       "address": "100.64.0.3",
+       "os": "windows",
+       "online": true,
+       "owner": "friend@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "gpu",
+       "dns_name": "gpu.tail0000.ts.net",
+       "address": "100.64.0.4",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": true,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "mac",
+       "dns_name": "mac.other.ts.net",
+       "address": "100.64.0.6",
+       "os": "macOS",
+       "online": false,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      }
+     ],
+     "running": false
+    }
+   },
+   {
+    "args": [
+     {
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "unavailable",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "devbox",
+       "dns_name": "devbox.tail0000.ts.net",
+       "address": "100.64.0.2",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "phone",
+       "dns_name": "phone.tail0000.ts.net",
+       "address": "100.64.0.5",
+       "os": "iOS",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": false
+      },
+      {
+       "name": "friends-pc",
+       "dns_name": "friends-pc.tail0000.ts.net",
+       "address": "100.64.0.3",
+       "os": "windows",
+       "online": true,
+       "owner": "friend@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "gpu",
+       "dns_name": "gpu.tail0000.ts.net",
+       "address": "100.64.0.4",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": true,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "mac",
+       "dns_name": "mac.other.ts.net",
+       "address": "100.64.0.6",
+       "os": "macOS",
+       "online": false,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      }
+     ],
+     "running": false
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Running",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "running",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "devbox",
+       "dns_name": "devbox.tail0000.ts.net",
+       "address": "100.64.0.2",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "phone",
+       "dns_name": "phone.tail0000.ts.net",
+       "address": "100.64.0.5",
+       "os": "iOS",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": false
+      },
+      {
+       "name": "friends-pc",
+       "dns_name": "friends-pc.tail0000.ts.net",
+       "address": "100.64.0.3",
+       "os": "windows",
+       "online": true,
+       "owner": "friend@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "gpu",
+       "dns_name": "gpu.tail0000.ts.net",
+       "address": "100.64.0.4",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": true,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "mac",
+       "dns_name": "mac.other.ts.net",
+       "address": "100.64.0.6",
+       "os": "macOS",
+       "online": false,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      }
+     ],
+     "running": true
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Running",
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "running",
+     "detail": "",
+     "name": "",
+     "dns_name": "",
+     "address": "",
+     "owner": "",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "devbox",
+       "dns_name": "devbox.tail0000.ts.net",
+       "address": "100.64.0.2",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "friends-pc",
+       "dns_name": "friends-pc.tail0000.ts.net",
+       "address": "100.64.0.3",
+       "os": "windows",
+       "online": true,
+       "owner": "friend@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "gpu",
+       "dns_name": "gpu.tail0000.ts.net",
+       "address": "100.64.0.4",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": true,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "mac",
+       "dns_name": "mac.other.ts.net",
+       "address": "100.64.0.6",
+       "os": "macOS",
+       "online": false,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "phone",
+       "dns_name": "phone.tail0000.ts.net",
+       "address": "100.64.0.5",
+       "os": "iOS",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": false
+      }
+     ],
+     "running": true
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Running",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ],
+       "Tags": [
+        "tag:server"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "running",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "devbox",
+       "dns_name": "devbox.tail0000.ts.net",
+       "address": "100.64.0.2",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "friends-pc",
+       "dns_name": "friends-pc.tail0000.ts.net",
+       "address": "100.64.0.3",
+       "os": "windows",
+       "online": true,
+       "owner": "friend@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "gpu",
+       "dns_name": "gpu.tail0000.ts.net",
+       "address": "100.64.0.4",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": true,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "mac",
+       "dns_name": "mac.other.ts.net",
+       "address": "100.64.0.6",
+       "os": "macOS",
+       "online": false,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "phone",
+       "dns_name": "phone.tail0000.ts.net",
+       "address": "100.64.0.5",
+       "os": "iOS",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": false
+      }
+     ],
+     "running": true
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Running",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ],
+       "Tags": []
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "running",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "devbox",
+       "dns_name": "devbox.tail0000.ts.net",
+       "address": "100.64.0.2",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "phone",
+       "dns_name": "phone.tail0000.ts.net",
+       "address": "100.64.0.5",
+       "os": "iOS",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": false
+      },
+      {
+       "name": "friends-pc",
+       "dns_name": "friends-pc.tail0000.ts.net",
+       "address": "100.64.0.3",
+       "os": "windows",
+       "online": true,
+       "owner": "friend@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "gpu",
+       "dns_name": "gpu.tail0000.ts.net",
+       "address": "100.64.0.4",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": true,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "mac",
+       "dns_name": "mac.other.ts.net",
+       "address": "100.64.0.6",
+       "os": "macOS",
+       "online": false,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      }
+     ],
+     "running": true
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Stopped"
+     }
+    ],
+    "result": {
+     "state": "stopped",
+     "detail": "",
+     "name": "",
+     "dns_name": "",
+     "address": "",
+     "owner": "",
+     "tailnet": "",
+     "peers": [],
+     "running": false
+    }
+   },
+   {
+    "args": [
+     {}
+    ],
+    "result": {
+     "state": "unavailable",
+     "detail": "",
+     "name": "",
+     "dns_name": "",
+     "address": "",
+     "owner": "",
+     "tailnet": "",
+     "peers": [],
+     "running": false
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Running",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {}
+     }
+    ],
+    "result": {
+     "state": "running",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [],
+     "running": true
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Running",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": []
+     }
+    ],
+    "result": {
+     "state": "running",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [],
+     "running": true
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Running",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "x": "not a node",
+       "y": null,
+       "z": [
+        1
+       ]
+      }
+     }
+    ],
+    "result": {
+     "state": "running",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [],
+     "running": true
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Running",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "v6": {
+        "HostName": "node",
+        "DNSName": "node.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "fd7a:115c:a1e0::9"
+        ]
+       },
+       "none": {
+        "HostName": "node",
+        "DNSName": "node.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": []
+       },
+       "missing": {
+        "HostName": "bare"
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "running",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [],
+     "running": true
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Running",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "cidr": {
+        "HostName": "node",
+        "DNSName": "node.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.9/32",
+         "fd7a:115c:a1e0::9/128"
+        ]
+       },
+       "mixed": {
+        "HostName": "mixed",
+        "DNSName": "",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         7,
+         null,
+         "100.64.0.10"
+        ]
+       },
+       "text": {
+        "HostName": "text",
+        "DNSName": "",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": "100.64.0.11"
+       },
+       "colon": {
+        "HostName": "colon",
+        "DNSName": "",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": "fd7a::1"
+       },
+       "dict": {
+        "HostName": "dict",
+        "DNSName": "",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": {
+         "100.64.0.12": true
+        }
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "running",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "dict",
+       "dns_name": "",
+       "address": "100.64.0.12",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "mixed",
+       "dns_name": "",
+       "address": "100.64.0.10",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "node",
+       "dns_name": "node.tail0000.ts.net",
+       "address": "100.64.0.9",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "text",
+       "dns_name": "",
+       "address": ".",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      }
+     ],
+     "running": true
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Running",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "n": {
+        "HostName": "node",
+        "DNSName": "node.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": 5
+       }
+      }
+     }
+    ],
+    "raises": "TypeError"
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Running",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": 1.5
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "raises": "TypeError"
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Running",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": true
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "raises": "TypeError"
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Running",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": 0
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "running",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "devbox",
+       "dns_name": "devbox.tail0000.ts.net",
+       "address": "100.64.0.2",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "phone",
+       "dns_name": "phone.tail0000.ts.net",
+       "address": "100.64.0.5",
+       "os": "iOS",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": false
+      },
+      {
+       "name": "friends-pc",
+       "dns_name": "friends-pc.tail0000.ts.net",
+       "address": "100.64.0.3",
+       "os": "windows",
+       "online": true,
+       "owner": "friend@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "gpu",
+       "dns_name": "gpu.tail0000.ts.net",
+       "address": "100.64.0.4",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": true,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "mac",
+       "dns_name": "mac.other.ts.net",
+       "address": "100.64.0.6",
+       "os": "macOS",
+       "online": false,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      }
+     ],
+     "running": true
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Running",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "a": {
+        "HostName": "Only-Host",
+        "DNSName": "",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.20"
+        ]
+       },
+       "b": {
+        "HostName": null,
+        "DNSName": null,
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.21"
+        ]
+       },
+       "c": {
+        "HostName": "x",
+        "DNSName": "dots.example...",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.20"
+        ]
+       },
+       "d": {
+        "HostName": "fallback",
+        "DNSName": ".leading",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.20"
+        ]
+       },
+       "e": {
+        "HostName": 3.0,
+        "DNSName": 12,
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.20"
+        ]
+       },
+       "f": {
+        "HostName": [
+         "a",
+         1
+        ],
+        "DNSName": "",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.22"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "running",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "100.64.0.21",
+       "dns_name": "",
+       "address": "100.64.0.21",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "12",
+       "dns_name": "12",
+       "address": "100.64.0.20",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "['a', 1]",
+       "dns_name": "",
+       "address": "100.64.0.22",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "dots",
+       "dns_name": "dots.example",
+       "address": "100.64.0.20",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "fallback",
+       "dns_name": ".leading",
+       "address": "100.64.0.20",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "Only-Host",
+       "dns_name": "",
+       "address": "100.64.0.20",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      }
+     ],
+     "running": true
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Running",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "1.0": {
+        "LoginName": "float@example.com"
+       },
+       "None": {
+        "LoginName": "none@example.com"
+       }
+      },
+      "Peer": {
+       "s": {
+        "HostName": "str-id",
+        "DNSName": "",
+        "OS": "linux",
+        "Online": true,
+        "UserID": "1",
+        "TailscaleIPs": [
+         "100.64.0.20"
+        ]
+       },
+       "f": {
+        "HostName": "float-id",
+        "DNSName": "",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1.0,
+        "TailscaleIPs": [
+         "100.64.0.20"
+        ]
+       },
+       "m": {
+        "HostName": "no-id",
+        "DNSName": "",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.20"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "running",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "no-id",
+       "dns_name": "",
+       "address": "100.64.0.20",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "str-id",
+       "dns_name": "",
+       "address": "100.64.0.20",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "float-id",
+       "dns_name": "",
+       "address": "100.64.0.20",
+       "os": "linux",
+       "online": true,
+       "owner": "float@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      }
+     ],
+     "running": true
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Running",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": [
+       "not",
+       "a",
+       "dict"
+      ],
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "running",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "devbox",
+       "dns_name": "devbox.tail0000.ts.net",
+       "address": "100.64.0.2",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "friends-pc",
+       "dns_name": "friends-pc.tail0000.ts.net",
+       "address": "100.64.0.3",
+       "os": "windows",
+       "online": true,
+       "owner": "",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "gpu",
+       "dns_name": "gpu.tail0000.ts.net",
+       "address": "100.64.0.4",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": true,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "mac",
+       "dns_name": "mac.other.ts.net",
+       "address": "100.64.0.6",
+       "os": "macOS",
+       "online": false,
+       "owner": "",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "phone",
+       "dns_name": "phone.tail0000.ts.net",
+       "address": "100.64.0.5",
+       "os": "iOS",
+       "online": true,
+       "owner": "",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": false
+      }
+     ],
+     "running": true
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Running",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": "not a dict"
+      },
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "running",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "devbox",
+       "dns_name": "devbox.tail0000.ts.net",
+       "address": "100.64.0.2",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "friends-pc",
+       "dns_name": "friends-pc.tail0000.ts.net",
+       "address": "100.64.0.3",
+       "os": "windows",
+       "online": true,
+       "owner": "",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "gpu",
+       "dns_name": "gpu.tail0000.ts.net",
+       "address": "100.64.0.4",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": true,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "mac",
+       "dns_name": "mac.other.ts.net",
+       "address": "100.64.0.6",
+       "os": "macOS",
+       "online": false,
+       "owner": "",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "phone",
+       "dns_name": "phone.tail0000.ts.net",
+       "address": "100.64.0.5",
+       "os": "iOS",
+       "online": true,
+       "owner": "",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": false
+      }
+     ],
+     "running": true
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Running",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": null
+       }
+      },
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "running",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "devbox",
+       "dns_name": "devbox.tail0000.ts.net",
+       "address": "100.64.0.2",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "friends-pc",
+       "dns_name": "friends-pc.tail0000.ts.net",
+       "address": "100.64.0.3",
+       "os": "windows",
+       "online": true,
+       "owner": "",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "gpu",
+       "dns_name": "gpu.tail0000.ts.net",
+       "address": "100.64.0.4",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": true,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "mac",
+       "dns_name": "mac.other.ts.net",
+       "address": "100.64.0.6",
+       "os": "macOS",
+       "online": false,
+       "owner": "",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "phone",
+       "dns_name": "phone.tail0000.ts.net",
+       "address": "100.64.0.5",
+       "os": "iOS",
+       "online": true,
+       "owner": "",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": false
+      }
+     ],
+     "running": true
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Running",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "running",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "",
+     "peers": [
+      {
+       "name": "devbox",
+       "dns_name": "devbox.tail0000.ts.net",
+       "address": "100.64.0.2",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "phone",
+       "dns_name": "phone.tail0000.ts.net",
+       "address": "100.64.0.5",
+       "os": "iOS",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": false
+      },
+      {
+       "name": "friends-pc",
+       "dns_name": "friends-pc.tail0000.ts.net",
+       "address": "100.64.0.3",
+       "os": "windows",
+       "online": true,
+       "owner": "friend@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "gpu",
+       "dns_name": "gpu.tail0000.ts.net",
+       "address": "100.64.0.4",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": true,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "mac",
+       "dns_name": "mac.other.ts.net",
+       "address": "100.64.0.6",
+       "os": "macOS",
+       "online": false,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      }
+     ],
+     "running": true
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Running",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": 42
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "a": {
+        "HostName": "devbox",
+        "DNSName": "devbox.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.2",
+         "fd7a:115c:a1e0::2"
+        ]
+       },
+       "b": {
+        "HostName": "friends-pc",
+        "DNSName": "friends-pc.tail0000.ts.net.",
+        "OS": "windows",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.0.3"
+        ]
+       },
+       "c": {
+        "HostName": "gpu-server",
+        "DNSName": "gpu.tail0000.ts.net.",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 3,
+        "Tags": [
+         "tag:server"
+        ],
+        "TailscaleIPs": [
+         "100.64.0.4"
+        ]
+       },
+       "d": {
+        "HostName": "localhost",
+        "DNSName": "phone.tail0000.ts.net.",
+        "OS": "iOS",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.0.5"
+        ]
+       },
+       "e": {
+        "HostName": "Shared Mac",
+        "DNSName": "mac.other.ts.net.",
+        "OS": "macOS",
+        "Online": false,
+        "UserID": 1,
+        "ShareeNode": true,
+        "TailscaleIPs": [
+         "100.64.0.6"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "running",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "42",
+     "peers": [
+      {
+       "name": "devbox",
+       "dns_name": "devbox.tail0000.ts.net",
+       "address": "100.64.0.2",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "phone",
+       "dns_name": "phone.tail0000.ts.net",
+       "address": "100.64.0.5",
+       "os": "iOS",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": false
+      },
+      {
+       "name": "friends-pc",
+       "dns_name": "friends-pc.tail0000.ts.net",
+       "address": "100.64.0.3",
+       "os": "windows",
+       "online": true,
+       "owner": "friend@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "gpu",
+       "dns_name": "gpu.tail0000.ts.net",
+       "address": "100.64.0.4",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": true,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "mac",
+       "dns_name": "mac.other.ts.net",
+       "address": "100.64.0.6",
+       "os": "macOS",
+       "online": false,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      }
+     ],
+     "running": true
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Running",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "1": {
+        "HostName": "beta",
+        "DNSName": "",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.1.1"
+        ]
+       },
+       "2": {
+        "HostName": "Alpha",
+        "DNSName": "",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.1.2"
+        ]
+       },
+       "3": {
+        "HostName": "alpha",
+        "DNSName": "",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.1.3"
+        ]
+       },
+       "4": {
+        "HostName": "Zed",
+        "DNSName": "",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.1.4"
+        ]
+       },
+       "5": {
+        "HostName": "Ärger",
+        "DNSName": "",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.1.5"
+        ]
+       },
+       "6": {
+        "HostName": "able",
+        "DNSName": "",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 2,
+        "TailscaleIPs": [
+         "100.64.1.6"
+        ]
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "running",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "Alpha",
+       "dns_name": "",
+       "address": "100.64.1.2",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "alpha",
+       "dns_name": "",
+       "address": "100.64.1.3",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "beta",
+       "dns_name": "",
+       "address": "100.64.1.1",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "Ärger",
+       "dns_name": "",
+       "address": "100.64.1.5",
+       "os": "linux",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "able",
+       "dns_name": "",
+       "address": "100.64.1.6",
+       "os": "linux",
+       "online": true,
+       "owner": "friend@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      },
+      {
+       "name": "Zed",
+       "dns_name": "",
+       "address": "100.64.1.4",
+       "os": "linux",
+       "online": true,
+       "owner": "friend@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": true
+      }
+     ],
+     "running": true
+    }
+   },
+   {
+    "args": [
+     {
+      "BackendState": "Running",
+      "Self": {
+       "HostName": "LAPTOP-1",
+       "DNSName": "laptop.tail0000.ts.net.",
+       "UserID": 1,
+       "TailscaleIPs": [
+        "100.64.0.1",
+        "fd7a:115c:a1e0::1"
+       ]
+      },
+      "CurrentTailnet": {
+       "Name": "owner@example.com",
+       "MagicDNSSuffix": "tail0000.ts.net"
+      },
+      "User": {
+       "1": {
+        "LoginName": "owner@example.com"
+       },
+       "2": {
+        "LoginName": "friend@example.com"
+       },
+       "3": {
+        "LoginName": "tagged-devices"
+       }
+      },
+      "Peer": {
+       "w": {
+        "HostName": "w",
+        "DNSName": "",
+        "OS": "WINDOWS",
+        "Online": 1,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.2.1"
+        ]
+       },
+       "m": {
+        "HostName": "m",
+        "DNSName": "",
+        "OS": "MacOS",
+        "Online": "",
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.2.2"
+        ],
+        "ShareeNode": 0
+       },
+       "a": {
+        "HostName": "a",
+        "DNSName": "",
+        "OS": "android",
+        "Online": null,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.2.3"
+        ],
+        "ShareeNode": "yes"
+       },
+       "n": {
+        "HostName": "n",
+        "DNSName": "",
+        "OS": null,
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.2.4"
+        ],
+        "Tags": null
+       },
+       "t": {
+        "HostName": "t",
+        "DNSName": "",
+        "OS": "linux",
+        "Online": true,
+        "UserID": 1,
+        "TailscaleIPs": [
+         "100.64.2.5"
+        ],
+        "Tags": "tag:x"
+       }
+      }
+     }
+    ],
+    "result": {
+     "state": "running",
+     "detail": "",
+     "name": "laptop",
+     "dns_name": "laptop.tail0000.ts.net",
+     "address": "100.64.0.1",
+     "owner": "owner@example.com",
+     "tailnet": "owner@example.com",
+     "peers": [
+      {
+       "name": "m",
+       "dns_name": "",
+       "address": "100.64.2.2",
+       "os": "MacOS",
+       "online": false,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "n",
+       "dns_name": "",
+       "address": "100.64.2.4",
+       "os": "",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": false
+      },
+      {
+       "name": "w",
+       "dns_name": "",
+       "address": "100.64.2.1",
+       "os": "WINDOWS",
+       "online": true,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": true,
+       "is_desktop": true
+      },
+      {
+       "name": "a",
+       "dns_name": "",
+       "address": "100.64.2.3",
+       "os": "android",
+       "online": false,
+       "owner": "owner@example.com",
+       "tagged": false,
+       "mine": false,
+       "is_desktop": false
+      },
+      {
+       "name": "t",
+       "dns_name": "",
+       "address": "100.64.2.5",
+       "os": "linux",
+       "online": true,
+       "owner": "",
+       "tagged": true,
+       "mine": false,
+       "is_desktop": true
+      }
+     ],
+     "running": true
+    }
+   }
+  ]
+ }
+}

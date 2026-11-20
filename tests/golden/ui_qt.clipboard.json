@@ -1,0 +1,4906 @@
+{
+ "module": "ui_qt.clipboard",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time"
+ },
+ "functions": {
+  "_html_document": [
+   {
+    "args": [
+     ""
+    ],
+    "result": "<html><head><meta charset=\"utf-8\"></head><body><!--StartFragment--><!--EndFragment--></body></html>"
+   },
+   {
+    "args": [
+     "plain"
+    ],
+    "result": "<html><head><meta charset=\"utf-8\"></head><body><!--StartFragment-->plain<!--EndFragment--></body></html>"
+   },
+   {
+    "args": [
+     "Thanks, <b>Dana Lee</b><br>Product designer"
+    ],
+    "result": "<html><head><meta charset=\"utf-8\"></head><body><!--StartFragment-->Thanks, <b>Dana Lee</b><br>Product designer<!--EndFragment--></body></html>"
+   },
+   {
+    "args": [
+     "<p>Hi</p>"
+    ],
+    "result": "<html><head><meta charset=\"utf-8\"></head><body><!--StartFragment--><p>Hi</p><!--EndFragment--></body></html>"
+   },
+   {
+    "args": [
+     "<html><body><p>Hi</p></body></html>"
+    ],
+    "result": "<html><body><p>Hi</p></body></html>"
+   },
+   {
+    "args": [
+     "<HTML><body>x</body></HTML>"
+    ],
+    "result": "<HTML><body>x</body></HTML>"
+   },
+   {
+    "args": [
+     "  \n\t<html>x</html>"
+    ],
+    "result": "  \n\t<html>x</html>"
+   },
+   {
+    "args": [
+     " <html>x</html>"
+    ],
+    "result": " <html>x</html>"
+   },
+   {
+    "args": [
+     "　<Html lang=\"en\">x</Html>"
+    ],
+    "result": "　<Html lang=\"en\">x</Html>"
+   },
+   {
+    "args": [
+     "<htm>x</htm>"
+    ],
+    "result": "<html><head><meta charset=\"utf-8\"></head><body><!--StartFragment--><htm>x</htm><!--EndFragment--></body></html>"
+   },
+   {
+    "args": [
+     "<html"
+    ],
+    "result": "<html"
+   },
+   {
+    "args": [
+     "<htmlx>"
+    ],
+    "result": "<htmlx>"
+   },
+   {
+    "args": [
+     "<!DOCTYPE html><html><body>x</body></html>"
+    ],
+    "result": "<html><head><meta charset=\"utf-8\"></head><body><!--StartFragment--><!DOCTYPE html><html><body>x</body></html><!--EndFragment--></body></html>"
+   },
+   {
+    "args": [
+     "x<html>"
+    ],
+    "result": "<html><head><meta charset=\"utf-8\"></head><body><!--StartFragment-->x<html><!--EndFragment--></body></html>"
+   },
+   {
+    "args": [
+     "café “quoted”"
+    ],
+    "result": "<html><head><meta charset=\"utf-8\"></head><body><!--StartFragment-->café “quoted”<!--EndFragment--></body></html>"
+   },
+   {
+    "args": [
+     "<b>😀</b>"
+    ],
+    "result": "<html><head><meta charset=\"utf-8\"></head><body><!--StartFragment--><b>😀</b><!--EndFragment--></body></html>"
+   },
+   {
+    "args": [
+     "\u001c<html>x</html>"
+    ],
+    "result": "\u001c<html>x</html>"
+   },
+   {
+    "args": [
+     "İ<html>"
+    ],
+    "result": "<html><head><meta charset=\"utf-8\"></head><body><!--StartFragment-->İ<html><!--EndFragment--></body></html>"
+   }
+  ],
+  "TemporaryClipboard": [
+   {
+    "args": [
+     "stage_then_timed_restore",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "stage",
+       "dictated",
+       null,
+       true
+      ],
+      [
+       "schedule_restore",
+       250
+      ],
+      [
+       "fire_restore"
+      ],
+      [
+       "restore_now"
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": true,
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": true,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 2,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": "skipped",
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 2,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "user_copy_before_the_restore",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "stage",
+       "dictated",
+       null,
+       true
+      ],
+      [
+       "schedule_restore",
+       250
+      ],
+      [
+       "copy",
+       "new user copy"
+      ],
+      [
+       "fire_restore"
+      ],
+      [
+       "restore_now"
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": true,
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": true,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "new user copy",
+      "html": null,
+      "marker": false,
+      "counter": 6,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": true,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "new user copy",
+      "html": null,
+      "marker": false,
+      "counter": 6,
+      "writes": 1,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": "skipped",
+      "text": "new user copy",
+      "html": null,
+      "marker": false,
+      "counter": 6,
+      "writes": 1,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "user_copy_before_scheduling",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "stage",
+       "dictated",
+       null,
+       true
+      ],
+      [
+       "copy",
+       "new user copy"
+      ],
+      [
+       "schedule_restore",
+       250
+      ],
+      [
+       "fire_restore"
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "new user copy",
+      "html": null,
+      "marker": false,
+      "counter": 6,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": false,
+      "text": "new user copy",
+      "html": null,
+      "marker": false,
+      "counter": 6,
+      "writes": 1,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "new user copy",
+      "html": null,
+      "marker": false,
+      "counter": 6,
+      "writes": 1,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "blank_clipboards_are_not_kept",
+     true,
+     [
+      [
+       "stage",
+       "first",
+       null,
+       true
+      ],
+      [
+       "copy",
+       " \n\t "
+      ],
+      [
+       "stage",
+       "second",
+       null,
+       true
+      ],
+      [
+       "copy",
+       ""
+      ],
+      [
+       "stage",
+       "third",
+       "Thanks, <b>Dana Lee</b><br>Product designer",
+       true
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": [
+       true,
+       false,
+       false
+      ],
+      "text": "first",
+      "html": null,
+      "marker": false,
+      "counter": 2,
+      "writes": 1,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": " \n\t ",
+      "html": null,
+      "marker": false,
+      "counter": 4,
+      "writes": 1,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       false,
+       false
+      ],
+      "text": "second",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 2,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 2,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "",
+      "html": null,
+      "marker": false,
+      "counter": 7,
+      "writes": 2,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 2,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       false,
+       false
+      ],
+      "text": "third",
+      "html": "<html><head><meta charset=\"utf-8\"></head><body><!--StartFragment-->Thanks, <b>Dana Lee</b><br>Product designer<!--EndFragment--></body></html>",
+      "marker": false,
+      "counter": 8,
+      "writes": 3,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 3,
+      "selected": [],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "stage_without_restore",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "stage",
+       "dictated",
+       "Thanks, <b>Dana Lee</b><br>Product designer",
+       false
+      ],
+      [
+       "stage",
+       "next",
+       null,
+       true
+      ],
+      [
+       "restore_now"
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       false,
+       false
+      ],
+      "text": "dictated",
+      "html": "<html><head><meta charset=\"utf-8\"></head><body><!--StartFragment-->Thanks, <b>Dana Lee</b><br>Product designer<!--EndFragment--></body></html>",
+      "marker": false,
+      "counter": 4,
+      "writes": 1,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "next",
+      "html": null,
+      "marker": true,
+      "counter": 5,
+      "writes": 2,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": "restored",
+      "text": "dictated",
+      "html": "<html><head><meta charset=\"utf-8\"></head><body><!--StartFragment-->Thanks, <b>Dana Lee</b><br>Product designer<!--EndFragment--></body></html>",
+      "marker": false,
+      "counter": 6,
+      "writes": 3,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "consecutive_stages_restore_the_original",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "stage",
+       "first",
+       null,
+       true
+      ],
+      [
+       "schedule_restore",
+       250
+      ],
+      [
+       "stage",
+       "second",
+       null,
+       true
+      ],
+      [
+       "schedule_restore",
+       250
+      ],
+      [
+       "fire_restore"
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "first",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": true,
+      "text": "first",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": true,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "second",
+      "html": null,
+      "marker": true,
+      "counter": 6,
+      "writes": 3,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 2,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": true,
+      "text": "second",
+      "html": null,
+      "marker": true,
+      "counter": 6,
+      "writes": 3,
+      "pending": true,
+      "restore_timer": true,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 2,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 7,
+      "writes": 4,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 2,
+      "selected": [],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "prefetch_reused_when_unchanged",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "prefetch",
+       100
+      ],
+      [
+       "fire_prefetch"
+      ],
+      [
+       "stage",
+       "dictated",
+       null,
+       true
+      ],
+      [
+       "restore_now"
+      ],
+      [
+       "stage",
+       "again",
+       null,
+       true
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": true,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": true,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": "restored",
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 2,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "again",
+      "html": null,
+      "marker": true,
+      "counter": 6,
+      "writes": 3,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 2,
+      "selected": [],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "prefetch_recaptured_after_a_copy",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "prefetch",
+       100
+      ],
+      [
+       "fire_prefetch"
+      ],
+      [
+       "copy",
+       "copied while dictating"
+      ],
+      [
+       "stage",
+       "dictated",
+       null,
+       true
+      ],
+      [
+       "restore_now"
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": true,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": true,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "copied while dictating",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": true,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 6,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 2,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": "restored",
+      "text": "copied while dictating",
+      "html": null,
+      "marker": false,
+      "counter": 7,
+      "writes": 2,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 2,
+      "selected": [],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "prefetch_recaptured_when_the_counter_is_unknown",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "prefetch",
+       0
+      ],
+      [
+       "fire_prefetch"
+      ],
+      [
+       "counter_hidden",
+       true
+      ],
+      [
+       "stage",
+       "dictated",
+       null,
+       true
+      ],
+      [
+       "counter_hidden",
+       false
+      ],
+      [
+       "restore_now"
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": true,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": true,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": true,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 2,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 2,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": "restored",
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 2,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 2,
+      "selected": [],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "prefetch_skipped_while_the_counter_is_unknown",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "counter_hidden",
+       true
+      ],
+      [
+       "prefetch",
+       0
+      ],
+      [
+       "fire_prefetch"
+      ],
+      [
+       "counter_hidden",
+       false
+      ],
+      [
+       "stage",
+       "dictated",
+       null,
+       true
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": true,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "prefetch_skipped_while_a_restore_is_pending",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "stage",
+       "first",
+       null,
+       true
+      ],
+      [
+       "schedule_restore",
+       10000
+      ],
+      [
+       "prefetch",
+       0
+      ],
+      [
+       "fire_prefetch"
+      ],
+      [
+       "stage",
+       "second",
+       null,
+       true
+      ],
+      [
+       "restore_now"
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "first",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": true,
+      "text": "first",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": true,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "first",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": true,
+      "prefetched": false,
+      "prefetch_timer": true,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "first",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": true,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "second",
+      "html": null,
+      "marker": true,
+      "counter": 6,
+      "writes": 3,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 2,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": "restored",
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 7,
+      "writes": 4,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 2,
+      "selected": [],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "prefetch_discarded_and_replaced",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "prefetch",
+       100
+      ],
+      [
+       "discard_prefetch"
+      ],
+      [
+       "fire_prefetch"
+      ],
+      [
+       "prefetch",
+       0
+      ],
+      [
+       "fire_prefetch"
+      ],
+      [
+       "prefetch",
+       10000
+      ],
+      [
+       "stage",
+       "dictated",
+       null,
+       true
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": true,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": true,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": true,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": true,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 2,
+      "selected": [],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "prefetch_dropped_by_a_stage_without_restore",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "prefetch",
+       0
+      ],
+      [
+       "fire_prefetch"
+      ],
+      [
+       "stage",
+       "dictated",
+       null,
+       false
+      ],
+      [
+       "stage",
+       "next",
+       null,
+       true
+      ],
+      [
+       "restore_now"
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": true,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": true,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       false,
+       false
+      ],
+      "text": "dictated",
+      "html": null,
+      "marker": false,
+      "counter": 4,
+      "writes": 1,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "next",
+      "html": null,
+      "marker": true,
+      "counter": 5,
+      "writes": 2,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 2,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": "restored",
+      "text": "dictated",
+      "html": null,
+      "marker": false,
+      "counter": 6,
+      "writes": 3,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 2,
+      "selected": [],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "prefetch_off_without_a_counter",
+     false,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "prefetch",
+       0
+      ],
+      [
+       "fire_prefetch"
+      ],
+      [
+       "stage",
+       "dictated",
+       null,
+       true
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "prefetch_failure_then_stage",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "fail_reads",
+       true
+      ],
+      [
+       "prefetch",
+       0
+      ],
+      [
+       "fire_prefetch"
+      ],
+      [
+       "fail_reads",
+       false
+      ],
+      [
+       "stage",
+       "dictated",
+       null,
+       true
+      ],
+      [
+       "restore_now"
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": true,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": "restored",
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 2,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "snapshot_failure_stages_without_a_lease",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "fail_reads",
+       true
+      ],
+      [
+       "stage",
+       "dictated",
+       "Thanks, <b>Dana Lee</b><br>Product designer",
+       true
+      ],
+      [
+       "fail_reads",
+       false
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       false,
+       true
+      ],
+      "text": "dictated",
+      "html": "<html><head><meta charset=\"utf-8\"></head><body><!--StartFragment-->Thanks, <b>Dana Lee</b><br>Product designer<!--EndFragment--></body></html>",
+      "marker": false,
+      "counter": 4,
+      "writes": 1,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "dictated",
+      "html": "<html><head><meta charset=\"utf-8\"></head><body><!--StartFragment-->Thanks, <b>Dana Lee</b><br>Product designer<!--EndFragment--></body></html>",
+      "marker": false,
+      "counter": 4,
+      "writes": 1,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "write_failure_stages_nothing",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "fail_writes",
+       true
+      ],
+      [
+       "stage",
+       "dictated",
+       null,
+       true
+      ],
+      [
+       "write_text",
+       "plain",
+       ""
+      ],
+      [
+       "fail_writes",
+       false
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       false,
+       false,
+       false
+      ],
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": false,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "restore_failure_reports_the_message",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "stage",
+       "dictated",
+       null,
+       true
+      ],
+      [
+       "fail_writes",
+       true
+      ],
+      [
+       "restore_now"
+      ],
+      [
+       "fail_writes",
+       false
+      ],
+      [
+       "restore_now"
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": "failed",
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": [
+       "clipboard write failed"
+      ]
+     },
+     {
+      "result": null,
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": [
+       "clipboard write failed"
+      ]
+     },
+     {
+      "result": "restored",
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 2,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": [
+       "clipboard write failed"
+      ]
+     }
+    ]
+   },
+   {
+    "args": [
+     "commit_keeps_the_rich_text_without_the_marker",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "stage",
+       "plain",
+       "Thanks, <b>Dana Lee</b><br>Product designer",
+       true
+      ],
+      [
+       "commit",
+       "plain"
+      ],
+      [
+       "restore_now"
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "plain",
+      "html": "<html><head><meta charset=\"utf-8\"></head><body><!--StartFragment-->Thanks, <b>Dana Lee</b><br>Product designer<!--EndFragment--></body></html>",
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": true,
+      "text": "plain",
+      "html": "<html><head><meta charset=\"utf-8\"></head><body><!--StartFragment-->Thanks, <b>Dana Lee</b><br>Product designer<!--EndFragment--></body></html>",
+      "marker": false,
+      "counter": 5,
+      "writes": 2,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": "skipped",
+      "text": "plain",
+      "html": "<html><head><meta charset=\"utf-8\"></head><body><!--StartFragment-->Thanks, <b>Dana Lee</b><br>Product designer<!--EndFragment--></body></html>",
+      "marker": false,
+      "counter": 5,
+      "writes": 2,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "commit_after_a_user_copy_fails",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "stage",
+       "plain",
+       null,
+       true
+      ],
+      [
+       "copy",
+       "new"
+      ],
+      [
+       "commit",
+       "plain"
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "plain",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "new",
+      "html": null,
+      "marker": false,
+      "counter": 6,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": false,
+      "text": "new",
+      "html": null,
+      "marker": false,
+      "counter": 6,
+      "writes": 1,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "write_text_drops_the_pending_restore",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "stage",
+       "dictated",
+       null,
+       true
+      ],
+      [
+       "schedule_restore",
+       250
+      ],
+      [
+       "write_text",
+       "history copy",
+       "<i>history</i>"
+      ],
+      [
+       "fire_restore"
+      ],
+      [
+       "restore_now"
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": true,
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": true,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": true,
+      "text": "history copy",
+      "html": "<html><head><meta charset=\"utf-8\"></head><body><!--StartFragment--><i>history</i><!--EndFragment--></body></html>",
+      "marker": false,
+      "counter": 5,
+      "writes": 2,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "history copy",
+      "html": "<html><head><meta charset=\"utf-8\"></head><body><!--StartFragment--><i>history</i><!--EndFragment--></body></html>",
+      "marker": false,
+      "counter": 5,
+      "writes": 2,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": "skipped",
+      "text": "history copy",
+      "html": "<html><head><meta charset=\"utf-8\"></head><body><!--StartFragment--><i>history</i><!--EndFragment--></body></html>",
+      "marker": false,
+      "counter": 5,
+      "writes": 2,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "cleanup_restores_and_drops_everything",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "prefetch",
+       100
+      ],
+      [
+       "stage",
+       "dictated",
+       null,
+       true
+      ],
+      [
+       "schedule_restore",
+       60000
+      ],
+      [
+       "cleanup"
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": true,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": true,
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": true,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 2,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "selection_with_a_counter",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "select",
+       700,
+       false
+      ],
+      [
+       "poll",
+       10
+      ],
+      [
+       "copy",
+       "selected words"
+      ],
+      [
+       "poll",
+       10
+      ],
+      [
+       "poll",
+       10
+      ],
+      [
+       "stage",
+       "rewritten",
+       null,
+       true
+      ],
+      [
+       "restore_now"
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "selected words",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "selected words",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 6,
+      "writes": 1,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": true,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [
+       "selected words"
+      ],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "rewritten",
+      "html": null,
+      "marker": true,
+      "counter": 7,
+      "writes": 2,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [
+       "selected words"
+      ],
+      "failures": []
+     },
+     {
+      "result": "restored",
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 8,
+      "writes": 3,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [
+       "selected words"
+      ],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "selection_with_a_counter_times_out",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "select",
+       80,
+       false
+      ],
+      [
+       "poll",
+       40
+      ],
+      [
+       "poll",
+       40
+      ],
+      [
+       "poll",
+       10
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": true,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [
+       ""
+      ],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": true,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [
+       ""
+      ],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "selection_with_a_counter_expires_while_settling",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "select",
+       30,
+       false
+      ],
+      [
+       "poll",
+       10
+      ],
+      [
+       "copy",
+       "late"
+      ],
+      [
+       "poll",
+       30
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "late",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 6,
+      "writes": 1,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": true,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [
+       "late"
+      ],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "selection_without_a_counter_signalled",
+     false,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "select",
+       700,
+       false
+      ],
+      [
+       "poll",
+       10
+      ],
+      [
+       "copy",
+       "selected words"
+      ],
+      [
+       "poll",
+       10
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "selected words",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 6,
+      "writes": 1,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [
+       "selected words"
+      ],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "selection_without_a_counter_unsignalled",
+     false,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "select",
+       700,
+       false
+      ],
+      [
+       "copy_quiet",
+       "selected paragraph"
+      ],
+      [
+       "poll",
+       10
+      ],
+      [
+       "poll",
+       10
+      ],
+      [
+       "poll",
+       10
+      ],
+      [
+       "poll",
+       10
+      ],
+      [
+       "poll",
+       10
+      ],
+      [
+       "poll",
+       10
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "selected paragraph",
+      "html": null,
+      "marker": false,
+      "counter": 4,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "selected paragraph",
+      "html": null,
+      "marker": false,
+      "counter": 4,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "selected paragraph",
+      "html": null,
+      "marker": false,
+      "counter": 4,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "selected paragraph",
+      "html": null,
+      "marker": false,
+      "counter": 4,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "selected paragraph",
+      "html": null,
+      "marker": false,
+      "counter": 4,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 1,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [
+       "selected paragraph"
+      ],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 1,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [
+       "selected paragraph"
+      ],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "selection_without_a_counter_times_out",
+     false,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "select",
+       80,
+       false
+      ],
+      [
+       "poll",
+       50
+      ],
+      [
+       "poll",
+       50
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 4,
+      "writes": 1,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [
+       ""
+      ],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "selection_without_a_counter_manager_reowns",
+     false,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "select",
+       80,
+       false
+      ],
+      [
+       "reown",
+       "user text"
+      ],
+      [
+       "poll",
+       10
+      ],
+      [
+       "poll",
+       10
+      ],
+      [
+       "poll",
+       70
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 4,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 4,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 4,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 1,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [
+       "user text"
+      ],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "selection_copy_fails",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "select",
+       700,
+       true
+      ],
+      [
+       "stage",
+       "dictated",
+       null,
+       true
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": true,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [
+       ""
+      ],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [
+       ""
+      ],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "selection_copy_fails_without_a_counter",
+     false,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "select",
+       700,
+       true
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [
+       ""
+      ],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "selection_one_at_a_time_and_a_stage_ends_it",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "select",
+       700,
+       false
+      ],
+      [
+       "copy",
+       "partial"
+      ],
+      [
+       "select",
+       700,
+       false
+      ],
+      [
+       "stage",
+       "dictated",
+       null,
+       true
+      ],
+      [
+       "restore_now"
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "partial",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "partial",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [
+       ""
+      ],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 7,
+      "writes": 2,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [
+       "",
+       ""
+      ],
+      "failures": []
+     },
+     {
+      "result": "restored",
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 8,
+      "writes": 3,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [
+       "",
+       ""
+      ],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "selection_after_a_pending_paste",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "stage",
+       "dictated",
+       null,
+       true
+      ],
+      [
+       "schedule_restore",
+       250
+      ],
+      [
+       "select",
+       700,
+       false
+      ],
+      [
+       "copy",
+       "selected"
+      ],
+      [
+       "poll",
+       10
+      ],
+      [
+       "poll",
+       10
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": true,
+      "text": "dictated",
+      "html": null,
+      "marker": true,
+      "counter": 4,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": true,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 2,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 2,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "selected",
+      "html": null,
+      "marker": false,
+      "counter": 7,
+      "writes": 2,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 2,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "selected",
+      "html": null,
+      "marker": false,
+      "counter": 7,
+      "writes": 2,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 2,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 8,
+      "writes": 3,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": true,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 2,
+      "selected": [
+       "selected"
+      ],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "selection_reuses_a_valid_prefetch",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "prefetch",
+       0
+      ],
+      [
+       "fire_prefetch"
+      ],
+      [
+       "edit",
+       "changed without a write"
+      ],
+      [
+       "select",
+       700,
+       false
+      ],
+      [
+       "copy",
+       "selected"
+      ],
+      [
+       "poll",
+       10
+      ],
+      [
+       "poll",
+       10
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": true,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": true,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "changed without a write",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": true,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "changed without a write",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "selected",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "selected",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 6,
+      "writes": 1,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": true,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [
+       "selected"
+      ],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "selection_snapshot_failure",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "fail_reads",
+       true
+      ],
+      [
+       "select",
+       700,
+       false
+      ],
+      [
+       "fail_reads",
+       false
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [
+       ""
+      ],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [
+       ""
+      ],
+      "failures": []
+     }
+    ]
+   },
+   {
+    "args": [
+     "selection_restore_failure",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "select",
+       700,
+       false
+      ],
+      [
+       "copy",
+       "selected"
+      ],
+      [
+       "fail_writes",
+       true
+      ],
+      [
+       "poll",
+       10
+      ],
+      [
+       "poll",
+       10
+      ],
+      [
+       "fail_writes",
+       false
+      ],
+      [
+       "stage",
+       "x",
+       null,
+       true
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "selected",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "selected",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "selected",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "selected",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [
+       "selected"
+      ],
+      "failures": [
+       "clipboard write failed"
+      ]
+     },
+     {
+      "result": null,
+      "text": "selected",
+      "html": null,
+      "marker": false,
+      "counter": 5,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [
+       "selected"
+      ],
+      "failures": [
+       "clipboard write failed"
+      ]
+     },
+     {
+      "result": [
+       true,
+       true,
+       false
+      ],
+      "text": "x",
+      "html": null,
+      "marker": true,
+      "counter": 6,
+      "writes": 1,
+      "pending": true,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 2,
+      "selected": [
+       "selected"
+      ],
+      "failures": [
+       "clipboard write failed"
+      ]
+     }
+    ]
+   },
+   {
+    "args": [
+     "prefetch_skipped_during_a_selection",
+     true,
+     [
+      [
+       "copy",
+       "user text"
+      ],
+      [
+       "prefetch",
+       0
+      ],
+      [
+       "select",
+       700,
+       false
+      ],
+      [
+       "prefetch",
+       0
+      ],
+      [
+       "fire_prefetch"
+      ],
+      [
+       "write_text",
+       "plain",
+       ""
+      ]
+     ]
+    ],
+    "result": [
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": true,
+      "selecting": false,
+      "captures": 0,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": true,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": null,
+      "text": "user text",
+      "html": null,
+      "marker": false,
+      "counter": 3,
+      "writes": 0,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": false,
+      "prefetch_timer": false,
+      "selecting": true,
+      "captures": 1,
+      "selected": [],
+      "failures": []
+     },
+     {
+      "result": true,
+      "text": "plain",
+      "html": null,
+      "marker": false,
+      "counter": 4,
+      "writes": 1,
+      "pending": false,
+      "restore_timer": false,
+      "prefetched": true,
+      "prefetch_timer": false,
+      "selecting": false,
+      "captures": 1,
+      "selected": [
+       ""
+      ],
+      "failures": []
+     }
+    ]
+   }
+  ]
+ }
+}

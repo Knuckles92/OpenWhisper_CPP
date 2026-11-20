@@ -1,0 +1,24 @@
+{
+ "source": "Hand-written. sidecar-opencode/src/adapter.test.ts:49-53's tool turn as Gemini sends it without call ids (the id is the part's position, as text_generation.py:270-277 numbers it), after text in two chunks, with usageMetadata on the last chunk; the reply equals tests/fixtures/llm/generation/replies.json 'google_tool_no_id'.",
+ "protocol": "google",
+ "equivalent": "google_tool_no_id",
+ "frames": [
+  {"candidates": [{"content": {"role": "model", "parts": [{"text": "Look", "thought": false}]}}]},
+  {"candidates": [{"content": {"role": "model", "parts": [{"text": "ing.", "thought": false}]}}]},
+  {"candidates": [{"content": {"role": "model", "parts": [{"functionCall": {"name": "search_context_files", "args": {"query": "budget"}}}]}, "finishReason": "STOP"}], "usageMetadata": {"promptTokenCount": 7, "candidatesTokenCount": 2, "totalTokenCount": 9}}
+ ],
+ "events": [
+  ["text_delta", "Look"],
+  ["text_delta", "ing."],
+  ["toolcall_start", "", "call_1", "search_context_files"],
+  ["toolcall_delta", "{\"query\": \"budget\"}", "call_1", "search_context_files"],
+  ["toolcall_end", "", "call_1", "search_context_files"]
+ ],
+ "result": {
+  "text": "Looking.",
+  "tool_calls": [{"id": "call_1", "name": "search_context_files", "arguments": "{\"query\": \"budget\"}"}],
+  "assistant_message": {"role": "assistant", "content": "Looking.", "tool_calls": [{"id": "call_1", "type": "function", "function": {"name": "search_context_files", "arguments": "{\"query\": \"budget\"}"}}], "_google": [{"text": "Looking.", "thought": false}, {"functionCall": {"name": "search_context_files", "args": {"query": "budget"}}}]},
+  "usage": {"prompt_tokens": 7, "completion_tokens": 2, "total_tokens": 9},
+  "finish_reason": "STOP"
+ }
+}

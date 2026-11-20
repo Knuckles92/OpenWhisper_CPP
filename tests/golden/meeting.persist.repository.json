@@ -1,0 +1,3270 @@
+{
+ "module": "meeting.persist.repository",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time"
+ },
+ "functions": {
+  "interval_iou": [
+   {
+    "args": [
+     0,
+     10,
+     5,
+     15
+    ],
+    "result": 0.3333333333333333
+   },
+   {
+    "args": [
+     0,
+     5,
+     5,
+     10
+    ],
+    "result": 0.0
+   },
+   {
+    "args": [
+     2,
+     2,
+     2,
+     2
+    ],
+    "result": 0.0
+   },
+   {
+    "args": [
+     0.0,
+     2.0,
+     0.1,
+     2.1
+    ],
+    "result": 0.9047619047619047
+   },
+   {
+    "args": [
+     5,
+     1,
+     0,
+     10
+    ],
+    "result": 0.0
+   },
+   {
+    "args": [
+     0,
+     10,
+     0,
+     10
+    ],
+    "result": 1.0
+   },
+   {
+    "args": [
+     1,
+     3,
+     2,
+     8
+    ],
+    "result": 0.14285714285714285
+   },
+   {
+    "args": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "result": 0.0
+   },
+   {
+    "args": [
+     -1.5,
+     1.5,
+     0.0,
+     2.25
+    ],
+    "result": 0.4
+   },
+   {
+    "args": [
+     0,
+     10,
+     2,
+     4
+    ],
+    "result": 0.2
+   },
+   {
+    "args": [
+     0.1,
+     0.2,
+     0.15,
+     0.3
+    ],
+    "result": 0.2500000000000001
+   }
+  ],
+  "match_live_to_offline": [
+   {
+    "args": [
+     [
+      {
+       "id": "sg_old1",
+       "start_s": 0.0,
+       "end_s": 2.0,
+       "pinned": true,
+       "speaker_participant_id": "p_me",
+       "speaker_source": "human",
+       "channel": "mic"
+      },
+      {
+       "id": "sg_old2",
+       "start_s": 2.0,
+       "end_s": 4.0,
+       "pinned": false,
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "channel": "mic"
+      },
+      {
+       "id": "sg_old3",
+       "start_s": 4.0,
+       "end_s": 6.0,
+       "pinned": false,
+       "speaker_participant_id": "p_live",
+       "speaker_source": "diarizer",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_old4",
+       "start_s": 6.0,
+       "end_s": 8.0,
+       "pinned": false,
+       "speaker_participant_id": "p_live",
+       "speaker_source": "diarizer",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_pin",
+       "start_s": 50.0,
+       "end_s": 52.0,
+       "pinned": true,
+       "speaker_participant_id": "p_me",
+       "speaker_source": "human",
+       "channel": "mic"
+      }
+     ],
+     [
+      {
+       "segment_id": "sg_new1",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 0.1,
+       "end_s": 2.1,
+       "text": "sg_new1",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new2",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 2.1,
+       "end_s": 4.1,
+       "text": "sg_new2",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new3",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "loopback",
+       "start_s": 4.0,
+       "end_s": 6.0,
+       "text": "sg_new3",
+       "speaker_participant_id": "p_offline",
+       "speaker_source": "diarizer",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new4",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "loopback",
+       "start_s": 6.0,
+       "end_s": 8.0,
+       "text": "sg_new4",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new5",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 3.0,
+       "end_s": 5.0,
+       "text": "sg_new5",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      }
+     ]
+    ],
+    "result": {
+     "id_map": [
+      [
+       "sg_old4",
+       "sg_new4"
+      ],
+      [
+       "sg_old3",
+       "sg_new3"
+      ],
+      [
+       "sg_old2",
+       "sg_new2"
+      ],
+      [
+       "sg_old1",
+       "sg_new1"
+      ]
+     ],
+     "used_old": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "new": [
+      {
+       "segment_id": "sg_new1",
+       "speaker_participant_id": "p_me",
+       "speaker_source": "human",
+       "speaker_pinned": true
+      },
+      {
+       "segment_id": "sg_new2",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new3",
+       "speaker_participant_id": "p_offline",
+       "speaker_source": "diarizer",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new4",
+       "speaker_participant_id": "p_live",
+       "speaker_source": "diarizer",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new5",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "sg_old1",
+       "start_s": 0.0,
+       "end_s": 2.0,
+       "pinned": true,
+       "speaker_participant_id": "p_me",
+       "speaker_source": "human",
+       "channel": "mic"
+      },
+      {
+       "id": "sg_old2",
+       "start_s": 2.0,
+       "end_s": 4.0,
+       "pinned": false,
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "channel": "mic"
+      },
+      {
+       "id": "sg_old3",
+       "start_s": 4.0,
+       "end_s": 6.0,
+       "pinned": false,
+       "speaker_participant_id": "p_live",
+       "speaker_source": "diarizer",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_old4",
+       "start_s": 6.0,
+       "end_s": 8.0,
+       "pinned": false,
+       "speaker_participant_id": "p_live",
+       "speaker_source": "diarizer",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_pin",
+       "start_s": 50.0,
+       "end_s": 52.0,
+       "pinned": true,
+       "speaker_participant_id": "p_me",
+       "speaker_source": "human",
+       "channel": "mic"
+      }
+     ],
+     []
+    ],
+    "result": {
+     "id_map": [],
+     "used_old": [],
+     "new": []
+    }
+   },
+   {
+    "args": [
+     [],
+     [
+      {
+       "segment_id": "sg_new1",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 0.1,
+       "end_s": 2.1,
+       "text": "sg_new1",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new2",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 2.1,
+       "end_s": 4.1,
+       "text": "sg_new2",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new3",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "loopback",
+       "start_s": 4.0,
+       "end_s": 6.0,
+       "text": "sg_new3",
+       "speaker_participant_id": "p_offline",
+       "speaker_source": "diarizer",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new4",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "loopback",
+       "start_s": 6.0,
+       "end_s": 8.0,
+       "text": "sg_new4",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new5",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 3.0,
+       "end_s": 5.0,
+       "text": "sg_new5",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      }
+     ]
+    ],
+    "result": {
+     "id_map": [],
+     "used_old": [],
+     "new": [
+      {
+       "segment_id": "sg_new1",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new2",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new3",
+       "speaker_participant_id": "p_offline",
+       "speaker_source": "diarizer",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new4",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new5",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "sg_a",
+       "start_s": 0.0,
+       "end_s": 2.0,
+       "pinned": false,
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "channel": "mic"
+      },
+      {
+       "id": "sg_b",
+       "start_s": 0.0,
+       "end_s": 2.0,
+       "pinned": false,
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "channel": "mic"
+      }
+     ],
+     [
+      {
+       "segment_id": "sg_n",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 0.0,
+       "end_s": 2.0,
+       "text": "sg_n",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      }
+     ]
+    ],
+    "result": {
+     "id_map": [
+      [
+       "sg_b",
+       "sg_n"
+      ]
+     ],
+     "used_old": [
+      1
+     ],
+     "new": [
+      {
+       "segment_id": "sg_n",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "sg_a",
+       "start_s": 0.0,
+       "end_s": 2.0,
+       "pinned": false,
+       "speaker_participant_id": "p_a",
+       "speaker_source": "channel",
+       "channel": "mic"
+      }
+     ],
+     [
+      {
+       "segment_id": "sg_n1",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 0.0,
+       "end_s": 2.0,
+       "text": "sg_n1",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_n2",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 0.0,
+       "end_s": 2.0,
+       "text": "sg_n2",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      }
+     ]
+    ],
+    "result": {
+     "id_map": [
+      [
+       "sg_a",
+       "sg_n2"
+      ]
+     ],
+     "used_old": [
+      0
+     ],
+     "new": [
+      {
+       "segment_id": "sg_n1",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_n2",
+       "speaker_participant_id": "p_a",
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "sg_a",
+       "start_s": 0.0,
+       "end_s": 2.0,
+       "pinned": false,
+       "speaker_participant_id": "p_live",
+       "speaker_source": "diarizer",
+       "channel": "mic"
+      },
+      {
+       "id": "sg_b",
+       "start_s": 2.0,
+       "end_s": 4.0,
+       "pinned": false,
+       "speaker_participant_id": "",
+       "speaker_source": "diarizer",
+       "channel": "mic"
+      }
+     ],
+     [
+      {
+       "segment_id": "sg_n1",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 0.0,
+       "end_s": 2.0,
+       "text": "sg_n1",
+       "speaker_participant_id": "",
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_n2",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 2.0,
+       "end_s": 4.0,
+       "text": "sg_n2",
+       "speaker_participant_id": "p_off",
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      }
+     ]
+    ],
+    "result": {
+     "id_map": [
+      [
+       "sg_b",
+       "sg_n2"
+      ],
+      [
+       "sg_a",
+       "sg_n1"
+      ]
+     ],
+     "used_old": [
+      0,
+      1
+     ],
+     "new": [
+      {
+       "segment_id": "sg_n1",
+       "speaker_participant_id": "p_live",
+       "speaker_source": "diarizer",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_n2",
+       "speaker_participant_id": "p_off",
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "sg_a",
+       "start_s": 0.0,
+       "end_s": 2.0,
+       "pinned": false,
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "channel": "mic"
+      }
+     ],
+     [
+      {
+       "segment_id": "sg_n",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 1.6,
+       "end_s": 4.0,
+       "text": "sg_n",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      }
+     ]
+    ],
+    "result": {
+     "id_map": [],
+     "used_old": [],
+     "new": [
+      {
+       "segment_id": "sg_n",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "sg_a",
+       "start_s": 0.0,
+       "end_s": 2.0,
+       "pinned": false,
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "channel": "mic"
+      }
+     ],
+     [
+      {
+       "segment_id": "sg_n",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 1.5,
+       "end_s": 3.5,
+       "text": "sg_n",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      }
+     ]
+    ],
+    "result": {
+     "id_map": [],
+     "used_old": [],
+     "new": [
+      {
+       "segment_id": "sg_n",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      }
+     ]
+    }
+   }
+  ],
+  "remap_state_evidence": [
+   {
+    "args": [
+     {
+      "meeting_id": "m_1",
+      "cards": {
+       "key_points": [
+        {
+         "id": "it_human",
+         "text": "kept",
+         "status": "edited",
+         "pinned": false,
+         "evidence": [
+          "sg_old1",
+          "sg_gone",
+          "sg_old1",
+          7,
+          "not_sg"
+         ],
+         "citation_check": {
+          "ok": true
+         }
+        },
+        {
+         "id": "it_agent",
+         "text": "stale",
+         "status": "proposed",
+         "evidence": [
+          "sg_old2"
+         ]
+        },
+        "junk"
+       ],
+       "decisions": [
+        {
+         "id": "it_pin",
+         "evidence": [
+          "sg_pin"
+         ]
+        }
+       ],
+       "risks": "not a list",
+       "user_notes": [],
+       "action_items": [],
+       "timeline": [],
+       "unknown_card": [
+        {
+         "id": "it_x",
+         "evidence": [
+          "sg_old1"
+         ]
+        }
+       ]
+      },
+      "questions": [
+       {
+        "id": "q_1",
+        "evidence": [
+         "sg_old3",
+         "sg_old4"
+        ]
+       },
+       "junk",
+       {
+        "id": "q_2"
+       }
+      ],
+      "live_highlights": [
+       {
+        "label": "Decision",
+        "segment_id": "sg_old1"
+       },
+       {
+        "label": "Risk",
+        "segment_id": "sg_gone"
+       },
+       {
+        "label": "Other",
+        "segment_id": null
+       }
+      ],
+      "rolling_summary_evidence": [
+       "sg_old2",
+       "sg_old1",
+       "sg_old2"
+      ]
+     },
+     [
+      [
+       "sg_old1",
+       "sg_new1"
+      ],
+      [
+       "sg_old3",
+       "sg_new3"
+      ]
+     ],
+     [
+      {
+       "id": "sg_old1",
+       "start_s": 0.0,
+       "end_s": 2.0,
+       "pinned": true,
+       "speaker_participant_id": "p_me",
+       "speaker_source": "human",
+       "channel": "mic"
+      },
+      {
+       "id": "sg_old2",
+       "start_s": 2.0,
+       "end_s": 4.0,
+       "pinned": false,
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "channel": "mic"
+      },
+      {
+       "id": "sg_old3",
+       "start_s": 4.0,
+       "end_s": 6.0,
+       "pinned": false,
+       "speaker_participant_id": "p_live",
+       "speaker_source": "diarizer",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_old4",
+       "start_s": 6.0,
+       "end_s": 8.0,
+       "pinned": false,
+       "speaker_participant_id": "p_live",
+       "speaker_source": "diarizer",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_pin",
+       "start_s": 50.0,
+       "end_s": 52.0,
+       "pinned": true,
+       "speaker_participant_id": "p_me",
+       "speaker_source": "human",
+       "channel": "mic"
+      }
+     ],
+     [
+      {
+       "segment_id": "sg_new1",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 0.1,
+       "end_s": 2.1,
+       "text": "sg_new1",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new2",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 2.1,
+       "end_s": 4.1,
+       "text": "sg_new2",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new3",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "loopback",
+       "start_s": 4.0,
+       "end_s": 6.0,
+       "text": "sg_new3",
+       "speaker_participant_id": "p_offline",
+       "speaker_source": "diarizer",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new4",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "loopback",
+       "start_s": 6.0,
+       "end_s": 8.0,
+       "text": "sg_new4",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new5",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 3.0,
+       "end_s": 5.0,
+       "text": "sg_new5",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      }
+     ],
+     [
+      "sg_pin"
+     ]
+    ],
+    "result": {
+     "meeting_id": "m_1",
+     "cards": {
+      "key_points": [
+       {
+        "id": "it_human",
+        "text": "kept",
+        "status": "edited",
+        "pinned": false,
+        "evidence": [
+         "sg_new1"
+        ],
+        "citation_check": {}
+       },
+       {
+        "id": "it_agent",
+        "text": "stale",
+        "status": "proposed",
+        "evidence": [],
+        "citation_check": {}
+       },
+       "junk"
+      ],
+      "decisions": [
+       {
+        "id": "it_pin",
+        "evidence": [
+         "sg_pin"
+        ],
+        "citation_check": {}
+       }
+      ],
+      "risks": "not a list",
+      "user_notes": [],
+      "action_items": [],
+      "timeline": [],
+      "unknown_card": [
+       {
+        "id": "it_x",
+        "evidence": [
+         "sg_old1"
+        ]
+       }
+      ]
+     },
+     "questions": [
+      {
+       "id": "q_1",
+       "evidence": [
+        "sg_new3",
+        "sg_new4"
+       ]
+      },
+      "junk",
+      {
+       "id": "q_2",
+       "evidence": []
+      }
+     ],
+     "live_highlights": [
+      {
+       "label": "Decision",
+       "segment_id": "sg_new1"
+      }
+     ],
+     "rolling_summary_evidence": [
+      "sg_new1"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "meeting_id": "m_1",
+      "cards": {
+       "key_points": [
+        {
+         "id": "it_human",
+         "text": "kept",
+         "status": "edited",
+         "pinned": false,
+         "evidence": [
+          "sg_old1",
+          "sg_gone",
+          "sg_old1",
+          7,
+          "not_sg"
+         ],
+         "citation_check": {
+          "ok": true
+         }
+        },
+        {
+         "id": "it_agent",
+         "text": "stale",
+         "status": "proposed",
+         "evidence": [
+          "sg_old2"
+         ]
+        },
+        "junk"
+       ],
+       "decisions": [
+        {
+         "id": "it_pin",
+         "evidence": [
+          "sg_pin"
+         ]
+        }
+       ],
+       "risks": "not a list",
+       "user_notes": [],
+       "action_items": [],
+       "timeline": [],
+       "unknown_card": [
+        {
+         "id": "it_x",
+         "evidence": [
+          "sg_old1"
+         ]
+        }
+       ]
+      },
+      "questions": [
+       {
+        "id": "q_1",
+        "evidence": [
+         "sg_old3",
+         "sg_old4"
+        ]
+       },
+       "junk",
+       {
+        "id": "q_2"
+       }
+      ],
+      "live_highlights": [
+       {
+        "label": "Decision",
+        "segment_id": "sg_old1"
+       },
+       {
+        "label": "Risk",
+        "segment_id": "sg_gone"
+       },
+       {
+        "label": "Other",
+        "segment_id": null
+       }
+      ],
+      "rolling_summary_evidence": [
+       "sg_old2",
+       "sg_old1",
+       "sg_old2"
+      ]
+     },
+     [],
+     [
+      {
+       "id": "sg_old1",
+       "start_s": 0.0,
+       "end_s": 2.0,
+       "pinned": true,
+       "speaker_participant_id": "p_me",
+       "speaker_source": "human",
+       "channel": "mic"
+      },
+      {
+       "id": "sg_old2",
+       "start_s": 2.0,
+       "end_s": 4.0,
+       "pinned": false,
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "channel": "mic"
+      },
+      {
+       "id": "sg_old3",
+       "start_s": 4.0,
+       "end_s": 6.0,
+       "pinned": false,
+       "speaker_participant_id": "p_live",
+       "speaker_source": "diarizer",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_old4",
+       "start_s": 6.0,
+       "end_s": 8.0,
+       "pinned": false,
+       "speaker_participant_id": "p_live",
+       "speaker_source": "diarizer",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_pin",
+       "start_s": 50.0,
+       "end_s": 52.0,
+       "pinned": true,
+       "speaker_participant_id": "p_me",
+       "speaker_source": "human",
+       "channel": "mic"
+      }
+     ],
+     [
+      {
+       "segment_id": "sg_new1",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 0.1,
+       "end_s": 2.1,
+       "text": "sg_new1",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new2",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 2.1,
+       "end_s": 4.1,
+       "text": "sg_new2",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new3",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "loopback",
+       "start_s": 4.0,
+       "end_s": 6.0,
+       "text": "sg_new3",
+       "speaker_participant_id": "p_offline",
+       "speaker_source": "diarizer",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new4",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "loopback",
+       "start_s": 6.0,
+       "end_s": 8.0,
+       "text": "sg_new4",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new5",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 3.0,
+       "end_s": 5.0,
+       "text": "sg_new5",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      }
+     ],
+     []
+    ],
+    "result": {
+     "meeting_id": "m_1",
+     "cards": {
+      "key_points": [
+       {
+        "id": "it_human",
+        "text": "kept",
+        "status": "edited",
+        "pinned": false,
+        "evidence": [
+         "sg_new1"
+        ],
+        "citation_check": {}
+       },
+       {
+        "id": "it_agent",
+        "text": "stale",
+        "status": "proposed",
+        "evidence": [],
+        "citation_check": {}
+       },
+       "junk"
+      ],
+      "decisions": [
+       {
+        "id": "it_pin",
+        "evidence": [],
+        "citation_check": {}
+       }
+      ],
+      "risks": "not a list",
+      "user_notes": [],
+      "action_items": [],
+      "timeline": [],
+      "unknown_card": [
+       {
+        "id": "it_x",
+        "evidence": [
+         "sg_old1"
+        ]
+       }
+      ]
+     },
+     "questions": [
+      {
+       "id": "q_1",
+       "evidence": [
+        "sg_new3",
+        "sg_new4"
+       ]
+      },
+      "junk",
+      {
+       "id": "q_2",
+       "evidence": []
+      }
+     ],
+     "live_highlights": [
+      {
+       "label": "Decision",
+       "segment_id": "sg_new1"
+      }
+     ],
+     "rolling_summary_evidence": [
+      "sg_new1"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "meeting_id": "m_1",
+      "cards": {
+       "key_points": [
+        {
+         "id": "it_human",
+         "text": "kept",
+         "status": "edited",
+         "pinned": false,
+         "evidence": [
+          "sg_old1",
+          "sg_gone",
+          "sg_old1",
+          7,
+          "not_sg"
+         ],
+         "citation_check": {
+          "ok": true
+         }
+        },
+        {
+         "id": "it_agent",
+         "text": "stale",
+         "status": "proposed",
+         "evidence": [
+          "sg_old2"
+         ]
+        },
+        "junk"
+       ],
+       "decisions": [
+        {
+         "id": "it_pin",
+         "evidence": [
+          "sg_pin"
+         ]
+        }
+       ],
+       "risks": "not a list",
+       "user_notes": [],
+       "action_items": [],
+       "timeline": [],
+       "unknown_card": [
+        {
+         "id": "it_x",
+         "evidence": [
+          "sg_old1"
+         ]
+        }
+       ]
+      },
+      "questions": [
+       {
+        "id": "q_1",
+        "evidence": [
+         "sg_old3",
+         "sg_old4"
+        ]
+       },
+       "junk",
+       {
+        "id": "q_2"
+       }
+      ],
+      "live_highlights": [
+       {
+        "label": "Decision",
+        "segment_id": "sg_old1"
+       },
+       {
+        "label": "Risk",
+        "segment_id": "sg_gone"
+       },
+       {
+        "label": "Other",
+        "segment_id": null
+       }
+      ],
+      "rolling_summary_evidence": [
+       "sg_old2",
+       "sg_old1",
+       "sg_old2"
+      ]
+     },
+     [],
+     [
+      {
+       "id": "sg_old1",
+       "start_s": 0.0,
+       "end_s": 2.0,
+       "pinned": true,
+       "speaker_participant_id": "p_me",
+       "speaker_source": "human",
+       "channel": "mic"
+      },
+      {
+       "id": "sg_old2",
+       "start_s": 2.0,
+       "end_s": 4.0,
+       "pinned": false,
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "channel": "mic"
+      },
+      {
+       "id": "sg_old3",
+       "start_s": 4.0,
+       "end_s": 6.0,
+       "pinned": false,
+       "speaker_participant_id": "p_live",
+       "speaker_source": "diarizer",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_old4",
+       "start_s": 6.0,
+       "end_s": 8.0,
+       "pinned": false,
+       "speaker_participant_id": "p_live",
+       "speaker_source": "diarizer",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_pin",
+       "start_s": 50.0,
+       "end_s": 52.0,
+       "pinned": true,
+       "speaker_participant_id": "p_me",
+       "speaker_source": "human",
+       "channel": "mic"
+      }
+     ],
+     [],
+     [
+      "sg_pin",
+      "sg_old2"
+     ]
+    ],
+    "result": {
+     "meeting_id": "m_1",
+     "cards": {
+      "key_points": [
+       {
+        "id": "it_human",
+        "text": "kept",
+        "status": "edited",
+        "pinned": false,
+        "evidence": [],
+        "citation_check": {}
+       },
+       {
+        "id": "it_agent",
+        "text": "stale",
+        "status": "proposed",
+        "evidence": [
+         "sg_old2"
+        ],
+        "citation_check": {}
+       },
+       "junk"
+      ],
+      "decisions": [
+       {
+        "id": "it_pin",
+        "evidence": [
+         "sg_pin"
+        ],
+        "citation_check": {}
+       }
+      ],
+      "risks": "not a list",
+      "user_notes": [],
+      "action_items": [],
+      "timeline": [],
+      "unknown_card": [
+       {
+        "id": "it_x",
+        "evidence": [
+         "sg_old1"
+        ]
+       }
+      ]
+     },
+     "questions": [
+      {
+       "id": "q_1",
+       "evidence": []
+      },
+      "junk",
+      {
+       "id": "q_2",
+       "evidence": []
+      }
+     ],
+     "live_highlights": [],
+     "rolling_summary_evidence": [
+      "sg_old2"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "meeting_id": "m_1"
+     },
+     [],
+     [
+      {
+       "id": "sg_old1",
+       "start_s": 0.0,
+       "end_s": 2.0,
+       "pinned": true,
+       "speaker_participant_id": "p_me",
+       "speaker_source": "human",
+       "channel": "mic"
+      },
+      {
+       "id": "sg_old2",
+       "start_s": 2.0,
+       "end_s": 4.0,
+       "pinned": false,
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "channel": "mic"
+      },
+      {
+       "id": "sg_old3",
+       "start_s": 4.0,
+       "end_s": 6.0,
+       "pinned": false,
+       "speaker_participant_id": "p_live",
+       "speaker_source": "diarizer",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_old4",
+       "start_s": 6.0,
+       "end_s": 8.0,
+       "pinned": false,
+       "speaker_participant_id": "p_live",
+       "speaker_source": "diarizer",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_pin",
+       "start_s": 50.0,
+       "end_s": 52.0,
+       "pinned": true,
+       "speaker_participant_id": "p_me",
+       "speaker_source": "human",
+       "channel": "mic"
+      }
+     ],
+     [
+      {
+       "segment_id": "sg_new1",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 0.1,
+       "end_s": 2.1,
+       "text": "sg_new1",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new2",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 2.1,
+       "end_s": 4.1,
+       "text": "sg_new2",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new3",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "loopback",
+       "start_s": 4.0,
+       "end_s": 6.0,
+       "text": "sg_new3",
+       "speaker_participant_id": "p_offline",
+       "speaker_source": "diarizer",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new4",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "loopback",
+       "start_s": 6.0,
+       "end_s": 8.0,
+       "text": "sg_new4",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new5",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 3.0,
+       "end_s": 5.0,
+       "text": "sg_new5",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      }
+     ],
+     []
+    ],
+    "result": {
+     "meeting_id": "m_1",
+     "live_highlights": [],
+     "rolling_summary_evidence": []
+    }
+   },
+   {
+    "args": [
+     {
+      "cards": null,
+      "questions": null,
+      "live_highlights": null,
+      "rolling_summary_evidence": "sg_old1"
+     },
+     [],
+     [
+      {
+       "id": "sg_old1",
+       "start_s": 0.0,
+       "end_s": 2.0,
+       "pinned": true,
+       "speaker_participant_id": "p_me",
+       "speaker_source": "human",
+       "channel": "mic"
+      },
+      {
+       "id": "sg_old2",
+       "start_s": 2.0,
+       "end_s": 4.0,
+       "pinned": false,
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "channel": "mic"
+      },
+      {
+       "id": "sg_old3",
+       "start_s": 4.0,
+       "end_s": 6.0,
+       "pinned": false,
+       "speaker_participant_id": "p_live",
+       "speaker_source": "diarizer",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_old4",
+       "start_s": 6.0,
+       "end_s": 8.0,
+       "pinned": false,
+       "speaker_participant_id": "p_live",
+       "speaker_source": "diarizer",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_pin",
+       "start_s": 50.0,
+       "end_s": 52.0,
+       "pinned": true,
+       "speaker_participant_id": "p_me",
+       "speaker_source": "human",
+       "channel": "mic"
+      }
+     ],
+     [
+      {
+       "segment_id": "sg_new1",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 0.1,
+       "end_s": 2.1,
+       "text": "sg_new1",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new2",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 2.1,
+       "end_s": 4.1,
+       "text": "sg_new2",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new3",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "loopback",
+       "start_s": 4.0,
+       "end_s": 6.0,
+       "text": "sg_new3",
+       "speaker_participant_id": "p_offline",
+       "speaker_source": "diarizer",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new4",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "loopback",
+       "start_s": 6.0,
+       "end_s": 8.0,
+       "text": "sg_new4",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new5",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 3.0,
+       "end_s": 5.0,
+       "text": "sg_new5",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      }
+     ],
+     []
+    ],
+    "result": {
+     "cards": null,
+     "questions": null,
+     "live_highlights": [],
+     "rolling_summary_evidence": []
+    }
+   },
+   {
+    "args": [
+     {
+      "cards": [],
+      "questions": {
+       "q": 1
+      }
+     },
+     [],
+     [
+      {
+       "id": "sg_old1",
+       "start_s": 0.0,
+       "end_s": 2.0,
+       "pinned": true,
+       "speaker_participant_id": "p_me",
+       "speaker_source": "human",
+       "channel": "mic"
+      },
+      {
+       "id": "sg_old2",
+       "start_s": 2.0,
+       "end_s": 4.0,
+       "pinned": false,
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "channel": "mic"
+      },
+      {
+       "id": "sg_old3",
+       "start_s": 4.0,
+       "end_s": 6.0,
+       "pinned": false,
+       "speaker_participant_id": "p_live",
+       "speaker_source": "diarizer",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_old4",
+       "start_s": 6.0,
+       "end_s": 8.0,
+       "pinned": false,
+       "speaker_participant_id": "p_live",
+       "speaker_source": "diarizer",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_pin",
+       "start_s": 50.0,
+       "end_s": 52.0,
+       "pinned": true,
+       "speaker_participant_id": "p_me",
+       "speaker_source": "human",
+       "channel": "mic"
+      }
+     ],
+     [
+      {
+       "segment_id": "sg_new1",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 0.1,
+       "end_s": 2.1,
+       "text": "sg_new1",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new2",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 2.1,
+       "end_s": 4.1,
+       "text": "sg_new2",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new3",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "loopback",
+       "start_s": 4.0,
+       "end_s": 6.0,
+       "text": "sg_new3",
+       "speaker_participant_id": "p_offline",
+       "speaker_source": "diarizer",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new4",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "loopback",
+       "start_s": 6.0,
+       "end_s": 8.0,
+       "text": "sg_new4",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_new5",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 3.0,
+       "end_s": 5.0,
+       "text": "sg_new5",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      }
+     ],
+     []
+    ],
+    "result": {
+     "cards": [],
+     "questions": {
+      "q": 1
+     },
+     "live_highlights": [],
+     "rolling_summary_evidence": []
+    }
+   },
+   {
+    "args": [
+     {
+      "rolling_summary_evidence": [
+       "sg_a"
+      ]
+     },
+     [],
+     [
+      {
+       "id": "sg_a",
+       "start_s": 0.0,
+       "end_s": 2.0,
+       "pinned": false,
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "channel": "mic"
+      }
+     ],
+     [
+      {
+       "segment_id": "sg_n1",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 0.0,
+       "end_s": 2.0,
+       "text": "sg_n1",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      },
+      {
+       "segment_id": "sg_n2",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "mic",
+       "start_s": 0.0,
+       "end_s": 2.0,
+       "text": "sg_n2",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      }
+     ],
+     []
+    ],
+    "result": {
+     "rolling_summary_evidence": [],
+     "live_highlights": []
+    }
+   },
+   {
+    "args": [
+     {
+      "rolling_summary_evidence": [
+       "sg_a"
+      ]
+     },
+     [],
+     [
+      {
+       "id": "sg_a",
+       "start_s": 0.0,
+       "end_s": 2.0,
+       "pinned": false,
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "channel": "mic"
+      }
+     ],
+     [
+      {
+       "segment_id": "sg_n1",
+       "meeting_id": "m_1",
+       "chunk_id": null,
+       "channel": "loopback",
+       "start_s": 0.0,
+       "end_s": 2.0,
+       "text": "sg_n1",
+       "speaker_participant_id": null,
+       "speaker_source": "channel",
+       "speaker_pinned": false
+      }
+     ],
+     []
+    ],
+    "result": {
+     "rolling_summary_evidence": [],
+     "live_highlights": []
+    }
+   }
+  ],
+  "content_summary": [
+   {
+    "args": [
+     0,
+     false,
+     0,
+     ""
+    ],
+    "result": {
+     "has_audio": false,
+     "has_loopback_audio": false,
+     "has_transcript": false,
+     "is_empty": true,
+     "audio_chunks": 0,
+     "transcript_segments": 0,
+     "can_rerun_speakers": false,
+     "preview_text": ""
+    }
+   },
+   {
+    "args": [
+     3,
+     true,
+     2,
+     "hello"
+    ],
+    "result": {
+     "has_audio": true,
+     "has_loopback_audio": true,
+     "has_transcript": true,
+     "is_empty": false,
+     "audio_chunks": 3,
+     "transcript_segments": 2,
+     "can_rerun_speakers": true,
+     "preview_text": "hello"
+    }
+   },
+   {
+    "args": [
+     1,
+     false,
+     0,
+     ""
+    ],
+    "result": {
+     "has_audio": true,
+     "has_loopback_audio": false,
+     "has_transcript": false,
+     "is_empty": false,
+     "audio_chunks": 1,
+     "transcript_segments": 0,
+     "can_rerun_speakers": false,
+     "preview_text": ""
+    }
+   },
+   {
+    "args": [
+     0,
+     false,
+     5,
+     "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    ],
+    "result": {
+     "has_audio": false,
+     "has_loopback_audio": false,
+     "has_transcript": true,
+     "is_empty": false,
+     "audio_chunks": 0,
+     "transcript_segments": 5,
+     "can_rerun_speakers": false,
+     "preview_text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+   },
+   {
+    "args": [
+     0,
+     false,
+     5,
+     "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    ],
+    "result": {
+     "has_audio": false,
+     "has_loopback_audio": false,
+     "has_transcript": true,
+     "is_empty": false,
+     "audio_chunks": 0,
+     "transcript_segments": 5,
+     "can_rerun_speakers": false,
+     "preview_text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx…"
+    }
+   },
+   {
+    "args": [
+     2,
+     true,
+     9,
+     "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word"
+    ],
+    "result": {
+     "has_audio": true,
+     "has_loopback_audio": true,
+     "has_transcript": true,
+     "is_empty": false,
+     "audio_chunks": 2,
+     "transcript_segments": 9,
+     "can_rerun_speakers": true,
+     "preview_text": "word word word word word word word word word word word word word word word word word word word word…"
+    }
+   },
+   {
+    "args": [
+     1,
+     false,
+     1,
+     "éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"
+    ],
+    "result": {
+     "has_audio": true,
+     "has_loopback_audio": false,
+     "has_transcript": true,
+     "is_empty": false,
+     "audio_chunks": 1,
+     "transcript_segments": 1,
+     "can_rerun_speakers": false,
+     "preview_text": "éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé…"
+    }
+   },
+   {
+    "args": [
+     1,
+     false,
+     1,
+     "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa bbbbbbbbbb"
+    ],
+    "result": {
+     "has_audio": true,
+     "has_loopback_audio": false,
+     "has_transcript": true,
+     "is_empty": false,
+     "audio_chunks": 1,
+     "transcript_segments": 1,
+     "can_rerun_speakers": false,
+     "preview_text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa…"
+    }
+   },
+   {
+    "args": [
+     1,
+     false,
+     1,
+     "😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀"
+    ],
+    "result": {
+     "has_audio": true,
+     "has_loopback_audio": false,
+     "has_transcript": true,
+     "is_empty": false,
+     "audio_chunks": 1,
+     "transcript_segments": 1,
+     "can_rerun_speakers": false,
+     "preview_text": "😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀…"
+    }
+   }
+  ],
+  "search_filter": [
+   {
+    "args": [
+     "100%",
+     [
+      {
+       "id": "m_percent",
+       "title": "100% done"
+      },
+      {
+       "id": "m_plain",
+       "title": "100 percent"
+      },
+      {
+       "id": "m_under",
+       "title": "a_b test"
+      },
+      {
+       "id": "m_other",
+       "title": "aXb test"
+      },
+      {
+       "id": "m_slash",
+       "title": "back\\slash"
+      },
+      {
+       "id": "m_budget",
+       "title": "Budget Review",
+       "status": "failed"
+      },
+      {
+       "id": "m_ecole",
+       "title": "École visit"
+      },
+      {
+       "id": "m_state",
+       "title": "Untitled",
+       "state_json": "{\"topic\": {\"current\": \"Capacity planning\"}}"
+      },
+      {
+       "id": "m_transcript",
+       "title": "Sync",
+       "segments": [
+        "quarterly CAPACITY planning",
+        "x"
+       ]
+      },
+      {
+       "id": "m_date",
+       "title": "Dated",
+       "started_at": "2026-02-14T09:00:00+00:00",
+       "status": "active"
+      }
+     ]
+    ],
+    "result": [
+     "m_percent"
+    ]
+   },
+   {
+    "args": [
+     "%",
+     [
+      {
+       "id": "m_percent",
+       "title": "100% done"
+      },
+      {
+       "id": "m_plain",
+       "title": "100 percent"
+      },
+      {
+       "id": "m_under",
+       "title": "a_b test"
+      },
+      {
+       "id": "m_other",
+       "title": "aXb test"
+      },
+      {
+       "id": "m_slash",
+       "title": "back\\slash"
+      },
+      {
+       "id": "m_budget",
+       "title": "Budget Review",
+       "status": "failed"
+      },
+      {
+       "id": "m_ecole",
+       "title": "École visit"
+      },
+      {
+       "id": "m_state",
+       "title": "Untitled",
+       "state_json": "{\"topic\": {\"current\": \"Capacity planning\"}}"
+      },
+      {
+       "id": "m_transcript",
+       "title": "Sync",
+       "segments": [
+        "quarterly CAPACITY planning",
+        "x"
+       ]
+      },
+      {
+       "id": "m_date",
+       "title": "Dated",
+       "started_at": "2026-02-14T09:00:00+00:00",
+       "status": "active"
+      }
+     ]
+    ],
+    "result": [
+     "m_percent"
+    ]
+   },
+   {
+    "args": [
+     "_",
+     [
+      {
+       "id": "m_percent",
+       "title": "100% done"
+      },
+      {
+       "id": "m_plain",
+       "title": "100 percent"
+      },
+      {
+       "id": "m_under",
+       "title": "a_b test"
+      },
+      {
+       "id": "m_other",
+       "title": "aXb test"
+      },
+      {
+       "id": "m_slash",
+       "title": "back\\slash"
+      },
+      {
+       "id": "m_budget",
+       "title": "Budget Review",
+       "status": "failed"
+      },
+      {
+       "id": "m_ecole",
+       "title": "École visit"
+      },
+      {
+       "id": "m_state",
+       "title": "Untitled",
+       "state_json": "{\"topic\": {\"current\": \"Capacity planning\"}}"
+      },
+      {
+       "id": "m_transcript",
+       "title": "Sync",
+       "segments": [
+        "quarterly CAPACITY planning",
+        "x"
+       ]
+      },
+      {
+       "id": "m_date",
+       "title": "Dated",
+       "started_at": "2026-02-14T09:00:00+00:00",
+       "status": "active"
+      }
+     ]
+    ],
+    "result": [
+     "m_under"
+    ]
+   },
+   {
+    "args": [
+     "a_b",
+     [
+      {
+       "id": "m_percent",
+       "title": "100% done"
+      },
+      {
+       "id": "m_plain",
+       "title": "100 percent"
+      },
+      {
+       "id": "m_under",
+       "title": "a_b test"
+      },
+      {
+       "id": "m_other",
+       "title": "aXb test"
+      },
+      {
+       "id": "m_slash",
+       "title": "back\\slash"
+      },
+      {
+       "id": "m_budget",
+       "title": "Budget Review",
+       "status": "failed"
+      },
+      {
+       "id": "m_ecole",
+       "title": "École visit"
+      },
+      {
+       "id": "m_state",
+       "title": "Untitled",
+       "state_json": "{\"topic\": {\"current\": \"Capacity planning\"}}"
+      },
+      {
+       "id": "m_transcript",
+       "title": "Sync",
+       "segments": [
+        "quarterly CAPACITY planning",
+        "x"
+       ]
+      },
+      {
+       "id": "m_date",
+       "title": "Dated",
+       "started_at": "2026-02-14T09:00:00+00:00",
+       "status": "active"
+      }
+     ]
+    ],
+    "result": [
+     "m_under"
+    ]
+   },
+   {
+    "args": [
+     "back\\slash",
+     [
+      {
+       "id": "m_percent",
+       "title": "100% done"
+      },
+      {
+       "id": "m_plain",
+       "title": "100 percent"
+      },
+      {
+       "id": "m_under",
+       "title": "a_b test"
+      },
+      {
+       "id": "m_other",
+       "title": "aXb test"
+      },
+      {
+       "id": "m_slash",
+       "title": "back\\slash"
+      },
+      {
+       "id": "m_budget",
+       "title": "Budget Review",
+       "status": "failed"
+      },
+      {
+       "id": "m_ecole",
+       "title": "École visit"
+      },
+      {
+       "id": "m_state",
+       "title": "Untitled",
+       "state_json": "{\"topic\": {\"current\": \"Capacity planning\"}}"
+      },
+      {
+       "id": "m_transcript",
+       "title": "Sync",
+       "segments": [
+        "quarterly CAPACITY planning",
+        "x"
+       ]
+      },
+      {
+       "id": "m_date",
+       "title": "Dated",
+       "started_at": "2026-02-14T09:00:00+00:00",
+       "status": "active"
+      }
+     ]
+    ],
+    "result": [
+     "m_slash"
+    ]
+   },
+   {
+    "args": [
+     "\\",
+     [
+      {
+       "id": "m_percent",
+       "title": "100% done"
+      },
+      {
+       "id": "m_plain",
+       "title": "100 percent"
+      },
+      {
+       "id": "m_under",
+       "title": "a_b test"
+      },
+      {
+       "id": "m_other",
+       "title": "aXb test"
+      },
+      {
+       "id": "m_slash",
+       "title": "back\\slash"
+      },
+      {
+       "id": "m_budget",
+       "title": "Budget Review",
+       "status": "failed"
+      },
+      {
+       "id": "m_ecole",
+       "title": "École visit"
+      },
+      {
+       "id": "m_state",
+       "title": "Untitled",
+       "state_json": "{\"topic\": {\"current\": \"Capacity planning\"}}"
+      },
+      {
+       "id": "m_transcript",
+       "title": "Sync",
+       "segments": [
+        "quarterly CAPACITY planning",
+        "x"
+       ]
+      },
+      {
+       "id": "m_date",
+       "title": "Dated",
+       "started_at": "2026-02-14T09:00:00+00:00",
+       "status": "active"
+      }
+     ]
+    ],
+    "result": [
+     "m_slash"
+    ]
+   },
+   {
+    "args": [
+     "budget",
+     [
+      {
+       "id": "m_percent",
+       "title": "100% done"
+      },
+      {
+       "id": "m_plain",
+       "title": "100 percent"
+      },
+      {
+       "id": "m_under",
+       "title": "a_b test"
+      },
+      {
+       "id": "m_other",
+       "title": "aXb test"
+      },
+      {
+       "id": "m_slash",
+       "title": "back\\slash"
+      },
+      {
+       "id": "m_budget",
+       "title": "Budget Review",
+       "status": "failed"
+      },
+      {
+       "id": "m_ecole",
+       "title": "École visit"
+      },
+      {
+       "id": "m_state",
+       "title": "Untitled",
+       "state_json": "{\"topic\": {\"current\": \"Capacity planning\"}}"
+      },
+      {
+       "id": "m_transcript",
+       "title": "Sync",
+       "segments": [
+        "quarterly CAPACITY planning",
+        "x"
+       ]
+      },
+      {
+       "id": "m_date",
+       "title": "Dated",
+       "started_at": "2026-02-14T09:00:00+00:00",
+       "status": "active"
+      }
+     ]
+    ],
+    "result": [
+     "m_budget"
+    ]
+   },
+   {
+    "args": [
+     "BUDGET",
+     [
+      {
+       "id": "m_percent",
+       "title": "100% done"
+      },
+      {
+       "id": "m_plain",
+       "title": "100 percent"
+      },
+      {
+       "id": "m_under",
+       "title": "a_b test"
+      },
+      {
+       "id": "m_other",
+       "title": "aXb test"
+      },
+      {
+       "id": "m_slash",
+       "title": "back\\slash"
+      },
+      {
+       "id": "m_budget",
+       "title": "Budget Review",
+       "status": "failed"
+      },
+      {
+       "id": "m_ecole",
+       "title": "École visit"
+      },
+      {
+       "id": "m_state",
+       "title": "Untitled",
+       "state_json": "{\"topic\": {\"current\": \"Capacity planning\"}}"
+      },
+      {
+       "id": "m_transcript",
+       "title": "Sync",
+       "segments": [
+        "quarterly CAPACITY planning",
+        "x"
+       ]
+      },
+      {
+       "id": "m_date",
+       "title": "Dated",
+       "started_at": "2026-02-14T09:00:00+00:00",
+       "status": "active"
+      }
+     ]
+    ],
+    "result": [
+     "m_budget"
+    ]
+   },
+   {
+    "args": [
+     "review",
+     [
+      {
+       "id": "m_percent",
+       "title": "100% done"
+      },
+      {
+       "id": "m_plain",
+       "title": "100 percent"
+      },
+      {
+       "id": "m_under",
+       "title": "a_b test"
+      },
+      {
+       "id": "m_other",
+       "title": "aXb test"
+      },
+      {
+       "id": "m_slash",
+       "title": "back\\slash"
+      },
+      {
+       "id": "m_budget",
+       "title": "Budget Review",
+       "status": "failed"
+      },
+      {
+       "id": "m_ecole",
+       "title": "École visit"
+      },
+      {
+       "id": "m_state",
+       "title": "Untitled",
+       "state_json": "{\"topic\": {\"current\": \"Capacity planning\"}}"
+      },
+      {
+       "id": "m_transcript",
+       "title": "Sync",
+       "segments": [
+        "quarterly CAPACITY planning",
+        "x"
+       ]
+      },
+      {
+       "id": "m_date",
+       "title": "Dated",
+       "started_at": "2026-02-14T09:00:00+00:00",
+       "status": "active"
+      }
+     ]
+    ],
+    "result": [
+     "m_budget"
+    ]
+   },
+   {
+    "args": [
+     "école",
+     [
+      {
+       "id": "m_percent",
+       "title": "100% done"
+      },
+      {
+       "id": "m_plain",
+       "title": "100 percent"
+      },
+      {
+       "id": "m_under",
+       "title": "a_b test"
+      },
+      {
+       "id": "m_other",
+       "title": "aXb test"
+      },
+      {
+       "id": "m_slash",
+       "title": "back\\slash"
+      },
+      {
+       "id": "m_budget",
+       "title": "Budget Review",
+       "status": "failed"
+      },
+      {
+       "id": "m_ecole",
+       "title": "École visit"
+      },
+      {
+       "id": "m_state",
+       "title": "Untitled",
+       "state_json": "{\"topic\": {\"current\": \"Capacity planning\"}}"
+      },
+      {
+       "id": "m_transcript",
+       "title": "Sync",
+       "segments": [
+        "quarterly CAPACITY planning",
+        "x"
+       ]
+      },
+      {
+       "id": "m_date",
+       "title": "Dated",
+       "started_at": "2026-02-14T09:00:00+00:00",
+       "status": "active"
+      }
+     ]
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     "École",
+     [
+      {
+       "id": "m_percent",
+       "title": "100% done"
+      },
+      {
+       "id": "m_plain",
+       "title": "100 percent"
+      },
+      {
+       "id": "m_under",
+       "title": "a_b test"
+      },
+      {
+       "id": "m_other",
+       "title": "aXb test"
+      },
+      {
+       "id": "m_slash",
+       "title": "back\\slash"
+      },
+      {
+       "id": "m_budget",
+       "title": "Budget Review",
+       "status": "failed"
+      },
+      {
+       "id": "m_ecole",
+       "title": "École visit"
+      },
+      {
+       "id": "m_state",
+       "title": "Untitled",
+       "state_json": "{\"topic\": {\"current\": \"Capacity planning\"}}"
+      },
+      {
+       "id": "m_transcript",
+       "title": "Sync",
+       "segments": [
+        "quarterly CAPACITY planning",
+        "x"
+       ]
+      },
+      {
+       "id": "m_date",
+       "title": "Dated",
+       "started_at": "2026-02-14T09:00:00+00:00",
+       "status": "active"
+      }
+     ]
+    ],
+    "result": [
+     "m_ecole"
+    ]
+   },
+   {
+    "args": [
+     "capacity",
+     [
+      {
+       "id": "m_percent",
+       "title": "100% done"
+      },
+      {
+       "id": "m_plain",
+       "title": "100 percent"
+      },
+      {
+       "id": "m_under",
+       "title": "a_b test"
+      },
+      {
+       "id": "m_other",
+       "title": "aXb test"
+      },
+      {
+       "id": "m_slash",
+       "title": "back\\slash"
+      },
+      {
+       "id": "m_budget",
+       "title": "Budget Review",
+       "status": "failed"
+      },
+      {
+       "id": "m_ecole",
+       "title": "École visit"
+      },
+      {
+       "id": "m_state",
+       "title": "Untitled",
+       "state_json": "{\"topic\": {\"current\": \"Capacity planning\"}}"
+      },
+      {
+       "id": "m_transcript",
+       "title": "Sync",
+       "segments": [
+        "quarterly CAPACITY planning",
+        "x"
+       ]
+      },
+      {
+       "id": "m_date",
+       "title": "Dated",
+       "started_at": "2026-02-14T09:00:00+00:00",
+       "status": "active"
+      }
+     ]
+    ],
+    "result": [
+     "m_state",
+     "m_transcript"
+    ]
+   },
+   {
+    "args": [
+     "planning",
+     [
+      {
+       "id": "m_percent",
+       "title": "100% done"
+      },
+      {
+       "id": "m_plain",
+       "title": "100 percent"
+      },
+      {
+       "id": "m_under",
+       "title": "a_b test"
+      },
+      {
+       "id": "m_other",
+       "title": "aXb test"
+      },
+      {
+       "id": "m_slash",
+       "title": "back\\slash"
+      },
+      {
+       "id": "m_budget",
+       "title": "Budget Review",
+       "status": "failed"
+      },
+      {
+       "id": "m_ecole",
+       "title": "École visit"
+      },
+      {
+       "id": "m_state",
+       "title": "Untitled",
+       "state_json": "{\"topic\": {\"current\": \"Capacity planning\"}}"
+      },
+      {
+       "id": "m_transcript",
+       "title": "Sync",
+       "segments": [
+        "quarterly CAPACITY planning",
+        "x"
+       ]
+      },
+      {
+       "id": "m_date",
+       "title": "Dated",
+       "started_at": "2026-02-14T09:00:00+00:00",
+       "status": "active"
+      }
+     ]
+    ],
+    "result": [
+     "m_state",
+     "m_transcript"
+    ]
+   },
+   {
+    "args": [
+     "2026-02",
+     [
+      {
+       "id": "m_percent",
+       "title": "100% done"
+      },
+      {
+       "id": "m_plain",
+       "title": "100 percent"
+      },
+      {
+       "id": "m_under",
+       "title": "a_b test"
+      },
+      {
+       "id": "m_other",
+       "title": "aXb test"
+      },
+      {
+       "id": "m_slash",
+       "title": "back\\slash"
+      },
+      {
+       "id": "m_budget",
+       "title": "Budget Review",
+       "status": "failed"
+      },
+      {
+       "id": "m_ecole",
+       "title": "École visit"
+      },
+      {
+       "id": "m_state",
+       "title": "Untitled",
+       "state_json": "{\"topic\": {\"current\": \"Capacity planning\"}}"
+      },
+      {
+       "id": "m_transcript",
+       "title": "Sync",
+       "segments": [
+        "quarterly CAPACITY planning",
+        "x"
+       ]
+      },
+      {
+       "id": "m_date",
+       "title": "Dated",
+       "started_at": "2026-02-14T09:00:00+00:00",
+       "status": "active"
+      }
+     ]
+    ],
+    "result": [
+     "m_date"
+    ]
+   },
+   {
+    "args": [
+     "failed",
+     [
+      {
+       "id": "m_percent",
+       "title": "100% done"
+      },
+      {
+       "id": "m_plain",
+       "title": "100 percent"
+      },
+      {
+       "id": "m_under",
+       "title": "a_b test"
+      },
+      {
+       "id": "m_other",
+       "title": "aXb test"
+      },
+      {
+       "id": "m_slash",
+       "title": "back\\slash"
+      },
+      {
+       "id": "m_budget",
+       "title": "Budget Review",
+       "status": "failed"
+      },
+      {
+       "id": "m_ecole",
+       "title": "École visit"
+      },
+      {
+       "id": "m_state",
+       "title": "Untitled",
+       "state_json": "{\"topic\": {\"current\": \"Capacity planning\"}}"
+      },
+      {
+       "id": "m_transcript",
+       "title": "Sync",
+       "segments": [
+        "quarterly CAPACITY planning",
+        "x"
+       ]
+      },
+      {
+       "id": "m_date",
+       "title": "Dated",
+       "started_at": "2026-02-14T09:00:00+00:00",
+       "status": "active"
+      }
+     ]
+    ],
+    "result": [
+     "m_budget"
+    ]
+   },
+   {
+    "args": [
+     "active",
+     [
+      {
+       "id": "m_percent",
+       "title": "100% done"
+      },
+      {
+       "id": "m_plain",
+       "title": "100 percent"
+      },
+      {
+       "id": "m_under",
+       "title": "a_b test"
+      },
+      {
+       "id": "m_other",
+       "title": "aXb test"
+      },
+      {
+       "id": "m_slash",
+       "title": "back\\slash"
+      },
+      {
+       "id": "m_budget",
+       "title": "Budget Review",
+       "status": "failed"
+      },
+      {
+       "id": "m_ecole",
+       "title": "École visit"
+      },
+      {
+       "id": "m_state",
+       "title": "Untitled",
+       "state_json": "{\"topic\": {\"current\": \"Capacity planning\"}}"
+      },
+      {
+       "id": "m_transcript",
+       "title": "Sync",
+       "segments": [
+        "quarterly CAPACITY planning",
+        "x"
+       ]
+      },
+      {
+       "id": "m_date",
+       "title": "Dated",
+       "started_at": "2026-02-14T09:00:00+00:00",
+       "status": "active"
+      }
+     ]
+    ],
+    "result": [
+     "m_date"
+    ]
+   },
+   {
+    "args": [
+     "Sync",
+     [
+      {
+       "id": "m_percent",
+       "title": "100% done"
+      },
+      {
+       "id": "m_plain",
+       "title": "100 percent"
+      },
+      {
+       "id": "m_under",
+       "title": "a_b test"
+      },
+      {
+       "id": "m_other",
+       "title": "aXb test"
+      },
+      {
+       "id": "m_slash",
+       "title": "back\\slash"
+      },
+      {
+       "id": "m_budget",
+       "title": "Budget Review",
+       "status": "failed"
+      },
+      {
+       "id": "m_ecole",
+       "title": "École visit"
+      },
+      {
+       "id": "m_state",
+       "title": "Untitled",
+       "state_json": "{\"topic\": {\"current\": \"Capacity planning\"}}"
+      },
+      {
+       "id": "m_transcript",
+       "title": "Sync",
+       "segments": [
+        "quarterly CAPACITY planning",
+        "x"
+       ]
+      },
+      {
+       "id": "m_date",
+       "title": "Dated",
+       "started_at": "2026-02-14T09:00:00+00:00",
+       "status": "active"
+      }
+     ]
+    ],
+    "result": [
+     "m_transcript"
+    ]
+   },
+   {
+    "args": [
+     "nothing matches",
+     [
+      {
+       "id": "m_percent",
+       "title": "100% done"
+      },
+      {
+       "id": "m_plain",
+       "title": "100 percent"
+      },
+      {
+       "id": "m_under",
+       "title": "a_b test"
+      },
+      {
+       "id": "m_other",
+       "title": "aXb test"
+      },
+      {
+       "id": "m_slash",
+       "title": "back\\slash"
+      },
+      {
+       "id": "m_budget",
+       "title": "Budget Review",
+       "status": "failed"
+      },
+      {
+       "id": "m_ecole",
+       "title": "École visit"
+      },
+      {
+       "id": "m_state",
+       "title": "Untitled",
+       "state_json": "{\"topic\": {\"current\": \"Capacity planning\"}}"
+      },
+      {
+       "id": "m_transcript",
+       "title": "Sync",
+       "segments": [
+        "quarterly CAPACITY planning",
+        "x"
+       ]
+      },
+      {
+       "id": "m_date",
+       "title": "Dated",
+       "started_at": "2026-02-14T09:00:00+00:00",
+       "status": "active"
+      }
+     ]
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     "\"quoted\"",
+     [
+      {
+       "id": "m_percent",
+       "title": "100% done"
+      },
+      {
+       "id": "m_plain",
+       "title": "100 percent"
+      },
+      {
+       "id": "m_under",
+       "title": "a_b test"
+      },
+      {
+       "id": "m_other",
+       "title": "aXb test"
+      },
+      {
+       "id": "m_slash",
+       "title": "back\\slash"
+      },
+      {
+       "id": "m_budget",
+       "title": "Budget Review",
+       "status": "failed"
+      },
+      {
+       "id": "m_ecole",
+       "title": "École visit"
+      },
+      {
+       "id": "m_state",
+       "title": "Untitled",
+       "state_json": "{\"topic\": {\"current\": \"Capacity planning\"}}"
+      },
+      {
+       "id": "m_transcript",
+       "title": "Sync",
+       "segments": [
+        "quarterly CAPACITY planning",
+        "x"
+       ]
+      },
+      {
+       "id": "m_date",
+       "title": "Dated",
+       "started_at": "2026-02-14T09:00:00+00:00",
+       "status": "active"
+      }
+     ]
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     "m_percent",
+     [
+      {
+       "id": "m_percent",
+       "title": "100% done"
+      },
+      {
+       "id": "m_plain",
+       "title": "100 percent"
+      },
+      {
+       "id": "m_under",
+       "title": "a_b test"
+      },
+      {
+       "id": "m_other",
+       "title": "aXb test"
+      },
+      {
+       "id": "m_slash",
+       "title": "back\\slash"
+      },
+      {
+       "id": "m_budget",
+       "title": "Budget Review",
+       "status": "failed"
+      },
+      {
+       "id": "m_ecole",
+       "title": "École visit"
+      },
+      {
+       "id": "m_state",
+       "title": "Untitled",
+       "state_json": "{\"topic\": {\"current\": \"Capacity planning\"}}"
+      },
+      {
+       "id": "m_transcript",
+       "title": "Sync",
+       "segments": [
+        "quarterly CAPACITY planning",
+        "x"
+       ]
+      },
+      {
+       "id": "m_date",
+       "title": "Dated",
+       "started_at": "2026-02-14T09:00:00+00:00",
+       "status": "active"
+      }
+     ]
+    ],
+    "result": []
+   }
+  ]
+ }
+}

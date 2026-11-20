@@ -1,0 +1,30 @@
+{
+ "source": "Hand-written. The tool turn of sidecar/src/pi-integration.test.ts:38-61 (reasoning item, a function_call added with empty arguments, response.function_call_arguments.delta, the item done) with the arguments split in two deltas; the reply equals tests/fixtures/llm/generation/replies.json 'responses_tool'.",
+ "protocol": "responses",
+ "equivalent": "responses_tool",
+ "frames": [
+  {"type": "response.created", "response": {"id": "resp_1", "object": "response", "created_at": 1, "status": "in_progress", "model": "synthetic", "output": []}},
+  {"type": "response.output_item.added", "output_index": 0, "item": {"type": "reasoning", "id": "rs_1", "summary": [], "encrypted_content": "signed-reasoning"}},
+  {"type": "response.output_item.done", "output_index": 0, "item": {"type": "reasoning", "id": "rs_1", "summary": [], "encrypted_content": "signed-reasoning"}},
+  {"type": "response.output_item.added", "output_index": 1, "item": {"type": "function_call", "id": "fc_1", "call_id": "call_1", "name": "search_context_files", "arguments": "", "status": "in_progress"}},
+  {"type": "response.function_call_arguments.delta", "output_index": 1, "item_id": "fc_1", "delta": "{\"query\":"},
+  {"type": "response.function_call_arguments.delta", "output_index": 1, "item_id": "fc_1", "delta": "\"budget\"}"},
+  {"type": "response.output_item.done", "output_index": 1, "item": {"type": "function_call", "id": "fc_1", "call_id": "call_1", "name": "search_context_files", "arguments": "{\"query\":\"budget\"}"}},
+  {"type": "response.completed", "response": {"id": "resp_1", "status": "completed", "output": [{"type": "reasoning", "id": "rs_1", "summary": [], "encrypted_content": "signed-reasoning"}, {"type": "function_call", "id": "fc_1", "call_id": "call_1", "name": "search_context_files", "arguments": "{\"query\":\"budget\"}"}]}}
+ ],
+ "events": [
+  ["thinking_start"],
+  ["thinking_end"],
+  ["toolcall_start", "", "call_1", "search_context_files"],
+  ["toolcall_delta", "{\"query\":", "call_1", "search_context_files"],
+  ["toolcall_delta", "\"budget\"}", "call_1", "search_context_files"],
+  ["toolcall_end", "", "call_1", "search_context_files"]
+ ],
+ "result": {
+  "text": "",
+  "tool_calls": [{"id": "call_1", "name": "search_context_files", "arguments": "{\"query\":\"budget\"}"}],
+  "assistant_message": {"role": "assistant", "content": "", "tool_calls": [{"id": "call_1", "type": "function", "function": {"name": "search_context_files", "arguments": "{\"query\":\"budget\"}"}}], "_responses": [{"type": "reasoning", "id": "rs_1", "summary": [], "encrypted_content": "signed-reasoning"}, {"type": "function_call", "id": "fc_1", "call_id": "call_1", "name": "search_context_files", "arguments": "{\"query\":\"budget\"}"}]},
+  "usage": null,
+  "finish_reason": "completed"
+ }
+}

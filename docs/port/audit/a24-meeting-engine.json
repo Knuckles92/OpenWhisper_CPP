@@ -1,0 +1,799 @@
+{
+ "area": "a24-meeting-engine",
+ "package": "M10 sweep (auditor AU17)",
+ "features": {
+  "A24-01": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/engine.cpp",
+    "src/meeting/detail/engine_start.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_audit_a24.cpp",
+    "tests/meeting/test_engine_startup.cpp"
+   ],
+   "note": "Code matched engine.py start; nothing pinned the row. Added 'a24 audit: start writes OpenWhisper's meeting row, spool folder and Me' (status active, ended_at null, paused_total_s 0, app_pid, app_heartbeat_at = started_at, 43-character token pair, spool <root>/<id[:12]>, the Me participant of kind me, finalization disabled 'AI insights are off for this meeting.', the four result keys). The refusal 'Meeting engine is already active or finished' is pinned by 'a start after End or while running is refused'. The row's cloud_enabled is the option AND the provider being available (M7 change 2 seam). Fast features start on the processing worker after the ASR rather than before the clock (engine.py start calls _start_fast_features first); they gate on transcript, so nothing is lost."
+  },
+  "A24-02": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/engine_start.cpp",
+    "src/meeting/detail/engine_asr.cpp",
+    "src/meeting/detail/engine_diarize.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_startup.cpp",
+    "tests/meeting/test_engine_remote_route.cpp"
+   ],
+   "note": "Dashboard plus one source required: 'test_server_failure_aborts_and_discards_empty_meeting' ('Meeting dashboard could not start: ...'), 'test_zero_capture_sources_fail_before_dashboard_start', 'test_missing_loopback_still_allows_mic_only_start', 'test_required_system_audio_fails_when_loopback_missing'; ASR, diarizer and intelligence on 'fv-meeting-start' with the diarizer on its own thread: 'test_capture_dashboard_and_ordered_replay_do_not_wait_for_model', 'test_asr_and_intelligence_run_while_speaker_model_initializes'. For a remote meeting the runtime confirms host and model before capture (difference a25-remote-meeting-consent), so the engine starts its ASR after capture: 'test_engine_persists_actual_remote_route_before_capture'."
+  },
+  "A24-03": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/engine_start.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_audit_a24.cpp",
+    "tests/meeting/test_engine_startup.cpp"
+   ],
+   "note": "Empty aborted start discarded: 'test_server_failure_aborts_and_discards_empty_meeting'. The branch with artifacts was not pinned; added 'a24 audit: an aborted start that captured audio keeps a failed meeting' (row failed with ended_at, state failed, finalization unavailable 'Meeting failed to start before final insights could run.')."
+  },
+  "A24-04": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/engine_end.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_audit_a24.cpp",
+    "tests/meeting/test_engine_startup.cpp"
+   ],
+   "note": "'pause and resume freeze the clock and the status until End claims the meeting' pins the happy path and the no-op after End. Added 'a24 audit: a pause or resume that cannot be saved rolls the clock back' for 'Could not persist paused meeting state' / 'Could not persist resumed meeting state' with the clock rolled back."
+  },
+  "A24-05": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/meeting_clock.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_meeting_clock.cpp"
+   ],
+   "note": "All seven cases of test_meeting_clock.py over a FakeClock, including the pause-instant clamp and resume_from_recovery."
+  },
+  "A24-06": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/engine_start.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_events.cpp",
+    "tests/meeting/test_fast_features.cpp"
+   ],
+   "note": "'the heartbeat writes the process id every ten seconds on the meeting strand until End'; fast-feature retry and highlight status from the heartbeat: 'heartbeat retries workers and updates the highlight status without new speech'. Warn-once is FailureLog (tests/meeting_capture/test_failure_log.cpp)."
+  },
+  "A24-07": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/engine.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_audit_a24.cpp",
+    "tests/meeting/test_engine_events.cpp"
+   ],
+   "note": "Added 'a24 audit: the status event and its dashboard copy carry the same fields' (the field set; `note` only on the listener copy, also pinned in test_engine_events). FioriVoce adds cloud_enabled to both copies; the runtime keeps the desktop AI insights switch in step from it (src/meeting/detail/runtime_bridge.cpp), part of difference a04-meeting-insights-per-meeting."
+  },
+  "A24-08": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/engine.cpp",
+    "src/meeting/detail/engine_start.cpp",
+    "src/meeting/detail/engine_asr.cpp",
+    "src/meeting/detail/engine_end.cpp",
+    "src/meeting/detail/live_intelligence.cpp",
+    "src/meeting/detail/voice_control.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_events.cpp",
+    "tests/meeting/test_engine_end.cpp",
+    "tests/meeting/test_engine_startup.cpp",
+    "tests/meeting/test_fast_features.cpp"
+   ],
+   "note": "Kinds status, segments, server_started, error (processing_unavailable, asr_unavailable, asr_chunk_failed, end_failed; capture_incomplete from the capture sink), ended, intelligence, asr_released, background_ready, voice_feedback, voice_command are all emitted. Swallowed listener exceptions: 'a listener that throws is logged and the other listeners still hear every event'. The voice_feedback broadcast gap is A30-36 (being fixed)."
+  },
+  "A24-09": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/engine_asr.cpp",
+    "src/meeting/engine.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_audit_a24.cpp",
+    "tests/meeting/test_engine_startup.cpp"
+   ],
+   "note": "Deferred load, cancel by End and ordered replay: 'test_capture_dashboard_and_ordered_replay_do_not_wait_for_model', 'test_end_cancels_loading_and_leaves_pending_audio_recoverable', 'test_committed_replay_frontier_survives_asr_startup'. Added 'a24 audit: an unavailable meeting model leaves the audio pending and says so' for the asr_unavailable sentence. Adapted: the language is passed as \"auto\" (M7 open item amendment 17), term rules are not passed (A24-54)."
+  },
+  "A24-10": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/engine_asr.cpp",
+    "src/meeting/detail/engine_diarize.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_capture.cpp",
+    "tests/meeting/test_engine_startup.cpp"
+   ],
+   "note": "'live chunks label the microphone Me and system audio from the diarizer' (channel/diarizer sources, final speech_preview frontier, segments event, no republish of a committed chunk); 'test_relabel_batch_skips_segments_not_yet_committed'. Voice-command observe: tests/meeting/test_fast_features.cpp."
+  },
+  "A24-11": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/engine_start.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_remote_route.cpp"
+   ],
+   "note": "MeetingEngine::open_store seeds the remote speech object with message 'Transcribing on <host_name>' (engine.py _record_remote_route); asserted in test_engine_persists_actual_remote_route_before_capture. The first status note is left as it was (M3 is editing that code)."
+  },
+  "A24-12": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/engine_asr.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_startup.cpp"
+   ],
+   "note": "'test_engine_preview_feeds_listener_without_committing_transcript' (only while active and not paused), 'test_committed_replay_frontier_survives_asr_startup' (nothing behind the committed frontier)."
+  },
+  "A24-13": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/engine_diarize.cpp",
+    "src/meeting/engine.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_capture.cpp",
+    "tests/meeting/test_engine_startup.cpp"
+   ],
+   "note": "Reasons: 'test_diarization_reason_follows_the_outcome', 'without a usable speaker model the reason names the cause', 'test_failed_model_download_reason_reaches_the_dashboard' (resolver sentence wins), 'test_degradation_flips_availability_once' (latched), demo reason in 'test_demo_mode_skips_live_audio_and_seeds_transcript'; relabels and pins: 'test_pinned_segments_are_protected_from_the_diarizer', 'test_pin_still_works_after_degradation'."
+  },
+  "A24-14": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/live_intelligence.cpp",
+    "src/meeting/meeting_intelligence.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_intelligence.cpp"
+   ],
+   "note": "Generation guard and late initializers: 'test_end_cancels_initializing_agent_without_late_online_status', 'test_revoked_initializer_cannot_adopt_or_overwrite_new_consent'; unusable core sentence: 'test_unhealthy_core_reports_offline_and_meeting_still_starts'; 'Meeting intelligence failed to start: ...': 'test_missing_pi_keeps_recording_without_starting_an_api_fallback'; online -> pending: 'test_healthy_core_reports_online'. The core is the native agent loop (difference a24-native-agent-cores)."
+  },
+  "A24-15": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/live_intelligence.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_intelligence.cpp"
+   ],
+   "note": "'test_scheduler_health_signal_is_wired_and_propagates' ('Checkpoints failed repeatedly; continuing transcript-only. Last error: ...'), 'test_rejected_key_is_named_in_the_offline_message' (the 401/403 sentence); the 200-character cut and regex are engine.py's."
+  },
+  "A24-16": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/live_intelligence.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_audit_fixes.cpp",
+    "tests/meeting/test_engine_end.cpp"
+   ],
+   "note": "start_live_intelligence writes the backup destination (agent_provider, agent_model, agent_endpoint_json) to the meeting row before the backup core is created, as engine.py _switch_to_backup_agent (a failed write is logged); live_approved_route_ still moves only once the backup is up. \"a backup agent is recorded on the meeting before it is tried\" pins a backup that fails to start; the existing fallback test still pins the successful takeover."
+  },
+  "A24-17": {
+   "status": "difference",
+   "difference": "a24-insights-on-after-approval"
+  },
+  "A24-18": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/live_intelligence.cpp",
+    "src/meeting/engine.h"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_audit_fixes.cpp",
+    "tests/meeting/test_fast_features.cpp"
+   ],
+   "note": "The activity callback drops a tick when the same (kind, tool) was published less than 1 s ago on the engine clock steady time (AGENT_ACTIVITY_MIN_INTERVAL_S), and fills kind \"update\" and ts (utc now) when empty. \"agent activity publishes one tick per kind and tool a second\" pins it on a FakeClock; \"a host hello carries the last 50 agent ticks\" now feeds a distinct tool per tick and keeps its cap-of-50 assertions."
+  },
+  "A24-19": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/engine.h",
+    "src/meeting/detail/live_intelligence.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_intelligence.cpp"
+   ],
+   "note": "'test_live_writes_follow_the_engine_gate'; writes_allowed also requires the live generation's token (late cores cannot write)."
+  },
+  "A24-20": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/engine_end.cpp",
+    "src/meeting/engine.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_end.cpp",
+    "tests/meeting/test_engine_startup.cpp",
+    "tests/meeting/test_engine_intelligence.cpp"
+   ],
+   "note": "Order and budgets as engine.py (END_DRAIN_TIMEOUT_S 300, SHUTDOWN 30, START_WAIT 120): 'test_end_racing_start_waits_for_the_pipeline', 'test_double_end_reuses_the_same_worker', 'test_normal_end_emits_ended_and_marks_the_meeting' (meeting_ended before status), 'test_asr_released_follows_the_stop_and_trails_ended', 'test_background_ready_waits_for_offline_pass', 'test_ended_precedes_slow_offline_pass', 'test_end_event_precedes_slow_consolidation'; 'ending' first in tests/meeting/test_audit_a24.cpp. The scheduler's prepare_for_end and the core shutdown happen when the drain stops the live agent (difference a24-native-agent-cores)."
+  },
+  "A24-21": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/engine_end.cpp",
+    "src/meeting/end_run.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_end.cpp",
+    "tests/meeting/test_end_run.cpp",
+    "tests/meeting/test_engine_startup.cpp"
+   ],
+   "note": "'test_spool_loss_is_visible_and_never_ends_as_complete' (capture integrity -> needs_recovery), 'test_end_cancels_loading_and_leaves_pending_audio_recoverable' (unfinished -> needs_recovery), 'an incomplete meeting without redecode waits for recovery' (RECOVERY_PENDING_MESSAGE). A failed count reads as 1 (unfinished_chunks_after_drain), read not pinned."
+  },
+  "A24-22": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/end_run.cpp",
+    "src/meeting/detail/engine_end.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_end_run.cpp",
+    "tests/meeting/test_golden.cpp",
+    "tests/meeting/test_engine_end.cpp",
+    "tests/meeting/test_engine_intelligence.cpp"
+   ],
+   "note": "EndRun.plan replayed by the golden 'golden meeting.end_run'; run_cloud needs the live agent online and healthy at End ('End runs no final insights when meeting intelligence never came online', 'test_end_skips_polish_when_disabled', 'test_end_skips_report_when_disabled', 'test_local_backend_omits_speaker_step')."
+  },
+  "A24-23": {
+   "status": "difference",
+   "difference": "a24-redecode-parakeet-wording"
+  },
+  "A24-24": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/end_run.cpp",
+    "src/meeting/finalization.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_end_run.cpp",
+    "tests/meeting/test_finalization.cpp",
+    "tests/meeting/test_golden.cpp",
+    "tests/meeting/test_engine_end.cpp"
+   ],
+   "note": "announce and the terminal sentences: test_end_run.cpp (all 16 cases), test_finalization.cpp 'failure summary preserves reason and multiple failed stages', 'ready messages name only what was found', goldens 'golden meeting.finalization summary and sentences' and 'golden meeting.end_run'; offline wording: 'End runs no final insights when meeting intelligence never came online'."
+  },
+  "A24-25": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/engine.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_audit_a24.cpp",
+    "tests/meeting/test_engine_startup.cpp"
+   ],
+   "note": "'test_set_finalization_preserves_card_deferred', 'test_terminal_finalization_adopts_topic_as_title', 'publish_finalization persists and shows a snapshot computed elsewhere'. Added 'a24 audit: a terminal finalization that cannot be saved is shown, not claimed' for the ephemeral status (terminal only, saved state unchanged)."
+  },
+  "A24-26": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/engine_end.cpp",
+    "src/meeting/refinalize.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_end.cpp",
+    "tests/meeting/test_end_run.cpp"
+   ],
+   "note": "'test_cloud_off_replaces_transcript_when_redecode_enabled', 'test_redecode_labels_speakers_with_the_meetings_own_diarizer' (segments with removed_ids), 'test_sparse_redecode_explains_preserved_transcript', 'a failed redecode keeps the live transcript' ('Re-decoding failed; kept live transcript'). Parakeet windows instead of Whisper's full-session decode (map, Engine-specific code)."
+  },
+  "A24-27": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/finalization.cpp",
+    "src/meeting/refinalize.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_golden_recovery.cpp",
+    "tests/meeting/test_refinalize.cpp"
+   ],
+   "note": "'golden meeting.refinalize _coverage_refusal', 'TestRedeocdeGuard::test_sparse_redecode_keeps_draft' ('Re-decoding produced no transcript.' and the 80% sentence)."
+  },
+  "A24-28": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/refinalize.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_refinalize.cpp",
+    "tests/meeting/test_golden_recovery.cpp"
+   ],
+   "note": "'TestRedeocdeGuard::test_successful_redecode_replaces_draft', '..._redecode_rebuilds_repairs_from_the_final_transcript', 'TestRedecodeStrip::*', 'test_redecode_cleanup_preserves_spoken_notes', 'a redecode labels system audio from the whole session through a stored speaker', golden strip_unevidenced_proposed."
+  },
+  "A24-29": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/finalization.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_finalization.cpp",
+    "tests/meeting/test_golden.cpp",
+    "tests/meeting/test_engine_end.cpp"
+   ],
+   "note": "Gate order, retirement date 2027-02-26, consent before the key, key hidden: test_finalization.cpp (six gate cases), 'golden meeting.finalization speaker_pass_gate', 'test_openai_without_consent_skips_honestly', 'test_openai_model_retired_early_is_skipped'. What happens after an open gate is difference a24-speaker-pass-desktop-only."
+  },
+  "A24-30": {
+   "status": "difference",
+   "difference": "a24-speaker-pass-desktop-only"
+  },
+  "A24-31": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/finalization.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_polish_blocks.cpp",
+    "tests/meeting/test_golden.cpp",
+    "tests/meeting/test_refinalize_intelligence.cpp"
+   ],
+   "note": "polish_blocks: test_polish_blocks.cpp (5 cases) and 'golden meeting.finalization polish_blocks'; 180 s per block and stop at the first failed block: 'TestStepSelection::test_polish_retry_bounds_requests_and_covers_the_recording', 'test_later_polish_block_failure_is_not_reported_as_success'. The LLM side is the native loop (difference a24-native-agent-cores)."
+  },
+  "A24-32": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/finalization.h"
+   ],
+   "tests": [
+    "tests/meeting/test_finalization.cpp"
+   ],
+   "note": "'returns the result', 'a raising call is a failed result', 'timeout runs the handler before cancel' (on_timeout before cancel, kCancelGrace 5 s)."
+  },
+  "A24-33": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/finalization.cpp",
+    "src/meeting/detail/engine_end.cpp",
+    "src/meeting/refinalize.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_golden.cpp",
+    "tests/meeting/test_engine_end.cpp"
+   ],
+   "note": "'golden meeting.finalization summary and sentences' (counts, removed/dismissed excluded, 'Saved {segments} segments ({words} words)'); live duration from the clock: 'test_summary_stats_use_the_clock_and_skip_removed_items'."
+  },
+  "A24-34": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/engine_end.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_end.cpp"
+   ],
+   "note": "'test_end_failure_still_emits_ended' (ended with error, needs_recovery, finalization 'Meeting end failed before final insights could finish: ...', end_failed, one meeting_ended), 'test_failure_after_terminal_write_keeps_the_meeting_ended'. The cleanup order is A24-59."
+  },
+  "A24-35": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/engine_end.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_audit_a24.cpp",
+    "tests/meeting/test_engine_end.cpp"
+   ],
+   "note": "'shutdown marks an interrupted finalization and stops the dashboard' left the three sentences unpinned; added 'a24 audit: shutdown settles a finalization still pending or running' (running -> failed 'Final insights were interrupted by application shutdown.', pending -> unavailable 'Final insights did not run before shutdown.', cloud off -> disabled). Join budget 30+180+900+60 s is in MeetingEngine::shutdown, read not timed."
+  },
+  "A24-36": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/recovery.cpp",
+    "src/meeting/win/pid_alive.cpp",
+    "src/meeting/posix/pid_alive.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_recovery.cpp",
+    "tests/meeting/test_golden_recovery.cpp"
+   ],
+   "note": "'test_is_session_dead_uses_heartbeat_then_pid', 'test_pid_alive_rejects_missing_and_dead_pids', 'golden meeting.recovery is_session_dead'. The Windows probe (OpenProcess PROCESS_QUERY_LIMITED_INFORMATION, ERROR_ACCESS_DENIED alive, STILL_ACTIVE) is in win/pid_alive.cpp, which does not compile here: on this machine those tests ran against the POSIX kill(pid, 0) half."
+  },
+  "A24-37": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/recovery.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_recovery.cpp"
+   ],
+   "note": "'test_find_recoverable_meetings_keeps_only_dead_sessions', '..._skips_deferred_cards', '..._raises_on_query_failure', '..._raises_on_reconciliation_inventory_failure', 'test_startup_scan_discovers_terminal_meeting_with_stranded_wav'."
+  },
+  "A24-38": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/recovery.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_recovery.cpp",
+    "tests/meeting/test_recovery_fixture.cpp"
+   ],
+   "note": "'test_reconcile_registers_orphan_wav_once', 'test_reconcile_sidecar_after_db_commit_does_not_duplicate', the reference crash spool in test_recovery_fixture.cpp."
+  },
+  "A24-39": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/recovery.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_recovery.cpp",
+    "tests/meeting/test_golden_recovery.cpp"
+   ],
+   "note": "'golden meeting.recovery _recover_pcm_tails', 'test_reconcile_materializes_only_unregistered_pcm_tail', 'test_reconcile_ignores_raw_file_already_converted_into_prefix'."
+  },
+  "A24-40": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/recovery.cpp",
+    "src/meeting/detail/runtime_recovery.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_recovery.cpp",
+    "tests/meeting/test_golden_recovery.cpp",
+    "tests/meeting/test_runtime_recovery.cpp"
+   ],
+   "note": "finalize_meeting branches (test_recovery.cpp 'test_finalize_meeting_*', lease cases), _mark_ended golden; app messages: 'test_finalize_recovered_passes_meeting_dict' (finalized), 'test_finalize_recovered_keeps_incomplete_capture_warning', 'test_finalize_recovered_reports_failure'. Model lease adapted to the shared Parakeet engine (A24-46)."
+  },
+  "A24-41": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/runtime_recovery.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_recovery.cpp"
+   ],
+   "note": "'test_recovered_follow_up_matches_live_end_settings', 'test_finalize_recovered_hands_off_to_the_retry_pipeline'."
+  },
+  "A24-42": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/meeting_intelligence.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_refinalize_intelligence.cpp"
+   ],
+   "note": "Lead decision: a re-run that carries a fresh desktop approval (RerunContext approved_route plus its saved_destination_allowed permit, set by MeetingRuntime::rerun_finalization and post_meeting_passes after approve_saved_agent) runs whatever the stored cloud_enabled says, as rerun_polish and rerun_insights do. Without one (End, or a caller with no approval flow) the stored toggle still refuses with \"AI insights are off for this meeting.\": there it is the only consent between the request and a model (the runtime paths without approval also pass a permit that is always false, which refuses earlier with \"Allow this meeting intelligence destination before continuing.\"). Pinned both ways for polish and consolidation by \"a re-run of a meeting recorded with AI insights off runs only with fresh approval\"."
+  },
+  "A24-43": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/refinalize.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_refinalize.cpp"
+   ],
+   "note": "'TestOneRunPerMeeting::test_second_concurrent_retry_is_refused' (FinalizationBusyError 'post-meeting steps are already running for this meeting'), 'test_borrowed_claim_remains_exclusive_until_caller_releases_it', 'test_borrowed_claim_survives_pipeline_failure_and_releases_idempotently'."
+  },
+  "A24-44": {
+   "status": "difference",
+   "difference": "a24-speaker-pass-desktop-only"
+  },
+  "A24-45": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/refinalize.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_refinalize.cpp"
+   ],
+   "note": "Adapted to Parakeet through SpeechService: 'TestRedecodeReleasesModel::*' (lease brackets the load, always released; the service's own missing-model sentence replaces 'The Whisper model is not available yet...'; 'The speech model failed to load.' when it gives none)."
+  },
+  "A24-46": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/model_lease.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_model_lease.cpp",
+    "tests/meeting/test_runtime_lease.cpp"
+   ],
+   "note": "'acquire_model_lease and release_model_lease never throw' and the shared/separate model cases. Routing the lease through the controller is open (A03-13, being changed now)."
+  },
+  "A24-47": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/demo_fixture.cpp",
+    "src/meeting/detail/engine_start.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_demo_fixture.cpp"
+   ],
+   "note": "Title, note, 25 turns, participants, cards and the clock re-anchor: all four cases of test_demo_fixture.cpp."
+  },
+  "A24-48": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/platform_policy.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_platform_policy.cpp",
+    "tests/meeting/test_golden.cpp"
+   ],
+   "note": "Policy as pure functions ('golden meeting.platform', the five test_meeting_unsupported_platform cases); macOS Screen Recording and Linux capture themselves are other-platform (the policy reports macOS grants as never given in this build: 'macos grants are never assumed in this build'). On this Linux machine current_platform() is Linux (setup available, system audio required)."
+  },
+  "A24-49": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/time_utils.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_time_utils.cpp",
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.time_utils.json"
+   ],
+   "note": "'golden meeting.time_utils' (every formatter, Z/offset/microsecond/legacy stamps) and the five ported test_meeting_time_utils.py cases."
+  },
+  "A24-50": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/engine.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_startup.cpp"
+   ],
+   "note": "'guests are clipped and named, and rotated links reach the listeners' (80 code points, 'Guest', rotation re-emits server_started and invalidates sockets)."
+  },
+  "A24-51": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/engine.cpp",
+    "src/meeting/detail/live_intelligence.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_audit_a24.cpp",
+    "tests/meeting/test_engine_end.cpp"
+   ],
+   "note": "Added 'a24 audit: client actions before start and note requests without AI insights' (reason 'inactive' with the op, undo empty, 'Turn on AI insights in an active meeting first.'); the live note request: 'live note requests share the approved scheduler and refuse after opt-out'. The guidance nudge (user_notes or intent changes) is MeetingEngine::notify_intelligence_guidance, the same predicate as _notify_human_guidance; read, not pinned at engine level."
+  },
+  "A24-52": {
+   "status": "difference",
+   "difference": "a24-local-fast-features"
+  },
+  "A24-53": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/voice_control.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_fast_features.cpp"
+   ],
+   "note": "request_spoken_recap asks for the note adjustment first and says \"Preparing a recap…\" only once it was accepted, with the result always after it (a completion that arrives first waits). As engine.py finished() does, a pass that fails and one that saves nothing both read \"The recap produced no saved notes. Try again from the notes request box.\" (OpenWhisper's note request completes with the failed AgentResult rather than raising); \"The recap could not finish. Try again from the notes request box.\" is only for a result that cannot be read (M4 made this Python's: the earlier port said \"could not finish\" for any failed pass, and no recorded decision kept it). The listener itself says \"Preparing a recap…\" on recognizing the command (voice_commands.py _WORKING_MESSAGES), so an offline agent shows that once and then \"Recap is unavailable while the note agent is offline.\", as in Python. Pinned by \"a spoken recap says it is preparing only once the note agent took it\" (offline, failed, empty)."
+  },
+  "A24-54": {
+   "status": "dropped",
+   "reason": "Term rules prime Whisper's text prompt; Parakeet TDT has no initial prompt (lead amendment 18, docs/port/packages/M7.md 'Changes from section 11' item 3 and its a24 scope row A24-54)."
+  },
+  "A24-55": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/engine.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_audit_a24.cpp"
+   ],
+   "note": "The pass-throughs had no engine-level test; added 'a24 audit: the transcript and delivery cursors pass through to the repository' (empty/0 before start, get_transcript with after/limit, delivery page, cursor, high water)."
+  },
+  "A24-56": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/voice_control.cpp",
+    "src/meeting/detail/engine_end.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_end.cpp"
+   ],
+   "note": "'the optional local insight review starts after the meeting is saved'. Runs only when End completed: Python's review_begin refuses any status but ended, so the gate is the same. The review judge is local only (difference a30-dashboard-local-judgments / a29-local-meeting-judgments)."
+  },
+  "A24-57": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/engine_end.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_end.cpp"
+   ],
+   "note": "'test_normal_end_emits_ended_and_marks_the_meeting' (payload, meeting_ended before status), 'test_spool_loss_is_visible_and_never_ends_as_complete' (capture_error), 'test_end_failure_still_emits_ended' (error, one meeting_ended)."
+  },
+  "A24-58": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/engine_end.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_audit_a24.cpp",
+    "tests/meeting/test_engine_end.cpp"
+   ],
+   "note": "'test_double_end_reuses_the_same_worker' pinned the second End; added 'a24 audit: End and shutdown do nothing for a meeting that never started'."
+  },
+  "A24-59": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/engine_end.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_audit_fixes.cpp",
+    "tests/meeting/test_engine_end.cpp"
+   ],
+   "note": "finish_failed_end now calls stop_live_intelligence() after revoke_agent_writes(), as engine.py _finish_failed_end calls _shutdown_agent_core. A TestHooks::before_drain hook (Python monkeypatching capture.stop) makes End fail before the drain; \"a failed End shuts the live agent down\" checks the session is detached and the core shut down once."
+  },
+  "A24-60": {
+   "status": "difference",
+   "difference": "a24-native-agent-cores"
+  },
+  "A24-61": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/engine_end.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_audit_a24.cpp"
+   ],
+   "note": "Added 'a24 audit: End shows ending before capture stops and saves the paused time' (state and last status event read 'ending' at the flush, before `ended`). A persistence failure of 'ending' is logged and End continues (mark_ending), read not pinned."
+  },
+  "A24-62": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/engine_end.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_audit_a24.cpp"
+   ],
+   "note": "Added 'a24 audit: a terminal status that cannot be saved fails the End' (store refusal raises 'Could not persist terminal meeting state', end_failed, ended with needs_recovery) and the row's status, ended_at and paused_total_s (5 s of pause) in 'a24 audit: End shows ending before capture stops and saves the paused time'."
+  },
+  "A24-63": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/engine_end.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_audit_a24.cpp"
+   ],
+   "note": "Added 'a24 audit: End repairs the live draft before any final pass' (cloud off, no re-decode: the blank topic is backfilled from the host's key point). The failure path only logs 'Immediate end-state repair failed'."
+  },
+  "A24-64": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/engine_start.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_startup.cpp"
+   ],
+   "note": "'test_demo_mode_skips_live_audio_and_seeds_transcript' (capture unavailable with the note, diarization reason, no capture/ASR/diarizer, the note on the first listener status only)."
+  },
+  "A24-65": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/engine_start.cpp",
+    "src/meeting/engine.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_startup.cpp"
+   ],
+   "note": "The capture's note goes to emit_status(note) once; listener-only delivery pinned with the demo note in 'test_demo_mode_skips_live_audio_and_seeds_transcript' and for later notes in 'the ASR's backlog and chunk failures reach the state, the listeners and the dashboard' (tests/meeting/test_engine_events.cpp)."
+  },
+  "A24-66": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/engine.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_startup.cpp"
+   ],
+   "note": "'guests are clipped and named, and rotated links reach the listeners' (EngineError 'No active meeting' for both before start, replace_tokens persisted, server_started payload, {host_url, guest_url}, invalidate_connections). The ValueError(reason or 'guest_rejected') branch is read, not pinned."
+  },
+  "A24-67": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/engine.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_startup.cpp"
+   ],
+   "note": "'host-only messages never reach a transport without host-only delivery'. A throwing broadcast is caught and logged (MeetingEngine::broadcast), read not pinned."
+  },
+  "A24-68": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/detail/live_intelligence.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_audit_fixes.cpp",
+    "tests/meeting/test_engine_end.cpp"
+   ],
+   "note": "set_cloud_enabled follows engine.py: (1) refused with \"AI insights can only be changed while the meeting is active or paused.\" once End claimed the meeting or outside active/paused; (2) enable_live_intelligence uses the same sentence for its state check (turning on through set_cloud_enabled stays refused, a24-insights-on-after-approval); (3) the change is a host set_cloud_enabled op as the Me participant (audited, a refusal throws its reason or \"cloud state update failed\"), then _stop_intelligence: intelligence_online false and the disabled finalization card; (4) the status emit after turning off is _stop_intelligence own emit, which Python makes unconditionally while insights stay off (emit_status also refreshes the live-highlights status), so it is kept. Pinned by \"AI insights change only while the meeting is active or paused\"."
+  },
+  "A24-69": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/refinalize.h",
+    "src/meeting/refinalize.cpp",
+    "src/meeting/rerun_options.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_refinalize.cpp",
+    "tests/meeting/test_rerun_options.cpp",
+    "tests/meeting/test_refinalize_intelligence.cpp"
+   ],
+   "note": "RerunRequest carries the agent route, store, timeout, model, language, decoder factory, speaker backend/consent, progress, lease and coverage guard; ValueError 'unknown meeting' ('TestRespeaker::test_unknown_meeting_raises', 'TestGuards::test_unknown_meeting_rejected'); have_audio from spool_dir; the speaker key never looked up ('a stored openai backend never reaches the key'). Endpoint snapshot: 'TestEndpointSnapshot::*'."
+  },
+  "A24-70": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting/engine.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_audit_a24.cpp",
+    "tests/meeting/test_engine_capture.cpp"
+   ],
+   "note": "'test_pin_still_works_after_degradation' pinned the forwarded case; added 'a24 audit: only a human pin on a speaker reaches the diarizer' (a refused op and the diarizer's own relabel forward nothing)."
+  }
+ },
+ "differences": [
+  {
+   "id": "a24-insights-on-after-approval",
+   "features": [
+    "A24-17"
+   ],
+   "openwhisper": "MeetingEngine.set_cloud_enabled(True/False) toggles AI insights while the meeting is active or paused: on restarts the agent with the send cursor seeded (forward-only), off stops the scheduler and core and sets finalization disabled.",
+   "fiorivoce": "set_cloud_enabled(true) is refused ('Start the meeting with AI insights to authorize its destination.'); turning insights on mid-meeting is enable_live_intelligence(route, backup) after the provider authorizes that exact destination, with the delivery cursors advanced to the high water so nothing spoken while off is sent. Turning off is set_cloud_enabled(false).",
+   "reason": "Sending a meeting's transcript to a hosted model or an installed agent needs approval of that meeting's destination each time; no stored or browser-side toggle can grant it.",
+   "source": "Differences a04-meeting-insights-per-meeting (docs/port/audit/a04-runtime-services.json) and a30-dashboard-fresh-approval (docs/port/audit/a30-meeting-web-server-and-dashboard-contract.json); src/meeting/detail/live_intelligence.cpp set_cloud_enabled, enable_live_intelligence; tests/meeting/test_engine_end.cpp ('live intelligence can resume only with the approved exact destination', 'live note requests share the approved scheduler and refuse after opt-out'), tests/meeting/test_engine_intelligence.cpp ('test_backup_only_gets_transcript_since_insights_were_turned_back_on')."
+  },
+  {
+   "id": "a24-redecode-parakeet-wording",
+   "features": [
+    "A24-23"
+   ],
+   "openwhisper": "The Audio Re-transcription step's default detail reads 'High-accuracy full session Whisper decode'.",
+   "fiorivoce": "It reads 'High-accuracy full session Parakeet decode'; every other step name, detail, headline and progress string is OpenWhisper's.",
+   "reason": "FioriVoce keeps only the Parakeet engine, so the card names the engine that runs.",
+   "source": "docs/port/packages/M7.md lead decision 6 ('Wording that names Whisper') and the M7.9 traps; src/meeting/finalization.cpp kSteps; pinned by tests/meeting/test_golden.cpp ('golden meeting.finalization steps') and tests/meeting/test_end_run.cpp."
+  },
+  {
+   "id": "a24-speaker-pass-desktop-only",
+   "features": [
+    "A24-30",
+    "A24-44"
+   ],
+   "openwhisper": "With the speaker backend openai, consent and a key, End and the dashboard/desktop speaker re-run upload the system-audio recording ('Uploading system audio for speaker labels…') and report 'Updated N speaker label(s)'.",
+   "fiorivoce": "The gate and its skip sentences are kept, but End and rerun_speakers never upload: an open gate reports the pass unavailable and a stored openai backend reads as local. The upload runs only from the desktop Past Meetings action with fresh confirmation for one meeting.",
+   "reason": "Meeting audio leaves the computer only on an explicit, current request.",
+   "source": "Differences a25-openai-speakers-desktop-only and a04-meeting-speaker-pass-desktop-only; docs/port/packages/M7.md change 4; src/meeting/refinalize.cpp run_speaker_pass, rerun_speakers; tests/meeting/test_refinalize.cpp ('TestRespeaker::test_refused_gate_uploads_nothing', 'TestSpeakerGate::*'), tests/meeting/test_engine_end.cpp ('test_refused_gate_never_uploads_or_claims_to'), tests/meeting/test_cloud_speakers.cpp."
+  },
+  {
+   "id": "a24-local-fast-features",
+   "features": [
+    "A24-52",
+    "MD-09"
+   ],
+   "openwhisper": "Live highlights, citations and the topic-shift judge ask the configured Fast judgments model, local or hosted; with a hosted judge and AI insights off the status is 'needs_insights'.",
+   "fiorivoce": "They ask only a judge on this computer: without one the status is 'unavailable' and nothing is sent; with one they run with or without AI insights. Status values, the heartbeat retry and the final highlights after End are otherwise OpenWhisper's.",
+   "reason": "Background judgments of meeting text stay on the device; sending text off it is reserved for the per-meeting AI insights destination.",
+   "source": "Difference a29-local-meeting-judgments (docs/port/audit/a29-meeting-intelligence.json); src/meeting/detail/voice_control.cpp refresh_live_highlights_status; tests/meeting/test_fast_features.cpp ('fast-feature gate matrix', 'local workers start without ai insights and stop sending after a switch', 'heartbeat retries workers and updates the highlight status without new speech', 'highlight status reaches snapshots and live clients')."
+  },
+  {
+   "id": "a24-native-agent-cores",
+   "features": [
+    "A24-60"
+   ],
+   "openwhisper": "The meeting agent is a TypeScript sidecar (Pi or OpenCode); End reuses the live scheduler and core for the cleanup and report passes, then _wrap_up_end stops the scheduler and shuts the core down.",
+   "fiorivoce": "The agent is the native in-process loop. The live core and scheduler are shut down when End drains capture; when the live agent was online and healthy, each final pass runs through a throwaway core of the provider, otherwise the card reads 'Meeting intelligence is offline; final cloud insights could not run. <why>' as OpenWhisper does. Wrap-up keeps final highlights (complete meetings only) and the optional insight review.",
+   "reason": "The sidecars are replaced by a native agent loop, and a live core is not kept open past the meeting.",
+   "source": "docs/port/packages/M8.md 'Changes from section 11' item 2; the class comment of src/meeting/engine.h and MeetingEngine::end_worker (src/meeting/detail/engine_end.cpp); tests/meeting/test_engine_end.cpp ('an opted-in meeting schedules committed transcript and stops the live core at End', 'End routes opt-in meetings to the injected final intelligence provider'), tests/meeting/test_engine_intelligence.cpp ('End runs the final passes when checkpoints failed and the live core is healthy', 'End runs cleanup and the report through the app's provider and repairs the record', 'test_final_highlights_run_after_transcript_edits')."
+  }
+ ]
+}

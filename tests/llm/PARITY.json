@@ -1,0 +1,1053 @@
+{
+ "package": "M4.2, M4.5, M5.4",
+ "files": {
+   "tests/test_agent_cleanup.py": {
+     "test_agent_selection_and_cleanup": {
+       "status": "ported",
+       "cpp": "tests/llm/test_agent_cleanup_parity.cpp",
+       "note": "All three provider IDs and both model choices use a fake runner with named consent; tool isolation is separately exercised in tests/agents/test_ask.cpp."
+     },
+     "test_failed_agent_preserves_raw_text": {
+       "status": "ported",
+       "cpp": "tests/llm/test_transcript_cleanup.cpp",
+       "note": "Failure, empty and throwing runners preserve raw text; cancellation is covered by the adjacent worker cancellation test."
+     },
+     "test_missing_agent_does_not_fall_back_to_api": {
+       "status": "ported",
+       "cpp": "tests/llm/test_transcript_cleanup.cpp",
+       "note": "The unavailable fake agent returns the original transcript and the HTTP fake receives no requests."
+     },
+     "test_agent_is_stopped_when_cleanup_wait_ends": {
+       "status": "ported",
+       "cpp": "tests/llm/test_transcript_cleanup.cpp",
+       "note": "Fake agent sees cancellation both when the caller cancels and when the cleanup deadline expires."
+     },
+     "test_switching_from_api_closes_client_and_uses_agent": {
+       "status": "ported",
+       "cpp": "tests/llm/test_agent_cleanup_parity.cpp",
+       "note": "An approved switch clears the API client and key, preserves high reasoning and invokes only the fake agent."
+     },
+     "test_agent_is_ready_for_cleanup_based_rewrites": {
+       "status": "dropped",
+       "reason": "Installed-agent dictation consent does not authorize command or transform selection text; those rewrites remain restricted to text endpoints."
+     },
+     "test_tool_free_contract_returns_text_instead_of_requesting_meeting_tools": {
+       "status": "ported",
+       "cpp": "tests/agents/test_tool_free_contract.cpp",
+       "note": "The shared tool-free task contract is tested independently; the desktop cleanup bridge uses the separate isolated CLI adapter."
+     }
+   },
+  "tests/test_text_llm.py": {
+   "TestProfileValidation::test_normalize_base_url_strips_slash_and_requires_http": {
+    "status": "ported",
+    "cpp": "tests/llm/test_profiles.cpp"
+   },
+   "TestProfileValidation::test_validate_profile_name": {
+    "status": "ported",
+    "cpp": "tests/llm/test_profiles.cpp"
+   },
+   "TestProfileValidation::test_validate_api_key_env_allows_blank": {
+    "status": "ported",
+    "cpp": "tests/llm/test_profiles.cpp"
+   },
+   "TestProfileCrud::test_builtins_always_present": {
+    "status": "ported",
+    "cpp": "tests/llm/test_profiles.cpp"
+   },
+   "TestProfileCrud::test_local_server_presets_ship_their_standard_urls": {
+    "status": "ported",
+    "cpp": "tests/llm/test_profiles.cpp"
+   },
+   "TestProfileCrud::test_local_server_url_override_comes_from_its_own_setting": {
+    "status": "ported",
+    "cpp": "tests/llm/test_profiles.cpp"
+   },
+   "TestProfileCrud::test_upsert_and_remove_custom_profile": {
+    "status": "ported",
+    "cpp": "tests/llm/test_profiles.cpp"
+   },
+   "TestProfileCrud::test_cannot_delete_builtin": {
+    "status": "ported",
+    "cpp": "tests/llm/test_profiles.cpp"
+   },
+   "TestProfileCrud::test_responses_endpoint_persists_and_edits_preserve_protocol": {
+    "status": "ported",
+    "cpp": "tests/llm/test_profiles.cpp"
+   },
+   "TestProfileCrud::test_legacy_custom_endpoints_keep_chat_protocol": {
+    "status": "ported",
+    "cpp": "tests/llm/test_profiles.cpp"
+   },
+   "TestProfileCrud::test_save_local_server_normalizes_per_preset": {
+    "status": "ported",
+    "cpp": "tests/llm/test_profiles.cpp",
+    "note": "save_local_server edits the mapping it is given (run inside SettingsStore::mutate) where Python calls settings_manager.update_settings; a refused call leaves it unchanged"
+   },
+   "TestProfileCrud::test_local_preset_can_require_an_api_key": {
+    "status": "ported",
+    "cpp": "tests/llm/test_profiles.cpp",
+    "note": "the key comes from an in-memory CredentialStore where Python patches resolve_credential"
+   },
+   "TestCredentialsAndCatalog::test_auth_free_profile_uses_dummy_key": {
+    "status": "ported",
+    "cpp": "tests/llm/test_catalog_client.cpp",
+    "note": "the placeholder is read off the request the FakeHttpClient records where Python inspects the OpenAI constructor's arguments"
+   },
+   "TestCredentialsAndCatalog::test_missing_required_key_returns_none": {
+    "status": "ported",
+    "cpp": "tests/llm/test_catalog_client.cpp"
+   },
+   "TestCredentialsAndCatalog::test_openai_catalog_filters_non_chat_models": {
+    "status": "ported",
+    "cpp": "tests/llm/test_catalog_client.cpp"
+   },
+   "TestCredentialsAndCatalog::test_list_chat_models_sorts_openrouter_only": {
+    "status": "ported",
+    "cpp": "tests/llm/test_catalog_client.cpp",
+    "note": "the sort reaches the request URL the FakeHttpClient records where Python checks models.list's extra_query"
+   },
+   "TestCredentialsAndCatalog::test_list_chat_models_propagates_catalog_failure": {
+    "status": "ported",
+    "cpp": "tests/llm/test_catalog_client.cpp",
+    "note": "a CatalogError; the local case runs against a loopback port that was just closed"
+   },
+   "TestSnapshotsAndConsent::test_old_meeting_row_reconstructs_builtin_profile": {
+    "status": "ported",
+    "cpp": "tests/llm/test_profiles.cpp"
+   },
+   "TestSnapshotsAndConsent::test_deleted_endpoint_uses_the_chosen_meeting_endpoint_not_a_cloud": {
+    "status": "ported",
+    "cpp": "tests/llm/test_profiles.cpp"
+   },
+   "TestSnapshotsAndConsent::test_stored_snapshot_wins_over_current_settings": {
+    "status": "ported",
+    "cpp": "tests/llm/test_profiles.cpp"
+   },
+   "TestSnapshotsAndConsent::test_profile_from_agent_config_prefers_endpoint_snapshot": {
+    "status": "ported",
+    "cpp": "tests/llm/test_profiles.cpp"
+   },
+   "TestSnapshotsAndConsent::test_consent_destination_distinguishes_local_and_remote": {
+    "status": "ported",
+    "cpp": "tests/llm/test_profiles.cpp"
+   },
+   "TestSnapshotsAndConsent::test_snapshot_from_unreadable_json_is_none": {
+    "status": "ported",
+    "cpp": "tests/llm/test_profiles.cpp"
+   },
+   "TestSnapshotsAndConsent::test_profile_display_name_falls_back_to_id": {
+    "status": "ported",
+    "cpp": "tests/llm/test_profiles.cpp",
+    "note": "SIDECAR_API_KEY_ENV (the Pi sidecar's key variable) is not asserted: the sidecars become M8's in-process agent loop"
+   }
+  },
+  "tests/test_local_text_servers.py": {
+   "test_vllm_reports_its_context_and_takes_the_effort_field": {
+    "status": "ported",
+    "cpp": "tests/llm/test_local_servers.cpp"
+   },
+   "test_llama_cpp_reports_its_runtime_context": {
+    "status": "ported",
+    "cpp": "tests/llm/test_local_servers.cpp"
+   },
+   "test_lm_studio_drops_embeddings_and_reads_reasoning_options": {
+    "status": "ported",
+    "cpp": "tests/llm/test_local_servers.cpp"
+   },
+   "test_lm_studio_before_0_4_uses_the_v0_model_list": {
+    "status": "ported",
+    "cpp": "tests/llm/test_local_servers.cpp"
+   },
+   "test_localai_lists_only_chat_models": {
+    "status": "ported",
+    "cpp": "tests/llm/test_local_servers.cpp"
+   },
+   "test_older_localai_without_capabilities_falls_back_to_names": {
+    "status": "ported",
+    "cpp": "tests/llm/test_local_servers.cpp"
+   },
+   "test_ollama_thinking_models_take_the_effort_field": {
+    "status": "ported",
+    "cpp": "tests/llm/test_local_servers.cpp"
+   },
+   "test_custom_localhost_endpoint_is_identified_and_matches_the_preset": {
+    "status": "ported",
+    "cpp": "tests/llm/test_local_servers.cpp"
+   },
+   "test_a_preset_with_a_key_sends_it_to_discovery": {
+    "status": "ported",
+    "cpp": "tests/llm/test_local_servers.cpp"
+   },
+   "test_identify_names_the_server_that_answers": {
+    "status": "ported",
+    "cpp": "tests/llm/test_local_servers.cpp"
+   },
+   "test_llama_cpp_with_a_key_is_still_identified": {
+    "status": "ported",
+    "cpp": "tests/llm/test_local_servers.cpp"
+   },
+   "test_detection_probes_only_this_computer": {
+    "status": "ported",
+    "cpp": "tests/llm/test_local_servers.cpp",
+    "note": "against a loopback server; the remote address is TEST-NET-1 (192.0.2.5), never probed"
+   },
+   "test_nothing_listening_is_not_running": {
+    "status": "ported",
+    "cpp": "tests/llm/test_local_servers.cpp",
+    "note": "a loopback port that was just closed"
+   },
+   "test_local_servers_keep_cleanup_options_and_leave_output_to_the_server": {
+    "status": "ported",
+    "cpp": "tests/llm/test_generation.cpp"
+   },
+   "test_hosted_catalogs_still_set_their_output_budget": {
+    "status": "ported",
+    "cpp": "tests/llm/test_generation.cpp"
+   },
+   "test_first_cleanup_learns_the_server_before_its_request": {
+    "status": "ported",
+    "cpp": "tests/llm/test_generation.cpp"
+   },
+   "test_thinking_off_adds_nothing_where_hosted_models_have_no_off_switch": {
+    "status": "ported",
+    "cpp": "tests/llm/test_generation.cpp"
+   },
+   "test_hosted_endpoints_are_never_asked_about_their_models": {
+    "status": "ported",
+    "cpp": "tests/llm/test_generation.cpp"
+   },
+   "test_first_judgment_learns_the_server_once": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "test_judgments_ask_a_thinking_model_not_to_think": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "test_a_judgment_larger_than_the_reported_context_is_not_sent": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "test_the_test_button_says_the_context_is_too_small_and_rereads_it": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "test_a_meeting_snapshot_records_what_the_server_reports": {"status": "ported", "cpp": "tests/llm/test_meeting_snapshot_learns.cpp", "note": "case: a meeting snapshot records what the server reports (the snapshot asks the server itself in a fresh process)"}
+  },
+  "tests/test_thinking_levels.py": {
+   "test_claude_code_offers_its_cli_levels": {
+    "status": "ported",
+    "cpp": "tests/llm/test_thinking_levels.cpp"
+   },
+   "test_endpoint_catalog_adds_and_removes_levels": {
+    "status": "ported",
+    "cpp": "tests/llm/test_thinking_levels.cpp"
+   },
+   "test_openai_offers_levels_only_for_reasoning_models": {
+    "status": "ported",
+    "cpp": "tests/llm/test_thinking_levels.cpp"
+   },
+   "test_saved_level_runs_at_the_nearest_offered_one": {
+    "status": "ported",
+    "cpp": "tests/llm/test_thinking_levels.cpp"
+   },
+   "test_codex_levels_come_from_the_model_and_unknown_models_get_the_shared_ones": {
+    "status": "ported",
+    "cpp": "tests/llm/test_thinking_levels.cpp",
+    "note": "Codex's efforts and default model are injected through set_codex_efforts where Python patches services.installed_agents"
+   }
+  },
+  "tests/test_text_generation.py": {
+   "test_unknown_opencode_route_is_not_guessed": {
+    "status": "ported",
+    "cpp": "tests/llm/test_model_catalog.cpp"
+   },
+   "test_same_model_has_distinct_go_and_zen_protocols": {
+    "status": "ported",
+    "cpp": "tests/llm/test_model_catalog.cpp"
+   },
+   "test_openai_model_routes_are_reasoning_aware": {
+    "status": "ported",
+    "cpp": "tests/llm/test_model_catalog.cpp"
+   },
+   "test_every_capability_entry_is_reachable_through_a_route": {
+    "status": "ported",
+    "cpp": "tests/llm/test_model_catalog.cpp"
+   },
+   "test_every_capability_reasoning_format_survives_a_saved_snapshot": {
+    "status": "ported",
+    "cpp": "tests/llm/test_model_catalog.cpp"
+   },
+   "test_opencode_credentials_and_headers_are_separate": {
+    "status": "ported",
+    "cpp": "tests/llm/test_model_catalog.cpp"
+   },
+   "test_luna_off_mapping_does_not_change_other_models_or_custom_endpoints": {
+    "status": "ported",
+    "cpp": "tests/llm/test_model_catalog.cpp"
+   },
+   "test_snapshot_retains_ollama_host_and_protocol": {
+    "status": "ported",
+    "cpp": "tests/llm/test_model_catalog.cpp",
+    "note": "snapshot_from_profile learns over a FakeHttpClient that cannot reach host-a, keeping the defaults as Python's unreachable host does"
+   },
+   "test_wire_protocol_and_signed_tool_roundtrip": {
+    "status": "ported",
+    "cpp": "tests/llm/test_generation.cpp"
+   },
+   "test_cleanup_preserves_raw_on_truncation": {
+    "status": "ported",
+    "cpp": "tests/llm/test_generation.cpp"
+   },
+   "test_canceled_response_cannot_publish_tools": {
+    "status": "ported",
+    "cpp": "tests/llm/test_generation.cpp"
+   },
+   "test_empty_new_provider_model_does_not_reuse_previous_model": {
+    "status": "ported",
+    "cpp": "tests/llm/test_generation.cpp"
+   },
+   "test_responses_reasoning_preference_is_translated": {
+    "status": "ported",
+    "cpp": "tests/llm/test_generation.cpp"
+   },
+   "test_non_reasoning_responses_preserve_cleanup_temperature_and_json": {
+    "status": "ported",
+    "cpp": "tests/llm/test_generation.cpp"
+   },
+   "test_reasoning_responses_request_encrypted_context_and_omit_temperature": {
+    "status": "ported",
+    "cpp": "tests/llm/test_generation.cpp"
+   },
+   "test_custom_responses_cleanup_and_saved_meeting_tools": {
+    "status": "ported",
+    "cpp": "tests/llm/test_generation.cpp"
+   },
+   "test_ollama_catalog_filters_embeddings_and_snapshots_capabilities": {
+    "status": "ported",
+    "cpp": "tests/llm/test_generation.cpp"
+   },
+   "test_provider_http_failures_preserve_raw": {
+    "status": "ported",
+    "cpp": "tests/llm/test_generation.cpp"
+   },
+   "test_luna_cleanup_failure_keeps_raw_transcript": {
+    "status": "ported",
+    "cpp": "tests/llm/test_generation.cpp"
+   },
+   "test_custom_responses_luna_off_keeps_existing_endpoint_behavior": {
+    "status": "ported",
+    "cpp": "tests/llm/test_generation.cpp"
+   },
+   "test_luna_cleanup_serializes_presets_custom_prompts_and_reasoning": {
+    "status": "ported",
+    "cpp": "tests/llm/test_generation.cpp",
+    "note": "the level presets are services.cleanup_prompts' text (M4.4); stand-in prompts check that each is sent as given"
+   },
+   "test_no_tool_support_uses_validated_json_and_rejects_prose": {"status": "dropped", "reason": "DirectOpenRouterAgent's validated JSON mode; the built-in loop has no JSON mode (initialize refuses a model that does not call the test tool: tests/meeting_agent/test_native_requests.cpp). Replaying signed reasoning across turns is pinned by test_generation.cpp's test_wire_protocol_and_signed_tool_roundtrip and by test_native_requests.cpp 'a read tool's result goes back to the model through each wire protocol'"}
+  },
+  "tests/test_transcript_cleanup.py": {
+   "TestTranscriptCleanupProviders::test_default_models_per_provider": {
+    "status": "ported",
+    "cpp": "tests/llm/test_cleanup_settings.cpp",
+    "note": "through default_transcript_cleanup_model, which TranscriptCleanup (M4.5) starts from"
+   },
+   "TestTranscriptCleanupProviders::test_openai_model_filter_keeps_chat_models_only": {
+    "status": "ported",
+    "cpp": "tests/llm/test_cleanup_settings.cpp"
+   },
+   "TestTranscriptCleanupSettings::test_settings_key_and_config_default": {
+    "status": "ported",
+    "cpp": "tests/llm/test_cleanup_settings.cpp",
+    "note": "config.TRANSCRIPT_CLEANUP_PROMPT's wording is the prompts' (fv_text, M4.4) and is not asserted here"
+   },
+   "TestTranscriptCleanupSettings::test_save_and_load_cleanup_setting": {
+    "status": "ported",
+    "cpp": "tests/llm/test_cleanup_settings.cpp"
+   },
+   "TestTranscriptCleanupSettings::test_resolve_provider_validates_and_falls_back": {
+    "status": "ported",
+    "cpp": "tests/llm/test_cleanup_settings.cpp"
+   },
+   "TestTranscriptCleanupSettings::test_resolve_model_keeps_a_complete_pair": {
+    "status": "ported",
+    "cpp": "tests/llm/test_cleanup_settings.cpp"
+   },
+   "TestTranscriptCleanupSettings::test_resolve_reasoning_validates_and_falls_back": {
+    "status": "ported",
+    "cpp": "tests/llm/test_cleanup_settings.cpp"
+   },
+   "TestCleanupCustomEndpoints::test_resolve_accepts_saved_custom_profile": {
+    "status": "ported",
+    "cpp": "tests/llm/test_cleanup_settings.cpp"
+   },
+   "test_legacy_openai_cleanup_default_resolves_to_luna_without_mutating_settings": {
+    "status": "ported",
+    "cpp": "tests/llm/test_cleanup_settings.cpp"
+   },
+   "test_cleanup_migration_preserves_other_assignments": {
+    "status": "ported",
+    "cpp": "tests/llm/test_cleanup_settings.cpp"
+   },
+   "test_luna_default_keeps_cleanup_opt_in_and_openrouter_default": {
+    "status": "ported",
+    "cpp": "tests/llm/test_cleanup_settings.cpp"
+   },
+   "TestTranscriptCleanup::test_empty_text_returns_unchanged": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp"
+   },
+   "TestTranscriptCleanup::test_unavailable_returns_raw": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp"
+   },
+   "TestTranscriptCleanup::test_success_returns_cleaned_text": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp"
+   },
+   "TestTranscriptCleanup::test_custom_system_prompt_is_sent": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp"
+   },
+   "TestTranscriptCleanup::test_api_error_falls_back_to_raw": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp"
+   },
+   "TestTranscriptCleanup::test_empty_model_response_falls_back_to_raw": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp"
+   },
+   "TestTranscriptCleanup::test_last_error_tracks_run_outcome": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp"
+   },
+   "TestTranscriptCleanup::test_last_error_set_when_unavailable_or_empty": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp"
+   },
+   "TestTranscriptCleanup::test_timeout_override_is_sent_per_request": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp",
+    "note": "the batch retries are seen as three attempts at the override's timeout where Python checks the with_options call"
+   },
+   "TestTranscriptCleanup::test_no_timeout_kwarg_when_not_overridden": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp",
+    "note": "seen as two attempts at the client's 8 s where Python checks the kwargs"
+   },
+   "TestTranscriptCleanupProviders::test_configured_model_is_sent": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp"
+   },
+   "TestTranscriptCleanupProviders::test_reasoning_off_sends_temperature_zero": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp"
+   },
+   "TestTranscriptCleanupProviders::test_reasoning_openai_sends_responses_reasoning_effort": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp"
+   },
+   "TestTranscriptCleanupProviders::test_configure_switches_provider_and_model": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp"
+   },
+   "TestTranscriptCleanupProviders::test_configure_same_provider_keeps_client": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp"
+   },
+   "TestTranscriptCleanupProviders::test_reasoning_openrouter_uses_extra_body": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp",
+    "note": "extra_body is checked where it lands, in the request body"
+   },
+   "TestPolishCleanupRule::test_empty_instruction_returns_error": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp"
+   },
+   "TestPolishCleanupRule::test_unavailable_falls_back_to_verbatim": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp"
+   },
+   "TestPolishCleanupRule::test_api_error_falls_back_to_verbatim": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp"
+   },
+   "TestPolishCleanupRule::test_success_returns_polished_rule_with_polish_prompt": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp",
+    "note": "the polish prompt is services.cleanup_prompts' text (M4.4), which the caller passes; the test checks that the prompt given is the one sent"
+   },
+   "TestCleanupCustomEndpoints::test_configure_rebuilds_when_endpoint_url_changes": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp"
+   },
+   "TestCleanupCustomEndpoints::test_servers_the_user_runs_get_time_to_load_a_model": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp"
+   },
+   "TestCleanupCustomEndpoints::test_list_cleanup_models_uses_custom_profile": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp"
+   },
+   "TestCleanupCustomEndpoints::test_list_cleanup_models_catalog_failure_is_raised": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp"
+   },
+   "test_append_preview_text_appends_with_space": {
+    "status": "dropped",
+    "reason": "pins services.streaming_transcriber.append_preview_text, which M2.9 ports and pins through test_streaming_transcriber.py"
+   },
+   "test_append_preview_text_ignores_empty_chunk": {
+    "status": "dropped",
+    "reason": "pins services.streaming_transcriber.append_preview_text, which M2.9 ports and pins through test_streaming_transcriber.py"
+   },
+   "test_append_preview_text_starts_from_empty": {
+    "status": "dropped",
+    "reason": "pins services.streaming_transcriber.append_preview_text, which M2.9 ports and pins through test_streaming_transcriber.py"
+   }
+  },
+  "tests/test_credentials.py": {
+   "TestResolutionOrder::test_credential_status_copy_points_at_settings": {
+    "status": "ported",
+    "cpp": "tests/llm/test_credentials.cpp"
+   },
+   "TestVerifyApiKey::test_success_closes_client": {
+    "status": "ported",
+    "cpp": "tests/llm/test_credentials.cpp",
+    "note": "the http::Client is the caller's and is not closed; the result and the single request are asserted"
+   },
+   "TestVerifyApiKey::test_openrouter_probes_auth_endpoint_not_public_catalog": {
+    "status": "ported",
+    "cpp": "tests/llm/test_credentials.cpp"
+   },
+   "TestVerifyApiKey::test_failures_report_status_class_only": {
+    "status": "ported",
+    "cpp": "tests/llm/test_credentials.cpp",
+    "note": "ValueError(SECRET) is a py::ValueError thrown by the client; the log is captured and checked for the key too"
+   }
+  },
+  "tests/test_cleanup_deadline.py": {
+   "test_trickling_response_ends_at_the_attempts_budget": {
+    "status": "ported",
+    "cpp": "tests/llm/test_cleanup_deadline.cpp",
+    "note": "the loopback server trickles one byte per 200 ms and a fake wall clock reaches the 17 s budget of the real 8 s attempts"
+   },
+   "test_a_deadline_ends_the_call_without_a_second_slow_attempt": {
+    "status": "ported",
+    "cpp": "tests/llm/test_cleanup_deadline.cpp",
+    "note": "a fake wall clock reaches the 0.5 s deadline"
+   },
+   "test_cancel_ends_the_wait_at_once": {
+    "status": "ported",
+    "cpp": "tests/llm/test_cleanup_deadline.cpp",
+    "note": "the stalled request is an http::Client that waits on its cancel token"
+   },
+   "test_a_cancel_set_before_the_call_sends_nothing": {
+    "status": "ported",
+    "cpp": "tests/llm/test_cleanup_deadline.cpp"
+   },
+   "test_response_inside_the_budget_is_used": {
+    "status": "ported",
+    "cpp": "tests/llm/test_cleanup_deadline.cpp"
+   },
+   "test_request_errors_still_reach_last_error": {
+    "status": "ported",
+    "cpp": "tests/llm/test_cleanup_deadline.cpp",
+    "note": "the provider's error text reaches last_error through the SDK's status error where Python's generate raises directly"
+   }
+  },
+  "tests/test_personalize_s3_text_rewrite.py": {
+   "test_rewrite_prompt_carries_the_instruction_and_guards_the_selection": {
+    "status": "ported",
+    "cpp": "tests/llm/test_rewrite.cpp"
+   },
+   "test_generate_prompt_frames_the_request_and_names_the_sentinel": {
+    "status": "ported",
+    "cpp": "tests/llm/test_rewrite.cpp"
+   },
+   "test_rewrite_sends_the_selection_as_the_message": {
+    "status": "ported",
+    "cpp": "tests/llm/test_rewrite.cpp"
+   },
+   "test_generate_sends_the_instruction_as_the_message": {
+    "status": "ported",
+    "cpp": "tests/llm/test_rewrite.cpp"
+   },
+   "test_the_sentinel_means_select_first": {
+    "status": "ported",
+    "cpp": "tests/llm/test_rewrite.cpp"
+   },
+   "test_a_selection_containing_the_sentinel_is_still_rewritten": {
+    "status": "ported",
+    "cpp": "tests/llm/test_rewrite.cpp"
+   },
+   "test_failures_never_hand_back_the_input": {
+    "status": "ported",
+    "cpp": "tests/llm/test_rewrite.cpp"
+   },
+   "test_long_errors_are_cut_short": {
+    "status": "ported",
+    "cpp": "tests/llm/test_rewrite.cpp"
+   },
+   "test_an_empty_reply_or_instruction_is_an_error": {
+    "status": "ported",
+    "cpp": "tests/llm/test_rewrite.cpp"
+   },
+   "test_huge_selections_are_refused_before_sending": {
+    "status": "ported",
+    "cpp": "tests/llm/test_rewrite.cpp"
+   },
+   "test_long_selections_get_the_longer_timeout": {
+    "status": "ported",
+    "cpp": "tests/llm/test_rewrite.cpp"
+   },
+   "test_rewrites_wait_longer_than_a_dictation_but_ask_once": {
+    "status": "ported",
+    "cpp": "tests/llm/test_rewrite.cpp"
+   },
+   "test_a_local_model_keeps_its_own_longer_timeout": {
+    "status": "ported",
+    "cpp": "tests/llm/test_rewrite.cpp"
+   },
+   "test_a_timeout_points_at_a_faster_model": {
+    "status": "ported",
+    "cpp": "tests/llm/test_rewrite.cpp"
+   },
+   "test_provider_ready_needs_a_model_and_its_key": {
+    "status": "ported",
+    "cpp": "tests/llm/test_rewrite.cpp"
+   },
+   "test_dictionary_block_comes_from_the_dictionary": {
+    "status": "ported",
+    "cpp": "tests/llm/test_rewrite.cpp",
+    "note": "the block is checked against the dictionary's own; a failing load_dictionary cannot be substituted, and the C++ parser does not throw"
+   },
+   "test_standalone_rewrite_uses_its_own_client": {
+    "status": "ported",
+    "cpp": "tests/llm/test_rewrite.cpp",
+    "note": "the standalone cleaner's request is seen at a fake provider where Python replaces the TranscriptCleanup class"
+   }
+  },
+  "tests/test_network_reuse.py": {
+   "TestCleanupRetryCap::test_worst_case_dictation_wait_is_two_timeouts": {
+    "status": "ported",
+    "cpp": "tests/llm/test_openai_client.cpp"
+   },
+   "TestCleanupRetryCap::test_dictation_cleanup_makes_at_most_two_attempts": {
+    "status": "ported",
+    "cpp": "tests/llm/test_openai_client.cpp"
+   },
+   "TestCleanupRetryCap::test_batch_cleanup_keeps_two_retries_and_its_timeout": {
+    "status": "ported",
+    "cpp": "tests/llm/test_openai_client.cpp"
+   },
+   "TestCleanupRetryCap::test_batch_override_shares_the_connection_pool": {
+    "status": "ported",
+    "cpp": "tests/llm/test_openai_client.cpp",
+    "note": "as: the per-request override is a copy over the same http::Client"
+   },
+   "TestCleanupRetryCap::test_other_clients_keep_the_sdk_default": {
+    "status": "ported",
+    "cpp": "tests/llm/test_openai_client.cpp"
+   },
+   "TestTypeSafeKeepAlive::test_sequential_judgments_share_one_connection": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestTypeSafeKeepAlive::test_concurrent_judges_never_share_a_socket": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestTypeSafeKeepAlive::test_http_error_keeps_only_the_status_and_the_connection": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestTypeSafeKeepAlive::test_connection_the_server_closed_while_idle_is_replaced": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestTypeSafeKeepAlive::test_request_dropped_on_a_reused_connection_is_sent_once_more": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestTypeSafeKeepAlive::test_failure_on_a_fresh_connection_is_not_retried": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestTypeSafeKeepAlive::test_connection_idle_past_the_window_is_not_reused": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestTypeSafeKeepAlive::test_timeout_never_outlasts_the_requests_budget": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestTypeSafeKeepAlive::test_silent_reused_connection_is_retried_fresh_within_the_budget": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestTypeSafeKeepAlive::test_https_connections_use_the_shared_verified_context": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp",
+    "note": "as: the pool reuses one connection to the TypeSafe endpoint and gives a reused socket half the budget, at least 1 s (there is no shared Python ssl context to pin, A12-49)"
+   },
+   "TestProxyFallback::test_proxied_endpoint_goes_through_urllib": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp",
+    "note": "the one-shot request goes through the environment's HTTP client, which applies the proxy"
+   },
+   "TestProxyFallback::test_proxy_detection": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   }
+  },
+  "tests/test_openai_lazy_import.py": {
+   "test_deferred_cleanup_builds_its_client_on_first_configure": {
+    "status": "ported",
+    "cpp": "tests/llm/test_transcript_cleanup.cpp"
+   },
+   "test_startup_imports_leave_openai_unloaded": {
+    "status": "dropped",
+    "reason": "Python import timing: the openai SDK is imported lazily so startup does not pay for it; C++ links its client and makes no request at startup"
+   },
+   "test_startup_clients_with_saved_keys_leave_openai_unloaded": {
+    "status": "dropped",
+    "reason": "Python import timing: the openai SDK is imported lazily so startup does not pay for it; C++ links its client and makes no request at startup"
+   },
+   "test_api_session_builds_its_client_in_the_background": {
+    "status": "dropped",
+    "reason": "Python import timing: the openai SDK is imported lazily so startup does not pay for it; C++ links its client and makes no request at startup"
+   },
+   "test_api_session_that_cleans_up_also_imports_the_sdk_here": {
+    "status": "dropped",
+    "reason": "Python import timing: the openai SDK is imported lazily so startup does not pay for it; C++ links its client and makes no request at startup"
+   },
+   "test_cleanup_session_imports_the_sdk_in_the_background": {
+    "status": "dropped",
+    "reason": "Python import timing: the openai SDK is imported lazily so startup does not pay for it; C++ links its client and makes no request at startup"
+   },
+   "test_session_using_neither_never_loads_it": {
+    "status": "dropped",
+    "reason": "Python import timing: the openai SDK is imported lazily so startup does not pay for it; C++ links its client and makes no request at startup"
+   },
+   "TestApiBackendClient::test_available_before_the_client_exists": {
+    "status": "dropped",
+    "reason": "the cloud speech backend's lazily built SDK client; its prepared client is pinned by M2.4's test_cloud_warmup.cpp"
+   },
+   "TestApiBackendClient::test_first_request_builds_it_once": {
+    "status": "dropped",
+    "reason": "the cloud speech backend's lazily built SDK client; its prepared client is pinned by M2.4's test_cloud_warmup.cpp"
+   },
+   "TestApiBackendClient::test_saved_key_reaches_the_next_request": {
+    "status": "dropped",
+    "reason": "the cloud speech backend's lazily built SDK client; its prepared client is pinned by M2.4's test_cloud_warmup.cpp"
+   },
+   "TestApiBackendClient::test_removed_key_is_unavailable": {
+    "status": "dropped",
+    "reason": "the cloud speech backend's lazily built SDK client; its prepared client is pinned by M2.4's test_cloud_warmup.cpp"
+   },
+   "TestApiBackendClient::test_chosen_server_reaches_the_next_request": {
+    "status": "dropped",
+    "reason": "the cloud speech backend's lazily built SDK client; its prepared client is pinned by M2.4's test_cloud_warmup.cpp"
+   },
+   "TestApiBackendClient::test_failed_build_is_unavailable": {
+    "status": "dropped",
+    "reason": "the cloud speech backend's lazily built SDK client; its prepared client is pinned by M2.4's test_cloud_warmup.cpp"
+   },
+   "TestApiBackendClient::test_build_in_progress_counts_as_available": {
+    "status": "dropped",
+    "reason": "the cloud speech backend's lazily built SDK client; its prepared client is pinned by M2.4's test_cloud_warmup.cpp"
+   }
+  },
+  "tests/test_http_tls.py": {
+   "test_bundled_certificates_work_without_build_machine_paths": {
+    "status": "dropped",
+    "reason": "A12-49: Python's shared ssl context and bundled certificates; the curl client uses Schannel and the operating system's trust store"
+   },
+   "test_shared_context_is_built_once": {
+    "status": "dropped",
+    "reason": "A12-49: Python's shared ssl context and bundled certificates; the curl client uses Schannel and the operating system's trust store"
+   },
+   "test_concurrent_first_use_builds_once": {
+    "status": "dropped",
+    "reason": "A12-49: Python's shared ssl context and bundled certificates; the curl client uses Schannel and the operating system's trust store"
+   },
+   "test_stdlib_https_plumbing_leaves_the_shared_context_alone": {
+    "status": "dropped",
+    "reason": "A12-49: Python's shared ssl context and bundled certificates; the curl client uses Schannel and the operating system's trust store"
+   }
+  },
+  "tests/test_typesafe_service.py": {
+   "TestValidateAnswers::test_accepts_each_primitive": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestValidateAnswers::test_rejects_malformed": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestValidateAnswers::test_rejects_unknown_choice_and_bad_score": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestJudge::test_requires_key": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestJudge::test_ask_returns_validated_answers_and_records_usage": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestJudge::test_choice_convenience": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestJudge::test_failures_return_none_and_count": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestJudge::test_oversized_state_is_refused_before_transport": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestJudge::test_empty_questions_short_circuit": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestJudge::test_warning_rate_limited": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestSettingsGating::test_disabled_setting_yields_no_judge": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestSettingsGating::test_enabled_without_key_yields_no_judge": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestSettingsGating::test_enabled_with_key_builds_judge": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestKeyPresence::test_reports_whether_a_key_resolves": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestKeyPresence::test_is_configured_still_needs_the_master_switch": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestVerifyKey::test_accepts_a_working_key": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestVerifyKey::test_blank_key_is_not_sent": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestVerifyKey::test_reports_the_status_class": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestVerifyKey::test_rate_limiting_still_proves_the_key": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestVerifyKey::test_rejects_a_200_that_does_not_answer": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestVerifyKey::test_network_failure_names_the_host_not_the_key": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestVerifyKey::test_uses_a_longer_timeout_than_a_live_judgment": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestOpenRouterRoute::test_route_reuses_the_openrouter_text_profile": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestOpenRouterRoute::test_model_is_openrouters_id_for_the_pinned_release": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestOpenRouterRoute::test_judge_posts_to_openrouter_with_its_key_model_and_header": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp",
+    "note": "the post goes to a fake connection the pool opens; X-Title is identity().product"
+   },
+   "TestOpenRouterRoute::test_extra_headers_never_replace_authorization": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestRouteFromSettings::test_defaults_to_typesafe_and_ignores_unknown_values": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestRouteFromSettings::test_judge_uses_the_chosen_routes_credential": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestRouteFromSettings::test_key_presence_follows_the_route": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestRouteFromSettings::test_same_connection_compares_destination_and_key": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestFollowingJudge::test_each_question_goes_to_the_judge_provided_at_that_moment": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestFollowingJudge::test_timeout_is_passed_only_when_given_and_by_keyword": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestVerifyOverOpenRouter::test_reports_the_openrouter_host_and_model": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestVerifyOverOpenRouter::test_sends_the_route_header_and_endpoint": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp",
+    "note": "the post goes to a fake connection the pool opens"
+   },
+   "TestVerifyOverOpenRouter::test_out_of_credits_is_not_reported_as_a_bad_key": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   },
+   "TestVerifyOverOpenRouter::test_no_route_points_at_the_account_settings": {
+    "status": "ported",
+    "cpp": "tests/llm/test_typesafe.cpp"
+   }
+  },
+  "tests/test_text_judge.py": {
+   "TestPrimitives::test_noul_is_the_stated_probability": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "TestPrimitives::test_choice_numbers_options_and_scales_confidence_like_jev": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "TestPrimitives::test_confidence_formula": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "TestPrimitives::test_malformed_noul_replies_are_no_judgment": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "TestPrimitives::test_malformed_choice_replies_are_no_judgment": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "TestPrimitives::test_thinking_and_fences_around_the_object_are_ignored": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "TestPrimitives::test_score_questions_are_refused_without_a_request": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "TestPrimitives::test_oversized_state_is_refused_before_the_request": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "TestPrimitives::test_a_server_that_reports_no_context_gets_no_invented_limit": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "TestPrimitives::test_transport_errors_and_cut_off_answers_are_no_judgment": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "TestPrimitives::test_caller_budget_only_shortens_the_routes": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "TestPrimitives::test_a_server_without_json_schema_gets_plain_json_from_then_on": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "TestPrimitives::test_judges_share_one_client_per_endpoint_and_key": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "TestPrimitives::test_same_connection_compares_profile_model_and_key": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "TestPrimitives::test_locality_follows_the_profile": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "TestSettings::test_existing_users_keep_their_route": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "TestSettings::test_text_route_defaults_to_the_ai_insights_model": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "TestSettings::test_text_route_can_use_the_cleanup_model": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "TestSettings::test_local_text_route_needs_no_key": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "TestSettings::test_hosted_text_route_needs_its_profiles_key": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "TestSettings::test_master_switch_still_gates_the_text_route": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "TestSettings::test_verify_reports_latency_or_why_not": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "TestSettings::test_verify_names_the_status_class_not_the_body": {
+    "status": "ported",
+    "cpp": "tests/llm/test_text_judge.cpp"
+   },
+   "test_gate_matrix": {"status": "ported", "cpp": "tests/meeting/test_fast_features.cpp", "note": "case: fast-feature gate matrix. The local rows hold (on with or without AI insights); the hosted rows are FioriVoce's deliberate difference a29-local-meeting-judgments: a hosted Fast judgments model is unavailable and never asked, AI insights on or off (ported in tests/meeting/PARITY.json)"},
+   "test_jev_routes_still_wait_for_ai_insights": {"status": "dropped", "reason": "Deliberate difference a29-local-meeting-judgments (docs/port/differences.md): FioriVoce never sends meeting text to Jev or any hosted Fast judgments route, so turning AI insights on does not unlock one. tests/meeting/test_fast_features.cpp 'fast-feature gate matrix' checks that a hosted judge is unavailable and never asked with AI insights on or off."},
+   "test_local_workers_start_without_ai_insights_and_stop_sending_after_a_switch": {"status": "ported", "cpp": "tests/meeting/test_fast_features.cpp", "note": "case: local workers start without ai insights and stop sending after a switch (ported in tests/meeting/PARITY.json)"},
+   "test_local_voice_commands_apply_without_ai_insights": {"status": "ported", "cpp": "tests/meeting/test_fast_features.cpp", "note": "case: local voice commands apply without ai insights (after a switch to a hosted model the command is refused with unavailable feedback) (ported in tests/meeting/PARITY.json)"},
+   "test_live_highlights_from_a_local_model": {"status": "ported", "cpp": "tests/meeting_intel/test_local_judgments.cpp", "note": "case: live highlights from a local model (TextModelJudge on a 127.0.0.1 profile over http::FakeHttpClient) (ported in tests/meeting_intel/PARITY.json)"},
+   "test_citation_check_from_a_local_model": {"status": "ported", "cpp": "tests/meeting_intel/test_local_judgments.cpp", "note": "case: citation check from a local model (ported in tests/meeting_intel/PARITY.json)"},
+   "test_semantic_search_ranks_every_meeting_only_when_the_judge_is_local": {"status": "ported", "cpp": "tests/meeting_intel/test_semantic_search.cpp", "note": "over llm::FakeJudge marked local or hosted, where Python builds a TextModelJudge on a local and a hosted profile (ported in tests/meeting_intel/PARITY.json)"},
+   "test_voice_command_from_a_local_model": {"status": "ported", "cpp": "tests/meeting_intel/test_local_judgments.cpp", "note": "case: voice command from a local model (ported in tests/meeting_intel/PARITY.json)"},
+   "test_route_by_voice_on_a_local_model_gets_its_own_budget": {
+    "status": "ported",
+    "cpp": "tests/automation/test_routing_status.cpp"
+   },
+   "test_routing_status_says_the_words_stay_here": {
+    "status": "ported",
+    "cpp": "tests/automation/test_routing_status.cpp"
+   },
+   "test_insight_review_on_a_local_model": {"status": "ported", "cpp": "tests/meeting_intel/test_local_judgments.cpp", "note": "case: insight review on a local model (run_insight_review asks the text model; Python calls JudgeReviewer.evaluate) (ported in tests/meeting_intel/PARITY.json)"},
+   "test_topic_shift_caps_a_slow_model": {"status": "ported", "cpp": "tests/meeting_agent/test_topic_shift.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+   "test_final_highlight_pass_goes_newest_first_with_the_judges_budget": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: final highlight pass goes newest first with the judges budget (ported in tests/meeting_intel/PARITY.json)"}
+  },
+  "tests/test_cleanup_agent_offer.py": {
+   "test_pending": {"status": "ported", "cpp": "tests/llm/test_cleanup_agent_offer.cpp", "note": "cases of the same names"},
+   "test_only_signed_in_claude_code_and_codex_are_offered_claude_first": {"status": "ported", "cpp": "tests/llm/test_cleanup_agent_offer.cpp", "note": "cases of the same names"},
+   "test_accept_switches_cleanup_to_the_agent": {"status": "ported", "cpp": "tests/llm/test_cleanup_agent_offer.cpp", "note": "cases of the same names"},
+   "test_decline_keeps_the_default_and_is_not_asked_again": {"status": "ported", "cpp": "tests/llm/test_cleanup_agent_offer.cpp", "note": "cases of the same names"}
+  },
+  "tests/test_settings.py": {
+   "TestMeetingSettings::test_custom_profile_id_is_accepted": {"status": "ported", "cpp": "tests/llm/test_meeting_llm_settings.cpp", "note": "cases: a saved custom profile id is accepted for meetings and cleanup; an unknown custom profile falls back to the default endpoint; a text model assignment keeps its model only with a known provider"},
+   "TestMeetingSettings::test_unknown_custom_profile_falls_back": {"status": "ported", "cpp": "tests/llm/test_meeting_llm_settings.cpp", "note": "cases: a saved custom profile id is accepted for meetings and cleanup; an unknown custom profile falls back to the default endpoint; a text model assignment keeps its model only with a known provider"},
+   "TestMeetingSettings::test_text_llm_assignment_is_a_pair": {"status": "ported", "cpp": "tests/llm/test_meeting_llm_settings.cpp", "note": "cases: a saved custom profile id is accepted for meetings and cleanup; an unknown custom profile falls back to the default endpoint; a text model assignment keeps its model only with a known provider"}
+  }
+ }
+}

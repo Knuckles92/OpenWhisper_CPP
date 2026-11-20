@@ -1,0 +1,2263 @@
+{
+ "module": "services.verified_download",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time",
+  "resume_note": "download_verified(URL, sha256(BODY), size, <scratch>/payload.bin, ...) with BODY = b'component-payload' (17 bytes), a scripted opener and describe_error = describe_network_error(exc, hosts=('files.example.test',)); byte contents are latin-1 strings",
+  "describe_note": "certificate: URLError(SSLCertVerificationError(detail)); certificate_direct: SSLCertVerificationError(detail); http: HTTPError(code, reason); url: URLError(detail); other: OSError(detail)"
+ },
+ "functions": {
+  "resume": [
+   {
+    "args": [
+     null,
+     [
+      {
+       "status": 200,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Length",
+         "17"
+        ]
+       ],
+       "body": [
+        0,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "ok",
+     "message": null,
+     "requests": [
+      null
+     ],
+     "part": null,
+     "destination": "component-payload",
+     "progress": [
+      [
+       "downloading",
+       17,
+       17
+      ],
+      [
+       "verifying",
+       17,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     null,
+     [
+      {
+       "status": 200,
+       "reason": "OK",
+       "headers": [],
+       "body": [
+        0,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "ok",
+     "message": null,
+     "requests": [
+      null
+     ],
+     "part": null,
+     "destination": "component-payload",
+     "progress": [
+      [
+       "downloading",
+       17,
+       17
+      ],
+      [
+       "verifying",
+       17,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     null,
+     [
+      {
+       "status": 200,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Length",
+         "16"
+        ]
+       ],
+       "body": [
+        0,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download server returned an unexpected download size.",
+     "requests": [
+      null
+     ],
+     "part": null,
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     null,
+     [
+      {
+       "status": 200,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Length",
+         "abc"
+        ]
+       ],
+       "body": [
+        0,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download server returned an invalid download size.",
+     "requests": [
+      null
+     ],
+     "part": null,
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     null,
+     [
+      {
+       "status": 200,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Length",
+         " 17 "
+        ]
+       ],
+       "body": [
+        0,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "ok",
+     "message": null,
+     "requests": [
+      null
+     ],
+     "part": null,
+     "destination": "component-payload",
+     "progress": [
+      [
+       "downloading",
+       17,
+       17
+      ],
+      [
+       "verifying",
+       17,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     null,
+     [
+      {
+       "status": 200,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Length",
+         "1_7"
+        ]
+       ],
+       "body": [
+        0,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "ok",
+     "message": null,
+     "requests": [
+      null
+     ],
+     "part": null,
+     "destination": "component-payload",
+     "progress": [
+      [
+       "downloading",
+       17,
+       17
+      ],
+      [
+       "verifying",
+       17,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     null,
+     [
+      {
+       "status": 200,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Length",
+         "+17"
+        ]
+       ],
+       "body": [
+        0,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "ok",
+     "message": null,
+     "requests": [
+      null
+     ],
+     "part": null,
+     "destination": "component-payload",
+     "progress": [
+      [
+       "downloading",
+       17,
+       17
+      ],
+      [
+       "verifying",
+       17,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     null,
+     [
+      {
+       "status": 200,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Length",
+         "-17"
+        ]
+       ],
+       "body": [
+        0,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download server returned an unexpected download size.",
+     "requests": [
+      null
+     ],
+     "part": null,
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     null,
+     [
+      {
+       "status": 200,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Length",
+         ""
+        ]
+       ],
+       "body": [
+        0,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download server returned an invalid download size.",
+     "requests": [
+      null
+     ],
+     "part": null,
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     null,
+     [
+      {
+       "status": 200,
+       "reason": "OK",
+       "headers": [],
+       "body": {
+        "junk": 18
+       }
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download server returned more data than expected.",
+     "requests": [
+      null
+     ],
+     "part": null,
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     null,
+     [
+      {
+       "status": 200,
+       "reason": "OK",
+       "headers": [],
+       "body": [
+        [
+         0,
+         17
+        ],
+        {
+         "junk": 1
+        }
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download server returned more data than expected.",
+     "requests": [
+      null
+     ],
+     "part": null,
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     null,
+     [
+      {
+       "status": 200,
+       "reason": "OK",
+       "headers": [],
+       "body": [
+        0,
+        16
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadInterrupted",
+     "message": "The download did not complete (16 B of 17 B).",
+     "requests": [
+      null
+     ],
+     "part": "component-payloa",
+     "destination": null,
+     "progress": [
+      [
+       "downloading",
+       16,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     null,
+     [
+      {
+       "status": 200,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Length",
+         "17"
+        ]
+       ],
+       "body": {
+        "junk": 17
+       }
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download failed its integrity check and was discarded. Please try again.",
+     "requests": [
+      null
+     ],
+     "part": null,
+     "destination": null,
+     "progress": [
+      [
+       "downloading",
+       17,
+       17
+      ],
+      [
+       "verifying",
+       17,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     null,
+     [
+      {
+       "status": 206,
+       "reason": "Partial Content",
+       "headers": [
+        [
+         "Content-Length",
+         "17"
+        ]
+       ],
+       "body": [
+        0,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "ok",
+     "message": null,
+     "requests": [
+      null
+     ],
+     "part": null,
+     "destination": "component-payload",
+     "progress": [
+      [
+       "downloading",
+       17,
+       17
+      ],
+      [
+       "verifying",
+       17,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "status": 206,
+       "reason": "Partial Content",
+       "headers": [
+        [
+         "Content-Range",
+         "bytes 8-16/17"
+        ],
+        [
+         "Content-Length",
+         "9"
+        ]
+       ],
+       "body": [
+        8,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "ok",
+     "message": null,
+     "requests": [
+      "bytes=8-"
+     ],
+     "part": null,
+     "destination": "component-payload",
+     "progress": [
+      [
+       "downloading",
+       17,
+       17
+      ],
+      [
+       "verifying",
+       17,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "status": 206,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Range",
+         "bytes 8-16/17"
+        ]
+       ],
+       "body": [
+        8,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "ok",
+     "message": null,
+     "requests": [
+      "bytes=8-"
+     ],
+     "part": null,
+     "destination": "component-payload",
+     "progress": [
+      [
+       "downloading",
+       17,
+       17
+      ],
+      [
+       "verifying",
+       17,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "status": 206,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Range",
+         "bytes 0-9/17"
+        ]
+       ],
+       "body": [
+        8,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download server returned an invalid resume response.",
+     "requests": [
+      "bytes=8-"
+     ],
+     "part": null,
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "status": 206,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Range",
+         "bytes 8-16/18"
+        ]
+       ],
+       "body": [
+        8,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download server returned an invalid resume response.",
+     "requests": [
+      "bytes=8-"
+     ],
+     "part": null,
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "status": 206,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Range",
+         "bytes 8-17/17"
+        ]
+       ],
+       "body": [
+        8,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download server returned an invalid resume response.",
+     "requests": [
+      "bytes=8-"
+     ],
+     "part": null,
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "status": 206,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Range",
+         "bytes  8-16/17"
+        ]
+       ],
+       "body": [
+        8,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download server returned an invalid resume response.",
+     "requests": [
+      "bytes=8-"
+     ],
+     "part": null,
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "status": 206,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Range",
+         "bytes 8-16/17 "
+        ]
+       ],
+       "body": [
+        8,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download server returned an invalid resume response.",
+     "requests": [
+      "bytes=8-"
+     ],
+     "part": null,
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "status": 206,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Range",
+         "bytes */17"
+        ]
+       ],
+       "body": [
+        8,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download server returned an invalid resume response.",
+     "requests": [
+      "bytes=8-"
+     ],
+     "part": null,
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "status": 206,
+       "reason": "OK",
+       "headers": [],
+       "body": [
+        8,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download server returned an invalid resume response.",
+     "requests": [
+      "bytes=8-"
+     ],
+     "part": null,
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "status": 206,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Range",
+         "bytes 8-16/17"
+        ],
+        [
+         "Content-Length",
+         "17"
+        ]
+       ],
+       "body": [
+        8,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download server returned an unexpected download size.",
+     "requests": [
+      "bytes=8-"
+     ],
+     "part": null,
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "status": 200,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Length",
+         "17"
+        ]
+       ],
+       "body": [
+        0,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "ok",
+     "message": null,
+     "requests": [
+      "bytes=8-"
+     ],
+     "part": null,
+     "destination": "component-payload",
+     "progress": [
+      [
+       "downloading",
+       17,
+       17
+      ],
+      [
+       "verifying",
+       17,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "status": 200,
+       "reason": "OK",
+       "headers": [],
+       "body": [
+        0,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "ok",
+     "message": null,
+     "requests": [
+      "bytes=8-"
+     ],
+     "part": null,
+     "destination": "component-payload",
+     "progress": [
+      [
+       "downloading",
+       17,
+       17
+      ],
+      [
+       "verifying",
+       17,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "status": 203,
+       "reason": "Non-Authoritative Information",
+       "headers": [
+        [
+         "Content-Length",
+         "17"
+        ]
+       ],
+       "body": [
+        0,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "ok",
+     "message": null,
+     "requests": [
+      "bytes=8-"
+     ],
+     "part": null,
+     "destination": "component-payload",
+     "progress": [
+      [
+       "downloading",
+       17,
+       17
+      ],
+      [
+       "verifying",
+       17,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "status": 416,
+       "reason": "Range Not Satisfiable"
+      },
+      {
+       "status": 200,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Length",
+         "17"
+        ]
+       ],
+       "body": [
+        0,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "ok",
+     "message": null,
+     "requests": [
+      "bytes=8-",
+      null
+     ],
+     "part": null,
+     "destination": "component-payload",
+     "progress": [
+      [
+       "downloading",
+       17,
+       17
+      ],
+      [
+       "verifying",
+       17,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "status": 416,
+       "reason": "Range Not Satisfiable"
+      },
+      {
+       "status": 416,
+       "reason": "Range Not Satisfiable"
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download server returned an error (416 Range Not Satisfiable).",
+     "requests": [
+      "bytes=8-",
+      null
+     ],
+     "part": "",
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "status": 416,
+       "reason": "Range Not Satisfiable"
+      },
+      {
+       "status": 206,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Range",
+         "bytes 8-16/17"
+        ],
+        [
+         "Content-Length",
+         "9"
+        ]
+       ],
+       "body": [
+        8,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download server returned an unexpected download size.",
+     "requests": [
+      "bytes=8-",
+      null
+     ],
+     "part": null,
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "status": 404,
+       "reason": "Not Found"
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download server returned an error (404 Not Found).",
+     "requests": [
+      "bytes=8-"
+     ],
+     "part": "componen",
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "status": 503,
+       "reason": "Service Unavailable"
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download server returned an error (503 Service Unavailable).",
+     "requests": [
+      "bytes=8-"
+     ],
+     "part": "componen",
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "status": 304,
+       "reason": "Not Modified"
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download server returned an error (304 Not Modified).",
+     "requests": [
+      "bytes=8-"
+     ],
+     "part": "componen",
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      0
+     ],
+     [
+      {
+       "status": 416,
+       "reason": "Range Not Satisfiable"
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download server returned an error (416 Range Not Satisfiable).",
+     "requests": [
+      null
+     ],
+     "part": "",
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "status": 206,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Range",
+         "bytes 8-16/17"
+        ],
+        [
+         "Content-Length",
+         "9"
+        ]
+       ],
+       "body": [
+        8,
+        16
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadInterrupted",
+     "message": "The download did not complete (16 B of 17 B).",
+     "requests": [
+      "bytes=8-"
+     ],
+     "part": "component-payloa",
+     "destination": null,
+     "progress": [
+      [
+       "downloading",
+       16,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "status": 206,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Range",
+         "bytes 8-16/17"
+        ]
+       ],
+       "body": [
+        [
+         8,
+         17
+        ],
+        {
+         "junk": 1
+        }
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download server returned more data than expected.",
+     "requests": [
+      "bytes=8-"
+     ],
+     "part": null,
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      17
+     ],
+     [],
+     {}
+    ],
+    "result": {
+     "outcome": "ok",
+     "message": null,
+     "requests": [],
+     "part": null,
+     "destination": "component-payload",
+     "progress": [
+      [
+       "verifying",
+       17,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "junk": 17
+     },
+     [
+      {
+       "status": 200,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Length",
+         "17"
+        ]
+       ],
+       "body": [
+        0,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "ok",
+     "message": null,
+     "requests": [
+      null
+     ],
+     "part": null,
+     "destination": "component-payload",
+     "progress": [
+      [
+       "downloading",
+       17,
+       17
+      ],
+      [
+       "verifying",
+       17,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "junk": 20
+     },
+     [
+      {
+       "status": 200,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Length",
+         "17"
+        ]
+       ],
+       "body": [
+        0,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "ok",
+     "message": null,
+     "requests": [
+      null
+     ],
+     "part": null,
+     "destination": "component-payload",
+     "progress": [
+      [
+       "downloading",
+       17,
+       17
+      ],
+      [
+       "verifying",
+       17,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "junk": 8
+     },
+     [
+      {
+       "status": 206,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Range",
+         "bytes 8-16/17"
+        ],
+        [
+         "Content-Length",
+         "9"
+        ]
+       ],
+       "body": [
+        8,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download failed its integrity check and was discarded. Please try again.",
+     "requests": [
+      "bytes=8-"
+     ],
+     "part": null,
+     "destination": null,
+     "progress": [
+      [
+       "downloading",
+       17,
+       17
+      ],
+      [
+       "verifying",
+       17,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      0
+     ],
+     [
+      {
+       "status": 200,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Length",
+         "17"
+        ]
+       ],
+       "body": [
+        0,
+        17
+       ]
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "ok",
+     "message": null,
+     "requests": [
+      null
+     ],
+     "part": null,
+     "destination": "component-payload",
+     "progress": [
+      [
+       "downloading",
+       17,
+       17
+      ],
+      [
+       "verifying",
+       17,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     null,
+     [
+      {
+       "url_error": "no route to host"
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "Could not reach the download server (no route to host).",
+     "requests": [
+      null
+     ],
+     "part": "",
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "url_error": "no route to host"
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "Could not reach the download server (no route to host).",
+     "requests": [
+      "bytes=8-"
+     ],
+     "part": "componen",
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "certificate": true
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download server's certificate could not be verified. This is usually caused by network security software that inspects HTTPS traffic. Ask your IT team to allow files.example.test.",
+     "requests": [
+      "bytes=8-"
+     ],
+     "part": "componen",
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     null,
+     [
+      {
+       "status": 200,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Length",
+         "17"
+        ]
+       ],
+       "body": [
+        0,
+        8
+       ],
+       "fail": "timed out"
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "timed out",
+     "requests": [
+      null
+     ],
+     "part": "componen",
+     "destination": null,
+     "progress": [
+      [
+       "downloading",
+       8,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "status": 206,
+       "reason": "Partial Content",
+       "headers": [
+        [
+         "Content-Range",
+         "bytes 8-16/17"
+        ],
+        [
+         "Content-Length",
+         "9"
+        ]
+       ],
+       "body": [
+        8,
+        12
+       ],
+       "fail": "[WinError 10054] An existing connection was forcibly closed by the remote host"
+      }
+     ],
+     {}
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "[WinError 10054] An existing connection was forcibly closed by the remote host",
+     "requests": [
+      "bytes=8-"
+     ],
+     "part": "component-pa",
+     "destination": null,
+     "progress": [
+      [
+       "downloading",
+       12,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     null,
+     [],
+     {
+      "size": 0
+     }
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download has an invalid size.",
+     "requests": [],
+     "part": null,
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     null,
+     [],
+     {
+      "size": -1
+     }
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download has an invalid size.",
+     "requests": [],
+     "part": null,
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     null,
+     [],
+     {
+      "max_bytes": 16
+     }
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download has an invalid size.",
+     "requests": [],
+     "part": null,
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     null,
+     [
+      {
+       "status": 200,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Length",
+         "17"
+        ]
+       ],
+       "body": [
+        0,
+        17
+       ]
+      }
+     ],
+     {
+      "max_bytes": 17
+     }
+    ],
+    "result": {
+     "outcome": "ok",
+     "message": null,
+     "requests": [
+      null
+     ],
+     "part": null,
+     "destination": "component-payload",
+     "progress": [
+      [
+       "downloading",
+       17,
+       17
+      ],
+      [
+       "verifying",
+       17,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [],
+     {
+      "size": 0
+     }
+    ],
+    "result": {
+     "outcome": "DownloadError",
+     "message": "The download has an invalid size.",
+     "requests": [],
+     "part": "componen",
+     "destination": null,
+     "progress": []
+    }
+   },
+   {
+    "args": [
+     null,
+     [
+      {
+       "status": 200,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Length",
+         "17"
+        ]
+       ],
+       "body": [
+        0,
+        17
+       ]
+      }
+     ],
+     {
+      "cancel_on_read": true
+     }
+    ],
+    "result": {
+     "outcome": "DownloadCanceled",
+     "message": "The download was canceled.",
+     "requests": [
+      null
+     ],
+     "part": null,
+     "destination": null,
+     "progress": [
+      [
+       "downloading",
+       17,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     null,
+     [
+      {
+       "status": 200,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Length",
+         "17"
+        ]
+       ],
+       "body": [
+        0,
+        17
+       ]
+      }
+     ],
+     {
+      "cancel_on_read": true,
+      "keep_partial_on_cancel": true
+     }
+    ],
+    "result": {
+     "outcome": "DownloadCanceled",
+     "message": "The download was canceled.",
+     "requests": [
+      null
+     ],
+     "part": "component-payload",
+     "destination": null,
+     "progress": [
+      [
+       "downloading",
+       17,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "status": 206,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Range",
+         "bytes 8-16/17"
+        ],
+        [
+         "Content-Length",
+         "9"
+        ]
+       ],
+       "body": [
+        8,
+        17
+       ]
+      }
+     ],
+     {
+      "cancel_on_read": true
+     }
+    ],
+    "result": {
+     "outcome": "DownloadCanceled",
+     "message": "The download was canceled.",
+     "requests": [
+      "bytes=8-"
+     ],
+     "part": null,
+     "destination": null,
+     "progress": [
+      [
+       "downloading",
+       17,
+       17
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     [
+      0,
+      8
+     ],
+     [
+      {
+       "status": 206,
+       "reason": "OK",
+       "headers": [
+        [
+         "Content-Range",
+         "bytes 8-16/17"
+        ],
+        [
+         "Content-Length",
+         "9"
+        ]
+       ],
+       "body": [
+        8,
+        17
+       ]
+      }
+     ],
+     {
+      "cancel_on_read": true,
+      "keep_partial_on_cancel": true
+     }
+    ],
+    "result": {
+     "outcome": "DownloadCanceled",
+     "message": "The download was canceled.",
+     "requests": [
+      "bytes=8-"
+     ],
+     "part": "component-payload",
+     "destination": null,
+     "progress": [
+      [
+       "downloading",
+       17,
+       17
+      ]
+     ]
+    }
+   }
+  ],
+  "describe": [
+   {
+    "args": [
+     "certificate",
+     "self-signed",
+     null,
+     [],
+     []
+    ],
+    "result": "The download server's certificate could not be verified. This is usually caused by network security software that inspects HTTPS traffic. Ask your IT team to allow the download server."
+   },
+   {
+    "args": [
+     "certificate",
+     "self-signed",
+     null,
+     [
+      "files.pythonhosted.org"
+     ],
+     []
+    ],
+    "result": "The download server's certificate could not be verified. This is usually caused by network security software that inspects HTTPS traffic. Ask your IT team to allow files.pythonhosted.org."
+   },
+   {
+    "args": [
+     "certificate",
+     "self-signed",
+     null,
+     [
+      "huggingface.co",
+      "cdn-lfs.hf.co"
+     ],
+     []
+    ],
+    "result": "The download server's certificate could not be verified. This is usually caused by network security software that inspects HTTPS traffic. Ask your IT team to allow huggingface.co and cdn-lfs.hf.co."
+   },
+   {
+    "args": [
+     "certificate",
+     "self-signed",
+     null,
+     [
+      "a.example",
+      "b.example",
+      "c.example"
+     ],
+     []
+    ],
+    "result": "The download server's certificate could not be verified. This is usually caused by network security software that inspects HTTPS traffic. Ask your IT team to allow a.example, b.example and c.example."
+   },
+   {
+    "args": [
+     "certificate",
+     "self-signed",
+     "update server",
+     [],
+     []
+    ],
+    "result": "The update server's certificate could not be verified. This is usually caused by network security software that inspects HTTPS traffic. Ask your IT team to allow the update server."
+   },
+   {
+    "args": [
+     "certificate",
+     "self-signed",
+     "update server",
+     [
+      "github.com",
+      "objects.githubusercontent.com"
+     ],
+     []
+    ],
+    "result": "The update server's certificate could not be verified. This is usually caused by network security software that inspects HTTPS traffic. Ask your IT team to allow github.com and objects.githubusercontent.com."
+   },
+   {
+    "args": [
+     "certificate_direct",
+     "self-signed",
+     null,
+     [
+      "huggingface.co"
+     ],
+     []
+    ],
+    "result": "The download server's certificate could not be verified. This is usually caused by network security software that inspects HTTPS traffic. Ask your IT team to allow huggingface.co."
+   },
+   {
+    "args": [
+     "http",
+     [
+      404,
+      "Not Found"
+     ],
+     null,
+     [],
+     []
+    ],
+    "result": "The download server returned an error (404 Not Found)."
+   },
+   {
+    "args": [
+     "http",
+     [
+      500,
+      ""
+     ],
+     null,
+     [],
+     []
+    ],
+    "result": "The download server returned an error (500 )."
+   },
+   {
+    "args": [
+     "http",
+     [
+      503,
+      "Service Unavailable"
+     ],
+     "update server",
+     [],
+     []
+    ],
+    "result": "The update server returned an error (503 Service Unavailable)."
+   },
+   {
+    "args": [
+     "http",
+     [
+      404,
+      "Not Found"
+     ],
+     "update server",
+     [],
+     [
+      [
+       404,
+       "No release is published yet."
+      ]
+     ]
+    ],
+    "result": "No release is published yet."
+   },
+   {
+    "args": [
+     "http",
+     [
+      403,
+      "Forbidden"
+     ],
+     null,
+     [],
+     [
+      [
+       404,
+       "No release is published yet."
+      ]
+     ]
+    ],
+    "result": "The download server returned an error (403 Forbidden)."
+   },
+   {
+    "args": [
+     "http",
+     [
+      403,
+      "Forbidden"
+     ],
+     null,
+     [],
+     [
+      [
+       403,
+       ""
+      ]
+     ]
+    ],
+    "result": "The download server returned an error (403 Forbidden)."
+   },
+   {
+    "args": [
+     "url",
+     "no route to host",
+     null,
+     [],
+     []
+    ],
+    "result": "Could not reach the download server (no route to host)."
+   },
+   {
+    "args": [
+     "url",
+     "[Errno 11001] getaddrinfo failed",
+     null,
+     [
+      "huggingface.co"
+     ],
+     []
+    ],
+    "result": "Could not reach the download server ([Errno 11001] getaddrinfo failed)."
+   },
+   {
+    "args": [
+     "url",
+     "timed out",
+     "update server",
+     [],
+     []
+    ],
+    "result": "Could not reach the update server (timed out)."
+   },
+   {
+    "args": [
+     "url",
+     "",
+     null,
+     [],
+     []
+    ],
+    "result": "Could not reach the download server ()."
+   },
+   {
+    "args": [
+     "other",
+     "timed out",
+     null,
+     [],
+     []
+    ],
+    "result": "timed out"
+   },
+   {
+    "args": [
+     "other",
+     "[WinError 112] There is not enough space on the disk",
+     null,
+     [],
+     []
+    ],
+    "result": "[WinError 112] There is not enough space on the disk"
+   },
+   {
+    "args": [
+     "other",
+     "",
+     null,
+     [],
+     []
+    ],
+    "result": "Could not reach the download server."
+   },
+   {
+    "args": [
+     "other",
+     "",
+     "update server",
+     [],
+     []
+    ],
+    "result": "Could not reach the update server."
+   }
+  ]
+ }
+}

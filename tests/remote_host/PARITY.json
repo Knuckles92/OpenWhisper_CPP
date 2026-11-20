@@ -1,0 +1,578 @@
+{
+  "package": "M9.5, M9.6, M9.12, M9.13, M9.14",
+  "files": {
+    "tests/test_host_mode.py": {
+      "test_activity_counts_each_computers_requests_and_lists_newest_first": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_activity.cpp"
+      },
+      "test_a_computer_connects_once_however_many_connections_it_opens": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_activity.cpp"
+      },
+      "test_sharing_again_starts_a_new_session_but_keeps_the_serial_rising": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_activity.cpp"
+      },
+      "test_a_failure_keeps_a_short_one_line_reason": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_activity.cpp"
+      },
+      "test_the_host_logs_what_a_paired_computer_asked_for": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_a_transcription_is_counted_before_the_event_that_ends_it": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_the_service_reads_activity_and_the_engine_while_not_sharing": {"status": "ported", "cpp": "tests/remote_host/test_service.cpp", "note": "case of the same name, over ServiceRig with no engine: an empty activity snapshot and an unavailable engine described as \"No transcription engine is selected on the host\" (the service returned null until this port)"}
+    },
+    "tests/test_remote_registry.py": {
+      "test_last_seen_write_serializes_with_device_changes": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_registry.cpp"
+      },
+      "test_history_and_host_share_registry_before_and_after_host_creation": {"status": "ported", "cpp": "tests/remote_host/test_service.cpp", "note": "case of the same name. Adapted: object identity (host.registry is registry) becomes behaviour: a device saved before this service started is listed by host_state() and by the history broker (history().clients()) before any host exists, and a computer the host pairs afterwards appears in both"},
+      "test_service_removal_uses_history_registry": {"status": "ported", "cpp": "tests/remote_host/test_service.cpp", "note": "case of the same name, for create_host false and true: remove_device empties the list the history broker reads"}
+    },
+    "tests/test_remote_rename.py": {
+      "test_a_paired_computer_can_go_by_another_name_and_back": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_registry.cpp"
+      },
+      "test_a_connected_computer_goes_by_its_new_name_at_once": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_the_service_renames_a_paired_computer_on_what_it_keeps_too": {"status": "ported", "cpp": "tests/remote_host/test_reachability.cpp", "note": "case of the same name (the service now emits devices before records, and records only when the store renamed something, as service.py does)"},
+      "test_the_service_renames_its_host_and_says_so": {"status": "ported", "cpp": "tests/remote_host/test_reachability.cpp", "note": "case of the same name (the service now emits devices before records, and records only when the store renamed something, as service.py does)"},
+      "test_dictation_calls_the_host_its_new_name_without_reconnecting": {"status": "ported", "cpp": "tests/remote_host/test_reachability.cpp", "note": "case of the same name: the service's dictation backend now follows its host_renamed event (RemoteRuntime._on_host_renamed), keeping its connection"}
+    },
+    "tests/test_remote_engine.py": {
+      "test_host_identity_is_created_once_and_reused": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_identity.cpp"
+      },
+      "test_host_refuses_to_share_remote_or_cloud_engines": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_host_engine.cpp"
+      },
+      "test_pairing_issues_a_token_the_host_stores_only_as_a_digest": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_pairing_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_wrong_codes_are_refused_and_close_pairing": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_pairing_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_pairing_is_refused_when_not_open": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_pairing_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_tailscale_pairing_is_refused_for_anyone_else": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_pairing_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_tailscale_pairing_is_refused_when_the_host_turned_it_off": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_pairing_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_code_pairing_still_works_and_carries_the_hosts_addresses": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_pairing_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_owners_tailscale_computer_pairs_without_a_code": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_pairing_host.cpp",
+        "note": "The Tailscale identity check is replaced through SpeechHostDeps::own_device, as the Python test monkeypatches tailscale.own_device. Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_unknown_token_is_refused": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_transcribe_round_trip_carries_audio_and_language": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_engine_errors_come_back_as_request_errors": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_switching_the_host_engine_tells_clients_to_reconnect": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_removing_a_device_drops_its_connection": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_turning_sharing_off_cuts_off_connected_clients": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_updates_defer_when_connected_client_cannot_report_recordings": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_the_host_says_who_it_is_decoding_for": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_ready_lists_the_models_the_host_can_switch_to": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_select_model_switches_the_host_and_answers_with_the_new_engine": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_select_model_follows_a_host_side_switch_and_passes_refusals_on": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_a_host_that_cannot_switch_lists_nothing_and_refuses": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_probe_answers_without_a_token_and_reveals_no_secrets": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_wrong_path_is_not_mistaken_for_a_host": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Also reads the 404 body with a plain TLS client."
+      },
+      "test_streams_are_scoped_per_connection_and_canceled_on_disconnect": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Adapted: Parakeet refuses stream; scoping and cancel-on-disconnect are tested with the streaming FakeHostEngine. Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_recording_reservation_blocks_updates_without_any_preview": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Adapted: the host half only; the RemoteSpeechBackend calls (reserve_recording, restore_link, decode_window) are raw recording_begin/recording_end and transcribe frames."
+      },
+      "test_updates_defer_during_remote_decode_without_a_recording": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Adapted: the host half only; the RemoteSpeechBackend calls (reserve_recording, restore_link, decode_window) are raw recording_begin/recording_end and transcribe frames."
+      },
+      "test_host_reports_a_reload_and_refuses_audio_before_decoding": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Adapted: the host half only; the RemoteSpeechBackend calls (reserve_recording, restore_link, decode_window) are raw recording_begin/recording_end and transcribe frames."
+      },
+      "test_service_starts_sharing_and_pairs_a_client": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_service.cpp"
+      },
+      "test_service_status_check_never_blocks_the_caller": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_service.cpp"
+      },
+      "test_remote_backend_decodes_windows_streams_and_segments": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_service.cpp",
+        "note": "Parakeet windows and segments, using a loopback SpeechHost. Native streaming is outside this port."
+      },
+      "test_silent_windows_never_leave_the_client": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name, over the real SpeechHost with FakeHostEngine on 127.0.0.1 (the paired_backend fixture)"},
+      "test_remote_backend_reports_a_host_without_a_ready_engine": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name, over the real SpeechHost with FakeHostEngine on 127.0.0.1 (the paired_backend fixture)"},
+      "test_remote_backend_without_pairing_says_how_to_pair": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name, over the real SpeechHost with FakeHostEngine on 127.0.0.1 (the paired_backend fixture)"},
+      "test_link_without_a_pairing_is_unpaired": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name, over the real SpeechHost with FakeHostEngine on 127.0.0.1 (the paired_backend fixture)"},
+      "test_link_reads_connected_and_the_round_trip": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name, over the real SpeechHost with FakeHostEngine on 127.0.0.1 (the paired_backend fixture)"},
+      "test_link_is_busy_while_a_request_waits_and_counts_replies": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name, over the real SpeechHost with FakeHostEngine on 127.0.0.1 (the paired_backend fixture)"},
+      "test_check_link_notices_a_host_that_went_away_between_requests": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name, over the real SpeechHost with FakeHostEngine on 127.0.0.1 (the paired_backend fixture)"},
+      "test_timing_splits_the_host_from_the_network": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name, over the real SpeechHost with FakeHostEngine on 127.0.0.1 (the paired_backend fixture)"},
+      "test_model_choices_follow_the_connection": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name, over the real SpeechHost with FakeHostEngine on 127.0.0.1 (the paired_backend fixture)"},
+      "test_choosing_a_host_model_switches_the_host_and_reconnects_to_it": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name, over the real SpeechHost with FakeHostEngine on 127.0.0.1 (the paired_backend fixture)"},
+      "test_the_models_are_forgotten_when_the_host_is_out_of_reach": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name, over the real SpeechHost with FakeHostEngine on 127.0.0.1 (the paired_backend fixture)"},
+      "test_remote_backend_adopts_the_host_engine": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name. The backend's key stays \"remote\" (id()); family() is OpenWhisper's backend_id after connecting and capabilities().live_preview its INCREMENTAL_DICTATION_BACKENDS membership. is_model_missing and last_loaded_model have no counterpart: a remote slot is never ModelMissing and warm_up decodes nothing"},
+      "test_the_next_job_clears_a_remote_engines_cancel": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case: the next job after a cancel is decoded on the same connection. Adapted: a cancel belongs to the job it stopped (a CancelSource per decode), so there is no flag for TranscriptionRuntime._rearm_remote_engine to clear; the test shows a cancel with nothing running and one mid-request both leave the next decode working on the kept connection"},
+      "test_restore_link_reconnects_quietly_or_adopts_a_new_engine": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name. The second engine is adopted after the host closes the idle connection with 4409 (SpeechHost::engine_changed), which stands in for the test's private _drop; also covers the unpaired outcome"},
+      "test_a_host_that_keeps_its_model_says_why": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name. The host's reason is switch_error() and the Ready load's Readiness::message (what _announce_speech_engine puts on the status line)"},
+      "test_cleanup_ends_a_switch_the_host_is_still_loading": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name (release() from another thread), and case: a newer load ends a switch the host is still loading (the SpeechService's cancel token)"},
+      "test_a_dropped_host_is_reported_at_once_and_retried_with_backoff": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name. Adapted: RemoteRuntime's watch and retry timers live in the backend (RemoteSpeechBackend with reconnect_on); a FakeClock and ManualExecutor drive the delays 2, 5, 15, 30, 60, 60 s, and the report is what watch_readiness hands the SpeechService. The engine card's RemoteLink (set_remote_link) is not drawn by any widget yet"},
+      "test_repeat_failures_dont_clear_the_status_line_every_time": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case: test_a_dropped_host_is_reported_at_once_and_retried_with_backoff (its last block): six failed retries leave exactly one more report, the first one that reads differently"},
+      "test_a_quiet_reconnect_restores_the_engine_card": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name, through a SpeechService: readiness returns to Ready with the readout and no reload ran (same generation), and the backoff starts over. Not covered: the preview set-up OpenWhisper requests after a quiet reconnect (streaming_setup_requested), which the controller does not do for a readiness change outside a load"},
+      "test_an_unpaired_remote_is_not_retried": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name"},
+      "test_an_unreachable_host_never_asks_to_install_a_local_runtime": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name, through a SpeechService: the slot reads Offline with the pairing sentence and never ModelMissing or RuntimeMissing, the only states that start a download or runtime consent (appcore::EngineReloadMachine, ApplicationController::transcription_readiness_message)"},
+      "test_selecting_the_remote_engine_connects_without_a_warmup_decode": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name, through a SpeechService: Ready with \"Fake Parakeet on devbox | cuda\", and SpeechService::warm_up reports false with no decode on the host. The preview set-up after a load is EngineReloadMachine's for every engine, and the link watch needs no start (the backend keeps its own)"},
+      "test_service_reports_a_busy_port": {"status": "ported", "cpp": "tests/remote_host/test_service.cpp", "note": "case of the same name: another SpeechHost holds the saved port; host_state().error is OpenWhisper's sentence around the system's reason"},
+      "test_a_service_without_a_switch_offers_no_models": {"status": "ported", "cpp": "tests/remote_host/test_service.cpp", "note": "case of the same name: a service built without an engine control, model cache and components lists nothing, sends ready.models [] and refuses select_model"},
+      "test_service_trusts_the_tailscale_owner_only_while_the_setting_is_on": {"status": "ported", "cpp": "tests/remote_host/test_service.cpp", "note": "case of the same name. Adapted: _trusted_tailscale_owner and _host_addresses are private, so the owner is read from what the host's probe answer says about Tailscale pairing and the tailnet address from the alternates a code pairing returns, with a FakeTailscaleCli that is signed in"},
+      "test_whisper_engine_decodes_windows_into_segments": {"status": "dropped", "reason": "Another speech engine: WhisperEngine wraps a faster-whisper model, which FioriVoce does not have (A17-54). What it shares with Parakeet (windows into text and segments through a host engine) is test_transcribe_round_trip_carries_audio_and_language and tests/remote_host/test_host_engine.cpp"},
+      "test_the_host_changes_whisper_size_without_changing_backend": {"status": "dropped", "reason": "Another speech engine: changing the Whisper model size without changing backend (WHISPER_MODEL, _whisper_already_serves). FioriVoce's one local family is Parakeet; switching between its models for a paired computer is HostModelManager::select"},
+      "test_host_models_are_the_downloaded_ones_with_a_runtime_here": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name, over HostModelManager::ready_models with the Parakeet family's two catalog models: one that is not downloaded or has no runtime here is left out. The Qwen, Nemotron and Whisper rows of the Python list are other engines. FioriVoce also lists nothing while model management is off"},
+      "test_service_answers_a_switch_once_the_new_model_has_loaded": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name: HostModelManager::select (RemoteEngineService.select_model with RemoteRuntime._switch_engine_to) over a real SpeechService with a fake engine; a FakeEngineControl plays the app's reload on another thread"},
+      "test_service_refuses_what_isnt_ready_and_skips_what_already_runs": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name, with OpenWhisper's sentence \"<model> isn't ready on <host>. Download it there first.\""},
+      "test_service_reports_a_refused_or_failed_switch": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name: a load that fails answers with the engine's status (\"not loaded\"), a meeting with \"devbox is running a meeting. Change its model after the meeting ends.\""},
+      "test_the_host_switches_as_if_the_model_were_picked_there": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name: the model is saved in local_asr_models with selected_model set to its family, then one reload. Not carried: the reload's status note \"Switching to <label> for <device>...\" (models::EngineControl::reload_engine takes no note)"},
+      "test_the_host_refuses_a_switch_while_busy_or_for_a_model_it_cant_run": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name: the meeting and transcribing refusals, and \"devbox can't run <model>.\" for a model that is not the family's; nothing saved, nothing reloaded"},
+      "test_a_queued_reload_is_unsettled_until_it_starts_and_ends": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name. Adapted: what OpenWhisper's _engine_settled tells the service is HostModelManager's own wait here: a switch is unanswered while its reload is only queued and while the load it starts runs (a newer SpeechService generation that left Loading). The reload machine's settled() itself is tests/appcore/test_engine_reload.cpp"},
+      "test_a_meeting_leaves_the_remote_connection_alone": {"status": "ported", "cpp": "tests/ui_controller/test_remote_engine_hooks.cpp", "note": "case of the same name: with Remote selected ApplicationController::release_local_engine returns false, the scripted remote backend is never released and nothing says 'Released'; restore reconnects nothing; the meeting's SpeechModelLease routed through the controller (route_dictation, as MeetingFeature::install does) leaves it connected too"},
+      "test_choosing_a_model_on_the_client_reloads_through_the_host": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend_runtime.cpp", "note": "case: test_choosing_a_model_on_the_client_reloads_through_the_host (remote::plan_remote_model_switch decides and names the note 'Switching devbox to Whisper small...'; request_model plus a load stand in for the controller's reload; the host's refusal arrives as the load's Readiness::message, which the controller shows)"},
+      "test_the_client_wont_switch_the_host_mid_recording": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend_runtime.cpp", "note": "case: test_the_client_wont_switch_the_host_mid_recording (plan_remote_model_switch refuses with 'Finish recording before changing the engine' and requests nothing; the next load asks the host for no switch)"},
+      "test_readiness_retries_a_remote_engine_that_could_not_connect": {"status": "ported", "cpp": "tests/ui_controller/test_remote_engine_hooks.cpp", "note": "case of the same name: the readiness check answers '<last_error> Trying again...' (or 'Connecting to <host>...' while a reconnect runs) and asks RemoteEngineHooks::retry_now (RemoteEngineService::dictation_link) rather than a reload; the remote branch's sentences are also tests/appcore/test_readiness_remote.cpp"}
+    },
+    "tests/test_remote_engine_push.py": {
+      "test_worker_identity_counts_the_device": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_host_engine.cpp"
+      },
+      "test_an_idle_client_is_told_the_engine_changed": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_engine_change_during_handshake_never_leaves_a_stale_client": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "The two phases hook the models callback (before registration) and the clients event (after registration, before ready) instead of patching _model_list and _send."
+      },
+      "test_a_reconnect_hands_the_client_the_new_engine": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_a_client_in_the_middle_of_a_request_keeps_its_connection": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_the_client_says_the_host_switched_rather_than_stopped": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case test_restore_link_reconnects_quietly_or_adopts_a_new_engine: the host closes the idle connection for its engine change, check_link() is true and last_error() is 'devbox switched engines. Reconnecting...'"},
+      "test_whisper_identity_counts_the_device_and_compute_type": {"status": "dropped", "reason": "WhisperEngine's identity and compute_type: FioriVoce keeps only the Parakeet engine (M9.md lists this function as dropped)"},
+      "test_service_refreshes_the_page_and_pushes_the_change": {"status": "ported", "cpp": "tests/remote_host/test_reachability.cpp", "note": "case of the same name: listeners hear exactly engine, and while sharing the host's push is posted to io, off the caller's thread"},
+      "test_host_state_labels_a_vpn_address": {"status": "ported", "cpp": "tests/remote_host/test_reachability.cpp", "note": "case of the same name over the new local_addresses seam: address is format_address(10.2.0.2, port) (FioriVoce keeps host:port), kind vpn, and a pairing's alternates leave the VPN address out"}
+    },
+    "tests/test_remote_runtime.py": {
+      "test_saved_auto_change_invalidates_idle_clients_even_if_resolved_runtime_is_same": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_host_engine.cpp"
+      },
+      "test_protocol_rejects_extra_fields_and_removed_clients": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Adapted: a fake configure_runtime callback stands for the service (M9.12)."
+      },
+      "test_host_reports_real_capabilities_and_saved_choices": {"status": "ported", "cpp": "tests/remote_host/test_runtime_state.cpp", "note": "case: the host describes available Parakeet runtimes and saved device separately. Adapted to Parakeet: devices come from the installed runtimes and the saved choice is reported apart; the compute types are CTranslate2's (Whisper), which FioriVoce does not run"},
+      "test_runtime_changes_are_bounded_and_device_switch_resets_precision": {"status": "ported", "cpp": "tests/remote_host/test_runtime_state.cpp", "note": "case: a remote runtime request can change only an available device or supported language (unready device, a precision, another model's request refused). The precision reset on a device switch is Whisper's: Parakeet manages its own precision and a compute_type is refused"},
+      "test_optional_devices_require_installed_runtime_and_moonshine_is_cpu_only": {"status": "ported", "cpp": "tests/remote_host/test_runtime_state.cpp", "note": "case: the host describes available Parakeet runtimes and saved device separately (without the GPU runtime the devices are auto and cpu). The Moonshine half is another speech engine"},
+      "test_host_controller_persists_runtime_and_reloads_even_for_same_model": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name: HostModelManager::configure saves the device, reloads the model already served with the 'Switching to <label> for <device>...' note, and refuses while transcribing without saving"},
+      "test_device_change_reloads_same_model_and_adopts_host_precision": {"status": "ported", "cpp": "tests/remote_host/test_remote_runtime_client.cpp", "note": "case of the same name: a device change rides on the next load as configure_runtime and the backend adopts the host's device, GPU and saved choice. Adapted: FioriVoce's Parakeet has no precision, so a compute_type request is refused by the host ('This engine manages its own precision on the host.') and the host's own field is checked through its saved device"},
+      "test_host_refusal_restores_authoritative_controls": {"status": "ported", "cpp": "tests/remote_host/test_remote_runtime_client.cpp", "note": "case of the same name"},
+      "test_optional_language_is_applied_to_remote_audio": {"status": "ported", "cpp": "tests/remote_host/test_remote_runtime_client.cpp", "note": "case of the same name; also with French, since auto is already Parakeet's default language"},
+      "test_capability_disappearing_before_reload_does_not_send_runtime_changes": {"status": "ported", "cpp": "tests/remote_host/test_remote_runtime_client.cpp", "note": "case of the same name"},
+      "test_idle_reconnect_updates_device_even_when_model_is_unchanged": {"status": "ported", "cpp": "tests/remote_host/test_remote_runtime_client.cpp", "note": "case of the same name"},
+      "test_catalog_refresh_updates_choices_without_reconnecting_audio": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend_runtime.cpp", "note": "case: the host's catalog refreshes the runtime choices without reconnecting (no new connection, runtime and models adopted; refused for another pairing and for a changed engine)"},
+      "test_old_host_remains_readable_but_cannot_be_configured": {"status": "ported", "cpp": "tests/remote_host/test_remote_runtime_client.cpp", "note": "case of the same name"},
+      "test_card_uses_host_choices_and_locks_during_activity": {"status": "ported", "cpp": "tests/ui_record/test_remote_engine_card.cpp", "note": "case of the same name (an OpenWhisper Whisper host, as in the Python)"},
+      "test_legacy_runtime_fields_are_read_only": {"status": "ported", "cpp": "tests/ui_record/test_remote_engine_card.cpp", "note": "case of the same name (an OpenWhisper Whisper host, as in the Python)"},
+      "test_missing_gpu_runtime_has_setup_route_in_main_card": {"status": "ported", "cpp": "tests/ui_record/test_remote_engine_card.cpp", "note": "case of the same name: the host's installable GPU runtime (runtime_state dependencies) feeds Manage host models and the device field's 'Set up on host' entry"},
+      "test_optional_card_shows_language_and_only_host_devices": {"status": "ported", "cpp": "tests/ui_record/test_remote_engine_card.cpp", "note": "case of the same name, with Parakeet (one device, one language) in place of the dropped Moonshine"},
+      "test_runtime_reply_waits_for_reload_and_reports_cpu_fallback": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name: configure waits for the queued reload, a second change is refused 'The host is changing its runtime. Try again in a moment.', the answer is the CPU engine the reload produced"}
+    },
+    "tests/test_personalize_s4_remote.py": {
+      "test_host_engines_declare_whether_they_use_hints": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_host_engine.cpp"
+      },
+      "test_speech_worker_engine_passes_phrases_to_recognize": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_host_engine.cpp"
+      },
+      "test_round_trip_reaches_an_engine_that_uses_hints": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "A hint-taking FakeHostEngine; its recorded phrases stand for the Python engine's text."
+      },
+      "test_a_host_without_the_capability_ignores_phrases": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "A hint-taking FakeHostEngine; its recorded phrases stand for the Python engine's text."
+      },
+      "test_phrases_never_change_the_engine_identity": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "A hint-taking FakeHostEngine; its recorded phrases stand for the Python engine's text."
+      },
+      "test_client_sends_phrases_only_to_a_host_that_uses_them": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name. A hint-taking FakeHostEngine; the phrases it recorded stand for the Python engine's text"},
+      "test_whisper_engine_turns_phrases_into_hotwords": {"status": "dropped", "reason": "Another speech engine: WhisperEngine turns phrases into faster-whisper hotwords; FioriVoce's host engine is Parakeet, which takes no vocabulary hints (accepts_phrases false, tests/remote_host/test_host_engine.cpp)"}
+    },
+    "tests/test_personalize_s4_recognition.py": {
+      "TestLocalSpeech::test_a_host_drops_phrases_its_engine_does_not_boost": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_host_engine.cpp"
+      }
+    },
+    "tests/test_remote_pairing_ux.py": {
+      "test_the_responder_limits_how_often_it_answers_one_address": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_discovery_responder.cpp"
+      },
+      "test_a_taken_discovery_port_leaves_sharing_running": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_discovery_responder.cpp",
+        "note": "Adapted: the host half (discovery_error and sharing still running) over FakeDiscoveryBus; the Settings note is M9.12's service."
+      },
+      "test_a_denied_request_pairs_nothing": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_pairing_host.cpp",
+        "note": "request_pairing's exchange is played with raw frames."
+      },
+      "test_canceling_here_takes_the_question_off_the_host": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_pairing_host.cpp",
+        "note": "request_pairing's exchange is played with raw frames."
+      },
+      "test_one_question_at_a_time": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_pairing_host.cpp",
+        "note": "request_pairing's exchange is played with raw frames."
+      },
+      "test_an_address_that_keeps_asking_is_turned_away": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_pairing_host.cpp",
+        "note": "request_pairing's exchange is played with raw frames."
+      },
+      "test_nobody_answering_turns_the_request_down": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_pairing_host.cpp",
+        "note": "request_pairing's exchange is played with raw frames."
+      },
+      "test_turning_sharing_off_ends_a_waiting_request": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_pairing_host.cpp",
+        "note": "request_pairing's exchange is played with raw frames."
+      },
+      "test_requests_from_outside_this_network_are_refused": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_pairing_host.cpp",
+        "note": "The peer address is injected (SpeechHostDeps::peer_address) instead of patching allowed_sender."
+      },
+      "test_a_slow_answer_still_beats_the_shutdown": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_pairing_host.cpp",
+        "note": "Adapted: a slowed send cannot be injected; checks that pair_closed and its 4401 close arrive although stop() closes every connection."
+      },
+      "test_a_request_that_never_answers_holds_up_stopping_only_briefly": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_pairing_host.cpp",
+        "note": "On PairingHost directly: a request no connection handles."
+      },
+      "test_a_sharing_host_answers_a_search_with_where_to_connect": {"status": "ported", "cpp": "tests/remote_host/test_discovery_search_host.cpp", "note": "case of the same name: remote::search against a sharing SpeechHost over a FakeDiscoveryBus finds one host (devbox, its TCP port, fingerprint, engine label, approval, compatible()); after stop() a search finds nothing"},
+      "test_an_allowed_request_pairs_with_the_number_both_screens_showed": {"status": "ported", "cpp": "tests/remote_host/test_reachability.cpp", "note": "case of the same name: the client service's request_pairing against a sharing service on 127.0.0.1, both computers' numbers, Allow, via approval, alternates from the pinned host address, the device saved, answered once, the token connecting"},
+      "test_network_profiles_parse_from_either_powershell": {"status": "ported", "cpp": "tests/remote_host/test_reachability.cpp", "note": "case of the same name over remote_host/reachability.{h,cpp} (ported in this change; the service reads profiles through a deps seam, PowerShell on Windows, cached 60 s and refreshed in the background, and case 'the sharing host lists reachability notes from the profiles it read' pins that)"},
+      "test_a_public_network_a_vpn_and_a_taken_port_each_say_what_to_do": {"status": "ported", "cpp": "tests/remote_host/test_reachability.cpp", "note": "case of the same name over remote_host/reachability.{h,cpp} (ported in this change; the service reads profiles through a deps seam, PowerShell on Windows, cached 60 s and refreshed in the background, and case 'the sharing host lists reachability notes from the profiles it read' pins that)"}
+    },
+    "tests/test_remote_host_admission.py": {
+      "test_connection_cap_is_retryable_and_releases_after_disconnect": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_admission.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_a_connection_that_never_says_hello_leaves_paired_slots_free": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_admission.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_paired_connections_return_their_handshake_slot": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_admission.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_disconnected_queued_client_releases_its_slot": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_admission.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_host_time_includes_waiting_for_a_work_slot": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_admission.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_record_transfers_do_not_wait_for_speech_work": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_admission.cpp",
+        "note": "Raw frames built with remote/protocol.h stand in for the client (no C++ client in this wave)."
+      },
+      "test_connection_refusal_before_hello_preserves_retry_delay": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_admission.cpp",
+        "note": "Adapted: the host half; a refused connection's hello still reads the busy reply and retry_after_ms before the 4429 close."
+      },
+      "test_fifo_job_queue_rejects_overload_before_audio_decode_and_recovers": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_admission.cpp",
+        "note": "Adapted: payload_audio cannot be patched to count decodes; the engine's call count shows nothing was decoded for the refused request."
+      },
+      "test_meeting_connect_busy_keeps_retry_delay": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name: a connection factory that throws RemoteHostBusy(retry_after_ms 2500), as the test patches _connect; the meeting decode fails with EngineError Retry::Capacity and retry_after_s 2.5"}
+    },
+    "tests/test_remote_records.py": {
+      "test_ready_advertises_records_and_counts": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Adapted: a fake records callback stands for M9.8's store."
+      },
+      "test_turning_storage_off_still_lets_a_device_read_and_delete_its_records": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Adapted: a fake records callback stands for M9.8's store."
+      },
+      "test_host_mode_moves_an_entry_with_its_audio": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_service.cpp",
+        "note": "The local outbox sends only after an explicit request. The recorded dictation and audio are synthetic; the host binds to an ephemeral loopback port."
+      },
+      "test_bring_back_moves_everything_home": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_service.cpp",
+        "note": "Covers dictation. Two conflicting copies are preserved rather than overwriting the local edit."
+      }
+    },
+    "tests/test_remote_mcp_control.py": {
+      "test_pairing_alone_never_grants_mcp_control": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Adapted: the wire side; a fake mcp callback stands for HostMcpControl (M9.9) and the service (M9.12)."
+      },
+      "test_permission_is_rechecked_on_existing_connections": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Adapted: the wire side; a fake mcp callback stands for HostMcpControl (M9.9) and the service (M9.12)."
+      },
+      "test_malformed_configure_requests_are_refused": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Adapted: the wire side; a fake mcp callback stands for HostMcpControl (M9.9) and the service (M9.12)."
+      },
+      "test_host_validation_errors_reach_the_client_without_internals": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Adapted: the wire side; a fake mcp callback stands for HostMcpControl (M9.9) and the service (M9.12)."
+      },
+      "test_revoked_devices_lose_mcp_control": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Adapted: the wire side; a fake mcp callback stands for HostMcpControl (M9.9) and the service (M9.12)."
+      },
+      "test_state_reports_what_the_host_page_would_show": {"status": "dropped", "reason": "The peer never sees the host's MCP page state, token, permissions or setting grants: a granted peer reads only {state, port 8768, tailscale false} (docs/port/differences.md a17-paired-mcp; tests/remote_host/test_mcp_grant.cpp 'the state a peer reads names only the session, never its token')."},
+      "test_enable_starts_with_the_saved_port_and_tailscale_choice": {"status": "dropped", "reason": "A paired computer cannot change the host's MCP settings (enabled state, port, Tailscale, permissions, setting grants); it may only start and end the one read-only session its host granted (docs/port/differences.md a17-paired-mcp). FioriVoce's own tests: tests/ui_automation/test_mcp_paired_host.cpp and tests/remote_host/test_mcp_grant.cpp. The session listens on fixed loopback 127.0.0.1:8768 without Tailscale (test_mcp_grant.cpp 'a session request other than the enabled switch changes nothing')."},
+      "test_port_and_tailscale_cannot_change_while_mcp_is_on": {"status": "dropped", "reason": "A paired computer cannot change the host's MCP settings (enabled state, port, Tailscale, permissions, setting grants); it may only start and end the one read-only session its host granted (docs/port/differences.md a17-paired-mcp). FioriVoce's own tests: tests/ui_automation/test_mcp_paired_host.cpp and tests/remote_host/test_mcp_grant.cpp. The session listens on fixed loopback 127.0.0.1:8768 without Tailscale (test_mcp_grant.cpp 'a session request other than the enabled switch changes nothing')."},
+      "test_permissions_and_individual_grants_match_the_host_page": {"status": "dropped", "reason": "A paired computer cannot change the host's MCP settings (enabled state, port, Tailscale, permissions, setting grants); it may only start and end the one read-only session its host granted (docs/port/differences.md a17-paired-mcp). FioriVoce's own tests: tests/ui_automation/test_mcp_paired_host.cpp and tests/remote_host/test_mcp_grant.cpp. The session listens on fixed loopback 127.0.0.1:8768 without Tailscale (test_mcp_grant.cpp 'a session request other than the enabled switch changes nothing')."},
+      "test_a_paired_computer_turns_the_host_mcp_on_and_reads_its_connection": {"status": "dropped", "reason": "The token and remote address never reach the peer (docs/port/differences.md a17-paired-mcp). FioriVoce's own test: tests/remote_host/test_mcp_grant.cpp 'a granted computer starts the host's session over pinned TLS and ending it revokes'."},
+      "test_invalid_requests_change_nothing": {"status": "ported", "cpp": "tests/remote_host/test_mcp_grant.cpp", "note": "case: a session request other than the enabled switch changes nothing (OpenWhisper's invalid requests, each refused bad_request; the listener never starts)"},
+      "test_a_remote_computer_cannot_reach_its_own_gate": {"status": "ported", "cpp": "tests/remote_host/test_mcp_grant.cpp", "note": "cases: a paired computer cannot reach its own grant; the host grants only a paired computer while it shares, and never the old opt-in"},
+      "test_an_older_host_without_the_capability_is_reported_as_unsupported": {"status": "ported", "cpp": "tests/remote_host/test_mcp_grant.cpp", "note": "case: a host without the grant is reported as unsupported"},
+      "test_the_page_link_works_end_to_end_over_real_tls": {"status": "ported", "cpp": "tests/remote_host/test_mcp_grant.cpp", "note": "case: a granted computer starts the host's session over pinned TLS and ending it revokes (Adapted, a17-paired-mcp: service -> pinned TLS -> SpeechHost -> PeerMcpSession; forbidden, granted, start, revoked on disconnect; the 15-minute end in 'the grant ends by itself after 15 minutes')"}
+    },
+    "tests/test_remote_model_management.py": {
+      "test_management_requires_explicit_boolean_opt_in": {
+        "status": "ported",
+        "cpp": "tests/remote/test_pairing_settings.cpp",
+        "note": "The real remote host setting reader accepts only boolean true; missing, false and malformed values remain disabled."
+      },
+      "test_permission_is_rechecked_on_existing_connections": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Adapted: the wire side; a fake manage_models callback stands for the service's model manager (M9.12)."
+      },
+      "test_management_does_not_relax_authentication_or_revocation": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Adapted: the wire side; a fake manage_models callback stands for the service's model manager (M9.12)."
+      },
+      "test_malformed_mutations_never_reach_downloader": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Adapted: the wire side; a fake manage_models callback stands for the service's model manager (M9.12)."
+      },
+      "test_only_bundled_family_model_pairs_can_be_downloaded": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name, on HostModelManager (Parakeet models; nothing reaches the FakeHttpClient)"},
+      "test_catalog_is_safe_and_reports_missing_runtime_separately": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name, on HostModelManager (Parakeet models; nothing reaches the FakeHttpClient)"},
+      "test_download_survives_disconnect_and_is_observable_without_selecting": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name: HostModelManager's download job on its own worker, files from the rig's FakeHttpClient held mid-transfer; observable through model_catalog, joined by a repeat, refusing another model, finishing with management off, then selectable. Found and fixed: the job read 'failed' while it ran (a temporary Started's destructor)"},
+      "test_download_respects_host_policy_and_releases_claim": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name, on HostModelManager (Parakeet models; nothing reaches the FakeHttpClient)"},
+      "test_cached_download_is_noop_and_local_claim_prevents_remote_work": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name, on HostModelManager (Parakeet models; nothing reaches the FakeHttpClient)"},
+      "test_failed_download_is_sanitized_releases_claim_and_can_retry": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name: a transfer error carrying a secret ends 'Download failed on the host...', the claim is released, and a retry completes"},
+      "test_incomplete_download_is_never_reported_as_ready": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name: a transfer that ends short leaves the job failed, the claim released and the model not cached (FioriVoce's cache checks size and digest, so the 'download returned without caching' path is reached through a short body)"},
+      "test_client_explains_disabled_or_older_host_without_mutating": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name: remote_model_refusal (RemoteEngineService::remote_model_request's checks of ready before anything is sent) for a host without model_management; the disabled half over a real service is tests/remote_host/test_audit_a17.cpp 'a17 audit: a model request names what keeps it from the host'"},
+      "test_worker_start_failure_releases_claim_and_does_not_stay_busy": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name: the work executor drops the job unrun (as one does after shutdown); the job's guard fails it with 'Couldn't start the download on the host.' and the claim is given back. Fixed here: the job used to stay 'downloading'"},
+      "test_management_dialog_runs_off_ui_thread_and_reflects_host_readiness": {"status": "ported", "cpp": "tests/ui_remote/test_remote_models_jobs.cpp", "note": "case of the same name, over a FakeRemoteEngine with requests on a ManualExecutor (in flight = queued on io)"},
+      "test_dialog_confirms_download_and_polls_until_complete": {"status": "ported", "cpp": "tests/ui_remote/test_remote_models_jobs.cpp", "note": "case of the same name, over a FakeRemoteEngine with requests on a ManualExecutor (in flight = queued on io)"},
+      "test_a_dialog_closed_mid_request_is_not_held_by_the_worker": {"status": "ported", "cpp": "tests/ui_remote/test_remote_models_jobs.cpp", "note": "case of the same name, over a FakeRemoteEngine with requests on a ManualExecutor (in flight = queued on io)"}
+    },
+    "tests/test_remote_dependencies.py": {
+      "test_install_rechecks_permission_and_revocation_on_existing_connection": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_speech_host.cpp",
+        "note": "Adapted: the wire side over a fake manage_models callback."
+      },
+      "test_linux_catalog_explains_cpu_gpu_and_unsupported_engines": {"status": "other-platform", "reason": "Linux host catalog (linux_x86_64 components, nemotron and qwen engines); the Windows product's host catalog is Parakeet CPU/CUDA (M9.md tests-to-port table)"},
+      "test_older_gpu_linux_host_installs_the_vulkan_runtime": {"status": "other-platform", "reason": "The Vulkan runtime for older GPUs is a Linux host component; on Windows an older GPU stays on CPU ('requires an NVIDIA Turing or newer GPU'), tested by test_install_rejects_missing_or_older_gpu_and_unsupported_platform (M9.md tests-to-port table)"},
+      "test_install_accepts_only_bundled_model_device_requests": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name: HostModelManager over a Windows models::Host (HostRuntimes). Parakeet only: the other engines and the Vulkan runtime are not FioriVoce's"},
+      "test_install_rejects_missing_or_older_gpu_and_unsupported_platform": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name: HostModelManager over a Windows models::Host (HostRuntimes). Parakeet only: the other engines and the Vulkan runtime are not FioriVoce's"},
+      "test_local_install_claim_prevents_duplicate_remote_install": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name: HostModelManager over a Windows models::Host (HostRuntimes). Parakeet only: the other engines and the Vulkan runtime are not FioriVoce's"},
+      "test_controller_applies_target_device_and_refuses_activity": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name: HostModelManager over a Windows models::Host (HostRuntimes). Parakeet only: the other engines and the Vulkan runtime are not FioriVoce's"},
+      "test_select_device_requires_cached_model_ready_runtime_and_permission": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name (a device that is not ready gives its own reason, then model management off refuses 'disabled'); a model not downloaded is refused 'Download the model on the host first.' in test_service_refuses_what_isnt_ready_and_skips_what_already_runs"},
+      "test_management_window_cannot_follow_a_changed_pairing": {"status": "ported", "cpp": "tests/remote_host/test_audit_a17.cpp", "note": "case: a17 audit: a model request names what keeps it from the host (a request for another pairing than the window's is refused 'The paired host changed. Close this window and open Manage host models again.' before anything is sent; the check is the same for every operation)"},
+      "test_thread_start_failure_is_recoverable": {"status": "dropped", "reason": "Python plumbing: threading.Thread.start failing. HostModelManager::install hands the job to the work executor, whose post does not fail"},
+      "test_install_survives_disconnect_reports_progress_and_uses_host_archive": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name: HostModelManager's install job with the CUDA archive from a catalog the coordinator holds, served by FakeHttpClient and held after its first 1 MiB block (progress), joined by a repeat, refusing another device, finishing with management off without a reload, then ready and not downloaded again"},
+      "test_install_failure_releases_claim_and_reports_recovery": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name, one SECTION per failure (error, incomplete, cancel, activation): failed or restart_required in OpenWhisper's words, nothing secret, the coordinator claim released, a retry after the error completes"},
+      "test_legacy_host_explains_runtime_upgrade": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name: remote_model_refusal on a ready whose capabilities lack runtime_installation refuses install_runtime and a device choice with 'Update <product> on the host to install runtimes and choose a model's device remotely.' before sending (no C++ host can omit the capability, so the client's check is tested on the ready)"},
+      "test_browser_installs_then_enables_selected_gpu_without_changing_local_settings": {"status": "ported", "cpp": "tests/ui_remote/test_remote_models_jobs.cpp", "note": "case of the same name, over a FakeRemoteEngine; 'local settings untouched' is checked as no call to the engine but the host's catalog and install"},
+      "test_browser_legacy_host_keeps_use_action_and_explains_setup": {"status": "ported", "cpp": "tests/ui_remote/test_remote_models_jobs.cpp", "note": "case of the same name, over a FakeRemoteEngine; 'local settings untouched' is checked as no call to the engine but the host's catalog and install"}
+    },
+    "tests/test_remote_keychain_recovery.py": {
+      "test_retry_saves_the_approved_token_without_contacting_the_host_again": {
+        "status": "ported",
+        "cpp": "tests/remote_host/test_service.cpp"
+      },
+      "test_forgetting_a_host_discards_an_unsaved_pairing": {"status": "ported", "cpp": "tests/remote_host/test_service.cpp", "note": "case of the same name, over a MemoryCredentialBackend that refuses writes"},
+      "test_open_keychain_access_uses_the_system_app": {"status": "other-platform", "reason": "macOS only: opens Keychain Access (/usr/bin/open -b com.apple.keychainaccess) from the Remote engine page's recovery row; the Windows product has no Keychain button (M9.md, A18-48)"}
+    },
+    "tests/test_meeting_remote.py": {
+      "test_host_change_and_new_pairing_are_rejected_before_audio": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name, on the meeting slot's RemoteSpeechBackend (a route pins the host and model): the refusals are EngineError with Retry::Connection, which the meeting's ASR worker defers on"},
+      "test_host_restart_recovers_without_switching_model": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name, on the meeting slot's RemoteSpeechBackend (a route pins the host and model): the refusals are EngineError with Retry::Connection, which the meeting's ASR worker defers on"},
+      "test_unsupported_host_engine_is_not_used": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend.cpp", "note": "case of the same name: a host family outside the catalog's meeting models leaves the meeting backend offline with remote::checked_meeting_engine's sentence, the route unpinned and nothing decoded"},
+      "test_live_mic_and_system_audio_use_remote_model_and_meeting_timestamps": {"status": "ported", "cpp": "tests/remote_host/test_meeting_remote.cpp", "note": "case of the same name: meeting_capture's MeetingAsrEngine over a SpeechService whose Meeting slot is a RemoteSpeechBackend with a route, against the real SpeechHost with FakeHostEngine. The chunks are the support header's half-second WAVs, so the segments end at 10.5 and 20.5"},
+      "test_remote_outage_keeps_chunks_pending_and_stop_is_prompt": {"status": "ported", "cpp": "tests/remote_host/test_meeting_remote.cpp", "note": "case of the same name, with the host really stopped (Python patches ensure_ready to raise): the worker reports the outage, the chunk keeps asr_attempts 0, and stop() returns within 2 s"},
+      "test_live_worker_resumes_pending_audio_after_host_returns": {"status": "ported", "cpp": "tests/remote_host/test_meeting_remote.cpp", "note": "case of the same name. The worker's pause after an outage (5 s first) is not a test seam, so the test takes about 5 s"},
+      "test_remote_preview_emits_text_for_host_model": {"status": "ported", "cpp": "tests/remote_host/test_meeting_remote.cpp", "note": "case of the same name, for the Parakeet host. The nemotron parameter is another speech engine (a streaming host engine), which FioriVoce's meeting route refuses: test_unsupported_host_engine_is_not_used"},
+      "test_unavailable_remote_aborts_before_recording": {"status": "ported", "cpp": "tests/remote_host/test_meeting_remote.cpp", "note": "case of the same name, for what the route decides: a host with nothing loaded leaves the Meeting slot Offline with \"devbox: not loaded\", unpinned and undecoded. MeetingRuntime's engine factory throws that readiness's message before it builds the engine (src/meeting/detail/runtime_engine.cpp), and a factory that throws rolls the start back without capture: tests/meeting/test_runtime_start.cpp test_start_worker_failure_rolls_back_active_state"},
+      "test_whisper_host_needs_no_optional_catalog_preview": {"status": "dropped", "reason": "Another speech engine: a Whisper host. FioriVoce's meeting route accepts only a Parakeet catalog model on the host (remote::checked_meeting_engine: \"...does not support meetings. Select Parakeet in Manage host models.\"), tested by test_unsupported_host_engine_is_not_used; whether a previewing engine previews is test_remote_preview_emits_text_for_host_model"},
+      "test_remote_recovery_uses_saved_route_without_local_model_lease": {"status": "dropped", "reason": "Deliberate difference a25-remote-meeting-consent (docs/port/differences.md): automatic recovery leaves a remote meeting's saved audio on this computer and never reconnects to the saved host. The row is refused for recovery by MeetingRuntime::default_asr_factory (\"Saved remote meeting audio requires a separate playback or transcription choice.\"), which no test asserts yet"},
+      "test_remote_redecode_uses_saved_host_and_language": {"status": "dropped", "reason": "Deliberate difference a25-remote-meeting-consent (docs/port/differences.md): a grant for a live meeting does not authorize sending its recording to the host again, so a remote meeting is not re-decoded there (MeetingRuntime builds a remote meeting with end_redecode off: tests/meeting/test_runtime_remote.cpp test_remote_meeting_start_does_not_release_local_dictation_model)"}
+    },
+    "tests/test_personalize_s8_language_menu.py": {
+      "TestControllerWiring::test_remote_engine_reports_reach_the_language_choices": {"status": "ported", "cpp": "tests/remote_host/test_remote_backend_runtime.cpp", "note": "case: test_remote_engine_reports_reach_the_language_choices. FioriVoce's dictation-slot backend notes the host's languages when it adopts the host (RemoteSpeechBackend::adopt → speech::note_remote_runtime) instead of the controller's refresh_remote_models; the test loads a backend against a host taking en, fr, auto and checks language_choices keeps en and fr of en, de, fr"}
+    },
+    "tests/test_local_asr_languages.py": {
+      "test_remote_choices_validate_language_before_persisting": {"status": "ported", "cpp": "tests/remote_host/test_runtime_languages.cpp", "note": "case: remote choices validate language before persisting; Parakeet only, the loop's other families are engines FioriVoce lacks"}
+    },
+    "tests/test_application_controller.py": {
+      "TestApplicationController::test_a_paired_computer_switches_this_one_to_another_model": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name in tests/remote_host/test_model_management.cpp (HostModelManager::select): the meeting refusal in remote.py's words, the model saved with its backend, the reload note 'Switching to <label> for laptop...', and the answer held until the queued reload has run"}
+    }
+  }
+}

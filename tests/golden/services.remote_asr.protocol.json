@@ -1,0 +1,2364 @@
+{
+ "module": "services.remote_asr.protocol",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time"
+ },
+ "functions": {
+  "constants": [
+   {
+    "args": [],
+    "result": {
+     "PROTOCOL_VERSION": 1,
+     "DEFAULT_PORT": 47821,
+     "PATH": "/openwhisper/v1/engine",
+     "SAMPLE_RATE": 16000,
+     "MAX_AUDIO_SECONDS": 120,
+     "MAX_HEADER_BYTES": 65536,
+     "MAX_REQUEST_BYTES": 3905540,
+     "MAX_REPLY_BYTES": 8388608,
+     "RECORD_CHUNK_BYTES": 1048576,
+     "CLOSE_UNAUTHORIZED": 4401,
+     "CLOSE_BAD_REQUEST": 4400,
+     "CLOSE_TIMEOUT": 4408,
+     "CLOSE_ENGINE_CHANGED": 4409,
+     "ENGINE_RELOADING": "engine_reloading",
+     "CLOSE_BUSY": 4429,
+     "MAX_NAME": 60,
+     "MAX_HINT_PHRASES": 50,
+     "MAX_HINT_CHARS": 64,
+     "PAIRING_NONCE_BYTES": 32,
+     "SAS_DIGITS": 6
+    }
+   }
+  ],
+  "encode_audio": [
+   {
+    "args": [
+     []
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     [
+      0.0,
+      0.0,
+      0.0,
+      -0.0
+     ]
+    ],
+    "result": "0000000000000000"
+   },
+   {
+    "args": [
+     [
+      1.0,
+      -1.0,
+      1.5,
+      -1.5,
+      0.99999994,
+      -0.99999994,
+      2.0,
+      -2.0
+     ]
+    ],
+    "result": "ff7f0080ff7f0080ff7f0080ff7f0080"
+   },
+   {
+    "args": [
+     [
+      1.52587890625e-05,
+      4.57763671875e-05,
+      7.62939453125e-05,
+      -1.52587890625e-05,
+      -4.57763671875e-05,
+      -7.62939453125e-05,
+      0.9999542236328125,
+      -0.9999847412109375,
+      0.9999847412109375
+     ]
+    ],
+    "result": "0000020002000000fefffefffe7f0080ff7f"
+   },
+   {
+    "args": [
+     [
+      1e-10,
+      -1e-10,
+      3.0517578125e-05,
+      -3.0517578125e-05,
+      0.1,
+      -0.1,
+      0.25,
+      0.75
+     ]
+    ],
+    "result": "000000000100ffffcd0c33f300200060"
+   },
+   {
+    "args": [
+     [
+      {
+       "$float": "inf"
+      },
+      {
+       "$float": "-inf"
+      },
+      1e+30,
+      -1e+30
+     ]
+    ],
+    "result": "ff7f0080ff7f0080"
+   },
+   {
+    "args": [
+     [
+      -0.841269252,
+      -0.056688394,
+      -0.368178462,
+      -0.782014328,
+      -0.928478906,
+      0.778708481,
+      0.330790306,
+      0.315422958,
+      0.363693247,
+      -0.206649561,
+      0.388685898,
+      0.476671124,
+      -0.007223462,
+      0.756205567,
+      -0.001771847,
+      0.095550711,
+      0.604486491,
+      0.442419513,
+      -0.015098474,
+      -0.379556939,
+      -0.977243003,
+      -0.445302418,
+      0.649559345,
+      0.289556843,
+      -0.323024028,
+      0.322579685,
+      0.51195131,
+      -0.304442561,
+      -0.726885548,
+      -0.393933493,
+      0.776775072,
+      0.249352964,
+      0.794641437,
+      0.347826062,
+      0.543012729,
+      -0.500212931,
+      0.759553149,
+      -0.692706389,
+      -0.010952609,
+      0.55982083,
+      -0.255467205,
+      -0.442203435,
+      -0.242903915,
+      0.824762886,
+      -0.593019928,
+      -0.717868296,
+      -0.365772554,
+      0.196159239
+     ]
+    ],
+    "result": "5194bef8e0d0e79b2889ad63572a60288e2e8de5c031043d13ffcb60c6ff3b0c604da13811fe6bcfea8200c725531025a7d64a29884108d9f5a294cd6d63eb1fb765862c8145f9bf396155a799fea8474ddf66c7e9e0926918b41da42ed11c19"
+   }
+  ],
+  "decode_audio": [
+   {
+    "args": [
+     ""
+    ],
+    "result": {
+     "result": []
+    }
+   },
+   {
+    "args": [
+     "0000"
+    ],
+    "result": {
+     "result": [
+      0.0
+     ]
+    }
+   },
+   {
+    "args": [
+     "0080"
+    ],
+    "result": {
+     "result": [
+      -1.0
+     ]
+    }
+   },
+   {
+    "args": [
+     "ff7f"
+    ],
+    "result": {
+     "result": [
+      0.999969482421875
+     ]
+    }
+   },
+   {
+    "args": [
+     "0100feff3930"
+    ],
+    "result": {
+     "result": [
+      3.0517578125e-05,
+      -6.103515625e-05,
+      0.376739501953125
+     ]
+    }
+   },
+   {
+    "args": [
+     "00"
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Audio payload has an odd byte count"
+    }
+   },
+   {
+    "args": [
+     "000000"
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Audio payload has an odd byte count"
+    }
+   }
+  ],
+  "pack_request": [
+   {
+    "args": [
+     {
+      "id": 7,
+      "op": "transcribe",
+      "language": "en"
+     },
+     [
+      -1.0,
+      -3.0517578125e-05,
+      0.0,
+      3.0517578125e-05,
+      0.376739501953125,
+      0.999969482421875
+     ]
+    ],
+    "result": {
+     "result": "0000002a7b226964223a372c226f70223a227472616e736372696265222c226c616e6775616765223a22656e227d0080ffff000001003930ff7f"
+    }
+   },
+   {
+    "args": [
+     {
+      "id": 1,
+      "op": "describe"
+     }
+    ],
+    "result": {
+     "result": "000000187b226964223a312c226f70223a226465736372696265227d"
+    }
+   },
+   {
+    "args": [
+     {}
+    ],
+    "result": {
+     "result": "000000027b7d"
+    }
+   },
+   {
+    "args": [
+     {
+      "z": 1,
+      "a": 2,
+      "m": [
+       3,
+       2,
+       1
+      ]
+     }
+    ],
+    "result": {
+     "result": "000000197b227a223a312c2261223a322c226d223a5b332c322c315d7d"
+    }
+   },
+   {
+    "args": [
+     {
+      "device_name": "Zoë's 💻 laptop",
+      "op": "x",
+      "text": "漢字 é é"
+     }
+    ],
+    "result": {
+     "result": "0000005e7b226465766963655f6e616d65223a225a6f5c75303065622773205c75643833645c7564636262206c6170746f70222c226f70223a2278222c2274657874223a225c75366632325c753562353720655c7530333031205c7530306539227d"
+    }
+   },
+   {
+    "args": [
+     {
+      "a": {
+       "b": [
+        1,
+        2.5,
+        null,
+        true,
+        false,
+        0.1,
+        1e+16,
+        1e-05,
+        -0.0
+       ],
+       "c": {}
+      },
+      "d": []
+     }
+    ],
+    "result": {
+     "result": "000000467b2261223a7b2262223a5b312c322e352c6e756c6c2c747275652c66616c73652c302e312c31652b31362c31652d30352c2d302e305d2c2263223a7b7d7d2c2264223a5b5d7d"
+    }
+   },
+   {
+    "args": [
+     {
+      "s": "quote\" back\\ slash/ tab\t nl\n cr\r ctl\u0001 del nul\u0000"
+     }
+    ],
+    "result": {
+     "result": "0000004b7b2273223a2271756f74655c22206261636b5c5c20736c6173682f207461625c74206e6c5c6e2063725c722063746c5c75303030312064656c5c7530303766206e756c5c7530303030227d"
+    }
+   },
+   {
+    "args": [
+     {
+      "big": 12345678901234567890,
+      "neg": -9007199254740993,
+      "f": 123456789.125
+     }
+    ],
+    "result": {
+     "result": "000000467b22626967223a31323334353637383930313233343536373839302c226e6567223a2d393030373139393235343734303939332c2266223a3132333435363738392e3132357d"
+    }
+   },
+   {
+    "args": [
+     {
+      "op": "records_put",
+      "record_id": "r1",
+      "name": "audio.wav"
+     },
+     null,
+     "010203"
+    ],
+    "result": {
+     "result": "000000387b226f70223a227265636f7264735f707574222c227265636f72645f6964223a227231222c226e616d65223a22617564696f2e776176227d010203"
+    }
+   },
+   {
+    "args": [
+     {
+      "op": "records_put"
+     },
+     null,
+     ""
+    ],
+    "result": {
+     "result": "000000147b226f70223a227265636f7264735f707574227d"
+    }
+   },
+   {
+    "args": [
+     {
+      "op": "transcribe"
+     },
+     [
+      0.0,
+      0.5,
+      -0.5
+     ]
+    ],
+    "result": {
+     "result": "000000137b226f70223a227472616e736372696265227d0000004000c0"
+    }
+   }
+  ],
+  "pack_request_sized": [
+   {
+    "args": [
+     "x",
+     65519
+    ],
+    "result": {
+     "result": [
+      65539,
+      "c4feea66e29c0bc1427e5de6c000942a5922e500a65e1085e0eb495fbe2d8775"
+     ]
+    }
+   },
+   {
+    "args": [
+     "x",
+     65520
+    ],
+    "result": {
+     "result": [
+      65540,
+      "3cb2254ee66bb545ecfeb1e07bf0bc518b6ffb611f3e8118cf2921f6a44535b1"
+     ]
+    }
+   },
+   {
+    "args": [
+     "x",
+     65521
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request header is too large"
+    }
+   },
+   {
+    "args": [
+     "é",
+     10920
+    ],
+    "result": {
+     "result": [
+      65540,
+      "7951168198200ef904c6914ad2a2ed5568388bb063e46ded3046208e0c4773a8"
+     ]
+    }
+   },
+   {
+    "args": [
+     "é",
+     10921
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request header is too large"
+    }
+   },
+   {
+    "args": [
+     "💻",
+     5460
+    ],
+    "result": {
+     "result": [
+      65540,
+      "2aea653f8d97c2a69c4be9af4572b61919837b6794e782a6786bd86ebd3f015e"
+     ]
+    }
+   },
+   {
+    "args": [
+     "💻",
+     5461
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request header is too large"
+    }
+   }
+  ],
+  "unpack_frame": [
+   {
+    "args": [
+     "0000002a7b226964223a372c226f70223a227472616e736372696265222c226c616e6775616765223a22656e227d0100ff7f"
+    ],
+    "result": {
+     "result": [
+      {
+       "id": 7,
+       "op": "transcribe",
+       "language": "en"
+      },
+      "0100ff7f"
+     ]
+    }
+   },
+   {
+    "args": [
+     "000000027b7d"
+    ],
+    "result": {
+     "result": [
+      {},
+      ""
+     ]
+    }
+   },
+   {
+    "args": [
+     "000000237b227a223a312c2261223a7b2262223a5b312c322e352c6e756c6c2c747275655d7d7d"
+    ],
+    "result": {
+     "result": [
+      {
+       "z": 1,
+       "a": {
+        "b": [
+         1,
+         2.5,
+         null,
+         true
+        ]
+       }
+      },
+      ""
+     ]
+    }
+   },
+   {
+    "args": [
+     "0000001a7b2261223a225c75303065395c75643833645c7564636262227d"
+    ],
+    "result": {
+     "result": [
+      {
+       "a": "é💻"
+      },
+      ""
+     ]
+    }
+   },
+   {
+    "args": [
+     "0000000a7b2261223a22c3a9227d00"
+    ],
+    "result": {
+     "result": [
+      {
+       "a": "é"
+      },
+      "00"
+     ]
+    }
+   },
+   {
+    "args": [
+     "0000000b207b226122203a20317d20"
+    ],
+    "result": {
+     "result": [
+      {
+       "a": 1
+      },
+      ""
+     ]
+    }
+   },
+   {
+    "args": [
+     "000000247b2261223a4e614e2c2262223a496e66696e6974792c2263223a2d496e66696e6974797d"
+    ],
+    "result": {
+     "result": [
+      {
+       "a": {
+        "$float": "nan"
+       },
+       "b": {
+        "$float": "inf"
+       },
+       "c": {
+        "$float": "-inf"
+       }
+      },
+      ""
+     ]
+    }
+   },
+   {
+    "args": [
+     "0000000d7b2261223a312c2261223a327d"
+    ],
+    "result": {
+     "result": [
+      {
+       "a": 2
+      },
+      ""
+     ]
+    }
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request frame is truncated"
+    }
+   },
+   {
+    "args": [
+     "00"
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request frame is truncated"
+    }
+   },
+   {
+    "args": [
+     "000000"
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request frame is truncated"
+    }
+   },
+   {
+    "args": [
+     "00000000"
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request header is not JSON"
+    }
+   },
+   {
+    "args": [
+     "000000096e6f7065"
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request header length is invalid"
+    }
+   },
+   {
+    "args": [
+     "000000046e6f7065"
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request header is not JSON"
+    }
+   },
+   {
+    "args": [
+     "000000035b315d"
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request header must be an object"
+    }
+   },
+   {
+    "args": [
+     "000000046e756c6c"
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request header must be an object"
+    }
+   },
+   {
+    "args": [
+     "000000034e614e"
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request header must be an object"
+    }
+   },
+   {
+    "args": [
+     "00000006227465787422"
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request header must be an object"
+    }
+   },
+   {
+    "args": [
+     "000000067b2261223a31"
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request header is not JSON"
+    }
+   },
+   {
+    "args": [
+     "000000097b2261223a22ff227d"
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request header is not JSON"
+    }
+   },
+   {
+    "args": [
+     "0000000a7b2261223a22c0af227d"
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request header is not JSON"
+    }
+   },
+   {
+    "args": [
+     "0000000cefbbbf7b22626f6d223a317d"
+    ],
+    "result": {
+     "result": [
+      {
+       "bom": 1
+      },
+      ""
+     ]
+    }
+   },
+   {
+    "args": [
+     "000000167b0022007500740066003100360022003a0031007d00"
+    ],
+    "result": {
+     "result": [
+      {
+       "utf16": 1
+      },
+      ""
+     ]
+    }
+   },
+   {
+    "args": [
+     "00000016007b0022007500740066003100360022003a0031007d"
+    ],
+    "result": {
+     "result": [
+      {
+       "utf16": 1
+      },
+      ""
+     ]
+    }
+   },
+   {
+    "args": [
+     "00000018fffe7b0022007500740066003100360022003a0031007d00"
+    ],
+    "result": {
+     "result": [
+      {
+       "utf16": 1
+      },
+      ""
+     ]
+    }
+   },
+   {
+    "args": [
+     "0000002c7b000000220000007500000074000000660000003300000032000000220000003a000000310000007d000000"
+    ],
+    "result": {
+     "result": [
+      {
+       "utf32": 1
+      },
+      ""
+     ]
+    }
+   },
+   {
+    "args": [
+     "0000002c0000007b000000220000007500000074000000660000003300000032000000220000003a000000310000007d"
+    ],
+    "result": {
+     "result": [
+      {
+       "utf32": 1
+      },
+      ""
+     ]
+    }
+   },
+   {
+    "args": [
+     "00000030fffe00007b000000220000007500000074000000660000003300000032000000220000003a000000310000007d000000"
+    ],
+    "result": {
+     "result": [
+      {
+       "utf32": 1
+      },
+      ""
+     ]
+    }
+   },
+   {
+    "args": [
+     "000000167b002200740022003a002200e9003dd8bbdc22007d00"
+    ],
+    "result": {
+     "result": [
+      {
+       "t": "é💻"
+      },
+      ""
+     ]
+    }
+   },
+   {
+    "args": [
+     "000000027b00"
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request header is not JSON"
+    }
+   },
+   {
+    "args": [
+     "00000002007b"
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request header is not JSON"
+    }
+   },
+   {
+    "args": [
+     "000000097b2261223a2200227d"
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request header is not JSON"
+    }
+   },
+   {
+    "args": [
+     "000000087b2261223a317d00"
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request header is not JSON"
+    }
+   },
+   {
+    "args": [
+     "text frame",
+     false
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Requests must be binary frames"
+    }
+   },
+   {
+    "args": [
+     "",
+     false
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Requests must be binary frames"
+    }
+   }
+  ],
+  "unpack_frame_sized": [
+   {
+    "args": [
+     65536,
+     65534,
+     3
+    ],
+    "result": {
+     "result": [
+      {},
+      3
+     ]
+    }
+   },
+   {
+    "args": [
+     65536,
+     65534,
+     0
+    ],
+    "result": {
+     "result": [
+      {},
+      0
+     ]
+    }
+   },
+   {
+    "args": [
+     65537,
+     65535,
+     0
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request header length is invalid"
+    }
+   },
+   {
+    "args": [
+     65537,
+     65534,
+     1
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request header length is invalid"
+    }
+   },
+   {
+    "args": [
+     4294967295,
+     2,
+     0
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request header length is invalid"
+    }
+   },
+   {
+    "args": [
+     100,
+     2,
+     50
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request header length is invalid"
+    }
+   }
+  ],
+  "payload_audio": [
+   {
+    "args": [
+     ""
+    ],
+    "result": {
+     "result": []
+    }
+   },
+   {
+    "args": [
+     "0000"
+    ],
+    "result": {
+     "result": [
+      0.0
+     ]
+    }
+   },
+   {
+    "args": [
+     "00800180"
+    ],
+    "result": {
+     "result": [
+      -1.0,
+      -0.999969482421875
+     ]
+    }
+   },
+   {
+    "args": [
+     "00"
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Audio payload has an odd byte count"
+    }
+   },
+   {
+    "args": [
+     "010203"
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Audio payload has an odd byte count"
+    }
+   }
+  ],
+  "payload_audio_size": [
+   {
+    "args": [
+     0
+    ],
+    "result": {
+     "result": 0
+    }
+   },
+   {
+    "args": [
+     2
+    ],
+    "result": {
+     "result": 1
+    }
+   },
+   {
+    "args": [
+     3
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Audio payload has an odd byte count"
+    }
+   },
+   {
+    "args": [
+     3840000
+    ],
+    "result": {
+     "result": 1920000
+    }
+   },
+   {
+    "args": [
+     3840001
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request audio is too long"
+    }
+   },
+   {
+    "args": [
+     3840002
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Request audio is too long"
+    }
+   },
+   {
+    "args": [
+     3839999
+    ],
+    "result": {
+     "error": "ProtocolError",
+     "message": "Audio payload has an odd byte count"
+    }
+   }
+  ],
+  "header_phrases": [
+   {
+    "args": [
+     {
+      "phrases": [
+       "Ksenia",
+       "  Kuber   netes "
+      ]
+     }
+    ],
+    "result": [
+     "Ksenia",
+     "Kuber netes"
+    ]
+   },
+   {
+    "args": [
+     {
+      "phrases": null
+     }
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     {
+      "phrases": "Ksenia"
+     }
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     {
+      "phrases": {
+       "a": 1
+      }
+     }
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     {
+      "phrases": 5
+     }
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     {
+      "phrases": []
+     }
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     {
+      "phrases": [
+       null,
+       3,
+       "",
+       "  ",
+       true,
+       [
+        "x"
+       ],
+       {
+        "y": 1
+       }
+      ]
+     }
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     {}
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     {
+      "phrases": [
+       "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+       "éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé",
+       "ééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé",
+       "💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻"
+      ]
+     }
+    ],
+    "result": [
+     "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+     "éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé",
+     "💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻"
+    ]
+   },
+   {
+    "args": [
+     {
+      "phrases": [
+       "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "w0",
+       "w1",
+       "w2",
+       "w3",
+       "w4",
+       "w5",
+       "w6",
+       "w7",
+       "w8",
+       "w9",
+       "w10",
+       "w11",
+       "w12",
+       "w13",
+       "w14",
+       "w15",
+       "w16",
+       "w17",
+       "w18",
+       "w19",
+       "w20",
+       "w21",
+       "w22",
+       "w23",
+       "w24",
+       "w25",
+       "w26",
+       "w27",
+       "w28",
+       "w29",
+       "w30",
+       "w31",
+       "w32",
+       "w33",
+       "w34",
+       "w35",
+       "w36",
+       "w37",
+       "w38",
+       "w39",
+       "w40",
+       "w41",
+       "w42",
+       "w43",
+       "w44",
+       "w45",
+       "w46",
+       "w47",
+       "w48",
+       "w49",
+       "w50",
+       "w51",
+       "w52",
+       "w53",
+       "w54",
+       "w55",
+       "w56",
+       "w57",
+       "w58",
+       "w59"
+      ]
+     }
+    ],
+    "result": [
+     "w0",
+     "w1",
+     "w2",
+     "w3",
+     "w4",
+     "w5",
+     "w6",
+     "w7",
+     "w8",
+     "w9",
+     "w10",
+     "w11",
+     "w12",
+     "w13",
+     "w14",
+     "w15",
+     "w16",
+     "w17",
+     "w18",
+     "w19",
+     "w20",
+     "w21",
+     "w22",
+     "w23",
+     "w24",
+     "w25",
+     "w26",
+     "w27",
+     "w28",
+     "w29",
+     "w30",
+     "w31",
+     "w32",
+     "w33",
+     "w34",
+     "w35",
+     "w36",
+     "w37",
+     "w38",
+     "w39",
+     "w40",
+     "w41",
+     "w42",
+     "w43",
+     "w44",
+     "w45",
+     "w46",
+     "w47",
+     "w48",
+     "w49"
+    ]
+   },
+   {
+    "args": [
+     {
+      "phrases": [
+       "w0",
+       "w1",
+       "w2",
+       "w3",
+       "w4",
+       "w5",
+       "w6",
+       "w7",
+       "w8",
+       "w9",
+       "w10",
+       "w11",
+       "w12",
+       "w13",
+       "w14",
+       "w15",
+       "w16",
+       "w17",
+       "w18",
+       "w19",
+       "w20",
+       "w21",
+       "w22",
+       "w23",
+       "w24",
+       "w25",
+       "w26",
+       "w27",
+       "w28",
+       "w29",
+       "w30",
+       "w31",
+       "w32",
+       "w33",
+       "w34",
+       "w35",
+       "w36",
+       "w37",
+       "w38",
+       "w39",
+       "w40",
+       "w41",
+       "w42",
+       "w43",
+       "w44",
+       "w45",
+       "w46",
+       "w47",
+       "w48",
+       "w49",
+       "extra"
+      ]
+     }
+    ],
+    "result": [
+     "w0",
+     "w1",
+     "w2",
+     "w3",
+     "w4",
+     "w5",
+     "w6",
+     "w7",
+     "w8",
+     "w9",
+     "w10",
+     "w11",
+     "w12",
+     "w13",
+     "w14",
+     "w15",
+     "w16",
+     "w17",
+     "w18",
+     "w19",
+     "w20",
+     "w21",
+     "w22",
+     "w23",
+     "w24",
+     "w25",
+     "w26",
+     "w27",
+     "w28",
+     "w29",
+     "w30",
+     "w31",
+     "w32",
+     "w33",
+     "w34",
+     "w35",
+     "w36",
+     "w37",
+     "w38",
+     "w39",
+     "w40",
+     "w41",
+     "w42",
+     "w43",
+     "w44",
+     "w45",
+     "w46",
+     "w47",
+     "w48",
+     "w49"
+    ]
+   },
+   {
+    "args": [
+     {
+      "phrases": [
+       "a\tb\nc d e　f",
+       "​",
+       " \u001c\u001d\u001e\u001f "
+      ]
+     }
+    ],
+    "result": [
+     "a b c d e f",
+     "​"
+    ]
+   },
+   {
+    "args": [
+     {
+      "phrases": [
+       "  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  ",
+       "a                                                                                                    b"
+      ]
+     }
+    ],
+    "result": [
+     "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+     "a b"
+    ]
+   }
+  ],
+  "certificate_fingerprint": [
+   {
+    "args": [
+     ""
+    ],
+    "result": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+   },
+   {
+    "args": [
+     "00"
+    ],
+    "result": "6E340B9CFFB37A989CA544E6BB780A2C78901D3FB33738768511A30617AFA01D"
+   },
+   {
+    "args": [
+     "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff"
+    ],
+    "result": "110009DCEE21620B166F3ABFECB5EFF7A873BE729D1C2D53822E7ACC5F34EB9B"
+   }
+  ],
+  "short_fingerprint": [
+   {
+    "args": [
+     "abababababababababababababababababababababababababababababababab"
+    ],
+    "result": "ABAB-ABAB-ABAB-ABAB-ABAB"
+   },
+   {
+    "args": [
+     "ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB"
+    ],
+    "result": "ABAB-ABAB-ABAB-ABAB-ABAB"
+   },
+   {
+    "args": [
+     "ab-cd:ef 01"
+    ],
+    "result": "ABCD-EF01"
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "short"
+    ],
+    "result": "SHOR-T"
+   },
+   {
+    "args": [
+     "abcd"
+    ],
+    "result": "ABCD"
+   },
+   {
+    "args": [
+     "abcde"
+    ],
+    "result": "ABCD-E"
+   },
+   {
+    "args": [
+     "ääääääääääääääääääääääääääääää"
+    ],
+    "result": "ÄÄÄÄ-ÄÄÄÄ-ÄÄÄÄ-ÄÄÄÄ-ÄÄÄÄ"
+   },
+   {
+    "args": [
+     "ßßßßßßßßßßßßßßß"
+    ],
+    "result": "SSSS-SSSS-SSSS-SSSS-SSSS"
+   },
+   {
+    "args": [
+     "12 34:56/78٣٤"
+    ],
+    "result": "1234-5678-٣٤"
+   },
+   {
+    "args": [
+     "abababababababababababababababababababababababababababababababab",
+     0
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "abababababababababababababababababababababababababababababababab",
+     1
+    ],
+    "result": "ABAB"
+   },
+   {
+    "args": [
+     "abababababababababababababababababababababababababababababababab",
+     2
+    ],
+    "result": "ABAB-ABAB"
+   },
+   {
+    "args": [
+     "abababababababababababababababababababababababababababababababab",
+     -1
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "abababababababababababababababababababababababababababababababab",
+     20
+    ],
+    "result": "ABAB-ABAB-ABAB-ABAB-ABAB-ABAB-ABAB-ABAB-ABAB-ABAB-ABAB-ABAB-ABAB-ABAB-ABAB-ABAB"
+   },
+   {
+    "args": [
+     "a-b-c",
+     5
+    ],
+    "result": "ABC"
+   }
+  ],
+  "token_digest": [
+   {
+    "args": [
+     ""
+    ],
+    "result": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+   },
+   {
+    "args": [
+     "abc"
+    ],
+    "result": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+   },
+   {
+    "args": [
+     "toké𝄞"
+    ],
+    "result": "f695e0363e27d1ca1b6d5765c89ae9a620d41b2ea2a18456f9c2d0f67cdaf220"
+   },
+   {
+    "args": [
+     "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    ],
+    "result": "cc0b1c2c66f3bb9fd1a081c626ba1bef62f6f96441a43be15268523776ac26a1"
+   }
+  ],
+  "clean_name": [
+   {
+    "args": [
+     null
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "  devbox  "
+    ],
+    "result": "devbox"
+   },
+   {
+    "args": [
+     "dev\u0000box\u001b"
+    ],
+    "result": "devbox"
+   },
+   {
+    "args": [
+     "Zoë 💻 laptop"
+    ],
+    "result": "Zoë 💻 laptop"
+   },
+   {
+    "args": [
+     "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    ],
+    "result": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+   },
+   {
+    "args": [
+     "ééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"
+    ],
+    "result": "éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"
+   },
+   {
+    "args": [
+     "​ x  "
+    ],
+    "result": "x"
+   },
+   {
+    "args": [
+     42
+    ],
+    "result": "42"
+   },
+   {
+    "args": [
+     0
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     true
+    ],
+    "result": "True"
+   },
+   {
+    "args": [
+     false
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     3.5
+    ],
+    "result": "3.5"
+   },
+   {
+    "args": [
+     "\t\n"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "x y"
+    ],
+    "result": "xy"
+   },
+   {
+    "args": [
+     " x "
+    ],
+    "result": "x"
+   },
+   {
+    "args": [
+     "  　name　 "
+    ],
+    "result": "name"
+   },
+   {
+    "args": [
+     "line\nbreak"
+    ],
+    "result": "linebreak"
+   },
+   {
+    "args": [
+     "💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻"
+    ],
+    "result": "💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻💻"
+   }
+  ],
+  "pairing_commitment": [
+   {
+    "args": [
+     "6868686868686868686868686868686868686868686868686868686868686868"
+    ],
+    "result": "df38b7a94653a679e5a4e2d5a10fb2ad9e9bf7c5a2a31cc2c7e2f65fd91bf78c"
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": "0a30bb33b2acc779dc188a16b4008d0bb2fac53f62ea84cc41b2f2a26b0e66f1"
+   },
+   {
+    "args": [
+     "0000000000000000000000000000000000000000000000000000000000000000"
+    ],
+    "result": "bbc6ce7ff9335fed5c86aa75d72d3339e1f782552b08bb97c6f8994604b2420d"
+   },
+   {
+    "args": [
+     "7878787878787878787878787878787878787878787878787878787878787878"
+    ],
+    "result": "cf9542efd9ed98056d15f348c883d62d513d14e764e4985ba7d41bd72b9143e9"
+   }
+  ],
+  "pairing_sas": [
+   {
+    "args": [
+     "6868686868686868686868686868686868686868686868686868686868686868",
+     "6363636363636363636363636363636363636363636363636363636363636363",
+     "ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB"
+    ],
+    "result": "941129"
+   },
+   {
+    "args": [
+     "6868686868686868686868686868686868686868686868686868686868686868",
+     "6363636363636363636363636363636363636363636363636363636363636363",
+     "abababababababababababababababababababababababababababababababab"
+    ],
+    "result": "941129"
+   },
+   {
+    "args": [
+     "6868686868686868686868686868686868686868686868686868686868686868",
+     "6363636363636363636363636363636363636363636363636363636363636363",
+     "CDCDCDCDCDCDCDCDCDCDCDCDCDCDCDCDCDCDCDCDCDCDCDCDCDCDCDCDCDCDCDCD"
+    ],
+    "result": "855649"
+   },
+   {
+    "args": [
+     "6868686868686868686868686868686868686868686868686868686868686868",
+     "6464646464646464646464646464646464646464646464646464646464646464",
+     "ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB"
+    ],
+    "result": "312481"
+   },
+   {
+    "args": [
+     "6868686868686868686868686868686868686868686868686868686868686868",
+     "6363636363636363636363636363636363636363636363636363636363636363",
+     ""
+    ],
+    "result": "959545"
+   },
+   {
+    "args": [
+     "6868686868686868686868686868686868686868686868686868686868686868",
+     "6363636363636363636363636363636363636363636363636363636363636363",
+     "abéABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB"
+    ],
+    "result": "629016"
+   },
+   {
+    "args": [
+     "6868686868686868686868686868686868686868686868686868686868686868",
+     "6363636363636363636363636363636363636363636363636363636363636363",
+     "ß"
+    ],
+    "result": "872889"
+   },
+   {
+    "args": [
+     "6868686868686868686868686868686868686868686868686868686868686868",
+     "6363636363636363636363636363636363636363636363636363636363636363",
+     "ı"
+    ],
+    "result": "035185"
+   },
+   {
+    "args": [
+     "6868686868686868686868686868686868686868686868686868686868686868",
+     "6363636363636363636363636363636363636363636363636363636363636363",
+     "💻"
+    ],
+    "result": "183352"
+   },
+   {
+    "args": [
+     "",
+     "",
+     ""
+    ],
+    "result": "377238"
+   },
+   {
+    "args": [
+     "0000000000000000000000000000000000000000000000000000000000000000",
+     "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+     "ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB"
+    ],
+    "result": "135191"
+   }
+  ],
+  "format_sas": [
+   {
+    "args": [
+     "123456"
+    ],
+    "result": "123 456"
+   },
+   {
+    "args": [
+     "12345"
+    ],
+    "result": "12345"
+   },
+   {
+    "args": [
+     "1234567"
+    ],
+    "result": "1234567"
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "ab cde"
+    ],
+    "result": "ab  cde"
+   },
+   {
+    "args": [
+     "１２３４５６"
+    ],
+    "result": "１２３ ４５６"
+   },
+   {
+    "args": [
+     "000000"
+    ],
+    "result": "000 000"
+   }
+  ],
+  "parse_address": [
+   {
+    "args": [
+     "devbox"
+    ],
+    "result": {
+     "result": [
+      "devbox",
+      47821
+     ]
+    }
+   },
+   {
+    "args": [
+     "192.168.1.20:5000"
+    ],
+    "result": {
+     "result": [
+      "192.168.1.20",
+      5000
+     ]
+    }
+   },
+   {
+    "args": [
+     "[fe80::1]:6000"
+    ],
+    "result": {
+     "result": [
+      "fe80::1",
+      6000
+     ]
+    }
+   },
+   {
+    "args": [
+     "fe80::1"
+    ],
+    "result": {
+     "result": [
+      "fe80::1",
+      47821
+     ]
+    }
+   },
+   {
+    "args": [
+     "https://devbox.local:7000/whatever"
+    ],
+    "result": {
+     "result": [
+      "devbox.local",
+      7000
+     ]
+    }
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": {
+     "error": "ValueError",
+     "message": "Enter the host's address, such as 192.168.1.20 or devbox.local"
+    }
+   },
+   {
+    "args": [
+     "   "
+    ],
+    "result": {
+     "error": "ValueError",
+     "message": "Enter the host's address, such as 192.168.1.20 or devbox.local"
+    }
+   },
+   {
+    "args": [
+     "host:notaport"
+    ],
+    "result": {
+     "error": "ValueError",
+     "message": "The port must be a number"
+    }
+   },
+   {
+    "args": [
+     "host:0"
+    ],
+    "result": {
+     "error": "ValueError",
+     "message": "The port must be between 1 and 65535"
+    }
+   },
+   {
+    "args": [
+     "[fe80::1"
+    ],
+    "result": {
+     "error": "ValueError",
+     "message": "The IPv6 address is missing its closing bracket"
+    }
+   },
+   {
+    "args": [
+     "[::1]:5"
+    ],
+    "result": {
+     "result": [
+      "::1",
+      5
+     ]
+    }
+   },
+   {
+    "args": [
+     "wss://host/path"
+    ],
+    "result": {
+     "result": [
+      "host",
+      47821
+     ]
+    }
+   },
+   {
+    "args": [
+     "WSS://Host:80"
+    ],
+    "result": {
+     "result": [
+      "Host",
+      80
+     ]
+    }
+   },
+   {
+    "args": [
+     "ws://[fe80::1%3]:9/x"
+    ],
+    "result": {
+     "result": [
+      "fe80::1%3",
+      9
+     ]
+    }
+   },
+   {
+    "args": [
+     "host:"
+    ],
+    "result": {
+     "error": "ValueError",
+     "message": "The port must be a number"
+    }
+   },
+   {
+    "args": [
+     ":80"
+    ],
+    "result": {
+     "error": "ValueError",
+     "message": "The host's address is not valid"
+    }
+   },
+   {
+    "args": [
+     "[::1]x"
+    ],
+    "result": {
+     "error": "ValueError",
+     "message": "Put the port after the bracket, as in [fe80::1]:47821"
+    }
+   },
+   {
+    "args": [
+     "[::1]:"
+    ],
+    "result": {
+     "error": "ValueError",
+     "message": "The port must be a number"
+    }
+   },
+   {
+    "args": [
+     "[]:80"
+    ],
+    "result": {
+     "error": "ValueError",
+     "message": "The host's address is not valid"
+    }
+   },
+   {
+    "args": [
+     "[ ]"
+    ],
+    "result": {
+     "error": "ValueError",
+     "message": "The host's address is not valid"
+    }
+   },
+   {
+    "args": [
+     "host :80"
+    ],
+    "result": {
+     "result": [
+      "host",
+      80
+     ]
+    }
+   },
+   {
+    "args": [
+     "a b"
+    ],
+    "result": {
+     "error": "ValueError",
+     "message": "The host's address is not valid"
+    }
+   },
+   {
+    "args": [
+     "host:65535"
+    ],
+    "result": {
+     "result": [
+      "host",
+      65535
+     ]
+    }
+   },
+   {
+    "args": [
+     "host:65536"
+    ],
+    "result": {
+     "error": "ValueError",
+     "message": "The port must be between 1 and 65535"
+    }
+   },
+   {
+    "args": [
+     "host:-1"
+    ],
+    "result": {
+     "error": "ValueError",
+     "message": "The port must be between 1 and 65535"
+    }
+   },
+   {
+    "args": [
+     "host:+5"
+    ],
+    "result": {
+     "result": [
+      "host",
+      5
+     ]
+    }
+   },
+   {
+    "args": [
+     "host: 7 "
+    ],
+    "result": {
+     "result": [
+      "host",
+      7
+     ]
+    }
+   },
+   {
+    "args": [
+     "host:1_000"
+    ],
+    "result": {
+     "result": [
+      "host",
+      1000
+     ]
+    }
+   },
+   {
+    "args": [
+     "host:٣"
+    ],
+    "result": {
+     "result": [
+      "host",
+      3
+     ]
+    }
+   },
+   {
+    "args": [
+     "  https://x  "
+    ],
+    "result": {
+     "result": [
+      "x",
+      47821
+     ]
+    }
+   },
+   {
+    "args": [
+     "http://"
+    ],
+    "result": {
+     "error": "ValueError",
+     "message": "Enter the host's address, such as 192.168.1.20 or devbox.local"
+    }
+   },
+   {
+    "args": [
+     "devbox/path"
+    ],
+    "result": {
+     "result": [
+      "devbox",
+      47821
+     ]
+    }
+   },
+   {
+    "args": [
+     "/path"
+    ],
+    "result": {
+     "error": "ValueError",
+     "message": "Enter the host's address, such as 192.168.1.20 or devbox.local"
+    }
+   },
+   {
+    "args": [
+     "HTTP://Mixed.Case:1/p"
+    ],
+    "result": {
+     "result": [
+      "Mixed.Case",
+      1
+     ]
+    }
+   },
+   {
+    "args": [
+     "ftp://x:1"
+    ],
+    "result": {
+     "error": "ValueError",
+     "message": "The port must be a number"
+    }
+   },
+   {
+    "args": [
+     "host:99999999999999999999999"
+    ],
+    "result": {
+     "error": "ValueError",
+     "message": "The port must be between 1 and 65535"
+    }
+   },
+   {
+    "args": [
+     "été.local:8"
+    ],
+    "result": {
+     "result": [
+      "été.local",
+      8
+     ]
+    }
+   },
+   {
+    "args": [
+     "a:b:c"
+    ],
+    "result": {
+     "result": [
+      "a:b:c",
+      47821
+     ]
+    }
+   },
+   {
+    "args": [
+     "[fe80::1]:6000/p"
+    ],
+    "result": {
+     "result": [
+      "fe80::1",
+      6000
+     ]
+    }
+   },
+   {
+    "args": [
+     "devbox",
+     8000
+    ],
+    "result": {
+     "result": [
+      "devbox",
+      8000
+     ]
+    }
+   },
+   {
+    "args": [
+     "devbox:9",
+     8000
+    ],
+    "result": {
+     "result": [
+      "devbox",
+      9
+     ]
+    }
+   },
+   {
+    "args": [
+     "\thost\t"
+    ],
+    "result": {
+     "result": [
+      "host",
+      47821
+     ]
+    }
+   },
+   {
+    "args": [
+     "http:// spaced"
+    ],
+    "result": {
+     "result": [
+      "spaced",
+      47821
+     ]
+    }
+   },
+   {
+    "args": [
+     "host x"
+    ],
+    "result": {
+     "error": "ValueError",
+     "message": "The host's address is not valid"
+    }
+   },
+   {
+    "args": [
+     "İ://x"
+    ],
+    "result": {
+     "error": "ValueError",
+     "message": "The port must be a number"
+    }
+   },
+   {
+    "args": [
+     "host:²"
+    ],
+    "result": {
+     "error": "ValueError",
+     "message": "The port must be a number"
+    }
+   },
+   {
+    "args": [
+     "host:100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    ],
+    "result": {
+     "error": "ValueError",
+     "message": "The port must be a number"
+    }
+   }
+  ],
+  "format_address": [
+   {
+    "args": [
+     "devbox",
+     47821
+    ],
+    "result": "devbox:47821"
+   },
+   {
+    "args": [
+     "fe80::1",
+     1
+    ],
+    "result": "[fe80::1]:1"
+   },
+   {
+    "args": [
+     "::1",
+     47821
+    ],
+    "result": "[::1]:47821"
+   },
+   {
+    "args": [
+     "",
+     5
+    ],
+    "result": ":5"
+   },
+   {
+    "args": [
+     "192.168.1.20",
+     65535
+    ],
+    "result": "192.168.1.20:65535"
+   }
+  ]
+ }
+}

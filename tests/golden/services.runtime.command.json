@@ -1,0 +1,417 @@
+{
+ "module": "services.runtime.command",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time"
+ },
+ "functions": {
+  "_looks_like_copied_line": [
+   {
+    "args": [
+     "def main():\r\n"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "\n"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "main"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "line one\nline two\n"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "\r\n"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "a\r\n"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "a\n\n"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "a\r\r\n"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "  x  \n"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "x\n "
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "\n\n"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "a\rb\n"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "café — ok\n"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "\r"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "one\r\ntwo\r\n"
+    ],
+    "result": false
+   }
+  ],
+  "_refusal": [
+   {
+    "args": [
+     null
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     {
+      "identity": {
+       "app_id": "notepad.exe",
+       "name": "Notepad",
+       "pid": 4,
+       "window": "0x4"
+      },
+      "text": null
+     }
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     {
+      "identity": {
+       "app_id": "notepad.exe",
+       "name": "Notepad",
+       "pid": 4,
+       "window": "0x4"
+      },
+      "text": {
+       "selected": "x",
+       "selection_known": true
+      }
+     }
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     {
+      "identity": {
+       "app_id": "notepad.exe",
+       "name": "Notepad",
+       "pid": 4,
+       "window": "0x4"
+      },
+      "text": {
+       "blocked": true,
+       "source": "uia"
+      }
+     }
+    ],
+    "result": {
+     "message": "OpenWhisper doesn't read password fields"
+    }
+   },
+   {
+    "args": [
+     {
+      "identity": null,
+      "text": {
+       "blocked": true,
+       "source": ""
+      }
+     }
+    ],
+    "result": {
+     "message": "OpenWhisper doesn't read password fields"
+    }
+   },
+   {
+    "args": [
+     {
+      "identity": {
+       "app_id": "keepassxc.exe",
+       "name": "KeePassXC",
+       "pid": 21,
+       "window": "0x21"
+      },
+      "text": {
+       "blocked": true,
+       "source": "excluded"
+      }
+     }
+    ],
+    "result": {
+     "message": "OpenWhisper doesn't read text in KeePassXC"
+    }
+   },
+   {
+    "args": [
+     {
+      "identity": {
+       "app_id": "slack.exe",
+       "name": "Slack",
+       "pid": 11
+      },
+      "text": {
+       "blocked": true,
+       "source": "excluded"
+      }
+     }
+    ],
+    "result": {
+     "message": "OpenWhisper doesn't read text in Slack"
+    }
+   },
+   {
+    "args": [
+     {
+      "identity": {
+       "app_id": "chrome.exe",
+       "name": "Google Chrome",
+       "pid": 9,
+       "window": "0x9",
+       "title_hint": "Gmail"
+      },
+      "text": {
+       "blocked": true,
+       "source": "excluded"
+      }
+     }
+    ],
+    "result": {
+     "message": "OpenWhisper doesn't read text in Gmail"
+    }
+   },
+   {
+    "args": [
+     {
+      "identity": null,
+      "text": {
+       "blocked": true,
+       "source": "excluded"
+      }
+     }
+    ],
+    "result": {
+     "message": "OpenWhisper doesn't read text in this app"
+    }
+   },
+   {
+    "args": [
+     {
+      "identity": {
+       "app_id": "",
+       "name": ""
+      },
+      "text": {
+       "blocked": true,
+       "source": "excluded"
+      }
+     }
+    ],
+    "result": {
+     "message": "OpenWhisper doesn't read text in this app"
+    }
+   },
+   {
+    "args": [
+     {
+      "identity": {
+       "app_id": "frobnicate.exe",
+       "name": ""
+      },
+      "text": {
+       "blocked": true,
+       "source": "excluded"
+      }
+     }
+    ],
+    "result": {
+     "message": "OpenWhisper doesn't read text in Frobnicate"
+    }
+   },
+   {
+    "args": [
+     {
+      "identity": {
+       "app_id": "keepassxc.exe",
+       "name": "KeePassXC",
+       "pid": 21,
+       "window": "0x21"
+      },
+      "text": {
+       "blocked": false,
+       "source": "excluded"
+      }
+     }
+    ],
+    "result": null
+   }
+  ],
+  "_known_selection": [
+   {
+    "args": [
+     null
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     {
+      "identity": {
+       "app_id": "notepad.exe",
+       "name": "Notepad",
+       "pid": 4,
+       "window": "0x4"
+      },
+      "text": null
+     }
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     {
+      "identity": {
+       "app_id": "notepad.exe",
+       "name": "Notepad",
+       "pid": 4,
+       "window": "0x4"
+      },
+      "text": {
+       "selected": "old words",
+       "selection_known": false
+      }
+     }
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     {
+      "identity": {
+       "app_id": "notepad.exe",
+       "name": "Notepad",
+       "pid": 4,
+       "window": "0x4"
+      },
+      "text": {
+       "selected": "",
+       "selection_known": true
+      }
+     }
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     {
+      "identity": {
+       "app_id": "notepad.exe",
+       "name": "Notepad",
+       "pid": 4,
+       "window": "0x4"
+      },
+      "text": {
+       "selected": "old words",
+       "selection_known": true
+      }
+     }
+    ],
+    "result": "old words"
+   },
+   {
+    "args": [
+     {
+      "identity": null,
+      "text": {
+       "selected": "  spaced  ",
+       "selection_known": true
+      }
+     }
+    ],
+    "result": "  spaced  "
+   },
+   {
+    "args": [
+     {
+      "identity": {
+       "app_id": "notepad.exe",
+       "name": "Notepad",
+       "pid": 4,
+       "window": "0x4"
+      },
+      "text": {
+       "before": "x",
+       "caret_known": true
+      }
+     }
+    ],
+    "result": null
+   }
+  ],
+  "constants": [
+   {
+    "args": [],
+    "result": {
+     "NO_PROVIDER_MESSAGE": "Set up AI cleanup to use Command Mode",
+     "KEYS_HELD_MESSAGE": "Release the shortcut keys, then try again",
+     "PASSWORD_MESSAGE": "OpenWhisper doesn't read password fields",
+     "CLIPBOARD_HIDDEN_MESSAGE": "OpenWhisper can't read selected text on this desktop",
+     "SELECTION_WAIT_S": 1.9
+    }
+   }
+  ]
+ }
+}

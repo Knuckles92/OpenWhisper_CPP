@@ -1,0 +1,38 @@
+{
+ "note": "Ollama answering a show of the wrong shape: every model judged by name",
+ "routes": {
+  "GET /v1/models": {
+   "status": 200,
+   "json": {
+    "data": [
+     {
+      "id": "qwen3"
+     },
+     {
+      "id": "nomic-embed-text"
+     }
+    ]
+   }
+  },
+  "POST /api/show": {
+   "status": 200,
+   "json_by_model": {
+    "qwen3": {
+     "capabilities": [
+      "completion"
+     ],
+     "parameters": 5
+    },
+    "nomic-embed-text": {
+     "capabilities": [
+      "embedding"
+     ]
+    }
+   }
+  },
+  "GET /": {
+   "status": 200,
+   "text": "Ollama is running"
+  }
+ }
+}

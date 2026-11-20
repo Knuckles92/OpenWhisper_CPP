@@ -1,0 +1,38 @@
+{
+  "about": "FioriVoce-only settings keys (architecture 7.2), declared after OpenWhisper's in src/settings/keys.inc by tools/gen/settings_keys.py. Each entry is built with the services.setting_types class its kind names, so it is validated as OpenWhisper's declarations are. The fv_ prefix keeps them apart from any future OpenWhisper key; none is in the defaults table, so it stays OpenWhisper's.",
+  "settings": [
+    {
+      "key": "fv_speech_runtime",
+      "kind": "ChoiceSetting",
+      "default": "",
+      "choices": ["", "cpu", "cuda"],
+      "in_table": false,
+      "note": "The NeMo runtime build to load at the next start; \"\" until one is chosen (architecture 5.7)."
+    },
+    {
+      "key": "fv_runtime_dir",
+      "kind": "StrSetting",
+      "default": "",
+      "in_table": false,
+      "note": "An explicit NeMo runtime folder that overrides the component runtime; \"\" for none."
+    },
+    {
+      "key": "fv_import",
+      "kind": "OptionalDictSetting",
+      "note": "The last import from OpenWhisper, {source, at, version} (architecture 7.5); absent when none."
+    },
+    {
+      "key": "fv_meeting_remote_fingerprint",
+      "kind": "StrSetting",
+      "default": "",
+      "in_table": false
+    },
+    {
+      "key": "fv_cleanup_agent_consent",
+      "kind": "StrSetting",
+      "default": "",
+      "in_table": false,
+      "note": "The installed CLI approved on this computer for live dictation cleanup."
+    }
+  ]
+}

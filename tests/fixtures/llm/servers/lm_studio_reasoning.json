@@ -1,0 +1,69 @@
+{
+ "note": "LM Studio 0.4: partial effort options, a loaded instance without a context",
+ "routes": {
+  "GET /v1/models": {
+   "status": 200,
+   "json": {
+    "data": [
+     {
+      "id": "a"
+     },
+     {
+      "id": "b"
+     },
+     {
+      "id": "c"
+     }
+    ]
+   }
+  },
+  "GET /api/v1/models": {
+   "status": 200,
+   "json": {
+    "models": [
+     {
+      "key": "a",
+      "type": "llm",
+      "max_context_length": 500,
+      "loaded_instances": [
+       {
+        "config": {}
+       },
+       {
+        "config": {
+         "context_length": 4096
+        }
+       }
+      ],
+      "capabilities": {
+       "reasoning": {
+        "allowed_options": [
+         "on",
+         "off"
+        ]
+       }
+      }
+     },
+     {
+      "key": "b",
+      "type": "vlm",
+      "max_context_length": 9000000,
+      "loaded_instances": null,
+      "capabilities": {
+       "reasoning": {
+        "allowed_options": [
+         "high"
+        ]
+       }
+      }
+     },
+     {
+      "key": "c",
+      "type": "llm",
+      "capabilities": null
+     }
+    ]
+   }
+  }
+ }
+}

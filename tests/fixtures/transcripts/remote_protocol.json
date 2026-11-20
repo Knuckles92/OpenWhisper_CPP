@@ -1,0 +1,291 @@
+{
+ "scenario": "remote_protocol",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "python": "3.12.10",
+ "setup": {
+  "host_name": "studio",
+  "device_name": "laptop",
+  "addresses": [
+   "192.168.1.20",
+   "100.101.102.103"
+  ],
+  "pairing_code": "246810",
+  "fingerprint": "<fingerprint#1>",
+  "handshake_timeout_s": {
+   "silence": 0.5
+  },
+  "patches": [
+   "tailscale.status reports not_installed and tailscale.whois finds nobody (tests/fakes/remote.py no_real_tailscale)",
+   "discovery.find_host and discovery.search find nothing (no UDP leaves the process)",
+   "SpeechHost.start serves on 127.0.0.1 only, without discovery",
+   {
+    "step": "silence",
+    "patch": "services.remote_asr.host.HANDSHAKE_TIMEOUT_S = 0.5 (10.0 in OpenWhisper)"
+   }
+  ],
+  "steps": [
+   {
+    "name": "protocol_2",
+    "client": "raw",
+    "outcomes": [
+     {
+      "call": "received",
+      "returned": [
+       "{\"type\":\"error\",\"code\":\"protocol\",\"message\":\"This host speaks remote engine protocol 1; update OpenWhisper on both computers.\"}"
+      ]
+     }
+    ]
+   },
+   {
+    "name": "pair_protocol_2",
+    "client": "raw",
+    "outcomes": [
+     {
+      "call": "received",
+      "returned": [
+       "{\"type\":\"error\",\"code\":\"protocol\",\"message\":\"This host speaks remote engine protocol 1; update OpenWhisper on both computers.\"}"
+      ]
+     }
+    ]
+   },
+   {
+    "name": "binary_first",
+    "client": "raw",
+    "outcomes": [
+     {
+      "call": "received",
+      "returned": []
+     }
+    ]
+   },
+   {
+    "name": "not_json",
+    "client": "raw",
+    "outcomes": [
+     {
+      "call": "received",
+      "returned": []
+     }
+    ]
+   },
+   {
+    "name": "not_an_object",
+    "client": "raw",
+    "outcomes": [
+     {
+      "call": "received",
+      "returned": []
+     }
+    ]
+   },
+   {
+    "name": "unknown_type",
+    "client": "raw",
+    "outcomes": [
+     {
+      "call": "received",
+      "returned": []
+     }
+    ]
+   },
+   {
+    "name": "silence",
+    "client": "raw",
+    "outcomes": [
+     {
+      "call": "received",
+      "returned": []
+     }
+    ]
+   }
+  ]
+ },
+ "frames": [
+  {
+   "step": "protocol_2",
+   "conn": 0,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"hello\", \"protocol\": 2, \"token\": \"not-a-token\"}"
+  },
+  {
+   "step": "protocol_2",
+   "conn": 0,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"error\",\"code\":\"protocol\",\"message\":\"This host speaks remote engine protocol 1; update OpenWhisper on both computers.\"}"
+  },
+  {
+   "step": "protocol_2",
+   "conn": 0,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4400,
+   "reason": "protocol version"
+  },
+  {
+   "step": "protocol_2",
+   "conn": 0,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4400,
+   "reason": "protocol version",
+   "echo": true
+  },
+  {
+   "step": "pair_protocol_2",
+   "conn": 1,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair\", \"protocol\": 2, \"device_name\": \"laptop\", \"code\": \"246810\"}"
+  },
+  {
+   "step": "pair_protocol_2",
+   "conn": 1,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"error\",\"code\":\"protocol\",\"message\":\"This host speaks remote engine protocol 1; update OpenWhisper on both computers.\"}"
+  },
+  {
+   "step": "pair_protocol_2",
+   "conn": 1,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4400,
+   "reason": "protocol version"
+  },
+  {
+   "step": "pair_protocol_2",
+   "conn": 1,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4400,
+   "reason": "protocol version",
+   "echo": true
+  },
+  {
+   "step": "binary_first",
+   "conn": 2,
+   "dir": "c2s",
+   "kind": "binary",
+   "header": "{}",
+   "payload_hex": ""
+  },
+  {
+   "step": "binary_first",
+   "conn": 2,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4400,
+   "reason": "expected hello"
+  },
+  {
+   "step": "binary_first",
+   "conn": 2,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4400,
+   "reason": "expected hello",
+   "echo": true
+  },
+  {
+   "step": "not_json",
+   "conn": 3,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "hello"
+  },
+  {
+   "step": "not_json",
+   "conn": 3,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4400,
+   "reason": "expected hello"
+  },
+  {
+   "step": "not_json",
+   "conn": 3,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4400,
+   "reason": "expected hello",
+   "echo": true
+  },
+  {
+   "step": "not_an_object",
+   "conn": 4,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "[1, 2]"
+  },
+  {
+   "step": "not_an_object",
+   "conn": 4,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4400,
+   "reason": "expected hello"
+  },
+  {
+   "step": "not_an_object",
+   "conn": 4,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4400,
+   "reason": "expected hello",
+   "echo": true
+  },
+  {
+   "step": "unknown_type",
+   "conn": 5,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"bogus\", \"protocol\": 1}"
+  },
+  {
+   "step": "unknown_type",
+   "conn": 5,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4400,
+   "reason": "expected hello"
+  },
+  {
+   "step": "unknown_type",
+   "conn": 5,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4400,
+   "reason": "expected hello",
+   "echo": true
+  },
+  {
+   "step": "silence",
+   "conn": 6,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4408,
+   "reason": "handshake timeout"
+  },
+  {
+   "step": "silence",
+   "conn": 6,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4408,
+   "reason": "handshake timeout",
+   "echo": true
+  }
+ ],
+ "normalize": [
+  {
+   "path": "1/message",
+   "as": "product"
+  },
+  {
+   "path": "5/message",
+   "as": "product"
+  }
+ ]
+}

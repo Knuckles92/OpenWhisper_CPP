@@ -1,0 +1,630 @@
+{
+ "area": "a20-agent-api-mcp-services",
+ "package": "M5",
+ "features": {
+  "A20-01": {
+   "status": "verified",
+   "cpp": [
+    "src/cli/api_command.cpp",
+    "src/agentapi/history_routes.cpp"
+   ],
+   "tests": [
+    "tests/cli/test_api_command.cpp"
+   ],
+   "note": "Token from <PREFIX>API_TOKEN with the legacy OPENWHISPER_ name read when unset; port range, exit codes, 'History API: ' prefix, lease on the primary database ('the primary database is served under the data folder's lease'); no Qt or audio modules loaded (test_cli_launch_uses_read_only_service_without_desktop_imports). 'Could not open the existing database. Open <product> first and verify --database.' (api_command.cpp:274) is not asserted by a test."
+  },
+  "A20-02": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/history_routes.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_history_api.cpp"
+   ],
+   "note": "test_invalid_startup_tokens and 'tokens of 32 and 512 printable characters are accepted'; the variable name in the message is identity().env_prefix's."
+  },
+  "A20-03": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/history_routes.cpp",
+    "src/agentapi/history_server.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_history_api.cpp",
+    "tests/agentapi/test_transcript.cpp",
+    "tests/fixtures/transcripts/agent_api.json"
+   ],
+   "note": "test_host_and_browser_origin_are_rejected, test_token_is_not_accepted_in_query_or_cookie; the 334-exchange transcript checks status, headers (no-store, nosniff, WWW-Authenticate) and bodies."
+  },
+  "A20-04": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/api_errors.cpp",
+    "src/agentapi/history_routes.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_transcript.cpp",
+    "tests/fixtures/transcripts/agent_api.json",
+    "tests/agentapi/test_history_api.cpp"
+   ],
+   "note": "Envelope and codes from the transcript; test_database_errors_do_not_leak_sql covers database_unavailable."
+  },
+  "A20-05": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/history_routes.cpp",
+    "src/agentapi/history_store.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_transcript.cpp",
+    "tests/fixtures/transcripts/agent_api.json"
+   ]
+  },
+  "A20-06": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/history_routes.cpp",
+    "src/agentapi/history_store.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_transcript.cpp",
+    "tests/fixtures/transcripts/agent_api.json",
+    "tests/agentapi/test_history_api.cpp"
+   ]
+  },
+  "A20-07": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/history_routes.cpp",
+    "src/agentapi/history_store.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_transcript.cpp",
+    "tests/fixtures/transcripts/agent_api.json",
+    "tests/agentapi/test_history_api.cpp"
+   ],
+   "note": "test_remote_records_require_explicit_opt_in_on_every_surface."
+  },
+  "A20-08": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/history_routes.cpp",
+    "src/agentapi/history_store.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_transcript.cpp",
+    "tests/fixtures/transcripts/agent_api.json"
+   ]
+  },
+  "A20-09": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/history_routes.cpp",
+    "src/agentapi/history_store.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_transcript.cpp",
+    "tests/fixtures/transcripts/agent_api.json",
+    "tests/agentapi/test_history_api.cpp"
+   ],
+   "note": "test_segment_pagination_ranges_and_meeting_scope; 'start_s must be less than end_s.' in the transcript."
+  },
+  "A20-10": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/history_store.cpp",
+    "src/agentapi/history_models.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_transcript.cpp",
+    "tests/fixtures/transcripts/agent_api.json",
+    "tests/agentapi/test_history_api.cpp"
+   ],
+   "note": "test_insights_preserve_evidence_and_omit_removed_items, test_corrupt_snapshot_does_not_hide_transcript."
+  },
+  "A20-11": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/history_store.cpp",
+    "src/agentapi/history_routes.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_transcript.cpp",
+    "tests/fixtures/transcripts/agent_api.json",
+    "tests/agentapi/test_history_api.cpp"
+   ],
+   "note": "test_search_returns_fetchable_citations_and_raw_matches, test_search_treats_wildcards_and_sql_as_literal_text."
+  },
+  "A20-12": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/history_cursor.cpp",
+    "src/agentapi/history_store.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_history_api.cpp",
+    "tests/agentapi/test_transcript.cpp",
+    "tests/fixtures/transcripts/agent_api.json"
+   ],
+   "note": "test_cursor_survives_newer_insert_and_deleted_previous_row, test_cursor_is_validated_and_bound_to_filters."
+  },
+  "A20-13": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/history_routes.cpp",
+    "src/agentapi/history_store.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_transcript.cpp",
+    "tests/fixtures/transcripts/agent_api.json",
+    "tests/agentapi/test_history_api.cpp"
+   ]
+  },
+  "A20-14": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/history_routes.cpp",
+    "src/agentapi/data/openapi.json"
+   ],
+   "tests": [
+    "tests/agentapi/test_history_api.cpp",
+    "tests/agentapi/test_transcript.cpp",
+    "tests/fixtures/transcripts/agent_api.json"
+   ],
+   "note": "Static schema; test_openapi_documents_auth_and_stable_operations and the transcript's /openapi.json exchanges."
+  },
+  "A20-15": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/history_store.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_history_api.cpp"
+   ],
+   "note": "test_storage_is_read_only_and_does_not_create_or_migrate; the incompatible-schema refusal is matched by substring; 'OpenWhisper' in the copy is identity().product."
+  },
+  "A20-16": {
+   "status": "difference",
+   "difference": "a20-peer-history-session",
+   "note": "FederatedHistory (src/agentapi/federation.cpp) keeps the clients- cursors (TTL 600 s, max 128), de-duplication and 'Paired computer' status, tested in tests/agentapi/test_federation.cpp."
+  },
+  "A20-17": {
+   "status": "difference",
+   "difference": "a20-listener"
+  },
+  "A20-18": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/mcp_runtime.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_mcp_runtime.cpp"
+   ],
+   "note": "Port, Tailscale, database and credential-store copy asserted. 'MCP dependencies are missing' is Python packaging with no C++ cause; 'MCP stopped unexpectedly' has no equivalent because net::HttpServer never ends by itself (docs/port/open-items.md, agentapi M5.9 note)."
+  },
+  "A20-19": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/mcp_runtime.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_mcp_runtime.cpp"
+   ],
+   "note": "<PREFIX>MCP_TOKEN in the credential store, 43 characters, reused on restart; test_token_store_error_names_a_missing_store_not_an_unlock covers the locked, did-not-respond, missing (Linux) and not-available branches."
+  },
+  "A20-20": {
+   "status": "difference",
+   "difference": "a20-listener-interface"
+  },
+  "A20-21": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/history_server.cpp",
+    "src/agentapi/mcp_http.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_mcp_protocol.cpp",
+    "tests/fixtures/transcripts/agent_mcp.json"
+   ],
+   "note": "test_authenticated_boundary_and_disable and the transcript: 503 disabled 'MCP access is turned off.' before auth."
+  },
+  "A20-22": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/mcp_http.cpp",
+    "src/agentapi/mcp_server.cpp",
+    "src/agentapi/mcp_tools.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_mcp_protocol.cpp",
+    "tests/fixtures/transcripts/agent_mcp.json"
+   ],
+   "note": "'the MCP listener answers every recorded request as OpenWhisper did' replays both wires; the server name is identity().product. The desktop session's instructions are its saved-content text (a20-local-mcp-saved-content)."
+  },
+  "A20-23": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/mcp_tools.cpp",
+    "src/agentapi/agent_controls.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_mcp_protocol.cpp",
+    "tests/agentapi/test_agent_controls.cpp"
+   ],
+   "note": "test_control_permissions_writes_and_live_revocation; the desktop session keeps these tools."
+  },
+  "A20-24": {
+   "status": "difference",
+   "difference": "a20-local-mcp-saved-content",
+   "note": "Tested in tests/agentapi/test_mcp_tools.cpp (test_run_action_is_refused_until_allowed_and_rechecked_each_call)."
+  },
+  "A20-25": {
+   "status": "difference",
+   "difference": "a20-local-mcp-saved-content",
+   "note": "Tested in test_mcp_tools.cpp (test_recording_tools_need_permission_to_control_recordings)."
+  },
+  "A20-26": {
+   "status": "difference",
+   "difference": "a20-local-mcp-saved-content",
+   "note": "Tested in test_mcp_tools.cpp (test_recent_events_reads_the_bus_with_gaps_paging_and_types, test_notify_user_needs_permission_to_run_actions)."
+  },
+  "A20-27": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/mcp_tools.cpp",
+    "src/agentapi/history_routes.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_mcp_protocol.cpp",
+    "tests/agentapi/test_mcp_tools.cpp",
+    "tests/fixtures/transcripts/agent_mcp.json"
+   ],
+   "note": "History tools proxied in-process with 'code: message' errors; RecordId rule ('dot record ids reach the History API as httpx normalizes their paths')."
+  },
+  "A20-28": {
+   "status": "difference",
+   "difference": "a20-local-mcp-saved-content",
+   "note": "The shape and read_only rule match ('writable_settings, capabilities, get_settings and update_settings match OpenWhisper'); in the desktop session the live permissions and mcp_events read false."
+  },
+  "A20-29": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/agent_controls.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_agent_controls.cpp"
+   ],
+   "note": "'SettingControl.validate, resolve and describe match OpenWhisper' and the get_settings vectors; theme resolution tests."
+  },
+  "A20-30": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/agent_controls.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_agent_controls.cpp"
+   ],
+   "note": "Golden update_settings vectors and the transaction, revocation and theme-reset tests; settings changes reach the desktop through sessionMcpDesktopChanges (src/ui_automation/session_mcp.cpp)."
+  },
+  "A20-31": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/agent_controls.cpp",
+    "src/ui_automation/session_mcp.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_agent_controls.cpp"
+   ],
+   "note": "Retitle rules and copy; the meeting renamer is wired to MeetingRuntime::retitle_saved_meeting in provideSessionMcp ('a meeting renamer takes the retitle and the database stays as it was')."
+  },
+  "A20-32": {
+   "status": "difference",
+   "difference": "a20-local-mcp-saved-content",
+   "note": "agentapi::McpEvents (src/agentapi/mcp_events.cpp) is tested in tests/agentapi/test_mcp_events*.cpp but never built in the app."
+  },
+  "A20-33": {
+   "status": "difference",
+   "difference": "a20-local-mcp-saved-content",
+   "note": "Delivery (src/agentapi/mcp_events_delivery.cpp) tested in test_mcp_events.cpp; not started in the app."
+  },
+  "A20-34": {
+   "status": "difference",
+   "difference": "a20-local-mcp-saved-content",
+   "note": "The peer guard is tested in test_mcp_events.cpp; peers get no MCP Events here."
+  },
+  "A20-35": {
+   "status": "difference",
+   "difference": "a20-local-mcp-saved-content",
+   "note": "Registry persistence tested in test_mcp_events_registry.cpp; nothing builds it in the app."
+  },
+  "A20-36": {
+   "status": "difference",
+   "difference": "a20-local-mcp-saved-content",
+   "note": "The page hooks exist on McpEvents; the API & MCP page finds none in the context."
+  },
+  "A20-37": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/setup.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_setup.cpp"
+   ],
+   "note": "'connection snippets match OpenWhisper's' and 'the agent prompt matches OpenWhisper's'; the server is named identity().product in lower case ('fiorivoce') by the identity rule."
+  },
+  "A20-38": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/setup.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_setup.cpp"
+   ],
+   "note": "'the Claude Code channel entry matches OpenWhisper's' with fiorivoce.exe --channel and <PREFIX>DATA_DIR."
+  },
+  "A20-39": {
+   "status": "difference",
+   "difference": "a20-host-mcp-read-only"
+  },
+  "A20-40": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/installed_agents.cpp"
+   ],
+   "tests": [
+    "tests/agents/test_installed_agents.cpp",
+    "tests/agents/test_installed_agents_golden.cpp",
+    "tests/golden/services.installed_agents.json"
+   ],
+   "note": "'find agent runs the newest install', 'find agent flags a version too old', candidate path tests and parse_version vectors; too-old copy names identity().product."
+  },
+  "A20-41": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/installed_agents.cpp"
+   ],
+   "tests": [
+    "tests/agents/test_installed_agents.cpp",
+    "tests/agents/test_installed_agents_golden.cpp",
+    "tests/golden/services.installed_agents.json"
+   ],
+   "note": "_claude_sign_in (27), _codex_sign_in (11) and sign_in_hint (5) vectors."
+  },
+  "A20-42": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/installed_agents.cpp",
+    "src/ui_shell/bootstrap.cpp"
+   ],
+   "tests": [
+    "tests/agents/test_installed_agents.cpp"
+   ],
+   "note": "'scan is cached until refresh', 'known agent never blocks and looks up once'; the instance is set in bootstrap.cpp:329."
+  },
+  "A20-43": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/installed_agents.cpp"
+   ],
+   "tests": [
+    "tests/agents/test_installed_agents.cpp",
+    "tests/agents/test_installed_agents_golden.cpp",
+    "tests/golden/services.installed_agents.json"
+   ],
+   "note": "configured_default_model (65), default_model_label, _codex_models, model_display_name and describe_choice vectors."
+  },
+  "A20-44": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_shell/bootstrap.cpp",
+    "src/process/process_env.cpp",
+    "src/agents/installed_agents.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_bootstrap.cpp",
+    "tests/agents/test_installed_agents.cpp"
+   ],
+   "note": "agent_child_env starts from ProcessEnv::external_env(), and Bootstrap::run now calls ProcessEnv::instance().adopt_dotenv(*state.dotenv) at startup, so a .env key an editor also set in the environment no longer reaches agents. Pinned by tests/ui_shell/test_bootstrap.cpp 'startup keeps .env values an editor also set away from programs it starts' (the external environment after Bootstrap::run); the agent half by 'agent env drops keys from openwhispers own env file'. Workspace '<product>-agent-workspace' under the temp folder is as the row says."
+  },
+  "A20-45": {
+   "status": "verified",
+   "cpp": [
+    "src/process/agent_process.cpp",
+    "src/process/win/job.cpp",
+    "src/process/win/launcher_win.cpp",
+    "src/process/posix/launcher_posix.cpp"
+   ],
+   "tests": [
+    "tests/process/test_agent_process.cpp"
+   ],
+   "note": "Job object assignment before the child runs, tree kill and the POSIX group kill ('a child is in its job before it runs', 'kill_tree ends a grandchild'); the Windows half is read, not compiled here."
+  },
+  "A20-46": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/history_routes.cpp",
+    "src/agentapi/data/openapi.json"
+   ],
+   "tests": [
+    "tests/agentapi/test_history_api.cpp",
+    "tests/agentapi/test_transcript.cpp",
+    "tests/fixtures/transcripts/agent_api.json"
+   ],
+   "note": "The transcript's /openapi.json answers carry the title, version, description and route descriptions, with 'OpenWhisper' as identity().product."
+  },
+  "A20-47": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/history_store.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_history_api.cpp"
+   ],
+   "note": "'the store's limit check stands behind the route's'."
+  },
+  "A20-48": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/mcp_tools.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_mcp_protocol.cpp",
+    "tests/agentapi/test_mcp_tools.cpp",
+    "tests/fixtures/transcripts/agent_mcp.json"
+   ],
+   "note": "test_tools_are_listed_with_honest_annotations_and_limits and the transcript's tools/list schema."
+  },
+  "A20-49": {
+   "status": "difference",
+   "difference": "a20-local-mcp-saved-content",
+   "note": "recent_events is tested in test_mcp_tools.cpp (paging, gaps, types, positions from a previous session)."
+  },
+  "A20-50": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/agent_controls.cpp",
+    "src/agentapi/mcp_tools.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_agent_controls.cpp",
+    "tests/agentapi/test_mcp_protocol.cpp",
+    "tests/agentapi/test_mcp_tools.cpp"
+   ],
+   "note": "Permission copy through the controls vectors and test_control_permissions_writes_and_live_revocation; 'a turned-off listener refuses the control and live tools'."
+  },
+  "A20-51": {
+   "status": "difference",
+   "difference": "a20-local-mcp-saved-content",
+   "note": "The gate and error order are tested in tests/agentapi/test_mcp_events_protocol.cpp and test_mcp_events_golden.cpp."
+  },
+  "A20-52": {
+   "status": "difference",
+   "difference": "a20-local-mcp-saved-content",
+   "note": "The principal stays 'openwhisper-mcp-token' for compatibility (test_mcp_events_golden.cpp); not served in the app."
+  },
+  "A20-53": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/installed_agents.cpp",
+    "src/process/agent_process.cpp"
+   ],
+   "tests": [
+    "tests/agents/test_installed_agents.cpp",
+    "tests/process/test_agent_process.cpp"
+   ],
+   "note": "'probes run in the agent workspace with the agent environment and no stdin', 'a probe that doesn't answer in time counts as no answer', 'bytes decode as errors=replace does'. The .env half of the environment is A20-44's handoff."
+  },
+  "A20-54": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/installed_agents.cpp"
+   ],
+   "tests": [
+    "tests/agents/test_installed_agents_golden.cpp",
+    "tests/golden/services.installed_agents.json"
+   ],
+   "note": "AGENT_SPECS vector."
+  },
+  "A20-55": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/installed_agents.cpp"
+   ],
+   "tests": [
+    "tests/agents/test_installed_agents_golden.cpp",
+    "tests/golden/services.installed_agents.json"
+   ],
+   "note": "_claude_sign_in and _codex_sign_in vectors."
+  },
+  "A20-56": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/installed_agents.cpp"
+   ],
+   "tests": [
+    "tests/agents/test_installed_agents.cpp",
+    "tests/agents/test_installed_agents_golden.cpp",
+    "tests/golden/services.installed_agents.json"
+   ],
+   "note": "model_display_name (17) and codex_model_efforts vectors."
+  },
+  "A20-57": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/installed_agents.cpp"
+   ],
+   "tests": [
+    "tests/agents/test_installed_agents.cpp"
+   ],
+   "note": "'resolve keeps a usable lookup until the next scan', 'known agent rechecks an unusable answer in the background', 'a scan notifies every agent once and logs what it found'."
+  }
+ },
+ "differences": [
+  {
+   "id": "a20-listener",
+   "features": [
+    "A20-17",
+    "SM-01"
+   ],
+   "openwhisper": "OpenWhisper can restart its MCP listener when a stored preference is enabled.",
+   "fiorivoce": "Starting a desktop listener requires confirmation of its loopback address and access. Its switch reflects whether the current session is running.",
+   "reason": "Reviewing access at start lets a user choose when local assistants can read saved text or change selected preferences.",
+   "source": "docs/port/map/a20-agent-api-mcp-services.md, A20-17"
+  },
+  {
+   "id": "a20-listener-interface",
+   "features": [
+    "A20-20",
+    "SM-06",
+    "NP-02"
+   ],
+   "openwhisper": "The upstream MCP server can bind directly to a Tailscale interface.",
+   "fiorivoce": "The desktop session listens on loopback. A separate paired-session workflow can start a temporary read-only loopback server on the host. A host can stop that session at any time.",
+   "reason": "Local desktop access and permission granted to a paired operator have separate audiences and lifetimes.",
+   "source": "docs/port/map/a20-agent-api-mcp-services.md, A20-20"
+  },
+  {
+   "id": "a20-local-mcp-saved-content",
+   "openwhisper": "The desktop MCP server offers the live tools (get_live_state, list_actions, run_action, start/stop/cancel_dictation, recent_events, notify_user) behind the API & MCP permissions, reports those permissions in get_capabilities, and serves MCP Events (events/list, subscribe, unsubscribe and signed deliveries to subscribers' URLs).",
+   "fiorivoce": "The local MCP session is built with allow_live_tools=false: it lists and runs only the history and control tools, its instructions say it reads saved dictations and meetings, get_capabilities reports every live permission and mcp_events as false, and no agentapi::McpEvents is built, so events/* and deliveries are not offered (the API & MCP page reads 'MCP is not available in this session' for its Events controls). The live tools and McpEvents are complete and tested on their own.",
+   "reason": "The local MCP session serves saved content; its tool list excludes live dictation text, microphone control and action requests, and nothing sends events to external URLs unattended.",
+   "source": "src/ui_automation/session_mcp.cpp (deps.allow_live_tools = false), src/agentapi/mcp_tools.cpp McpTools::listed/instructions, src/agentapi/agent_controls.cpp capabilities; tests/agentapi/test_mcp_protocol.cpp ('desktop history session excludes live tools even when live permissions were saved'); docs/port/open-items.md summary ('The local MCP session serves saved content ... Its tool list excludes live dictation text, microphone control and action requests')",
+   "features": [
+    "A20-24",
+    "A20-25",
+    "A20-26",
+    "A20-28",
+    "A20-32",
+    "A20-33",
+    "A20-34",
+    "A20-35",
+    "A20-36",
+    "A20-49",
+    "A20-51",
+    "A20-52",
+    "AG-02",
+    "SM-04"
+   ]
+  },
+  {
+   "id": "a20-peer-history-session",
+   "openwhisper": "The History API and MCP history tools merge paired clients' history into pages with include_clients / device_id (parallel fetch, server-side clients- cursors, per-client status).",
+   "fiorivoce": "No server is given a client history source, so include_clients and device_id read only this computer's database; a paired client's recent history is viewed instead in an explicitly opened, time-limited session (ui_remote's client history dialog). FederatedHistory exists and is tested on its own.",
+   "reason": "Time and record limits bound the data a live pairing exposes; matches the decision recorded as a17-direct-history.",
+   "source": "docs/port/differences.md a17-direct-history (docs/port/map/a17-remote-engine-services.md, A17-52); src/agentapi/history_routes.cpp HistoryApi (federation only with a ClientHistorySource), src/ui_remote/client_history_dialog.cpp",
+   "features": [
+    "A20-16"
+   ]
+  },
+  {
+   "id": "a20-host-mcp-read-only",
+   "openwhisper": "A paired client can read and configure the host's MCP (enabled, port, Tailscale, write grants) through host_control's state() and configure().",
+   "fiorivoce": "A host grants one paired connection a read-only local listener for 15 minutes; the peer cannot change the host's MCP settings, and the token is shown on the host only.",
+   "reason": "Granting access to one paired device does not authorize changes to the host's usual settings; matches the decision recorded as a17-paired-mcp.",
+   "source": "docs/port/differences.md a17-paired-mcp (docs/port/map/a17-remote-engine-services.md, A17-43)",
+   "features": [
+    "A20-39"
+   ]
+  }
+ ]
+}

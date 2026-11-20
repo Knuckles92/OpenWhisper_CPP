@@ -1,0 +1,28 @@
+{
+ "source": "Hand-written. Frames shaped as sidecar/src/pi-integration.test.ts:26-29 send() writes them (DeepSeek's reasoning_content beside a null content, as its chat model streams), ending as :63-69 do; the reply equals tests/fixtures/llm/generation/replies.json 'chat'.",
+ "protocol": "chat",
+ "equivalent": "chat",
+ "frames": [
+  {"id": "chat-test", "object": "chat.completion.chunk", "created": 1, "model": "synthetic", "choices": [{"index": 0, "delta": {"role": "assistant", "content": null, "reasoning_content": "private "}, "finish_reason": null}]},
+  {"id": "chat-test", "object": "chat.completion.chunk", "created": 1, "model": "synthetic", "choices": [{"index": 0, "delta": {"content": null, "reasoning_content": "reasoning"}, "finish_reason": null}]},
+  {"id": "chat-test", "object": "chat.completion.chunk", "created": 1, "model": "synthetic", "choices": [{"index": 0, "delta": {"content": "Clean ", "reasoning_content": null}, "finish_reason": null}]},
+  {"id": "chat-test", "object": "chat.completion.chunk", "created": 1, "model": "synthetic", "choices": [{"index": 0, "delta": {"content": "text.", "reasoning_content": null}, "finish_reason": null}]},
+  {"id": "chat-test", "object": "chat.completion.chunk", "created": 1, "model": "synthetic", "choices": [{"index": 0, "delta": {}, "finish_reason": "stop"}]},
+  "data: [DONE]\n\n"
+ ],
+ "events": [
+  ["thinking_start"],
+  ["thinking_delta", "private "],
+  ["thinking_delta", "reasoning"],
+  ["thinking_end"],
+  ["text_delta", "Clean "],
+  ["text_delta", "text."]
+ ],
+ "result": {
+  "text": "Clean text.",
+  "tool_calls": [],
+  "assistant_message": {"role": "assistant", "content": "Clean text.", "reasoning_content": "private reasoning"},
+  "usage": null,
+  "finish_reason": "stop"
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "source": "Hand-written. The usage chunk stream_options.include_usage asks for (empty choices, then [DONE]), as sidecar-opencode/src/adapter.test.ts:69 carries usage on its last chunk; the reply equals tests/fixtures/llm/generation/replies.json 'chat_usage'.",
+ "protocol": "chat",
+ "equivalent": "chat_usage",
+ "frames": [
+  {"id": "x", "object": "chat.completion.chunk", "created": 0, "model": "m", "choices": [{"index": 0, "delta": {"role": "assistant", "content": "  Clean "}, "finish_reason": null}], "usage": null},
+  {"id": "x", "object": "chat.completion.chunk", "created": 0, "model": "m", "choices": [{"index": 0, "delta": {"content": "text.  "}, "finish_reason": null}], "usage": null},
+  {"id": "x", "object": "chat.completion.chunk", "created": 0, "model": "m", "choices": [{"index": 0, "delta": {}, "finish_reason": "stop"}], "usage": null},
+  {"id": "x", "object": "chat.completion.chunk", "created": 0, "model": "m", "choices": [], "usage": {"prompt_tokens": 12, "completion_tokens": 3, "total_tokens": 15, "prompt_tokens_details": null}},
+  "data: [DONE]\n\n"
+ ],
+ "events": [
+  ["text_delta", "  Clean "],
+  ["text_delta", "text.  "]
+ ],
+ "result": {
+  "text": "  Clean text.  ",
+  "tool_calls": [],
+  "assistant_message": {"role": "assistant", "content": "  Clean text.  "},
+  "usage": {"prompt_tokens": 12, "completion_tokens": 3, "total_tokens": 15},
+  "finish_reason": "stop"
+ }
+}

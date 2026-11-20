@@ -1,0 +1,659 @@
+{
+  "package": "M1.5",
+  "files": {
+    "tests/test_hotkey_manager.py": {
+      "TestHotkeyManager::test_record_toggle_uses_monotonic_time": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_hotkey_manager.cpp"
+      },
+      "TestHotkeyManager::test_enable_toggle_clears_debounce_state": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_hotkey_manager.cpp"
+      },
+      "TestHotkeyManager::test_rehook_preserves_state": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_hotkey_manager.cpp"
+      }
+    },
+    "tests/test_personalize_s6_backends.py": {
+      "test_side_buttons_parse_as_main_keys_and_display_by_number": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_windows_matcher.cpp"
+      },
+      "test_windows_key_spelled_by_keyboard_library_matches_as_win": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_windows_matcher.cpp"
+      },
+      "test_windows_press_actions_fire_their_own_callbacks": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_windows_matcher.cpp"
+      },
+      "test_windows_stub_hotkeys_without_new_actions_still_dispatch": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_windows_matcher.cpp"
+      },
+      "test_windows_command_mode_sends_stamped_press_and_release_once": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_windows_matcher.cpp"
+      },
+      "test_windows_command_release_survives_disabling_hotkeys_mid_hold": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_windows_matcher.cpp"
+      },
+      "test_windows_push_hold_press_runs_inside_the_hook_with_its_time": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_windows_matcher.cpp"
+      },
+      "test_windows_transform_family_dispatches_beside_profiles": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_windows_matcher.cpp"
+      },
+      "test_pynput_press_actions_fire_their_own_callbacks": {
+        "status": "dropped",
+        "reason": "other-platform: the pynput, Carbon, X11 and Hyprland backends (macOS and Linux); FioriVoce's hotkeys are the Windows hook"
+      },
+      "test_pynput_command_mode_forwards_per_key_press_and_release": {
+        "status": "dropped",
+        "reason": "other-platform: the pynput, Carbon, X11 and Hyprland backends (macOS and Linux); FioriVoce's hotkeys are the Windows hook"
+      },
+      "test_pynput_command_mode_forwards_carbon_and_hyprland_released_events": {
+        "status": "dropped",
+        "reason": "other-platform: the pynput, Carbon, X11 and Hyprland backends (macOS and Linux); FioriVoce's hotkeys are the Windows hook"
+      },
+      "test_pynput_command_release_survives_disabling_hotkeys_mid_hold": {
+        "status": "dropped",
+        "reason": "other-platform: the pynput, Carbon, X11 and Hyprland backends (macOS and Linux); FioriVoce's hotkeys are the Windows hook"
+      },
+      "test_pynput_dedupe_drops_only_a_second_sources_copy": {
+        "status": "dropped",
+        "reason": "other-platform: the pynput, Carbon, X11 and Hyprland backends (macOS and Linux); FioriVoce's hotkeys are the Windows hook"
+      },
+      "test_pynput_double_tap_reaches_the_runtime_from_the_listener": {
+        "status": "dropped",
+        "reason": "other-platform: the pynput, Carbon, X11 and Hyprland backends (macOS and Linux); FioriVoce's hotkeys are the Windows hook"
+      },
+      "test_pynput_transform_family_reaches_carbon_and_dispatches": {
+        "status": "dropped",
+        "reason": "other-platform: the pynput, Carbon, X11 and Hyprland backends (macOS and Linux); FioriVoce's hotkeys are the Windows hook"
+      },
+      "test_x11_mouse_listener_starts_only_once_a_side_button_is_bound": {
+        "status": "dropped",
+        "reason": "other-platform: the pynput, Carbon, X11 and Hyprland backends (macOS and Linux); FioriVoce's hotkeys are the Windows hook"
+      },
+      "test_mouse_listener_is_never_loaded_where_side_buttons_are_unsupported": {
+        "status": "dropped",
+        "reason": "other-platform: the pynput, Carbon, X11 and Hyprland backends (macOS and Linux); FioriVoce's hotkeys are the Windows hook"
+      },
+      "test_carbon_skips_side_buttons_and_unset_actions": {
+        "status": "dropped",
+        "reason": "other-platform: the pynput, Carbon, X11 and Hyprland backends (macOS and Linux); FioriVoce's hotkeys are the Windows hook"
+      },
+      "test_hyprland_refuses_side_buttons": {
+        "status": "dropped",
+        "reason": "other-platform: the pynput, Carbon, X11 and Hyprland backends (macOS and Linux); FioriVoce's hotkeys are the Windows hook"
+      },
+      "test_windows_mouse_hook_runs_only_while_a_side_button_is_bound": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_mouse_hook.cpp"
+      },
+      "test_windows_side_button_claims_follow_bindings_and_enabled_state": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_mouse_hook.cpp"
+      },
+      "test_windows_side_button_drives_push_and_hold": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_mouse_hook.cpp"
+      },
+      "test_mouse_hook_passes_everything_but_side_buttons_untouched": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_mouse_hook.cpp"
+      },
+      "test_mouse_hook_suppresses_a_claimed_press_and_always_its_release": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_mouse_hook.cpp"
+      },
+      "test_mouse_hook_leaves_unclaimed_and_injected_buttons_to_the_app": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_mouse_hook.cpp"
+      },
+      "test_mouse_hook_thread_installs_dispatches_and_unhooks": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_mouse_hook_win.cpp"
+      },
+      "test_mouse_shortcut_support_by_desktop": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_mouse_hook.cpp"
+      },
+      "test_mouse_hook_observes_only_external_real_clicks_and_passes_them_through": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_click_observer.cpp"
+      }
+    },
+    "tests/test_personalize_fix2_g1_held_scan_code.py": {
+      "test_shift_symbol_shortcut_fires_again_when_shift_is_let_go_first": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_physical_keys.cpp"
+      },
+      "test_typed_shift_symbol_passes_through_after_the_shortcut": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_physical_keys.cpp"
+      },
+      "test_shift_symbol_shortcut_suppresses_its_repeats_until_the_key_comes_up": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_physical_keys.cpp"
+      },
+      "test_command_mode_on_a_shift_symbol_ends_when_shift_is_let_go_first": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_physical_keys.cpp"
+      },
+      "test_missed_key_up_never_swallows_later_typing": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_physical_keys.cpp"
+      },
+      "test_key_up_missed_behind_an_elevated_window_frees_the_key_later": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_physical_keys.cpp"
+      },
+      "test_slow_auto_repeat_still_counts_as_a_repeat": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_physical_keys.cpp"
+      },
+      "test_missed_key_up_never_strands_a_transform_shortcut": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_physical_keys.cpp"
+      },
+      "test_numpad_star_repeat_after_ctrl_is_let_go_stays_with_command_mode": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_physical_keys.cpp"
+      },
+      "test_paste_original_fires_once_per_physical_press": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_physical_keys.cpp"
+      },
+      "test_main_key_with_the_same_scan_code_does_not_end_a_numpad_hold": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_physical_keys.cpp"
+      }
+    },
+    "tests/test_personalize_fix3_h3_enable_disable_hold.py": {
+      "test_holding_the_shortcut_disables_once_and_never_records": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_enable_disable.cpp"
+      },
+      "test_separate_presses_still_toggle_and_num_star_records_again": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_enable_disable.cpp"
+      },
+      "test_num_star_reaches_the_app_while_dictation_is_off": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_enable_disable.cpp"
+      },
+      "test_a_side_button_shortcut_toggles_once_per_click": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_enable_disable.cpp"
+      }
+    },
+    "tests/test_personalize_fix_f1_hotkey_repeat.py": {
+      "test_command_hold_survives_a_repeat_after_its_modifier_is_released": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_physical_keys.cpp"
+      },
+      "test_release_ends_every_hold_on_that_main_key": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_physical_keys.cpp"
+      },
+      "test_paste_original_fires_once_per_press_despite_auto_repeat": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_physical_keys.cpp"
+      },
+      "test_forgetting_held_keys_frees_a_press_action": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_physical_keys.cpp"
+      }
+    },
+    "tests/test_push_hold_recording.py": {
+      "TestWindowsBackendPushHold::test_hold_fires_press_once_and_release_on_key_up": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_push_hold_matcher.cpp"
+      },
+      "TestWindowsBackendPushHold::test_release_matches_main_key_even_without_modifiers": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_push_hold_matcher.cpp"
+      },
+      "TestWindowsBackendPushHold::test_toggle_mode_suppresses_release_without_dispatching": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_push_hold_matcher.cpp"
+      },
+      "TestWindowsBackendPushHold::test_release_without_press_passes_through": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_push_hold_matcher.cpp"
+      },
+      "TestPynputBackendPushHold::test_toggle_mode_press_still_fires_toggle": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_push_hold_matcher.cpp"
+      },
+      "TestPynputBackendPushHold::test_available_backend_starts_global_listener": {
+        "status": "dropped",
+        "reason": "other-platform: the pynput listener, Carbon events and the Qt focused-window entry (macOS and Linux)"
+      },
+      "TestPynputBackendPushHold::test_hold_fires_press_and_global_release": {
+        "status": "dropped",
+        "reason": "other-platform: the pynput listener, Carbon events and the Qt focused-window entry (macOS and Linux)"
+      },
+      "TestPynputBackendPushHold::test_qt_release_entry_dispatches_and_dedupes": {
+        "status": "dropped",
+        "reason": "other-platform: the pynput listener, Carbon events and the Qt focused-window entry (macOS and Linux)"
+      },
+      "TestPynputBackendPushHold::test_carbon_released_event_routes_to_record_release": {
+        "status": "dropped",
+        "reason": "other-platform: the pynput listener, Carbon events and the Qt focused-window entry (macOS and Linux)"
+      },
+      "TestPynputBackendPushHold::test_carbon_press_routes_to_record_press_in_push_hold": {
+        "status": "dropped",
+        "reason": "other-platform: the pynput listener, Carbon events and the Qt focused-window entry (macOS and Linux)"
+      }
+    },
+    "tests/test_personalize_s6_runtime.py": {
+      "test_dispatcher_runs_calls_in_order_on_one_thread": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_dispatcher.cpp"
+      },
+      "test_dispatcher_deadline_waits_for_queued_calls_and_can_be_replaced": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_dispatcher.cpp"
+      },
+      "test_dispatcher_survives_a_failing_call_and_restarts_after_stop": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_dispatcher.cpp"
+      },
+      "test_pynput_listener_and_carbon_events_latch_and_stop": {
+        "status": "dropped",
+        "reason": "other-platform: the pynput listener and Carbon events (macOS and Linux)"
+      },
+      "test_marked_windows_count_as_focused_for_window_shortcuts": {
+        "status": "dropped",
+        "reason": "other-platform: the Qt focused-window shortcut filter exists only beside the pynput backend"
+      }
+    },
+    "tests/test_hook_refresh_waits_for_hold.py": {
+      "test_a_hold_without_recent_repeats_is_stale": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_hold_active.cpp"
+      },
+      "test_another_key_after_the_press_ends_the_wait": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_hold_active.cpp"
+      },
+      "test_a_side_button_hold_does_not_hold_back_the_refresh": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_mouse_hook.cpp"
+      }
+    },
+    "tests/test_personalize_foundation_hotkeys.py": {
+      "test_new_actions_have_no_default_shortcut": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_conflicts.cpp"
+      },
+      "test_free_and_empty_shortcuts_conflict_with_nothing": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_conflicts.cpp"
+      },
+      "test_standard_actions_conflict_by_their_saved_or_default_shortcut": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_conflicts.cpp"
+      },
+      "test_profiles_and_transforms_conflict_by_name": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_conflicts.cpp"
+      },
+      "test_the_binding_being_edited_does_not_conflict_with_itself": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_conflicts.cpp"
+      },
+      "test_an_excluded_standard_action_is_free_to_keep_its_shortcut": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_conflicts.cpp"
+      }
+    },
+    "tests/test_hotkey_carbon.py": {
+      "TestFourCharCodes::test_packs_big_endian": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestFourCharCodes::test_module_constants_match_carbon": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestFourCharCodes::test_event_kinds_match_carbon": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestModifierMasks::test_masks": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestModifierMasks::test_no_stray_modifier_names": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestAnsiKeycodeTable::test_table_matches_carbon": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestAnsiKeycodeTable::test_every_letter_and_digit_resolves": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestAnsiKeycodeTable::test_no_duplicate_keycodes": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestKeycodeResolution::test_missing_main_key_is_unmappable": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestKeycodeResolution::test_unknown_name_is_unmappable": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestKeycodeResolution::test_raw_vk_names_carry_their_keycode": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestKeycodeResolution::test_malformed_vk_name_is_unmappable": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestSpecialKeycodesOnMacOS::test_media_keys_are_excluded": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestSpecialKeycodesOnMacOS::test_named_keys_match_carbon": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestHandlerInstallation::test_handler_is_installed_once_across_re_registration": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestHandlerInstallation::test_cleanup_keeps_the_handler_for_process_life": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestHandlerInstallFailure::test_nothing_is_registered_without_a_handler": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestRegistration::test_registers_each_hotkey_with_its_modifier_mask": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestRegistration::test_unmappable_key_is_skipped_without_losing_the_rest": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestRegistration::test_ids_are_unique_per_action": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestRegistration::test_re_registration_releases_the_previous_hotkeys": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestRegistration::test_unregister_all_clears_the_dispatch_map": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestRegistration::test_empty_map_releases_everything": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestRegistrationRefused::test_a_claimed_combination_is_skipped_not_raised": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestRegistrationRefused::test_a_refused_hotkey_is_not_dispatchable": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestDispatch::test_press_dispatches_with_released_false": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestDispatch::test_release_dispatches_with_released_true": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestDispatch::test_unknown_hotkey_id_is_ignored": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestDispatch::test_unreadable_event_parameter_is_ignored": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestDispatch::test_a_raising_callback_still_returns_noerr": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestNoFrameworkAvailable::test_is_available_is_false": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestNoFrameworkAvailable::test_register_unregister_and_cleanup_are_silent": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestVerificationScriptContract::test_callback_accepts_action_and_released": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestRealFramework::test_framework_loads": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestRealFramework::test_pointer_returning_calls_declare_their_types": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      },
+      "TestRealFramework::test_every_shipped_default_hotkey_is_bindable": {
+        "status": "dropped",
+        "reason": "other-platform: Carbon hotkeys (macOS)"
+      }
+    },
+    "tests/test_hotkey_headless.py": {
+      "test_ui_and_runtime_import_without_display_or_pynput_backend": {
+        "status": "dropped",
+        "reason": "other-platform: the headless and Wayland degrade of the pynput backend (Linux)"
+      },
+      "test_wayland_hotkey_manager_degrades_to_local_controls": {
+        "status": "dropped",
+        "reason": "other-platform: the headless and Wayland degrade of the pynput backend (Linux)"
+      }
+    },
+    "tests/test_hotkey_pynput_keypad.py": {
+      "test_x11_listener_names_keypad_keys_apart_from_the_main_keyboard": {
+        "status": "dropped",
+        "reason": "other-platform: the X11 pynput listener's keypad names (Linux)"
+      },
+      "test_x11_keypad_digits_follow_num_lock": {
+        "status": "dropped",
+        "reason": "other-platform: the X11 pynput listener's keypad names (Linux)"
+      },
+      "test_keypad_press_matches_kp_hotkeys_with_and_without_modifiers": {
+        "status": "dropped",
+        "reason": "other-platform: the X11 pynput listener's keypad names (Linux)"
+      },
+      "test_captured_keypad_hotkey_round_trips_through_parse": {
+        "status": "dropped",
+        "reason": "other-platform: the X11 pynput listener's keypad names (Linux)"
+      },
+      "test_non_x11_listener_is_left_alone": {
+        "status": "dropped",
+        "reason": "other-platform: the X11 pynput listener's keypad names (Linux)"
+      }
+    },
+    "tests/test_mouse_monitor_mac.py": {
+      "test_external_mouse_and_trackpad_clicks_keep_desktop_points": {
+        "status": "dropped",
+        "reason": "other-platform: the NSEvent click monitor (macOS)"
+      },
+      "test_posted_clicks_and_unmatched_releases_are_ignored": {
+        "status": "dropped",
+        "reason": "other-platform: the NSEvent click monitor (macOS)"
+      },
+      "test_own_windows_pass_input_through_and_clear_cross_window_drags": {
+        "status": "dropped",
+        "reason": "other-platform: the NSEvent click monitor (macOS)"
+      },
+      "test_start_stop_and_restart_remove_both_monitors_and_reject_stale_events": {
+        "status": "dropped",
+        "reason": "other-platform: the NSEvent click monitor (macOS)"
+      },
+      "test_partial_installation_is_cleaned_up_and_can_be_retried": {
+        "status": "dropped",
+        "reason": "other-platform: the NSEvent click monitor (macOS)"
+      },
+      "test_callback_failure_cannot_escape_into_appkit": {
+        "status": "dropped",
+        "reason": "other-platform: the NSEvent click monitor (macOS)"
+      }
+    },
+    "tests/test_omarchy_controls.py": {
+      "test_native_binding_keys": {
+        "status": "dropped",
+        "reason": "other-platform: Hyprland and Omarchy desktop shortcuts over D-Bus (Linux)"
+      },
+      "test_update_controls_return_host_activity_and_reservation": {
+        "status": "dropped",
+        "reason": "other-platform: Hyprland and Omarchy desktop shortcuts over D-Bus (Linux)"
+      },
+      "test_never_claims_or_removes_an_existing_desktop_binding": {
+        "status": "dropped",
+        "reason": "other-platform: Hyprland and Omarchy desktop shortcuts over D-Bus (Linux)"
+      },
+      "test_registers_press_and_release_and_restores_after_reload": {
+        "status": "dropped",
+        "reason": "other-platform: Hyprland and Omarchy desktop shortcuts over D-Bus (Linux)"
+      },
+      "test_capture_releases_only_our_bindings": {
+        "status": "dropped",
+        "reason": "other-platform: Hyprland and Omarchy desktop shortcuts over D-Bus (Linux)"
+      },
+      "test_unknown_dbus_action_cannot_dispatch": {
+        "status": "dropped",
+        "reason": "other-platform: Hyprland and Omarchy desktop shortcuts over D-Bus (Linux)"
+      },
+      "test_native_paste_targets_focused_app": {
+        "status": "dropped",
+        "reason": "other-platform: Hyprland and Omarchy desktop shortcuts over D-Bus (Linux)"
+      },
+      "test_paste_does_not_inject_into_own_ui": {
+        "status": "dropped",
+        "reason": "other-platform: Hyprland and Omarchy desktop shortcuts over D-Bus (Linux)"
+      },
+      "test_native_control_preserves_push_hold_and_profile_release": {
+        "status": "dropped",
+        "reason": "other-platform: Hyprland and Omarchy desktop shortcuts over D-Bus (Linux)"
+      },
+      "test_shell_clicks_use_app_actions_even_with_shortcuts_paused": {
+        "status": "dropped",
+        "reason": "other-platform: Hyprland and Omarchy desktop shortcuts over D-Bus (Linux)"
+      },
+      "test_repairs_partial_press_release_registration": {
+        "status": "dropped",
+        "reason": "other-platform: Hyprland and Omarchy desktop shortcuts over D-Bus (Linux)"
+      }
+    },
+    "tests/test_personalize_fix_f4_omarchy_bar.py": {
+      "test_the_bar_sends_every_action_the_app_accepts": {
+        "status": "dropped",
+        "reason": "other-platform: the Omarchy bar (Linux)"
+      },
+      "test_the_bar_reads_every_status_field_it_was_given": {
+        "status": "dropped",
+        "reason": "other-platform: the Omarchy bar (Linux)"
+      },
+      "test_the_widget_source_is_balanced": {
+        "status": "dropped",
+        "reason": "other-platform: the Omarchy bar (Linux)"
+      }
+    },
+    "tests/test_personalize_s8_omarchy.py": {
+      "test_bar_buttons_open_the_scratchpad_and_switch_language": {
+        "status": "dropped",
+        "reason": "other-platform: the Omarchy bar (Linux)"
+      },
+      "test_status_reports_hands_free_only_while_recording": {
+        "status": "dropped",
+        "reason": "other-platform: the Omarchy bar (Linux)"
+      },
+      "test_status_reports_the_language_chip_when_there_is_a_choice": {
+        "status": "dropped",
+        "reason": "other-platform: the Omarchy bar (Linux)"
+      },
+      "test_status_survives_a_broken_language_list": {
+        "status": "dropped",
+        "reason": "other-platform: the Omarchy bar (Linux)"
+      },
+      "test_bar_scratchpad_is_a_compositor_window_and_language_cycles": {
+        "status": "dropped",
+        "reason": "other-platform: the Omarchy bar (Linux)"
+      }
+    },
+    "tests/test_x11_key_grab.py": {
+      "test_keypad_and_raw_keysyms_map_without_a_display": {
+        "status": "dropped",
+        "reason": "other-platform: X11 passive key grabs (Linux)"
+      },
+      "test_shortcut_changes_and_capture_update_the_grabs": {
+        "status": "dropped",
+        "reason": "other-platform: X11 passive key grabs (Linux)"
+      },
+      "test_a_grabbed_shortcut_never_reaches_the_focused_window": {
+        "status": "dropped",
+        "reason": "other-platform: X11 passive key grabs (Linux)"
+      }
+    },
+    "tests/test_personalize_fix2_g1_rehook_hold.py": {
+      "test_windows_side_button_hold_survives_a_rehook": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_mouse_hook.cpp"
+      },
+      "test_windows_side_button_command_hold_survives_a_rehook": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_mouse_hook.cpp"
+      },
+      "test_capture_suspension_still_forgets_side_button_holds": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_mouse_hook.cpp"
+      },
+      "test_real_mouse_hook_delivers_the_release_after_a_refresh": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_mouse_hook_win.cpp"
+      }
+    },
+    "tests/test_personalize_s6_settings.py": {
+      "test_escape_key_names_are_treated_as_cancel": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_capture.cpp"
+      },
+      "test_windows_capture_removes_only_its_own_hook": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_capture.cpp"
+      },
+      "test_windows_capture_treats_escape_as_cancel": {
+        "status": "ported",
+        "cpp": "tests/hotkeys/test_capture.cpp"
+      }
+    },
+    "tests/test_accessibility_setup.py": {
+      "test_dismissal_survives_relaunch_and_preserves_autopaste": {"status": "other-platform", "reason": "macOS Accessibility permission setup of the pynput hotkey backend (M1.md, tests left open)"},
+      "test_startup_only_offers_setup_when_needed": {"status": "other-platform", "reason": "macOS Accessibility permission setup of the pynput hotkey backend (M1.md, tests left open)"},
+      "test_setup_reopens_and_updates_live_without_requesting_permission": {"status": "other-platform", "reason": "macOS Accessibility permission setup of the pynput hotkey backend (M1.md, tests left open)"},
+      "test_settings_action_registers_identity_and_opens_exact_pane": {"status": "other-platform", "reason": "macOS Accessibility permission setup of the pynput hotkey backend (M1.md, tests left open)"},
+      "test_launcher_executable_resolves_to_selectable_app": {"status": "other-platform", "reason": "macOS Accessibility permission setup of the pynput hotkey backend (M1.md, tests left open)"},
+      "test_instructions_fit_with_recovery_expanded": {"status": "other-platform", "reason": "macOS Accessibility permission setup of the pynput hotkey backend (M1.md, tests left open)"}
+    }
+  }
+}

@@ -1,0 +1,4921 @@
+{
+ "module": "meeting.agent.scheduler",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time"
+ },
+ "traced_from": [
+  "tests/test_meeting_scheduler.py",
+  "tests/test_scheduler_semantic_topic_shift.py"
+ ],
+ "functions": {
+  "_content_words": [
+   {
+    "args": [
+     "Yeah okay we should discuss the quarterly budget review process"
+    ],
+    "result": [
+     "budget",
+     "discuss",
+     "process",
+     "quarterly",
+     "review"
+    ]
+   },
+   {
+    "args": [
+     "budget forecast revenue pipeline margin earnings"
+    ],
+    "result": [
+     "budget",
+     "earnings",
+     "forecast",
+     "margin",
+     "pipeline",
+     "revenue"
+    ]
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     "It's the team's don't-stop ROADMAP, roadmap; ROADMAPS"
+    ],
+    "result": [
+     "don't",
+     "it's",
+     "roadmap",
+     "roadmaps",
+     "stop",
+     "team's"
+    ]
+   },
+   {
+    "args": [
+     "café naïve résumé über Straße KELVIN K"
+    ],
+    "result": [
+     "kelvin",
+     "stra"
+    ]
+   },
+   {
+    "args": [
+     "THINGS things Something somethings actually Actually basically"
+    ],
+    "result": [
+     "somethings"
+    ]
+   },
+   {
+    "args": [
+     "a ab abc abcd abcde ''''  'tis o'clock"
+    ],
+    "result": [
+     "''''",
+     "'tis",
+     "abcd",
+     "abcde",
+     "o'clock"
+    ]
+   },
+   {
+    "args": [
+     "numbers 1234 and words2words mixed"
+    ],
+    "result": [
+     "mixed",
+     "numbers",
+     "words"
+    ]
+   },
+   {
+    "args": [
+     "budget forecast revenue pipeline margin earnings quarterly finance spreadsheet ledger accounting"
+    ],
+    "result": [
+     "accounting",
+     "budget",
+     "earnings",
+     "finance",
+     "forecast",
+     "ledger",
+     "margin",
+     "pipeline",
+     "quarterly",
+     "revenue",
+     "spreadsheet"
+    ],
+    "traced": true
+   },
+   {
+    "args": [
+     "hiring onboarding interview candidates staffing recruitment culture retention engineers designers"
+    ],
+    "result": [
+     "candidates",
+     "culture",
+     "designers",
+     "engineers",
+     "hiring",
+     "interview",
+     "onboarding",
+     "recruitment",
+     "retention",
+     "staffing"
+    ],
+    "traced": true
+   },
+   {
+    "args": [
+     "okay"
+    ],
+    "result": [],
+    "traced": true
+   },
+   {
+    "args": [
+     "sure"
+    ],
+    "result": [],
+    "traced": true
+   }
+  ],
+  "jaccard_shift": [
+   {
+    "args": [
+     [
+      "budget forecast revenue pipeline margin earnings",
+      "quarterly finance spreadsheet ledger accounting"
+     ],
+     [
+      "hiring onboarding interview candidates staffing",
+      "recruitment culture retention engineers designers"
+     ]
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     [
+      "budget forecast revenue pipeline margin earnings",
+      "quarterly finance spreadsheet ledger accounting"
+     ],
+     [
+      "budget forecast revenue pipeline margin earnings",
+      "quarterly finance spreadsheet ledger accounting"
+     ]
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     [
+      "okay"
+     ],
+     [
+      "sure"
+     ]
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     [
+      "budget forecast revenue pipeline margin earnings",
+      "quarterly finance spreadsheet ledger accounting",
+      "hiring onboarding interview candidates staffing",
+      "recruitment culture retention engineers designers"
+     ],
+     [
+      "hiring onboarding interview candidates staffing",
+      "recruitment culture retention engineers designers"
+     ]
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     [
+      "budget forecast revenue pipeline margin earnings",
+      "quarterly finance spreadsheet ledger accounting"
+     ],
+     [
+      "budget forecast revenue pipeline margin earnings",
+      "recruitment culture retention engineers designers"
+     ]
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     [
+      "budget forecast revenue pipeline margin earnings",
+      "quarterly finance spreadsheet ledger accounting",
+      "budget planning offsite"
+     ],
+     [
+      "hiring onboarding interview candidates staffing",
+      "recruitment culture retention engineers designers",
+      "budget planning offsite"
+     ]
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     [],
+     [
+      "hiring onboarding interview candidates staffing",
+      "recruitment culture retention engineers designers"
+     ]
+    ],
+    "result": false
+   }
+  ],
+  "_interval_for": [
+   {
+    "args": [
+     0,
+     {}
+    ],
+    "result": 20.0
+   },
+   {
+    "args": [
+     1,
+     {}
+    ],
+    "result": 20.0
+   },
+   {
+    "args": [
+     2,
+     {}
+    ],
+    "result": 20.0
+   },
+   {
+    "args": [
+     3,
+     {}
+    ],
+    "result": 15.0
+   },
+   {
+    "args": [
+     7,
+     {}
+    ],
+    "result": 15.0
+   },
+   {
+    "args": [
+     8,
+     {}
+    ],
+    "result": 5.0
+   },
+   {
+    "args": [
+     20,
+     {}
+    ],
+    "result": 5.0
+   },
+   {
+    "args": [
+     0,
+     {
+      "base_interval_s": 45.0,
+      "min_interval_s": 30.0,
+      "max_interval_s": 60.0
+     }
+    ],
+    "result": 60.0
+   },
+   {
+    "args": [
+     1,
+     {
+      "base_interval_s": 45.0,
+      "min_interval_s": 30.0,
+      "max_interval_s": 60.0
+     }
+    ],
+    "result": 60.0
+   },
+   {
+    "args": [
+     2,
+     {
+      "base_interval_s": 45.0,
+      "min_interval_s": 30.0,
+      "max_interval_s": 60.0
+     }
+    ],
+    "result": 60.0
+   },
+   {
+    "args": [
+     3,
+     {
+      "base_interval_s": 45.0,
+      "min_interval_s": 30.0,
+      "max_interval_s": 60.0
+     }
+    ],
+    "result": 45.0
+   },
+   {
+    "args": [
+     7,
+     {
+      "base_interval_s": 45.0,
+      "min_interval_s": 30.0,
+      "max_interval_s": 60.0
+     }
+    ],
+    "result": 45.0
+   },
+   {
+    "args": [
+     8,
+     {
+      "base_interval_s": 45.0,
+      "min_interval_s": 30.0,
+      "max_interval_s": 60.0
+     }
+    ],
+    "result": 30.0
+   },
+   {
+    "args": [
+     20,
+     {
+      "base_interval_s": 45.0,
+      "min_interval_s": 30.0,
+      "max_interval_s": 60.0
+     }
+    ],
+    "result": 30.0
+   }
+  ],
+  "ConsolidationOutcome": [
+   {
+    "args": [
+     "completed",
+     "Final insights are ready."
+    ],
+    "result": {
+     "status": "completed",
+     "message": "Final insights are ready."
+    }
+   },
+   {
+    "args": [
+     "unavailable",
+     "AI insights are offline; final insights could not run."
+    ],
+    "result": {
+     "status": "unavailable",
+     "message": "AI insights are offline; final insights could not run."
+    }
+   },
+   {
+    "args": [
+     "failed",
+     "Final insights timed out after 900s."
+    ],
+    "result": {
+     "status": "failed",
+     "message": "Final insights timed out after 900s."
+    }
+   }
+  ],
+  "_consolidation_outcome": [
+   {
+    "args": [
+     null,
+     900.0
+    ],
+    "result": {
+     "status": "failed",
+     "message": "Final insights timed out after 900s."
+    }
+   },
+   {
+    "args": [
+     null,
+     0.05
+    ],
+    "result": {
+     "status": "failed",
+     "message": "Final insights timed out after 0s."
+    }
+   },
+   {
+    "args": [
+     null,
+     7.9
+    ],
+    "result": {
+     "status": "failed",
+     "message": "Final insights timed out after 7s."
+    }
+   },
+   {
+    "args": [
+     [
+      "ok",
+      0
+     ],
+     900.0
+    ],
+    "result": {
+     "status": "completed",
+     "message": "Final insights are ready."
+    }
+   },
+   {
+    "args": [
+     [
+      "ok",
+      3
+     ],
+     5.0
+    ],
+    "result": {
+     "status": "completed",
+     "message": "Final insights are ready."
+    }
+   },
+   {
+    "args": [
+     [
+      "fail",
+      "model down"
+     ],
+     900.0
+    ],
+    "result": {
+     "status": "failed",
+     "message": "Final insights failed: model down"
+    }
+   },
+   {
+    "args": [
+     [
+      "fail",
+      ""
+     ],
+     900.0
+    ],
+    "result": {
+     "status": "failed",
+     "message": "Final insights failed: consolidation failed"
+    }
+   }
+  ],
+  "trace": [
+   {
+    "args": [
+     {
+      "steps": [
+       [
+        "add",
+        [
+         [
+          "sg_0",
+          0.0,
+          "hello there 0"
+         ],
+         [
+          "sg_1",
+          1.0,
+          "hello there 1"
+         ],
+         [
+          "sg_2",
+          2.0,
+          "hello there 2"
+         ],
+         [
+          "sg_3",
+          3.0,
+          "hello there 3"
+         ],
+         [
+          "sg_4",
+          4.0,
+          "hello there 4"
+         ],
+         [
+          "sg_5",
+          5.0,
+          "hello there 5"
+         ],
+         [
+          "sg_6",
+          6.0,
+          "hello there 6"
+         ],
+         [
+          "sg_7",
+          7.0,
+          "hello there 7"
+         ],
+         [
+          "sg_8",
+          8.0,
+          "hello there 8"
+         ],
+         [
+          "sg_9",
+          9.0,
+          "hello there 9"
+         ],
+         [
+          "sg_10",
+          10.0,
+          "hello there 10"
+         ],
+         [
+          "sg_11",
+          11.0,
+          "hello there 11"
+         ]
+        ]
+       ],
+       [
+        "clock",
+        119.9
+       ],
+       [
+        "notify",
+        12
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "pending"
+       ],
+       [
+        "clock",
+        120.0
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "pending"
+       ],
+       [
+        "advance",
+        5
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "advance",
+        10
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "run_due"
+       ]
+      ]
+     }
+    ],
+    "result": [
+     [
+      "pending",
+      12
+     ],
+     [
+      "pass",
+      "cards",
+      [
+       "sg_0",
+       "sg_1",
+       "sg_2",
+       "sg_3",
+       "sg_4",
+       "sg_5",
+       "sg_6",
+       "sg_7",
+       "sg_8",
+       "sg_9",
+       "sg_10",
+       "sg_11"
+      ],
+      [],
+      false,
+      null
+     ],
+     [
+      "pass",
+      "notes",
+      [
+       "sg_0",
+       "sg_1",
+       "sg_2",
+       "sg_3",
+       "sg_4",
+       "sg_5",
+       "sg_6",
+       "sg_7",
+       "sg_8",
+       "sg_9",
+       "sg_10",
+       "sg_11"
+      ],
+      null,
+      false,
+      null
+     ],
+     [
+      "pending",
+      0
+     ],
+     [
+      "pass",
+      "polish",
+      [
+       "sg_0",
+       "sg_1",
+       "sg_2",
+       "sg_3",
+       "sg_4",
+       "sg_5",
+       "sg_6",
+       "sg_7",
+       "sg_8",
+       "sg_9",
+       "sg_10",
+       "sg_11"
+      ],
+      null,
+      false,
+      null
+     ]
+    ]
+   },
+   {
+    "args": [
+     {
+      "steps": [
+       [
+        "add",
+        [
+         [
+          "sg_0",
+          0.0,
+          "hello there 0"
+         ],
+         [
+          "sg_1",
+          1.0,
+          "hello there 1"
+         ],
+         [
+          "sg_2",
+          2.0,
+          "hello there 2"
+         ]
+        ]
+       ],
+       [
+        "clock",
+        60.0
+       ],
+       [
+        "guidance"
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "clock",
+        130.0
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "pending"
+       ]
+      ]
+     }
+    ],
+    "result": [
+     [
+      "pass",
+      "cards",
+      [
+       "sg_0",
+       "sg_1",
+       "sg_2"
+      ],
+      [],
+      false,
+      null
+     ],
+     [
+      "pass",
+      "notes",
+      [
+       "sg_0",
+       "sg_1",
+       "sg_2"
+      ],
+      null,
+      true,
+      null
+     ],
+     [
+      "pending",
+      0
+     ]
+    ]
+   },
+   {
+    "args": [
+     {
+      "steps": [
+       [
+        "add",
+        [
+         [
+          "sg_1",
+          1.0,
+          "one"
+         ]
+        ]
+       ],
+       [
+        "script",
+        [
+         "fail:boom",
+         "fail:boom",
+         "fail:later"
+        ]
+       ],
+       [
+        "notify",
+        1
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "advance",
+        29
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "advance",
+        1
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "advance",
+        60
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "online"
+       ],
+       [
+        "pending"
+       ],
+       [
+        "advance",
+        119
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "advance",
+        1
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "online"
+       ],
+       [
+        "pending"
+       ]
+      ]
+     }
+    ],
+    "result": [
+     [
+      "pass",
+      "cards",
+      [
+       "sg_1"
+      ],
+      [],
+      false,
+      null
+     ],
+     [
+      "pass",
+      "cards",
+      [
+       "sg_1"
+      ],
+      [],
+      false,
+      null
+     ],
+     [
+      "pass",
+      "cards",
+      [
+       "sg_1"
+      ],
+      [],
+      false,
+      null
+     ],
+     [
+      "health",
+      false,
+      "later"
+     ],
+     [
+      "online",
+      false
+     ],
+     [
+      "pending",
+      1
+     ],
+     [
+      "pass",
+      "cards",
+      [
+       "sg_1"
+      ],
+      [],
+      false,
+      null
+     ],
+     [
+      "health",
+      true,
+      ""
+     ],
+     [
+      "pass",
+      "notes",
+      [
+       "sg_1"
+      ],
+      null,
+      false,
+      null
+     ],
+     [
+      "online",
+      true
+     ],
+     [
+      "pending",
+      0
+     ]
+    ]
+   },
+   {
+    "args": [
+     {
+      "intervals": {},
+      "steps": [
+       [
+        "add",
+        [
+         [
+          "a_0",
+          0.0,
+          "hello there 0"
+         ],
+         [
+          "a_1",
+          1.0,
+          "hello there 1"
+         ]
+        ]
+       ],
+       [
+        "notify",
+        2
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "add",
+        [
+         [
+          "b_0",
+          10.0,
+          "late one"
+         ]
+        ]
+       ],
+       [
+        "notify",
+        1
+       ],
+       [
+        "advance",
+        10
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "advance",
+        10
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "add",
+        [
+         [
+          "c_0",
+          20.0,
+          "hello there 0"
+         ],
+         [
+          "c_1",
+          21.0,
+          "hello there 1"
+         ],
+         [
+          "c_2",
+          22.0,
+          "hello there 2"
+         ],
+         [
+          "c_3",
+          23.0,
+          "hello there 3"
+         ],
+         [
+          "c_4",
+          24.0,
+          "hello there 4"
+         ],
+         [
+          "c_5",
+          25.0,
+          "hello there 5"
+         ],
+         [
+          "c_6",
+          26.0,
+          "hello there 6"
+         ],
+         [
+          "c_7",
+          27.0,
+          "hello there 7"
+         ],
+         [
+          "c_8",
+          28.0,
+          "hello there 8"
+         ]
+        ]
+       ],
+       [
+        "notify",
+        9
+       ],
+       [
+        "advance",
+        4
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "advance",
+        1
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "add",
+        [
+         [
+          "d_0",
+          40.0,
+          "hello there 0"
+         ],
+         [
+          "d_1",
+          41.0,
+          "hello there 1"
+         ],
+         [
+          "d_2",
+          42.0,
+          "hello there 2"
+         ],
+         [
+          "d_3",
+          43.0,
+          "hello there 3"
+         ]
+        ]
+       ],
+       [
+        "notify",
+        4
+       ],
+       [
+        "advance",
+        14
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "advance",
+        1
+       ],
+       [
+        "run_due"
+       ]
+      ]
+     }
+    ],
+    "result": [
+     [
+      "pass",
+      "cards",
+      [
+       "a_0",
+       "a_1"
+      ],
+      [],
+      false,
+      null
+     ],
+     [
+      "pass",
+      "notes",
+      [
+       "a_0",
+       "a_1"
+      ],
+      null,
+      false,
+      null
+     ],
+     [
+      "pass",
+      "cards",
+      [
+       "b_0"
+      ],
+      [
+       "a_0",
+       "a_1"
+      ],
+      false,
+      null
+     ],
+     [
+      "pass",
+      "cards",
+      [
+       "c_0",
+       "c_1",
+       "c_2",
+       "c_3",
+       "c_4",
+       "c_5",
+       "c_6",
+       "c_7",
+       "c_8"
+      ],
+      [
+       "a_0",
+       "a_1",
+       "b_0"
+      ],
+      false,
+      null
+     ],
+     [
+      "pass",
+      "notes",
+      [
+       "b_0",
+       "c_0",
+       "c_1",
+       "c_2",
+       "c_3",
+       "c_4",
+       "c_5",
+       "c_6",
+       "c_7",
+       "c_8"
+      ],
+      null,
+      false,
+      null
+     ],
+     [
+      "pass",
+      "cards",
+      [
+       "d_0",
+       "d_1",
+       "d_2",
+       "d_3"
+      ],
+      [
+       "a_0",
+       "a_1",
+       "b_0",
+       "c_0",
+       "c_1",
+       "c_2",
+       "c_3",
+       "c_4",
+       "c_5",
+       "c_6",
+       "c_7",
+       "c_8"
+      ],
+      false,
+      null
+     ]
+    ]
+   },
+   {
+    "args": [
+     {
+      "intervals": {
+       "base_interval_s": 0.05,
+       "min_interval_s": 0.05,
+       "max_interval_s": 0.05
+      },
+      "steps": [
+       [
+        "add",
+        [
+         [
+          "mic_1",
+          0.0,
+          "mic one"
+         ]
+        ]
+       ],
+       [
+        "notify",
+        1
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "add",
+        [
+         [
+          "loop_1",
+          0.0,
+          "loop one"
+         ],
+         [
+          "loop_2",
+          8.0,
+          "loop two"
+         ]
+        ]
+       ],
+       [
+        "notify",
+        2
+       ],
+       [
+        "advance",
+        1
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "add",
+        [
+         [
+          "late_1",
+          400.0,
+          "far"
+         ]
+        ]
+       ],
+       [
+        "notify",
+        1
+       ],
+       [
+        "advance",
+        1
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "add",
+        [
+         [
+          "early_1",
+          5.0,
+          "too old"
+         ]
+        ]
+       ],
+       [
+        "notify",
+        1
+       ],
+       [
+        "advance",
+        1
+       ],
+       [
+        "run_due"
+       ]
+      ]
+     }
+    ],
+    "result": [
+     [
+      "pass",
+      "cards",
+      [
+       "mic_1"
+      ],
+      [],
+      false,
+      null
+     ],
+     [
+      "pass",
+      "notes",
+      [
+       "mic_1"
+      ],
+      null,
+      false,
+      null
+     ],
+     [
+      "pass",
+      "cards",
+      [
+       "loop_1",
+       "loop_2"
+      ],
+      [
+       "mic_1"
+      ],
+      false,
+      null
+     ],
+     [
+      "pass",
+      "cards",
+      [
+       "late_1"
+      ],
+      [
+       "mic_1",
+       "loop_1",
+       "loop_2"
+      ],
+      false,
+      null
+     ],
+     [
+      "pass",
+      "notes",
+      [
+       "loop_1",
+       "loop_2",
+       "late_1"
+      ],
+      null,
+      false,
+      null
+     ]
+    ]
+   },
+   {
+    "args": [
+     {
+      "ledger": true,
+      "steps": [
+       [
+        "add",
+        [
+         [
+          "sg_0",
+          0.0,
+          "hello there 0"
+         ],
+         [
+          "sg_1",
+          1.0,
+          "hello there 1"
+         ],
+         [
+          "sg_2",
+          2.0,
+          "hello there 2"
+         ],
+         [
+          "sg_3",
+          3.0,
+          "hello there 3"
+         ],
+         [
+          "sg_4",
+          4.0,
+          "hello there 4"
+         ],
+         [
+          "sg_5",
+          5.0,
+          "hello there 5"
+         ],
+         [
+          "sg_6",
+          6.0,
+          "hello there 6"
+         ],
+         [
+          "sg_7",
+          7.0,
+          "hello there 7"
+         ],
+         [
+          "sg_8",
+          8.0,
+          "hello there 8"
+         ],
+         [
+          "sg_9",
+          9.0,
+          "hello there 9"
+         ],
+         [
+          "sg_10",
+          10.0,
+          "hello there 10"
+         ],
+         [
+          "sg_11",
+          11.0,
+          "hello there 11"
+         ],
+         [
+          "sg_12",
+          12.0,
+          "hello there 12"
+         ],
+         [
+          "sg_13",
+          13.0,
+          "hello there 13"
+         ],
+         [
+          "sg_14",
+          14.0,
+          "hello there 14"
+         ],
+         [
+          "sg_15",
+          15.0,
+          "hello there 15"
+         ],
+         [
+          "sg_16",
+          16.0,
+          "hello there 16"
+         ],
+         [
+          "sg_17",
+          17.0,
+          "hello there 17"
+         ],
+         [
+          "sg_18",
+          18.0,
+          "hello there 18"
+         ],
+         [
+          "sg_19",
+          19.0,
+          "hello there 19"
+         ],
+         [
+          "sg_20",
+          20.0,
+          "hello there 20"
+         ],
+         [
+          "sg_21",
+          21.0,
+          "hello there 21"
+         ],
+         [
+          "sg_22",
+          22.0,
+          "hello there 22"
+         ],
+         [
+          "sg_23",
+          23.0,
+          "hello there 23"
+         ],
+         [
+          "sg_24",
+          24.0,
+          "hello there 24"
+         ],
+         [
+          "sg_25",
+          25.0,
+          "hello there 25"
+         ],
+         [
+          "sg_26",
+          26.0,
+          "hello there 26"
+         ],
+         [
+          "sg_27",
+          27.0,
+          "hello there 27"
+         ],
+         [
+          "sg_28",
+          28.0,
+          "hello there 28"
+         ],
+         [
+          "sg_29",
+          29.0,
+          "hello there 29"
+         ],
+         [
+          "sg_30",
+          30.0,
+          "hello there 30"
+         ],
+         [
+          "sg_31",
+          31.0,
+          "hello there 31"
+         ],
+         [
+          "sg_32",
+          32.0,
+          "hello there 32"
+         ],
+         [
+          "sg_33",
+          33.0,
+          "hello there 33"
+         ],
+         [
+          "sg_34",
+          34.0,
+          "hello there 34"
+         ],
+         [
+          "sg_35",
+          35.0,
+          "hello there 35"
+         ],
+         [
+          "sg_36",
+          36.0,
+          "hello there 36"
+         ],
+         [
+          "sg_37",
+          37.0,
+          "hello there 37"
+         ],
+         [
+          "sg_38",
+          38.0,
+          "hello there 38"
+         ],
+         [
+          "sg_39",
+          39.0,
+          "hello there 39"
+         ],
+         [
+          "sg_40",
+          40.0,
+          "hello there 40"
+         ],
+         [
+          "sg_41",
+          41.0,
+          "hello there 41"
+         ],
+         [
+          "sg_42",
+          42.0,
+          "hello there 42"
+         ],
+         [
+          "sg_43",
+          43.0,
+          "hello there 43"
+         ],
+         [
+          "sg_44",
+          44.0,
+          "hello there 44"
+         ],
+         [
+          "sg_45",
+          45.0,
+          "hello there 45"
+         ],
+         [
+          "sg_46",
+          46.0,
+          "hello there 46"
+         ],
+         [
+          "sg_47",
+          47.0,
+          "hello there 47"
+         ],
+         [
+          "sg_48",
+          48.0,
+          "hello there 48"
+         ],
+         [
+          "sg_49",
+          49.0,
+          "hello there 49"
+         ],
+         [
+          "sg_50",
+          50.0,
+          "hello there 50"
+         ],
+         [
+          "sg_51",
+          51.0,
+          "hello there 51"
+         ],
+         [
+          "sg_52",
+          52.0,
+          "hello there 52"
+         ],
+         [
+          "sg_53",
+          53.0,
+          "hello there 53"
+         ],
+         [
+          "sg_54",
+          54.0,
+          "hello there 54"
+         ],
+         [
+          "sg_55",
+          55.0,
+          "hello there 55"
+         ],
+         [
+          "sg_56",
+          56.0,
+          "hello there 56"
+         ],
+         [
+          "sg_57",
+          57.0,
+          "hello there 57"
+         ],
+         [
+          "sg_58",
+          58.0,
+          "hello there 58"
+         ],
+         [
+          "sg_59",
+          59.0,
+          "hello there 59"
+         ],
+         [
+          "sg_60",
+          60.0,
+          "hello there 60"
+         ],
+         [
+          "sg_61",
+          61.0,
+          "hello there 61"
+         ],
+         [
+          "sg_62",
+          62.0,
+          "hello there 62"
+         ],
+         [
+          "sg_63",
+          63.0,
+          "hello there 63"
+         ],
+         [
+          "sg_64",
+          64.0,
+          "hello there 64"
+         ],
+         [
+          "sg_65",
+          65.0,
+          "hello there 65"
+         ],
+         [
+          "sg_66",
+          66.0,
+          "hello there 66"
+         ],
+         [
+          "sg_67",
+          67.0,
+          "hello there 67"
+         ],
+         [
+          "sg_68",
+          68.0,
+          "hello there 68"
+         ],
+         [
+          "sg_69",
+          69.0,
+          "hello there 69"
+         ],
+         [
+          "sg_70",
+          70.0,
+          "hello there 70"
+         ],
+         [
+          "sg_71",
+          71.0,
+          "hello there 71"
+         ],
+         [
+          "sg_72",
+          72.0,
+          "hello there 72"
+         ],
+         [
+          "sg_73",
+          73.0,
+          "hello there 73"
+         ],
+         [
+          "sg_74",
+          74.0,
+          "hello there 74"
+         ],
+         [
+          "sg_75",
+          75.0,
+          "hello there 75"
+         ],
+         [
+          "sg_76",
+          76.0,
+          "hello there 76"
+         ],
+         [
+          "sg_77",
+          77.0,
+          "hello there 77"
+         ],
+         [
+          "sg_78",
+          78.0,
+          "hello there 78"
+         ],
+         [
+          "sg_79",
+          79.0,
+          "hello there 79"
+         ],
+         [
+          "sg_80",
+          80.0,
+          "hello there 80"
+         ],
+         [
+          "sg_81",
+          81.0,
+          "hello there 81"
+         ],
+         [
+          "sg_82",
+          82.0,
+          "hello there 82"
+         ],
+         [
+          "sg_83",
+          83.0,
+          "hello there 83"
+         ],
+         [
+          "sg_84",
+          84.0,
+          "hello there 84"
+         ],
+         [
+          "sg_85",
+          85.0,
+          "hello there 85"
+         ],
+         [
+          "sg_86",
+          86.0,
+          "hello there 86"
+         ],
+         [
+          "sg_87",
+          87.0,
+          "hello there 87"
+         ],
+         [
+          "sg_88",
+          88.0,
+          "hello there 88"
+         ],
+         [
+          "sg_89",
+          89.0,
+          "hello there 89"
+         ],
+         [
+          "sg_90",
+          90.0,
+          "hello there 90"
+         ],
+         [
+          "sg_91",
+          91.0,
+          "hello there 91"
+         ],
+         [
+          "sg_92",
+          92.0,
+          "hello there 92"
+         ],
+         [
+          "sg_93",
+          93.0,
+          "hello there 93"
+         ],
+         [
+          "sg_94",
+          94.0,
+          "hello there 94"
+         ],
+         [
+          "sg_95",
+          95.0,
+          "hello there 95"
+         ],
+         [
+          "sg_96",
+          96.0,
+          "hello there 96"
+         ],
+         [
+          "sg_97",
+          97.0,
+          "hello there 97"
+         ],
+         [
+          "sg_98",
+          98.0,
+          "hello there 98"
+         ],
+         [
+          "sg_99",
+          99.0,
+          "hello there 99"
+         ],
+         [
+          "sg_100",
+          100.0,
+          "hello there 100"
+         ],
+         [
+          "sg_101",
+          101.0,
+          "hello there 101"
+         ],
+         [
+          "sg_102",
+          102.0,
+          "hello there 102"
+         ],
+         [
+          "sg_103",
+          103.0,
+          "hello there 103"
+         ],
+         [
+          "sg_104",
+          104.0,
+          "hello there 104"
+         ],
+         [
+          "sg_105",
+          105.0,
+          "hello there 105"
+         ],
+         [
+          "sg_106",
+          106.0,
+          "hello there 106"
+         ],
+         [
+          "sg_107",
+          107.0,
+          "hello there 107"
+         ],
+         [
+          "sg_108",
+          108.0,
+          "hello there 108"
+         ],
+         [
+          "sg_109",
+          109.0,
+          "hello there 109"
+         ],
+         [
+          "sg_110",
+          110.0,
+          "hello there 110"
+         ],
+         [
+          "sg_111",
+          111.0,
+          "hello there 111"
+         ],
+         [
+          "sg_112",
+          112.0,
+          "hello there 112"
+         ],
+         [
+          "sg_113",
+          113.0,
+          "hello there 113"
+         ],
+         [
+          "sg_114",
+          114.0,
+          "hello there 114"
+         ],
+         [
+          "sg_115",
+          115.0,
+          "hello there 115"
+         ],
+         [
+          "sg_116",
+          116.0,
+          "hello there 116"
+         ],
+         [
+          "sg_117",
+          117.0,
+          "hello there 117"
+         ],
+         [
+          "sg_118",
+          118.0,
+          "hello there 118"
+         ],
+         [
+          "sg_119",
+          119.0,
+          "hello there 119"
+         ],
+         [
+          "sg_120",
+          120.0,
+          "hello there 120"
+         ],
+         [
+          "sg_121",
+          121.0,
+          "hello there 121"
+         ],
+         [
+          "sg_122",
+          122.0,
+          "hello there 122"
+         ],
+         [
+          "sg_123",
+          123.0,
+          "hello there 123"
+         ],
+         [
+          "sg_124",
+          124.0,
+          "hello there 124"
+         ],
+         [
+          "sg_125",
+          125.0,
+          "hello there 125"
+         ],
+         [
+          "sg_126",
+          126.0,
+          "hello there 126"
+         ],
+         [
+          "sg_127",
+          127.0,
+          "hello there 127"
+         ],
+         [
+          "sg_128",
+          128.0,
+          "hello there 128"
+         ],
+         [
+          "sg_129",
+          129.0,
+          "hello there 129"
+         ],
+         [
+          "sg_130",
+          130.0,
+          "hello there 130"
+         ],
+         [
+          "sg_131",
+          131.0,
+          "hello there 131"
+         ],
+         [
+          "sg_132",
+          132.0,
+          "hello there 132"
+         ],
+         [
+          "sg_133",
+          133.0,
+          "hello there 133"
+         ],
+         [
+          "sg_134",
+          134.0,
+          "hello there 134"
+         ],
+         [
+          "sg_135",
+          135.0,
+          "hello there 135"
+         ],
+         [
+          "sg_136",
+          136.0,
+          "hello there 136"
+         ],
+         [
+          "sg_137",
+          137.0,
+          "hello there 137"
+         ],
+         [
+          "sg_138",
+          138.0,
+          "hello there 138"
+         ],
+         [
+          "sg_139",
+          139.0,
+          "hello there 139"
+         ],
+         [
+          "sg_140",
+          140.0,
+          "hello there 140"
+         ],
+         [
+          "sg_141",
+          141.0,
+          "hello there 141"
+         ],
+         [
+          "sg_142",
+          142.0,
+          "hello there 142"
+         ],
+         [
+          "sg_143",
+          143.0,
+          "hello there 143"
+         ],
+         [
+          "sg_144",
+          144.0,
+          "hello there 144"
+         ],
+         [
+          "sg_145",
+          145.0,
+          "hello there 145"
+         ],
+         [
+          "sg_146",
+          146.0,
+          "hello there 146"
+         ],
+         [
+          "sg_147",
+          147.0,
+          "hello there 147"
+         ],
+         [
+          "sg_148",
+          148.0,
+          "hello there 148"
+         ],
+         [
+          "sg_149",
+          149.0,
+          "hello there 149"
+         ],
+         [
+          "sg_150",
+          150.0,
+          "hello there 150"
+         ],
+         [
+          "sg_151",
+          151.0,
+          "hello there 151"
+         ],
+         [
+          "sg_152",
+          152.0,
+          "hello there 152"
+         ],
+         [
+          "sg_153",
+          153.0,
+          "hello there 153"
+         ],
+         [
+          "sg_154",
+          154.0,
+          "hello there 154"
+         ],
+         [
+          "sg_155",
+          155.0,
+          "hello there 155"
+         ],
+         [
+          "sg_156",
+          156.0,
+          "hello there 156"
+         ],
+         [
+          "sg_157",
+          157.0,
+          "hello there 157"
+         ],
+         [
+          "sg_158",
+          158.0,
+          "hello there 158"
+         ],
+         [
+          "sg_159",
+          159.0,
+          "hello there 159"
+         ],
+         [
+          "sg_160",
+          160.0,
+          "hello there 160"
+         ],
+         [
+          "sg_161",
+          161.0,
+          "hello there 161"
+         ],
+         [
+          "sg_162",
+          162.0,
+          "hello there 162"
+         ],
+         [
+          "sg_163",
+          163.0,
+          "hello there 163"
+         ],
+         [
+          "sg_164",
+          164.0,
+          "hello there 164"
+         ],
+         [
+          "sg_165",
+          165.0,
+          "hello there 165"
+         ],
+         [
+          "sg_166",
+          166.0,
+          "hello there 166"
+         ],
+         [
+          "sg_167",
+          167.0,
+          "hello there 167"
+         ],
+         [
+          "sg_168",
+          168.0,
+          "hello there 168"
+         ],
+         [
+          "sg_169",
+          169.0,
+          "hello there 169"
+         ],
+         [
+          "sg_170",
+          170.0,
+          "hello there 170"
+         ],
+         [
+          "sg_171",
+          171.0,
+          "hello there 171"
+         ],
+         [
+          "sg_172",
+          172.0,
+          "hello there 172"
+         ],
+         [
+          "sg_173",
+          173.0,
+          "hello there 173"
+         ],
+         [
+          "sg_174",
+          174.0,
+          "hello there 174"
+         ],
+         [
+          "sg_175",
+          175.0,
+          "hello there 175"
+         ],
+         [
+          "sg_176",
+          176.0,
+          "hello there 176"
+         ],
+         [
+          "sg_177",
+          177.0,
+          "hello there 177"
+         ],
+         [
+          "sg_178",
+          178.0,
+          "hello there 178"
+         ],
+         [
+          "sg_179",
+          179.0,
+          "hello there 179"
+         ],
+         [
+          "sg_180",
+          180.0,
+          "hello there 180"
+         ],
+         [
+          "sg_181",
+          181.0,
+          "hello there 181"
+         ],
+         [
+          "sg_182",
+          182.0,
+          "hello there 182"
+         ],
+         [
+          "sg_183",
+          183.0,
+          "hello there 183"
+         ],
+         [
+          "sg_184",
+          184.0,
+          "hello there 184"
+         ],
+         [
+          "sg_185",
+          185.0,
+          "hello there 185"
+         ],
+         [
+          "sg_186",
+          186.0,
+          "hello there 186"
+         ],
+         [
+          "sg_187",
+          187.0,
+          "hello there 187"
+         ],
+         [
+          "sg_188",
+          188.0,
+          "hello there 188"
+         ],
+         [
+          "sg_189",
+          189.0,
+          "hello there 189"
+         ],
+         [
+          "sg_190",
+          190.0,
+          "hello there 190"
+         ],
+         [
+          "sg_191",
+          191.0,
+          "hello there 191"
+         ],
+         [
+          "sg_192",
+          192.0,
+          "hello there 192"
+         ],
+         [
+          "sg_193",
+          193.0,
+          "hello there 193"
+         ],
+         [
+          "sg_194",
+          194.0,
+          "hello there 194"
+         ],
+         [
+          "sg_195",
+          195.0,
+          "hello there 195"
+         ],
+         [
+          "sg_196",
+          196.0,
+          "hello there 196"
+         ],
+         [
+          "sg_197",
+          197.0,
+          "hello there 197"
+         ],
+         [
+          "sg_198",
+          198.0,
+          "hello there 198"
+         ],
+         [
+          "sg_199",
+          199.0,
+          "hello there 199"
+         ],
+         [
+          "sg_200",
+          200.0,
+          "hello there 200"
+         ],
+         [
+          "sg_201",
+          201.0,
+          "hello there 201"
+         ],
+         [
+          "sg_202",
+          202.0,
+          "hello there 202"
+         ],
+         [
+          "sg_203",
+          203.0,
+          "hello there 203"
+         ],
+         [
+          "sg_204",
+          204.0,
+          "hello there 204"
+         ],
+         [
+          "sg_205",
+          205.0,
+          "hello there 205"
+         ],
+         [
+          "sg_206",
+          206.0,
+          "hello there 206"
+         ],
+         [
+          "sg_207",
+          207.0,
+          "hello there 207"
+         ],
+         [
+          "sg_208",
+          208.0,
+          "hello there 208"
+         ],
+         [
+          "sg_209",
+          209.0,
+          "hello there 209"
+         ],
+         [
+          "sg_210",
+          210.0,
+          "hello there 210"
+         ],
+         [
+          "sg_211",
+          211.0,
+          "hello there 211"
+         ],
+         [
+          "sg_212",
+          212.0,
+          "hello there 212"
+         ],
+         [
+          "sg_213",
+          213.0,
+          "hello there 213"
+         ],
+         [
+          "sg_214",
+          214.0,
+          "hello there 214"
+         ],
+         [
+          "sg_215",
+          215.0,
+          "hello there 215"
+         ],
+         [
+          "sg_216",
+          216.0,
+          "hello there 216"
+         ],
+         [
+          "sg_217",
+          217.0,
+          "hello there 217"
+         ],
+         [
+          "sg_218",
+          218.0,
+          "hello there 218"
+         ],
+         [
+          "sg_219",
+          219.0,
+          "hello there 219"
+         ],
+         [
+          "sg_220",
+          220.0,
+          "hello there 220"
+         ],
+         [
+          "sg_221",
+          221.0,
+          "hello there 221"
+         ],
+         [
+          "sg_222",
+          222.0,
+          "hello there 222"
+         ],
+         [
+          "sg_223",
+          223.0,
+          "hello there 223"
+         ],
+         [
+          "sg_224",
+          224.0,
+          "hello there 224"
+         ],
+         [
+          "sg_225",
+          225.0,
+          "hello there 225"
+         ],
+         [
+          "sg_226",
+          226.0,
+          "hello there 226"
+         ],
+         [
+          "sg_227",
+          227.0,
+          "hello there 227"
+         ],
+         [
+          "sg_228",
+          228.0,
+          "hello there 228"
+         ],
+         [
+          "sg_229",
+          229.0,
+          "hello there 229"
+         ],
+         [
+          "sg_230",
+          230.0,
+          "hello there 230"
+         ],
+         [
+          "sg_231",
+          231.0,
+          "hello there 231"
+         ],
+         [
+          "sg_232",
+          232.0,
+          "hello there 232"
+         ],
+         [
+          "sg_233",
+          233.0,
+          "hello there 233"
+         ],
+         [
+          "sg_234",
+          234.0,
+          "hello there 234"
+         ],
+         [
+          "sg_235",
+          235.0,
+          "hello there 235"
+         ],
+         [
+          "sg_236",
+          236.0,
+          "hello there 236"
+         ],
+         [
+          "sg_237",
+          237.0,
+          "hello there 237"
+         ],
+         [
+          "sg_238",
+          238.0,
+          "hello there 238"
+         ],
+         [
+          "sg_239",
+          239.0,
+          "hello there 239"
+         ],
+         [
+          "sg_240",
+          240.0,
+          "hello there 240"
+         ],
+         [
+          "sg_241",
+          241.0,
+          "hello there 241"
+         ],
+         [
+          "sg_242",
+          242.0,
+          "hello there 242"
+         ],
+         [
+          "sg_243",
+          243.0,
+          "hello there 243"
+         ],
+         [
+          "sg_244",
+          244.0,
+          "hello there 244"
+         ],
+         [
+          "sg_245",
+          245.0,
+          "hello there 245"
+         ],
+         [
+          "sg_246",
+          246.0,
+          "hello there 246"
+         ],
+         [
+          "sg_247",
+          247.0,
+          "hello there 247"
+         ],
+         [
+          "sg_248",
+          248.0,
+          "hello there 248"
+         ],
+         [
+          "sg_249",
+          249.0,
+          "hello there 249"
+         ],
+         [
+          "sg_250",
+          250.0,
+          "hello there 250"
+         ],
+         [
+          "sg_251",
+          251.0,
+          "hello there 251"
+         ],
+         [
+          "sg_252",
+          252.0,
+          "hello there 252"
+         ],
+         [
+          "sg_253",
+          253.0,
+          "hello there 253"
+         ],
+         [
+          "sg_254",
+          254.0,
+          "hello there 254"
+         ],
+         [
+          "sg_255",
+          255.0,
+          "hello there 255"
+         ],
+         [
+          "sg_256",
+          256.0,
+          "hello there 256"
+         ],
+         [
+          "sg_257",
+          257.0,
+          "hello there 257"
+         ],
+         [
+          "sg_258",
+          258.0,
+          "hello there 258"
+         ],
+         [
+          "sg_259",
+          259.0,
+          "hello there 259"
+         ],
+         [
+          "sg_260",
+          260.0,
+          "hello there 260"
+         ],
+         [
+          "sg_261",
+          261.0,
+          "hello there 261"
+         ],
+         [
+          "sg_262",
+          262.0,
+          "hello there 262"
+         ],
+         [
+          "sg_263",
+          263.0,
+          "hello there 263"
+         ],
+         [
+          "sg_264",
+          264.0,
+          "hello there 264"
+         ],
+         [
+          "sg_265",
+          265.0,
+          "hello there 265"
+         ],
+         [
+          "sg_266",
+          266.0,
+          "hello there 266"
+         ],
+         [
+          "sg_267",
+          267.0,
+          "hello there 267"
+         ],
+         [
+          "sg_268",
+          268.0,
+          "hello there 268"
+         ],
+         [
+          "sg_269",
+          269.0,
+          "hello there 269"
+         ],
+         [
+          "sg_270",
+          270.0,
+          "hello there 270"
+         ],
+         [
+          "sg_271",
+          271.0,
+          "hello there 271"
+         ],
+         [
+          "sg_272",
+          272.0,
+          "hello there 272"
+         ],
+         [
+          "sg_273",
+          273.0,
+          "hello there 273"
+         ],
+         [
+          "sg_274",
+          274.0,
+          "hello there 274"
+         ],
+         [
+          "sg_275",
+          275.0,
+          "hello there 275"
+         ],
+         [
+          "sg_276",
+          276.0,
+          "hello there 276"
+         ],
+         [
+          "sg_277",
+          277.0,
+          "hello there 277"
+         ],
+         [
+          "sg_278",
+          278.0,
+          "hello there 278"
+         ],
+         [
+          "sg_279",
+          279.0,
+          "hello there 279"
+         ],
+         [
+          "sg_280",
+          280.0,
+          "hello there 280"
+         ],
+         [
+          "sg_281",
+          281.0,
+          "hello there 281"
+         ],
+         [
+          "sg_282",
+          282.0,
+          "hello there 282"
+         ],
+         [
+          "sg_283",
+          283.0,
+          "hello there 283"
+         ],
+         [
+          "sg_284",
+          284.0,
+          "hello there 284"
+         ],
+         [
+          "sg_285",
+          285.0,
+          "hello there 285"
+         ],
+         [
+          "sg_286",
+          286.0,
+          "hello there 286"
+         ],
+         [
+          "sg_287",
+          287.0,
+          "hello there 287"
+         ],
+         [
+          "sg_288",
+          288.0,
+          "hello there 288"
+         ],
+         [
+          "sg_289",
+          289.0,
+          "hello there 289"
+         ],
+         [
+          "sg_290",
+          290.0,
+          "hello there 290"
+         ],
+         [
+          "sg_291",
+          291.0,
+          "hello there 291"
+         ],
+         [
+          "sg_292",
+          292.0,
+          "hello there 292"
+         ],
+         [
+          "sg_293",
+          293.0,
+          "hello there 293"
+         ],
+         [
+          "sg_294",
+          294.0,
+          "hello there 294"
+         ],
+         [
+          "sg_295",
+          295.0,
+          "hello there 295"
+         ],
+         [
+          "sg_296",
+          296.0,
+          "hello there 296"
+         ],
+         [
+          "sg_297",
+          297.0,
+          "hello there 297"
+         ],
+         [
+          "sg_298",
+          298.0,
+          "hello there 298"
+         ],
+         [
+          "sg_299",
+          299.0,
+          "hello there 299"
+         ],
+         [
+          "sg_300",
+          300.0,
+          "hello there 300"
+         ],
+         [
+          "sg_301",
+          301.0,
+          "hello there 301"
+         ],
+         [
+          "sg_302",
+          302.0,
+          "hello there 302"
+         ],
+         [
+          "sg_303",
+          303.0,
+          "hello there 303"
+         ],
+         [
+          "sg_304",
+          304.0,
+          "hello there 304"
+         ]
+        ]
+       ],
+       [
+        "notify",
+        1
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "pending"
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "advance",
+        20
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "advance",
+        45
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "advance",
+        45
+       ],
+       [
+        "run_due"
+       ]
+      ]
+     }
+    ],
+    "result": [
+     [
+      "pass",
+      "cards",
+      [
+       "sg_0",
+       "sg_1",
+       "sg_2",
+       "sg_3",
+       "sg_4",
+       "sg_5",
+       "sg_6",
+       "sg_7",
+       "sg_8",
+       "sg_9",
+       "sg_10",
+       "sg_11",
+       "sg_12",
+       "sg_13",
+       "sg_14",
+       "sg_15",
+       "sg_16",
+       "sg_17",
+       "sg_18",
+       "sg_19",
+       "sg_20",
+       "sg_21",
+       "sg_22",
+       "sg_23",
+       "sg_24",
+       "sg_25",
+       "sg_26",
+       "sg_27",
+       "sg_28",
+       "sg_29",
+       "sg_30",
+       "sg_31",
+       "sg_32",
+       "sg_33",
+       "sg_34",
+       "sg_35",
+       "sg_36",
+       "sg_37",
+       "sg_38",
+       "sg_39",
+       "sg_40",
+       "sg_41",
+       "sg_42",
+       "sg_43",
+       "sg_44",
+       "sg_45",
+       "sg_46",
+       "sg_47",
+       "sg_48",
+       "sg_49",
+       "sg_50",
+       "sg_51",
+       "sg_52",
+       "sg_53",
+       "sg_54",
+       "sg_55",
+       "sg_56",
+       "sg_57",
+       "sg_58",
+       "sg_59",
+       "sg_60",
+       "sg_61",
+       "sg_62",
+       "sg_63",
+       "sg_64",
+       "sg_65",
+       "sg_66",
+       "sg_67",
+       "sg_68",
+       "sg_69",
+       "sg_70",
+       "sg_71",
+       "sg_72",
+       "sg_73",
+       "sg_74",
+       "sg_75",
+       "sg_76",
+       "sg_77",
+       "sg_78",
+       "sg_79",
+       "sg_80",
+       "sg_81",
+       "sg_82",
+       "sg_83",
+       "sg_84",
+       "sg_85",
+       "sg_86",
+       "sg_87",
+       "sg_88",
+       "sg_89",
+       "sg_90",
+       "sg_91",
+       "sg_92",
+       "sg_93",
+       "sg_94",
+       "sg_95",
+       "sg_96",
+       "sg_97",
+       "sg_98",
+       "sg_99",
+       "sg_100",
+       "sg_101",
+       "sg_102",
+       "sg_103",
+       "sg_104",
+       "sg_105",
+       "sg_106",
+       "sg_107",
+       "sg_108",
+       "sg_109",
+       "sg_110",
+       "sg_111",
+       "sg_112",
+       "sg_113",
+       "sg_114",
+       "sg_115",
+       "sg_116",
+       "sg_117",
+       "sg_118",
+       "sg_119",
+       "sg_120",
+       "sg_121",
+       "sg_122",
+       "sg_123",
+       "sg_124",
+       "sg_125",
+       "sg_126",
+       "sg_127",
+       "sg_128",
+       "sg_129",
+       "sg_130",
+       "sg_131",
+       "sg_132",
+       "sg_133",
+       "sg_134",
+       "sg_135",
+       "sg_136",
+       "sg_137",
+       "sg_138",
+       "sg_139",
+       "sg_140",
+       "sg_141",
+       "sg_142",
+       "sg_143",
+       "sg_144",
+       "sg_145",
+       "sg_146",
+       "sg_147",
+       "sg_148",
+       "sg_149",
+       "sg_150",
+       "sg_151",
+       "sg_152",
+       "sg_153",
+       "sg_154",
+       "sg_155",
+       "sg_156",
+       "sg_157",
+       "sg_158",
+       "sg_159",
+       "sg_160",
+       "sg_161",
+       "sg_162",
+       "sg_163",
+       "sg_164",
+       "sg_165",
+       "sg_166",
+       "sg_167",
+       "sg_168",
+       "sg_169",
+       "sg_170",
+       "sg_171",
+       "sg_172",
+       "sg_173",
+       "sg_174",
+       "sg_175",
+       "sg_176",
+       "sg_177",
+       "sg_178",
+       "sg_179",
+       "sg_180",
+       "sg_181",
+       "sg_182",
+       "sg_183",
+       "sg_184",
+       "sg_185",
+       "sg_186",
+       "sg_187",
+       "sg_188",
+       "sg_189",
+       "sg_190",
+       "sg_191",
+       "sg_192",
+       "sg_193",
+       "sg_194",
+       "sg_195",
+       "sg_196",
+       "sg_197",
+       "sg_198",
+       "sg_199",
+       "sg_200",
+       "sg_201",
+       "sg_202",
+       "sg_203",
+       "sg_204",
+       "sg_205",
+       "sg_206",
+       "sg_207",
+       "sg_208",
+       "sg_209",
+       "sg_210",
+       "sg_211",
+       "sg_212",
+       "sg_213",
+       "sg_214",
+       "sg_215",
+       "sg_216",
+       "sg_217",
+       "sg_218",
+       "sg_219",
+       "sg_220",
+       "sg_221",
+       "sg_222",
+       "sg_223",
+       "sg_224",
+       "sg_225",
+       "sg_226",
+       "sg_227",
+       "sg_228",
+       "sg_229",
+       "sg_230",
+       "sg_231",
+       "sg_232",
+       "sg_233",
+       "sg_234",
+       "sg_235",
+       "sg_236",
+       "sg_237",
+       "sg_238",
+       "sg_239",
+       "sg_240",
+       "sg_241",
+       "sg_242",
+       "sg_243",
+       "sg_244",
+       "sg_245",
+       "sg_246",
+       "sg_247",
+       "sg_248",
+       "sg_249",
+       "sg_250",
+       "sg_251",
+       "sg_252",
+       "sg_253",
+       "sg_254",
+       "sg_255",
+       "sg_256",
+       "sg_257",
+       "sg_258",
+       "sg_259",
+       "sg_260",
+       "sg_261",
+       "sg_262",
+       "sg_263",
+       "sg_264",
+       "sg_265",
+       "sg_266",
+       "sg_267",
+       "sg_268",
+       "sg_269",
+       "sg_270",
+       "sg_271",
+       "sg_272",
+       "sg_273",
+       "sg_274",
+       "sg_275",
+       "sg_276",
+       "sg_277",
+       "sg_278",
+       "sg_279",
+       "sg_280",
+       "sg_281",
+       "sg_282",
+       "sg_283",
+       "sg_284",
+       "sg_285",
+       "sg_286",
+       "sg_287",
+       "sg_288",
+       "sg_289",
+       "sg_290",
+       "sg_291",
+       "sg_292",
+       "sg_293",
+       "sg_294",
+       "sg_295",
+       "sg_296",
+       "sg_297",
+       "sg_298",
+       "sg_299"
+      ],
+      [
+       "sg_300",
+       "sg_301",
+       "sg_302",
+       "sg_303",
+       "sg_304"
+      ],
+      false,
+      null
+     ],
+     [
+      "ack",
+      "cards",
+      300
+     ],
+     [
+      "pass",
+      "notes",
+      [
+       "sg_0",
+       "sg_1",
+       "sg_2",
+       "sg_3",
+       "sg_4",
+       "sg_5",
+       "sg_6",
+       "sg_7",
+       "sg_8",
+       "sg_9",
+       "sg_10",
+       "sg_11",
+       "sg_12",
+       "sg_13",
+       "sg_14",
+       "sg_15",
+       "sg_16",
+       "sg_17",
+       "sg_18",
+       "sg_19",
+       "sg_20",
+       "sg_21",
+       "sg_22",
+       "sg_23",
+       "sg_24",
+       "sg_25",
+       "sg_26",
+       "sg_27",
+       "sg_28",
+       "sg_29",
+       "sg_30",
+       "sg_31",
+       "sg_32",
+       "sg_33",
+       "sg_34",
+       "sg_35",
+       "sg_36",
+       "sg_37",
+       "sg_38",
+       "sg_39",
+       "sg_40",
+       "sg_41",
+       "sg_42",
+       "sg_43",
+       "sg_44",
+       "sg_45",
+       "sg_46",
+       "sg_47",
+       "sg_48",
+       "sg_49",
+       "sg_50",
+       "sg_51",
+       "sg_52",
+       "sg_53",
+       "sg_54",
+       "sg_55",
+       "sg_56",
+       "sg_57",
+       "sg_58",
+       "sg_59",
+       "sg_60",
+       "sg_61",
+       "sg_62",
+       "sg_63",
+       "sg_64",
+       "sg_65",
+       "sg_66",
+       "sg_67",
+       "sg_68",
+       "sg_69",
+       "sg_70",
+       "sg_71",
+       "sg_72",
+       "sg_73",
+       "sg_74",
+       "sg_75",
+       "sg_76",
+       "sg_77",
+       "sg_78",
+       "sg_79",
+       "sg_80",
+       "sg_81",
+       "sg_82",
+       "sg_83",
+       "sg_84",
+       "sg_85",
+       "sg_86",
+       "sg_87",
+       "sg_88",
+       "sg_89",
+       "sg_90",
+       "sg_91",
+       "sg_92",
+       "sg_93",
+       "sg_94",
+       "sg_95",
+       "sg_96",
+       "sg_97",
+       "sg_98",
+       "sg_99",
+       "sg_100",
+       "sg_101",
+       "sg_102",
+       "sg_103",
+       "sg_104",
+       "sg_105",
+       "sg_106",
+       "sg_107",
+       "sg_108",
+       "sg_109",
+       "sg_110",
+       "sg_111",
+       "sg_112",
+       "sg_113",
+       "sg_114",
+       "sg_115",
+       "sg_116",
+       "sg_117",
+       "sg_118",
+       "sg_119",
+       "sg_120",
+       "sg_121",
+       "sg_122",
+       "sg_123",
+       "sg_124",
+       "sg_125",
+       "sg_126",
+       "sg_127",
+       "sg_128",
+       "sg_129",
+       "sg_130",
+       "sg_131",
+       "sg_132",
+       "sg_133",
+       "sg_134",
+       "sg_135",
+       "sg_136",
+       "sg_137",
+       "sg_138",
+       "sg_139",
+       "sg_140",
+       "sg_141",
+       "sg_142",
+       "sg_143",
+       "sg_144",
+       "sg_145",
+       "sg_146",
+       "sg_147",
+       "sg_148",
+       "sg_149",
+       "sg_150",
+       "sg_151",
+       "sg_152",
+       "sg_153",
+       "sg_154",
+       "sg_155",
+       "sg_156",
+       "sg_157",
+       "sg_158",
+       "sg_159",
+       "sg_160",
+       "sg_161",
+       "sg_162",
+       "sg_163",
+       "sg_164",
+       "sg_165",
+       "sg_166",
+       "sg_167",
+       "sg_168",
+       "sg_169",
+       "sg_170",
+       "sg_171",
+       "sg_172",
+       "sg_173",
+       "sg_174",
+       "sg_175",
+       "sg_176",
+       "sg_177",
+       "sg_178",
+       "sg_179",
+       "sg_180",
+       "sg_181",
+       "sg_182",
+       "sg_183",
+       "sg_184",
+       "sg_185",
+       "sg_186",
+       "sg_187",
+       "sg_188",
+       "sg_189",
+       "sg_190",
+       "sg_191",
+       "sg_192",
+       "sg_193",
+       "sg_194",
+       "sg_195",
+       "sg_196",
+       "sg_197",
+       "sg_198",
+       "sg_199",
+       "sg_200",
+       "sg_201",
+       "sg_202",
+       "sg_203",
+       "sg_204",
+       "sg_205",
+       "sg_206",
+       "sg_207",
+       "sg_208",
+       "sg_209",
+       "sg_210",
+       "sg_211",
+       "sg_212",
+       "sg_213",
+       "sg_214",
+       "sg_215",
+       "sg_216",
+       "sg_217",
+       "sg_218",
+       "sg_219",
+       "sg_220",
+       "sg_221",
+       "sg_222",
+       "sg_223",
+       "sg_224",
+       "sg_225",
+       "sg_226",
+       "sg_227",
+       "sg_228",
+       "sg_229",
+       "sg_230",
+       "sg_231",
+       "sg_232",
+       "sg_233",
+       "sg_234",
+       "sg_235",
+       "sg_236",
+       "sg_237",
+       "sg_238",
+       "sg_239",
+       "sg_240",
+       "sg_241",
+       "sg_242",
+       "sg_243",
+       "sg_244",
+       "sg_245",
+       "sg_246",
+       "sg_247",
+       "sg_248",
+       "sg_249",
+       "sg_250",
+       "sg_251",
+       "sg_252",
+       "sg_253",
+       "sg_254",
+       "sg_255",
+       "sg_256",
+       "sg_257",
+       "sg_258",
+       "sg_259",
+       "sg_260",
+       "sg_261",
+       "sg_262",
+       "sg_263",
+       "sg_264",
+       "sg_265",
+       "sg_266",
+       "sg_267",
+       "sg_268",
+       "sg_269",
+       "sg_270",
+       "sg_271",
+       "sg_272",
+       "sg_273",
+       "sg_274",
+       "sg_275",
+       "sg_276",
+       "sg_277",
+       "sg_278",
+       "sg_279",
+       "sg_280",
+       "sg_281",
+       "sg_282",
+       "sg_283",
+       "sg_284",
+       "sg_285",
+       "sg_286",
+       "sg_287",
+       "sg_288",
+       "sg_289",
+       "sg_290",
+       "sg_291",
+       "sg_292",
+       "sg_293",
+       "sg_294",
+       "sg_295",
+       "sg_296",
+       "sg_297",
+       "sg_298",
+       "sg_299"
+      ],
+      null,
+      false,
+      null
+     ],
+     [
+      "ack",
+      "notes",
+      300
+     ],
+     [
+      "pending",
+      1
+     ],
+     [
+      "pass",
+      "cards",
+      [
+       "sg_300",
+       "sg_301",
+       "sg_302",
+       "sg_303",
+       "sg_304"
+      ],
+      [
+       "sg_276",
+       "sg_277",
+       "sg_278",
+       "sg_279",
+       "sg_280",
+       "sg_281",
+       "sg_282",
+       "sg_283",
+       "sg_284",
+       "sg_285",
+       "sg_286",
+       "sg_287",
+       "sg_288",
+       "sg_289",
+       "sg_290",
+       "sg_291",
+       "sg_292",
+       "sg_293",
+       "sg_294",
+       "sg_295",
+       "sg_296",
+       "sg_297",
+       "sg_298",
+       "sg_299"
+      ],
+      false,
+      null
+     ],
+     [
+      "ack",
+      "cards",
+      305
+     ],
+     [
+      "pass",
+      "notes",
+      [
+       "sg_300",
+       "sg_301",
+       "sg_302",
+       "sg_303",
+       "sg_304"
+      ],
+      null,
+      false,
+      null
+     ],
+     [
+      "ack",
+      "notes",
+      305
+     ],
+     [
+      "pass",
+      "polish",
+      [
+       "sg_225",
+       "sg_226",
+       "sg_227",
+       "sg_228",
+       "sg_229",
+       "sg_230",
+       "sg_231",
+       "sg_232",
+       "sg_233",
+       "sg_234",
+       "sg_235",
+       "sg_236",
+       "sg_237",
+       "sg_238",
+       "sg_239",
+       "sg_240",
+       "sg_241",
+       "sg_242",
+       "sg_243",
+       "sg_244",
+       "sg_245",
+       "sg_246",
+       "sg_247",
+       "sg_248",
+       "sg_249",
+       "sg_250",
+       "sg_251",
+       "sg_252",
+       "sg_253",
+       "sg_254",
+       "sg_255",
+       "sg_256",
+       "sg_257",
+       "sg_258",
+       "sg_259",
+       "sg_260",
+       "sg_261",
+       "sg_262",
+       "sg_263",
+       "sg_264",
+       "sg_265",
+       "sg_266",
+       "sg_267",
+       "sg_268",
+       "sg_269",
+       "sg_270",
+       "sg_271",
+       "sg_272",
+       "sg_273",
+       "sg_274",
+       "sg_275",
+       "sg_276",
+       "sg_277",
+       "sg_278",
+       "sg_279",
+       "sg_280",
+       "sg_281",
+       "sg_282",
+       "sg_283",
+       "sg_284",
+       "sg_285",
+       "sg_286",
+       "sg_287",
+       "sg_288",
+       "sg_289",
+       "sg_290",
+       "sg_291",
+       "sg_292",
+       "sg_293",
+       "sg_294",
+       "sg_295",
+       "sg_296",
+       "sg_297",
+       "sg_298",
+       "sg_299",
+       "sg_300",
+       "sg_301",
+       "sg_302",
+       "sg_303",
+       "sg_304"
+      ],
+      null,
+      false,
+      null
+     ]
+    ]
+   },
+   {
+    "args": [
+     {
+      "ledger": true,
+      "steps": [
+       [
+        "add",
+        [
+         [
+          "newer",
+          600.0,
+          "newer"
+         ]
+        ]
+       ],
+       [
+        "notify",
+        1
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "add",
+        [
+         [
+          "late",
+          1.0,
+          "late"
+         ],
+         [
+          "mid",
+          300.0,
+          "mid"
+         ]
+        ]
+       ],
+       [
+        "notify",
+        2
+       ],
+       [
+        "advance",
+        20
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "advance",
+        45
+       ],
+       [
+        "run_due"
+       ]
+      ]
+     }
+    ],
+    "result": [
+     [
+      "pass",
+      "cards",
+      [
+       "newer"
+      ],
+      [],
+      false,
+      null
+     ],
+     [
+      "ack",
+      "cards",
+      1
+     ],
+     [
+      "pass",
+      "notes",
+      [
+       "newer"
+      ],
+      null,
+      false,
+      null
+     ],
+     [
+      "ack",
+      "notes",
+      1
+     ],
+     [
+      "pass",
+      "cards",
+      [
+       "late",
+       "mid"
+      ],
+      [
+       "newer"
+      ],
+      false,
+      null
+     ],
+     [
+      "ack",
+      "cards",
+      3
+     ],
+     [
+      "pass",
+      "notes",
+      [
+       "late",
+       "mid"
+      ],
+      null,
+      false,
+      null
+     ],
+     [
+      "ack",
+      "notes",
+      3
+     ],
+     [
+      "pass",
+      "polish",
+      [
+       "newer",
+       "late",
+       "mid"
+      ],
+      null,
+      false,
+      null
+     ]
+    ]
+   },
+   {
+    "args": [
+     {
+      "ledger": true,
+      "steps": [
+       [
+        "add",
+        [
+         [
+          "sg_0",
+          0.0,
+          "hello there 0"
+         ],
+         [
+          "sg_1",
+          1.0,
+          "hello there 1"
+         ],
+         [
+          "sg_2",
+          2.0,
+          "hello there 2"
+         ]
+        ]
+       ],
+       [
+        "script",
+        [
+         "fail:busy"
+        ]
+       ],
+       [
+        "notify",
+        3
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "advance",
+        30
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "advance",
+        45
+       ],
+       [
+        "run_due"
+       ]
+      ]
+     }
+    ],
+    "result": [
+     [
+      "pass",
+      "cards",
+      [
+       "sg_0",
+       "sg_1",
+       "sg_2"
+      ],
+      [],
+      false,
+      null
+     ],
+     [
+      "pass",
+      "cards",
+      [
+       "sg_0",
+       "sg_1",
+       "sg_2"
+      ],
+      [],
+      false,
+      null
+     ],
+     [
+      "ack",
+      "cards",
+      3
+     ],
+     [
+      "pass",
+      "notes",
+      [
+       "sg_0",
+       "sg_1",
+       "sg_2"
+      ],
+      null,
+      false,
+      null
+     ],
+     [
+      "ack",
+      "notes",
+      3
+     ],
+     [
+      "pass",
+      "polish",
+      [
+       "sg_0",
+       "sg_1",
+       "sg_2"
+      ],
+      null,
+      false,
+      null
+     ]
+    ]
+   },
+   {
+    "args": [
+     {
+      "steps": [
+       [
+        "add",
+        [
+         [
+          "sg_0",
+          0.0,
+          "hello there 0"
+         ],
+         [
+          "sg_1",
+          1.0,
+          "hello there 1"
+         ],
+         [
+          "sg_2",
+          2.0,
+          "hello there 2"
+         ]
+        ]
+       ],
+       [
+        "notify",
+        3
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "script",
+        [
+         "revise"
+        ]
+       ],
+       [
+        "advance",
+        15
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "pending"
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "run_due"
+       ]
+      ]
+     }
+    ],
+    "result": [
+     [
+      "pass",
+      "cards",
+      [
+       "sg_0",
+       "sg_1",
+       "sg_2"
+      ],
+      [],
+      false,
+      null
+     ],
+     [
+      "pass",
+      "notes",
+      [
+       "sg_0",
+       "sg_1",
+       "sg_2"
+      ],
+      null,
+      false,
+      null
+     ],
+     [
+      "pass",
+      "polish",
+      [
+       "sg_0",
+       "sg_1",
+       "sg_2"
+      ],
+      null,
+      false,
+      null
+     ],
+     [
+      "pending",
+      1
+     ],
+     [
+      "pass",
+      "cards",
+      [
+       "sg_0",
+       "sg_1",
+       "sg_2"
+      ],
+      [],
+      false,
+      null
+     ],
+     [
+      "pass",
+      "notes",
+      [
+       "sg_0",
+       "sg_1",
+       "sg_2"
+      ],
+      null,
+      true,
+      null
+     ]
+    ]
+   },
+   {
+    "args": [
+     {
+      "steps": [
+       [
+        "add",
+        [
+         [
+          "sg_0",
+          0.0,
+          "hello there 0"
+         ],
+         [
+          "sg_1",
+          1.0,
+          "hello there 1"
+         ]
+        ]
+       ],
+       [
+        "notify",
+        2
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "script",
+        [
+         "fail:polish"
+        ]
+       ],
+       [
+        "advance",
+        15
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "advance",
+        45
+       ],
+       [
+        "run_due"
+       ]
+      ]
+     }
+    ],
+    "result": [
+     [
+      "pass",
+      "cards",
+      [
+       "sg_0",
+       "sg_1"
+      ],
+      [],
+      false,
+      null
+     ],
+     [
+      "pass",
+      "notes",
+      [
+       "sg_0",
+       "sg_1"
+      ],
+      null,
+      false,
+      null
+     ],
+     [
+      "pass",
+      "polish",
+      [
+       "sg_0",
+       "sg_1"
+      ],
+      null,
+      false,
+      null
+     ],
+     [
+      "pass",
+      "polish",
+      [
+       "sg_0",
+       "sg_1"
+      ],
+      null,
+      false,
+      null
+     ]
+    ]
+   },
+   {
+    "args": [
+     {
+      "steps": [
+       [
+        "add",
+        [
+         [
+          "sg_0",
+          0.0,
+          "hello there 0"
+         ],
+         [
+          "sg_1",
+          1.0,
+          "hello there 1"
+         ]
+        ]
+       ],
+       [
+        "script",
+        [
+         "ok",
+         "fail:notes"
+        ]
+       ],
+       [
+        "notify",
+        2
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "advance",
+        20
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "guidance"
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "advance",
+        45
+       ],
+       [
+        "run_due"
+       ]
+      ]
+     }
+    ],
+    "result": [
+     [
+      "pass",
+      "cards",
+      [
+       "sg_0",
+       "sg_1"
+      ],
+      [],
+      false,
+      null
+     ],
+     [
+      "pass",
+      "notes",
+      [
+       "sg_0",
+       "sg_1"
+      ],
+      null,
+      false,
+      null
+     ],
+     [
+      "pass",
+      "polish",
+      [
+       "sg_0",
+       "sg_1"
+      ],
+      null,
+      false,
+      null
+     ],
+     [
+      "pass",
+      "cards",
+      [
+       "sg_0",
+       "sg_1"
+      ],
+      [],
+      false,
+      null
+     ],
+     [
+      "pass",
+      "notes",
+      [
+       "sg_0",
+       "sg_1"
+      ],
+      null,
+      true,
+      null
+     ],
+     [
+      "pass",
+      "notes",
+      [
+       "sg_0",
+       "sg_1"
+      ],
+      null,
+      false,
+      null
+     ],
+     [
+      "pass",
+      "polish",
+      [
+       "sg_0",
+       "sg_1"
+      ],
+      null,
+      false,
+      null
+     ]
+    ]
+   },
+   {
+    "args": [
+     {
+      "intervals": {
+       "base_interval_s": 45.0,
+       "min_interval_s": 0.05,
+       "max_interval_s": 60.0
+      },
+      "steps": [
+       [
+        "add",
+        [
+         [
+          "f_0",
+          85.0,
+          "budget forecast revenue pipeline margin earnings"
+         ],
+         [
+          "f_1",
+          100.0,
+          "quarterly finance spreadsheet ledger accounting"
+         ]
+        ]
+       ],
+       [
+        "notify",
+        2
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "add",
+        [
+         [
+          "h_0",
+          145.0,
+          "hiring onboarding interview candidates staffing"
+         ],
+         [
+          "h_1",
+          165.0,
+          "recruitment culture retention engineers designers"
+         ]
+        ]
+       ],
+       [
+        "notify",
+        2
+       ],
+       [
+        "advance",
+        5
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "add",
+        [
+         [
+          "g_0",
+          170.0,
+          "budget forecast revenue pipeline margin earnings"
+         ],
+         [
+          "g_1",
+          175.0,
+          "quarterly finance spreadsheet ledger accounting"
+         ]
+        ]
+       ],
+       [
+        "notify",
+        2
+       ],
+       [
+        "advance",
+        5
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "advance",
+        10
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "advance",
+        50
+       ],
+       [
+        "run_due"
+       ]
+      ]
+     }
+    ],
+    "result": [
+     [
+      "pass",
+      "cards",
+      [
+       "f_0",
+       "f_1"
+      ],
+      [],
+      false,
+      null
+     ],
+     [
+      "pass",
+      "notes",
+      [
+       "f_0",
+       "f_1"
+      ],
+      null,
+      false,
+      null
+     ],
+     [
+      "pass",
+      "cards",
+      [
+       "h_0",
+       "h_1"
+      ],
+      [
+       "f_0",
+       "f_1"
+      ],
+      false,
+      null
+     ],
+     [
+      "pass",
+      "cards",
+      [
+       "g_0",
+       "g_1"
+      ],
+      [
+       "f_0",
+       "f_1",
+       "h_0",
+       "h_1"
+      ],
+      false,
+      null
+     ],
+     [
+      "pass",
+      "notes",
+      [
+       "h_0",
+       "h_1",
+       "g_0",
+       "g_1"
+      ],
+      null,
+      false,
+      null
+     ]
+    ]
+   },
+   {
+    "args": [
+     {
+      "steps": [
+       [
+        "add",
+        [
+         [
+          "sg_0",
+          0.0,
+          "hello there 0"
+         ],
+         [
+          "sg_1",
+          1.0,
+          "hello there 1"
+         ],
+         [
+          "sg_2",
+          2.0,
+          "hello there 2"
+         ]
+        ]
+       ],
+       [
+        "seed"
+       ],
+       [
+        "add",
+        [
+         [
+          "sg_new",
+          10.0,
+          "new"
+         ]
+        ]
+       ],
+       [
+        "notify",
+        1
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "advance",
+        20
+       ],
+       [
+        "run_due"
+       ]
+      ]
+     }
+    ],
+    "result": [
+     [
+      "pass",
+      "cards",
+      [
+       "sg_new"
+      ],
+      [
+       "sg_0",
+       "sg_1",
+       "sg_2"
+      ],
+      false,
+      null
+     ],
+     [
+      "pass",
+      "notes",
+      [
+       "sg_new"
+      ],
+      null,
+      false,
+      null
+     ]
+    ]
+   },
+   {
+    "args": [
+     {
+      "ledger": true,
+      "steps": [
+       [
+        "add",
+        [
+         [
+          "sg_0",
+          0.0,
+          "hello there 0"
+         ],
+         [
+          "sg_1",
+          1.0,
+          "hello there 1"
+         ],
+         [
+          "sg_2",
+          2.0,
+          "hello there 2"
+         ]
+        ]
+       ],
+       [
+        "seed"
+       ],
+       [
+        "add",
+        [
+         [
+          "sg_new",
+          10.0,
+          "new"
+         ]
+        ]
+       ],
+       [
+        "notify",
+        1
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "advance",
+        20
+       ],
+       [
+        "run_due"
+       ]
+      ]
+     }
+    ],
+    "result": [
+     [
+      "ack",
+      "cards",
+      3
+     ],
+     [
+      "ack",
+      "notes",
+      3
+     ],
+     [
+      "pass",
+      "cards",
+      [
+       "sg_new"
+      ],
+      [
+       "sg_0",
+       "sg_1",
+       "sg_2"
+      ],
+      false,
+      null
+     ],
+     [
+      "ack",
+      "cards",
+      4
+     ],
+     [
+      "pass",
+      "notes",
+      [
+       "sg_new"
+      ],
+      null,
+      false,
+      null
+     ],
+     [
+      "ack",
+      "notes",
+      4
+     ]
+    ]
+   },
+   {
+    "args": [
+     {
+      "steps": [
+       [
+        "add",
+        [
+         [
+          "sg_0",
+          0.0,
+          "hello there 0"
+         ],
+         [
+          "sg_1",
+          1.0,
+          "hello there 1"
+         ]
+        ]
+       ],
+       [
+        "no_store"
+       ],
+       [
+        "guidance"
+       ],
+       [
+        "notify",
+        2
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "pending"
+       ],
+       [
+        "consolidate",
+        5.0
+       ]
+      ]
+     }
+    ],
+    "result": [
+     [
+      "pending",
+      4
+     ],
+     [
+      "revoke"
+     ],
+     [
+      "outcome",
+      "failed",
+      "Meeting state was unavailable for final insights."
+     ]
+    ]
+   },
+   {
+    "args": [
+     {
+      "steps": [
+       [
+        "add",
+        [
+         [
+          "sg_0",
+          0.0,
+          "hello there 0"
+         ],
+         [
+          "sg_1",
+          1.0,
+          "hello there 1"
+         ]
+        ]
+       ],
+       [
+        "notify",
+        2
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "healthy",
+        false
+       ],
+       [
+        "advance",
+        60
+       ],
+       [
+        "run_due"
+       ],
+       [
+        "consolidate",
+        5.0
+       ],
+       [
+        "run_due"
+       ]
+      ]
+     }
+    ],
+    "result": [
+     [
+      "pass",
+      "cards",
+      [
+       "sg_0",
+       "sg_1"
+      ],
+      [],
+      false,
+      null
+     ],
+     [
+      "pass",
+      "notes",
+      [
+       "sg_0",
+       "sg_1"
+      ],
+      null,
+      false,
+      null
+     ],
+     [
+      "revoke"
+     ],
+     [
+      "outcome",
+      "unavailable",
+      "AI insights are offline; final insights could not run."
+     ]
+    ]
+   },
+   {
+    "args": [
+     {
+      "steps": [
+       [
+        "add",
+        [
+         [
+          "sg_0",
+          0.0,
+          "hello there 0"
+         ],
+         [
+          "sg_1",
+          1.0,
+          "hello there 1"
+         ]
+        ]
+       ],
+       [
+        "consolidate",
+        5.0
+       ],
+       [
+        "notify",
+        1
+       ],
+       [
+        "run_due"
+       ]
+      ]
+     }
+    ],
+    "result": [
+     [
+      "pass",
+      "consolidation",
+      [
+       "sg_0",
+       "sg_1"
+      ],
+      null,
+      false,
+      null
+     ],
+     [
+      "revoke"
+     ],
+     [
+      "outcome",
+      "completed",
+      "Final insights are ready."
+     ]
+    ]
+   },
+   {
+    "args": [
+     {
+      "steps": [
+       [
+        "add",
+        [
+         [
+          "sg_0",
+          0.0,
+          "hello there 0"
+         ],
+         [
+          "sg_1",
+          1.0,
+          "hello there 1"
+         ]
+        ]
+       ],
+       [
+        "script",
+        [
+         "fail:model down"
+        ]
+       ],
+       [
+        "consolidate",
+        7.9
+       ]
+      ]
+     }
+    ],
+    "result": [
+     [
+      "pass",
+      "consolidation",
+      [
+       "sg_0",
+       "sg_1"
+      ],
+      null,
+      false,
+      null
+     ],
+     [
+      "revoke"
+     ],
+     [
+      "outcome",
+      "failed",
+      "Final insights failed: model down"
+     ]
+    ]
+   }
+  ]
+ }
+}

@@ -1,0 +1,605 @@
+{
+ "area": "a25-meeting-capture-asr-diarize",
+ "package": "M9.18",
+ "features": {
+  "A25-38": {
+   "status": "difference",
+   "difference": "a25-remote-meeting-consent"
+  },
+  "A25-01": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/capture_session.cpp",
+    "src/meeting_capture/capture_session.h"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_capture_session.cpp"
+   ],
+   "note": "Notes and 'No audio devices could be opened.' asserted in 'both channels open...', 'no device at all fails the start with Python's sentence', 'microphone only, and the required and disabled policies'. 'Audio capture is unavailable: {exc}' is Python's lazy-import failure, which a linked C++ capture layer cannot have."
+  },
+  "A25-02": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/capture_session.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_capture_session.cpp"
+   ],
+   "note": "The LINUX_SYSTEM_AUDIO_REQUIRED code sentence and the disabled policy are asserted in 'microphone only, and the required and disabled policies'."
+  },
+  "A25-03": {
+   "status": "difference",
+   "difference": "a25-native-wasapi-loopback",
+   "cpp": [
+    "src/audio/win/wasapi_loopback.cpp",
+    "src/audio/detail/loopback_pump.cpp",
+    "src/meeting_capture/sources.cpp",
+    "src/meeting_capture/devices.cpp"
+   ],
+   "tests": [
+    "tests/audio/test_loopback.cpp",
+    "tests/meeting_capture/test_mic_source.cpp",
+    "tests/meeting_capture/test_devices.cpp",
+    "tests/meeting_capture/test_capture_session.cpp"
+   ],
+   "note": "Covered here: the mix-format conversion, 1024-frame hand-over, QPC stamps, silent and discontinuous packets (audio::detail::LoopbackPump, tests/audio/test_loopback.cpp), the 4.0 s first-block wait and 3.0 s stall of LoopbackSource and default-endpoint following over FakeBackend. Not covered here: the COM paths of src/audio/win/wasapi_loopback.cpp (endpoint enumeration, IAudioClient Initialize with LOOPBACK|EVENTCALLBACK and the polling fallback, the capture loop), read carefully but reached only by [platform]/[interactive] tests that do not compile or run on this machine and have never been seen capturing (docs/port/open-items.md)."
+  },
+  "A25-04": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/capture_session.cpp",
+    "src/meeting_capture/devices.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_capture_session.cpp",
+    "tests/meeting_capture/test_devices.cpp"
+   ],
+   "note": "Ranked list, index, default and exclusion are tested ('a source that starts inactive is stopped and the next microphone tried', 'a lost microphone is excluded before the channel reopens', TestFindMicDevice cases). The 'every microphone excluded: clear once and retry' branch of MeetingCapture::open_mic was read against _open_mic (same loop, MIC_OPEN_ATTEMPTS 4) and has no test of its own."
+  },
+  "A25-05": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/capture_session.cpp",
+    "src/meeting_capture/capture_session.h"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_capture_session.cpp"
+   ],
+   "note": "Intervals 1.0/3.0/12.0 are constants; 'restarts wait the retry interval', 'a stalled stream is restarted and the stall is reported', 'the watchdog thread runs passes while recording'."
+  },
+  "A25-06": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/capture_session.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_capture_session.cpp"
+   ],
+   "note": "Mic follows the default only without a ranked list ('a ranked microphone stays while the system default changes'); loopback compares the default render endpoint id ('the loopback follows the default render endpoint and keeps its spool'), the WASAPI-only form of the row (M7.md change 5)."
+  },
+  "A25-07": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/capture_session.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_capture_session.cpp",
+    "tests/meeting_capture/test_health.cpp"
+   ]
+  },
+  "A25-08": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/capture_session.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_capture_session.cpp"
+   ],
+   "note": "Gap messages, 'System audio restored.' on the rising edge and write-on-change asserted ('system audio restored is announced on the rising edge only', 'status is written only when it changed', 'a stalled stream ...')."
+  },
+  "A25-09": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/capture_session.cpp",
+    "src/meeting_capture/spool.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_capture_session.cpp"
+   ],
+   "note": "capture_incomplete and the ' Check available audio in Meeting History...' suffix, recorded once, are asserted in 'a spool failure becomes the meeting's audio integrity error once'. The 'Meeting audio storage could not finish. Partial audio was kept.' branch of MeetingCapture::flush catches an exception SpoolWriter::flush does not throw (a writer that does not finish is reported through health_error instead), so it is defensive and untested."
+  },
+  "A25-10": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/capture_session.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_capture_session.cpp"
+   ]
+  },
+  "A25-11": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/failure_log.cpp",
+    "src/meeting_capture/failure_log.h"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_failure_log.cpp"
+   ]
+  },
+  "A25-12": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/health.cpp",
+    "src/meeting_capture/health.h"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_health.cpp",
+    "tests/meeting_capture/test_golden.cpp",
+    "tests/golden/meeting.capture.health.json"
+   ]
+  },
+  "A25-13": {
+   "status": "difference",
+   "difference": "a25-native-wasapi-loopback",
+   "cpp": [
+    "src/meeting_capture/devices.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_devices.cpp"
+   ],
+   "note": "find_loopback_endpoint takes the default render endpoint, else the first, with the outage and choice logged only on change ('without a default render endpoint the first one is used', TestProbeLoggingIsRateLimited)."
+  },
+  "A25-14": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/sources.cpp",
+    "src/meeting_capture/sources.h",
+    "src/audio/detail/portaudio_backend.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_mic_source.cpp",
+    "tests/meeting_capture/test_spool.cpp"
+   ],
+   "note": "int16, 1024-frame blocks, mean downmix through int32 and the ADC-time stamp with the MME guard run over audio::FakeBackend ('valid callback clock preserves adc latency', 'mme batched callbacks preserve audio through spool'); the real PortAudio device is only in [interactive] tests, not run here."
+  },
+  "A25-15": {
+   "status": "difference",
+   "difference": "a25-native-wasapi-loopback",
+   "cpp": [
+    "src/audio/win/wasapi_loopback.cpp",
+    "src/audio/detail/loopback_pump.cpp",
+    "src/meeting_capture/sources.cpp",
+    "src/meeting_capture/devices.cpp"
+   ],
+   "tests": [
+    "tests/audio/test_loopback.cpp",
+    "tests/meeting_capture/test_mic_source.cpp",
+    "tests/meeting_capture/test_devices.cpp",
+    "tests/meeting_capture/test_capture_session.cpp"
+   ],
+   "note": "Covered here: the mix-format conversion, 1024-frame hand-over, QPC stamps, silent and discontinuous packets (audio::detail::LoopbackPump, tests/audio/test_loopback.cpp), the 4.0 s first-block wait and 3.0 s stall of LoopbackSource and default-endpoint following over FakeBackend. Not covered here: the COM paths of src/audio/win/wasapi_loopback.cpp (endpoint enumeration, IAudioClient Initialize with LOOPBACK|EVENTCALLBACK and the polling fallback, the capture loop), read carefully but reached only by [platform]/[interactive] tests that do not compile or run on this machine and have never been seen capturing (docs/port/open-items.md). The Linux sample-count clock of the SoundCard source is other-platform."
+  },
+  "A25-16": {
+   "status": "other-platform",
+   "reason": "Linux-only probe of PulseAudio/PipeWire monitors for the pre-start dialog; FioriVoce captures system audio through WASAPI loopback on Windows (M7.md change 5)."
+  },
+  "A25-17": {
+   "status": "other-platform",
+   "reason": "Linux-only libpulse stream pinning and reconnect (M7.md change 5)."
+  },
+  "A25-18": {
+   "status": "other-platform",
+   "reason": "macOS-only ScreenCaptureKit loopback (M7.md change 5)."
+  },
+  "A25-19": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/spool.cpp",
+    "src/meeting_capture/spool.h",
+    "src/meeting_capture/detail/cut_scanner.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_spool.cpp",
+    "tests/meeting_capture/test_golden.cpp",
+    "tests/golden/meeting.capture.spool.json"
+   ]
+  },
+  "A25-20": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/spool.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_spool.cpp",
+    "tests/meeting_capture/test_golden.cpp",
+    "tests/golden/meeting.capture.spool.json"
+   ]
+  },
+  "A25-21": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_capture/spool.cpp",
+    "src/meeting_capture/session_audio.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_spool.cpp",
+    "tests/meeting_capture/test_audit_a25.cpp"
+   ],
+   "note": "Order, sidecar and .orphan were tested ('TestSpoolWriterContract registered pending before on chunk', '... registration failure orphans the wav'); the health sentence was not. Added 'audit A25-21: a chunk the meeting cannot register is reported in Python's words'."
+  },
+  "A25-22": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_capture/spool.cpp",
+    "src/meeting_capture/spool.h"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_spool.cpp",
+    "tests/meeting_capture/test_audit_a25.cpp"
+   ],
+   "note": "The overflow test checked only the word 'dropped'. Added 'audit A25-22: a full spool queue drops the block and says so in Python's words' (exact sentence; QUEUE_MAX_BLOCKS 512, FLUSH_TIMEOUT_S 30). The other health sentences of spool.cpp health_sentence were compared with spool.py by reading; Python's 'could not be queued for storage' has no counterpart because the C++ ring cannot fail other than full."
+  },
+  "A25-23": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/spool.cpp",
+    "src/meeting_capture/session_audio.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_spool.cpp",
+    "tests/meeting_capture/test_golden.cpp"
+   ]
+  },
+  "A25-24": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/session_audio.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_spool.cpp",
+    "tests/meeting_capture/test_offline.cpp"
+   ],
+   "note": "'TestSessionWav chunk concat fallback', 'the meeting pass stitches chunks when the session WAV is missing'."
+  },
+  "A25-25": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/session_audio.cpp",
+    "src/meeting_capture/session_audio.h"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_spool.cpp"
+   ],
+   "note": "'session helpers read back what they write', 'a native PCM slice becomes a 16 kHz WAV and the session is found again'."
+  },
+  "A25-26": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/asr_engine.cpp",
+    "src/meeting_capture/asr_engine.h"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_asr_engine.cpp"
+   ],
+   "note": "64-chunk memory queue, SQLite refill in meeting-time order, both backlog sentences, 5 s refill retry ('bounded queue refills from persisted rows', 'failed refill does not poll database in a hot loop', 'requeue_pending takes given rows in meeting-time order...')."
+  },
+  "A25-27": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/asr_engine.cpp",
+    "src/meeting_capture/asr_audio.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_asr_engine.cpp"
+   ],
+   "note": "3 attempts with 0.5/2.0 s backoff, blocked for unreadable WAV, the three-attempts and engine-unavailable sentences and the remote refund are asserted. The 'An unexpected transcription error occurred...' worker branch and 'Saved audio has invalid sample data (...)' were read against engine.py and have no test."
+  },
+  "A25-28": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/asr_engine.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_asr_engine.cpp",
+    "tests/meeting_capture/test_asr_golden.cpp",
+    "tests/golden/meeting.asr.engine.json"
+   ]
+  },
+  "A25-29": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/segment_ids.cpp",
+    "src/meeting_capture/segment_ids.h",
+    "src/meeting_capture/offline.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_asr_engine.cpp",
+    "tests/meeting_capture/test_offline.cpp",
+    "tests/meeting_capture/test_asr_golden.cpp",
+    "tests/golden/meeting.asr.engine.json",
+    "tests/golden/meeting.asr.offline.json"
+   ]
+  },
+  "A25-30": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/asr_engine.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_asr_engine.cpp"
+   ]
+  },
+  "A25-31": {
+   "status": "dropped",
+   "reason": "Whisper decode tuning (beam size, VAD, draft prompt): Parakeet on NeMo-Speech.cpp has none of these (M7.md change 3). The kept 15 s queue-wait warning is in asr_engine.cpp and tested ('a chunk that waited 15 s in the queue is logged once')."
+  },
+  "A25-32": {
+   "status": "dropped",
+   "reason": "Language voting needs Whisper's language probabilities, which Parakeet does not report (M7.md change 3); the configured language or 'auto' passes through ('configured language always wins', 'no meeting decode carries an empty language')."
+  },
+  "A25-33": {
+   "status": "dropped",
+   "reason": "The hallucination filter reads Whisper scores that Parakeet segments do not carry (M7.md change 3); the kept empty-text skip is tested ('segment ordinals count the empty segments that are dropped', 'backends without scores are never filtered')."
+  },
+  "A25-34": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/window_preview.cpp",
+    "src/meeting_capture/window_preview.h"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_window_preview.cpp"
+   ],
+   "note": "Through SpeechService's Preview lane with a per-channel coalescing key instead of a try-lock (M7.md change 8); 8 s window, 1 s cadence, 3x decode-time delay, 0.15/0.25 s gaps, 128-block queue and the silence skip are asserted."
+  },
+  "A25-35": {
+   "status": "dropped",
+   "reason": "Streaming preview for Nemotron Streaming, an engine FioriVoce does not keep; Parakeet TDT is offline-only (CLAUDE.md engine rules)."
+  },
+  "A25-36": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/offline.cpp",
+    "src/meeting_capture/offline.h"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_offline.cpp",
+    "tests/meeting_capture/test_asr_golden.cpp",
+    "tests/golden/meeting.asr.offline.json"
+   ],
+   "note": "No previous-window prompt (Parakeet takes none, change 3); cut 15/25/0.7/0, the abort sentence and the progress text asserted."
+  },
+  "A25-37": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/offline.cpp",
+    "src/meeting_capture/offline.h"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_offline.cpp",
+    "tests/meeting_capture/test_asr_golden.cpp",
+    "tests/golden/meeting.asr.offline.json"
+   ]
+  },
+  "A25-39": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/playback.cpp",
+    "src/meeting_capture/playback.h"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_playback.cpp",
+    "tests/meeting_capture/test_asr_golden.cpp",
+    "tests/golden/meeting.audio_playback.json"
+   ]
+  },
+  "A25-40": {
+   "status": "verified",
+   "cpp": [
+    "src/dsp/fbank.cpp",
+    "src/dsp/fbank.h"
+   ],
+   "tests": [
+    "tests/dsp/test_fbank.cpp",
+    "tests/golden/meeting.diarize.fbank.json"
+   ]
+  },
+  "A25-41": {
+   "status": "verified",
+   "cpp": [
+    "src/diarize/embedder.cpp",
+    "src/diarize/ort_api.cpp",
+    "src/diarize/embedder.h"
+   ],
+   "tests": [
+    "tests/diarize/test_embedder.cpp",
+    "tests/golden/meeting.diarize.embedder.json"
+   ],
+   "note": "Below 0.8 s, CMN, L2 norm, failures and a missing runtime are tested with a fake model. The ONNX session half (1 intra + 1 inter thread, the optional input whose name contains 'len', the 'embs' output) is reached only by test_embedding_parity_against_reference_vectors, which skips here because FIORIVOCE_TEST_ONNXRUNTIME and FIORIVOCE_TEST_SPEAKER_MODEL are not set; it was read against embedder.py."
+  },
+  "A25-42": {
+   "status": "verified",
+   "cpp": [
+    "src/diarize/clustering.cpp",
+    "src/diarize/clustering.h"
+   ],
+   "tests": [
+    "tests/diarize/test_clustering.cpp",
+    "tests/diarize/test_clustering_golden.cpp",
+    "tests/golden/meeting.diarize.clustering.json"
+   ],
+   "note": "All constants of the row are clustering.h constants; runs on fv-meeting-asr (M7.md change 7)."
+  },
+  "A25-43": {
+   "status": "verified",
+   "cpp": [
+    "src/diarize/assign.cpp",
+    "src/diarize/assign.h"
+   ],
+   "tests": [
+    "tests/diarize/test_assign.cpp",
+    "tests/golden/meeting.diarize.assign.json"
+   ]
+  },
+  "A25-44": {
+   "status": "difference",
+   "difference": "a25-openai-speakers-desktop-only",
+   "cpp": [
+    "src/meeting/cloud_pass.cpp",
+    "src/meeting/cloud_audio.cpp",
+    "src/meeting/openai_diarize.cpp",
+    "src/audio/upload_encoder.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_cloud_speakers.cpp"
+   ]
+  },
+  "A25-45": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/capture_session.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_capture_session.cpp"
+   ],
+   "note": "Preview stopped first, each spool's last chunk handed on, integrity error once ('flush stops the preview first and hands the final chunk on again', 'a spool failure becomes the meeting's audio integrity error once'); the flush-exception branch is defensive (see A25-09)."
+  },
+  "A25-46": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_capture/asr_engine.cpp",
+    "src/meeting/detail/engine_asr.cpp",
+    "src/meeting/detail/runtime_engine.cpp",
+    "src/remote_host/service.cpp"
+   ],
+   "tests": [
+    "tests/remote_host/test_meeting_remote.cpp",
+    "tests/meeting/test_runtime_remote_connect.cpp",
+    "tests/remote_host/test_runtime_links.cpp"
+   ],
+   "note": "(1) AsrCallbacks::connected_message: the meeting engine sets 'Transcribing on <host>' for a remote route, reported when the host decodes again after an outage (test_live_worker_resumes_pending_audio_after_host_returns) and seeded at the start (A24-11). (2) 'Cannot connect to <host>.' when the host gave no reason ('a remote meeting whose host cannot be reached names the host'). (3) make_meeting_backend's pairing check says 'Pair with <host> again to transcribe this meeting. Its audio will not be sent to a different computer.' when the pairing was forgotten or replaced ('a meeting whose host is no longer paired asks to pair with it again'); the FioriVoce-only refusal when meeting speech no longer selects that host stays (a25-remote-meeting-consent)."
+  },
+  "A25-47": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_capture/asr_engine.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_asr_engine.cpp",
+    "tests/meeting_capture/test_audit_a25.cpp"
+   ],
+   "note": "Only the 64-chunk overflow was tested. Added 'audit A25-47: enqueue keeps one copy, sends later chunks through SQLite once one waits there, and refuses after stop' (a duplicate is true and not queued twice; after a deferral later chunks return false; false after stop)."
+  },
+  "A25-48": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/asr_engine.cpp",
+    "src/meeting_capture/window_preview.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_window_preview.cpp"
+   ],
+   "note": "'the engine has no preview before it is available or for a file backend', 'backend preview never waits for model and rechecks durable priority', 'busy durable asr skips inference...'."
+  },
+  "A25-49": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/offline.cpp",
+    "src/meeting_capture/asr_engine.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_offline.cpp",
+    "tests/meeting_capture/test_asr_golden.cpp",
+    "tests/golden/meeting.asr.offline.json"
+   ]
+  },
+  "A25-50": {
+   "status": "verified",
+   "cpp": [
+    "src/diarize/assign.cpp"
+   ],
+   "tests": [
+    "tests/diarize/test_assign.cpp",
+    "tests/golden/meeting.diarize.assign.json"
+   ]
+  },
+  "A25-51": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/playback.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_playback.cpp"
+   ]
+  },
+  "A25-52": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/asr_engine.cpp",
+    "src/meeting_capture/asr_audio.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_asr_engine.cpp",
+    "tests/meeting_capture/test_asr_golden.cpp"
+   ]
+  }
+ },
+ "differences": [
+  {
+   "id": "a25-remote-meeting-consent",
+   "features": [
+    "A25-38",
+    "RE-11"
+   ],
+   "openwhisper": "Can follow the dictation engine for meeting audio and reuse a saved host route to transcribe recorded meeting audio during recovery.",
+   "fiorivoce": "Keeps dictation and meeting routing separate. Each live remote meeting requires confirmation of the named, paired host. The worker verifies that host and model before capture and on reconnect. Automatic recovery leaves saved remote audio on this computer.",
+   "reason": "A dictation preference or a grant for live microphone audio does not authorize retransmitting stored meeting recordings.",
+   "source": "src/remote/meeting_route.cpp, src/meeting/detail/runtime_engine.cpp, tests/remote/test_meeting_route.cpp and tests/remote_host/test_service.cpp"
+  },
+  {
+   "id": "a25-native-wasapi-loopback",
+   "features": [
+    "A25-03",
+    "A25-13",
+    "A25-15"
+   ],
+   "openwhisper": "Tries a PortAudio WASAPI '[Loopback]' input matched to the default render device by name, then ScreenCaptureKit on macOS, then the SoundCard library (the Windows fallback and the Linux main path).",
+   "fiorivoce": "Opens the default render endpoint (else the first) through one native WASAPI loopback stream that takes the mix format or asks the engine to convert, converting float to int16; ScreenCaptureKit, PulseAudio and SoundCard are not built.",
+   "reason": "vcpkg's PortAudio has no loopback devices, and FioriVoce is a Windows product with one capture path.",
+   "source": "docs/port/packages/M7.md 'Changes from section 11 and earlier specs' item 5 (One Windows loopback path)"
+  },
+  {
+   "id": "a25-openai-speakers-desktop-only",
+   "features": [
+    "A25-44",
+    "MM-12"
+   ],
+   "openwhisper": "After End (and from dashboard and desktop re-runs) the system-audio recording is uploaded as MP3 to gpt-4o-transcribe-diarize when the speaker backend is openai, and the returned turns relabel the transcript.",
+   "fiorivoce": "The same pass runs only from the desktop Past Meetings action with a fresh confirmation for one saved meeting; End, dashboard retries and stored grants never upload, and the audio goes as FLAC/AAC because the FFmpeg build has no MP3 encoder. When the transcription request fails inside, the pass reports FioriVoce's own sentence 'OpenAI speaker identification could not finish.' rather than the error's text (OpenWhisper shows str(exc)), since a provider's error body can quote what was sent.",
+   "reason": "Meeting audio leaves the computer only on an explicit, current request (decision 4 of M7, re-scoped by lead amendment 19 and M7.21).",
+   "source": "docs/port/packages/M7.md 'Changes from section 11 and earlier specs' item 4 and section M7.21; docs/port/open-items.md (The optional OpenAI speaker pass runs from the desktop Past Meetings action); tests/meeting/test_cloud_speakers.cpp; src/meeting/detail/cloud_pass_run.cpp (tests/meeting/test_cloud_speakers.cpp 'a decoder that fails inside is asked once and the pass fails')"
+  },
+  {
+   "id": "a25-loopback-surround-mix",
+   "features": [
+    "A25-14",
+    "A25-15"
+   ],
+   "openwhisper": "The WASAPI '[Loopback]' stream is mixed to mono by averaging every channel; the SoundCard fallback records at most two channels.",
+   "fiorivoce": "A quad, 5.1 or 7.1 loopback is mixed with ITU-R BS.775 weights: the front pair averaged, the centre and the surrounds added at -3 dB, the LFE dropped. A loopback with any other channel count is mixed from its front pair.",
+   "reason": "Averaging the six channels of a 5.1 endpoint cuts stereo content to a third, below the quiet and signal thresholds, and the front pair alone loses speech played only from the centre.",
+   "source": "The meeting sweep of 2026-11-19 (open item meeting_capture (M7.8)); src/meeting_capture/sources.cpp loopback_mix_weights; tests/meeting_capture/test_mic_source.cpp ('stereo content on a surround loopback keeps its level', 'a surround loopback mixes its centre and surrounds in at -3 dB')"
+  },
+  {
+   "id": "a25-stereo-fallback-for-surround-only",
+   "features": [
+    "A25-03"
+   ],
+   "openwhisper": "When the WASAPI '[Loopback]' input does not open, OpenWhisper tries SoundCard's loopback of the default speaker at up to two channels, whatever the endpoint's channel count.",
+   "fiorivoce": "The same endpoint is opened again as stereo only when it has more than two channels; a stereo or mono endpoint that does not open has no second path, and the watchdog retries it.",
+   "reason": "On an endpoint of two channels or fewer the fallback would be the same open again, which the watchdog already repeats.",
+   "source": "The meeting sweep of 2026-11-19 (open item meeting_capture (M7.8)); src/meeting_capture/capture_session.cpp start_fallback_loopback; tests/meeting_capture/test_capture_session.cpp ('a surround loopback that does not open is opened again as stereo', 'a stereo loopback that does not open has no second path')"
+  }
+ ]
+}

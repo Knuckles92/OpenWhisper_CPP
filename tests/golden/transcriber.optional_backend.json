@@ -1,0 +1,426 @@
+{
+ "module": "transcriber.optional_backend",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time",
+  "request_language": "en (local_asr_language's default) for every decode case",
+  "decode_device": "cpu"
+ },
+ "functions": {
+  "_transcribe_audio": [
+   {
+    "args": [
+     "constant",
+     976000,
+     0.1
+    ],
+    "result": {
+     "text": "w1 w2 w3",
+     "segments": [
+      {
+       "text": "w1",
+       "start": 0.0,
+       "end": 24.1
+      },
+      {
+       "text": "w2",
+       "start": 24.1,
+       "end": 48.2
+      },
+      {
+       "text": "w3",
+       "start": 48.2,
+       "end": 61.0
+      }
+     ],
+     "windows": [
+      385600,
+      385600,
+      204800
+     ]
+    }
+   },
+   {
+    "args": [
+     "zeros",
+     48000,
+     0.0
+    ],
+    "result": {
+     "text": "",
+     "segments": [],
+     "windows": []
+    }
+   },
+   {
+    "args": [
+     "zeros",
+     0,
+     0.0
+    ],
+    "result": {
+     "text": "",
+     "segments": [],
+     "windows": []
+    }
+   },
+   {
+    "args": [
+     "constant",
+     16000,
+     0.00025
+    ],
+    "result": {
+     "text": "",
+     "segments": [],
+     "windows": []
+    }
+   },
+   {
+    "args": [
+     "constant",
+     16000,
+     0.00026
+    ],
+    "result": {
+     "text": "w1",
+     "segments": [
+      {
+       "text": "w1",
+       "start": 0.0,
+       "end": 1.0
+      }
+     ],
+     "windows": [
+      16000
+     ]
+    }
+   },
+   {
+    "args": [
+     "constant",
+     479999,
+     0.5
+    ],
+    "result": {
+     "text": "w1",
+     "segments": [
+      {
+       "text": "w1",
+       "start": 0.0,
+       "end": 29.9999375
+      }
+     ],
+     "windows": [
+      479999
+     ]
+    }
+   },
+   {
+    "args": [
+     "constant",
+     480000,
+     0.5
+    ],
+    "result": {
+     "text": "w1 w2",
+     "segments": [
+      {
+       "text": "w1",
+       "start": 0.0,
+       "end": 24.1
+      },
+      {
+       "text": "w2",
+       "start": 24.1,
+       "end": 30.0
+      }
+     ],
+     "windows": [
+      385600,
+      94400
+     ]
+    }
+   },
+   {
+    "args": [
+     "constant",
+     480001,
+     0.5
+    ],
+    "result": {
+     "text": "w1 w2",
+     "segments": [
+      {
+       "text": "w1",
+       "start": 0.0,
+       "end": 24.1
+      },
+      {
+       "text": "w2",
+       "start": 24.1,
+       "end": 30.000062500000002
+      }
+     ],
+     "windows": [
+      385600,
+      94401
+     ]
+    }
+   },
+   {
+    "args": [
+     "ramp",
+     1520123,
+     0.3
+    ],
+    "result": {
+     "text": "w1 w2 w3 w4",
+     "segments": [
+      {
+       "text": "w1",
+       "start": 0.0,
+       "end": 24.2
+      },
+      {
+       "text": "w2",
+       "start": 24.2,
+       "end": 48.4
+      },
+      {
+       "text": "w3",
+       "start": 48.4,
+       "end": 72.6
+      },
+      {
+       "text": "w4",
+       "start": 72.6,
+       "end": 95.0076875
+      }
+     ],
+     "windows": [
+      387200,
+      387200,
+      387200,
+      358523
+     ]
+    }
+   },
+   {
+    "args": [
+     "burst",
+     1200000,
+     0.2
+    ],
+    "result": {
+     "text": "w1 w2 w3",
+     "segments": [
+      {
+       "text": "w1",
+       "start": 0.0,
+       "end": 24.1
+      },
+      {
+       "text": "w2",
+       "start": 24.1,
+       "end": 48.2
+      },
+      {
+       "text": "w3",
+       "start": 48.2,
+       "end": 75.0
+      }
+     ],
+     "windows": [
+      385600,
+      385600,
+      428800
+     ]
+    }
+   },
+   {
+    "args": [
+     "burst",
+     1600000,
+     0.0002
+    ],
+    "result": {
+     "text": "",
+     "segments": [],
+     "windows": []
+    }
+   }
+  ],
+  "join_texts": [
+   {
+    "args": [
+     []
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     [
+      "one",
+      "two"
+     ]
+    ],
+    "result": "one two"
+   },
+   {
+    "args": [
+     [
+      " one ",
+      "",
+      "  ",
+      "two\n"
+     ]
+    ],
+    "result": "one two"
+   },
+   {
+    "args": [
+     [
+      "",
+      ""
+     ]
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     [
+      "　wide　",
+      " nbsp",
+      "tab\t"
+     ]
+    ],
+    "result": "wide nbsp tab"
+   },
+   {
+    "args": [
+     [
+      "a b",
+      " c  d "
+     ]
+    ],
+    "result": "a b c  d"
+   },
+   {
+    "args": [
+     [
+      "\u001c",
+      "x"
+     ]
+    ],
+    "result": "x"
+   }
+  ],
+  "_audible": [
+   {
+    "args": [
+     []
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     [
+      0.0
+     ]
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     [
+      0.0,
+      0.0,
+      0.0
+     ]
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     [
+      0.00025
+     ]
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     [
+      -0.00025
+     ]
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     [
+      0.00026
+     ]
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     [
+      -0.00026,
+      0.0
+     ]
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     [
+      0.000250001
+     ]
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     [
+      0.0,
+      1.0
+     ]
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     [
+      -1.0
+     ]
+    ],
+    "result": true
+   }
+  ],
+  "decode": [
+   {
+    "args": [
+     "tone-44k1-mono.wav"
+    ],
+    "result": "Mm-hmm."
+   },
+   {
+    "args": [
+     "tone-48k-stereo.wav"
+    ],
+    "result": "Mm-hmm."
+   },
+   {
+    "args": [
+     "tone-16k-mono.wav"
+    ],
+    "result": "Mm-hmm."
+   }
+  ]
+ }
+}

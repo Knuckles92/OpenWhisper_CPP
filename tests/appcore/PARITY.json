@@ -1,0 +1,99 @@
+{
+ "package": "M1.1, M2.2",
+ "files": {
+  "tests/test_engine_warmup.py": {
+   "test_reload_warms_after_load_then_clears_busy_and_sets_up_preview": {
+    "status": "ported",
+    "cpp": "tests/appcore/test_engine_reload.cpp"
+   },
+   "test_failed_warmup_still_finishes_the_reload": {
+    "status": "ported",
+    "cpp": "tests/appcore/test_engine_reload.cpp"
+   },
+   "test_failed_load_is_not_warmed": {
+    "status": "ported",
+    "cpp": "tests/appcore/test_engine_reload.cpp"
+   },
+   "test_missing_model_is_not_warmed": {
+    "status": "ported",
+    "cpp": "tests/appcore/test_engine_reload.cpp"
+   },
+   "test_missing_runtime_is_not_warmed": {
+    "status": "ported",
+    "cpp": "tests/appcore/test_engine_reload.cpp"
+   },
+   "test_engine_switched_during_load_is_released_not_warmed": {
+    "status": "ported",
+    "cpp": "tests/appcore/test_engine_reload.cpp"
+   },
+   "test_meeting_lease_during_warmup_ends_it_and_finishes_the_reload": {
+    "status": "ported",
+    "cpp": "tests/appcore/test_engine_reload.cpp"
+   },
+   "test_lease_returned_during_warmup_reloads_the_engine_it_closed": {
+    "status": "ported",
+    "cpp": "tests/appcore/test_engine_reload.cpp"
+   },
+   "test_lease_still_held_after_warmup_asks_for_no_runtime": {
+    "status": "ported",
+    "cpp": "tests/appcore/test_engine_reload.cpp"
+   }
+  },
+  "tests/test_settings_unified.py": {
+   "TestSearchMatching::test_every_word_must_match_and_sections_keep_their_order": {
+    "status": "ported",
+    "cpp": "tests/appcore/test_settings_search.cpp"
+   },
+   "TestSearchMatching::test_each_section_is_capped": {
+    "status": "ported",
+    "cpp": "tests/appcore/test_settings_search.cpp"
+   },
+   "TestSearchMatching::test_highlight_escapes_and_tints_every_match": {
+    "status": "ported",
+    "cpp": "tests/appcore/test_settings_search.cpp"
+   }
+  },
+  "tests/test_whats_new.py": {
+   "test_note_describes_the_current_release_line": {
+    "status": "ported",
+    "cpp": "tests/appcore/test_whats_new.cpp"
+   },
+   "test_updated_is_a_real_date_not_in_the_future": {
+    "status": "ported",
+    "cpp": "tests/appcore/test_whats_new.cpp"
+   },
+   "test_only_the_current_note_counts_as_seen": {
+    "status": "ported",
+    "cpp": "tests/appcore/test_whats_new.cpp"
+   }
+  },
+  "tests/test_guided_setup.py": {
+   "test_new_user_invitation_survives_first_launch_writes_and_restart": {
+    "status": "ported",
+    "cpp": "tests/appcore/test_guided_setup_state.cpp"
+   },
+   "test_established_user_with_default_settings_is_not_new": {
+    "status": "ported",
+    "cpp": "tests/appcore/test_guided_setup_state.cpp"
+   },
+   "test_missing_settings_with_prior_data_does_not_invite": {
+    "status": "ported",
+    "cpp": "tests/appcore/test_guided_setup_state.cpp"
+   },
+   "test_corrupt_existing_settings_are_neither_overwritten_nor_invited": {
+    "status": "ported",
+    "cpp": "tests/appcore/test_guided_setup_state.cpp"
+   },
+   "test_manager_repointed_to_another_file_is_not_new": {
+    "status": "dropped",
+    "reason": "It reassigns SettingsManager.settings_file after construction. fv::SettingsStore binds its file when it is built and cannot be pointed at another (a data-root change builds a new store, whose is_new_install is decided for its own file), so the case cannot arise; the initialize vectors of services.guided_setup cover the eligibility rules it relies on"
+   }
+  },
+  "tests/test_application_controller.py": {
+   "TestApplicationController::test_walkthrough_library_waits_for_a_walkthrough_job": {"status": "ported", "cpp": "tests/appcore/test_golden_gates.cpp", "note": "case: \"walkthrough library refusal replays the golden vectors\" (a walkthrough job refuses the library, a dictation job does not); tests/dictation/test_walkthrough_job.cpp \"a walkthrough job holds the library and a write-up keeps holding it\""}
+  },
+  "tests/test_omarchy_ui.py": {
+   "test_theme_default_honors_existing_preference": {"status": "ported", "cpp": "tests/appcore/test_rail_values.cpp", "note": "case: an unsaved theme on an Omarchy desktop reads as Omarchy's (kept: a saved theme wins over the desktop's default)"}
+  }
+ }
+}

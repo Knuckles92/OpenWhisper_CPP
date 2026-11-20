@@ -1,0 +1,252 @@
+{
+  "package": "M9.2, M9.7",
+  "files": {
+    "tests/test_meeting_remote.py": {
+      "test_corrupt_saved_route_never_falls_back_to_local": {"status":"ported","cpp":"tests/remote/test_meeting_route.cpp","note":"Saved remote records containing malformed route data fail closed before constructing an ASR backend."},
+      "test_a_separate_speech_source_defaults_local_and_does_not_follow_dictation": {"status": "ported", "cpp": "tests/remote/test_meeting_route.cpp", "note": "case of the same name, over models::resolve_meeting_asr_source"},
+      "test_unpaired_remote_has_actionable_error": {"status": "ported", "cpp": "tests/remote/test_meeting_route.cpp", "note": "case of the same name: remote::meeting_route's sentence; also the a25-remote-meeting-consent refusal for a pairing no meeting choice names"}
+    },
+    "tests/test_remote_engine.py": {
+      "test_remote_backend_reconnects_once_after_the_host_restarts": {
+        "status": "ported",
+        "cpp": "tests/remote/test_connection.cpp",
+        "note": "Real client reconnects once to the same loopback TLS identity after restart, before the unsent request."
+      },
+      "test_a_request_the_host_refuses_as_busy_is_sent_again": {
+        "status": "ported",
+        "cpp": "tests/remote/test_connection.cpp",
+        "note": "Loopback host refuses two requests as busy before returning a transcription."
+      },
+      "test_a_cancel_ends_the_wait_for_a_busy_host": {
+        "status": "ported",
+        "cpp": "tests/remote/test_connection.cpp",
+        "note": "Loopback busy reply followed by cancellation while decode is pending; no subsequent request. Backoff entry itself has no instrumentation."
+      },
+      "test_request_frames_round_trip_int16_audio_exactly": {
+        "status": "ported",
+        "cpp": "tests/remote/test_protocol.cpp"
+      },
+      "test_request_frames_reject_garbage": {
+        "status": "ported",
+        "cpp": "tests/remote/test_protocol.cpp"
+      },
+      "test_parse_address": {
+        "status": "ported",
+        "cpp": "tests/remote/test_protocol.cpp"
+      },
+      "test_parse_address_rejects_bad_input": {
+        "status": "ported",
+        "cpp": "tests/remote/test_protocol.cpp"
+      },
+      "test_short_fingerprint_is_five_groups": {
+        "status": "ported",
+        "cpp": "tests/remote/test_protocol.cpp"
+      },
+      "test_tailscale_status_marks_only_the_owners_untagged_computers_as_mine": {
+        "status": "ported",
+        "cpp": "tests/remote/test_tailscale_cli.cpp"
+      },
+      "test_tailscale_status_states": {
+        "status": "ported",
+        "cpp": "tests/remote/test_tailscale_cli.cpp"
+      },
+      "test_tailscale_status_never_raises": {
+        "status": "ported",
+        "cpp": "tests/remote/test_tailscale_cli.cpp"
+      },
+      "test_tailscale_cli_is_found_where_the_windows_installer_puts_it": {
+        "status": "ported",
+        "cpp": "tests/remote/test_tailscale_cli.cpp"
+      },
+      "test_is_tailscale_address": {
+        "status": "ported",
+        "cpp": "tests/remote/test_tailscale_cli.cpp"
+      },
+      "test_own_device_needs_tailnet_addresses_the_same_owner_and_no_tags": {
+        "status": "ported",
+        "cpp": "tests/remote/test_tailscale_cli.cpp"
+      },
+      "test_remote_is_a_valid_saved_engine": {
+        "status": "ported",
+        "cpp": "tests/remote/test_pairing_settings.cpp"
+      },
+      "test_a_different_certificate_is_refused_before_the_token_is_sent": {
+        "status": "ported",
+        "cpp": "tests/remote/test_connection.cpp"
+      },
+      "test_close_from_another_thread_cancels_a_waiting_request": {
+        "status": "ported",
+        "cpp": "tests/remote/test_connection.cpp"
+      },
+      "test_the_keepalive_times_pongs_and_closes_on_a_missed_one": {
+        "status": "ported",
+        "cpp": "tests/remote/test_connection.cpp"
+      },
+      "test_unreachable_host_reports_plainly": {
+        "status": "ported",
+        "cpp": "tests/remote/test_connection.cpp"
+      },
+      "test_cancel_stops_waiting_but_keeps_the_connection": {
+        "status": "ported",
+        "cpp": "tests/remote/test_connection.cpp"
+      },
+      "test_pairing_keeps_the_hosts_other_addresses": {
+        "status": "ported",
+        "cpp": "tests/remote/test_client.cpp"
+      },
+      "test_connection_skips_a_stranger_at_the_first_address_without_sending_the_token": {
+        "status": "ported",
+        "cpp": "tests/remote/test_connection.cpp"
+      },
+      "test_connection_reports_the_paired_address_when_nothing_answers": {
+        "status": "ported",
+        "cpp": "tests/remote/test_connection.cpp"
+      },
+      "test_scan_tailnet_probes_online_desktops_and_keeps_those_that_answer": {
+        "status": "ported",
+        "cpp": "tests/remote/test_scans.cpp"
+      },
+      "test_scan_tailnet_without_tailscale_probes_nothing": {
+        "status": "ported",
+        "cpp": "tests/remote/test_scans.cpp"
+      },
+      "test_a_host_that_doesnt_time_requests_gives_no_split": {"status": "ported", "cpp": "tests/remote/test_remote_backend.cpp", "note": "case of the same name, against the scripted MiniHost (a real host always times its requests)"},
+      "test_a_host_from_before_model_switching": {"status": "ported", "cpp": "tests/remote/test_remote_backend.cpp", "note": "case of the same name, against the scripted MiniHost with no models in ready; the sentence names identity().product"},
+      "test_a_host_that_stays_busy_fails_with_a_reason": {"status": "ported", "cpp": "tests/remote/test_remote_backend.cpp", "note": "case of the same name, against a MiniHost that refuses every transcribe as busy; RemoteSpeechBackend::set_busy_retry(0.3, 0.05) stands for the patched BUSY_RETRY_S and BUSY_RETRY_MAX_DELAY_S"}
+    },
+    "tests/test_remote_pairing_ux.py": {
+      "test_both_sides_get_the_same_number_only_through_the_same_certificate": {
+        "status": "ported",
+        "cpp": "tests/remote/test_protocol.cpp"
+      },
+      "test_queries_are_padded_and_answers_never_outgrow_them": {
+        "status": "ported",
+        "cpp": "tests/remote/test_discovery_codec.cpp"
+      },
+      "test_answers_to_another_query_or_with_a_bad_certificate_are_ignored": {
+        "status": "ported",
+        "cpp": "tests/remote/test_discovery_codec.cpp"
+      },
+      "test_only_this_network_gets_answers": {
+        "status": "ported",
+        "cpp": "tests/remote/test_discovery_codec.cpp"
+      },
+      "test_a_new_address_from_the_router_replaces_the_old_one": {
+        "status": "ported",
+        "cpp": "tests/remote/test_pairing_settings.cpp"
+      },
+      "test_away_from_home_the_home_address_stays_first": {
+        "status": "ported",
+        "cpp": "tests/remote/test_pairing_settings.cpp"
+      },
+      "test_a_named_host_keeps_its_name_and_a_tailnet_address_isnt_dropped": {
+        "status": "ported",
+        "cpp": "tests/remote/test_pairing_settings.cpp"
+      },
+      "test_another_hosts_addresses_are_never_saved": {
+        "status": "ported",
+        "cpp": "tests/remote/test_pairing_settings.cpp"
+      },
+      "test_a_pairing_is_the_same_one_after_its_address_moves": {
+        "status": "ported",
+        "cpp": "tests/remote/test_pairing_settings.cpp"
+      },
+      "test_find_host_stops_at_the_certificate_it_wants": {
+        "status": "ported",
+        "cpp": "tests/remote/test_discovery_search.cpp"
+      },
+      "test_sweep_knocks_on_each_address_and_keeps_those_that_answer": {
+        "status": "ported",
+        "cpp": "tests/remote/test_discovery_search.cpp"
+      },
+      "test_the_probe_names_the_certificate_and_approval": {
+        "status": "ported",
+        "cpp": "tests/remote/test_client.cpp"
+      },
+      "test_finds_on_this_network_and_the_tailnet_are_one_entry": {
+        "status": "ported",
+        "cpp": "tests/remote/test_scans.cpp"
+      },
+      "test_a_search_leaves_out_this_computers_own_answer": {
+        "status": "ported",
+        "cpp": "tests/remote/test_scans.cpp"
+      },
+      "test_checking_every_address_probes_what_answers": {
+        "status": "ported",
+        "cpp": "tests/remote/test_scans.cpp"
+      },
+      "test_a_host_whose_reveal_breaks_its_commitment_is_not_trusted": {
+        "status": "ported",
+        "cpp": "tests/remote/test_client.cpp"
+      },
+      "test_a_connection_finds_the_host_where_it_answers_now_and_saves_it": {
+        "status": "ported",
+        "cpp": "tests/remote/test_connection.cpp"
+      },
+      "test_a_forged_answer_gets_no_token": {
+        "status": "ported",
+        "cpp": "tests/remote/test_connection.cpp"
+      }
+    },
+    "tests/test_remote_token_scope.py": {
+      "test_the_per_user_directory_keeps_the_original_name": {
+        "status": "ported",
+        "cpp": "tests/remote/test_pairing_settings.cpp"
+      },
+      "test_each_other_data_directory_gets_its_own_name": {
+        "status": "ported",
+        "cpp": "tests/remote/test_pairing_settings.cpp"
+      },
+      "test_pairing_a_checkout_leaves_the_installed_apps_token_alone": {
+        "status": "ported",
+        "cpp": "tests/remote/test_pairing_settings.cpp"
+      },
+      "test_a_checkout_paired_before_scoping_still_reads_the_shared_token": {
+        "status": "ported",
+        "cpp": "tests/remote/test_pairing_settings.cpp"
+      }
+    },
+    "tests/test_remote_rename.py": {
+      "test_the_host_can_go_by_another_name_here_and_back": {
+        "status": "ported",
+        "cpp": "tests/remote/test_pairing_settings.cpp"
+      },
+      "test_renaming_the_host_with_nothing_paired_does_nothing": {
+        "status": "ported",
+        "cpp": "tests/remote/test_pairing_settings.cpp"
+      },
+      "test_only_a_host_that_isnt_renamed_goes_by_the_name_it_reports": {
+        "status": "ported",
+        "cpp": "tests/remote/test_pairing_settings.cpp"
+      }
+    },
+    "tests/test_remote_records.py": {
+      "test_payload_frames_carry_raw_bytes_and_audio_frames_still_decode": {
+        "status": "ported",
+        "cpp": "tests/remote/test_protocol.cpp"
+      }
+    },
+    "tests/test_personalize_s4_remote.py": {
+      "TestHeaderPhrases::test_valid_phrases_pass": {
+        "status": "ported",
+        "cpp": "tests/remote/test_protocol.cpp"
+      },
+      "TestHeaderPhrases::test_malformed_values_give_nothing": {
+        "status": "ported",
+        "cpp": "tests/remote/test_protocol.cpp"
+      },
+      "TestHeaderPhrases::test_limits": {
+        "status": "ported",
+        "cpp": "tests/remote/test_protocol.cpp"
+      },
+      "TestHeaderPhrases::test_a_full_header_still_fits_the_frame_limit": {
+        "status": "ported",
+        "cpp": "tests/remote/test_protocol.cpp"
+      },
+      "test_client_keeps_phrases_from_a_host_without_the_capability": {"status": "ported", "cpp": "tests/remote/test_remote_backend.cpp", "note": "case of the same name: the request headers the MiniHost read carry no phrases"}
+    },
+    "tests/test_remote_tailscale_cli.py": {
+      "test_macos_tailscale_requests_work_without_a_terminal": {"status": "other-platform", "reason": "macOS only: the Tailscale app's executable needs TAILSCALE_BE_CLI=1 to answer status and whois outside a terminal. remote/tailscale_cli.cpp runs the Windows CLI (tailscale.exe), whose launcher is tests/remote/test_tailscale_cli.cpp's"}
+    }
+  }
+}

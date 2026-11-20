@@ -1,0 +1,4634 @@
+{
+ "module": "services.app_update",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time",
+  "github_repo": "Knuckles92/OpenWhisper",
+  "feed": "http://127.0.0.1:8765/releases/latest",
+  "seconds_until_auto_check_note": "seconds_until_auto_check(settings, now=fromisoformat(now), interval_s=interval, channel=channel)",
+  "release_note": "parse_release_payload, select_newest_release and _parse_named_asset return ReleaseInfo / ReleaseAsset as dicts without the macOS disk image; the last argument is OPENWHISPER_UPDATE_FEED_URL for the call (null: unset)",
+  "checksums_note": "_fetch_release_checksums('v2.7.0') over a response whose bytes are the argument in latin-1 (['repeat', text, n]: text * n)",
+  "rate_limit_note": "[_is_rate_limited(HTTPError(code, headers)), the update_api_retry_at _remember_api_rate_limit stores] with datetime.now pinned to the third argument",
+  "describe_note": "_describe_update_error of certificate: URLError(SSLCertVerificationError), http: HTTPError(code, reason, headers), url: URLError(reason), other: OSError(text)"
+ },
+ "functions": {
+  "parse_version": [
+   {
+    "args": [
+     "2.1.1"
+    ],
+    "result": [
+     2,
+     1,
+     1
+    ]
+   },
+   {
+    "args": [
+     "v2.1.1"
+    ],
+    "result": [
+     2,
+     1,
+     1
+    ]
+   },
+   {
+    "args": [
+     "2.2.0-rc.1"
+    ],
+    "result": [
+     2,
+     2,
+     0
+    ]
+   },
+   {
+    "args": [
+     "2.1.1+build.5"
+    ],
+    "result": [
+     2,
+     1,
+     1
+    ]
+   },
+   {
+    "args": [
+     "2.1.1 beta"
+    ],
+    "result": [
+     2,
+     1,
+     1
+    ]
+   },
+   {
+    "args": [
+     "2.6.01"
+    ],
+    "result": [
+     2,
+     6,
+     1
+    ]
+   },
+   {
+    "args": [
+     "2.5"
+    ],
+    "result": [
+     2,
+     5,
+     0
+    ]
+   },
+   {
+    "args": [
+     "2"
+    ],
+    "result": [
+     2,
+     0,
+     0
+    ]
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": [
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "args": [
+     "abc"
+    ],
+    "result": [
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "args": [
+     "2.x.1"
+    ],
+    "result": [
+     2,
+     0,
+     1
+    ]
+   },
+   {
+    "args": [
+     "2..1"
+    ],
+    "result": [
+     2,
+     1,
+     0
+    ]
+   },
+   {
+    "args": [
+     "2.1\t.0"
+    ],
+    "result": [
+     2,
+     1,
+     0
+    ]
+   },
+   {
+    "args": [
+     "1.2.3.4"
+    ],
+    "result": [
+     1,
+     2,
+     3
+    ]
+   },
+   {
+    "args": [
+     " V2.1.1 "
+    ],
+    "result": [
+     2,
+     1,
+     1
+    ]
+   },
+   {
+    "args": [
+     "1_0.2.3"
+    ],
+    "result": [
+     10,
+     2,
+     3
+    ]
+   },
+   {
+    "args": [
+     "+1.2.3"
+    ],
+    "result": [
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "args": [
+     "٢.٩.٠"
+    ],
+    "result": [
+     2,
+     9,
+     0
+    ]
+   },
+   {
+    "args": [
+     "2.1.1-rc.1+b"
+    ],
+    "result": [
+     2,
+     1,
+     1
+    ]
+   },
+   {
+    "args": [
+     "v-1"
+    ],
+    "result": [
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "args": [
+     "-"
+    ],
+    "result": [
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "args": [
+     "2.1.1."
+    ],
+    "result": [
+     2,
+     1,
+     1
+    ]
+   }
+  ],
+  "compare_versions": [
+   {
+    "args": [
+     "2.1.1",
+     "v2.1.1"
+    ],
+    "result": "up_to_date"
+   },
+   {
+    "args": [
+     "2.1.1",
+     "v2.2.0"
+    ],
+    "result": "update_available"
+   },
+   {
+    "args": [
+     "2.2.0",
+     "v2.1.1"
+    ],
+    "result": "development"
+   },
+   {
+    "args": [
+     "2.2.0-rc.1",
+     "v2.2.0"
+    ],
+    "result": "up_to_date"
+   },
+   {
+    "args": [
+     "2.6.0",
+     "v2.6.01"
+    ],
+    "result": "update_available"
+   },
+   {
+    "args": [
+     "2.6.01",
+     "v2.6.1"
+    ],
+    "result": "up_to_date"
+   },
+   {
+    "args": [
+     "0.1.0",
+     "0.1.1"
+    ],
+    "result": "update_available"
+   },
+   {
+    "args": [
+     "0.1.0",
+     ""
+    ],
+    "result": "development"
+   },
+   {
+    "args": [
+     "",
+     "0.0.0"
+    ],
+    "result": "up_to_date"
+   },
+   {
+    "args": [
+     "2.9.0",
+     "v2.8.9"
+    ],
+    "result": "development"
+   }
+  ],
+  "seconds_until_auto_check": [
+   {
+    "args": [
+     {
+      "update_check_enabled": false
+     },
+     "2026-08-21T12:00:00+00:00",
+     14400,
+     "installer"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     {},
+     "2026-08-21T12:00:00+00:00",
+     14400,
+     "git"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     {},
+     "2026-08-21T12:00:00+00:00",
+     14400,
+     "source"
+    ],
+    "result": 0.0
+   },
+   {
+    "args": [
+     {
+      "update_check_enabled": true
+     },
+     "2026-08-21T12:00:00+00:00",
+     14400,
+     "installer"
+    ],
+    "result": 0.0
+   },
+   {
+    "args": [
+     {
+      "update_check_enabled": "yes"
+     },
+     "2026-08-21T12:00:00+00:00",
+     14400,
+     "installer"
+    ],
+    "result": 0.0
+   },
+   {
+    "args": [
+     {
+      "update_check_enabled": 0
+     },
+     "2026-08-21T12:00:00+00:00",
+     14400,
+     "installer"
+    ],
+    "result": 0.0
+   },
+   {
+    "args": [
+     {
+      "update_last_check_at": "2026-08-21T11:00:00+00:00"
+     },
+     "2026-08-21T12:00:00+00:00",
+     14400,
+     "installer"
+    ],
+    "result": 10800.0
+   },
+   {
+    "args": [
+     {
+      "update_last_check_at": "2026-08-21T07:00:00+00:00"
+     },
+     "2026-08-21T12:00:00+00:00",
+     14400,
+     "installer"
+    ],
+    "result": 0.0
+   },
+   {
+    "args": [
+     {
+      "update_last_check_at": "2026-08-21T07:00:00+00:00",
+      "update_last_failed_check_at": "2026-08-21T11:40:00+00:00"
+     },
+     "2026-08-21T12:00:00+00:00",
+     14400,
+     "installer"
+    ],
+    "result": 2400.0
+   },
+   {
+    "args": [
+     {
+      "update_last_check_at": "2026-08-21T11:55:00+00:00"
+     },
+     "2026-08-21T12:00:00+00:00",
+     0,
+     "installer"
+    ],
+    "result": 0.0
+   },
+   {
+    "args": [
+     {
+      "update_last_failed_check_at": "2026-08-21T11:40:00+00:00"
+     },
+     "2026-08-21T12:00:00+00:00",
+     0,
+     "installer"
+    ],
+    "result": 2400.0
+   },
+   {
+    "args": [
+     {
+      "update_last_check_at": "2026-08-23T12:00:00+00:00"
+     },
+     "2026-08-21T12:00:00+00:00",
+     14400,
+     "installer"
+    ],
+    "result": 0.0
+   },
+   {
+    "args": [
+     {
+      "update_last_check_at": "not-a-date"
+     },
+     "2026-08-21T12:00:00+00:00",
+     14400,
+     "installer"
+    ],
+    "result": 0.0
+   },
+   {
+    "args": [
+     {
+      "update_last_check_at": "2026-08-21T11:00:00"
+     },
+     "2026-08-21T12:00:00+00:00",
+     14400,
+     "installer"
+    ],
+    "result": 10800.0
+   },
+   {
+    "args": [
+     {
+      "update_last_check_at": "2026-08-21T13:30:00+02:00"
+     },
+     "2026-08-21T12:00:00+00:00",
+     14400,
+     "installer"
+    ],
+    "result": 12600.0
+   },
+   {
+    "args": [
+     {
+      "update_last_check_at": " 2026-08-21T11:00:00.123456+00:00 "
+     },
+     "2026-08-21T12:00:00.250000+00:00",
+     14400,
+     "installer"
+    ],
+    "result": 10799.873456
+   },
+   {
+    "args": [
+     {
+      "update_last_check_at": "2026-08-21T12:00:00+00:00"
+     },
+     "2026-08-21T12:00:00+00:00",
+     14400,
+     "installer"
+    ],
+    "result": 14400.0
+   },
+   {
+    "args": [
+     {
+      "update_last_check_at": 1
+     },
+     "2026-08-21T12:00:00+00:00",
+     14400,
+     "installer"
+    ],
+    "result": 0.0
+   },
+   {
+    "args": [
+     {
+      "update_last_failed_check_at": "2026-08-21T11:00:00Z"
+     },
+     "2026-08-21T12:00:00+00:00",
+     14400,
+     "source"
+    ],
+    "result": 0.0
+   },
+   {
+    "args": [
+     {
+      "update_last_failed_check_at": "2026-08-21T11:59:59.999999+00:00"
+     },
+     "2026-08-21T12:00:00.250000+00:00",
+     14400,
+     "installer"
+    ],
+    "result": 3599.749999
+   }
+  ],
+  "parse_last_check_at": [
+   {
+    "args": [
+     "2026-08-21T12:00:00+00:00"
+    ],
+    "result": "2026-08-21T12:00:00+00:00"
+   },
+   {
+    "args": [
+     "2026-08-21T12:00:00"
+    ],
+    "result": "2026-08-21T12:00:00+00:00"
+   },
+   {
+    "args": [
+     " 2026-08-21T12:00:00Z "
+    ],
+    "result": "2026-08-21T12:00:00+00:00"
+   },
+   {
+    "args": [
+     "2026-08-21T12:00:00.5+05:30"
+    ],
+    "result": "2026-08-21T12:00:00.500000+05:30"
+   },
+   {
+    "args": [
+     "2026-08-21"
+    ],
+    "result": "2026-08-21T00:00:00+00:00"
+   },
+   {
+    "args": [
+     "20260821T120000"
+    ],
+    "result": "2026-08-21T12:00:00+00:00"
+   },
+   {
+    "args": [
+     "not-a-date"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "   "
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     null
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     5
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     [
+      "2026-08-21"
+     ]
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "2026-13-01T00:00:00"
+    ],
+    "result": null
+   }
+  ],
+  "shows_update_notice": [
+   {
+    "args": [
+     "update_available",
+     {}
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "up_to_date",
+     {}
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "development",
+     {}
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "update_available",
+     {
+      "update_notify_enabled": false
+     }
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "update_available",
+     {
+      "update_check_enabled": false
+     }
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "update_available",
+     {
+      "update_notify_enabled": "no"
+     }
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "update_available",
+     {
+      "update_check_enabled": true,
+      "update_notify_enabled": true
+     }
+    ],
+    "result": true
+   }
+  ],
+  "parse_release_payload": [
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": 91717696,
+        "digest": "sha256:43d623f9f0a35d3ab7c8366d30bd721fe20c51bd94f3bc37b453c63fd5f8bd13",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe",
+      "name": "OpenWhisper-Setup-2.1.1.exe",
+      "size_bytes": 91717696,
+      "sha256": "43d623f9f0a35d3ab7c8366d30bd721fe20c51bd94f3bc37b453c63fd5f8bd13",
+      "github_asset_id": null
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "meeting-agent-win_amd64-node22-pi1.zip",
+        "size": 100,
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/meeting-agent-win_amd64-node22-pi1.zip"
+       },
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": 91717696,
+        "digest": "sha256:43d623f9f0a35d3ab7c8366d30bd721fe20c51bd94f3bc37b453c63fd5f8bd13",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe",
+      "name": "OpenWhisper-Setup-2.1.1.exe",
+      "size_bytes": 91717696,
+      "sha256": "43d623f9f0a35d3ab7c8366d30bd721fe20c51bd94f3bc37b453c63fd5f8bd13",
+      "github_asset_id": null
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": 91717696,
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe",
+      "name": "OpenWhisper-Setup-2.1.1.exe",
+      "size_bytes": 91717696,
+      "sha256": null,
+      "github_asset_id": null
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "assets": []
+     },
+     false,
+     null
+    ],
+    "raises": "AppUpdateError"
+   },
+   {
+    "args": [
+     {
+      "tag_name": "  "
+     },
+     false,
+     null
+    ],
+    "raises": "AppUpdateError"
+   },
+   {
+    "args": [
+     {
+      "tag_name": 5
+     },
+     false,
+     null
+    ],
+    "raises": "AppUpdateError"
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1"
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "",
+     "prerelease": false,
+     "setup_asset": null,
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": 91717696,
+        "digest": "sha256:43d623f9f0a35d3ab7c8366d30bd721fe20c51bd94f3bc37b453c63fd5f8bd13",
+        "browser_download_url": "http://127.0.0.1:8765/download/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": null,
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": 91717696,
+        "digest": "sha256:43d623f9f0a35d3ab7c8366d30bd721fe20c51bd94f3bc37b453c63fd5f8bd13",
+        "browser_download_url": "http://127.0.0.1:8765/download/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     false,
+     "http://127.0.0.1:8765/releases/latest"
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": {
+      "url": "http://127.0.0.1:8765/download/OpenWhisper-Setup-2.1.1.exe",
+      "name": "OpenWhisper-Setup-2.1.1.exe",
+      "size_bytes": 91717696,
+      "sha256": "43d623f9f0a35d3ab7c8366d30bd721fe20c51bd94f3bc37b453c63fd5f8bd13",
+      "github_asset_id": null
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": 91717696,
+        "digest": "sha256:43d623f9f0a35d3ab7c8366d30bd721fe20c51bd94f3bc37b453c63fd5f8bd13",
+        "browser_download_url": "http://127.0.0.1:9999/download/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     false,
+     "http://127.0.0.1:8765/releases/latest"
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": null,
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": 100,
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe"
+       },
+       {
+        "name": "OpenWhisper-2.1.1-win64.tar.xz",
+        "size": 100,
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-2.1.1-win64.tar.xz"
+       },
+       {
+        "name": "meeting-agent.zip",
+        "size": 100,
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/meeting-agent.zip"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe",
+      "name": "OpenWhisper-Setup-2.1.1.exe",
+      "size_bytes": 100,
+      "sha256": "abababababababababababababababababababababababababababababababab",
+      "github_asset_id": null
+     },
+     "native_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-2.1.1-win64.tar.xz",
+      "name": "OpenWhisper-2.1.1-win64.tar.xz",
+      "size_bytes": 100,
+      "sha256": "abababababababababababababababababababababababababababababababab",
+      "github_asset_id": null
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-2.1.1-win64.tar.xz",
+        "size": 100,
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-2.1.1-win64.tar.xz"
+       },
+       {
+        "name": "OpenWhisper-2.1.1-win64.tar.xz",
+        "size": 100,
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-2.1.1-win64.tar.xz"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": null,
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": 100,
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://evil.example/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": null,
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": true,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": 100,
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": null,
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": true,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": 100,
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     true,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": null,
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": true,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": 100,
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": true,
+     "setup_asset": null,
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": true,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": 100,
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     true,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": true,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe",
+      "name": "OpenWhisper-Setup-2.1.1.exe",
+      "size_bytes": 100,
+      "sha256": "abababababababababababababababababababababababababababababababab",
+      "github_asset_id": null
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": 1,
+      "draft": 0,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": 100,
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     true,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": true,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe",
+      "name": "OpenWhisper-Setup-2.1.1.exe",
+      "size_bytes": 100,
+      "sha256": "abababababababababababababababababababababababababababababababab",
+      "github_asset_id": null
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": "",
+      "draft": [],
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": 100,
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe",
+      "name": "OpenWhisper-Setup-2.1.1.exe",
+      "size_bytes": 100,
+      "sha256": "abababababababababababababababababababababababababababababababab",
+      "github_asset_id": null
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "",
+      "body": null,
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": 91717696,
+        "digest": "sha256:43d623f9f0a35d3ab7c8366d30bd721fe20c51bd94f3bc37b453c63fd5f8bd13",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "",
+     "prerelease": false,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe",
+      "name": "OpenWhisper-Setup-2.1.1.exe",
+      "size_bytes": 91717696,
+      "sha256": "43d623f9f0a35d3ab7c8366d30bd721fe20c51bd94f3bc37b453c63fd5f8bd13",
+      "github_asset_id": null
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": 7,
+      "body": "  notes  \n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": 91717696,
+        "digest": "sha256:43d623f9f0a35d3ab7c8366d30bd721fe20c51bd94f3bc37b453c63fd5f8bd13",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "notes",
+     "prerelease": false,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe",
+      "name": "OpenWhisper-Setup-2.1.1.exe",
+      "size_bytes": 91717696,
+      "sha256": "43d623f9f0a35d3ab7c8366d30bd721fe20c51bd94f3bc37b453c63fd5f8bd13",
+      "github_asset_id": null
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": {
+       "name": "OpenWhisper-Setup-2.1.1.exe"
+      }
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": null,
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": null
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": null,
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": 100,
+        "state": "starter",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": null,
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": 100,
+        "state": null,
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe",
+      "name": "OpenWhisper-Setup-2.1.1.exe",
+      "size_bytes": 100,
+      "sha256": "abababababababababababababababababababababababababababababababab",
+      "github_asset_id": null
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": "12",
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe",
+      "name": "OpenWhisper-Setup-2.1.1.exe",
+      "size_bytes": 12,
+      "sha256": "abababababababababababababababababababababababababababababababab",
+      "github_asset_id": null
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": "1e3",
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": null,
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": true,
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe",
+      "name": "OpenWhisper-Setup-2.1.1.exe",
+      "size_bytes": 1,
+      "sha256": "abababababababababababababababababababababababababababababababab",
+      "github_asset_id": null
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": 12.9,
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe",
+      "name": "OpenWhisper-Setup-2.1.1.exe",
+      "size_bytes": 12,
+      "sha256": "abababababababababababababababababababababababababababababababab",
+      "github_asset_id": null
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": 0,
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": null,
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": -5,
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": null,
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": 2147483648,
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe",
+      "name": "OpenWhisper-Setup-2.1.1.exe",
+      "size_bytes": 2147483648,
+      "sha256": "abababababababababababababababababababababababababababababababab",
+      "github_asset_id": null
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": 2147483649,
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": null,
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": [
+         1
+        ],
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": null,
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": null,
+        "size": 100,
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": null,
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": 100,
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe",
+        "id": 7
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe",
+      "name": "OpenWhisper-Setup-2.1.1.exe",
+      "size_bytes": 100,
+      "sha256": "abababababababababababababababababababababababababababababababab",
+      "github_asset_id": 7
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.1.1",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.1.1.exe",
+        "size": 100,
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "http://127.0.0.1:8765/OpenWhisper-Setup-2.1.1.exe",
+        "id": 7
+       }
+      ]
+     },
+     false,
+     "http://127.0.0.1:8765/releases/latest"
+    ],
+    "result": {
+     "version": "2.1.1",
+     "tag_name": "v2.1.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": {
+      "url": "http://127.0.0.1:8765/OpenWhisper-Setup-2.1.1.exe",
+      "name": "OpenWhisper-Setup-2.1.1.exe",
+      "size_bytes": 100,
+      "sha256": "abababababababababababababababababababababababababababababababab",
+      "github_asset_id": null
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.8.6",
+      "assets": [
+       {
+        "id": 123456,
+        "url": "https://evil.example/download",
+        "name": "OpenWhisper-Setup-2.8.6.exe",
+        "size": 26,
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-Setup-2.8.6.exe"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.8.6",
+     "tag_name": "v2.8.6",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.8.6",
+     "notes": "",
+     "prerelease": false,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-Setup-2.8.6.exe",
+      "name": "OpenWhisper-Setup-2.8.6.exe",
+      "size_bytes": 26,
+      "sha256": "abababababababababababababababababababababababababababababababab",
+      "github_asset_id": 123456
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.8.6",
+      "assets": [
+       {
+        "id": 123456,
+        "url": "https://evil.example/download",
+        "name": "OpenWhisper-2.8.6-win64.tar.xz",
+        "size": 26,
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-2.8.6-win64.tar.xz"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.8.6",
+     "tag_name": "v2.8.6",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.8.6",
+     "notes": "",
+     "prerelease": false,
+     "setup_asset": null,
+     "native_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-2.8.6-win64.tar.xz",
+      "name": "OpenWhisper-2.8.6-win64.tar.xz",
+      "size_bytes": 26,
+      "sha256": "abababababababababababababababababababababababababababababababab",
+      "github_asset_id": 123456
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.6.0",
+      "assets": [
+       {
+        "name": "OpenWhisper-2.6.0-macos-arm64.dmg",
+        "size": 100,
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.6.0/OpenWhisper-2.6.0-macos-arm64.dmg"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.6.0",
+     "tag_name": "v2.6.0",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.6.0",
+     "notes": "",
+     "prerelease": false,
+     "setup_asset": null,
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     {
+      "tag_name": "v2.6.01",
+      "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+      "body": "### Fixed\n\n- GPU Acceleration component now activates immediately\n",
+      "prerelease": false,
+      "draft": false,
+      "assets": [
+       {
+        "name": "OpenWhisper-Setup-2.6.01.exe",
+        "size": 100,
+        "state": "uploaded",
+        "digest": "sha256:abababababababababababababababababababababababababababababababab",
+        "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.6.01/OpenWhisper-Setup-2.6.01.exe"
+       }
+      ]
+     },
+     false,
+     null
+    ],
+    "result": {
+     "version": "2.6.01",
+     "tag_name": "v2.6.01",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.1.1",
+     "notes": "### Fixed\n\n- GPU Acceleration component now activates immediately",
+     "prerelease": false,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.6.01/OpenWhisper-Setup-2.6.01.exe",
+      "name": "OpenWhisper-Setup-2.6.01.exe",
+      "size_bytes": 100,
+      "sha256": "abababababababababababababababababababababababababababababababab",
+      "github_asset_id": null
+     },
+     "native_asset": null
+    }
+   }
+  ],
+  "select_newest_release": [
+   {
+    "args": [
+     [
+      {
+       "tag_name": "v2.8.9",
+       "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.8.9",
+       "body": "Notes for 2.8.9",
+       "draft": false,
+       "prerelease": false,
+       "assets": [
+        {
+         "id": 1000,
+         "name": "OpenWhisper-Setup-2.8.9.exe",
+         "size": 4096,
+         "state": "uploaded",
+         "digest": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+         "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.9/OpenWhisper-Setup-2.8.9.exe"
+        }
+       ]
+      },
+      {
+       "tag_name": "v2.9.0",
+       "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.0",
+       "body": "Notes for 2.9.0",
+       "draft": false,
+       "prerelease": true,
+       "assets": [
+        {
+         "id": 1000,
+         "name": "OpenWhisper-Setup-2.9.0.exe",
+         "size": 4096,
+         "state": "uploaded",
+         "digest": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+         "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.9.0/OpenWhisper-Setup-2.9.0.exe"
+        }
+       ]
+      }
+     ],
+     null
+    ],
+    "result": {
+     "version": "2.9.0",
+     "tag_name": "v2.9.0",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.0",
+     "notes": "Notes for 2.9.0",
+     "prerelease": true,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.9.0/OpenWhisper-Setup-2.9.0.exe",
+      "name": "OpenWhisper-Setup-2.9.0.exe",
+      "size_bytes": 4096,
+      "sha256": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+      "github_asset_id": 1000
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "tag_name": "v2.9.0",
+       "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.0",
+       "body": "Notes for 2.9.0",
+       "draft": false,
+       "prerelease": true,
+       "assets": [
+        {
+         "id": 1000,
+         "name": "OpenWhisper-Setup-2.9.0.exe",
+         "size": 4096,
+         "state": "uploaded",
+         "digest": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+         "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.9.0/OpenWhisper-Setup-2.9.0.exe"
+        }
+       ]
+      },
+      {
+       "tag_name": "v2.9.1",
+       "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.1",
+       "body": "Notes for 2.9.1",
+       "draft": false,
+       "prerelease": false,
+       "assets": [
+        {
+         "id": 1000,
+         "name": "OpenWhisper-Setup-2.9.1.exe",
+         "size": 4096,
+         "state": "uploaded",
+         "digest": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+         "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.9.1/OpenWhisper-Setup-2.9.1.exe"
+        }
+       ]
+      }
+     ],
+     null
+    ],
+    "result": {
+     "version": "2.9.1",
+     "tag_name": "v2.9.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.1",
+     "notes": "Notes for 2.9.1",
+     "prerelease": false,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.9.1/OpenWhisper-Setup-2.9.1.exe",
+      "name": "OpenWhisper-Setup-2.9.1.exe",
+      "size_bytes": 4096,
+      "sha256": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+      "github_asset_id": 1000
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "tag_name": "v2.9.1",
+       "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.1",
+       "body": "Notes for 2.9.1",
+       "draft": false,
+       "prerelease": false,
+       "assets": [
+        {
+         "id": 1000,
+         "name": "OpenWhisper-Setup-2.9.1.exe",
+         "size": 4096,
+         "state": "uploaded",
+         "digest": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+         "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.9.1/OpenWhisper-Setup-2.9.1.exe"
+        }
+       ]
+      },
+      {
+       "tag_name": "v2.9.0",
+       "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.0",
+       "body": "Notes for 2.9.0",
+       "draft": false,
+       "prerelease": true,
+       "assets": [
+        {
+         "id": 1000,
+         "name": "OpenWhisper-Setup-2.9.0.exe",
+         "size": 4096,
+         "state": "uploaded",
+         "digest": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+         "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.9.0/OpenWhisper-Setup-2.9.0.exe"
+        }
+       ]
+      }
+     ],
+     null
+    ],
+    "result": {
+     "version": "2.9.1",
+     "tag_name": "v2.9.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.1",
+     "notes": "Notes for 2.9.1",
+     "prerelease": false,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.9.1/OpenWhisper-Setup-2.9.1.exe",
+      "name": "OpenWhisper-Setup-2.9.1.exe",
+      "size_bytes": 4096,
+      "sha256": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+      "github_asset_id": 1000
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "tag_name": "v3.0.0",
+       "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v3.0.0",
+       "body": "Notes for 3.0.0",
+       "draft": true,
+       "prerelease": false,
+       "assets": [
+        {
+         "id": 1000,
+         "name": "OpenWhisper-Setup-3.0.0.exe",
+         "size": 4096,
+         "state": "uploaded",
+         "digest": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+         "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v3.0.0/OpenWhisper-Setup-3.0.0.exe"
+        }
+       ]
+      },
+      {
+       "tag_name": "v3.0.0-rc.1",
+       "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v3.0.0",
+       "body": "Notes for 3.0.0",
+       "draft": false,
+       "prerelease": true,
+       "assets": [
+        {
+         "id": 1000,
+         "name": "OpenWhisper-Setup-3.0.0.exe",
+         "size": 4096,
+         "state": "uploaded",
+         "digest": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+         "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v3.0.0/OpenWhisper-Setup-3.0.0.exe"
+        }
+       ]
+      },
+      {
+       "tag_name": "v2.9.0",
+       "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.0",
+       "body": "Notes for 2.9.0",
+       "draft": false,
+       "prerelease": true,
+       "assets": [
+        {
+         "id": 1000,
+         "name": "OpenWhisper-Setup-2.9.0.exe",
+         "size": 4096,
+         "state": "uploaded",
+         "digest": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+         "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.9.0/OpenWhisper-Setup-2.9.0.exe"
+        }
+       ]
+      }
+     ],
+     null
+    ],
+    "result": {
+     "version": "2.9.0",
+     "tag_name": "v2.9.0",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.0",
+     "notes": "Notes for 2.9.0",
+     "prerelease": true,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.9.0/OpenWhisper-Setup-2.9.0.exe",
+      "name": "OpenWhisper-Setup-2.9.0.exe",
+      "size_bytes": 4096,
+      "sha256": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+      "github_asset_id": 1000
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "tag_name": "v2.6.01",
+       "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.6.01",
+       "body": "Notes for 2.6.01",
+       "draft": false,
+       "prerelease": true,
+       "assets": [
+        {
+         "id": 1000,
+         "name": "OpenWhisper-Setup-2.6.01.exe",
+         "size": 4096,
+         "state": "uploaded",
+         "digest": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+         "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.6.01/OpenWhisper-Setup-2.6.01.exe"
+        }
+       ]
+      },
+      {
+       "tag_name": "v2.6.1",
+       "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.6.1",
+       "body": "Notes for 2.6.1",
+       "draft": false,
+       "prerelease": false,
+       "assets": [
+        {
+         "id": 1000,
+         "name": "OpenWhisper-Setup-2.6.1.exe",
+         "size": 4096,
+         "state": "uploaded",
+         "digest": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+         "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.6.1/OpenWhisper-Setup-2.6.1.exe"
+        }
+       ]
+      }
+     ],
+     null
+    ],
+    "result": {
+     "version": "2.6.1",
+     "tag_name": "v2.6.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.6.1",
+     "notes": "Notes for 2.6.1",
+     "prerelease": false,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.6.1/OpenWhisper-Setup-2.6.1.exe",
+      "name": "OpenWhisper-Setup-2.6.1.exe",
+      "size_bytes": 4096,
+      "sha256": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+      "github_asset_id": 1000
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "tag_name": "v2.6.1",
+       "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.6.1",
+       "body": "Notes for 2.6.1",
+       "draft": false,
+       "prerelease": false,
+       "assets": [
+        {
+         "id": 1000,
+         "name": "OpenWhisper-Setup-2.6.1.exe",
+         "size": 4096,
+         "state": "uploaded",
+         "digest": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+         "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.6.1/OpenWhisper-Setup-2.6.1.exe"
+        }
+       ]
+      },
+      {
+       "tag_name": "v2.6.01",
+       "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.6.01",
+       "body": "Notes for 2.6.01",
+       "draft": false,
+       "prerelease": true,
+       "assets": [
+        {
+         "id": 1000,
+         "name": "OpenWhisper-Setup-2.6.01.exe",
+         "size": 4096,
+         "state": "uploaded",
+         "digest": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+         "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.6.01/OpenWhisper-Setup-2.6.01.exe"
+        }
+       ]
+      }
+     ],
+     null
+    ],
+    "result": {
+     "version": "2.6.1",
+     "tag_name": "v2.6.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.6.1",
+     "notes": "Notes for 2.6.1",
+     "prerelease": false,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.6.1/OpenWhisper-Setup-2.6.1.exe",
+      "name": "OpenWhisper-Setup-2.6.1.exe",
+      "size_bytes": 4096,
+      "sha256": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+      "github_asset_id": 1000
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "tag_name": "v2.6.1",
+       "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.6.1",
+       "body": "Notes for 2.6.1",
+       "draft": false,
+       "prerelease": true,
+       "assets": [
+        {
+         "id": 1000,
+         "name": "OpenWhisper-Setup-2.6.1.exe",
+         "size": 4096,
+         "state": "uploaded",
+         "digest": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+         "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.6.1/OpenWhisper-Setup-2.6.1.exe"
+        }
+       ]
+      },
+      {
+       "tag_name": "v2.6.01",
+       "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.6.01",
+       "body": "Notes for 2.6.01",
+       "draft": false,
+       "prerelease": true,
+       "assets": [
+        {
+         "id": 1000,
+         "name": "OpenWhisper-Setup-2.6.01.exe",
+         "size": 4096,
+         "state": "uploaded",
+         "digest": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+         "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.6.01/OpenWhisper-Setup-2.6.01.exe"
+        }
+       ]
+      }
+     ],
+     null
+    ],
+    "result": {
+     "version": "2.6.1",
+     "tag_name": "v2.6.1",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.6.1",
+     "notes": "Notes for 2.6.1",
+     "prerelease": true,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.6.1/OpenWhisper-Setup-2.6.1.exe",
+      "name": "OpenWhisper-Setup-2.6.1.exe",
+      "size_bytes": 4096,
+      "sha256": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+      "github_asset_id": 1000
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     [],
+     null
+    ],
+    "raises": "AppUpdateError"
+   },
+   {
+    "args": [
+     {
+      "message": "x"
+     },
+     null
+    ],
+    "raises": "AppUpdateError"
+   },
+   {
+    "args": [
+     [
+      {
+       "draft": true
+      }
+     ],
+     null
+    ],
+    "raises": "AppUpdateError"
+   },
+   {
+    "args": [
+     [
+      5,
+      "x",
+      null,
+      {
+       "tag_name": 7
+      }
+     ],
+     null
+    ],
+    "raises": "AppUpdateError"
+   },
+   {
+    "args": [
+     [
+      {
+       "tag_name": "v2.9.0",
+       "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.0",
+       "body": "Notes for 2.9.0",
+       "draft": false,
+       "prerelease": true,
+       "assets": [
+        {
+         "id": 1000,
+         "name": "OpenWhisper-Setup-2.9.0.exe",
+         "size": 4096,
+         "state": "uploaded",
+         "digest": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+         "browser_download_url": "https://example.com/OpenWhisper-Setup-2.9.0.exe"
+        }
+       ]
+      }
+     ],
+     null
+    ],
+    "result": {
+     "version": "2.9.0",
+     "tag_name": "v2.9.0",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.0",
+     "notes": "Notes for 2.9.0",
+     "prerelease": true,
+     "setup_asset": null,
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "tag_name": "v2.9.0",
+       "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.0",
+       "body": "Notes for 2.9.0",
+       "draft": false,
+       "prerelease": true,
+       "assets": [
+        {
+         "id": 1000,
+         "name": "OpenWhisper-Setup-2.9.0.exe",
+         "size": 4096,
+         "state": "uploaded",
+         "digest": null,
+         "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.9.0/OpenWhisper-Setup-2.9.0.exe"
+        }
+       ]
+      }
+     ],
+     null
+    ],
+    "result": {
+     "version": "2.9.0",
+     "tag_name": "v2.9.0",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.0",
+     "notes": "Notes for 2.9.0",
+     "prerelease": true,
+     "setup_asset": {
+      "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.9.0/OpenWhisper-Setup-2.9.0.exe",
+      "name": "OpenWhisper-Setup-2.9.0.exe",
+      "size_bytes": 4096,
+      "sha256": null,
+      "github_asset_id": 1000
+     },
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "tag_name": " v2.9.0 ",
+       "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.0",
+       "body": "Notes for 2.9.0",
+       "draft": false,
+       "prerelease": false,
+       "assets": [
+        {
+         "id": 1000,
+         "name": "OpenWhisper-Setup-2.9.0.exe",
+         "size": 4096,
+         "state": "uploaded",
+         "digest": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+         "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.9.0/OpenWhisper-Setup-2.9.0.exe"
+        }
+       ]
+      }
+     ],
+     null
+    ],
+    "result": {
+     "version": "2.9.0",
+     "tag_name": " v2.9.0 ",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.0",
+     "notes": "Notes for 2.9.0",
+     "prerelease": false,
+     "setup_asset": null,
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "tag_name": "V2.9.0",
+       "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.0",
+       "body": "Notes for 2.9.0",
+       "draft": false,
+       "prerelease": false,
+       "assets": [
+        {
+         "id": 1000,
+         "name": "OpenWhisper-Setup-2.9.0.exe",
+         "size": 4096,
+         "state": "uploaded",
+         "digest": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+         "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.9.0/OpenWhisper-Setup-2.9.0.exe"
+        }
+       ]
+      }
+     ],
+     null
+    ],
+    "result": {
+     "version": "2.9.0",
+     "tag_name": "V2.9.0",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.0",
+     "notes": "Notes for 2.9.0",
+     "prerelease": false,
+     "setup_asset": null,
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "tag_name": "2.9.0",
+       "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.0",
+       "body": "Notes for 2.9.0",
+       "draft": false,
+       "prerelease": false,
+       "assets": [
+        {
+         "id": 1000,
+         "name": "OpenWhisper-Setup-2.9.0.exe",
+         "size": 4096,
+         "state": "uploaded",
+         "digest": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+         "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.9.0/OpenWhisper-Setup-2.9.0.exe"
+        }
+       ]
+      }
+     ],
+     null
+    ],
+    "result": {
+     "version": "2.9.0",
+     "tag_name": "2.9.0",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.0",
+     "notes": "Notes for 2.9.0",
+     "prerelease": false,
+     "setup_asset": null,
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "tag_name": "v2.9",
+       "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.0",
+       "body": "Notes for 2.9.0",
+       "draft": false,
+       "prerelease": false,
+       "assets": [
+        {
+         "id": 1000,
+         "name": "OpenWhisper-Setup-2.9.0.exe",
+         "size": 4096,
+         "state": "uploaded",
+         "digest": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+         "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.9.0/OpenWhisper-Setup-2.9.0.exe"
+        }
+       ]
+      }
+     ],
+     null
+    ],
+    "raises": "AppUpdateError"
+   },
+   {
+    "args": [
+     [
+      {
+       "tag_name": "٢.٩.٠",
+       "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.0",
+       "body": "Notes for 2.9.0",
+       "draft": false,
+       "prerelease": false,
+       "assets": [
+        {
+         "id": 1000,
+         "name": "OpenWhisper-Setup-2.9.0.exe",
+         "size": 4096,
+         "state": "uploaded",
+         "digest": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+         "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.9.0/OpenWhisper-Setup-2.9.0.exe"
+        }
+       ]
+      }
+     ],
+     null
+    ],
+    "result": {
+     "version": "٢.٩.٠",
+     "tag_name": "٢.٩.٠",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.0",
+     "notes": "Notes for 2.9.0",
+     "prerelease": false,
+     "setup_asset": null,
+     "native_asset": null
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "tag_name": "v2.9.0",
+       "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.0",
+       "body": "Notes for 2.9.0",
+       "draft": false,
+       "prerelease": true,
+       "assets": [
+        {
+         "id": 1000,
+         "name": "OpenWhisper-Setup-2.9.0.exe",
+         "size": 4096,
+         "state": "uploaded",
+         "digest": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+         "browser_download_url": "http://127.0.0.1:8765/download/OpenWhisper-Setup-2.9.0.exe"
+        }
+       ]
+      }
+     ],
+     "http://127.0.0.1:8765/releases/latest"
+    ],
+    "result": {
+     "version": "2.9.0",
+     "tag_name": "v2.9.0",
+     "html_url": "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.9.0",
+     "notes": "Notes for 2.9.0",
+     "prerelease": true,
+     "setup_asset": {
+      "url": "http://127.0.0.1:8765/download/OpenWhisper-Setup-2.9.0.exe",
+      "name": "OpenWhisper-Setup-2.9.0.exe",
+      "size_bytes": 4096,
+      "sha256": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+      "github_asset_id": null
+     },
+     "native_asset": null
+    }
+   }
+  ],
+  "_parse_named_asset": [
+   {
+    "args": [
+     [
+      {
+       "id": null,
+       "name": "OpenWhisper-2.8.6-macos-arm64.dmg",
+       "size": 26,
+       "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-2.8.6-macos-arm64.dmg"
+      }
+     ],
+     "OpenWhisper-2.8.6-macos-arm64.dmg",
+     "v2.8.6",
+     null
+    ],
+    "result": {
+     "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-2.8.6-macos-arm64.dmg",
+     "name": "OpenWhisper-2.8.6-macos-arm64.dmg",
+     "size_bytes": 26,
+     "sha256": null,
+     "github_asset_id": null
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": true,
+       "name": "OpenWhisper-2.8.6-macos-arm64.dmg",
+       "size": 26,
+       "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-2.8.6-macos-arm64.dmg"
+      }
+     ],
+     "OpenWhisper-2.8.6-macos-arm64.dmg",
+     "v2.8.6",
+     null
+    ],
+    "result": {
+     "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-2.8.6-macos-arm64.dmg",
+     "name": "OpenWhisper-2.8.6-macos-arm64.dmg",
+     "size_bytes": 26,
+     "sha256": null,
+     "github_asset_id": null
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": false,
+       "name": "OpenWhisper-2.8.6-macos-arm64.dmg",
+       "size": 26,
+       "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-2.8.6-macos-arm64.dmg"
+      }
+     ],
+     "OpenWhisper-2.8.6-macos-arm64.dmg",
+     "v2.8.6",
+     null
+    ],
+    "result": {
+     "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-2.8.6-macos-arm64.dmg",
+     "name": "OpenWhisper-2.8.6-macos-arm64.dmg",
+     "size_bytes": 26,
+     "sha256": null,
+     "github_asset_id": null
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": 0,
+       "name": "OpenWhisper-2.8.6-macos-arm64.dmg",
+       "size": 26,
+       "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-2.8.6-macos-arm64.dmg"
+      }
+     ],
+     "OpenWhisper-2.8.6-macos-arm64.dmg",
+     "v2.8.6",
+     null
+    ],
+    "result": {
+     "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-2.8.6-macos-arm64.dmg",
+     "name": "OpenWhisper-2.8.6-macos-arm64.dmg",
+     "size_bytes": 26,
+     "sha256": null,
+     "github_asset_id": null
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": -1,
+       "name": "OpenWhisper-2.8.6-macos-arm64.dmg",
+       "size": 26,
+       "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-2.8.6-macos-arm64.dmg"
+      }
+     ],
+     "OpenWhisper-2.8.6-macos-arm64.dmg",
+     "v2.8.6",
+     null
+    ],
+    "result": {
+     "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-2.8.6-macos-arm64.dmg",
+     "name": "OpenWhisper-2.8.6-macos-arm64.dmg",
+     "size_bytes": 26,
+     "sha256": null,
+     "github_asset_id": null
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "123",
+       "name": "OpenWhisper-2.8.6-macos-arm64.dmg",
+       "size": 26,
+       "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-2.8.6-macos-arm64.dmg"
+      }
+     ],
+     "OpenWhisper-2.8.6-macos-arm64.dmg",
+     "v2.8.6",
+     null
+    ],
+    "result": {
+     "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-2.8.6-macos-arm64.dmg",
+     "name": "OpenWhisper-2.8.6-macos-arm64.dmg",
+     "size_bytes": 26,
+     "sha256": null,
+     "github_asset_id": null
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "../latest",
+       "name": "OpenWhisper-2.8.6-macos-arm64.dmg",
+       "size": 26,
+       "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-2.8.6-macos-arm64.dmg"
+      }
+     ],
+     "OpenWhisper-2.8.6-macos-arm64.dmg",
+     "v2.8.6",
+     null
+    ],
+    "result": {
+     "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-2.8.6-macos-arm64.dmg",
+     "name": "OpenWhisper-2.8.6-macos-arm64.dmg",
+     "size_bytes": 26,
+     "sha256": null,
+     "github_asset_id": null
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": 1.5,
+       "name": "OpenWhisper-2.8.6-macos-arm64.dmg",
+       "size": 26,
+       "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-2.8.6-macos-arm64.dmg"
+      }
+     ],
+     "OpenWhisper-2.8.6-macos-arm64.dmg",
+     "v2.8.6",
+     null
+    ],
+    "result": {
+     "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-2.8.6-macos-arm64.dmg",
+     "name": "OpenWhisper-2.8.6-macos-arm64.dmg",
+     "size_bytes": 26,
+     "sha256": null,
+     "github_asset_id": null
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": 123456,
+       "name": "OpenWhisper-2.8.6-macos-arm64.dmg",
+       "size": 26,
+       "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-2.8.6-macos-arm64.dmg"
+      }
+     ],
+     "OpenWhisper-2.8.6-macos-arm64.dmg",
+     "v2.8.6",
+     null
+    ],
+    "result": {
+     "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-2.8.6-macos-arm64.dmg",
+     "name": "OpenWhisper-2.8.6-macos-arm64.dmg",
+     "size_bytes": 26,
+     "sha256": null,
+     "github_asset_id": 123456
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": 123456,
+       "name": "OpenWhisper-Setup-2.8.6.exe",
+       "size": 26,
+       "browser_download_url": "http://127.0.0.1:8765/OpenWhisper-Setup-2.8.6.exe"
+      }
+     ],
+     "OpenWhisper-Setup-2.8.6.exe",
+     "v2.8.6",
+     "http://127.0.0.1:8765/releases/latest"
+    ],
+    "result": {
+     "url": "http://127.0.0.1:8765/OpenWhisper-Setup-2.8.6.exe",
+     "name": "OpenWhisper-Setup-2.8.6.exe",
+     "size_bytes": 26,
+     "sha256": null,
+     "github_asset_id": null
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "name": "OpenWhisper-Setup-2.8.6.exe",
+       "size": 26,
+       "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-Setup-2.8.6.exe"
+      },
+      "junk",
+      null,
+      3
+     ],
+     "OpenWhisper-Setup-2.8.6.exe",
+     "v2.8.6",
+     null
+    ],
+    "result": {
+     "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-Setup-2.8.6.exe",
+     "name": "OpenWhisper-Setup-2.8.6.exe",
+     "size_bytes": 26,
+     "sha256": null,
+     "github_asset_id": null
+    }
+   },
+   {
+    "args": [
+     {
+      "not": "a list"
+     },
+     "OpenWhisper-Setup-2.8.6.exe",
+     "v2.8.6",
+     null
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     [
+      {
+       "name": "OpenWhisper-Setup-2.8.6.exe",
+       "size": 26,
+       "browser_download_url": 5
+      }
+     ],
+     "OpenWhisper-Setup-2.8.6.exe",
+     "v2.8.6",
+     null
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     [
+      {
+       "name": "OpenWhisper-Setup-2.8.6.exe",
+       "size": 26,
+       "browser_download_url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-Setup-2.8.6.exe",
+       "digest": "SHA256:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB"
+      }
+     ],
+     "OpenWhisper-Setup-2.8.6.exe",
+     "v2.8.6",
+     null
+    ],
+    "result": {
+     "url": "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.8.6/OpenWhisper-Setup-2.8.6.exe",
+     "name": "OpenWhisper-Setup-2.8.6.exe",
+     "size_bytes": 26,
+     "sha256": "abababababababababababababababababababababababababababababababab",
+     "github_asset_id": null
+    }
+   }
+  ],
+  "_digest_to_sha256": [
+   {
+    "args": [
+     "sha256:abababababababababababababababababababababababababababababababab"
+    ],
+    "result": "abababababababababababababababababababababababababababababababab"
+   },
+   {
+    "args": [
+     "SHA256:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB"
+    ],
+    "result": "abababababababababababababababababababababababababababababababab"
+   },
+   {
+    "args": [
+     "  sha256:  abababababababababababababababababababababababababababababababab  "
+    ],
+    "result": "abababababababababababababababababababababababababababababababab"
+   },
+   {
+    "args": [
+     "sha256:abababababababababababababababababababababababababababababababa"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "sha256:abababababababababababababababababababababababababababababababab0"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "sha512:abababababababababababababababababababababababababababababababab"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "abababababababababababababababababababababababababababababababab"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "sha256:gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "sha256:0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    ],
+    "result": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+   },
+   {
+    "args": [
+     "sha256:0x_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    ],
+    "result": "0x_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+   },
+   {
+    "args": [
+     "sha256:-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    ],
+    "result": "-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+   },
+   {
+    "args": [
+     "sha256:+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    ],
+    "result": "+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+   },
+   {
+    "args": [
+     "sha256:a_a_a_a_a_a_a_a_a_a_a_a_a_a_a_a_a_a_a_a_a_a_a_a_a_a_a_a_a_a_a_a_"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa__aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "sha256:_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa_"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "sha256:٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣"
+    ],
+    "result": "٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣٣"
+   },
+   {
+    "args": [
+     "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     null
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     5
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "sha256:"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "sha256:0x__aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    ],
+    "result": null
+   }
+  ],
+  "_redirect_url_allowed": [
+   {
+    "args": [
+     "https://api.github.com/repos/Knuckles92/OpenWhisper/releases/latest",
+     "https://api.github.com/repos/Knuckles92/OpenWhisper/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "https://api.github.com/repos/Knuckles92/OpenWhisper/releases/latest",
+     "https://release-assets.githubusercontent.com/github-production-release-asset/1/2?sig=t"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://api.github.com/repos/Knuckles92/OpenWhisper/releases/assets/123456",
+     "https://release-assets.githubusercontent.com/github-production-release-asset/1/2?sig=t"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "https://api.github.com/repos/other/repo/releases/assets/123456",
+     "https://release-assets.githubusercontent.com/github-production-release-asset/1/2?sig=t"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://api.github.com/repos/Knuckles92/OpenWhisper/releases/assets/123456?redirect=1",
+     "https://release-assets.githubusercontent.com/github-production-release-asset/1/2?sig=t"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://api.github.com/repos/Knuckles92/OpenWhisper/releases/assets/123456",
+     "https://evil.example/file"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://api.github.com/repos/Knuckles92/OpenWhisper/releases/assets/123456",
+     "http://release-assets.githubusercontent.com/github-production-release-asset/1/2?sig=t"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://api.github.com/repos/Knuckles92/OpenWhisper/releases/assets/123456",
+     "https://release-assets.githubusercontent.com/other/file"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://api.github.com/repos/Knuckles92/OpenWhisper/releases/assets/123456",
+     "https://release-assets.githubusercontent.com:444/github-production-release-asset/1/2?sig=t"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://api.github.com/repos/Knuckles92/OpenWhisper/releases/assets/123456",
+     "https://release-assets.githubusercontent.com:443/github-production-release-asset/1/2?sig=t"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "https://api.github.com/repos/Knuckles92/OpenWhisper/releases/assets/123456",
+     "https://user@release-assets.githubusercontent.com/github-production-release-asset/1/2?sig=t"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://github.com/Knuckles92/OpenWhisper/releases/latest",
+     "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.7.0"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "https://github.com/Knuckles92/OpenWhisper/releases/latest",
+     "https://example.com/download"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://github.com/Knuckles92/OpenWhisper/releases/latest",
+     "https://release-assets.githubusercontent.com/github-production-release-asset/1/2?sig=t"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "https://github.com/Knuckles92/OpenWhisper/releases/latest",
+     "https://GitHub.com/x"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "https://github.com/Knuckles92/OpenWhisper/releases/latest",
+     "https://github.com:80/x"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://github.com/Knuckles92/OpenWhisper/releases/latest",
+     "https://github.com/x#f"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://github.com/Knuckles92/OpenWhisper/releases/latest",
+     "https://github.com/Knuckles92/OpenWhisper/releases/tag/v2.7.0"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://example.com/x",
+     "https://example.com/x"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8765/releases/latest",
+     "http://127.0.0.1:8765/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8765/releases/latest",
+     "http://127.0.0.1:8765/download/OpenWhisper-Setup-2.9.0.exe"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8765/releases/latest",
+     "http://127.0.0.1:8766/download/x"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8765/releases/latest",
+     "https://127.0.0.1:8765/download/x"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8765/releases/latest",
+     "http://localhost:8765/download/x"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8765/other",
+     "http://127.0.0.1:8765/other"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://[::1]:8765/releases/latest",
+     "http://[::1]:8765/x"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://[::1]:8765/releases/latest",
+     "http://[::1:8765/x"
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     "https://api.github.com/x",
+     "https://api.github.com:443/y"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "https://api.github.com/x",
+     "https://API.github.com/y"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "https://api.github.com/x",
+     "https://api.github.com/y?q#"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "https://api.github.com:443/x",
+     "https://api.github.com/y"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "https://[::1/x",
+     "https://api.github.com/y"
+    ],
+    "raises": "ValueError"
+   }
+  ],
+  "_parsed_url_is_well_formed": [
+   {
+    "args": [
+     "http://127.0.0.1:8765/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "https://127.0.0.1:8765/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://127.0.0.1/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://127.0.0.1:0/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://127.0.0.1:80/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://127.9.8.7:8765/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://[::1]:8765/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://[::ffff:127.0.0.1]:8765/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://[::1%25eth0]:8765/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://[::2]:8765/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://localhost:8765/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://10.0.0.1:8765/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://0127.0.0.1:8765/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8765/releases/latest?"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8765/releases/latest?x=1"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8765/releases/latest#top"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://user@127.0.0.1:8765/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://u:p@127.0.0.1:8765/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8765/releases/latest/"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8765/Releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "ftp://127.0.0.1:8765/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "HTTP://127.0.0.1:8765/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://127.0.0.1:99999/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://127.0.0.1:87a5/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://127.0.0.1:/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://[::1:8765/releases/latest"
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     "http://[127.0.0.1]:8765/releases/latest"
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     " http://127.0.0.1:8765/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8765/rel\teases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://127.0.0.1:08765/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "not a url"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://api.github.com/repos/Knuckles92/OpenWhisper/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "https://github.com:443/x"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "https://github.com:444/x"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://github.com/x#frag"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://user@github.com/x"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://github.com:abc/x"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "//github.com/x"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https:///x"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://[v1.x]/x"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "https://[V1.x]/x"
+    ],
+    "raises": "ValueError"
+   }
+  ],
+  "_is_loopback_feed_url": [
+   {
+    "args": [
+     "http://127.0.0.1:8765/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "https://127.0.0.1:8765/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://127.0.0.1/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://127.0.0.1:0/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://127.0.0.1:80/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://127.9.8.7:8765/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://[::1]:8765/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://[::ffff:127.0.0.1]:8765/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://[::1%25eth0]:8765/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://[::2]:8765/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://localhost:8765/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://10.0.0.1:8765/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://0127.0.0.1:8765/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8765/releases/latest?"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8765/releases/latest?x=1"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8765/releases/latest#top"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://user@127.0.0.1:8765/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://u:p@127.0.0.1:8765/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8765/releases/latest/"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8765/Releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "ftp://127.0.0.1:8765/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "HTTP://127.0.0.1:8765/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://127.0.0.1:99999/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://127.0.0.1:87a5/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://127.0.0.1:/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://[::1:8765/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://[127.0.0.1]:8765/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     " http://127.0.0.1:8765/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8765/rel\teases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://127.0.0.1:08765/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "not a url"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://api.github.com/repos/Knuckles92/OpenWhisper/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://github.com:443/x"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://github.com:444/x"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://github.com/x#frag"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://user@github.com/x"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://github.com:abc/x"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "//github.com/x"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https:///x"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://[v1.x]/x"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://[V1.x]/x"
+    ],
+    "result": false
+   }
+  ],
+  "_asset_url_allowed": [
+   {
+    "args": [
+     "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe",
+     "v2.1.1",
+     "OpenWhisper-Setup-2.1.1.exe",
+     null
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.1/OpenWhisper-Setup-2.1.1.exe",
+     "v2.1.1",
+     "OpenWhisper-Setup-2.1.1.exe",
+     "http://127.0.0.1:8765/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8765/download/OpenWhisper-Setup-2.1.1.exe",
+     "v2.1.1",
+     "OpenWhisper-Setup-2.1.1.exe",
+     null
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8765/download/OpenWhisper-Setup-2.1.1.exe",
+     "v2.1.1",
+     "OpenWhisper-Setup-2.1.1.exe",
+     "http://127.0.0.1:8765/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "HTTP://127.0.0.1:8765/x/OpenWhisper-Setup-2.1.1.exe",
+     "v2.1.1",
+     "OpenWhisper-Setup-2.1.1.exe",
+     "http://127.0.0.1:8765/releases/latest"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8765/download/OpenWhisper-Setup-2.1.1.exe?x",
+     "v2.1.1",
+     "OpenWhisper-Setup-2.1.1.exe",
+     "http://127.0.0.1:8765/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://127.0.0.1:9999/download/OpenWhisper-Setup-2.1.1.exe",
+     "v2.1.1",
+     "OpenWhisper-Setup-2.1.1.exe",
+     "http://127.0.0.1:8765/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8765/download/OpenWhisper-2.1.1-win64.tar.xz",
+     "v2.1.1",
+     "OpenWhisper-Setup-2.1.1.exe",
+     "http://127.0.0.1:8765/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "OpenWhisper-Setup-2.1.1.exe",
+     "v2.1.1",
+     "OpenWhisper-Setup-2.1.1.exe",
+     "http://127.0.0.1:8765/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "",
+     "v2.1.1",
+     "OpenWhisper-Setup-2.1.1.exe",
+     "http://127.0.0.1:8765/releases/latest"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "https://github.com/Knuckles92/OpenWhisper/releases/download/v2.1.2/OpenWhisper-Setup-2.1.1.exe",
+     "v2.1.1",
+     "OpenWhisper-Setup-2.1.1.exe",
+     null
+    ],
+    "result": false
+   }
+  ],
+  "_fetch_release_checksums": [
+   {
+    "args": [
+     "abababababababababababababababababababababababababababababababab  OpenWhisper-Setup-2.1.1.exe\nabababababababababababababababababababababababababababababababab  OpenWhisper-2.1.1-win64.tar.xz\n"
+    ],
+    "result": {
+     "OpenWhisper-Setup-2.1.1.exe": "abababababababababababababababababababababababababababababababab",
+     "OpenWhisper-2.1.1-win64.tar.xz": "abababababababababababababababababababababababababababababababab"
+    }
+   },
+   {
+    "args": [
+     "abababababababababababababababababababababababababababababababab *OpenWhisper-Setup-2.1.1.exe\r\nABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB  OpenWhisper-2.1.1-win64.tar.xz"
+    ],
+    "result": {
+     "OpenWhisper-Setup-2.1.1.exe": "abababababababababababababababababababababababababababababababab",
+     "OpenWhisper-2.1.1-win64.tar.xz": "abababababababababababababababababababababababababababababababab"
+    }
+   },
+   {
+    "args": [
+     "abababababababababababababababababababababababababababababababab  OpenWhisper-Setup-2.1.1.exeÂabababababababababababababababababababababababababababababababab  OpenWhisper-2.1.1-win64.tar.xz"
+    ],
+    "result": {
+     "OpenWhisper-Setup-2.1.1.exe": "abababababababababababababababababababababababababababababababab",
+     "OpenWhisper-2.1.1-win64.tar.xz": "abababababababababababababababababababababababababababababababab"
+    }
+   },
+   {
+    "args": [
+     "abababababababababababababababababababababababababababababababab  OpenWhisper-Setup-2.1.1.exe"
+    ],
+    "raises": "UnicodeDecodeError"
+   },
+   {
+    "args": [
+     "abababababababababababababababababababababababababababababababab  OpenWhisper-Setup-2.1.1.exe\n\n"
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     "abababababababababababababababababababababababababababababababab  OpenWhisper-Setup-2.1.1.exe\nabababababababababababababababababababababababababababababababab  OpenWhisper-Setup-2.1.1.exe\n"
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": {}
+   },
+   {
+    "args": [
+     "garbage"
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     "ÿ"
+    ],
+    "raises": "UnicodeDecodeError"
+   },
+   {
+    "args": [
+     "abababababababababababababababababababababababababababababababab  ../../update.exe\n"
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     "abababababababababababababababababababababababababababababababab  OpenWhisper-Setup-2.6.0.exe\n"
+    ],
+    "result": {
+     "OpenWhisper-Setup-2.6.0.exe": "abababababababababababababababababababababababababababababababab"
+    }
+   },
+   {
+    "args": [
+     "abababababababababababababababababababababababababababababababab\tOpenWhisper-Setup-2.1.1.exe\n"
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     "abababababababababababababababababababababababababababababababab   OpenWhisper-Setup-2.1.1.exe\n"
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     "abababababababababababababababababababababababababababababababa  OpenWhisper-Setup-2.1.1.exe\n"
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     "abababababababababababababababababababababababababababababababab  OpenWhisper-Setup-2.1.1.exe \n"
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     "abababababababababababababababababababababababababababababababab  \n"
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     [
+      "repeat",
+      "x",
+      65537
+     ]
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     [
+      "repeat",
+      "y",
+      65536
+     ]
+    ],
+    "raises": "ValueError"
+   }
+  ],
+  "_rate_limit": [
+   {
+    "args": [
+     403,
+     [
+      [
+       "X-RateLimit-Remaining",
+       "0"
+      ],
+      [
+       "X-RateLimit-Reset",
+       "1787314800"
+      ]
+     ],
+     "2026-08-21T12:00:00.250000+00:00"
+    ],
+    "result": [
+     true,
+     "2026-08-21T12:20:00+00:00"
+    ]
+   },
+   {
+    "args": [
+     403,
+     [
+      [
+       "x-ratelimit-remaining",
+       "0"
+      ]
+     ],
+     "2026-08-21T12:00:00.250000+00:00"
+    ],
+    "result": [
+     true,
+     "2026-08-21T12:01:00.250000+00:00"
+    ]
+   },
+   {
+    "args": [
+     403,
+     [
+      [
+       "X-RateLimit-Remaining",
+       "1"
+      ]
+     ],
+     "2026-08-21T12:00:00.250000+00:00"
+    ],
+    "result": [
+     false,
+     "2026-08-21T12:01:00.250000+00:00"
+    ]
+   },
+   {
+    "args": [
+     403,
+     [],
+     "2026-08-21T12:00:00.250000+00:00"
+    ],
+    "result": [
+     false,
+     "2026-08-21T12:01:00.250000+00:00"
+    ]
+   },
+   {
+    "args": [
+     403,
+     [
+      [
+       "Retry-After",
+       ""
+      ]
+     ],
+     "2026-08-21T12:00:00.250000+00:00"
+    ],
+    "result": [
+     true,
+     "2026-08-21T12:01:00.250000+00:00"
+    ]
+   },
+   {
+    "args": [
+     403,
+     [
+      [
+       "Retry-After",
+       "120"
+      ]
+     ],
+     "2026-08-21T12:00:00.250000+00:00"
+    ],
+    "result": [
+     true,
+     "2026-08-21T12:02:00.250000+00:00"
+    ]
+   },
+   {
+    "args": [
+     429,
+     [],
+     "2026-08-21T12:00:00.250000+00:00"
+    ],
+    "result": [
+     true,
+     "2026-08-21T12:01:00.250000+00:00"
+    ]
+   },
+   {
+    "args": [
+     429,
+     [
+      [
+       "Retry-After",
+       "120"
+      ]
+     ],
+     "2026-08-21T12:00:00.250000+00:00"
+    ],
+    "result": [
+     true,
+     "2026-08-21T12:02:00.250000+00:00"
+    ]
+   },
+   {
+    "args": [
+     429,
+     [
+      [
+       "Retry-After",
+       "invalid"
+      ],
+      [
+       "X-RateLimit-Reset",
+       "invalid"
+      ]
+     ],
+     "2026-08-21T12:00:00.250000+00:00"
+    ],
+    "result": [
+     true,
+     "2026-08-21T12:01:00.250000+00:00"
+    ]
+   },
+   {
+    "args": [
+     429,
+     [
+      [
+       "Retry-After",
+       " 30 "
+      ]
+     ],
+     "2026-08-21T12:00:00+00:00"
+    ],
+    "result": [
+     true,
+     "2026-08-21T12:01:00+00:00"
+    ]
+   },
+   {
+    "args": [
+     429,
+     [
+      [
+       "Retry-After",
+       "-600"
+      ]
+     ],
+     "2026-08-21T12:00:00+00:00"
+    ],
+    "result": [
+     true,
+     "2026-08-21T12:01:00+00:00"
+    ]
+   },
+   {
+    "args": [
+     429,
+     [
+      [
+       "Retry-After",
+       "1_000"
+      ]
+     ],
+     "2026-08-21T12:00:00+00:00"
+    ],
+    "result": [
+     true,
+     "2026-08-21T12:16:40+00:00"
+    ]
+   },
+   {
+    "args": [
+     429,
+     [
+      [
+       "Retry-After",
+       "99999999999999"
+      ]
+     ],
+     "2026-08-21T12:00:00+00:00"
+    ],
+    "result": [
+     true,
+     "2026-08-21T12:01:00+00:00"
+    ]
+   },
+   {
+    "args": [
+     429,
+     [
+      [
+       "Retry-After",
+       "315537897599"
+      ]
+     ],
+     "2026-08-21T12:00:00+00:00"
+    ],
+    "result": [
+     true,
+     "2026-08-21T12:01:00+00:00"
+    ]
+   },
+   {
+    "args": [
+     429,
+     [
+      [
+       "X-RateLimit-Reset",
+       "0"
+      ]
+     ],
+     "2026-08-21T12:00:00+00:00"
+    ],
+    "result": [
+     true,
+     "2026-08-21T12:01:00+00:00"
+    ]
+   },
+   {
+    "args": [
+     429,
+     [
+      [
+       "X-RateLimit-Reset",
+       "-43200"
+      ]
+     ],
+     "2026-08-21T12:00:00+00:00"
+    ],
+    "result": [
+     true,
+     "2026-08-21T12:01:00+00:00"
+    ]
+   },
+   {
+    "args": [
+     429,
+     [
+      [
+       "X-RateLimit-Reset",
+       "-43201"
+      ]
+     ],
+     "2026-08-21T12:00:00+00:00"
+    ],
+    "result": [
+     true,
+     "2026-08-21T12:01:00+00:00"
+    ]
+   },
+   {
+    "args": [
+     429,
+     [
+      [
+       "X-RateLimit-Reset",
+       "32536850399"
+      ]
+     ],
+     "2026-08-21T12:00:00+00:00"
+    ],
+    "result": [
+     true,
+     "3001-01-19T21:59:59+00:00"
+    ]
+   },
+   {
+    "args": [
+     429,
+     [
+      [
+       "X-RateLimit-Reset",
+       "32536850400"
+      ]
+     ],
+     "2026-08-21T12:00:00+00:00"
+    ],
+    "result": [
+     true,
+     "2026-08-21T12:01:00+00:00"
+    ]
+   },
+   {
+    "args": [
+     429,
+     [
+      [
+       "X-RateLimit-Reset",
+       "1787314800"
+      ],
+      [
+       "Retry-After",
+       "7200"
+      ]
+     ],
+     "2026-08-21T12:00:00+00:00"
+    ],
+    "result": [
+     true,
+     "2026-08-21T14:00:00+00:00"
+    ]
+   },
+   {
+    "args": [
+     429,
+     [
+      [
+       "X-RateLimit-Reset",
+       "1787320800"
+      ],
+      [
+       "Retry-After",
+       "60"
+      ]
+     ],
+     "2026-08-21T12:00:00+00:00"
+    ],
+    "result": [
+     true,
+     "2026-08-21T14:00:00+00:00"
+    ]
+   },
+   {
+    "args": [
+     500,
+     [
+      [
+       "Retry-After",
+       "120"
+      ]
+     ],
+     "2026-08-21T12:00:00+00:00"
+    ],
+    "result": [
+     false,
+     "2026-08-21T12:02:00+00:00"
+    ]
+   },
+   {
+    "args": [
+     404,
+     [
+      [
+       "X-RateLimit-Remaining",
+       "0"
+      ]
+     ],
+     "2026-08-21T12:00:00+00:00"
+    ],
+    "result": [
+     false,
+     "2026-08-21T12:01:00+00:00"
+    ]
+   }
+  ],
+  "_describe_update_error": [
+   {
+    "args": [
+     "http",
+     [
+      403,
+      "Forbidden"
+     ],
+     [
+      [
+       "X-RateLimit-Remaining",
+       "0"
+      ]
+     ]
+    ],
+    "result": "GitHub rate-limited this update check. Try again later, or open https://github.com/Knuckles92/OpenWhisper/releases."
+   },
+   {
+    "args": [
+     "http",
+     [
+      403,
+      "Forbidden"
+     ],
+     []
+    ],
+    "result": "The update server returned an error (403 Forbidden)."
+   },
+   {
+    "args": [
+     "http",
+     [
+      429,
+      "Too Many Requests"
+     ],
+     []
+    ],
+    "result": "GitHub rate-limited this update check. Try again later, or open https://github.com/Knuckles92/OpenWhisper/releases."
+   },
+   {
+    "args": [
+     "http",
+     [
+      500,
+      "Server Error"
+     ],
+     []
+    ],
+    "result": "The update server returned an error (500 Server Error)."
+   },
+   {
+    "args": [
+     "http",
+     [
+      404,
+      "Not Found"
+     ],
+     [
+      [
+       "Retry-After",
+       "5"
+      ]
+     ]
+    ],
+    "result": "The update server returned an error (404 Not Found)."
+   },
+   {
+    "args": [
+     "certificate",
+     "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed",
+     []
+    ],
+    "result": "The update server's certificate could not be verified. This is usually caused by network security software that inspects HTTPS traffic. Ask your IT team to allow api.github.com, github.com and release-assets.githubusercontent.com."
+   },
+   {
+    "args": [
+     "url",
+     "The update URL is not trusted.",
+     []
+    ],
+    "result": "Could not reach the update server (The update URL is not trusted.)."
+   },
+   {
+    "args": [
+     "url",
+     "The update server redirected to an unsafe URL.",
+     []
+    ],
+    "result": "Could not reach the update server (The update server redirected to an unsafe URL.)."
+   },
+   {
+    "args": [
+     "other",
+     "timed out",
+     []
+    ],
+    "result": "timed out"
+   },
+   {
+    "args": [
+     "other",
+     "",
+     []
+    ],
+    "result": "Could not reach the update server."
+   }
+  ],
+  "update_check_failure_status": [
+   {
+    "args": [
+     "GitHub rate-limited this update check."
+    ],
+    "result": "Could not check for updates (GitHub rate limit)."
+   },
+   {
+    "args": [
+     "Could not reach the update server."
+    ],
+    "result": "Could not check for updates."
+   },
+   {
+    "args": [
+     "RATE LIMIT hit"
+    ],
+    "result": "Could not check for updates (GitHub rate limit)."
+   },
+   {
+    "args": [
+     "rate-limit"
+    ],
+    "result": "Could not check for updates."
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": "Could not check for updates."
+   },
+   {
+    "args": [
+     "The update server returned an error (429 Too Many Requests)."
+    ],
+    "result": "Could not check for updates."
+   }
+  ]
+ }
+}

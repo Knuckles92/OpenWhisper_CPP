@@ -1,0 +1,803 @@
+{
+ "area": "a14-models-components-services",
+ "package": "M10.26",
+ "features": {
+  "A14-01": {
+   "status": "verified",
+   "cpp": [
+    "src/models/catalog.cpp",
+    "src/models/data/speech_catalog.json"
+   ],
+   "tests": [
+    "tests/models/test_runtime_resolver.cpp",
+    "tests/models/test_component_store.cpp",
+    "tests/models/test_golden.cpp"
+   ],
+   "note": "Schema 2 with the NeMo runtimes only. Every entry equals OpenWhisper's services/local_asr/nvidia_*_runtime.json (version, component_api, platform, archives with url, sha256, size_bytes, extract, root), except that the two Windows entries drop the python-3.12.10 embed archive and their install_bytes are lower by its 22,501,250 extracted bytes (compared by script this run); versions stay \"0.1.0-py312\" so a tree shared with OpenWhisper is not offered an update. Pinned by test_every_optional_artifact_is_pinned_and_has_integrity_metadata, test_linux_x86_64_offers_only_the_native_runtimes, test_catalog_needs_no_network and test_catalog_entry_mutation_does_not_affect_builtin (copies). tools/gen/speech_catalog.py --check is registered only when FIORIVOCE_OW_PYTHON and FIORIVOCE_OW_ROOT are set, which they are not here."
+  },
+  "A14-02": {
+   "status": "fixed",
+   "cpp": [
+    "src/models/catalog.cpp"
+   ],
+   "tests": [
+    "tests/models/test_component_rules.cpp"
+   ],
+   "note": "platform_tag(sys_platform, machine) had no test. Added 'current_platform_tag maps the OS and architecture as OpenWhisper does' (the five tags, case and space ignored, win/linux/darwin others none)."
+  },
+  "A14-03": {
+   "status": "verified",
+   "cpp": [
+    "src/models/catalog.cpp",
+    "src/models/runtime_resolver.cpp"
+   ],
+   "tests": [
+    "tests/models/test_golden.cpp",
+    "tests/models/test_component_store.cpp"
+   ],
+   "note": "The NVIDIA Speech subset: 30 available_component_ids vectors (OpenWhisper's result filtered to asr-nvidia-*), test_available_component_ids_by_platform and test_linux_offers_the_vulkan_speech_runtime_only_where_it_is_needed. GPU Acceleration, meeting agents, MLX, Qwen, Moonshine and transcribe.cpp are not in the catalog (a14-local-engine). The host-only macos_min filter is code without a reachable case: no built-in entry has macos_min."
+  },
+  "A14-04": {
+   "status": "fixed",
+   "cpp": [
+    "src/models/catalog.cpp"
+   ],
+   "tests": [
+    "tests/models/test_component_rules.cpp",
+    "tests/models/test_golden.cpp"
+   ],
+   "note": "The golden vectors use the built-in catalog only, so no clause of the gate was exercised. Added 'component_is_published refuses each placeholder an entry can carry': published false, no or empty archives, install_bytes 0/-1/null, a digest of 63 characters, all zeros, empty or null, upper-case accepted, a non-https or empty URL, size 0/-5/null, and one bad archive among good ones."
+  },
+  "A14-05": {
+   "status": "verified",
+   "cpp": [
+    "src/models/coordinator.cpp",
+    "src/models/component_store.cpp"
+   ],
+   "tests": [
+    "tests/models/test_golden.cpp",
+    "tests/models/test_component_store.cpp"
+   ],
+   "note": "19 describe vectors (not installed, both broken reasons, installed, update with and without 'Update frees {size} of disk space.', both incompatible texts rebranded) plus test_describe_reports_states, test_describe_flags_incompatible_installs, test_describe_survives_a_missing_catalog_entry. The gpu-accel 'external' and OpenCode reasons went with those components."
+  },
+  "A14-06": {
+   "status": "fixed",
+   "cpp": [
+    "src/models/catalog.cpp"
+   ],
+   "tests": [
+    "tests/models/test_component_rules.cpp",
+    "tests/models/test_golden.cpp",
+    "tests/models/test_component_store.cpp"
+   ],
+   "note": "The API and platform texts are golden (16 vectors, 'OpenWhisper' as identity().product). 'Requires macOS {min} or later' had no test: added 'check_compatibility words a macOS minimum this Mac does not meet' (older, equal, newer and unknown versions, and the order of the checks). python_abi is not ported (no FioriVoce component carries Python, M1 scope)."
+  },
+  "A14-07": {
+   "status": "fixed",
+   "cpp": [
+    "src/models/component_store.cpp"
+   ],
+   "tests": [
+    "tests/models/test_component_lifecycle.cpp",
+    "tests/models/test_component_store.cpp",
+    "tests/models/test_component_rules.cpp"
+   ],
+   "note": "The pipeline (phases, markers last with manifest indent 2, cached runtime archive re-hashed, swap and rollback, cache dropped after commit, compatibility refused before download) was pinned. 'The catalog entry lists no files to download.' had no test: added 'an install refuses an entry without archives before anything else'. FioriVoce adds staging under .pending for a loaded runtime (architecture 5.7)."
+  },
+  "A14-08": {
+   "status": "verified",
+   "cpp": [
+    "src/models/component_store.cpp",
+    "src/models/component_runtime.cpp",
+    "src/models/progress_throttle.cpp"
+   ],
+   "tests": [
+    "tests/models/test_component_store.cpp",
+    "tests/models/test_component_runtime.cpp"
+   ],
+   "note": "test_progress_is_reported_across_all_archives (offset_base + done of grand_total) and 'an install's progress is throttled and ends with every phase' (100 ms or a whole-percent change or final)."
+  },
+  "A14-09": {
+   "status": "verified",
+   "cpp": [
+    "src/download/verified_download.cpp",
+    "src/download/posix/raw_file.cpp",
+    "src/download/win/raw_file.cpp"
+   ],
+   "tests": [
+    "tests/download/test_verified_download.cpp",
+    "tests/models/test_component_store.cpp"
+   ],
+   "note": "The resume decision table is replayed from Python (Range, 206 + exact Content-Range, ignored Range restarts, 416, too much data, cut keeps .part, corrupt discards it); hard-link and directory partials, cancel with keep_partial_on_cancel, 30 s timeouts and the User-Agent are separate cases. The User-Agent is identity().product/<version> by the identity rule. O_NOFOLLOW, 0600 and fsync are in raw_file.cpp (the hard-link case is [platform])."
+  },
+  "A14-10": {
+   "status": "verified",
+   "cpp": [
+    "src/download/verified_download.cpp",
+    "src/models/component_store.cpp"
+   ],
+   "tests": [
+    "tests/download/test_verified_download.cpp"
+   ],
+   "note": "'network error texts match Python's' (describe vectors: certificate with one and several hosts, HTTP, URL), test_certificate_failure_names_the_host_being_contacted and 'a certificate failure through curl names the URL's host'."
+  },
+  "A14-11": {
+   "status": "fixed",
+   "cpp": [
+    "src/download/verified_files.cpp",
+    "src/models/component_store.cpp"
+   ],
+   "tests": [
+    "tests/download/test_verified_files.cpp",
+    "tests/models/test_component_store.cpp",
+    "tests/models/test_component_rules.cpp"
+   ],
+   "note": "The shortfall and message were golden; nothing pinned that an install asks for download plus install bytes. Added 'the free-space check counts the download and the install with 15 percent spare' (10 MB + 30 MB against 45 MB free: 'Not enough disk space: 46 MB needed, 45 MB free on this drive.', after resolving, before any request)."
+  },
+  "A14-12": {
+   "status": "fixed",
+   "cpp": [
+    "src/models/component_store.cpp"
+   ],
+   "tests": [
+    "tests/models/test_component_rules.cpp"
+   ],
+   "note": "describe_disk_error had no test. Added 'disk errors are worded for the user as _describe_disk_error words them': ENOSPC, EACCES with the components root, anything else 'Installation failed: [Errno ...', and WinError 112 / 5 on Windows (that half not compiled here)."
+  },
+  "A14-13": {
+   "status": "fixed",
+   "cpp": [
+    "src/models/component_store.cpp",
+    "src/download/verified_files.cpp"
+   ],
+   "tests": [
+    "tests/download/test_verified_files.cpp",
+    "tests/models/test_component_lifecycle.cpp",
+    "tests/models/test_component_rules.cpp"
+   ],
+   "note": "retry_while_locked and a staged swap waiting out a lock were pinned; the 15 s / 0.5 s defaults and a cancel waking the wait were not. Added 'a locked runtime swap retries for 15 s every 0.5 s and a cancel ends the wait' (ComponentCanceled after one attempt, well under the timeout, source left in place)."
+  },
+  "A14-14": {
+   "status": "verified",
+   "cpp": [
+    "src/archive/safe_extract.cpp",
+    "src/archive/tar_gz_reader.cpp",
+    "src/archive/zip_reader.cpp",
+    "src/models/component_store.cpp"
+   ],
+   "tests": [
+    "tests/archive/test_safe_extract.cpp"
+   ],
+   "note": "zip (traversal and absolute paths refused, cancel per member) and nemo-tar (folder renamed to nemo-speech, outside-root refused, data-filter links and special files, progress and cancel). The python-wheel, nvidia-wheel and transcribe-tar extractors went with their engines; node-exe and node-tar with the Pi meeting agent (A14-60)."
+  },
+  "A14-15": {
+   "status": "verified",
+   "cpp": [
+    "src/models/component_store.cpp"
+   ],
+   "tests": [
+    "tests/models/test_component_store.cpp",
+    "tests/models/test_component_lifecycle.cpp"
+   ],
+   "note": "Linux (test_linux_runtime_needs_the_shared_library) and Windows ('a runtime archive without the library is refused and keeps its download': only bin/nemo_speech_asr_c.dll, no embedded Python or python312._pth, as the map row adapts it). The macOS branch has no test (other-platform)."
+  },
+  "A14-16": {
+   "status": "verified",
+   "cpp": [
+    "src/models/component_store.cpp"
+   ],
+   "tests": [
+    "tests/models/test_component_store.cpp",
+    "tests/models/test_component_lifecycle.cpp"
+   ],
+   "note": "test_uninstall_removes_the_tree, test_uninstall_component_raises_when_leftovers_remain, test_uninstall_removes_stale_old_without_target; a loaded runtime's removal is staged for the next start (architecture 5.7)."
+  },
+  "A14-17": {
+   "status": "verified",
+   "cpp": [
+    "src/models/component_store.cpp",
+    "src/ui_controller/controller_feature.cpp"
+   ],
+   "tests": [
+    "tests/models/test_component_store.cpp"
+   ],
+   "note": "Removal of .staging, restore of a complete .old, removal of a superseded or incomplete one, and keeping .old when the restore fails are each a test. The app calls prune_orphans then settle_staged_changes before any load (controller_feature.cpp)."
+  },
+  "A14-18": {
+   "status": "verified",
+   "cpp": [
+    "src/models/component_store.cpp",
+    "src/models/posix/fs_native.cpp",
+    "src/models/win/fs_native.cpp"
+   ],
+   "tests": [
+    "tests/models/test_component_store.cpp"
+   ],
+   "note": "test_installed_size_does_not_count_dylib_aliases_twice (a link counts as itself) and test_installed_size_is_remembered_until_the_install_changes (folder and sentinel identity, times and size)."
+  },
+  "A14-19": {
+   "status": "verified",
+   "cpp": [
+    "src/models/coordinator.cpp",
+    "src/models/component_runtime.cpp"
+   ],
+   "tests": [
+    "tests/models/test_component_store.cpp",
+    "tests/models/test_component_runtime.cpp"
+   ],
+   "note": "Exclusive begin_install, cancel_all, the two speech-job refusals, engines closed first, and the finish messages ('Installed and ready to use — no restart needed.', 'Restart {product} to enable this component.', 'Installation canceled.'). FioriVoce adds 'Restart {product} to switch to the GPU runtime.' because a loaded runtime is never unloaded (architecture 5.7)."
+  },
+  "A14-20": {
+   "status": "verified",
+   "cpp": [
+    "src/models/component_leases.cpp",
+    "src/models/component_store.cpp"
+   ],
+   "tests": [
+    "tests/models/test_component_lifecycle.cpp"
+   ],
+   "note": "Both texts verbatim ('a component being changed cannot be leased, nor a leased one changed'). The lease guards the loaded speech runtime (M1 scope, architecture 5.7) rather than OpenCode, which is not ported."
+  },
+  "A14-21": {
+   "status": "verified",
+   "cpp": [
+    "src/models/component_details.cpp"
+   ],
+   "tests": [
+    "tests/models/test_component_details.cpp"
+   ],
+   "note": "get_component_details vectors for the four NVIDIA rows, with the in-process rewording spelled out in the test (see difference a14-in-process-runtime-copy on A14-68) and 'packaged by OpenWhisper' as identity().product; every id has copy, https links, KeyError for an unknown id, the coordinator uses the copy and falls back to (id, \"\")."
+  },
+  "A14-22": {
+   "status": "dropped",
+   "reason": "Activation of the CTranslate2 accelerator serves the excluded faster-whisper backend."
+  },
+  "A14-23": {
+   "status": "verified",
+   "cpp": [
+    "src/models/gpu_probe.cpp"
+   ],
+   "tests": [
+    "tests/models/test_gpu_probe.cpp"
+   ]
+  },
+  "A14-24": {
+   "status": "verified",
+   "cpp": [
+    "src/models/runtime_resolver.cpp"
+   ],
+   "tests": [
+    "tests/models/test_runtime_resolver.cpp",
+    "tests/models/test_golden.cpp"
+   ]
+  },
+  "A14-25": {
+   "status": "verified",
+   "cpp": [
+    "src/models/runtime_resolver.cpp"
+   ],
+   "tests": [
+    "tests/models/test_golden.cpp",
+    "tests/models/test_runtime_resolver.cpp"
+   ],
+   "note": "840 resolve_runtime and 360 runtime_id vectors (Apple Silicon Metal and saved cuda, Auto keeping an installed CPU runtime, explicit CUDA never falling back). _auto_device counts the NVML card instead of CTranslate2's CUDA devices (map porting note 5), keeping Vulkan for a pre-Turing card."
+  },
+  "A14-26": {
+   "status": "verified",
+   "cpp": [
+    "src/models/runtime_offer.cpp",
+    "src/models/runtime_resolver.cpp"
+   ],
+   "tests": [
+    "tests/models/test_runtime_offer.cpp",
+    "tests/models/test_golden.cpp"
+   ],
+   "note": "2520 gpu_runtime_offer vectors and 540 missing_runtime vectors, plus the first-use, Turing-or-newer, Vulkan-loader and cannot-load cases."
+  },
+  "A14-27": {
+   "status": "difference",
+   "difference": "a14-local-engine"
+  },
+  "A14-28": {
+   "status": "verified",
+   "cpp": [
+    "src/models/data/speech_catalog.json",
+    "src/models/speech_catalog.cpp"
+   ],
+   "tests": [
+    "tests/models/test_runtime_resolver.cpp",
+    "tests/models/test_model_details.cpp"
+   ]
+  },
+  "A14-29": {
+   "status": "fixed",
+   "cpp": [
+    "src/models/speech_model_cache.cpp",
+    "src/models/runtime_resolver.cpp"
+   ],
+   "tests": [
+    "tests/models/test_speech_model_cache.cpp",
+    "tests/models/test_runtime_resolver.cpp"
+   ],
+   "note": "The cache compares the complete manifest and each file size. Keeping the pinned JSON alive while iterating its files also makes a valid installation discoverable with GCC."
+  },
+  "A14-30": {
+   "status": "verified",
+   "cpp": [
+    "src/models/speech_model_cache.cpp"
+   ],
+   "tests": [
+    "tests/models/test_speech_model_cache.cpp"
+   ]
+  },
+  "A14-31": {
+   "status": "verified",
+   "cpp": [
+    "src/models/speech_model_cache.cpp",
+    "src/models/model_runtime.cpp"
+   ],
+   "tests": [
+    "tests/models/test_speech_model_cache.cpp",
+    "tests/models/test_model_runtime.cpp"
+   ]
+  },
+  "A14-32": {
+   "status": "verified",
+   "cpp": [
+    "src/models/hf_access.cpp",
+    "src/models/hf_access_policy.cpp"
+   ],
+   "tests": [
+    "tests/models/test_hf_access.cpp",
+    "tests/models/test_hf_access_policy.cpp"
+   ],
+   "note": "216 evaluate_access vectors; env beats grant, grant consumed once, advisory keeps it, per-model grants, begin/end_request, claim_batch (cached, duplicate, in flight), the requests-in-flight count and the consent names."
+  },
+  "A14-33": {
+   "status": "verified",
+   "cpp": [
+    "src/models/hf_access.cpp"
+   ],
+   "tests": [
+    "tests/models/test_hf_access.cpp"
+   ],
+   "note": "23 describe_model_download_error vectors and the TestDescribeDownloadError cases; the log file is identity().log_file ('fiorivoce.log'), as M2.5's traps decide."
+  },
+  "A14-34": {
+   "status": "verified",
+   "cpp": [
+    "src/models/model_details.cpp",
+    "src/models/speech_catalog.cpp"
+   ],
+   "tests": [
+    "tests/models/test_model_details.cpp"
+   ],
+   "note": "get_model_details and format_download_mb vectors for Parakeet and Orukeet (Orukeet overrides, NOTICE.md licence URL, 627 million), with the security notice naming identity().product. Nemotron is not in the catalog (a14-local-engine)."
+  },
+  "A14-35": {
+   "status": "verified",
+   "cpp": [
+    "src/speech/languages.cpp"
+   ],
+   "tests": [
+    "tests/speech/test_languages.cpp"
+   ],
+   "note": "Golden language choices and selected_language for parakeet (en, ru, es, fr, pt, auto; stored if allowed, else en/auto). The Nemotron list and its zh to zh-CN mapping went with Nemotron."
+  },
+  "A14-36": {
+   "status": "verified",
+   "cpp": [
+    "src/engine/request_options.cpp",
+    "src/engine/recognizer.cpp"
+   ],
+   "tests": [
+    "tests/engine/test_request_options.cpp",
+    "tests/engine/test_recognizer.cpp"
+   ]
+  },
+  "A14-37": {
+   "status": "verified",
+   "cpp": [
+    "src/engine/segments.cpp"
+   ],
+   "tests": [
+    "tests/engine/test_segments.cpp",
+    "tests/speech/test_parakeet_backend.cpp"
+   ]
+  },
+  "A14-38": {
+   "status": "other-platform",
+   "reason": "Linux-specific GGML Vulkan device enumeration."
+  },
+  "A14-39": {
+   "status": "other-platform",
+   "reason": "Linux dynamic-loader behavior and distribution-specific driver error messages."
+  },
+  "A14-40": {
+   "status": "dropped",
+   "reason": "The upstream feature targets Nemotron word boosting and is disabled for its pinned artifact. Parakeet uses the post-recognition dictionary."
+  },
+  "A14-41": {
+   "status": "dropped",
+   "reason": "This is the native streaming interface for Nemotron. Parakeet TDT decodes offline windows for live preview."
+  },
+  "A14-42": {
+   "status": "verified",
+   "cpp": [
+    "src/speech/file_windows.cpp",
+    "src/dsp/window_splitter.cpp"
+   ],
+   "tests": [
+    "tests/speech/test_file_windows.cpp"
+   ]
+  },
+  "A14-43": {
+   "status": "verified",
+   "cpp": [
+    "src/speech/window_decode.cpp",
+    "src/dsp/window_splitter.cpp"
+   ],
+   "tests": [
+    "tests/speech/test_parakeet_backend.cpp"
+   ]
+  },
+  "A14-44": {
+   "status": "verified",
+   "cpp": [
+    "src/models/engine_resolution.cpp",
+    "src/speech/parakeet_backend.cpp"
+   ],
+   "tests": [
+    "tests/models/test_runtime_resolver.cpp",
+    "tests/speech/test_parakeet_backend.cpp"
+   ],
+   "note": "'Parakeet's CPU runtime is not available on this platform.', 'Install Parakeet's CPU/GPU runtime in Downloads.', 'Download {label} in Downloads.', '{label} | {device}' and 'Parakeet is not loaded'. The '{Name} is not available on this computer. {reason}.' branch exists but no built-in entry can reach it (every entry matches its platform and API); the backend test passes such a sentence through. There is no worker output to log in process."
+  },
+  "A14-45": {
+   "status": "verified",
+   "cpp": [
+    "src/speech/parakeet_backend.cpp",
+    "src/speech/speech_service.cpp"
+   ],
+   "tests": [
+    "tests/speech/test_parakeet_backend.cpp",
+    "tests/speech/test_speech_service.cpp"
+   ],
+   "note": "'every cleanup advances the generation', 'cancel during load cannot publish stale model', 'a decode finds the engine closed by a cancel on another thread' ('Transcription canceled'), 'a reload drops what the old engine had queued and the result it was decoding'. In process, cancel closes the engine and a decode inside recognize_f32 finishes its window (map engine note 3)."
+  },
+  "A14-46": {
+   "status": "verified",
+   "cpp": [
+    "src/speech/parakeet_backend.cpp"
+   ],
+   "tests": [
+    "tests/speech/test_warmup.cpp"
+   ]
+  },
+  "A14-47": {
+   "status": "verified",
+   "cpp": [
+    "src/speech/parakeet_backend.cpp",
+    "src/speech/speech_service.cpp",
+    "src/speech/window_preview.cpp",
+    "src/meeting_capture/asr_engine.cpp"
+   ],
+   "tests": [
+    "tests/speech/test_parakeet_backend.cpp",
+    "tests/speech/test_speech_service.cpp",
+    "tests/speech/test_window_preview.cpp"
+   ],
+   "note": "The lanes stand for preview_audio, decode_window, transcribe_windows and SpeechDecoder: 'a decode's language is chosen as the python path for its lane chooses it' (final/incremental through recognition_inputs, meeting and remote as given), 'a newer preview replaces the one still queued' and 'jobs run in lane order' (a preview never holds a real job back). The meeting caller turns an empty language into \"auto\" (asr_engine.cpp normalized_language)."
+  },
+  "A14-48": {
+   "status": "difference",
+   "difference": "a14-auto-device-fallback"
+  },
+  "A14-49": {
+   "status": "verified",
+   "cpp": [
+    "src/speech/service.h",
+    "src/speech/backend.cpp",
+    "src/speech/parakeet_backend.cpp"
+   ],
+   "tests": [
+    "tests/speech/test_service_facade.cpp",
+    "tests/speech/test_parakeet_backend.cpp"
+   ],
+   "note": "supports_recognition, prepare_for_transcription, large_file_size_mb (unset for Parakeet: whole files) and accepts_files through the service facade; recognition_support 'after', name, is_transcribing and should_cancel on the backend."
+  },
+  "A14-50": {
+   "status": "dropped",
+   "reason": "Worker processes, JSON-lines and socket transport, reaping and orphan cleanup are Python plumbing: the runtime is loaded in process (map engine notes 3-4). The timeout sentence is kept by the cloud backend's abandoned upload (src/speech/cloud_backend.cpp) and the crash sentence as engine_stopped_message with identity().log_file (tests/speech/test_parakeet_backend.cpp)."
+  },
+  "A14-51": {
+   "status": "dropped",
+   "reason": "This backend uses faster-whisper. FioriVoce runs the Parakeet family through NeMo-Speech.cpp."
+  },
+  "A14-52": {
+   "status": "dropped",
+   "reason": "These compute-type plans and estimates are specific to CTranslate2."
+  },
+  "A14-53": {
+   "status": "dropped",
+   "reason": "These CUDA wheel packages supply CTranslate2. NeMo-Speech.cpp uses its own published CPU and GPU runtimes."
+  },
+  "A14-54": {
+   "status": "dropped",
+   "reason": "These model sources contain CTranslate2 models for the excluded Whisper backend."
+  },
+  "A14-55": {
+   "status": "dropped",
+   "reason": "These five alternative speech backends fall outside the Parakeet NeMo-Speech.cpp port."
+  },
+  "A14-56": {
+   "status": "verified",
+   "cpp": [
+    "src/speech/cloud_backend.cpp",
+    "src/speech/transcription_hints.cpp",
+    "src/speech/upload_splitter.cpp",
+    "src/speech/api_models.cpp"
+   ],
+   "tests": [
+    "tests/speech/test_cloud_backend.cpp",
+    "tests/speech/test_transcription_hints.cpp",
+    "tests/speech/test_api_models.cpp"
+   ],
+   "note": "Hint fields and response_format (golden), the one retry without hints on 400/422, the retired-model retry, chunk order, the cap of 3, first failure and cancel stopping the rest, 'Transcribing {n} chunks...', temp cleanup and the not-available sentence. Ported in M2 although the map called it undecided."
+  },
+  "A14-57": {
+   "status": "verified",
+   "cpp": [
+    "src/speech/cloud_backend.cpp",
+    "src/speech/cloud_backend.h"
+   ],
+   "tests": [
+    "tests/speech/test_cloud_warmup.cpp",
+    "tests/speech/test_cloud_backend.cpp"
+   ],
+   "note": "kStandbyIdle 600 s, kWarmTimeout 60 s, kUploadConnectTimeout 10 s, read timeout from the endpoint; the test_api_upload_warmup cases (readied worker used once, waits for a warm-up under way, idle close, never closes one an upload took)."
+  },
+  "A14-58": {
+   "status": "verified",
+   "cpp": [
+    "src/speech/api_models.cpp",
+    "src/speech/api_models.h"
+   ],
+   "tests": [
+    "tests/speech/test_api_models.cpp"
+   ],
+   "note": "Shutdown 2027-02-26 and 'Feb 26, 2027' labels, retired() and is_model_gone_error golden; the speaker-identification sentence is replayed by the meeting finalization golden."
+  },
+  "A14-59": {
+   "status": "verified",
+   "cpp": [
+    "src/remote/remote_backend.cpp",
+    "src/remote/remote_backend.h"
+   ],
+   "tests": [
+    "tests/remote_host/test_remote_backend.cpp",
+    "tests/remote/test_remote_backend.cpp",
+    "tests/remote/test_connection.cpp"
+   ],
+   "note": "Link states and route, busy retry (BUSY_RETRY_S 90, delay x1.5 capped at BUSY_RETRY_MAX_DELAY_S 5, retry_after honoured, 'It stayed busy for ... seconds.'), reconnect, model switch with SWITCH_REQUEST_TIMEOUT 300 s and 'Update {product} on {host} to choose its model from here.', 'Pair with a host in Settings → Remote engine.', '{host} stopped answering.', timing split. A cancel ends the busy wait at once instead of a 0.1 s poll. The runtime-change half is A14-75."
+  },
+  "A14-60": {
+   "status": "dropped",
+   "reason": "The Pi meeting agent (Node 22 and bundle.cjs sidecar) is replaced by the native agent loop (amendment 1; docs/port/packages/M1.md scope table)."
+  },
+  "A14-61": {
+   "status": "dropped",
+   "reason": "The OpenCode component (Bun and the OpenCode SDK sidecar) is unpublished on every platform upstream and is replaced by the native agent loop (docs/port/packages/M1.md scope table)."
+  },
+  "A14-62": {
+   "status": "verified",
+   "cpp": [
+    "src/models/speaker_model.cpp",
+    "src/models/speaker_model.h"
+   ],
+   "tests": [
+    "tests/models/test_speaker_model.cpp"
+   ],
+   "note": "Pinned WeSpeaker file, resolution from <env_prefix>SPEAKER_MODEL (file or folder, .onnx rules), <local_app_dir>/models/speaker-id, one download at a time, blocked texts, error kept until a download works, error sentences golden. The bytes come from a pinned URL through the verified downloader instead of hf_hub_download(revision='main') (map porting note on huggingface_hub), and no source tree is consulted."
+  },
+  "A14-63": {
+   "status": "verified",
+   "cpp": [
+    "src/db/schema.cpp",
+    "src/db/migrations.cpp"
+   ],
+   "tests": [
+    "tests/db/test_golden.cpp",
+    "tests/db/test_database.cpp"
+   ],
+   "note": "'a fresh database has OpenWhisper's schema' and the DDL-order fixture pin the table and column names; owned by the database area."
+  },
+  "A14-64": {
+   "status": "verified",
+   "cpp": [
+    "src/models/coordinator.cpp",
+    "src/models/catalog.h",
+    "src/models/component_details.cpp"
+   ],
+   "tests": [
+    "tests/models/test_golden.cpp",
+    "tests/models/test_component_store.cpp",
+    "tests/models/test_component_details.cpp"
+   ],
+   "note": "describe vectors check every ComponentInfo field (install_bytes catalog vs measured, download_bytes summed); list_components counts per platform and is empty without a tag; fetch_catalog is the shared const catalog; the copy falls back to (id, \"\")."
+  },
+  "A14-65": {
+   "status": "fixed",
+   "cpp": [
+    "src/models/component_store.cpp",
+    "src/archive/safe_extract.cpp"
+   ],
+   "tests": [
+    "tests/archive/test_safe_extract.cpp",
+    "tests/models/test_component_rules.cpp"
+   ],
+   "note": "Both unsafe-path and the unsafe-link texts were pinned. The cancel check after payload validation and the staging folder removed on every exit were not: added 'an install checks cancel after the payload is validated and always drops staging' (no finalizing phase, nothing installed, staging empty, archive kept; and a refused payload leaves staging empty)."
+  },
+  "A14-66": {
+   "status": "fixed",
+   "cpp": [
+    "src/download/verified_download.h",
+    "src/download/verified_download.cpp"
+   ],
+   "tests": [
+    "tests/download/test_verified_download.cpp",
+    "tests/download/test_download_messages.cpp"
+   ],
+   "note": "The golden resume table reaches ten of the twelve messages; 'partial_unreadable' and 'finalize' need a disk failure it cannot script. Added 'the download messages are OpenWhisper's MESSAGES' (all twelve, the 30 s timeout and the two phase names). The three exception types are exercised by the golden outcomes."
+  },
+  "A14-67": {
+   "status": "fixed",
+   "cpp": [
+    "src/models/speaker_model.cpp",
+    "src/models/speaker_model.h"
+   ],
+   "tests": [
+    "tests/models/test_speaker_model.cpp",
+    "tests/models/test_component_rules.cpp"
+   ],
+   "note": "Blocked and failure sentences were pinned (golden and cases); 'The speaker model download produced no file.' was not: added 'the speaker model's verification texts are OpenWhisper's'. The revision is pinned rather than 'main' (see A14-62)."
+  },
+  "A14-68": {
+   "status": "difference",
+   "difference": "a14-in-process-runtime-copy"
+  },
+  "A14-69": {
+   "status": "verified",
+   "cpp": [
+    "src/models/speech_catalog.cpp",
+    "src/models/model_details.cpp",
+    "src/models/data/speech_catalog.json"
+   ],
+   "tests": [
+    "tests/models/test_model_details.cpp",
+    "tests/models/test_runtime_resolver.cpp"
+   ],
+   "note": "get_model_details vectors carry the Parakeet and Orukeet copy verbatim (descriptions, languages, Orukeet origin, maintainer, performance and four extra limitations, shared fields, licence and source URLs, hosts, 'Unknown' for size 0); MODEL_SECURITY_NOTICE with identity().product ('the security notices name FioriVoce'). Nemotron is not ported (a14-local-engine)."
+  },
+  "A14-70": {
+   "status": "verified",
+   "cpp": [
+    "src/models/hf_access.cpp",
+    "src/models/hf_access_policy.cpp"
+   ],
+   "tests": [
+    "tests/models/test_hf_access.cpp",
+    "tests/models/test_hf_access_policy.cpp"
+   ],
+   "note": "Both marker lists verbatim, the typed ENOSPC / winerror 112 matches, order canceled, disk, offline, generic, chain cut at 8 ('error_chain reads nested exceptions...', golden vectors), '~' stripped for 'about 714 MB', policy values ask/always/never."
+  },
+  "A14-71": {
+   "status": "verified",
+   "cpp": [
+    "src/engine/recognizer.cpp",
+    "src/engine/request_options.cpp"
+   ],
+   "tests": [
+    "tests/engine/test_recognizer.cpp",
+    "tests/engine/test_request_options.cpp"
+   ],
+   "note": "The transcript is result_transcript(result, 0), words from result_word_* with ms / 1000, the result destroyed by a unique_ptr on every path, 16000 passed to recognize_f32, auto/empty to a null language_code. 'a recording is transcribed with word timings' ran here against the real runtime and model ([decode])."
+  },
+  "A14-72": {
+   "status": "other-platform",
+   "reason": "macOS-specific Metal selection and error handling."
+  },
+  "A14-73": {
+   "status": "verified",
+   "cpp": [
+    "src/speech/parakeet_backend.cpp"
+   ],
+   "tests": [
+    "tests/speech/test_parakeet_backend.cpp"
+   ],
+   "note": "'a reload asked for after a cancel does nothing', 'a model of another family is refused' ('Model does not belong to this backend'), 'lazy failure resets busy and next call can succeed', 'decode refuses an unloaded or cancelled engine even for a silent clip', 'Speech engine is not loaded' / last_error, failure logged only when current and not cancelled. download_and_load is the model runtime's download followed by a reload (A14-30)."
+  },
+  "A14-74": {
+   "status": "verified",
+   "cpp": [
+    "src/speech/file_windows.cpp",
+    "src/dsp/window_splitter.cpp"
+   ],
+   "tests": [
+    "tests/speech/test_file_windows.cpp",
+    "tests/dsp/test_window_splitter.cpp"
+   ],
+   "note": "'golden windows' replays windows() sample output; the splitter's golden vectors, identical windows for every frame size, total() and offset(), and the 24.1 / 48.2 s split."
+  },
+  "A14-75": {
+   "status": "fixed",
+   "cpp": [
+    "src/remote/remote_backend.cpp",
+    "src/remote_host/service.cpp"
+   ],
+   "tests": [
+    "tests/remote_host/test_remote_backend_runtime.cpp"
+   ],
+   "note": "RemoteSpeechBackend::request_runtime (with 'The host changed engines. Reconnect before changing its runtime.' and 'Update <product> on the host to change its runtime from here.'), request_language, refresh_host_catalog, and switch_host's configure_runtime with the engine_controls precondition ('Update <product> on <host> to change its runtime from here.'). runtime_request_refusal, plan_remote_model_switch and plan_remote_runtime_change hold the controller's gates; RemoteEngineService::request_model carries a runtime change into the next backend. Tests: 'a runtime change rides on the next load as configure_runtime', 'a runtime change for a model the host no longer serves is refused', 'a host without engine controls is not asked to change its runtime', 'choosing a model drops a runtime change requested before it', 'the host's catalog refreshes the runtime choices without reconnecting', 'a runtime change waits for the current activity'."
+  }
+ },
+ "differences": [
+  {
+   "id": "a14-local-engine",
+   "features": [
+    "A14-27",
+    "SS-02",
+    "SR-04",
+    "SV-01",
+    "SD2-02",
+    "SD2-03",
+    "SD2-05"
+   ],
+   "openwhisper": "Offers multiple local speech backends. Its model catalog includes Nemotron alongside Parakeet and Orukeet.",
+   "fiorivoce": "Uses NeMo-Speech.cpp for its one local Parakeet engine. The catalog lists Parakeet TDT and its Orukeet adaptation.",
+   "reason": "The project selected this engine family for the C++ rewrite. Runtime selection permits separate CPU and GPU builds.",
+   "source": "AGENTS.md and src/models/speech_catalog.cpp"
+  },
+  {
+   "id": "a14-auto-device-fallback",
+   "features": [
+    "A14-48"
+   ],
+   "openwhisper": "The optional backend implements automatic CPU fallback for selected engines, including Qwen and transcribe.cpp.",
+   "fiorivoce": "A Parakeet model on Auto retries on the CPU when GPU initialization fails and reports the reason. An explicitly requested GPU reports its load error.",
+   "reason": "The same device-selection rule applies to the engine shipped with FioriVoce.",
+   "source": "transcriber/optional_backend.py, src/speech/parakeet_backend.cpp and tests/speech/test_parakeet_backend.cpp"
+  },
+  {
+   "id": "a14-in-process-runtime-copy",
+   "features": [
+    "A14-68"
+   ],
+   "openwhisper": "The NVIDIA Speech rows say the runtime is shared by Parakeet and Nemotron, 'Runs in a dedicated process', local format 'Isolated worker process', payload 'portable Python on Windows', add the Python PSF licence and link the Python 3.12.10 download page.",
+   "fiorivoce": "The rows say 'Parakeet models', 'Runs inside FioriVoce', local format 'Native libraries loaded by FioriVoce', payload 'Verified native libraries', and drop the Python licence and link; every other field is OpenWhisper's, with the product named by identity().",
+   "reason": "FioriVoce loads the runtime into its own process without an embedded Python and ships only the Parakeet family, so the upstream wording would describe software it does not install.",
+   "source": "docs/port/packages/M2.md M2.5 'Traps' (map a14 A14-21, A14-68); src/models/component_details.h and tests/models/test_component_details.cpp fiorivoce_row"
+  },
+  {
+   "id": "a14-staged-component-change",
+   "features": [
+    "A14-05",
+    "A14-64"
+   ],
+   "openwhisper": "A component is installed, updated or removed at once; no component row waits for a restart.",
+   "fiorivoce": "An update or removal of the speech runtime that is loaded is staged and applied at the next start: its Downloads row shows 'Restart needed' and offers nothing more, and describe() gives 'Restart FioriVoce to finish installing the component.' or 'Restart FioriVoce to finish removing the component.'",
+   "reason": "The NeMo-Speech.cpp runtime runs inside FioriVoce's process and cannot be unloaded (FreeLibrary crashes the process), so a change to the loaded runtime waits for the next start.",
+   "source": "The models sweep of 2026-11-19 (open item describe() and is_installed()); src/models/coordinator.cpp describe, src/models/downloads_model.cpp; tests/models/test_component_lifecycle.cpp ('describe() names a change staged for the next start, and the row offers nothing more', 'removing the loaded runtime is staged and done at the next start')"
+  },
+  {
+   "id": "a14-runtime-folder-checked",
+   "features": [
+    "A14-44"
+   ],
+   "openwhisper": "OpenWhisper has no setting for a runtime folder of the user's choosing; its runtimes come from its components only.",
+   "fiorivoce": "A runtime folder chosen in fv_runtime_dir is checked for the runtime library and its build. Without the library the engine is a missing runtime with 'No speech runtime in <dir>: <library> was not found.'; a CPU build keeps device Auto on the CPU and refuses an explicit GPU with '<dir> holds a CPU build of NeMo-Speech.cpp, so Parakeet can't use the GPU with it.'",
+   "reason": "A folder the user picks may hold no runtime or a CPU-only build; saying which before the load fails tells the user what to change.",
+   "source": "The models sweep of 2026-11-19 (open item models/engine_resolution.cpp); src/models/engine_resolution.cpp, src/engine/runtime.cpp find_runtime_library; tests/models/test_sweep_runtime_dir.cpp ('runtime_dir_serves needs the library, and a GPU build for a GPU runtime', 'a chosen folder without the runtime library is a missing runtime', 'a chosen CPU build keeps Auto on the CPU and refuses an explicit GPU')"
+  }
+ ]
+}

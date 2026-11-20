@@ -1,0 +1,189 @@
+{
+  "package": "M1.15, M2.22, M2.27, M4.11",
+  "files": {
+    "tests/test_history_calendar_dialog.py": {
+      "test_opens_on_today_with_its_recordings": {"status": "ported", "cpp": "tests/ui_history/test_calendar_dialog.cpp"},
+      "test_months_are_read_ahead_once": {"status": "ported", "cpp": "tests/ui_history/test_calendar_dialog.cpp"},
+      "test_selecting_days_and_months": {"status": "ported", "cpp": "tests/ui_history/test_calendar_dialog.cpp"},
+      "test_a_new_month_selects_its_latest_active_day": {"status": "ported", "cpp": "tests/ui_history/test_calendar_dialog.cpp"},
+      "test_an_empty_month_offers_the_closest_one": {"status": "ported", "cpp": "tests/ui_history/test_calendar_dialog.cpp"},
+      "test_nothing_recorded_yet": {"status": "ported", "cpp": "tests/ui_history/test_calendar_dialog.cpp"},
+      "test_kind_chips_filter_and_one_always_stays_on": {"status": "ported", "cpp": "tests/ui_history/test_calendar_dialog.cpp"},
+      "test_where_filter_appears_with_more_than_one_place": {"status": "ported", "cpp": "tests/ui_history/test_calendar_dialog.cpp"},
+      "test_opening_and_copying_records": {"status": "ported", "cpp": "tests/ui_history/test_calendar_dialog.cpp", "note": "the dialog's copyText seam records the text; no test writes the clipboard (amendment 14)"},
+      "test_a_host_kept_meeting_is_fetched_before_it_opens": {"status": "ported", "cpp": "tests/ui_history/test_calendar_dialog.cpp", "note": "case: a host-kept meeting is fetched through the check-out, then opened (the dialog's check-out; the app supplies it as RecordSyncControl::check_out_from pinned to the listed host, ui_history/history_feature.cpp openCalendar)"},
+      "test_a_calendar_closed_mid_read_is_not_held_by_its_workers": {"status": "ported", "cpp": "tests/ui_history/test_calendar_dialog.cpp", "note": "real threads (a ThreadPool as io); the download goes through the setMeetingCheckOut seam"},
+      "test_refresh_merges_bursts_and_waits_while_hidden": {"status": "ported", "cpp": "tests/ui_history/test_calendar_dialog.cpp"},
+      "test_grid_maps_positions_and_keys_to_days": {"status": "ported", "cpp": "tests/ui_history/test_calendar_dialog.cpp"},
+      "test_a_crowded_day_shows_every_kind_first": {"status": "ported", "cpp": "tests/ui_history/test_calendar_dialog.cpp"},
+      "test_agenda_card_shows_where_and_how_long": {"status": "ported", "cpp": "tests/ui_history/test_calendar_dialog.cpp"},
+      "test_the_title_opens_the_picker_on_the_year_shown": {"status": "ported", "cpp": "tests/ui_history/test_calendar_dialog.cpp"},
+      "test_the_picker_leaps_between_years": {"status": "ported", "cpp": "tests/ui_history/test_calendar_dialog.cpp"},
+      "test_picker_keys_run_on_through_the_year_and_escape_steps_out": {"status": "ported", "cpp": "tests/ui_history/test_calendar_dialog.cpp"},
+      "test_one_year_of_records_has_no_years_view": {"status": "ported", "cpp": "tests/ui_history/test_calendar_dialog.cpp"},
+      "test_the_picker_counts_follow_the_filters": {"status": "ported", "cpp": "tests/ui_history/test_calendar_dialog.cpp"},
+      "test_reopening_returns_to_today": {"status": "ported", "cpp": "tests/ui_history/test_calendar_dialog.cpp"}
+    },
+    "tests/test_history_calendar_wiring.py": {
+      "test_the_sidebar_and_menu_open_one_calendar": {"status": "ported", "cpp": "tests/ui_history/test_calendar_wiring.cpp"},
+      "test_history_changes_reach_an_open_calendar": {"status": "ported", "cpp": "tests/ui_history/test_calendar_wiring.cpp", "note": "refresh_past_meetings is HistoryPanel::refreshPastMeetings"},
+      "test_records_open_above_the_calendar": {"status": "ported", "cpp": "tests/ui_history/test_calendar_wiring.cpp", "note": "the host-kept delete half waits for M9's record sync (HistorySidebar::deleteEntryFromDialog leaves a stored_on entry alone)"},
+      "test_an_edit_in_the_entry_dialog_refreshes_both_lists": {"status": "ported", "cpp": "tests/ui_history/test_calendar_wiring.cpp"}
+    },
+    "tests/test_history_entry_dialog.py": {
+      "TestHistoryEntryDialog::test_shows_full_transcript_text": {"status": "ported", "cpp": "tests/ui_history/test_entry_dialog.cpp"},
+      "TestHistoryEntryDialog::test_fixed_raw_toggle_swaps_text": {"status": "ported", "cpp": "tests/ui_history/test_entry_dialog.cpp"},
+      "TestHistoryEntryDialog::test_copy_puts_shown_text_on_clipboard": {"status": "ported", "cpp": "tests/ui_history/test_entry_dialog.cpp", "note": "the dialog's clipboard seam records the text; no test writes the clipboard (amendment 14)"},
+      "TestHistoryEntryDialog::test_copy_raw_button_copies_raw_text": {"status": "ported", "cpp": "tests/ui_history/test_entry_dialog.cpp", "note": "through the clipboard seam"},
+      "TestHistoryEntryDialog::test_delete_emits_after_confirmation": {"status": "ported", "cpp": "tests/ui_history/test_entry_dialog.cpp"},
+      "TestHistoryEntryDialog::test_retranscribe_visible_when_audio_exists": {"status": "ported", "cpp": "tests/ui_history/test_entry_dialog.cpp"},
+      "TestHistoryEntryDialog::test_failed_recording_can_be_retried_from_the_card_or_dialog": {"status": "ported", "cpp": "tests/ui_history/test_entry_dialog.cpp"},
+      "TestHistoryEntryDialog::test_metadata_facts_render_when_present": {"status": "ported", "cpp": "tests/ui_history/test_entry_dialog.cpp"}
+    },
+    "tests/test_history_scalability.py": {
+      "test_history_sidebar_loads_only_one_page_off_the_ui_thread": {"status": "ported", "cpp": "tests/ui_history/test_sidebar_load.cpp"},
+      "test_large_history_does_not_stretch_section_header": {"status": "ported", "cpp": "tests/ui_history/test_sidebar_load.cpp"},
+      "test_history_header_counts_the_cards_after_a_batch_lands_on_three_uploads": {"status": "ported", "cpp": "tests/ui_history/test_sidebar_load.cpp"},
+      "test_history_header_matches_the_cards_when_a_card_fails_to_build": {"status": "ported", "cpp": "tests/ui_history/test_sidebar_load.cpp", "note": "the sidebar's makeCard seam throws where Python patched HistoryItemWidget"},
+      "test_history_shows_one_card_per_entry_id": {"status": "ported", "cpp": "tests/ui_history/test_sidebar_load.cpp"},
+      "test_cleared_history_cards_leave_the_list_at_once": {"status": "ported", "cpp": "tests/ui_history/test_sidebar_load.cpp"}
+    },
+    "tests/test_history_sidebar_delete.py": {
+      "TestHistorySidebarDelete::test_delete_is_canceled_when_confirmation_is_rejected": {"status": "ported", "cpp": "tests/ui_history/test_sidebar_delete.cpp"},
+      "TestHistorySidebarDelete::test_delete_proceeds_after_confirmation": {"status": "ported", "cpp": "tests/ui_history/test_sidebar_delete.cpp"},
+      "TestHistorySidebarDelete::test_audio_file_can_be_deleted_with_entry": {"status": "ported", "cpp": "tests/ui_history/test_sidebar_delete.cpp"},
+      "TestHistorySidebarDelete::test_dont_ask_again_preference_is_saved": {"status": "ported", "cpp": "tests/ui_history/test_sidebar_delete.cpp"},
+      "TestHistorySidebarDelete::test_saved_opt_out_skips_confirmation": {"status": "ported", "cpp": "tests/ui_history/test_sidebar_delete.cpp"}
+    },
+    "tests/test_history_sidebar_show_in_folder.py": {
+      "TestShowInFolderAction::test_action_is_enabled_when_the_recording_exists": {"status": "ported", "cpp": "tests/ui_history/test_show_in_folder.cpp"},
+      "TestShowInFolderAction::test_action_is_listed_but_disabled_without_a_recording": {"status": "ported", "cpp": "tests/ui_history/test_show_in_folder.cpp"},
+      "TestShowInFolderAction::test_triggering_reveals_the_recording_path": {"status": "ported", "cpp": "tests/ui_history/test_show_in_folder.cpp", "note": "the card's reveal seam, which defaults to revealInFileManager"},
+      "TestShowInFolderAction::test_nothing_is_revealed_when_the_card_has_no_recording": {"status": "ported", "cpp": "tests/ui_history/test_show_in_folder.cpp"},
+      "TestRevealInFileManager::test_empty_path_is_refused": {"status": "ported", "cpp": "tests/ui_history/test_show_in_folder.cpp"},
+      "TestRevealInFileManager::test_windows_selects_the_file_with_a_quoted_command_line": {"status": "ported", "cpp": "tests/ui_history/test_show_in_folder.cpp", "note": "FileRevealHooks record the launch"},
+      "TestRevealInFileManager::test_macos_reveals_with_open_dash_r": {"status": "dropped", "reason": "other-platform: FioriVoce builds for Windows (and Linux core); there is no macOS reveal"},
+      "TestRevealInFileManager::test_other_platforms_open_the_containing_folder": {"status": "dropped", "reason": "other-platform: forces sys.platform to linux, which a C++ build cannot pretend; the folder fallback is covered by the deleted-recording and failed-selection cases"},
+      "TestRevealInFileManager::test_a_deleted_recording_falls_back_to_its_folder": {"status": "ported", "cpp": "tests/ui_history/test_show_in_folder.cpp"},
+      "TestRevealInFileManager::test_a_failed_selection_still_falls_back_to_the_folder": {"status": "ported", "cpp": "tests/ui_history/test_show_in_folder.cpp"},
+      "TestRevealInFileManager::test_a_missing_folder_reports_failure": {"status": "ported", "cpp": "tests/ui_history/test_show_in_folder.cpp"}
+    },
+    "tests/test_personalize_s9_history_ui.py": {
+      "test_cards_show_the_app_and_cleanup_level": {"status": "ported", "cpp": "tests/ui_history/test_history_ui.cpp"},
+      "test_rewrites_get_a_kind_chip_instead_of_their_source_title": {"status": "ported", "cpp": "tests/ui_history/test_history_ui.cpp"},
+      "test_the_card_menu_undoes_and_redoes_the_ai_edit": {"status": "ported", "cpp": "tests/ui_history/test_history_ui.cpp"},
+      "test_entries_from_elsewhere_offer_no_undo": {"status": "ported", "cpp": "tests/ui_history/test_history_ui.cpp", "note": "the host-kept entry is built as remote_history_entry builds it; that conversion is M9's"},
+      "test_the_dialog_toggles_original_and_ai_and_uses_the_shown_version": {"status": "ported", "cpp": "tests/ui_history/test_history_ui.cpp"},
+      "test_a_legacy_entry_can_be_undone_from_the_dialog": {"status": "ported", "cpp": "tests/ui_history/test_history_ui.cpp"},
+      "test_the_dialog_lists_the_app": {"status": "ported", "cpp": "tests/ui_history/test_history_ui.cpp"},
+      "test_a_card_plays_and_stops_its_recording": {"status": "ported", "cpp": "tests/ui_history/test_history_ui.cpp"},
+      "test_playing_to_the_end_resets_the_card": {"status": "ported", "cpp": "tests/ui_history/test_history_ui.cpp"},
+      "test_playback_is_refused_while_recording_or_in_a_meeting": {"status": "ported", "cpp": "tests/ui_history/test_history_ui.cpp"},
+      "test_a_removed_recording_shows_a_disabled_play_with_the_reason": {"status": "ported", "cpp": "tests/ui_history/test_history_ui.cpp"},
+      "test_closing_the_dialog_stops_its_playback": {"status": "ported", "cpp": "tests/ui_history/test_history_ui.cpp"},
+      "test_collapsing_history_stops_playback": {"status": "ported", "cpp": "tests/ui_history/test_history_ui.cpp"},
+      "test_chips_wrap_instead_of_eliding_to_nothing": {"status": "ported", "cpp": "tests/ui_history/test_history_ui.cpp"},
+      "test_a_host_kept_entry_can_be_viewed_but_not_changed": {"status": "ported", "cpp": "tests/ui_history/test_host_kept_entries.cpp", "note": "cases: a host kept entry can be viewed but not changed; a host kept recording is fetched before it plays (the entry built as RecordSync::remote_history_entry builds it)"},
+      "test_a_host_kept_recording_is_fetched_before_it_plays": {"status": "ported", "cpp": "tests/ui_history/test_host_kept_entries.cpp", "note": "cases: a host kept entry can be viewed but not changed; a host kept recording is fetched before it plays (the entry built as RecordSync::remote_history_entry builds it)"}
+    },
+    "tests/test_personalize_s9_paste_original.py": {
+      "test_nothing_dictated_yet": {"status": "ported", "cpp": "tests/ui_history/test_history_actions.cpp"},
+      "test_the_last_dictations_original_is_pasted_and_kept": {"status": "ported", "cpp": "tests/ui_history/test_history_actions.cpp"},
+      "test_an_unchanged_last_dictation_never_reaches_back_to_an_older_one": {"status": "ported", "cpp": "tests/ui_history/test_history_actions.cpp"},
+      "test_uploads_and_rewrites_after_it_are_skipped": {"status": "ported", "cpp": "tests/ui_history/test_history_actions.cpp"},
+      "test_a_refused_paste_leaves_the_entry_and_the_status_alone": {"status": "ported", "cpp": "tests/ui_history/test_history_actions.cpp"},
+      "test_without_a_paste_hook_it_says_so": {"status": "ported", "cpp": "tests/ui_history/test_history_actions.cpp", "note": "HistoryActionsUi::canPasteNow stands for the missing on_paste_text_now"}
+    },
+    "tests/test_personalize_fix_f1_tray_copy_original.py": {
+      "test_copy_puts_the_original_on_the_clipboard_and_keeps_the_version": {"status": "ported", "cpp": "tests/ui_history/test_history_actions.cpp"},
+      "test_a_failed_copy_says_so": {"status": "ported", "cpp": "tests/ui_history/test_history_actions.cpp"},
+      "test_copy_with_nothing_to_copy": {"status": "ported", "cpp": "tests/ui_history/test_history_actions.cpp"}
+    },
+    "tests/test_desktop_performance.py": {
+      "test_history_refresh_reuses_unchanged_cards_and_updates_one_changed_entry": {"status": "ported", "cpp": "tests/ui_history/test_sidebar_load.cpp"},
+      "test_delayed_history_query_can_finish_after_qt_owner_is_deleted": {"status": "ported", "cpp": "tests/ui_history/test_sidebar_load.cpp"}
+    },
+    "tests/test_export_dialog_base.py": {
+      "test_scope_animation_can_reverse_without_leaving_height_constraints": {"status": "ported", "cpp": "tests/ui_history/test_export_dialog.cpp", "note": "both font scales, through the History exporter; the meeting exporter is M7's"},
+      "test_hidden_scope_and_date_changes_are_ready_when_shown": {"status": "ported", "cpp": "tests/ui_history/test_export_dialog.cpp", "note": "through the History exporter; the meeting exporter is M7's"},
+      "test_select_all_applies_only_to_search_matches": {"status": "ported", "cpp": "tests/ui_history/test_export_dialog.cpp", "note": "through the History exporter; the meeting exporter is M7's"},
+      "test_close_during_export_requests_cancel_and_keeps_dialog_open": {"status": "ported", "cpp": "tests/ui_history/test_export_dialog.cpp", "note": "setBusy stands for the worker Python assigns; through the History exporter"},
+      "test_changing_format_during_scope_animation_finishes_both_sections": {"status": "ported", "cpp": "tests/ui_history/test_export_dialog.cpp", "note": "through the History exporter; the meeting exporter is M7's"},
+      "test_format_values_match_both_export_services": {"status": "ported", "cpp": "tests/ui_history/test_export_dialog.cpp", "note": "against history/export.h; meeting.export.bulk's values arrive with M7"},
+      "test_history_worker_passes_include_options_to_writers": {"status": "ported", "cpp": "tests/ui_history/test_export_dialog.cpp", "note": "the dialog's renderDocument and writePerEntryFiles stand for the patched writers"},
+      "test_meeting_worker_loads_entries_and_skips_missing": {"status": "ported", "cpp": "tests/ui_history/test_export_dialog.cpp", "note": "through a stand-in subclass whose collector loads entries as the meeting exporter's does; the meeting exporter itself is M7's"},
+      "test_a_dialog_deleted_mid_export_is_not_held_by_the_worker": {"status": "ported", "cpp": "tests/ui_history/test_export_dialog.cpp", "note": "real threads (a ThreadPool as io); through the History exporter"}
+    },
+    "tests/test_history_export_dialog.py": {
+      "TestHistoryExportDialog::test_empty_state_has_no_export_button": {"status": "ported", "cpp": "tests/ui_history/test_export_dialog.cpp"},
+      "TestHistoryExportDialog::test_resolve_targets_filters_date_range": {"status": "ported", "cpp": "tests/ui_history/test_export_dialog.cpp"},
+      "TestHistoryExportDialog::test_selected_scope_uses_checked_entries": {"status": "ported", "cpp": "tests/ui_history/test_export_dialog.cpp"},
+      "TestHistoryExportDialog::test_markdown_toggles_disable_for_json": {"status": "ported", "cpp": "tests/ui_history/test_export_dialog.cpp"},
+      "TestHistoryExportDialog::test_default_path_is_absolute_and_follows_format": {"status": "ported", "cpp": "tests/ui_history/test_export_dialog.cpp", "note": "the file is fiorivoce_history.md (lead decision 4)"},
+      "TestHistoryExportDialog::test_export_without_matches_does_not_start_worker": {"status": "ported", "cpp": "tests/ui_history/test_export_dialog.cpp", "note": "the dialog's showMessage seam records the message box"}
+    },
+    "tests/test_personalize_s9_stats_dialog.py": {
+      "test_with_nothing_counted_it_says_so_and_offers_no_reset": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp"},
+      "test_it_shows_the_counts_days_and_apps": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp", "note": "today is pinned to Tuesday 2026-10-06 in UTC where Python reads date.today()"},
+      "test_the_period_switch_recounts_every_section": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp"},
+      "test_a_new_dictation_refreshes_the_open_window": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp"},
+      "test_a_slower_older_count_never_replaces_a_newer_one": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp", "note": "the counts are applied through StatsDialog::apply, which the relay calls"},
+      "test_counting_runs_off_the_ui_thread": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp", "note": "a ThreadPool as io"},
+      "test_a_failed_count_says_so": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp"},
+      "test_reset_asks_first_then_starts_over": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp", "note": "the dialog's askReset seam answers the question"},
+      "test_show_stats_keeps_one_window_and_leaves_settings_alone": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp", "note": "through StatsPresenter::showStats over the shell"},
+      "test_it_fits_narrow_windows_at_large_fonts": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp", "note": "the two classic variants; the omarchy variant is Linux's Omarchy desktop look, not ported"}
+    },
+    "tests/test_personalize_fix2_g3_stats_chart.py": {
+      "test_the_chart_reads_out_every_day": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp"},
+      "test_the_chart_text_follows_a_reload": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp"},
+      "test_the_activity_map_summarises_the_year": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp"}
+    },
+    "tests/test_personalize_fix2_g3_stats_dialog.py": {
+      "test_enter_closes_the_window_instead_of_offering_a_reset": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp"},
+      "test_enter_on_the_focused_reset_button_still_asks_first": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp"}
+    },
+    "tests/test_stats_features.py": {
+      "test_the_window_lists_a_row_for_each_feature_ever_used": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp"},
+      "test_the_window_breaks_the_words_down": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp"},
+      "test_the_breakdown_is_hidden_when_nothing_names_one": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp"},
+      "test_a_window_with_only_a_file_is_not_empty": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp"},
+      "test_the_hour_grid_reads_out_its_busiest_slot": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp"},
+      "test_a_feature_trend_words_its_columns_by_what_it_counts": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp"},
+      "test_a_feature_row_opens_its_feature_by_click_or_key": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp"},
+      "test_show_stats_sends_a_row_to_the_app": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp", "note": "the window's row reaches StatsPresenter::openStatsFeature, whose past-items hook records the tab"},
+      "test_each_feature_opens_its_past_items_or_its_settings_page": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp", "note": "the Settings pages through the window's settingsDestinationRequested, which SettingsFeature hands to SettingsWindow::open; recorded in its place"},
+      "test_the_main_window_shows_a_tab_with_its_list_open": {"status": "ported", "cpp": "tests/ui_history/test_stats_dialog.cpp", "note": "StatsPresenter::showPastItems on the real main window and side panel"}
+    },
+    "tests/test_personalize_fix2_g3_chip_flow.py": {
+      "test_layout_queries_reuse_the_measurement": {"status": "ported", "cpp": "tests/ui_history/test_chip_flow.cpp", "note": "a chip that counts its own sizeHint calls replaces the patched class"},
+      "test_a_chip_that_grows_is_measured_again": {"status": "ported", "cpp": "tests/ui_history/test_chip_flow.cpp"},
+      "test_a_chip_that_grows_within_its_line_gets_the_room": {"status": "ported", "cpp": "tests/ui_history/test_chip_flow.cpp"},
+      "test_a_chip_changed_while_hidden_is_measured_again_when_shown": {"status": "ported", "cpp": "tests/ui_history/test_chip_flow.cpp"},
+      "test_the_arrangement_matches_the_chips_size_hints": {"status": "ported", "cpp": "tests/ui_history/test_chip_flow.cpp"},
+      "test_adding_a_card_to_a_long_list_does_not_remeasure_the_others": {"status": "ported", "cpp": "tests/ui_history/test_chip_flow.cpp", "note": "counted on cards of the same shape holding counting chips: the History card's ElidingLabel chips cannot be counted without patching the class"}
+    },
+    "tests/test_mcp_desktop_changes.py": {
+      "test_history_uses_title_without_replacing_source_filename": {"status": "ported", "cpp": "tests/ui_history/test_history_title.cpp", "note": "case: history uses title without replacing source filename"}
+    },
+    "tests/test_personalize_fix2_g3_playback_fetch.py": {
+      "test_a_refresh_mid_download_hands_the_click_to_the_rebuilt_card": {"status": "ported", "cpp": "tests/ui_history/test_playback_fetch.cpp", "note": "case: test_a_refresh_mid_download_hands_the_click_to_the_rebuilt_card (history_playback.py _fetched/_in_flight ported into PlaybackControl)"},
+      "test_a_card_deleted_mid_download_plays_nothing_but_keeps_the_file": {"status": "ported", "cpp": "tests/ui_history/test_playback_fetch.cpp", "note": "case: test_a_card_deleted_mid_download_plays_nothing_but_keeps_the_file (history_playback.py _fetched/_in_flight ported into PlaybackControl)"},
+      "test_a_second_click_joins_the_download_and_plays_where_it_was_made": {"status": "ported", "cpp": "tests/ui_history/test_playback_fetch.cpp", "note": "case: test_a_second_click_joins_the_download_and_plays_where_it_was_made (history_playback.py _fetched/_in_flight ported into PlaybackControl)"},
+      "test_a_failed_download_is_reported_on_the_card_that_asked": {"status": "ported", "cpp": "tests/ui_history/test_playback_fetch.cpp", "note": "case: test_a_failed_download_is_reported_on_the_card_that_asked (history_playback.py _fetched/_in_flight ported into PlaybackControl)"},
+      "test_an_in_place_rebuild_mid_download_still_plays_the_click": {"status": "ported", "cpp": "tests/ui_history/test_playback_fetch.cpp", "note": "case: test_an_in_place_rebuild_mid_download_still_plays_the_click (history_playback.py _fetched/_in_flight ported into PlaybackControl)"},
+      "test_stopping_before_a_rebuilt_cards_download_finishes_plays_nothing": {"status": "ported", "cpp": "tests/ui_history/test_playback_fetch.cpp", "note": "case: test_stopping_before_a_rebuilt_cards_download_finishes_plays_nothing (history_playback.py _fetched/_in_flight ported into PlaybackControl)"},
+      "test_closing_the_dialog_mid_download_cancels_the_play": {"status": "ported", "cpp": "tests/ui_history/test_entry_dialog.cpp", "note": "case: Closing History entry before host audio arrives cancels playback"},
+      "test_collapsing_history_mid_download_cancels_the_play": {"status": "ported", "cpp": "tests/ui_history/test_sidebar_load.cpp", "note": "case: Collapsing History before host audio arrives cancels playback"}
+    },
+    "tests/test_personalize_fix3_h3_audio_fetch.py": {
+      "test_transcribe_again_during_play_waits_for_the_whole_recording": {"status": "ported", "cpp": "tests/ui_history/test_playback_fetch.cpp", "note": "case: test_transcribe_again_during_play_waits_for_the_whole_recording (the card's Transcribe again fetches through audio_for; the fake keeps one download per record as RecordSync::audio_for does)"},
+      "test_play_during_transcribe_again_waits_for_the_whole_recording": {"status": "ported", "cpp": "tests/ui_history/test_playback_fetch.cpp", "note": "case: test_play_during_transcribe_again_waits_for_the_whole_recording (the card's Transcribe again fetches through audio_for; the fake keeps one download per record as RecordSync::audio_for does)"}
+    },
+    "tests/test_remote_records_ui.py": {
+      "test_history_merges_the_hosts_entries_by_time": {"status": "ported", "cpp": "tests/ui_history/test_host_records.cpp", "note": "case: test_history_merges_the_hosts_entries_by_time"},
+      "test_a_slow_host_doesnt_hold_up_this_computers_history": {"status": "ported", "cpp": "tests/ui_history/test_host_records.cpp", "note": "case: test_a_slow_host_doesnt_hold_up_this_computers_history"},
+      "test_a_history_closed_mid_host_request_is_not_held_by_its_workers": {"status": "ported", "cpp": "tests/ui_history/test_host_records.cpp", "note": "case: test_a_history_closed_mid_host_request_is_not_held_by_its_workers"}
+    }
+  }
+}

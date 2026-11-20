@@ -1,0 +1,1236 @@
+{
+  "package": "M7.3, M7.7, M7.11, M8.3, M9.4",
+  "files": {
+    "tests/test_history_calendar.py": {
+      "test_source_reads_meetings_by_their_start": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_calendar_meetings.cpp"
+      },
+      "test_meeting_summaries_can_be_bounded_by_start": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_calendar_meetings.cpp"
+      }
+    },
+    "tests/test_meeting_asr.py": {
+      "test_interval_iou": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      }
+    },
+    "tests/test_meeting_cloud_speakers.py": {
+      "TestSegmentHandlerFix::test_bulk_lookup_answers_a_whole_batch_in_one_query": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp"
+      },
+      "TestSegmentHandlerFix::test_pinned_segment_is_rejected": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp"
+      },
+      "TestSegmentHandlerFix::test_reassign_succeeds_on_headless_store": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp"
+      }
+    },
+    "tests/test_meeting_content.py": {
+      "test_empty_meeting_has_no_content_capabilities": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_content.cpp"
+      },
+      "test_meeting_preview_prefers_summary_then_topic": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_content.cpp"
+      },
+      "test_speaker_rerun_requires_nonempty_loopback_audio": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_content.cpp"
+      },
+      "test_zero_duration_chunks_and_blank_segments_are_not_content": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_content.cpp"
+      }
+    },
+    "tests/test_meeting_corrections.py": {
+      "TestAsrPriming::test_draft_prompt_is_corrected_and_primed": {
+        "status": "dropped",
+        "reason": "Whisper's draft initial_prompt; Parakeet takes no text prompt (M7.md change 3)"
+      },
+      "TestAsrPriming::test_provider_errors_degrade_to_raw_context": {
+        "status": "dropped",
+        "reason": "Whisper's draft initial_prompt; Parakeet takes no text prompt (M7.md change 3)"
+      },
+      "TestAsrPriming::test_vocabulary_alone_primes_an_empty_context": {
+        "status": "dropped",
+        "reason": "Whisper's draft initial_prompt; Parakeet takes no text prompt (M7.md change 3)"
+      },
+      "TestCorrectText::test_no_rules_or_empty_text_is_identity": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_corrections.cpp"
+      },
+      "TestCorrectText::test_regex_syntax_in_terms_is_literal": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_corrections.cpp"
+      },
+      "TestCorrectText::test_single_pass_prevents_chaining_and_prefers_longest_match": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_corrections.cpp"
+      },
+      "TestCorrectText::test_whole_word_case_insensitive_replacement": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_corrections.cpp"
+      },
+      "TestEngineHook::test_user_note_ops_wake_the_agent_and_other_cards_do_not": {"status": "ported", "cpp": "tests/meeting/test_engine_audit_fixes.cpp", "note": "case: test_user_note_ops_wake_the_agent_and_other_cards_do_not (guidance notices reaching the live agent: user_notes add 1, key_points add still 1, undo 2). The term rules half primes Whisper's draft prompt, which Parakeet does not take (TestAsrPriming dropped) (ported in tests/meeting/PARITY.json)"},
+      "TestGuidancePrompt::test_agent_prompts_lead_with_guidance": {"status": "ported", "cpp": "tests/meeting_agent/test_guidance.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "TestGuidancePrompt::test_empty_without_guidance_notes": {"status": "ported", "cpp": "tests/meeting_agent/test_guidance.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "TestGuidancePrompt::test_includes_both_kinds_and_excludes_removed_or_agent_notes": {"status": "ported", "cpp": "tests/meeting_agent/test_guidance.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "TestRepositoryReadTimeCorrection::test_other_meetings_are_unaffected": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_corrections_repository.cpp"
+      },
+      "TestRepositoryReadTimeCorrection::test_repository_provider_tracks_state_changes_for_recovery": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_corrections_repository.cpp"
+      },
+      "TestRepositoryReadTimeCorrection::test_segments_read_corrected_with_raw_text_preserved": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_corrections_repository.cpp"
+      },
+      "TestSchedulerGuidancePass::test_failed_guidance_pass_is_retried": {"status": "ported", "cpp": "tests/meeting_agent/test_scheduler.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "TestSchedulerGuidancePass::test_guidance_fires_without_new_speech_and_resends_recent_transcript": {"status": "ported", "cpp": "tests/meeting_agent/test_scheduler.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "TestTermRules::test_empty_state_shapes": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_corrections.cpp"
+      },
+      "TestTermRules::test_later_note_wins_and_items_helper_matches_state_helper": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_corrections.cpp"
+      },
+      "TestTermRules::test_only_live_human_term_corrections_within_bounds_qualify": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_corrections.cpp"
+      },
+      "TestVocabulary::test_terms_are_distinct_ordered_and_bounded": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_corrections.cpp"
+      }
+    },
+    "tests/test_meeting_custom_report.py": {
+      "TestApi::test_a_host_request_writes_a_report_and_returns_the_state": {"status": "ported", "cpp": "tests/meeting_web/test_report_route.cpp", "note": "case: test_a_host_request_writes_a_report_and_returns_the_state (the route over PostMeetingPasses::report standing in for start_custom_report) (ported in tests/meeting_web/PARITY.json)"},
+      "TestApi::test_a_second_request_while_one_runs_is_refused_in_plain_words": {"status": "ported", "cpp": "tests/meeting_web/test_report_route.cpp", "note": "case: test_a_second_request_while_one_runs_is_refused_in_plain_words (the route over PostMeetingPasses::report standing in for start_custom_report) (ported in tests/meeting_web/PARITY.json)"},
+      "TestApi::test_an_interrupted_run_is_shown_as_failed_not_still_running": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp", "note": "(ported in tests/meeting_web/PARITY.json)"},
+      "TestApi::test_an_unknown_meeting_is_a_404": {"status": "ported", "cpp": "tests/meeting_web/test_report_route.cpp", "note": "case: test_an_unknown_meeting_is_a_404 (the route over PostMeetingPasses::report standing in for start_custom_report) (ported in tests/meeting_web/PARITY.json)"},
+      "TestApi::test_bad_requests_are_refused_before_any_work": {"status": "ported", "cpp": "tests/meeting_web/test_report_route.cpp", "note": "case: test_bad_requests_are_refused_before_any_work (the route over PostMeetingPasses::report standing in for start_custom_report) (ported in tests/meeting_web/PARITY.json)"},
+      "TestApi::test_delete_removes_a_report_and_reports_unknown_ids": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp", "note": "the report is requested through a test DashboardExtensions standing in for the fake start_custom_report (ported in tests/meeting_web/PARITY.json)"},
+      "TestApi::test_download_serves_the_markdown_as_a_file": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp", "note": "(ported in tests/meeting_web/PARITY.json)"},
+      "TestApi::test_only_the_host_may_ask": {"status": "ported", "cpp": "tests/meeting_web/test_report_route.cpp", "note": "case: test_only_the_host_may_ask (the route over PostMeetingPasses::report standing in for start_custom_report) (ported in tests/meeting_web/PARITY.json)"},
+      "TestConcurrency::test_a_finished_report_does_not_block_a_rerun": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp", "note": "(ported in tests/meeting_web/PARITY.json)"},
+      "TestConcurrency::test_a_rerun_waits_for_a_report_in_flight": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp", "note": "(ported in tests/meeting_web/PARITY.json)"},
+      "TestCorpus::test_a_long_transcript_keeps_its_edges_and_marks_the_gap": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "TestCorpus::test_a_query_of_only_stop_words_asks_for_real_terms": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "TestCorpus::test_an_empty_meeting_says_so_instead_of_inviting_invention": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "TestCorpus::test_empty_lines_are_dropped": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "TestCorpus::test_lines_carry_the_clock_and_the_speaker": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "TestCorpus::test_named_participants_replace_the_channel_label": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "TestCorpus::test_search_ranks_by_overlap_and_returns_time_order": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "TestCorpus::test_the_digest_carries_qualifiers_the_report_must_not_drop": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "TestCorpus::test_the_prompt_pastes_a_short_transcript_whole": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "TestCorpus::test_the_prompt_points_a_long_meeting_at_the_read_tools": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "TestCorpus::test_the_title_comes_from_the_document_then_the_request": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "TestCorpus::test_window_reads_a_stretch_and_reports_an_empty_one": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "TestExport::test_a_meeting_without_reports_gains_no_section": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_custom_report_ops.cpp"
+      },
+      "TestExport::test_finished_reports_join_the_markdown_export": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_custom_report_ops.cpp"
+      },
+      "TestExport::test_heading_demotion_skips_fenced_code_and_caps_at_six": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_custom_report_ops.cpp"
+      },
+      "TestGeneration::test_a_failing_tool_does_not_sink_the_report": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "TestGeneration::test_a_transport_failure_becomes_a_readable_message": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "the endpoint answers 401 (an error the client does not retry and that is not a TextGenerationError), where Python's patched generate raises RuntimeError (ported in tests/meeting_intel/PARITY.json)"},
+      "TestGeneration::test_a_wrapping_code_fence_is_stripped": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "TestGeneration::test_an_empty_answer_is_reported_not_stored": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "TestGeneration::test_one_turn_becomes_the_report": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "the model turns are canned Chat Completions replies served by an SseProvider on 127.0.0.1, where Python replaces services.text_generation.generate (ported in tests/meeting_intel/PARITY.json)"},
+      "TestGeneration::test_past_meeting_recall_is_offered_only_when_it_is_enabled": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "TestGeneration::test_read_tools_run_and_their_results_come_back": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "TestGeneration::test_the_last_round_takes_the_tools_away_and_asks_for_the_report": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "TestGeneration::test_the_request_is_validated_before_any_model_call": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "TestGuestScoping::test_a_batch_of_only_reports_never_reaches_guests": {"status": "ported", "cpp": "tests/meeting_web/test_ws_hub.cpp", "note": "(ported in tests/meeting_web/PARITY.json)"},
+      "TestGuestScoping::test_a_batch_of_only_shared_effects_sends_one_patch": {"status": "ported", "cpp": "tests/meeting_web/test_ws_hub.cpp", "note": "(ported in tests/meeting_web/PARITY.json)"},
+      "TestGuestScoping::test_the_fan_out_splits_host_only_effects_onto_their_own_patch": {"status": "ported", "cpp": "tests/meeting_web/test_ws_hub.cpp", "note": "(ported in tests/meeting_web/PARITY.json)"},
+      "TestGuestScoping::test_the_meeting_detail_endpoint_is_host_only": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp", "note": "(ported in tests/meeting_web/PARITY.json)"},
+      "TestGuestScoping::test_the_session_endpoint_hides_reports_from_guests": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp", "note": "(ported in tests/meeting_web/PARITY.json)"},
+      "TestLifecycle::test_a_failing_pass_leaves_a_readable_failure_not_a_stuck_record": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "TestLifecycle::test_a_rejected_claim_never_reaches_the_model": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "TestLifecycle::test_a_run_whose_report_was_discarded_publishes_nothing": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "TestLifecycle::test_a_successful_run_publishes_through_the_store": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "ReportDeps::generator and an inline Executor stand for Python's generator and run_in_thread=False (ported in tests/meeting_intel/PARITY.json)"},
+      "TestLifecycle::test_the_worker_runs_off_the_caller_thread": {"status": "ported", "cpp": "tests/meeting_intel/test_custom_report.cpp", "note": "the thread is named fv-meeting-custom-report (checked on Windows); Python's is meeting-custom-report (ported in tests/meeting_intel/PARITY.json)"},
+      "TestOps::test_a_failed_report_keeps_its_message_and_frees_the_slot": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_custom_report_ops.cpp"
+      },
+      "TestOps::test_a_stale_run_cannot_overwrite_a_finished_report": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_custom_report_ops.cpp"
+      },
+      "TestOps::test_discarding_a_running_report_unblocks_the_meeting": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_custom_report_ops.cpp"
+      },
+      "TestOps::test_finish_validation": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_custom_report_ops.cpp"
+      },
+      "TestOps::test_guests_cannot_ask_and_the_agent_cannot_either": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_custom_report_ops.cpp"
+      },
+      "TestOps::test_guests_cannot_delete_a_report": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_custom_report_ops.cpp"
+      },
+      "TestOps::test_host_asks_and_only_the_worker_publishes": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_custom_report_ops.cpp"
+      },
+      "TestOps::test_only_one_report_runs_at_a_time": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_custom_report_ops.cpp"
+      },
+      "TestOps::test_reports_round_trip_through_the_serialization_contract": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_custom_report_ops.cpp"
+      },
+      "TestOps::test_reports_wait_for_a_finished_meeting": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_custom_report_ops.cpp"
+      },
+      "TestOps::test_request_validation": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_custom_report_ops.cpp"
+      },
+      "TestOps::test_the_cap_bounds_what_one_meeting_stores": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_custom_report_ops.cpp"
+      }
+    },
+    "tests/test_meeting_data_lifecycle.py": {
+      "test_clear_meetings_keeps_spools_when_requested": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_data_lifecycle.cpp"
+      },
+      "test_clear_meetings_purges_abandoned_deletion_tombstones": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_data_lifecycle.cpp"
+      },
+      "test_clear_meetings_purges_orphan_spools_but_not_tombstones": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_data_lifecycle.cpp"
+      },
+      "test_clear_meetings_skips_live_rows_and_ids": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_data_lifecycle.cpp"
+      },
+      "test_delete_can_keep_the_spool": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_data_lifecycle.cpp"
+      },
+      "test_delete_refreshes_old_spool_timestamp_before_database_commit": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_data_lifecycle.cpp"
+      },
+      "test_delete_rejects_paths_outside_configured_root": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_data_lifecycle.cpp"
+      },
+      "test_delete_removes_database_and_spool": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_data_lifecycle.cpp"
+      },
+      "test_delete_restores_spool_when_database_delete_fails": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_data_lifecycle.cpp"
+      },
+      "test_playback_mixes_channels_and_preserves_silence": {"status": "ported", "cpp": "tests/meeting_capture/test_playback.cpp", "note": "(ported in tests/meeting_capture/PARITY.json)"},
+      "test_playback_rejects_chunk_outside_spool": {"status": "ported", "cpp": "tests/meeting_capture/test_playback.cpp", "note": "(ported in tests/meeting_capture/PARITY.json)"}
+    },
+    "tests/test_meeting_delivery_cursor.py": {
+      "test_concurrent_cursor_advancement_is_atomic_and_monotonic": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_delivery_cursor.cpp"
+      },
+      "test_delayed_old_start_segment_arrives_after_cursor_and_survives_reopen": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_delivery_cursor.cpp",
+        "note": "the repository half: OpenWhisper drives it through CheckpointScheduler (M8); a pass here is the page after the cursor and the cursor advance it makes"
+      },
+      "test_deleted_segment_redecoded_with_same_id_gets_new_delivery": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_delivery_cursor.cpp"
+      },
+      "test_delivery_pages_are_bounded_and_failed_pass_is_replayed": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_delivery_cursor.cpp",
+        "note": "the repository half: OpenWhisper drives it through CheckpointScheduler (M8); a pass here is the page after the cursor and the cursor advance it makes"
+      },
+      "test_delivery_sequence_does_not_reuse_deleted_highest_row": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_delivery_cursor.cpp"
+      },
+      "test_failed_backlog_read_does_not_start_scheduler": {"status": "ported", "cpp": "tests/meeting_agent/test_scheduler_ledger.cpp", "note": "driven through CheckpointScheduler over the SQL repository's ledger (ported in tests/meeting_agent/PARITY.json)"},
+      "test_restart_drains_notes_backlog_when_cards_are_caught_up": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_delivery_cursor.cpp",
+        "note": "the repository half: OpenWhisper drives it through CheckpointScheduler (M8); a pass here is the page after the cursor and the cursor advance it makes"
+      },
+      "test_upgrade_backfills_existing_segments_once_in_row_order": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_delivery_cursor.cpp"
+      }
+    },
+    "tests/test_meeting_export.py": {
+      "TestJsonExport::test_preserves_evidence_ids": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export.cpp"
+      },
+      "TestJsonExport::test_strips_tokens_and_volatile_fields": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export.cpp"
+      },
+      "TestMarkdownExport::test_can_omit_transcript_and_intelligence": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export.cpp"
+      },
+      "TestMarkdownExport::test_golden_structure": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export.cpp"
+      },
+      "TestTranscriptTxtExport::test_empty_segments_placeholder": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export.cpp"
+      },
+      "TestTranscriptTxtExport::test_plain_transcript": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export.cpp"
+      }
+    },
+    "tests/test_meeting_export_bulk.py": {
+      "test_collect_meeting_export_missing_returns_none": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export_bulk.cpp"
+      },
+      "test_collect_meeting_export_parses_state_json": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export_bulk.cpp"
+      },
+      "test_combined_markdown_has_header": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export_bulk.cpp"
+      },
+      "test_filter_export_meetings_applies_date_and_transcript": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export_bulk.cpp"
+      },
+      "test_filter_keeps_unknown_transcript_when_only_with_transcript": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export_bulk.cpp"
+      },
+      "test_json_and_txt_ignore_content_toggles": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export_bulk.cpp"
+      },
+      "test_list_export_meetings_skips_live_and_fills_summary": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export_bulk.cpp"
+      },
+      "test_meeting_file_stem_is_filesystem_safe": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export_bulk.cpp"
+      },
+      "test_render_markdown_honors_content_toggles": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export_bulk.cpp"
+      },
+      "test_write_per_meeting_files_disambiguates": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export_bulk.cpp"
+      },
+      "test_write_per_meeting_files_never_overwrites_prior_export": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export_bulk.cpp"
+      }
+    },
+    "tests/test_meeting_export_features.py": {
+      "test_bulk_exports_corrected_speech_and_json_preserves_raw_text": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export_features.cpp"
+      },
+      "test_history_export_preserves_every_persisted_field_and_upload_source": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export_features.cpp"
+      },
+      "test_intelligence_toggle_omits_new_features_and_legacy_due_date_is_retained": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export_features.cpp"
+      },
+      "test_json_preserves_all_new_state_and_raw_transcript": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export_features.cpp"
+      },
+      "test_markdown_citation_badges_only_describe_current_revision": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export_features.cpp"
+      },
+      "test_markdown_keeps_recent_features_without_mutating_snapshot": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export_features.cpp"
+      },
+      "test_meeting_spanning_legacy_and_utc_timestamps_exports_without_crashing": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export_features.cpp"
+      },
+      "test_utc_headers_use_local_display_and_legacy_dates_still_work": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export_features.cpp"
+      },
+      "test_web_downloads_preserve_current_features_and_match_bulk_content": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp", "note": "(ported in tests/meeting_web/PARITY.json)"}
+    },
+    "tests/test_meeting_fast_features.py": {
+      "test_annotations_cannot_be_forged_by_guest": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_fast_ops.cpp"
+      },
+      "test_minute_consent_revoked_in_flight_discards_answers": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: minute consent revoked in flight discards answers (Deps::enabled) (ported in tests/meeting_intel/PARITY.json)"},
+      "test_minute_disabled_never_calls_remote": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: minute disabled never calls remote (feature and consent off are Deps::enabled; a judge not on this computer is never asked) (ported in tests/meeting_intel/PARITY.json)"},
+      "test_minute_discards_source_changed_during_request": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: minute discards source changed during request (ported in tests/meeting_intel/PARITY.json)"},
+      "test_minute_worker_is_nonblocking_bounded_and_deduplicates": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: minute worker is nonblocking bounded and deduplicates (ported in tests/meeting_intel/PARITY.json)"},
+      "test_new_features_require_explicit_opt_in": {"status": "ported", "cpp": "tests/meeting_intel/test_semantic_search.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "test_no_advisory_writes_when_no_checks_exist": {"status": "ported", "cpp": "tests/meeting_intel/test_citation_queue.cpp", "note": "case: no advisory writes when no checks exist (ported in tests/meeting_intel/PARITY.json)"},
+      "test_persisted_signals_round_trip": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_fast_ops.cpp"
+      },
+      "test_pulse_anchors_and_question_sources_are_copied_not_generated": {"status": "ported", "cpp": "tests/meeting_intel/test_live_highlights.cpp", "note": "Two synthetic local-judge cases check the published pulse offset and exact quoted transcript text for highlights, questions and suggested answers. (ported in tests/meeting_intel/PARITY.json)"},
+      "test_pulse_assessment_preserves_window_scores_and_source_ranking": {"status": "ported", "cpp": "tests/meeting_intel/test_live_highlights.cpp", "note": "A fake local judgment produces a stored pulse with exact transcript provenance and a complete source ranking. (ported in tests/meeting_intel/PARITY.json)"},
+      "test_question_radar_keeps_answers_as_suggestions_and_respects_dismissal": {"status": "ported", "cpp": "tests/meeting_intel/test_live_highlights.cpp", "note": "A fake device-local judge returns both decisions. The stored suggestion and new question are copied from exact transcript passages. (ported in tests/meeting_intel/PARITY.json)"},
+      "test_recap_routes_to_note_agent_and_reports_completion": {"status": "ported", "cpp": "tests/meeting/test_fast_features.cpp", "note": "case: recap routes to note agent and reports completion (through the voice listener and a FakeAgentCore note agent) (ported in tests/meeting/PARITY.json)"},
+      "test_request_budget_with_dense_minute_and_full_inbox": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: request budget with dense minute and full inbox (the request the worker sent, under MAX_STATE_CHARS 24,000) (ported in tests/meeting_intel/PARITY.json)"},
+      "test_semantic_candidates_fall_back_to_recent_passages_without_the_search_index": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_search_candidates.cpp"
+      },
+      "test_semantic_candidates_include_non_keyword_passages_and_exclude_offline": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_search_candidates.cpp"
+      },
+      "test_semantic_disabled_never_reads_remote_candidates": {"status": "ported", "cpp": "tests/meeting_intel/test_semantic_search.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "test_semantic_ranking_and_failure_fallback": {"status": "ported", "cpp": "tests/meeting_intel/test_semantic_search.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "test_semantic_rechecks_meeting_consent_before_sending": {"status": "ported", "cpp": "tests/meeting_intel/test_semantic_search.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "test_semantic_without_a_key_names_the_chosen_routes_key": {"status": "ported", "cpp": "tests/meeting_intel/test_semantic_search.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "test_source_options_save_every_evaluated_passage_in_full": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: source options save every evaluated passage in full (ported in tests/meeting_intel/PARITY.json)"},
+      "test_source_ranking_uses_complete_distribution_and_handles_ties": {"status": "ported", "cpp": "tests/meeting_intel/test_live_signals.cpp", "note": "case: source ranking uses complete distribution and handles ties (ported in tests/meeting_intel/PARITY.json)"},
+      "test_spoken_correction_roundtrips_and_removal_undoes": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: spoken correction roundtrips and removal undoes (correction_op is voice_command_ops(\"fix_transcript\")) (ported in tests/meeting_intel/PARITY.json)"},
+      "test_spoken_correction_without_source_or_replacement_is_rejected": {"status": "ported", "cpp": "tests/meeting_intel/test_voice_command_parity.cpp", "note": "case: spoken correction without source or replacement is rejected (ported in tests/meeting_intel/PARITY.json)"},
+      "test_verifier_annotations_do_not_change_claim_status_or_revision": {"status": "ported", "cpp": "tests/meeting_intel/test_citations.cpp", "note": "(ported in tests/meeting_intel/PARITY.json)"},
+      "test_verifier_failure_and_missing_evidence_are_advisory": {"status": "ported", "cpp": "tests/meeting_intel/test_citation_queue.cpp", "note": "case: verifier failure and missing evidence are advisory (a host user note stands for verifier.invalidate()) (ported in tests/meeting_intel/PARITY.json)"},
+      "test_verifier_queue_checks_oldest_first_and_refreshes_queued_items": {"status": "ported", "cpp": "tests/meeting_intel/test_citation_queue.cpp", "note": "case: verifier queue checks oldest first and refreshes queued items (ported in tests/meeting_intel/PARITY.json)"},
+      "test_verifier_rejects_stale_revision_and_changed_source": {"status": "ported", "cpp": "tests/meeting_intel/test_citation_queue.cpp", "note": "case: verifier rejects stale revision and changed source (ported in tests/meeting_intel/PARITY.json)"}
+    },
+    "tests/test_meeting_insight_review.py": {
+      "test_all_ranked_questions_survive_reload_without_confirming_items": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_all_ranked_questions_survive_reload_without_confirming_items (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_answer_updates_linked_insight_notes_and_durable_report": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_answer_updates_linked_insight_notes_and_durable_report (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_archive_api_host_action_survives_restart": {"status": "ported", "cpp": "tests/meeting_web/test_review_route.cpp", "note": "case: test_archive_api_host_action_survives_restart (archive dashboard over the SQL repository; the question is the worker's review_finish; passes.review set because FioriVoce serves the route only with a device-local judge, a30-dashboard-local-judgments) (ported in tests/meeting_web/PARITY.json)"},
+      "test_background_start_is_nonblocking_and_duplicate_start_is_rejected": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_background_start_is_nonblocking_and_duplicate_start_is_rejected (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_changed_insight_is_not_scored_by_a_stale_worker": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_changed_insight_is_not_scored_by_a_stale_worker (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_changed_transcript_discards_old_assessment": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_changed_transcript_discards_old_assessment (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_cloud_revocation_does_not_leave_a_review_pending": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_cloud_revocation_does_not_leave_a_review_pending (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_context_includes_later_resolution_in_chronological_order": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_context_includes_later_resolution_in_chronological_order (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_contradiction_overrides_high_support_and_unclear_audio": {"status": "ported", "cpp": "tests/meeting_intel/test_insight_review.cpp", "note": "case: local insight review asks about later contrary speech without rewriting the claim (ported in tests/meeting_intel/PARITY.json)"},
+      "test_deadline_can_be_explicitly_cleared_without_becoming_a_fact": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_deadline_can_be_explicitly_cleared_without_becoming_a_fact (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_duplicate_answer_and_stale_revision_are_rejected": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_duplicate_answer_and_stale_revision_are_rejected (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_explicit_consent_and_enabled_are_both_required": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_explicit_consent_and_enabled_are_both_required (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_high_scores_keep_inferred_separate_from_human_confirmation": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_high_scores_keep_inferred_separate_from_human_confirmation (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_http_client_rejects_missing_consent_before_network": {"status": "ported", "cpp": "tests/meeting_intel/test_insight_review.cpp", "note": "case: insight review requires its own recorded opt-in. The consent is checked by the store's review_begin (review_disabled) before a judge is obtained, so no request is made; FioriVoce's judge interface carries no consent of its own"},
+      "test_later_human_edit_supersedes_old_correction_everywhere": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_later_human_edit_supersedes_old_correction_everywhere (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_malformed_probability_is_unavailable": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_malformed_probability_is_unavailable (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_master_switch_off_blocks_review_even_with_review_consent": {"status": "ported", "cpp": "tests/meeting_intel/test_intel_settings.cpp", "note": "case: the review is enabled only with its consent and the master switch (typesafe_enabled false turns enabled off)"},
+      "test_master_switch_revocation_prevents_the_next_http_request": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_master_switch_revocation_prevents_the_next_http_request (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_missing_evidence_does_not_invent_a_score_from_network": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_missing_evidence_does_not_invent_a_score_from_network (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_new_finalization_invalidates_open_reviews_but_preserves_human_answers": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_new_finalization_invalidates_open_reviews_but_preserves_human_answers (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_no_worker_or_network_without_consent": {"status": "ported", "cpp": "tests/meeting_intel/test_insight_review.cpp", "note": "case: insight review requires its own recorded opt-in (ported in tests/meeting_intel/PARITY.json)"},
+      "test_only_host_can_answer_and_only_system_can_publish": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_only_host_can_answer_and_only_system_can_publish (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_owner_clarification_requires_consistent_wording_and_updates_metadata": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_owner_clarification_requires_consistent_wording_and_updates_metadata (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_partial_failure_keeps_successful_checks": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_partial_failure_keeps_successful_checks (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_persistence_failure_is_atomic_and_retryable": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_persistence_failure_is_atomic_and_retryable (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_replaced_evidence_invalidates_a_question_even_at_same_item_revision": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_replaced_evidence_invalidates_a_question_even_at_same_item_revision (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_review_runs_over_openrouter_when_that_route_is_chosen": {"status": "dropped", "reason": "Pins the TypeSafe/OpenRouter HTTPS client (endpoint, key header, TLS bundle, route key names). FioriVoce runs insight review only on a device-local judge (a29-local-meeting-judgments, a30-dashboard-local-judgments); instead tests/meeting_intel/test_insight_review.cpp 'insight review never submits a meeting to a non-local judge', test_review_worker.cpp 'insight review without a local judge names what to choose' and test_local_judgments.cpp 'insight review on a local model'"},
+      "test_review_uses_shared_model_transport_and_tls_bundle": {"status": "dropped", "reason": "Pins the TypeSafe/OpenRouter HTTPS client (endpoint, key header, TLS bundle, route key names). FioriVoce runs insight review only on a device-local judge (a29-local-meeting-judgments, a30-dashboard-local-judgments); instead tests/meeting_intel/test_insight_review.cpp 'insight review never submits a meeting to a non-local judge', test_review_worker.cpp 'insight review without a local judge names what to choose' and test_local_judgments.cpp 'insight review on a local model'"},
+      "test_review_without_the_chosen_routes_key_names_that_key": {"status": "dropped", "reason": "Pins the TypeSafe/OpenRouter HTTPS client (endpoint, key header, TLS bundle, route key names). FioriVoce runs insight review only on a device-local judge (a29-local-meeting-judgments, a30-dashboard-local-judgments); instead tests/meeting_intel/test_insight_review.cpp 'insight review never submits a meeting to a non-local judge', test_review_worker.cpp 'insight review without a local judge names what to choose' and test_local_judgments.cpp 'insight review on a local model'"},
+      "test_revising_offered_to_accepted_replaces_the_old_clarification": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_revising_offered_to_accepted_replaces_the_old_clarification (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_setting_defaults_ignore_legacy_question_limit": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_setting_defaults_ignore_legacy_question_limit (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_settings_and_meeting_state_agree_on_the_consent_version": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_review_ops.cpp"
+      },
+      "test_shared_client_failures_are_review_unavailable": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_shared_client_failures_are_review_unavailable (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_skip_reopen_and_revoking_incorrect_answer": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_skip_reopen_and_revoking_incorrect_answer (the real run_insight_review over a FakeJudge answering each asked question)"},
+      "test_timeout_never_exposes_provider_or_key": {"status": "ported", "cpp": "tests/meeting_intel/test_review_worker.cpp", "note": "case: test_shared_client_failures_are_review_unavailable (a judge that throws 'secret provider body', times out (no answer) or answers a non-probability leaves the item unchecked: status failed, the retry sentence, no 'secret' anywhere in the state)"}
+    },
+    "tests/test_meeting_intent.py": {
+      "TestIntentExport::test_an_unset_brief_adds_no_empty_section": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export.cpp"
+      },
+      "TestIntentExport::test_the_brief_heads_the_exported_document": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export.cpp"
+      },
+      "TestIntentExport::test_the_brief_survives_an_intelligence_free_export": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export.cpp"
+      },
+      "TestIntentOp::test_an_oversized_brief_is_rejected_rather_than_truncated": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_intent.cpp"
+      },
+      "TestIntentOp::test_blank_text_clears_the_brief": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_intent.cpp"
+      },
+      "TestIntentOp::test_guests_cannot_redirect_what_the_meeting_captures": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_intent.cpp"
+      },
+      "TestIntentOp::test_host_writes_the_brief": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_intent.cpp"
+      },
+      "TestIntentOp::test_the_agent_cannot_write_its_own_brief": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_intent.cpp"
+      },
+      "TestIntentOp::test_undo_restores_the_previous_brief": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp"
+      },
+      "TestIntentPersistence::test_a_snapshot_written_before_this_feature_still_loads": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_intent.cpp"
+      },
+      "TestIntentPersistence::test_the_brief_round_trips_through_a_snapshot": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_intent.cpp"
+      },
+      "TestIntentPrompt::test_both_agent_personas_receive_the_brief": {"status": "ported", "cpp": "tests/meeting_agent/test_prompts.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "TestIntentPrompt::test_no_brief_adds_nothing_to_the_prompt": {"status": "ported", "cpp": "tests/meeting_agent/test_prompts.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "TestIntentPrompt::test_the_block_carries_the_brief_and_its_guardrails": {"status": "ported", "cpp": "tests/meeting_agent/test_prompts.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "TestIntentPrompt::test_the_final_report_pass_still_works_to_the_brief": {"status": "ported", "cpp": "tests/meeting_agent/test_prompts.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "TestIntentWakesTheAgent::test_a_rewritten_brief_triggers_a_guidance_pass": {"status": "ported", "cpp": "tests/meeting/test_engine_audit_fixes.cpp", "note": "case: TestIntentWakesTheAgent (sections of the same names; notify_intelligence_guidance through MeetingEngineProbe, counted on the live agent) (ported in tests/meeting/PARITY.json)"},
+      "TestIntentWakesTheAgent::test_an_unrelated_op_does_not_trigger_one": {"status": "ported", "cpp": "tests/meeting/test_engine_audit_fixes.cpp", "note": "case: TestIntentWakesTheAgent (sections of the same names; notify_intelligence_guidance through MeetingEngineProbe, counted on the live agent) (ported in tests/meeting/PARITY.json)"}
+    },
+    "tests/test_meeting_notes_agent.py": {
+      "TestNoteTakerPrompts::test_compact_state_renders_note_heading_and_extended_text": {"status": "ported", "cpp": "tests/meeting_agent/test_prompts.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "TestNoteTakerPrompts::test_consolidation_instructions_finalize_notes": {"status": "ported", "cpp": "tests/meeting_agent/test_prompts.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "TestNoteTakerPrompts::test_copilot_system_prompt_delegates_live_notes": {"status": "ported", "cpp": "tests/meeting_agent/test_prompts.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "TestNoteTakerPrompts::test_note_taker_system_prompt_persona_and_constraints": {"status": "ported", "cpp": "tests/meeting_agent/test_prompts.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "TestNoteTakerPrompts::test_notes_user_prompt_empty_page_hint": {"status": "ported", "cpp": "tests/meeting_agent/test_prompts.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "TestNoteTakerPrompts::test_notes_user_prompt_renders_blocks_and_segments": {"status": "ported", "cpp": "tests/meeting_agent/test_prompts.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "TestNotesExport::test_markdown_export_renders_meeting_notes_section": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export.cpp"
+      },
+      "TestNotesExport::test_markdown_export_skips_empty_notes": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_export.cpp"
+      },
+      "TestNotesPatchOps::test_agent_writes_notes_with_protection_flow": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_notes.cpp"
+      },
+      "TestNotesPatchOps::test_human_can_add_a_note_directly": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_notes.cpp"
+      },
+      "TestNotesState::test_legacy_snapshots_without_live_notes_load": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_notes.cpp"
+      },
+      "TestNotesState::test_live_notes_is_a_card_and_round_trips": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_notes.cpp"
+      },
+      "TestNotesToolScope::test_notes_scope_rejects_everything_but_live_notes_ops": {"status": "ported", "cpp": "tests/meeting_agent/test_prompts.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "TestRedecodeStrip::test_redecode_strip_keeps_evidenced_proposed_items": {"status": "ported", "cpp": "tests/meeting/test_refinalize.cpp", "note": "(ported in tests/meeting/PARITY.json)"},
+      "TestRedecodeStrip::test_redecode_strip_keeps_live_notes": {"status": "ported", "cpp": "tests/meeting/test_refinalize.cpp", "note": "(ported in tests/meeting/PARITY.json)"},
+      "TestSchedulerNotesPass::test_failed_notes_pass_leaves_segments_for_retry": {"status": "ported", "cpp": "tests/meeting_agent/test_scheduler.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "TestSchedulerNotesPass::test_notes_pass_fires_for_any_core": {"status": "ported", "cpp": "tests/meeting_agent/test_scheduler.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "TestSchedulerNotesPass::test_notes_pass_skipped_without_new_segments": {"status": "ported", "cpp": "tests/meeting_agent/test_scheduler.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "TestSchedulerNotesPass::test_notes_payload_carries_flag_and_consumes_segments": {"status": "ported", "cpp": "tests/meeting_agent/test_scheduler.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "TestSchedulerNotesPass::test_notes_seed_after_first_checkpoint": {"status": "ported", "cpp": "tests/meeting_agent/test_scheduler.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "TestSharedNotesFilter::test_filter_keeps_only_live_notes_ops": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_notes.cpp"
+      },
+      "TestSharedNotesFilter::test_filter_with_no_known_ids_allows_only_adds": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_notes.cpp"
+      },
+      "TestSharedNotesFilter::test_live_note_ids_reads_the_snapshot": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_notes.cpp"
+      },
+      "test_all_views_keep_every_step": {"status": "ported", "cpp": "tests/meeting_agent/test_prompts.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "test_brief_only_omits_ribbon_steps": {"status": "ported", "cpp": "tests/meeting_agent/test_prompts.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "test_checkpoint_prompt_reads_report_views": {"status": "ported", "cpp": "tests/meeting_agent/test_prompts.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "test_empty_views_keep_all_steps": {"status": "ported", "cpp": "tests/meeting_agent/test_prompts.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "test_state_render_lists_open_questions_oldest_first": {"status": "ported", "cpp": "tests/meeting_agent/test_prompts.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"}
+    },
+    "tests/test_meeting_repair.py": {
+      "test_ambiguous_mid_string_corruption_left_alone": {"status": "ported", "cpp": "tests/meeting_agent/test_evidence.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "test_ambiguous_prefix_left_alone": {"status": "ported", "cpp": "tests/meeting_agent/test_evidence.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "test_build_ops_does_not_invent_opening_beat_from_raw_speech": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_repair.cpp"
+      },
+      "test_build_ops_does_not_sample_transcript_windows": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_repair.cpp"
+      },
+      "test_build_ops_noop_when_timeline_populated": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_repair.cpp"
+      },
+      "test_build_ops_promotes_key_points_with_evidence": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_repair.cpp"
+      },
+      "test_build_summary_ops_from_key_points_when_empty": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_repair.cpp"
+      },
+      "test_build_summary_ops_from_live_notes_when_key_points_empty": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_repair.cpp"
+      },
+      "test_build_summary_ops_noop_when_present": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_repair.cpp"
+      },
+      "test_build_timeline_ops_from_live_notes_when_key_points_empty": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_repair.cpp"
+      },
+      "test_build_topic_ops_from_first_key_point": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_repair.cpp"
+      },
+      "test_build_topic_ops_from_live_notes_when_key_points_empty": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_repair.cpp"
+      },
+      "test_build_untitled_title_ops_copies_topic_when_blank": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_repair.cpp"
+      },
+      "test_existing_and_non_sg_ids_untouched": {"status": "ported", "cpp": "tests/meeting_agent/test_evidence.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "test_invented_id_left_for_honest_rejection": {"status": "ported", "cpp": "tests/meeting_agent/test_evidence.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "test_notes_can_backfill_navigation_without_becoming_duplicate_captures": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_repair.cpp"
+      },
+      "test_notes_without_evidence_do_not_borrow_an_unrelated_segment": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_repair.cpp"
+      },
+      "test_one_char_typo_repaired_by_fuzzy_match": {"status": "ported", "cpp": "tests/meeting_agent/test_evidence.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "test_reconstructed_id_with_several_wrong_chars_repaired": {"status": "ported", "cpp": "tests/meeting_agent/test_evidence.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "test_repair_copies_topic_into_blank_title_when_ended": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_repair.cpp"
+      },
+      "test_repair_counts_each_id_once_and_caches": {"status": "ported", "cpp": "tests/meeting_agent/test_evidence.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "test_repair_does_not_overwrite_human_title": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_repair.cpp"
+      },
+      "test_repair_does_not_promote_timeline_labels_to_key_points": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_repair.cpp"
+      },
+      "test_repair_does_not_recycle_legacy_key_point_samples": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_repair.cpp"
+      },
+      "test_repair_leaves_raw_transcript_for_agent_synthesis": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_repair.cpp"
+      },
+      "test_repair_meeting_state_applies_through_store": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_repair.cpp"
+      },
+      "test_repair_meeting_state_fills_summary_only": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_repair.cpp"
+      },
+      "test_repair_skips_timeline_when_ribbon_disabled": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_repair.cpp"
+      },
+      "test_timeline_coverage_adds_missing_key_point_beats": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_repair.cpp"
+      },
+      "test_tool_policy_repairs_before_dispatch": {"status": "ported", "cpp": "tests/meeting_agent/test_evidence.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "test_truncated_id_repaired_to_unique_prefix": {"status": "ported", "cpp": "tests/meeting_agent/test_evidence.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"}
+    },
+    "tests/test_meeting_repository.py": {
+      "TestChunks::test_atomic_commit_is_idempotent_and_done_cannot_regress": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestChunks::test_bounded_pending_page_and_recovery_preserve_retry_budget": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestChunks::test_chunk_lifecycle_and_retry_visibility": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestChunks::test_recovery_registration_is_idempotent_by_channel_sequence": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestMeetingLifecycle::test_create_get_list_update": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestMeetingLifecycle::test_heartbeat_and_interrupted": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestMeetingLifecycle::test_past_meeting_summary_page_is_bounded_searchable_and_aggregated": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestMeetingLifecycle::test_rename_updates_canonical_row_and_snapshot": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestMeetingLifecycle::test_terminal_meeting_with_unfinished_audio_requires_recovery": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestReplaceFinalTranscript::test_evidence_on_retained_pinned_rows_is_kept": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestReplaceFinalTranscript::test_keeps_pinned_speaker_and_remaps_evidence": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestReplaceFinalTranscript::test_mark_chunks_done": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestReplaceFinalTranscript::test_offline_speaker_labels_win_over_unpinned_live_labels": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestReplaceFinalTranscript::test_segment_flags_reports_existing_ids_and_pins": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestSchema::test_agent_endpoint_json_roundtrip": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestSchema::test_migration_from_v9": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestSchema::test_v10_tables_exist": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestSchema::test_wal_mode_enabled": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestSearchAndDelete::test_fts_search_and_orphan_free_delete": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestSearchAndDelete::test_fts_search_excludes_meeting_and_honors_limit": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestSegments::test_add_query_and_speaker_update": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestSegments::test_keyset_paging_handles_equal_timestamps": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestSegments::test_segment_reads_and_updates_are_meeting_scoped": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestSegments::test_unreadable_state_does_not_block_transcript_reads": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestWriteThrough::test_ops_applied_mirrors_and_audit": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      },
+      "TestWriteThrough::test_question_and_participant_mirrors": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_sql_repository.cpp"
+      }
+    },
+    "tests/test_meeting_revise_segment_text.py": {
+      "test_revise_segment_text_applies_via_store": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_revise_segment_text.cpp"
+      },
+      "test_revise_segment_text_rejects_missing_evidence": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_revise_segment_text.cpp"
+      },
+      "test_revise_segment_text_rejects_untrusted_human_client": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_revise_segment_text.cpp"
+      }
+    },
+    "tests/test_meeting_scoped_corrections.py": {
+      "test_agent_polish_cannot_bake_a_scoped_correction_into_raw_text": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_scoped_corrections.cpp"
+      },
+      "test_fingerprint_is_stable_for_utf8_text": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_scoped_corrections.cpp"
+      },
+      "test_invalid_anchor_rejected_and_explicit_meeting_wide_rule_remains_global": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_scoped_corrections.cpp"
+      },
+      "test_missing_or_invalid_base_fingerprint_is_rejected": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_scoped_corrections.cpp"
+      },
+      "test_new_global_rule_or_segment_revision_disables_stale_occurrence_until_base_returns": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_scoped_corrections.cpp"
+      },
+      "test_scoped_corrections_are_stable_persisted_exported_and_individually_undoable": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_scoped_corrections.cpp"
+      },
+      "test_segment_revision_preview_keeps_raw_and_displayed_text_in_sync": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_scoped_corrections.cpp"
+      },
+      "test_segment_revision_undo_restores_raw_text_under_scoped_correction": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_scoped_corrections.cpp"
+      },
+      "test_selection_changed_before_save_is_rejected_without_persisting_note": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_scoped_corrections.cpp"
+      },
+      "test_selection_fingerprint_uses_current_meeting_wide_corrections": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_scoped_corrections.cpp"
+      }
+    },
+    "tests/test_meeting_state.py": {
+      "TestAgentAuthorityLimits::test_agent_cannot_add_to_user_notes": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestAgentAuthorityLimits::test_agent_may_only_mint_others_clusters": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestAgentAuthorityLimits::test_agent_participants_stay_provisional": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestAgentAuthorityLimits::test_blank_rolling_summary_cannot_wipe_the_summary": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestAgentAuthorityLimits::test_humans_create_non_provisional_participants": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestAgentAuthorityLimits::test_only_the_app_may_mint_me_and_guest_identities": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestAgentBoundaries::test_agent_cannot_use_human_ops": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestAgentBoundaries::test_agent_claim_requires_evidence": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestAgentBoundaries::test_persistence_failure_rejects_without_state_or_notification": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestAgentBoundaries::test_rejected_ops_do_not_bump_seq": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestAgentBoundaries::test_unknown_op_rejected": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestClientAbusePrevention::test_guest_cannot_forge_answered_from_audio": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestClientAbusePrevention::test_guests_cannot_rewrite_meeting_metadata": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestClientAbusePrevention::test_oversized_item_data_is_rejected": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestClientAbusePrevention::test_participant_and_question_floods_are_capped": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestEvidenceIntegrity::test_undo_restores_the_previous_evidence": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestEvidenceIntegrity::test_update_unions_evidence_instead_of_replacing_it": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestFinalizationState::test_card_deferred_round_trip_and_defaults": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestFinalizationState::test_history_pill_precedence": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestFinalizationState::test_legacy_payload_inference": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestFinalizationState::test_malformed_payload_falls_back": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestFinalizationState::test_normalize_historical_interrupted_terminal": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestFinalizationState::test_normalize_historical_keeps_step_list": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestFinalizationState::test_normalize_historical_preserves_card_deferred": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestFinalizationState::test_normalize_historical_preserves_live_and_terminal": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestFinalizationState::test_round_trip_every_status": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestFinalizationState::test_step_progression_round_trip": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestItemOps::test_agent_add_item_is_proposed": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestItemOps::test_agent_cross_card_duplicate_item_rejected": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestItemOps::test_agent_duplicate_item_rejected": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestItemOps::test_agent_timeline_requires_start_s": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestItemOps::test_agent_update_requires_matching_revision": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestItemOps::test_card_facts_can_be_added_after_the_note_taker_records_them": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestItemOps::test_human_add_item_is_edited": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestItemOps::test_human_edit_protects_item_from_agent": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestItemOps::test_live_notes_update_preserves_heading_and_start_s": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestItemOps::test_minutes_restate_card_facts_but_cannot_repeat_note_blocks": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestItemOps::test_pin_protects_item": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestItemOps::test_remove_is_soft_delete": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestItemOps::test_unknown_card_and_evidence_rejected": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestParticipants::test_agent_creates_provisional_participant": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestParticipants::test_human_rename_blocks_agent_suggestions": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestPinnedSpeakerProtection::test_a_later_human_correction_still_wins": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestPinnedSpeakerProtection::test_diarizer_cannot_revert_a_human_pin": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestQuestions::test_human_answer_beats_agent_resolution": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestQuestions::test_open_question_cap_applies_to_agent": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestQuestions::test_resolution_confidence_thresholds": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestSegmentOps::test_reassign_speaker_flows_through_handler": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestStoreMechanics::test_report_views_survive_apply_and_legacy_default": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestStoreMechanics::test_seq_increments_per_applied_op": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestStoreMechanics::test_set_title_is_host_only": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestStoreMechanics::test_snapshot_round_trips": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestStoreMechanics::test_subscribers_receive_applied_only": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestStoreMechanics::test_undo_of_add_removes_item": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "TestStoreMechanics::test_undo_restores_previous_text": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "test_redecode_cleanup_preserves_spoken_notes": {"status": "ported", "cpp": "tests/meeting/test_refinalize.cpp", "note": "(ported in tests/meeting/PARITY.json)"},
+      "test_spoken_note_is_marked_protected_in_the_agent_context": {"status": "ported", "cpp": "tests/meeting_agent/test_prompts.cpp", "note": "(ported in tests/meeting_agent/PARITY.json)"},
+      "test_spoken_note_protection_survives_persistence_without_protecting_other_system_items": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      },
+      "test_spoken_note_survives_agent_updates_but_remains_editable_and_removable": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_store.cpp",
+        "note": "through the store over the SQL repository"
+      }
+    },
+    "tests/test_meeting_state_copy_on_write.py": {
+      "test_all_registered_handlers_have_explicit_mutation_domains": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_copy_on_write.cpp"
+      },
+      "test_mutated_domains_do_not_leak_when_persistence_fails": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_copy_on_write.cpp"
+      },
+      "test_op_values_are_owned_by_store_after_commit": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_copy_on_write.cpp"
+      },
+      "test_repaired_item_provenance_flag_rolls_back_with_failed_write": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_copy_on_write.cpp"
+      },
+      "test_repository_reconciliation_keeps_canonical_title_and_contract": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_copy_on_write.cpp"
+      },
+      "test_runtime_finalization_invalidation_rolls_back_with_failed_write": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_copy_on_write.cpp"
+      },
+      "test_runtime_values_are_owned_by_store_after_commit": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_copy_on_write.cpp"
+      }
+    },
+    "tests/test_meeting_stored.py": {
+      "test_historical_load_of_an_unreadable_snapshot_keeps_row_identity": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_stored.cpp"
+      },
+      "test_historical_load_prefers_the_row_and_stops_interrupted_work": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_stored.cpp"
+      },
+      "test_historical_store_can_correct_a_speaker": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_stored.cpp"
+      },
+      "test_stored_state_dict_tolerates_missing_and_unreadable_snapshots": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_stored.cpp"
+      },
+      "test_working_load_keeps_the_snapshot_as_saved": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_stored.cpp"
+      },
+      "test_working_load_of_an_unreadable_snapshot_starts_fresh": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_stored.cpp"
+      }
+    },
+    "tests/test_meeting_time_utils.py": {
+      "test_elapsed_seconds_handles_aware_and_legacy_pairs": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_time_utils.cpp"
+      },
+      "test_legacy_naive_timestamp_keeps_its_wall_time": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_time_utils.cpp"
+      },
+      "test_meeting_duration_counts_a_running_meeting_up_to_now": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_time_utils.cpp"
+      },
+      "test_new_timestamps_are_aware_utc": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_time_utils.cpp"
+      },
+      "test_utc_timestamp_converts_to_requested_local_timezone": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_time_utils.cpp"
+      }
+    },
+    "tests/test_meeting_title_consistency.py": {
+      "test_explicit_title_op_and_undo_still_update_both_title_fields": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_titles.cpp",
+        "note": "the MCP retitle is the repository rename it ends in"
+      },
+      "test_repository_rejects_invalid_explicit_title_without_partial_audit": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_titles.cpp",
+        "note": "the MCP retitle is the repository rename it ends in"
+      },
+      "test_stale_snapshot_cannot_retitle_without_an_explicit_title_op": {
+        "status": "ported",
+        "cpp": "tests/meeting_state/test_titles.cpp",
+        "note": "the MCP retitle is the repository rename it ends in"
+      }
+    }
+  }
+}

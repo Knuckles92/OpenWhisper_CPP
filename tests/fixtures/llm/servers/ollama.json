@@ -1,0 +1,59 @@
+{
+ "note": "Ollama: /api/show capabilities and num_ctx; GET / says it is running",
+ "routes": {
+  "GET /v1/models": {
+   "status": 200,
+   "json": {
+    "data": [
+     {
+      "id": "qwen3"
+     },
+     {
+      "id": "llama3.2"
+     },
+     {
+      "id": "nomic-embed-text"
+     },
+     {
+      "id": "big"
+     }
+    ]
+   }
+  },
+  "POST /api/show": {
+   "status": 200,
+   "json_by_model": {
+    "qwen3": {
+     "capabilities": [
+      "completion",
+      "tools",
+      "thinking"
+     ],
+     "parameters": "num_ctx 16384"
+    },
+    "llama3.2": {
+     "capabilities": [
+      "completion",
+      "tools"
+     ],
+     "parameters": ""
+    },
+    "nomic-embed-text": {
+     "capabilities": [
+      "embedding"
+     ]
+    },
+    "big": {
+     "capabilities": [
+      "completion"
+     ],
+     "parameters": "stop \"<|im_end|>\"\nnum_ctx   400000000"
+    }
+   }
+  },
+  "GET /": {
+   "status": 200,
+   "text": "Ollama is running"
+  }
+ }
+}

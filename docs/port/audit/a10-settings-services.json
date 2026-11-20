@@ -1,0 +1,614 @@
+{
+ "area": "a10-settings-services",
+ "package": "M10 sweep",
+ "features": {
+  "A10-01": {
+   "status": "verified",
+   "cpp": [
+    "src/settings/store.cpp",
+    "src/settings/settings_file.cpp",
+    "src/settings/detail/file_text.cpp",
+    "src/base/atomic_file.cpp",
+    "src/base/identity.cpp"
+   ],
+   "tests": [
+    "tests/settings/test_store.cpp",
+    "tests/settings/fixtures/python_settings.json"
+   ],
+   "note": "The file is <data_root>/fiorivoce_settings.json (identity(), ARCHITECTURE 'Data on disk'); OpenWhisper's name is read only by import. Bytes equal Python's json.dump(indent=2)+newline ('a file the store writes is the bytes Python's json.dump writes'); temp '.<name>.<12 hex>.tmp' beside it, fsync, replace."
+  },
+  "A10-02": {
+   "status": "verified",
+   "cpp": [
+    "src/settings/store.cpp",
+    "src/settings/detail/file_text.cpp"
+   ],
+   "tests": [
+    "tests/settings/test_store.cpp"
+   ]
+  },
+  "A10-03": {
+   "status": "verified",
+   "cpp": [
+    "src/settings/store.cpp"
+   ],
+   "tests": [
+    "tests/settings/test_store.cpp"
+   ]
+  },
+  "A10-04": {
+   "status": "verified",
+   "cpp": [
+    "src/settings/store.cpp",
+    "src/settings/settings_file.h",
+    "src/settings/posix/disk_file.cpp",
+    "src/settings/win/disk_file.cpp"
+   ],
+   "tests": [
+    "tests/settings/test_store.cpp"
+   ],
+   "note": "Readers share an immutable snapshot (shared_ptr<const Json>) where Python hands out copies. win/disk_file.cpp's signature is Windows-only code, read and not run here."
+  },
+  "A10-05": {
+   "status": "verified",
+   "cpp": [
+    "src/settings/store.cpp"
+   ],
+   "tests": [
+    "tests/settings/test_store.cpp"
+   ]
+  },
+  "A10-06": {
+   "status": "verified",
+   "cpp": [
+    "src/settings/store.cpp",
+    "src/settings/store.h"
+   ],
+   "tests": [
+    "tests/settings/test_store.cpp"
+   ],
+   "note": "A watcher names the executor it runs on: called inline when the saving thread is already on it (Python's case), posted otherwise, which replaces the signal relays Python's Qt consumers add themselves. Change detection, key order, the log text and unsubscribe are as in Python."
+  },
+  "A10-07": {
+   "status": "verified",
+   "cpp": [
+    "src/settings/store.cpp"
+   ],
+   "tests": [
+    "tests/settings/test_store.cpp",
+    "tests/settings/test_install.cpp"
+   ]
+  },
+  "A10-08": {
+   "status": "verified",
+   "cpp": [
+    "src/settings/setting.cpp",
+    "src/settings/setting.h"
+   ],
+   "tests": [
+    "tests/settings/test_typed.cpp",
+    "tests/settings/test_kinds.cpp",
+    "tests/golden/services.setting_types.json"
+   ],
+   "note": "11,059 read/stored vectors from Python over every declared key."
+  },
+  "A10-09": {
+   "status": "verified",
+   "cpp": [
+    "src/settings/keys.inc",
+    "src/settings/keys.h",
+    "src/settings/keys.cpp"
+   ],
+   "tests": [
+    "tests/settings/test_typed.cpp",
+    "tests/settings/test_kinds.cpp",
+    "tests/golden/services.setting_types.json"
+   ],
+   "note": "All 186 OpenWhisper keys are declared (generated); the keys of dropped engines are marked dropped and still read as Python reads them; three fv_* keys follow outside the table."
+  },
+  "A10-10": {
+   "status": "verified",
+   "cpp": [
+    "src/settings/keys.cpp",
+    "src/settings/keys.inc"
+   ],
+   "tests": [
+    "tests/settings/test_defaults.cpp",
+    "tests/golden/services.settings.json"
+   ]
+  },
+  "A10-11": {
+   "status": "verified",
+   "cpp": [
+    "src/settings/keys.cpp",
+    "src/settings/resolve.cpp"
+   ],
+   "tests": [
+    "tests/settings/test_typed.cpp",
+    "tests/settings/test_defaults.cpp",
+    "tests/golden/services.settings.json"
+   ]
+  },
+  "A10-12": {
+   "status": "verified",
+   "cpp": [
+    "src/settings/enums.cpp",
+    "src/settings/enums.h"
+   ],
+   "tests": [
+    "tests/settings/test_kinds.cpp"
+   ],
+   "note": "The tables are generated from settings.py (embedded enums.json); the test spot-checks labels, details, aliases, the 29 meeting languages and the constants rather than every label."
+  },
+  "A10-13": {
+   "status": "verified",
+   "cpp": [
+    "src/settings/hotkeys.cpp"
+   ],
+   "tests": [
+    "tests/settings/test_store.cpp",
+    "tests/settings/test_defaults.cpp",
+    "tests/golden/services.settings.json"
+   ]
+  },
+  "A10-14": {
+   "status": "verified",
+   "cpp": [
+    "src/settings/model_selection.cpp",
+    "src/settings/keys.inc"
+   ],
+   "tests": [
+    "tests/settings/test_install.cpp",
+    "tests/settings/test_defaults.cpp",
+    "tests/settings/test_kinds.cpp",
+    "tests/golden/services.settings.json"
+   ],
+   "note": "The value set is OpenWhisper's less the dropped engines (local_whisper, qwen_asr, moonshine, parakeet_mlx, parakeet_unified, nemotron: the map's Engine-specific section and difference a14-local-engine); a saved dropped engine reads as the default and stays saved."
+  },
+  "A10-15": {
+   "status": "verified",
+   "cpp": [
+    "src/speech/api_models.cpp",
+    "src/speech/api_models.h",
+    "src/settings/model_selection.cpp"
+   ],
+   "tests": [
+    "tests/speech/test_api_models.cpp",
+    "tests/golden/services.settings.json",
+    "tests/golden/services.openai_retirement.json",
+    "tests/settings/test_install.cpp"
+   ]
+  },
+  "A10-16": {
+   "status": "verified",
+   "cpp": [
+    "src/models/hf_access_policy.cpp",
+    "src/models/hf_access_policy.h"
+   ],
+   "tests": [
+    "tests/models/test_hf_access_policy.cpp",
+    "tests/models/test_hf_access.cpp"
+   ]
+  },
+  "A10-17": {
+   "status": "verified",
+   "cpp": [
+    "src/settings/install.cpp",
+    "src/settings/install.h",
+    "src/ui_shell/bootstrap.cpp"
+   ],
+   "tests": [
+    "tests/settings/test_install.cpp"
+   ]
+  },
+  "A10-18": {
+   "status": "verified",
+   "cpp": [
+    "src/settings/install.cpp",
+    "src/ui_shell/bootstrap.cpp"
+   ],
+   "tests": [
+    "tests/settings/test_install.cpp"
+   ],
+   "note": "New install saves the default engine (always parakeet). Python's Linux branch (an existing install without a saved engine keeps local_whisper) is dropped with that engine, as the map's Engine-specific section and M0.6 say."
+  },
+  "A10-19": {
+   "status": "difference",
+   "difference": "a10-meeting-speech-stays-local",
+   "cpp": [
+    "src/models/meeting_speech.cpp",
+    "src/models/meeting_speech.h"
+   ],
+   "tests": [
+    "tests/models/test_meeting_speech.cpp",
+    "tests/golden/services.settings_meeting.json"
+   ],
+   "note": "Everything else in the row replays Python's vectors (resolve_meeting_speech 37, own_meeting_speech 37, meeting_model_label, the fallback note text); only the follow-dictation case with dictation on the paired computer differs, and the golden test asserts FioriVoce's answer for exactly those cases."
+  },
+  "A10-20": {
+   "status": "verified",
+   "cpp": [
+    "src/models/meeting_speech.cpp",
+    "src/ui_meeting/meeting_feature.cpp"
+   ],
+   "tests": [
+    "tests/models/test_meeting_speech.cpp",
+    "tests/golden/services.settings_meeting.json"
+   ],
+   "note": "What is written equals Python's in all 16 vectors, including installs whose dictation is remote."
+  },
+  "A10-21": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/cleanup_settings.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_cleanup_settings.cpp",
+    "tests/golden/services.settings.json"
+   ]
+  },
+  "A10-22": {
+   "status": "verified",
+   "cpp": [
+    "src/text/cleanup_prompts.cpp",
+    "src/text/detail/cleanup_rules.cpp"
+   ],
+   "tests": [
+    "tests/text/test_cleanup_prompts.cpp",
+    "tests/golden/services.settings.json"
+   ]
+  },
+  "A10-23": {
+   "status": "verified",
+   "cpp": [
+    "src/history/retention_settings.cpp"
+   ],
+   "tests": [
+    "tests/history/test_retention.cpp"
+   ]
+  },
+  "A10-24": {
+   "status": "other-platform",
+   "reason": "The only rule beyond the typed read is 'no saved theme on an Omarchy (Hyprland) desktop reads omarchy', a Linux desktop FioriVoce does not target (M0.8: Omarchy branch dropped). ui_theme/font_scale.cpp resolveUiTheme reads the saved choice or dark, tested in tests/ui_theme/test_theme.cpp."
+  },
+  "A10-25": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_state/report_views.cpp",
+    "src/meeting_agent/agent_settings.cpp",
+    "src/meeting_intel/intel_settings.cpp",
+    "src/models/meeting_speech.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_report_views.cpp",
+    "tests/meeting_agent/test_agent_settings.cpp",
+    "tests/models/test_meeting_speech.cpp",
+    "tests/meeting_intel/test_golden.cpp"
+   ],
+   "note": "Read and tested: agent models per installed agent (meeting_agent/agent_settings.cpp, tests/meeting_agent/test_agent_settings.cpp); Linux preview ack as a strict int choice that only 1 satisfies (keys.inc, tests/models/test_meeting_speech.cpp); voice command names, context folder path and the insight review dict (meeting_intel/intel_settings.cpp, replayed from services.settings.json in tests/meeting_intel/test_golden.cpp; default names come from identity()). resolve_meeting_report_views had no test; tests/meeting_state/test_report_views.cpp now pins it as tests/test_settings.py does: ribbon, brief, signal in display order, ('ribbon',) when every view is off, a non-boolean value reading as the default. The speaker-id backend deliberately differs, see difference a10-openai-speakers-read-local: the lead still confirms that record, or folds it into whatever the a25 audit records for A25-44."
+  },
+  "A10-26": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_intel/intel_settings.cpp",
+    "src/meeting_intel/intel_settings.h"
+   ],
+   "tests": [
+    "tests/meeting_intel/test_golden.cpp",
+    "tests/golden/services.settings.json"
+   ]
+  },
+  "A10-27": {
+   "status": "verified",
+   "cpp": [
+    "src/credentials/store.cpp",
+    "src/credentials/store.h",
+    "src/base/identity.cpp"
+   ],
+   "tests": [
+    "tests/credentials/test_store.cpp"
+   ],
+   "note": "The service name is identity().credential_service, not 'OpenWhisper' ('keys live under the identity's service, and names are stripped'); Python's delete is remove()."
+  },
+  "A10-28": {
+   "status": "verified",
+   "cpp": [
+    "src/credentials/platform_backend.cpp",
+    "src/credentials/win/wincred_backend.cpp",
+    "src/credentials/posix/unavailable_backend.cpp"
+   ],
+   "tests": [
+    "tests/credentials/test_wincred.cpp",
+    "tests/credentials/test_store.cpp"
+   ],
+   "note": "Windows Credential Manager with keyring's WinVault targets ('<name>@<service>', legacy plain target, comment, persist). All WinCredBackend tests are [platform] Windows-only and were not run here; the code was read against keyring's conventions as the tests describe them. macOS Keychain and Secret Service are other-platform: elsewhere the store reports '<backend> is not available: not supported on this platform'."
+  },
+  "A10-29": {
+   "status": "other-platform",
+   "reason": "Linux Secret Service lookup-only reads (credentials.py _secret_service_backend_class); no Secret Service backend is ported (M0.7: dropped, Linux)."
+  },
+  "A10-30": {
+   "status": "other-platform",
+   "reason": "The 4 s / 120 s D-Bus timeouts belong to the Linux Secret Service backend, which is not ported. The platform-neutral half is: a backend that raises CredentialStoreTimeout marks the store unavailable with 'the system keyring did not respond' (store.cpp mark_unresponsive_locked; tests/credentials/test_store.cpp 'hung read gives up and marks the store unusable', 'a backend that times out on save marks the store unresponsive')."
+  },
+  "A10-31": {
+   "status": "verified",
+   "cpp": [
+    "src/credentials/store.cpp"
+   ],
+   "tests": [
+    "tests/credentials/test_store.cpp"
+   ]
+  },
+  "A10-32": {
+   "status": "verified",
+   "cpp": [
+    "src/credentials/validate.cpp"
+   ],
+   "tests": [
+    "tests/credentials/test_validate.cpp",
+    "tests/golden/services.credentials.json",
+    "tests/credentials/test_store.cpp"
+   ]
+  },
+  "A10-33": {
+   "status": "verified",
+   "cpp": [
+    "src/credentials/validate.cpp"
+   ],
+   "tests": [
+    "tests/credentials/test_validate.cpp",
+    "tests/golden/services.credentials.json"
+   ]
+  },
+  "A10-34": {
+   "status": "verified",
+   "cpp": [
+    "src/credentials/resolve.cpp",
+    "src/credentials/dotenv.cpp"
+   ],
+   "tests": [
+    "tests/credentials/test_resolve.cpp",
+    "tests/credentials/test_dotenv.cpp",
+    "tests/golden/services.credentials.json"
+   ],
+   "note": "Order, source names and environment_shadowed are as in Python. FioriVoce reads .env directly and never copies it into its own environment (process/process_env.h); what children inherit from .env is the process area's concern, and docs/port/open-items.md still lists ProcessEnv::adopt_dotenv as not called at startup."
+  },
+  "A10-35": {
+   "status": "verified",
+   "cpp": [
+    "src/credentials/store.cpp",
+    "src/credentials/posix/unavailable_backend.cpp"
+   ],
+   "tests": [
+    "tests/credentials/test_store.cpp"
+   ],
+   "note": "The four messages are verbatim, with the C++ exception's type name where Python prints the exception class. The reason 'the keyring package is not installed' is Python plumbing with no counterpart."
+  },
+  "A10-36": {
+   "status": "difference",
+   "difference": "a10-fvbackup-format",
+   "cpp": [
+    "src/backup/create.cpp",
+    "src/backup/names.cpp",
+    "src/backup/members.cpp",
+    "src/backup/database_sanitizer.cpp"
+   ],
+   "tests": [
+    "tests/backup/test_create_inspect.cpp",
+    "tests/backup/test_create_links.cpp",
+    "tests/backup/test_validation.cpp"
+   ],
+   "note": "The flow, limits, member order, manifest shape, progress phases (scan, archive), cancel and atomic publish were read against backup.py and are tested; only the product-carrying names differ. test_create_links.cpp is [platform] and was not run here."
+  },
+  "A10-37": {
+   "status": "verified",
+   "cpp": [
+    "src/backup/sanitize.cpp",
+    "src/backup/detail/action_rows.cpp",
+    "src/backup/detail/url.cpp"
+   ],
+   "tests": [
+    "tests/backup/test_sanitize.cpp",
+    "tests/backup/test_golden.cpp",
+    "tests/golden/services.backup.json",
+    "tests/backup/test_create_inspect.cpp"
+   ],
+   "note": "Also removes fv_cleanup_agent_consent, a FioriVoce key (difference a04-agent-cleanup-scope)."
+  },
+  "A10-38": {
+   "status": "verified",
+   "cpp": [
+    "src/backup/database_sanitizer.cpp"
+   ],
+   "tests": [
+    "tests/backup/test_create_inspect.cpp",
+    "tests/backup/test_golden.cpp",
+    "tests/golden/services.backup.json",
+    "tests/backup/test_restore.cpp"
+   ]
+  },
+  "A10-39": {
+   "status": "verified",
+   "cpp": [
+    "src/backup/legacy_history.cpp",
+    "src/backup/create.cpp"
+   ],
+   "tests": [
+    "tests/backup/test_create_inspect.cpp",
+    "tests/backup/test_import.cpp"
+   ]
+  },
+  "A10-40": {
+   "status": "verified",
+   "cpp": [
+    "src/backup/inspect.cpp",
+    "src/backup/detail/archive_check.cpp",
+    "src/backup/members.cpp"
+   ],
+   "tests": [
+    "tests/backup/test_validation.cpp",
+    "tests/backup/test_create_inspect.cpp",
+    "tests/backup/test_golden.cpp",
+    "tests/golden/services.backup.json"
+   ],
+   "note": "Accepts both fiorivoce-backup and openwhisper-backup ('OpenWhisper's own bundle inspects with the counts OpenWhisper reported'); every refusal text is OpenWhisper's ('every rule of a bundle refuses with OpenWhisper's text')."
+  },
+  "A10-41": {
+   "status": "verified",
+   "cpp": [
+    "src/backup/restore.cpp",
+    "src/backup/detail/staged.cpp",
+    "src/backup/detail/json_file.cpp"
+   ],
+   "tests": [
+    "tests/backup/test_restore.cpp",
+    "tests/backup/test_golden_restore.cpp",
+    "tests/golden/services.backup.json",
+    "tests/backup/test_json_file.cpp"
+   ],
+   "note": "The stage is <data_root>/.fiorivoce-restore/stage-<32 hex>/data (identity().restore_dir); pending.json, the stage manifest and its staged_* keys are OpenWhisper's."
+  },
+  "A10-42": {
+   "status": "verified",
+   "cpp": [
+    "src/backup/restore.cpp",
+    "src/backup/startup_gate.cpp"
+   ],
+   "tests": [
+    "tests/backup/test_restore.cpp",
+    "tests/backup/test_startup_gate.cpp"
+   ]
+  },
+  "A10-43": {
+   "status": "verified",
+   "cpp": [
+    "src/backup/restore.cpp",
+    "src/backup/coordinator.cpp"
+   ],
+   "tests": [
+    "tests/backup/test_coordinator.cpp",
+    "tests/backup/test_restore.cpp"
+   ],
+   "note": "previous_data_dir and its place in the coordinator's snapshot; showing it on the Backup page is a11's."
+  },
+  "A10-44": {
+   "status": "verified",
+   "cpp": [
+    "src/backup/coordinator.cpp",
+    "src/backup/coordinator.h"
+   ],
+   "tests": [
+    "tests/backup/test_coordinator.cpp"
+   ]
+  },
+  "A10-45": {
+   "status": "verified",
+   "cpp": [
+    "src/backup/coordinator.cpp",
+    "src/backup/preferences.cpp"
+   ],
+   "tests": [
+    "tests/backup/test_coordinator.cpp",
+    "tests/backup/test_golden_restore.cpp",
+    "tests/golden/services.backup_manager.json"
+   ],
+   "note": "Automatic archives are named <product>-auto-YYYYMMDDTHHMMSSZ-<12 hex> with the product's extension ('automatic archive names carry FioriVoce's product and extension'); intervals, the 60 s tick, retention of recorded archives only and the 600 s retry are as in Python."
+  },
+  "A10-46": {
+   "status": "verified",
+   "cpp": [
+    "src/backup/preferences.cpp",
+    "src/backup/preferences.h"
+   ],
+   "tests": [
+    "tests/backup/test_golden_restore.cpp",
+    "tests/golden/services.backup_manager.json",
+    "tests/backup/test_coordinator.cpp"
+   ]
+  },
+  "A10-47": {
+   "status": "verified",
+   "cpp": [
+    "src/base/data_lease.cpp",
+    "src/base/posix/lease_file.cpp",
+    "src/base/win/lease_file.cpp"
+   ],
+   "tests": [
+    "tests/base/test_data_lease.cpp",
+    "tests/backup/test_startup_gate.cpp"
+   ],
+   "note": "The lock file and the busy message carry the product (.fiorivoce-data.lock, 'in use by another FioriVoce process'). The flock path runs here; the LockFileEx path (win/lease_file.cpp) is Windows-only code, read and not run."
+  },
+  "A10-48": {
+   "status": "verified",
+   "cpp": [
+    "src/backup/startup_gate.cpp"
+   ],
+   "tests": [
+    "tests/backup/test_startup_gate.cpp"
+   ]
+  },
+  "A10-49": {
+   "status": "verified",
+   "cpp": [
+    "src/backup/restart.cpp",
+    "src/backup/restart.h",
+    "src/app/main.cpp",
+    "src/ui_controller/backup_lifecycle.cpp"
+   ],
+   "tests": [
+    "tests/backup/test_startup_gate.cpp",
+    "tests/ui_controller/test_m3_end_to_end.cpp"
+   ],
+   "note": "Exit code 73 and a relaunch of the executable alone. The PyInstaller environment cleanup (_PYI_*, _MEIPASS) is Python packaging plumbing with no counterpart."
+  }
+ },
+ "differences": [
+  {
+   "id": "a10-meeting-speech-stays-local",
+   "features": [
+    "A10-19",
+    "MM-08"
+   ],
+   "openwhisper": "When meetings follow the dictation engine and dictation runs on the paired computer, resolve_meeting_speech answers source remote, so meeting audio goes to that computer too.",
+   "fiorivoce": "The same settings resolve to this computer's Parakeet model (source local); a meeting uses the paired computer only when the meeting has its own remote source and that host is confirmed for the meeting.",
+   "reason": "A dictation preference does not authorize sending meeting audio to another computer; it is the settings half of difference a25-remote-meeting-consent.",
+   "source": "src/models/meeting_speech.cpp and tests/models/test_meeting_speech.cpp ('Remote dictation never chooses the paired computer for meeting speech'); docs/port/differences.md a25-remote-meeting-consent"
+  },
+  {
+   "id": "a10-openai-speakers-read-local",
+   "features": [
+    "A10-25",
+    "SMV-01"
+   ],
+   "openwhisper": "A saved meeting_speaker_id_backend of openai is used until OpenAI retires the model on 2027-02-26 and reads as local from that day.",
+   "fiorivoce": "A saved openai reads as local from the start; the optional OpenAI speaker pass runs only from the Past Meetings action, with a fresh confirmation for one saved meeting.",
+   "reason": "End-of-meeting processing, dashboard retries and stored grants must not start an upload of meeting audio on their own.",
+   "source": "docs/port/packages/M7.md 'Changes to the cut' item 4 (lead decision 4) and docs/port/open-items.md ('The optional OpenAI speaker pass runs from the desktop Past Meetings action'); src/models/meeting_speech.cpp resolve_meeting_speaker_id_backend, tests/models/test_meeting_speech.cpp"
+  },
+  {
+   "id": "a10-fvbackup-format",
+   "features": [
+    "A10-36",
+    "SB-01",
+    "SB-02",
+    "QA-06"
+   ],
+   "openwhisper": "A backup is an .owbackup ZIP with format id openwhisper-backup whose core members are data/openwhisper_settings.json and data/openwhisper.db; scheduled ones are named OpenWhisper-auto-*.owbackup.",
+   "fiorivoce": "A backup is an .fvbackup ZIP with format id fiorivoce-backup and members named from identity() (data/fiorivoce_settings.json, data/fiorivoce.db), with OpenWhisper's layout, limits and validation rules otherwise. FioriVoce inspects and restores both kinds; OpenWhisper cannot read an .fvbackup.",
+   "reason": "FioriVoce is a separate product with its own data root and file names; OpenWhisper's names are read only to import its data or restore its backups.",
+   "source": "docs/port/ARCHITECTURE.md, the identity names (AppIdentity: settings_file, restore_dir, backup_extension) and the backup format paragraph ('.fvbackup has OpenWhisper's layout and validation rules')"
+  },
+  {
+   "id": "a10-import-unreadable-settings",
+   "features": [
+    "A10-39"
+   ],
+   "openwhisper": "OpenWhisper imports no other installation. Its own start runs on default settings when its settings JSON cannot be read and skips the legacy history migration when transcription_history.json cannot be merged; its backup create refuses both.",
+   "fiorivoce": "Importing an OpenWhisper installation whose settings JSON cannot be read brings the default settings with the warning \"OpenWhisper's settings could not be read; the default settings were imported\", and a legacy transcription_history.json that cannot be merged is left out with the warning 'Could not merge transcription_history.json: <reason>'. A folder in place of the settings file still refuses the import. The warnings are logged.",
+   "reason": "The import brings what OpenWhisper's own next start would run on, rather than refusing data the user can still use.",
+   "source": "The import sweep of 2026-11-19 (open item backup/import.cpp (M3.7)); src/backup/import.cpp; tests/backup/test_sweep_import.cpp ('settings OpenWhisper cannot read import as its defaults', \"a folder in place of OpenWhisper's settings still refuses the import\", 'a legacy history OpenWhisper cannot read is left out of the import')"
+  }
+ ]
+}

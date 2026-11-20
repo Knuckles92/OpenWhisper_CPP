@@ -1,0 +1,616 @@
+{
+ "scenario": "remote_pair_code",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "python": "3.12.10",
+ "setup": {
+  "host_name": "studio",
+  "device_name": "laptop",
+  "addresses": [
+   "192.168.1.20",
+   "100.101.102.103"
+  ],
+  "pairing_code": "246810",
+  "fingerprint": "<fingerprint#1>",
+  "wrong_code": "111111",
+  "patches": [
+   "tailscale.status reports not_installed and tailscale.whois finds nobody (tests/fakes/remote.py no_real_tailscale)",
+   "discovery.find_host and discovery.search find nothing (no UDP leaves the process)",
+   "SpeechHost.start serves on 127.0.0.1 only, without discovery"
+  ],
+  "steps": [
+   {
+    "name": "pairing_closed",
+    "client": "pair_with_host",
+    "outcomes": [
+     {
+      "call": "pair_with_host",
+      "raised": {
+       "type": "RemoteEngineError",
+       "message": "Pairing isn't open on the host. Click \"Show a pairing code\" there and enter the code it shows."
+      }
+     }
+    ]
+   },
+   {
+    "name": "wrong_code",
+    "client": "pair_with_host",
+    "outcomes": [
+     {
+      "call": "pair_with_host",
+      "raised": {
+       "type": "RemoteEngineError",
+       "message": "That code doesn't match the one on the host."
+      }
+     },
+     {
+      "call": "pairing_open_after",
+      "returned": true
+     }
+    ]
+   },
+   {
+    "name": "fifth_wrong_code",
+    "client": "pair_with_host",
+    "outcomes": [
+     {
+      "call": "pair_with_host",
+      "raised": {
+       "type": "RemoteEngineError",
+       "message": "That code doesn't match the one on the host."
+      }
+     },
+     {
+      "call": "pair_with_host",
+      "raised": {
+       "type": "RemoteEngineError",
+       "message": "That code doesn't match the one on the host."
+      }
+     },
+     {
+      "call": "pair_with_host",
+      "raised": {
+       "type": "RemoteEngineError",
+       "message": "That code doesn't match the one on the host."
+      }
+     },
+     {
+      "call": "pair_with_host",
+      "raised": {
+       "type": "RemoteEngineError",
+       "message": "That code doesn't match the one on the host."
+      }
+     },
+     {
+      "call": "pair_with_host",
+      "raised": {
+       "type": "RemoteEngineError",
+       "message": "Too many wrong codes. Start pairing again on the host."
+      }
+     },
+     {
+      "call": "pairing_open_after",
+      "returned": false
+     },
+     {
+      "call": "pair_with_host",
+      "raised": {
+       "type": "RemoteEngineError",
+       "message": "Pairing isn't open on the host. Click \"Show a pairing code\" there and enter the code it shows."
+      }
+     }
+    ]
+   },
+   {
+    "name": "right_code",
+    "client": "pair_with_host",
+    "outcomes": [
+     {
+      "call": "pair_with_host",
+      "returned": {
+       "token": "<token#1>",
+       "device_id": "<device_id#1>",
+       "host_name": "studio",
+       "fingerprint": "<fingerprint#1>",
+       "alternates": [
+        "192.168.1.20",
+        "100.101.102.103"
+       ],
+       "via": "code"
+      }
+     },
+     {
+      "call": "pairing_open_after",
+      "returned": false
+     }
+    ]
+   },
+   {
+    "name": "spaced_code",
+    "client": "pair_with_host",
+    "outcomes": [
+     {
+      "call": "pair_with_host",
+      "returned": {
+       "token": "<token#2>",
+       "device_id": "<device_id#2>",
+       "host_name": "studio",
+       "fingerprint": "<fingerprint#1>",
+       "alternates": [
+        "192.168.1.20",
+        "100.101.102.103"
+       ],
+       "via": "code"
+      }
+     }
+    ]
+   },
+   {
+    "name": "no_digits",
+    "client": "pair_with_host",
+    "outcomes": [
+     {
+      "call": "pair_with_host",
+      "raised": {
+       "type": "RemoteEngineError",
+       "message": "Enter the pairing code shown on the host."
+      }
+     }
+    ]
+   },
+   {
+    "name": "raw_codes",
+    "client": "raw (pair frames whose codes the client did not clean)",
+    "outcomes": [
+     {
+      "call": "received (' 246810 ')",
+      "returned": [
+       {
+        "type": "paired",
+        "token": "<token#3>",
+        "device_id": "<device_id#3>",
+        "host": {
+         "name": "studio",
+         "fingerprint": "<fingerprint#1>",
+         "addresses": [
+          "192.168.1.20",
+          "100.101.102.103"
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "call": "pairing_open_after (' 246810 ')",
+      "returned": false
+     },
+     {
+      "call": "received ('24-68-10')",
+      "returned": [
+       {
+        "type": "error",
+        "code": "bad_code",
+        "message": "That code doesn't match the one on the host."
+       }
+      ]
+     },
+     {
+      "call": "pairing_open_after ('24-68-10')",
+      "returned": true
+     }
+    ]
+   }
+  ]
+ },
+ "frames": [
+  {
+   "step": "pairing_closed",
+   "conn": 0,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair\", \"protocol\": 1, \"device_name\": \"laptop\", \"code\": \"246810\"}"
+  },
+  {
+   "step": "pairing_closed",
+   "conn": 0,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"error\",\"code\":\"pairing_closed\",\"message\":\"Pairing isn't open on the host. Click \\\"Show a pairing code\\\" there and enter the code it shows.\"}"
+  },
+  {
+   "step": "pairing_closed",
+   "conn": 0,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4401,
+   "reason": "pairing_closed"
+  },
+  {
+   "step": "pairing_closed",
+   "conn": 0,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4401,
+   "reason": "pairing_closed",
+   "echo": true
+  },
+  {
+   "step": "wrong_code",
+   "conn": 1,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair\", \"protocol\": 1, \"device_name\": \"laptop\", \"code\": \"111111\"}"
+  },
+  {
+   "step": "wrong_code",
+   "conn": 1,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"error\",\"code\":\"bad_code\",\"message\":\"That code doesn't match the one on the host.\"}"
+  },
+  {
+   "step": "wrong_code",
+   "conn": 1,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4401,
+   "reason": "bad_code"
+  },
+  {
+   "step": "wrong_code",
+   "conn": 1,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4401,
+   "reason": "bad_code",
+   "echo": true
+  },
+  {
+   "step": "fifth_wrong_code",
+   "conn": 2,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair\", \"protocol\": 1, \"device_name\": \"laptop\", \"code\": \"111111\"}"
+  },
+  {
+   "step": "fifth_wrong_code",
+   "conn": 2,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"error\",\"code\":\"bad_code\",\"message\":\"That code doesn't match the one on the host.\"}"
+  },
+  {
+   "step": "fifth_wrong_code",
+   "conn": 2,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4401,
+   "reason": "bad_code"
+  },
+  {
+   "step": "fifth_wrong_code",
+   "conn": 2,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4401,
+   "reason": "bad_code",
+   "echo": true
+  },
+  {
+   "step": "fifth_wrong_code",
+   "conn": 3,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair\", \"protocol\": 1, \"device_name\": \"laptop\", \"code\": \"111111\"}"
+  },
+  {
+   "step": "fifth_wrong_code",
+   "conn": 3,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"error\",\"code\":\"bad_code\",\"message\":\"That code doesn't match the one on the host.\"}"
+  },
+  {
+   "step": "fifth_wrong_code",
+   "conn": 3,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4401,
+   "reason": "bad_code"
+  },
+  {
+   "step": "fifth_wrong_code",
+   "conn": 3,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4401,
+   "reason": "bad_code",
+   "echo": true
+  },
+  {
+   "step": "fifth_wrong_code",
+   "conn": 4,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair\", \"protocol\": 1, \"device_name\": \"laptop\", \"code\": \"111111\"}"
+  },
+  {
+   "step": "fifth_wrong_code",
+   "conn": 4,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"error\",\"code\":\"bad_code\",\"message\":\"That code doesn't match the one on the host.\"}"
+  },
+  {
+   "step": "fifth_wrong_code",
+   "conn": 4,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4401,
+   "reason": "bad_code"
+  },
+  {
+   "step": "fifth_wrong_code",
+   "conn": 4,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4401,
+   "reason": "bad_code",
+   "echo": true
+  },
+  {
+   "step": "fifth_wrong_code",
+   "conn": 5,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair\", \"protocol\": 1, \"device_name\": \"laptop\", \"code\": \"111111\"}"
+  },
+  {
+   "step": "fifth_wrong_code",
+   "conn": 5,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"error\",\"code\":\"bad_code\",\"message\":\"That code doesn't match the one on the host.\"}"
+  },
+  {
+   "step": "fifth_wrong_code",
+   "conn": 5,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4401,
+   "reason": "bad_code"
+  },
+  {
+   "step": "fifth_wrong_code",
+   "conn": 5,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4401,
+   "reason": "bad_code",
+   "echo": true
+  },
+  {
+   "step": "fifth_wrong_code",
+   "conn": 6,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair\", \"protocol\": 1, \"device_name\": \"laptop\", \"code\": \"111111\"}"
+  },
+  {
+   "step": "fifth_wrong_code",
+   "conn": 6,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"error\",\"code\":\"bad_code\",\"message\":\"Too many wrong codes. Start pairing again on the host.\"}"
+  },
+  {
+   "step": "fifth_wrong_code",
+   "conn": 6,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4401,
+   "reason": "bad_code"
+  },
+  {
+   "step": "fifth_wrong_code",
+   "conn": 6,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4401,
+   "reason": "bad_code",
+   "echo": true
+  },
+  {
+   "step": "fifth_wrong_code",
+   "conn": 7,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair\", \"protocol\": 1, \"device_name\": \"laptop\", \"code\": \"246810\"}"
+  },
+  {
+   "step": "fifth_wrong_code",
+   "conn": 7,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"error\",\"code\":\"pairing_closed\",\"message\":\"Pairing isn't open on the host. Click \\\"Show a pairing code\\\" there and enter the code it shows.\"}"
+  },
+  {
+   "step": "fifth_wrong_code",
+   "conn": 7,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4401,
+   "reason": "pairing_closed"
+  },
+  {
+   "step": "fifth_wrong_code",
+   "conn": 7,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4401,
+   "reason": "pairing_closed",
+   "echo": true
+  },
+  {
+   "step": "right_code",
+   "conn": 8,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair\", \"protocol\": 1, \"device_name\": \"laptop\", \"code\": \"246810\"}"
+  },
+  {
+   "step": "right_code",
+   "conn": 8,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"paired\",\"token\":\"<token#1>\",\"device_id\":\"<device_id#1>\",\"host\":{\"name\":\"studio\",\"fingerprint\":\"<fingerprint#1>\",\"addresses\":[\"192.168.1.20\",\"100.101.102.103\"]}}"
+  },
+  {
+   "step": "right_code",
+   "conn": 8,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 1000,
+   "reason": ""
+  },
+  {
+   "step": "right_code",
+   "conn": 8,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 1000,
+   "reason": "",
+   "echo": true
+  },
+  {
+   "step": "spaced_code",
+   "conn": 9,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair\", \"protocol\": 1, \"device_name\": \"laptop\", \"code\": \"246810\"}"
+  },
+  {
+   "step": "spaced_code",
+   "conn": 9,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"paired\",\"token\":\"<token#2>\",\"device_id\":\"<device_id#2>\",\"host\":{\"name\":\"studio\",\"fingerprint\":\"<fingerprint#1>\",\"addresses\":[\"192.168.1.20\",\"100.101.102.103\"]}}"
+  },
+  {
+   "step": "spaced_code",
+   "conn": 9,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 1000,
+   "reason": ""
+  },
+  {
+   "step": "spaced_code",
+   "conn": 9,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 1000,
+   "reason": "",
+   "echo": true
+  },
+  {
+   "step": "raw_codes",
+   "conn": 10,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair\", \"protocol\": 1, \"device_name\": \"laptop\", \"code\": \" 246810 \"}"
+  },
+  {
+   "step": "raw_codes",
+   "conn": 10,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"paired\",\"token\":\"<token#3>\",\"device_id\":\"<device_id#3>\",\"host\":{\"name\":\"studio\",\"fingerprint\":\"<fingerprint#1>\",\"addresses\":[\"192.168.1.20\",\"100.101.102.103\"]}}"
+  },
+  {
+   "step": "raw_codes",
+   "conn": 10,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 1000,
+   "reason": ""
+  },
+  {
+   "step": "raw_codes",
+   "conn": 10,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 1000,
+   "reason": "",
+   "echo": true
+  },
+  {
+   "step": "raw_codes",
+   "conn": 11,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair\", \"protocol\": 1, \"device_name\": \"laptop\", \"code\": \"24-68-10\"}"
+  },
+  {
+   "step": "raw_codes",
+   "conn": 11,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"error\",\"code\":\"bad_code\",\"message\":\"That code doesn't match the one on the host.\"}"
+  },
+  {
+   "step": "raw_codes",
+   "conn": 11,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4401,
+   "reason": "bad_code"
+  },
+  {
+   "step": "raw_codes",
+   "conn": 11,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4401,
+   "reason": "bad_code",
+   "echo": true
+  }
+ ],
+ "normalize": [
+  {
+   "path": "33/token",
+   "as": "token"
+  },
+  {
+   "path": "33/device_id",
+   "as": "device_id"
+  },
+  {
+   "path": "33/host/fingerprint",
+   "as": "fingerprint"
+  },
+  {
+   "path": "37/token",
+   "as": "token"
+  },
+  {
+   "path": "37/device_id",
+   "as": "device_id"
+  },
+  {
+   "path": "37/host/fingerprint",
+   "as": "fingerprint"
+  },
+  {
+   "path": "41/token",
+   "as": "token"
+  },
+  {
+   "path": "41/device_id",
+   "as": "device_id"
+  },
+  {
+   "path": "41/host/fingerprint",
+   "as": "fingerprint"
+  }
+ ]
+}

@@ -1,0 +1,241 @@
+{
+  "package": "M2.11, M7.18",
+  "files": {
+    "tests/test_remote_dependencies.py": {
+      "test_host_setup_navigation_opens_remote_settings_when_unpaired": {"status": "ported", "cpp": "tests/ui_settings/test_feature.cpp", "note": "Host models help opens Remote engine settings when unpaired. A direct Remote engine help request opens the same page."}
+    },
+    "tests/test_whats_new.py": {
+      "test_note_fits_the_home_tile": {"status": "ported", "cpp": "tests/ui_settings/test_home.cpp"}
+    },
+    "tests/test_settings_unified.py": {
+      "TestHome::test_home_opens_without_building_pages_or_asking_for_microphones": {"status": "ported", "cpp": "tests/ui_settings/test_home.cpp"},
+      "TestHome::test_basic_tab_keys_open_their_home_cards": {"status": "ported", "cpp": "tests/ui_settings/test_home.cpp"},
+      "TestHome::test_home_and_page_changes_share_the_same_store_and_callbacks": {"status": "ported", "cpp": "tests/ui_settings/test_home.cpp"},
+      "TestHome::test_microphone_reads_devices_once_its_menu_opens": {"status": "ported", "cpp": "tests/ui_settings/test_home.cpp", "note": "over audio::FakeBackend's device list (Blue Snowball in place of the injected desk microphone)"},
+      "TestHome::test_voice_choice_uses_the_canonical_controller_label_without_model_setup": {"status": "ported", "cpp": "tests/ui_settings/test_home.cpp", "note": "Home projects into the Voice model page's engine combo (M2.24 Contracts), so that page is built; nothing loads or downloads a model. The controller label is checked on the page's backendChanged"},
+      "TestHome::test_app_theme_and_meeting_report_edits_use_existing_handlers": {"status": "ported", "cpp": "tests/ui_settings/test_home.cpp", "note": "the theme half; the meeting report half (the After the meeting page's Home row, through HomeRows) is in tests/ui_settings/test_meeting_pages.cpp"},
+      "TestHome::test_failed_save_restores_home_and_allows_retry": {"status": "ported", "cpp": "tests/ui_settings/test_home.cpp", "note": "the failure is MemorySettingsFile::fail_next_replace"},
+      "TestHome::test_home_shortcut_capture_cancels_when_leaving_home": {"status": "ported", "cpp": "tests/ui_settings/test_home.cpp"},
+      "TestHome::test_change_button_captures_and_saves_a_shortcut_inline": {"status": "ported", "cpp": "tests/ui_settings/test_home.cpp", "note": "QTest events into the offscreen field (Qt-side capture, no hook)"},
+      "TestHome::test_home_rows_fit_narrow_windows_and_large_fonts": {"status": "ported", "cpp": "tests/ui_settings/test_home.cpp", "note": "the classic 940 and 1315 widths; the Omarchy 460 variant is other-platform"},
+      "TestHome::test_cards_sit_in_two_columns_when_the_page_is_wide": {"status": "ported", "cpp": "tests/ui_settings/test_home.cpp", "note": "with stand-in Personalize and Meetings rows contributed through HomeRows"},
+      "TestHomeSummary::test_rows_and_storage_repeat_what_each_destination_reports": {"status": "ported", "cpp": "tests/ui_settings/test_home.cpp", "note": "the Storage half, over HomeSources; the meeting voice line is in tests/ui_settings/test_meeting_pages.cpp; the AI insights line is M8's"},
+      "TestHomeSummary::test_links_and_buttons_open_their_destination": {"status": "ported", "cpp": "tests/ui_settings/test_home.cpp", "note": "the Storage, Dictation and App links; the meeting voice Change button and the Meetings link are in tests/ui_settings/test_meeting_pages.cpp; the Set up AI insights button is M8's"},
+      "TestHomeSummary::test_where_strip_places_a_remote_cleanup_provider_in_the_cloud": {"status": "ported", "cpp": "tests/ui_settings/test_home.cpp", "note": "Home composes the AI cleanup and text-near-cursor items itself, as _refresh_home does (HomePage::composeSummary); golden-checked in test_text_keys_golden.cpp"},
+      "TestHomeSummary::test_where_strip_keeps_a_local_cleanup_provider_on_this_computer": {"status": "ported", "cpp": "tests/ui_settings/test_home.cpp"},
+      "TestHomeSummary::test_home_is_only_reread_while_it_shows": {"status": "ported", "cpp": "tests/ui_settings/test_home.cpp", "note": "counted through a HomeRows refresh hook"},
+      "TestSearchPalette::test_index_covers_tiles_fields_help_models_and_components": {"status": "ported", "cpp": "tests/ui_settings/test_search_palette.cpp", "note": "Parakeet's catalog in place of Whisper's tiny; components from HomeSources"},
+      "TestSearchPalette::test_ctrl_k_opens_the_palette_and_escape_keeps_settings_open": {"status": "ported", "cpp": "tests/ui_settings/test_search_palette.cpp"},
+      "TestSearchPalette::test_rail_search_button_opens_the_palette": {"status": "ported", "cpp": "tests/ui_settings/test_search_palette.cpp"},
+      "TestSearchPalette::test_enter_opens_the_setting_and_marks_its_tile": {"status": "ported", "cpp": "tests/ui_settings/test_search_palette.cpp"},
+      "TestSearchPalette::test_arrow_keys_skip_section_headers": {"status": "ported", "cpp": "tests/ui_settings/test_search_palette.cpp", "note": "query parakeet in place of tiny"},
+      "TestSearchPalette::test_a_model_result_opens_downloads_on_that_model": {"status": "ported", "cpp": "tests/ui_settings/test_search_palette.cpp", "note": "over a Downloads stand-in recording SettingsDeepLinks::revealModel; the real page is M2.23's (M2.28 end-to-end)"},
+      "TestSearchPalette::test_old_window_names_still_find_their_pages": {"status": "ported", "cpp": "tests/ui_settings/test_search_palette.cpp"},
+      "TestSearchPalette::test_history_sharing_search_opens_and_marks_its_mcp_control": {"status": "ported", "cpp": "tests/ui_settings/test_search_history_session.cpp", "note": "case: searching share history opens Remote engine and marks its history session control (Adapted, a17-direct-history: the control is Remote engine's 'Share history for this session...', not an API & MCP tile)"},
+      "TestRouting::test_page_transitions_keep_sidebar_rows_over_their_click_targets": {"status": "ported", "cpp": "tests/ui_settings/test_shell.cpp", "note": "over a stand-in page for every destination; the rail rows carry a value so every label exists"},
+      "TestRouting::test_scrolled_sidebar_clicks_open_the_visible_destination": {"status": "ported", "cpp": "tests/ui_settings/test_shell.cpp", "note": "GENERATE over the three scales and four click targets; the clicks are QTest events in the offscreen window, not injected input"},
+      "TestRouting::test_window_opens_on_home": {"status": "ported", "cpp": "tests/ui_settings/test_shell.cpp", "note": "a stand-in Home spec; Home itself is M2.24's"},
+      "TestRouting::test_show_home_returns_to_the_top_of_home": {"status": "ported", "cpp": "tests/ui_settings/test_shell.cpp", "note": "the shell's half (show_home scrolls Home's page to the top), over a tall stand-in Home"},
+      "TestRouting::test_refresh_rebuilds_home_once": {"status": "ported", "cpp": "tests/ui_settings/test_shell.cpp", "note": "the shell's half: one refresh calls Home's refreshPage once, after the rail redraw; what Home rebuilds is M2.24's"},
+      "TestRouting::test_legacy_model_manager_names_land_on_a_destination": {"status": "ported", "cpp": "tests/ui_settings/test_shell.cpp"},
+      "TestRouting::test_opening_settings_keeps_runtime_imports_off_the_ui_thread": {"status": "dropped", "reason": "Python import hygiene (faster_whisper, ctranslate2 and torch imported on the UI thread); C++ has no runtime imports"},
+      "TestChapters::test_going_to_a_page_opens_its_chapter_and_marks_it": {"status": "ported", "cpp": "tests/ui_settings/test_shell.cpp"},
+      "TestChapters::test_the_crumb_names_the_chapter": {"status": "ported", "cpp": "tests/ui_settings/test_shell.cpp"},
+      "TestChapters::test_every_page_is_in_exactly_one_place": {"status": "ported", "cpp": "tests/ui_settings/test_shell.cpp"},
+      "TestChapters::test_the_page_menu_lists_every_page_by_chapter": {"status": "ported", "cpp": "tests/ui_settings/test_shell.cpp"},
+      "TestStagedBuild::test_a_staged_window_ends_up_like_one_built_at_once": {"status": "dropped", "reason": "the staged idle build of Settings is dropped (architecture 8.5, M2 changes to the cut 6): pages stay lazy and the shell is built at once"},
+      "TestStagedBuild::test_finish_build_runs_what_is_left": {"status": "dropped", "reason": "the staged idle build of Settings is dropped (architecture 8.5, M2 changes to the cut 6)"},
+      "TestStagedBuild::test_the_controller_builds_a_piece_per_tick_then_keeps_the_window": {"status": "dropped", "reason": "the staged idle build of Settings is dropped (architecture 8.5, M2 changes to the cut 6)"},
+      "TestStagedBuild::test_building_waits_out_a_recording_or_a_meeting": {"status": "dropped", "reason": "the staged idle build of Settings is dropped (architecture 8.5, M2 changes to the cut 6)"},
+      "TestStagedBuild::test_opening_mid_build_finishes_the_same_window": {"status": "dropped", "reason": "the staged idle build of Settings is dropped (architecture 8.5, M2 changes to the cut 6)"},
+      "TestStagedBuild::test_a_piece_that_fails_leaves_the_opening_to_build_afresh": {"status": "dropped", "reason": "the staged idle build of Settings is dropped (architecture 8.5, M2 changes to the cut 6)"},
+      "TestControllerRouting::test_text_alias_scrolls_to_the_cleanup_model": {"status": "ported", "cpp": "tests/ui_settings/test_feature.cpp", "note": "SettingsWindow::open(\"text\") reveals the control a stand-in AI cleanup page names cleanup_model_tile"},
+      "TestControllerRouting::test_engine_downloads_focuses_the_missing_runtime": {"status": "ported", "cpp": "tests/ui_settings/test_feature.cpp", "note": "through SettingsWindow's missing-runtime provider and the Downloads page's SettingsDeepLinks"},
+      "TestControllerRouting::test_other_names_select_their_destination": {"status": "ported", "cpp": "tests/ui_settings/test_feature.cpp"},
+      "TestWorkers::test_a_window_closed_mid_work_is_not_held_by_the_worker": {"status": "ported", "cpp": "tests/ui_settings/test_shell.cpp", "note": "the shell has no worker of its own: a stand-in page's worker delivers through an executor on the page, and the closed window is destroyed while it waits; the four Python works (API key check, Jev route, rule polish, rule dictation) are their pages' (M2.19, M5, M4)"}
+    },
+    "tests/test_personalize_foundation_ui_settings.py": {
+      "TestPersonalizeRail::test_each_page_builds_the_tiles_its_search_copy_names": {"status": "ported", "cpp": "tests/ui_settings/test_search_palette.cpp", "note": "over the pages this build registers (Recording, Voice model, General, Appearance, API keys, Developer options) in place of the Personalize modules"},
+      "TestPersonalizeRail::test_pages_are_searchable_before_they_are_built": {"status": "ported", "cpp": "tests/ui_settings/test_search_palette.cpp", "note": "over the pages this build registers"},
+      "TestHomePersonalize::test_home_has_a_personalize_card_fed_by_page_modules": {"status": "ported", "cpp": "tests/ui_settings/test_home.cpp", "note": "a stand-in HomeRows contributor in place of the fake page module"},
+      "TestHomePersonalize::test_new_features_note_dismisses_and_stays_dismissed": {"status": "ported", "cpp": "tests/ui_settings/test_home.cpp"},
+      "TestHomePersonalize::test_a_rewritten_note_shows_again_after_an_older_one_was_dismissed": {"status": "ported", "cpp": "tests/ui_settings/test_home.cpp"},
+      "TestPersonalizeRail::test_personalize_and_automate_sit_between_dictation_and_meeting_mode": {"status": "ported", "cpp": "tests/ui_settings/test_registry.cpp", "note": "stand-in specs for every destination"},
+      "TestPersonalizeRail::test_every_sidebar_name_is_its_page_title": {"status": "ported", "cpp": "tests/ui_settings/test_registry.cpp"},
+      "TestPersonalizeRail::test_page_modules_are_registered_without_building_their_pages": {"status": "ported", "cpp": "tests/ui_settings/test_registry.cpp", "note": "a recording page module in the Dictionary slot; its control name routes through SettingsPageRegistry::controlDestination"},
+      "TestPersonalizeRail::test_a_control_attribute_builds_its_page": {"status": "ported", "cpp": "tests/ui_settings/test_registry.cpp", "note": "__getattr__ is SettingsDialog::control(name); the tile lies inside the page (isAncestorOf), since the module is a widget of the page"},
+      "TestPageModuleRegistry::test_registry_calls_each_hook_at_its_moment": {"status": "ported", "cpp": "tests/ui_settings/test_registry.cpp"},
+      "TestPageModuleRegistry::test_unbuilt_pages_are_neither_loaded_refreshed_nor_cancelled": {"status": "ported", "cpp": "tests/ui_settings/test_registry.cpp"},
+      "TestPageModuleRegistry::test_a_failing_rail_value_leaves_the_rail_working": {"status": "ported", "cpp": "tests/ui_settings/test_registry.cpp", "note": "General's copy_clipboard switch is a stand-in bound through the dialog's binder"},
+      "TestPageModuleRegistry::test_a_failing_page_still_opens_switches_and_closes": {"status": "ported", "cpp": "tests/ui_settings/test_registry.cpp"},
+      "TestDialogHelpers::test_notify_changed_reaches_the_injected_callback": {"status": "ported", "cpp": "tests/ui_settings/test_registry.cpp", "note": "on_settings_changed is the settingsChanged signal"},
+      "TestDialogHelpers::test_capture_suspension_uses_the_profile_capture_path": {"status": "ported", "cpp": "tests/ui_settings/test_registry.cpp", "note": "on_profile_hotkey_capture is the hotkeyCaptureSuspended signal"}
+    },
+    "tests/test_settings_binder.py": {
+      "test_checkbox_saves_on_toggle_and_loads_resolved_value": {"status": "ported", "cpp": "tests/ui_settings/test_binder.cpp"},
+      "test_combo_saves_item_data_and_falls_back_to_first_item": {"status": "ported", "cpp": "tests/ui_settings/test_binder.cpp"},
+      "test_spin_saves_int_values": {"status": "ported", "cpp": "tests/ui_settings/test_binder.cpp"},
+      "test_load_follows_binding_order": {"status": "ported", "cpp": "tests/ui_settings/test_binder.cpp"},
+      "test_bound_controls_load_without_saving": {"status": "ported", "cpp": "tests/ui_settings/test_binder.cpp", "note": "the keys of _BOUND_CHECKS bound by stand-in General and Meeting Mode pages through the dialog's two binders; the coverage guard's half is in tests/ui_settings/test_meeting_pages.cpp; the TypeSafe citation and highlight tiles are M8's"},
+      "test_bound_checkbox_saves_its_key_immediately": {"status": "ported", "cpp": "tests/ui_settings/test_binder.cpp", "note": "as above; the control is reset under a QSignalBlocker where Python set _loading"},
+      "test_bound_combo_and_spin_save_their_keys_immediately": {"status": "ported", "cpp": "tests/ui_settings/test_binder.cpp"},
+      "test_plain_text_saves_on_focus_out_and_keeps_the_default_unsaved": {"status": "ported", "cpp": "tests/ui_settings/test_binder.cpp"},
+      "test_plain_text_passing_focus_through_keeps_a_change_made_elsewhere": {"status": "ported", "cpp": "tests/ui_settings/test_binder.cpp"},
+      "test_beta_track_toggle_makes_the_next_update_check_due": {"status": "ported", "cpp": "tests/update/test_runtime.cpp", "note": "the updater runtime's settings watch makes the check due (M3.5)"}
+    },
+    "tests/test_settings_general_layout.py": {
+      "TestSettingsGeneralLayout::test_uses_rail_and_independently_scrollable_pages": {"status": "ported", "cpp": "tests/ui_settings/test_shell.cpp", "note": "the shell's rail order and scroll areas; the per-page group titles it then checks are the pages' (M2.19 and later)"},
+      "TestSettingsGeneralLayout::test_pages_scroll_without_forcing_the_window_taller": {"status": "ported", "cpp": "tests/ui_settings/test_shell.cpp", "note": "stand-in pages, General made tall enough to scroll; the screen is the dialog's availableScreenRect, where Python patched _fit_to_screen away"},
+      "test_settings_chevrons_use_the_drawing_for_the_theme": {"status": "ported", "cpp": "tests/ui_settings/test_shell.cpp", "note": "the page menu's chevron compared as an image with the theme's drawing; the rail's half is tests/ui_widgets'"},
+      "TestSettingsGeneralLayout::test_general_tiles_toggle_and_gate_update_notify": {"status": "ported", "cpp": "tests/ui_settings/test_app_pages.cpp"},
+      "TestSettingsGeneralLayout::test_cards_reflow_when_the_window_narrows": {"status": "ported", "cpp": "tests/ui_settings/test_app_pages.cpp"},
+      "TestSettingsGeneralLayout::test_tile_titles_and_descriptions_fit_after_font_and_width_changes": {"status": "ported", "cpp": "tests/ui_settings/test_app_pages.cpp", "note": "the registered App pages and Recording with stand-ins for the rest"},
+      "TestSettingsGeneralLayout::test_walkthrough_copy_preference_saves_and_reloads": {"status": "ported", "cpp": "tests/ui_settings/test_walkthroughs_page.cpp", "note": "a new window over the same in-memory settings reads the saved choice"},
+      "TestSettingsGeneralLayout::test_report_view_tiles_follow_the_final_report_toggle": {"status": "ported", "cpp": "tests/ui_settings/test_meeting_pages.cpp"}
+    },
+    "tests/test_meeting_settings_dialog.py": {
+      "TestKnowledgeFolderSettings::test_saving_preserves_unrelated_meeting_keys": {"status": "ported", "cpp": "tests/ui_settings/test_meeting_pages.cpp", "note": "the After the meeting and Dashboard pages' controls write beside the unrelated keys; the knowledge folder that OpenWhisper's test edits is the Intelligence page's (M8)"},
+      "TestCoverageGuardSettings::test_guard_defaults_off_and_persists": {"status": "ported", "cpp": "tests/ui_settings/test_meeting_pages.cpp"},
+      "TestInsightReviewSettings::test_explicit_typesafe_consent_and_settings_round_trip": {"status": "ported", "cpp": "tests/ui_settings/test_meeting_pages.cpp", "note": "cases: 'the review switch asks first and saves the consent with it' (No reverts and writes nothing, Yes writes switch and consent in one write, sensitivity Thorough, off clears the consent) and 'the review switch is on only when its consent matches' (reopening restores it without asking)"}
+    },
+    "tests/test_window_fit_and_title_bar.py": {
+      "test_a_laptop_panel_at_150_percent_shrinks_the_window": {"status": "ported", "cpp": "tests/ui_settings/test_fit.cpp"},
+      "test_a_big_screen_leaves_the_window_alone": {"status": "ported", "cpp": "tests/ui_settings/test_fit.cpp"},
+      "test_a_screen_smaller_than_the_minimum_lowers_the_minimum": {"status": "ported", "cpp": "tests/ui_settings/test_fit.cpp"},
+      "test_the_real_dialog_opens_inside_the_screen": {"status": "ported", "cpp": "tests/ui_settings/test_fit.cpp"},
+      "test_a_window_already_on_screen_stays_put": {"status": "ported", "cpp": "tests/ui_settings/test_fit.cpp"},
+      "test_a_window_off_the_right_edge_is_centred_on_the_screen": {"status": "ported", "cpp": "tests/ui_settings/test_fit.cpp"},
+      "test_a_window_bigger_than_the_screen_keeps_its_title_bar_on_it": {"status": "ported", "cpp": "tests/ui_settings/test_fit.cpp"},
+      "test_the_real_dialog_moves_wholly_onto_a_small_screen": {"status": "ported", "cpp": "tests/ui_settings/test_fit.cpp", "note": "compositor_managed is false on Windows, as Python's test patched it"}
+    },
+    "tests/test_desktop_performance.py": {
+      "test_settings_first_show_and_search_do_not_build_hidden_destinations": {"status": "ported", "cpp": "tests/ui_settings/test_search_palette.cpp", "note": "General's Paste field in place of the AI cleanup Custom prompt field (M4)"},
+      "test_settings_read_cache_isolated_nested_values_and_external_changes": {"status": "ported", "cpp": "tests/ui_settings/test_shell.cpp", "note": "as the Settings window reads it: one SettingsStore::snapshot read per refresh, the copy a page reads is its own, an outside edit is seen; the store's strict writes are tests/settings'"},
+      "test_recording_driver_result_preserves_selection_and_gui_progress": {"status": "ported", "cpp": "tests/ui_settings/test_microphones.cpp"}
+    },
+    "tests/test_field_help.py": {
+      "test_help_routes_to_the_named_page": {"status": "ported", "cpp": "tests/ui_settings/test_feature.cpp", "note": "UIController.open_engine_help_destination is SettingsWindow::openEngineHelp, reached through MainWindow::engineHelpRequested; the API keys case opens the selected speech endpoint's credential"}
+    },
+    "tests/test_settings_retention_commit.py": {
+      "test_typing_100_over_20_never_applies_1_or_10": {"status": "ported", "cpp": "tests/ui_settings/test_retention.cpp", "note": "both commits (Enter, focus-out) through GENERATE; History over a temporary database and recordings folder, its set_retention spied through the page's hook; the deletion preview runs on the worker, so the test waits for it"},
+      "test_confirmed_shrink_prunes_only_the_oldest": {"status": "ported", "cpp": "tests/ui_settings/test_retention.cpp"},
+      "test_declined_shrink_keeps_files_and_restores_the_count": {"status": "ported", "cpp": "tests/ui_settings/test_retention.cpp"},
+      "test_chevron_burst_settles_into_one_prompt": {"status": "ported", "cpp": "tests/ui_settings/test_retention.cpp"},
+      "test_switching_keep_all_to_count_asks_first": {"status": "ported", "cpp": "tests/ui_settings/test_retention.cpp"},
+      "test_typing_a_folder_size_never_applies_its_prefix": {"status": "ported", "cpp": "tests/ui_settings/test_retention.cpp"},
+      "test_live_applied_spinboxes_commit_typed_values_once": {"status": "ported", "cpp": "tests/ui_settings/test_retention.cpp", "note": "the two retention spin boxes and the live preview's text size; the Dashboard port spin box is in tests/ui_settings/test_meeting_pages.cpp"},
+      "test_suite_keeps_recordings_out_of_the_checkout": {"status": "ported", "cpp": "tests/ui_settings/test_retention.cpp", "note": "the test's recordings folder and HistoryManager::default_recordings_folder lie under the temporary data root, not the working directory"}
+    },
+    "tests/test_personalize_fix2_g2_mic_focus.py": {
+      "test_moved_microphone_keeps_focus_and_a_second_space_moves_it_back": {"status": "ported", "cpp": "tests/ui_settings/test_microphones.cpp", "note": "the classic variant; the omarchy parameter is Linux's (other platform)"},
+      "test_moved_microphone_keeps_the_same_button_away_from_the_edges": {"status": "ported", "cpp": "tests/ui_settings/test_microphones.cpp"},
+      "test_removing_a_microphone_focuses_the_row_that_takes_its_place": {"status": "ported", "cpp": "tests/ui_settings/test_microphones.cpp", "note": "the three rows through GENERATE"},
+      "test_removing_the_only_backup_focuses_the_add_picker": {"status": "ported", "cpp": "tests/ui_settings/test_microphones.cpp"},
+      "test_adding_the_last_free_microphone_focuses_its_row": {"status": "ported", "cpp": "tests/ui_settings/test_microphones.cpp", "note": "FakeBackend::keep_devices(4) keeps the MME devices"},
+      "test_a_device_refresh_keeps_focus_on_the_same_button": {"status": "ported", "cpp": "tests/ui_settings/test_microphones.cpp"},
+      "test_a_rebuild_leaves_focus_outside_the_list_alone": {"status": "ported", "cpp": "tests/ui_settings/test_microphones.cpp"},
+      "test_tab_reaches_the_backups_between_refresh_and_add": {"status": "ported", "cpp": "tests/ui_settings/test_microphones.cpp"},
+      "test_tab_order_holds_after_a_move": {"status": "ported", "cpp": "tests/ui_settings/test_microphones.cpp"}
+    },
+    "tests/test_personalize_s6_settings.py": {
+      "test_basic_recording_shortcut_mentions_double_tap": {"status": "ported", "cpp": "tests/ui_settings/test_home.cpp", "note": "listed pending M2.24 in tests/ui_hotkeys/PARITY.json, whose owner can drop that row"}
+    },
+    "tests/test_personalize_s7_settings.py": {
+      "test_preferred_combo_lists_one_row_per_microphone_and_keeps_saved_ones": {"status": "ported", "cpp": "tests/ui_settings/test_microphones.cpp", "note": "the device list is audio::FakeBackend's with the same host APIs and names; list_input_devices gives the cut MME name its label"},
+      "test_backups_list_in_order_with_a_greyed_disconnected_row_and_system_default_last": {"status": "ported", "cpp": "tests/ui_settings/test_microphones.cpp"},
+      "test_up_down_and_remove_save_the_new_order": {"status": "ported", "cpp": "tests/ui_settings/test_microphones.cpp", "note": "on_audio_device_changed is SettingsPagesSignals::audioDeviceChanged"},
+      "test_add_offers_connected_microphones_not_already_ranked": {"status": "ported", "cpp": "tests/ui_settings/test_microphones.cpp"},
+      "test_choosing_a_backup_as_preferred_moves_it_to_the_front": {"status": "ported", "cpp": "tests/ui_settings/test_microphones.cpp"},
+      "test_system_default_clears_the_order_and_hides_backups": {"status": "ported", "cpp": "tests/ui_settings/test_microphones.cpp"},
+      "test_a_preferred_microphone_on_another_host_api_drops_the_legacy_index": {"status": "ported", "cpp": "tests/ui_settings/test_microphones.cpp"},
+      "test_nothing_is_called_disconnected_before_the_device_list_arrives": {"status": "ported", "cpp": "tests/ui_settings/test_microphones.cpp"},
+      "test_a_window_closed_while_listing_microphones_is_not_held_by_the_worker": {"status": "ported", "cpp": "tests/ui_settings/test_microphones.cpp", "note": "the window is destroyed while the worker lists; the worker holds only the section's mailbox, and its late list is dropped"},
+      "test_refresh_rereads_devices_only_while_nothing_records": {"status": "ported", "cpp": "tests/ui_settings/test_microphones.cpp"},
+      "test_rail_value_reads_short_names": {"status": "ported", "cpp": "tests/ui_settings/test_microphones.cpp"},
+      "test_recording_page_fits_narrow_windows_and_large_fonts": {"status": "ported", "cpp": "tests/ui_settings/test_microphones.cpp", "note": "the classic 940 px case; Omarchy's 560 px case is Linux's (other platform)"},
+      "test_system_default_suggests_choosing_a_microphone_for_backups": {"status": "ported", "cpp": "tests/ui_settings/test_microphones.cpp"},
+      "test_refresh_moves_under_the_combo_in_a_narrow_column": {"status": "ported", "cpp": "tests/ui_settings/test_microphones.cpp"},
+      "test_home_microphone_writes_the_first_entry_and_keeps_the_backups": {"status": "ported", "cpp": "tests/ui_settings/test_home.cpp"},
+      "test_search_finds_both_microphone_tiles": {"status": "ported", "cpp": "tests/ui_settings/test_search_palette.cpp"}
+    },
+    "tests/test_personalize_s1_settings_page.py": {
+      "test_home_privacy_strip": {"status": "ported", "cpp": "tests/ui_settings/test_home.cpp"}
+    },
+    "tests/test_api_keys_settings_page.py": {
+      "TestApiKeysSettingsPage::test_lists_a_speech_server_key_and_what_uses_it": {"status": "ported", "cpp": "tests/ui_settings/test_api_keys.cpp", "note": "the rail reads 0 of 7 set, TypeSafe's row included"},
+      "TestApiKeysSettingsPage::test_field_hides_input_until_show_is_toggled": {"status": "ported", "cpp": "tests/ui_settings/test_api_keys.cpp"},
+      "TestApiKeysSettingsPage::test_save_stores_key_outside_settings_and_masks_it": {"status": "ported", "cpp": "tests/ui_settings/test_api_keys.cpp", "note": "the rail reads 1 of 6 set, TypeSafe's row included; the store is asked on the worker"},
+      "TestApiKeysSettingsPage::test_invalid_key_is_rejected_before_storage": {"status": "ported", "cpp": "tests/ui_settings/test_api_keys.cpp"},
+      "TestApiKeysSettingsPage::test_environment_value_is_reported_and_shadowed_by_saved_key": {"status": "ported", "cpp": "tests/ui_settings/test_api_keys.cpp", "note": "with OpenRouter's key, as OpenWhisper"},
+      "TestApiKeysSettingsPage::test_declined_removal_keeps_key": {"status": "ported", "cpp": "tests/ui_settings/test_api_keys.cpp"},
+      "TestApiKeysSettingsPage::test_unavailable_store_disables_saving_and_explains": {"status": "ported", "cpp": "tests/ui_settings/test_api_keys.cpp", "note": "a backend whose probe reports the store unavailable"},
+      "TestApiKeysSettingsPage::test_test_button_reports_verdict_without_echoing_key": {"status": "ported", "cpp": "tests/ui_settings/test_api_keys.cpp", "note": "the key check is ApiKeysSection::setTextVerify for a text-model endpoint (llm::verify_api_key in the app, checked over a fake HTTP client in test_text_model_keys.cpp) and AppPagesHooks::verifyKey for a speech server only"},
+      "TestApiKeysSettingsPage::test_focus_api_keys_selects_destination_and_credential": {"status": "ported", "cpp": "tests/ui_settings/test_api_keys.cpp", "note": "with GROQ_API_KEY"},
+      "TestApiKeysSettingsPage::test_lists_builtin_and_custom_credentials": {"status": "ported", "cpp": "tests/ui_settings/test_api_keys.cpp", "note": "with TypeSafe's row last, as OpenWhisper lists it"},
+      "TestApiKeysSettingsPage::test_store_caption_tells_mac_users_to_always_allow": {"status": "dropped", "reason": "other platform: the macOS Keychain advice"}
+    },
+    "tests/test_typesafe_settings_messaging.py": {
+      "TestFastJudgmentsNotice::test_notice_names_the_missing_key_when_features_are_on": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp"},
+      "TestFastJudgmentsNotice::test_notice_explains_that_turning_switches_on_will_not_help": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp"},
+      "TestFastJudgmentsNotice::test_notice_disappears_once_a_key_exists": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp"},
+      "TestFastJudgmentsNotice::test_saving_a_key_clears_the_notice_without_reopening": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp", "note": "the saved key reaches the page through SettingsPagesSignals::apiKeysChanged, which reads the keys again"},
+      "TestFastJudgmentsNotice::test_the_notice_button_opens_the_typesafe_credential": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp"},
+      "TestFastJudgmentsRailBadge::test_off_reads_off": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp"},
+      "TestFastJudgmentsRailBadge::test_enabled_without_a_key_reads_no_key": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp"},
+      "TestFastJudgmentsRailBadge::test_enabled_with_a_key_counts_active_features": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp", "note": "the keys are read on the worker, so the badge is read once the page has them"},
+      "TestFastJudgmentsRailBadge::test_the_rail_shows_the_badge": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp", "note": "the page is not built: the rail reads the keys on the worker and redraws when they are in"},
+      "TestFastJudgmentsRailBadge::test_toggling_a_feature_updates_the_badge_live": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp"},
+      "TestFastJudgmentsRailBadge::test_removing_a_key_flips_the_badge_back": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp"},
+      "TestSavedFeatureFlags::test_master_off_keeps_saved_choices_and_restores_them_live": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp"},
+      "TestSavedFeatureFlags::test_unset_features_stay_unchecked_when_master_is_enabled": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp"},
+      "TestTypeSafeKeyTesting::test_test_button_verifies_through_the_typesafe_probe": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp", "note": "ApiKeysSection::setTypeSafeVerify in place of the patched typesafe_verify_key"},
+      "TestTypeSafeKeyTesting::test_a_rejected_key_is_reported": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp", "note": "ApiKeysSection::setTypeSafeVerify in place of the patched typesafe_verify_key"},
+      "TestTypeSafeKeyTesting::test_text_model_keys_still_use_the_openai_probe": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp", "note": "ApiKeysSection::setTextVerify and setTypeSafeVerify in place of the patched probes"},
+      "TestJevConnection::test_typesafe_is_selected_until_openrouter_is_chosen": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp"},
+      "TestJevConnection::test_an_openrouter_key_alone_offers_a_one_click_switch": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp"},
+      "TestJevConnection::test_no_switch_is_offered_when_neither_route_has_a_key": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp"},
+      "TestJevConnection::test_choosing_openrouter_without_its_key_names_that_key": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp"},
+      "TestJevConnection::test_segments_show_which_routes_have_a_key": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp"},
+      "TestJevConnection::test_saving_an_openrouter_key_updates_the_connection_live": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp"},
+      "TestJevConnection::test_test_button_verifies_the_chosen_route": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp", "note": "JudgeKeys' verify records the route and key in place of the patched typesafe_verify_key; the worker is the rig's pool"},
+      "TestJevConnection::test_testing_without_a_key_says_so_without_a_request": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp", "note": "no judge verification is asked; the key is read on the worker"},
+      "TestJevConnection::test_a_result_for_the_route_left_behind_is_dropped": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp", "note": "both clicks happen before the event loop turns, so the result arrives after the switch"},
+      "TestJevConnection::test_api_keys_page_says_openrouter_can_run_fast_judgments": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp"},
+      "TestTextModelJudge::test_a_local_model_needs_no_key_and_keeps_excerpts_here": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp"},
+      "TestTextModelJudge::test_jev_routes_hide_the_text_model_choice": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp"},
+      "TestTextModelJudge::test_choosing_the_hosted_cleanup_model_asks_for_its_key": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp"},
+      "TestTextModelJudge::test_test_button_asks_the_local_model_without_a_key": {"status": "ported", "cpp": "tests/ui_settings/test_fast_judgments_page.cpp", "note": "the recorded key is the placeholder 'dummy' a keyless endpoint sends"}
+    },
+    "tests/test_recording_look.py": {
+      "test_settings_search_finds_the_overlay_look": {"status": "ported", "cpp": "tests/ui_settings/test_search_palette.cpp"},
+      "test_settings_loads_saves_and_pushes_the_look": {"status": "ported", "cpp": "tests/ui_settings/test_app_pages.cpp", "note": "on_recording_look_changed is SettingsPagesSignals::recordingLookChanged"},
+      "test_settings_loads_saves_and_pushes_the_preview_layout": {"status": "ported", "cpp": "tests/ui_settings/test_app_pages.cpp"},
+      "test_settings_loads_the_label_switches": {"status": "ported", "cpp": "tests/ui_settings/test_app_pages.cpp"}
+    },
+    "tests/test_ui_theme.py": {
+      "TestSettingsThemeControl::test_combo_lists_every_theme_and_persists_the_choice": {"status": "ported", "cpp": "tests/ui_settings/test_app_pages.cpp", "note": "the saved value and SettingsPagesSignals::uiThemeChanged where Python patched save_setting"}
+    },
+    "tests/test_ui_font_scale.py": {
+      "TestSettingsFontScaleControl::test_combo_persists_the_chosen_percent": {"status": "ported", "cpp": "tests/ui_settings/test_app_pages.cpp"}
+    },
+    "tests/test_hotkey_settings_page.py": {
+      "TestHotkeySettingsNavigation::test_file_hotkeys_deep_links_to_settings_destination": {"status": "ported", "cpp": "tests/ui_settings/test_app_pages.cpp", "note": "SettingsWindow::openHotkeys over the registered Hotkeys page; the raise is SettingsWindow::raiseDialog"},
+      "TestHotkeySettingsNavigation::test_regular_settings_opens_the_remembered_view": {"status": "ported", "cpp": "tests/ui_settings/test_app_pages.cpp", "note": "SettingsWindow::open opens Home"}
+    },
+    "tests/test_settings_backup.py": {
+      "test_manual_backup_uses_selected_path_and_reports_progress": {"status": "ported", "cpp": "tests/ui_settings/test_settings_backup.cpp", "note": "over the real BackupCoordinator with a fake archive service; Cancel stops the worker's create, and progress and results are the coordinator's signals"},
+      "test_without_coordinator_controls_are_unavailable": {"status": "ported", "cpp": "tests/ui_settings/test_settings_backup.cpp"},
+      "test_previous_restore_data_path_is_visible_and_selectable": {"status": "ported", "cpp": "tests/ui_settings/test_settings_backup.cpp"},
+      "test_restore_requires_inspection_and_explicit_confirmation": {"status": "ported", "cpp": "tests/ui_settings/test_settings_backup.cpp", "note": "the dialogs are BackupSettingsPage::Dialogs; the fake service reports 2 files"},
+      "test_automatic_backup_is_off_until_explicitly_saved": {"status": "ported", "cpp": "tests/ui_settings/test_settings_backup.cpp", "note": "the saved schedule is read back from the coordinator's snapshot"},
+      "test_schedule_rejects_missing_and_recording_destinations": {"status": "ported", "cpp": "tests/ui_settings/test_settings_backup.cpp", "note": "the recordings, meetings and captures folders of the rig's data root"},
+      "test_calendar_shows_saved_schedule_and_latest_backup_only": {"status": "ported", "cpp": "tests/ui_settings/test_settings_backup.cpp", "note": "the saved schedule is the coordinator's preferences file, on a fake clock in UTC"},
+      "test_calendar_title_opens_picker_and_keys_move_the_month": {"status": "ported", "cpp": "tests/ui_settings/test_settings_backup.cpp"},
+      "test_backup_card_text_has_no_opaque_background_and_controls_fit": {"status": "ported", "cpp": "tests/ui_settings/test_settings_backup.cpp", "note": "dark and light at 100 %, and dark at 115 and 130 %; the Omarchy look is other-platform"},
+      "test_backup_page_is_lazy_searchable_and_usable_at_narrow_size": {"status": "ported", "cpp": "tests/ui_settings/test_settings_backup.cpp", "note": "inside the Settings window with M2's search palette; the Omarchy look is other-platform"}
+    },
+    "tests/test_settings_models.py": {
+      "TestCleanupSettingsOwnership::test_intelligence_page_hosts_the_meeting_picker_and_agent_core": {"status": "ported", "cpp": "tests/ui_settings/test_intelligence_page_host.cpp", "note": "case: test_intelligence_page_hosts_the_meeting_picker_and_agent_core. The Agent core combo half is dropped (M8 change 3); the subtitle's Pi is the product (M8 lead decision 1)"}
+    }
+  }
+}

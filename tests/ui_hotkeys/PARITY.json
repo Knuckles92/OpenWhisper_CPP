@@ -1,0 +1,198 @@
+{
+  "package": "M2.17",
+  "files": {
+    "tests/test_hotkey_settings_page.py": {
+      "TestHotkeySettingsPage::test_partial_settings_merge_with_platform_defaults": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_hotkeys_page.cpp"
+      },
+      "TestHotkeySettingsPage::test_capture_applies_and_persists_immediately": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_hotkeys_page.cpp"
+      },
+      "TestHotkeySettingsPage::test_clear_and_confirmed_reset_apply_immediately": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_hotkeys_page.cpp"
+      },
+      "TestHotkeySettingsPage::test_recording_trigger_mode_loads_and_applies": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_hotkeys_page.cpp"
+      },
+      "TestHotkeySettingsPage::test_leaving_hotkeys_stops_active_capture": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_hotkeys_page.cpp",
+        "note": "through the page's cancelCapture hook, which the Settings shell calls when it leaves the page"
+      }
+    },
+    "tests/test_personalize_s6_settings.py": {
+      "test_new_actions_are_optional_rows_with_their_own_clear": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_capture_fields.cpp",
+        "note": "the fields carry no `optional` property (lead decision 7); an optional row is one with a working Clear"
+      },
+      "test_a_shortcut_another_action_uses_is_refused_on_its_row": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_capture_fields.cpp"
+      },
+      "test_profiles_and_transforms_block_a_standard_shortcut": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_personal_bindings.cpp",
+        "note": "over ProfileBindingSource and TransformBindingSource (M4.10), with the saved transform in settings in place of Python's monkeypatched load_transforms"
+      },
+      "test_double_tap_switch_shows_for_push_and_hold_and_saves": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_capture_fields.cpp"
+      },
+      "test_saved_latch_state_loads_with_the_page": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_capture_fields.cpp"
+      },
+      "test_side_button_click_on_the_capturing_field_saves_a_mouse_shortcut": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_capture_fields.cpp"
+      },
+      "test_side_button_outside_capture_changes_nothing": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_capture_fields.cpp"
+      },
+      "test_unsupported_desktop_explains_and_keeps_capturing": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_capture_fields.cpp"
+      },
+      "test_escape_cancels_capture_without_binding_a_global_shortcut": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_capture_fields.cpp",
+        "note": "the walkthrough and screenshot cases run on the Hotkeys page's rows; the Walkthroughs page's copy of them is M6's"
+      },
+      "test_captured_escape_from_the_listener_is_not_saved": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_capture_fields.cpp"
+      },
+      "test_escape_with_modifiers_is_still_a_shortcut": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_capture_fields.cpp"
+      },
+      "test_wayland_rows_capture_in_qt_and_explain_side_buttons": {
+        "status": "dropped",
+        "reason": "other-platform: Wayland's Qt-only capture rows"
+      },
+      "test_capture_field_turns_side_buttons_into_shortcuts_only_while_capturing": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_capture_fields.cpp"
+      },
+      "test_profile_field_captures_a_side_button_and_stops": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_capture_fields.cpp"
+      },
+      "test_side_button_notes_depend_on_the_desktop": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_capture_fields.cpp"
+      },
+      "test_escape_on_a_capturing_field_emits_cancelled_not_a_shortcut": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_capture_fields.cpp"
+      },
+      "test_pynput_capture_treats_escape_as_cancel": {
+        "status": "dropped",
+        "reason": "other-platform: the pynput capture thread of macOS and Linux"
+      },
+      "test_pynput_capture_still_binds_a_normal_key": {
+        "status": "dropped",
+        "reason": "other-platform: the pynput capture thread of macOS and Linux"
+      },
+      "test_hotkey_rows_fit_narrow_windows_and_large_fonts": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_capture_fields.cpp",
+        "note": "the page on its own at 130 % fonts and the widths a narrow Settings window gives it; Omarchy's look is other-platform"
+      }
+    },
+    "tests/test_hotkey_directory.py": {
+      "test_every_standard_shortcut_has_a_row_on_hotkeys": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_bindings.cpp"
+      },
+      "test_profiles_transforms_and_actions_are_listed_with_their_shortcuts": {"status": "ported", "cpp": "tests/ui_automation/test_action_bindings.cpp", "note": "The Hotkeys page's Actions group is ActionBindingSource (M5.13), registered beside the profile and transform rows; case of the same name in tests/ui_automation/test_action_bindings.cpp"},
+      "test_a_transform_shortcut_set_on_hotkeys_saves_and_registers": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_personal_bindings.cpp",
+        "note": "'registers' is TransformBindingSource's saved hook (Python's notify_changed(\"transforms\")); the controller connects it"
+      },
+      "test_a_profile_shortcut_set_on_hotkeys_registers_like_one_saved_on_profiles": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_personal_bindings.cpp",
+        "note": "'registers' is ProfileBindingSource's saved hook (Python's on_cleanup_profiles_changed)"
+      },
+      "test_a_taken_shortcut_is_refused_with_its_editors_reason": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_personal_bindings.cpp"
+      },
+      "test_clear_removes_an_action_shortcut": {"status": "ported", "cpp": "tests/ui_automation/test_action_bindings.cpp", "note": "The Hotkeys page's Actions group is ActionBindingSource (M5.13), registered beside the profile and transform rows; case of the same name in tests/ui_automation/test_action_bindings.cpp"},
+      "test_rows_say_when_a_shortcut_does_nothing": {"status": "ported", "cpp": "tests/ui_automation/test_action_bindings.cpp", "note": "The Hotkeys page's Actions group is ActionBindingSource (M5.13), registered beside the profile and transform rows; case of the same name in tests/ui_automation/test_action_bindings.cpp"},
+      "test_walkthrough_shortcuts_agree_on_both_pages": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_shortcut_rows.cpp",
+        "note": "the Walkthroughs page's rows are built through HotkeysPage::shortcutRow on a stand-in widget; the real page is tests/ui_settings/test_walkthroughs_page.cpp"
+      },
+      "test_a_binding_capture_stops_a_standard_one": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_bindings.cpp",
+        "note": "Polish comes from a stand-in transform source"
+      },
+      "test_reset_leaves_your_own_shortcuts_alone": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_bindings.cpp",
+        "note": "Polish comes from a stand-in transform source"
+      },
+      "test_each_group_opens_its_own_page": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_bindings.cpp",
+        "note": "against a stand-in host that records destinations"
+      }
+    },
+    "tests/test_personalize_foundation_ui_settings.py": {
+      "TestDialogHelpers::test_standard_hotkey_survives_a_later_hotkeys_page_edit": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_hotkeys_page.cpp"
+      },
+      "TestDialogHelpers::test_standard_hotkey_conflicts_match_any_spelling_and_profiles": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_hotkeys_page.cpp",
+        "note": "the profile comes from a stand-in profile source"
+      },
+      "TestDialogHelpers::test_standard_hotkey_goes_through_the_app_registration": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_hotkeys_page.cpp"
+      },
+      "TestDialogHelpers::test_standard_hotkey_reports_why_it_was_not_saved": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_hotkeys_page.cpp"
+      },
+      "TestDialogHelpers::test_clearing_a_standard_hotkey_never_conflicts": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_hotkeys_page.cpp"
+      },
+      "TestDialogHelpers::test_capture_suspension_uses_the_profile_capture_path": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_hotkeys_page.cpp"
+      }
+    },
+    "tests/test_cleanup_profiles.py": {
+      "test_standard_hotkey_editor_rejects_profile_collision": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_personal_bindings.cpp",
+        "note": "through Reset to defaults with a profile saved on a default shortcut: the page's fields refuse a taken shortcut before the save, so the profile loop of the save is reached that way; the message names the profile"
+      }
+    },
+    "tests/test_automation_fix_pipeline_sources.py": {
+      "test_conflicts_name_standard_shortcuts_as_people_read_them": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_hotkeys_page.cpp"
+      },
+      "test_the_settings_window_uses_the_same_labels": {
+        "status": "ported",
+        "cpp": "tests/ui_hotkeys/test_hotkeys_page.cpp",
+        "note": "the page's messages name each action by hotkeys::standard_labels()"
+      }
+    }
+  }
+}

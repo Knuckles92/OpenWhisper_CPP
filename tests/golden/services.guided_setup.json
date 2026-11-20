@@ -1,0 +1,879 @@
+{
+ "module": "services.guided_setup",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time",
+  "note": "files: paths relative to the fixture folder, '/' ending a folder; the C++ replay maps openwhisper.db to identity().database_file"
+ },
+ "functions": {
+  "_has_prior_data": [
+   {
+    "args": [
+     []
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     [
+      "openwhisper.db"
+     ]
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     [
+      "transcription_history.json"
+     ]
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     [
+      "scratchpad.txt"
+     ]
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     [
+      "recordings/"
+     ]
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     [
+      "recordings/old.wav"
+     ]
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     [
+      "meetings/"
+     ]
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     [
+      "meetings/m_1/"
+     ]
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     [
+      "meetings/old.json"
+     ]
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     [
+      "other.txt",
+      "settings-backup.json",
+      "logs/"
+     ]
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     [
+      "openwhisper.db/"
+     ]
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     [
+      "recordings/",
+      "meetings/"
+     ]
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     [
+      "recordings"
+     ]
+    ],
+    "raises": "NotADirectoryError"
+   }
+  ],
+  "initialize": [
+   {
+    "args": [
+     null,
+     []
+    ],
+    "result": {
+     "invite": true,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "pending"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     null,
+     [
+      "openwhisper.db"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "existing"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     null,
+     [
+      "recordings/"
+     ]
+    ],
+    "result": {
+     "invite": true,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "pending"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     null,
+     [
+      "recordings/old.wav"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "existing"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     null,
+     [
+      "meetings/m_1/"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "existing"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     null,
+     [
+      "recordings"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": false,
+     "settings": null,
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{}",
+     []
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "existing"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{}",
+     [
+      "openwhisper.db"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "existing"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{}",
+     [
+      "recordings/"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "existing"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{}",
+     [
+      "recordings/old.wav"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "existing"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{}",
+     [
+      "meetings/m_1/"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "existing"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{}",
+     [
+      "recordings"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "existing"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{\"selected_model\": \"parakeet\"}",
+     []
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "selected_model": "parakeet",
+      "guided_setup_state": "existing"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{\"selected_model\": \"parakeet\"}",
+     [
+      "openwhisper.db"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "selected_model": "parakeet",
+      "guided_setup_state": "existing"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{\"selected_model\": \"parakeet\"}",
+     [
+      "recordings/"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "selected_model": "parakeet",
+      "guided_setup_state": "existing"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{\"selected_model\": \"parakeet\"}",
+     [
+      "recordings/old.wav"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "selected_model": "parakeet",
+      "guided_setup_state": "existing"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{\"selected_model\": \"parakeet\"}",
+     [
+      "meetings/m_1/"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "selected_model": "parakeet",
+      "guided_setup_state": "existing"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{\"selected_model\": \"parakeet\"}",
+     [
+      "recordings"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "selected_model": "parakeet",
+      "guided_setup_state": "existing"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{\"guided_setup_state\": \"completed\"}",
+     []
+    ],
+    "result": {
+     "invite": false,
+     "completed": true,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "completed"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{\"guided_setup_state\": \"completed\"}",
+     [
+      "openwhisper.db"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": true,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "completed"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{\"guided_setup_state\": \"completed\"}",
+     [
+      "recordings/"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": true,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "completed"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{\"guided_setup_state\": \"completed\"}",
+     [
+      "recordings/old.wav"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": true,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "completed"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{\"guided_setup_state\": \"completed\"}",
+     [
+      "meetings/m_1/"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": true,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "completed"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{\"guided_setup_state\": \"completed\"}",
+     [
+      "recordings"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": true,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "completed"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{\"guided_setup_state\": \"bogus\"}",
+     []
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "bogus"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{\"guided_setup_state\": \"bogus\"}",
+     [
+      "openwhisper.db"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "bogus"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{\"guided_setup_state\": \"bogus\"}",
+     [
+      "recordings/"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "bogus"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{\"guided_setup_state\": \"bogus\"}",
+     [
+      "recordings/old.wav"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "bogus"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{\"guided_setup_state\": \"bogus\"}",
+     [
+      "meetings/m_1/"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "bogus"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{\"guided_setup_state\": \"bogus\"}",
+     [
+      "recordings"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "bogus"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{\"guided_setup_state\": \"pending\", \"ui_theme\": \"light\"}",
+     []
+    ],
+    "result": {
+     "invite": true,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "pending",
+      "ui_theme": "light"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{\"guided_setup_state\": \"pending\", \"ui_theme\": \"light\"}",
+     [
+      "openwhisper.db"
+     ]
+    ],
+    "result": {
+     "invite": true,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "pending",
+      "ui_theme": "light"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{\"guided_setup_state\": \"pending\", \"ui_theme\": \"light\"}",
+     [
+      "recordings/"
+     ]
+    ],
+    "result": {
+     "invite": true,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "pending",
+      "ui_theme": "light"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{\"guided_setup_state\": \"pending\", \"ui_theme\": \"light\"}",
+     [
+      "recordings/old.wav"
+     ]
+    ],
+    "result": {
+     "invite": true,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "pending",
+      "ui_theme": "light"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{\"guided_setup_state\": \"pending\", \"ui_theme\": \"light\"}",
+     [
+      "meetings/m_1/"
+     ]
+    ],
+    "result": {
+     "invite": true,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "pending",
+      "ui_theme": "light"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "{\"guided_setup_state\": \"pending\", \"ui_theme\": \"light\"}",
+     [
+      "recordings"
+     ]
+    ],
+    "result": {
+     "invite": true,
+     "completed": false,
+     "exists": true,
+     "settings": {
+      "guided_setup_state": "pending",
+      "ui_theme": "light"
+     },
+     "raw": null
+    }
+   },
+   {
+    "args": [
+     "broken JSON",
+     []
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": null,
+     "raw": "broken JSON"
+    }
+   },
+   {
+    "args": [
+     "broken JSON",
+     [
+      "openwhisper.db"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": null,
+     "raw": "broken JSON"
+    }
+   },
+   {
+    "args": [
+     "broken JSON",
+     [
+      "recordings/"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": null,
+     "raw": "broken JSON"
+    }
+   },
+   {
+    "args": [
+     "broken JSON",
+     [
+      "recordings/old.wav"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": null,
+     "raw": "broken JSON"
+    }
+   },
+   {
+    "args": [
+     "broken JSON",
+     [
+      "meetings/m_1/"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": null,
+     "raw": "broken JSON"
+    }
+   },
+   {
+    "args": [
+     "broken JSON",
+     [
+      "recordings"
+     ]
+    ],
+    "result": {
+     "invite": false,
+     "completed": false,
+     "exists": true,
+     "settings": null,
+     "raw": "broken JSON"
+    }
+   }
+  ],
+  "save_state": [
+   {
+    "args": [
+     "pending"
+    ],
+    "result": {
+     "guided_setup_state": "pending"
+    }
+   },
+   {
+    "args": [
+     "started"
+    ],
+    "result": {
+     "guided_setup_state": "started"
+    }
+   },
+   {
+    "args": [
+     "skipped"
+    ],
+    "result": {
+     "guided_setup_state": "skipped"
+    }
+   },
+   {
+    "args": [
+     "completed"
+    ],
+    "result": {
+     "guided_setup_state": "completed"
+    }
+   },
+   {
+    "args": [
+     "existing"
+    ],
+    "result": {
+     "guided_setup_state": "existing"
+    }
+   },
+   {
+    "args": [
+     ""
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     "Completed"
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     "done"
+    ],
+    "raises": "ValueError"
+   }
+  ]
+ }
+}

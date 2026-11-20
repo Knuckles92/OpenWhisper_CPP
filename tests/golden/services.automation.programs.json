@@ -1,0 +1,229 @@
+{
+ "module": "services.automation.programs",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time"
+ },
+ "functions": {
+  "run_event": [
+   {
+    "args": [
+     0,
+     "",
+     "recording.started",
+     "evt_0123456789abcdef01234567",
+     7
+    ],
+    "result": {
+     "event_id": "evt_0123456789abcdef01234567",
+     "ok": true,
+     "exit_code": 0,
+     "error": "",
+     "argv": [
+      "C:\\hook.exe",
+      "--a",
+      "b c"
+     ],
+     "stdin": "{\"id\":\"evt_0123456789abcdef01234567\",\"seq\":7,\"type\":\"recording.started\",\"time\":\"2026-01-01T00:00:00.000Z\",\"v\":1,\"data\":{\"x\":1}}\n",
+     "timeout_s": 7,
+     "env": {
+      "OPENWHISPER_EVENT_ID": "evt_0123456789abcdef01234567",
+      "OPENWHISPER_EVENT_SEQ": "7",
+      "OPENWHISPER_EVENT_TYPE": "recording.started"
+     }
+    }
+   },
+   {
+    "args": [
+     2,
+     "",
+     "recording.started",
+     "evt_1",
+     8
+    ],
+    "result": {
+     "event_id": "evt_1",
+     "ok": false,
+     "exit_code": 2,
+     "error": "Exited with code 2",
+     "argv": [
+      "C:\\hook.exe",
+      "--a",
+      "b c"
+     ],
+     "stdin": "{\"id\":\"evt_1\",\"seq\":8,\"type\":\"recording.started\",\"time\":\"2026-01-01T00:00:00.000Z\",\"v\":1,\"data\":{\"x\":1}}\n",
+     "timeout_s": 7,
+     "env": {
+      "OPENWHISPER_EVENT_ID": "evt_1",
+      "OPENWHISPER_EVENT_SEQ": "8",
+      "OPENWHISPER_EVENT_TYPE": "recording.started"
+     }
+    }
+   },
+   {
+    "args": [
+     -1,
+     "",
+     "recording.stopped",
+     "evt_2",
+     9
+    ],
+    "result": {
+     "event_id": "evt_2",
+     "ok": false,
+     "exit_code": -1,
+     "error": "Exited with code -1",
+     "argv": [
+      "C:\\hook.exe",
+      "--a",
+      "b c"
+     ],
+     "stdin": "{\"id\":\"evt_2\",\"seq\":9,\"type\":\"recording.stopped\",\"time\":\"2026-01-01T00:00:00.000Z\",\"v\":1,\"data\":{\"x\":1}}\n",
+     "timeout_s": 7,
+     "env": {
+      "OPENWHISPER_EVENT_ID": "evt_2",
+      "OPENWHISPER_EVENT_SEQ": "9",
+      "OPENWHISPER_EVENT_TYPE": "recording.stopped"
+     }
+    }
+   },
+   {
+    "args": [
+     255,
+     "",
+     "program.test",
+     "evt_3",
+     0
+    ],
+    "result": {
+     "event_id": "evt_3",
+     "ok": false,
+     "exit_code": 255,
+     "error": "Exited with code 255",
+     "argv": [
+      "C:\\hook.exe",
+      "--a",
+      "b c"
+     ],
+     "stdin": "{\"id\":\"evt_3\",\"seq\":0,\"type\":\"program.test\",\"time\":\"2026-01-01T00:00:00.000Z\",\"v\":1,\"data\":{\"x\":1}}\n",
+     "timeout_s": 7,
+     "env": {
+      "OPENWHISPER_EVENT_ID": "evt_3",
+      "OPENWHISPER_EVENT_SEQ": "0",
+      "OPENWHISPER_EVENT_TYPE": "program.test"
+     }
+    }
+   },
+   {
+    "args": [
+     null,
+     "Timed out after 30 s",
+     "recording.started",
+     "evt_4",
+     10
+    ],
+    "result": {
+     "event_id": "evt_4",
+     "ok": false,
+     "exit_code": null,
+     "error": "Timed out after 30 s",
+     "argv": [
+      "C:\\hook.exe",
+      "--a",
+      "b c"
+     ],
+     "stdin": "{\"id\":\"evt_4\",\"seq\":10,\"type\":\"recording.started\",\"time\":\"2026-01-01T00:00:00.000Z\",\"v\":1,\"data\":{\"x\":1}}\n",
+     "timeout_s": 7,
+     "env": {
+      "OPENWHISPER_EVENT_ID": "evt_4",
+      "OPENWHISPER_EVENT_SEQ": "10",
+      "OPENWHISPER_EVENT_TYPE": "recording.started"
+     }
+    }
+   },
+   {
+    "args": [
+     null,
+     "Canceled",
+     "recording.started",
+     "evt_5",
+     11
+    ],
+    "result": {
+     "event_id": "evt_5",
+     "ok": false,
+     "exit_code": null,
+     "error": "Canceled",
+     "argv": [
+      "C:\\hook.exe",
+      "--a",
+      "b c"
+     ],
+     "stdin": "{\"id\":\"evt_5\",\"seq\":11,\"type\":\"recording.started\",\"time\":\"2026-01-01T00:00:00.000Z\",\"v\":1,\"data\":{\"x\":1}}\n",
+     "timeout_s": 7,
+     "env": {
+      "OPENWHISPER_EVENT_ID": "evt_5",
+      "OPENWHISPER_EVENT_SEQ": "11",
+      "OPENWHISPER_EVENT_TYPE": "recording.started"
+     }
+    }
+   },
+   {
+    "args": [
+     null,
+     "The program wasn't found.",
+     "recording.started",
+     "evt_6",
+     12
+    ],
+    "result": {
+     "event_id": "evt_6",
+     "ok": false,
+     "exit_code": null,
+     "error": "The program wasn't found.",
+     "argv": [
+      "C:\\hook.exe",
+      "--a",
+      "b c"
+     ],
+     "stdin": "{\"id\":\"evt_6\",\"seq\":12,\"type\":\"recording.started\",\"time\":\"2026-01-01T00:00:00.000Z\",\"v\":1,\"data\":{\"x\":1}}\n",
+     "timeout_s": 7,
+     "env": {
+      "OPENWHISPER_EVENT_ID": "evt_6",
+      "OPENWHISPER_EVENT_SEQ": "12",
+      "OPENWHISPER_EVENT_TYPE": "recording.started"
+     }
+    }
+   },
+   {
+    "args": [
+     null,
+     "The program isn't allowed to run (permission denied).",
+     "history.saved",
+     "evt_7",
+     1784000000000
+    ],
+    "result": {
+     "event_id": "evt_7",
+     "ok": false,
+     "exit_code": null,
+     "error": "The program isn't allowed to run (permission denied).",
+     "argv": [
+      "C:\\hook.exe",
+      "--a",
+      "b c"
+     ],
+     "stdin": "{\"id\":\"evt_7\",\"seq\":1784000000000,\"type\":\"history.saved\",\"time\":\"2026-01-01T00:00:00.000Z\",\"v\":1,\"data\":{\"x\":1}}\n",
+     "timeout_s": 7,
+     "env": {
+      "OPENWHISPER_EVENT_ID": "evt_7",
+      "OPENWHISPER_EVENT_SEQ": "1784000000000",
+      "OPENWHISPER_EVENT_TYPE": "history.saved"
+     }
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,779 @@
+{
+ "module": "meeting.reinsight",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time",
+  "store": "an ended meeting m_rerun with finalization completed, no repository behind the store",
+  "settings": "the consent switches are patched per case; semantic search and the knowledge folder path stay at the scratch settings' defaults"
+ },
+ "functions": {
+  "apply_agent_ops": [
+   {
+    "args": [
+     false,
+     true,
+     [
+      {
+       "op": "set_topic",
+       "text": "Beta launch"
+      },
+      {
+       "op": "no_such_op"
+      },
+      "bare",
+      7
+     ]
+    ],
+    "result": {
+     "results": [
+      {
+       "ok": false,
+       "reason": "inactive",
+       "op": {
+        "op": "set_topic",
+        "text": "Beta launch"
+       }
+      },
+      {
+       "ok": false,
+       "reason": "inactive",
+       "op": {
+        "op": "no_such_op"
+       }
+      },
+      {
+       "ok": false,
+       "reason": "inactive",
+       "op": {
+        "op": "bare"
+       }
+      },
+      {
+       "ok": false,
+       "reason": "inactive",
+       "op": {
+        "op": 7
+       }
+      }
+     ],
+     "applied": 0
+    }
+   },
+   {
+    "args": [
+     true,
+     false,
+     [
+      {
+       "op": "set_topic",
+       "text": "Beta launch"
+      },
+      [
+       "listed"
+      ],
+      null
+     ]
+    ],
+    "result": {
+     "results": [
+      {
+       "ok": false,
+       "reason": "agent_writes_revoked",
+       "op": {
+        "op": "set_topic",
+        "text": "Beta launch"
+       }
+      },
+      {
+       "ok": false,
+       "reason": "agent_writes_revoked",
+       "op": {
+        "op": [
+         "listed"
+        ]
+       }
+      },
+      {
+       "ok": false,
+       "reason": "agent_writes_revoked",
+       "op": {
+        "op": null
+       }
+      }
+     ],
+     "applied": 0
+    }
+   },
+   {
+    "args": [
+     false,
+     false,
+     [
+      {
+       "op": "set_topic",
+       "text": "Beta launch"
+      }
+     ]
+    ],
+    "result": {
+     "results": [
+      {
+       "ok": false,
+       "reason": "inactive",
+       "op": {
+        "op": "set_topic",
+        "text": "Beta launch"
+       }
+      }
+     ],
+     "applied": 0
+    }
+   },
+   {
+    "args": [
+     true,
+     true,
+     []
+    ],
+    "result": {
+     "results": [],
+     "applied": 0
+    }
+   },
+   {
+    "args": [
+     true,
+     true,
+     [
+      {
+       "op": "no_such_op"
+      },
+      {
+       "op": "reassign_segment_speaker",
+       "segment_id": "sg_1",
+       "participant_id": "p_1"
+      }
+     ]
+    ],
+    "result": {
+     "results": [
+      {
+       "ok": false,
+       "reason": "unknown_op"
+      },
+      {
+       "ok": false,
+       "reason": "agent_forbidden"
+      }
+     ],
+     "applied": 0
+    }
+   }
+  ],
+  "question": [
+   {
+    "args": [
+     false,
+     true,
+     "ask_question",
+     [
+      "What is the budget?",
+      [
+       "sg_1"
+      ]
+     ]
+    ],
+    "result": {
+     "ok": false,
+     "reason": "inactive",
+     "op": {
+      "op": "ask_question",
+      "text": "What is the budget?",
+      "evidence": [
+       "sg_1"
+      ]
+     },
+     "applied": 0
+    }
+   },
+   {
+    "args": [
+     true,
+     false,
+     "ask_question",
+     [
+      "What is the budget?",
+      null
+     ]
+    ],
+    "result": {
+     "ok": false,
+     "reason": "agent_writes_revoked",
+     "op": {
+      "op": "ask_question",
+      "text": "What is the budget?",
+      "evidence": []
+     },
+     "applied": 0
+    }
+   },
+   {
+    "args": [
+     true,
+     false,
+     "ask_question",
+     [
+      "Split",
+      "ab"
+     ]
+    ],
+    "result": {
+     "ok": false,
+     "reason": "agent_writes_revoked",
+     "op": {
+      "op": "ask_question",
+      "text": "Split",
+      "evidence": [
+       "a",
+       "b"
+      ]
+     },
+     "applied": 0
+    }
+   },
+   {
+    "args": [
+     false,
+     true,
+     "resolve_question",
+     [
+      "q_1",
+      "Twelve",
+      0.75,
+      [
+       "sg_2"
+      ]
+     ]
+    ],
+    "result": {
+     "ok": false,
+     "reason": "inactive",
+     "op": {
+      "op": "resolve_question",
+      "question_id": "q_1",
+      "answer_text": "Twelve",
+      "confidence": 0.75,
+      "evidence": [
+       "sg_2"
+      ]
+     },
+     "applied": 0
+    }
+   },
+   {
+    "args": [
+     true,
+     false,
+     "resolve_question",
+     [
+      "q_1",
+      "Twelve",
+      1,
+      []
+     ]
+    ],
+    "result": {
+     "ok": false,
+     "reason": "agent_writes_revoked",
+     "op": {
+      "op": "resolve_question",
+      "question_id": "q_1",
+      "answer_text": "Twelve",
+      "confidence": 1,
+      "evidence": []
+     },
+     "applied": 0
+    }
+   },
+   {
+    "args": [
+     true,
+     true,
+     "ask_question",
+     [
+      "What is the budget?",
+      [
+       "sg_1"
+      ]
+     ]
+    ],
+    "result": {
+     "ok": true,
+     "reason": null,
+     "applied": 1
+    }
+   },
+   {
+    "args": [
+     true,
+     true,
+     "ask_question",
+     [
+      "What is the budget?",
+      []
+     ]
+    ],
+    "result": {
+     "ok": false,
+     "reason": "missing_evidence",
+     "applied": 0
+    }
+   },
+   {
+    "args": [
+     true,
+     true,
+     "resolve_question",
+     [
+      "q_missing",
+      "Twelve",
+      0.5,
+      [
+       "sg_1"
+      ]
+     ]
+    ],
+    "result": {
+     "ok": false,
+     "reason": "unknown_question",
+     "applied": 0
+    }
+   }
+  ],
+  "segment_exists": [
+   {
+    "args": [
+     true,
+     [
+      "sg_1"
+     ],
+     "sg_1",
+     false
+    ],
+    "result": {
+     "exists": true,
+     "asked": [
+      "m_rerun",
+      "sg_1"
+     ]
+    }
+   },
+   {
+    "args": [
+     true,
+     [
+      "sg_1"
+     ],
+     "sg_missing",
+     false
+    ],
+    "result": {
+     "exists": false,
+     "asked": [
+      "m_rerun",
+      "sg_missing"
+     ]
+    }
+   },
+   {
+    "args": [
+     false,
+     [
+      "sg_1"
+     ],
+     "sg_1",
+     false
+    ],
+    "result": {
+     "exists": false,
+     "asked": null
+    }
+   },
+   {
+    "args": [
+     true,
+     [
+      "sg_1"
+     ],
+     "sg_1",
+     true
+    ],
+    "result": {
+     "exists": false,
+     "asked": [
+      "m_rerun",
+      "sg_1"
+     ]
+    }
+   }
+  ],
+  "search_past_meetings": [
+   {
+    "args": [
+     true,
+     false,
+     [
+      {
+       "segment_id": "sg_abc123def456",
+       "meeting_id": "m_rerun",
+       "text": "this meeting's budget",
+       "snippet": "this meeting's budget",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def456",
+       "meeting_id": "m_past",
+       "text": "we adopted the budget",
+       "snippet": "we adopted the budget",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def456",
+       "meeting_id": "m_other",
+       "text": "budget again",
+       "snippet": "budget again",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 30.5
+      }
+     ],
+     "budget",
+     null,
+     10
+    ],
+    "result": {
+     "ok": false,
+     "disabled": true,
+     "text": "Past-meeting recall is disabled.",
+     "hits": []
+    }
+   },
+   {
+    "args": [
+     true,
+     true,
+     [
+      {
+       "segment_id": "sg_abc123def456",
+       "meeting_id": "m_rerun",
+       "text": "this meeting's budget",
+       "snippet": "this meeting's budget",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def456",
+       "meeting_id": "m_past",
+       "text": "we adopted the budget",
+       "snippet": "we adopted the budget",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def456",
+       "meeting_id": "m_other",
+       "text": "budget again",
+       "snippet": "budget again",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 30.5
+      }
+     ],
+     "budget",
+     null,
+     10
+    ],
+    "result": {
+     "ok": true,
+     "text": "past:m_past:1  \"Q1 review\" (2026-03-01) t=12s — we adopted the budget\npast:m_other:1  \"Q1 review\" (2026-03-01) t=30.5s — budget again",
+     "hits": [
+      {
+       "ref": "past:m_past:1",
+       "meeting_id": "m_past",
+       "title": "Q1 review",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "we adopted the budget"
+      },
+      {
+       "ref": "past:m_other:1",
+       "meeting_id": "m_other",
+       "title": "Q1 review",
+       "started_at": "2026-03-01",
+       "start_s": 30.5,
+       "snippet": "budget again"
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     false,
+     true,
+     [
+      {
+       "segment_id": "sg_abc123def456",
+       "meeting_id": "m_rerun",
+       "text": "this meeting's budget",
+       "snippet": "this meeting's budget",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def456",
+       "meeting_id": "m_past",
+       "text": "we adopted the budget",
+       "snippet": "we adopted the budget",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def456",
+       "meeting_id": "m_other",
+       "text": "budget again",
+       "snippet": "budget again",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 30.5
+      }
+     ],
+     "budget",
+     null,
+     10
+    ],
+    "result": {
+     "ok": true,
+     "text": "past:m_rerun:1  \"Q1 review\" (2026-03-01) t=12s — this meeting's budget\npast:m_past:1  \"Q1 review\" (2026-03-01) t=12s — we adopted the budget\npast:m_other:1  \"Q1 review\" (2026-03-01) t=30.5s — budget again",
+     "hits": [
+      {
+       "ref": "past:m_rerun:1",
+       "meeting_id": "m_rerun",
+       "title": "Q1 review",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "this meeting's budget"
+      },
+      {
+       "ref": "past:m_past:1",
+       "meeting_id": "m_past",
+       "title": "Q1 review",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "we adopted the budget"
+      },
+      {
+       "ref": "past:m_other:1",
+       "meeting_id": "m_other",
+       "title": "Q1 review",
+       "started_at": "2026-03-01",
+       "start_s": 30.5,
+       "snippet": "budget again"
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     true,
+     true,
+     [
+      {
+       "segment_id": "sg_abc123def456",
+       "meeting_id": "m_rerun",
+       "text": "this meeting's budget",
+       "snippet": "this meeting's budget",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def456",
+       "meeting_id": "m_past",
+       "text": "we adopted the budget",
+       "snippet": "we adopted the budget",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def456",
+       "meeting_id": "m_other",
+       "text": "budget again",
+       "snippet": "budget again",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 30.5
+      }
+     ],
+     "   ",
+     null,
+     10
+    ],
+    "result": {
+     "ok": false,
+     "text": "Provide a search query or a past meeting id.",
+     "hits": []
+    }
+   },
+   {
+    "args": [
+     true,
+     true,
+     [
+      {
+       "segment_id": "sg_abc123def456",
+       "meeting_id": "m_rerun",
+       "text": "this meeting's budget",
+       "snippet": "this meeting's budget",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def456",
+       "meeting_id": "m_past",
+       "text": "we adopted the budget",
+       "snippet": "we adopted the budget",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def456",
+       "meeting_id": "m_other",
+       "text": "budget again",
+       "snippet": "budget again",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 30.5
+      }
+     ],
+     "budget",
+     null,
+     "1"
+    ],
+    "result": {
+     "ok": true,
+     "text": "past:m_past:1  \"Q1 review\" (2026-03-01) t=12s — we adopted the budget",
+     "hits": [
+      {
+       "ref": "past:m_past:1",
+       "meeting_id": "m_past",
+       "title": "Q1 review",
+       "started_at": "2026-03-01",
+       "start_s": 12.0,
+       "snippet": "we adopted the budget"
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     true,
+     true,
+     [
+      {
+       "segment_id": "sg_abc123def456",
+       "meeting_id": "m_rerun",
+       "text": "this meeting's budget",
+       "snippet": "this meeting's budget",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def456",
+       "meeting_id": "m_past",
+       "text": "we adopted the budget",
+       "snippet": "we adopted the budget",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 12.0
+      },
+      {
+       "segment_id": "sg_abc123def456",
+       "meeting_id": "m_other",
+       "text": "budget again",
+       "snippet": "budget again",
+       "title": "Q1 review",
+       "started_at": "2026-03-01T10:00:00",
+       "start_s": 30.5
+      }
+     ],
+     "",
+     "m_rerun",
+     10
+    ],
+    "result": {
+     "ok": false,
+     "text": "Cannot recall the current meeting; it is already in the transcript.",
+     "hits": []
+    }
+   }
+  ],
+  "search_context_files": [
+   {
+    "args": [
+     false,
+     "budget",
+     null,
+     10
+    ],
+    "result": {
+     "ok": false,
+     "disabled": true,
+     "text": "Knowledge-folder search is disabled.",
+     "hits": []
+    }
+   },
+   {
+    "args": [
+     true,
+     "budget",
+     null,
+     10
+    ],
+    "result": {
+     "ok": false,
+     "disabled": true,
+     "text": "Knowledge-folder search is not available.",
+     "hits": []
+    }
+   },
+   {
+    "args": [
+     true,
+     "budget",
+     "notes.md",
+     10
+    ],
+    "result": {
+     "ok": false,
+     "disabled": true,
+     "text": "Knowledge-folder search is not available.",
+     "hits": []
+    }
+   }
+  ]
+ }
+}

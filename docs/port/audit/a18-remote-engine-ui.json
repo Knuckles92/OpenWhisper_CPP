@@ -1,0 +1,720 @@
+{
+ "area": "a18-remote-engine-ui",
+ "package": "cloud worker codex/cloud-remote-page (Remote engine page and Host Mode)",
+ "features": {
+  "A18-01": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'a18 rows: the role tabs are named, say what is paired, and open on the side in use' pins the accessible name 'Remote engine role', 'Paired · devbox' and tab 0 kept while paired and sharing (no search on looking at it again), 'Starting…' with tab 1 opened for enabled-not-running, and the search (scan_nearby(false)) when a page opened on sharing first shows the client tab after the 20 s cache."
+  },
+  "A18-02": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_remote/test_remote_page.cpp"
+   ],
+   "note": "'the rail says what is going on' pins Off -> 'Paired · devbox' -> 'Sharing · 0 paired' through setRailValue (renderHost); 'the feature registers the page under remote_engine' pins the empty rail before a page is built (registerRemoteEnginePage's railValue, as OpenWhisper sets it only on refresh)."
+  },
+  "A18-03": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'a running search says where it looks and holds the find buttons' and 'without Tailscale a running search looks on this network only' pin both busy texts (from tailscale_status before any search, from the last search after one) and the idle texts; 'the find tile's buttons say what they do' pins 'Search again', 'Check every address' with its tooltip, 'Enter an address', the tile title and the sweep button hidden when an unswept search found hosts."
+  },
+  "A18-04": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'a found computer can't be picked while incompatible or while pairing': an incompatible host's 'Use a code' is disabled (tooltip = its address), and while a request waits the second found host's Connect is disabled, enabled again afterwards."
+  },
+  "A18-05": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'nothing found says what to do, then why Tailscale didn't help' pins the whole first sentence with the unswept and swept suffixes, the three reasons for stopped / needs_login / starting, no reason while Tailscale runs, and the not_installed rich-text link (not opened externally) whose linkActivated reaches services.openUrl with https://tailscale.com/download."
+  },
+  "A18-06": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'the address row's fields, its errors and Enter to pair' pins both placeholders, minimum heights 36, maxLength 12, maximumWidth 150, 'Pair' as a PrimaryButton, parse_address's own messages verbatim for four bad addresses without pairing, and Enter in the code field pairing (QTest::keyClick); 'the address row and Enter an address hide while a request waits' pins the row and the manual button hidden while waiting and the row back after canceling."
+  },
+  "A18-07": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'a code pairing says Pairing..., then which identity to compare' ('Pairing...' while pair() is held, the Pair button disabled, the whole identity sentence and the code field cleared) and 'a Tailscale pairing says so in full'."
+  },
+  "A18-08": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'the address row and Enter an address hide while a request waits' holds request_pairing before on_code: 'Asking devbox...' with no wait box, then 'Waiting for devbox to allow this computer...', the whole wait sentence, '123 456' and the code font (bold, absolute spacing 3, 1.8x the default point size)."
+  },
+  "A18-09": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_audit.cpp",
+    "tests/ui_remote/test_remote_page.cpp"
+   ],
+   "note": "Every branch of pairErrorText was pinned by 'page blames the firewall when a found host wont connect' except the firewall sentence, checked only by its start. Added 'a18 audit: a found host that won't connect blames its firewall in full' (the whole sentence, product name from identity())."
+  },
+  "A18-10": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_audit.cpp",
+    "tests/ui_remote/test_remote_page.cpp"
+   ],
+   "note": "'page offers a code for a host too old to ask' pins the row and the prefilled 127.0.0.1:47821; the sentence was checked by its start only. Added 'a18 audit: a host too old to ask is paired by a code it shows' (the whole sentence)."
+  },
+  "A18-11": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'retrying the key says it asks for access': 'Requesting access to save the connection key...' right after Retry saving key, then the credential-store sentence when it is refused again."
+  },
+  "A18-12": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'the paired host tile says where and who, with every action' pins the whole description with the identity for a LAN pairing, 'over Tailscale at 100.64.0.2:47821' and ', or over Tailscale at 100.64.0.2 when away', the tile title, the five button texts (Use for dictation a PrimaryButton) and the Rename host tooltip."
+  },
+  "A18-13": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'the paired host tile says where and who, with every action' pins the whole hint with its link markup, hidden over Tailscale and with a Tailscale fallback address, not opened externally, and linkActivated reaching services.openUrl with the download URL (OpenWhisper opens it externally: same result)."
+  },
+  "A18-14": {
+   "status": "difference",
+   "difference": "a18-use-for-meetings-opens-the-page"
+  },
+  "A18-15": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_models_dialog.cpp",
+    "src/ui_remote/remote_feature.cpp",
+    "src/ui_remote/remote_engine_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_models_dialog.cpp",
+    "tests/ui_remote/test_remote_models_inspector.cpp",
+    "tests/ui_remote/test_remote_models_dialog.cpp",
+    "tests/ui_remote/test_remote_page.cpp"
+   ],
+   "note": "Checked RemoteModelsDialog (src/ui_remote/remote_models_dialog.cpp, rebuilt to OpenWhisper's dialog, tests/ui_remote/test_remote_models_inspector.cpp and test_remote_models_dialog.cpp) against settings_remote.py:1495-1506: it was opened with QDialog::open(), which is window-modal, where OpenWhisper shows it non-modal (show()) so Settings stays usable. openRemoteModelsDialog now calls show(). 'Manage host models opens a non-modal dialog that deletes itself on close' pins non-modal, WA_DeleteOnClose, the title 'Models on devbox' and deletion on close; the page side stays pinned by 'Use for meetings asks for the meeting voice page'."
+  },
+  "A18-16": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h",
+    "src/ui_remote/remote_name_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'renaming says what the name is for, and says when it fails' pins the host title 'Rename host', both explanation texts verbatim and the warnings 'Could not rename host' / 'Could not rename computer' with the error (HeldEngine throws from rename_host / rename_device); 'the name dialog is laid out as OpenWhisper's' pins minimum width 360, margins 18, spacing 12, the edit's minimum height 36 and the text."
+  },
+  "A18-17": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'forgetting a host that keeps records, once allowed, forgets and searches': Yes calls forget_host(), says 'Forgot the host. Pair again to use it.' and searches again (a second scan_nearby(false)) inside the 20 s cache."
+  },
+  "A18-18": {
+   "status": "difference",
+   "difference": "a18-records-transfer-by-hand",
+   "note": "The tile, the recordsLocationSwitch frame (margins 2, spacing 2), checkable recordsLocationBtn buttons (min height 30, pointing hand), the host button elided middle to 160 px with tooltip 'Keep records on <host>', and the OpenWhisper descriptions/notes are in renderRecords/chooseLocation; records_location_description is pinned by the golden '_records_location_description' case, the tile's visibility, the host button text and 'New records will also be copied to devbox.' by 'the storage choice shows only while paired' and 'choosing a location saves it and says what happens'. But the shipped remote_records::RecordSync returns manual_transfers()=true, so in the app the tile says 'Copy or move existing dictations to the paired host when you choose. New dictations stay here until you send them.' and choosing host/both notes 'Choose the transfer button when you are ready.': records move only when the person asks, per a17-backup-transfer / a17-retention. Neither manual string is tested (FakeRecordSync has no manual_transfers switch); the failure note 'Couldn't change where records are kept: …', the 'local' and 'host' notes, the tooltip and disabled-while-busy are not tested either."
+  },
+  "A18-19": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'the storage line puts the sync's state in OpenWhisper's order' (active replacing waiting, pending and the error; waiting alone; a host problem replacing waiting; the error only with pending; nothing shown otherwise) and 'a records job's line replaces the active one, and its result comes last' (the busy text replacing active, the note last, single spaces)."
+  },
+  "A18-20": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'the record actions show where they apply and wait for each other': send hidden for local and bring-back hidden with nothing stored, both tooltips, 'Queuing records…' / 'Bringing records back from devbox…' while every location and action button is disabled, 'Everything here is already on the host.', 'Try again' only with pending and an error and nothing active, calling wake(true), and FioriVoce's manual-transfer question before sending (a17-backup-transfer) with its tile description."
+  },
+  "A18-21": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'sharing switches off the GUI thread, and failing puts the switch back': set_host_enabled runs on io, no open_pairing when a computer is paired already, and a set_host_enabled that throws is followed by a state read that puts the switch back off. The tile description is pinned by 'a18 audit: the host tiles say what they allow, word for word'."
+  },
+  "A18-22": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h",
+    "src/ui_remote/remote_text.cpp"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_audit.cpp",
+    "tests/ui_remote/test_remote_text.cpp",
+    "tests/ui_remote/test_remote_page.cpp"
+   ],
+   "note": "The status line is pinned by the golden '_sharing_status'/'_sharing_address' cases and the page tests; the identity line was not. Added 'a18 audit: the sharing host shows its identity to compare' (the sentence with short_fingerprint, selectable by mouse, hidden once sharing stops)."
+  },
+  "A18-23": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'a note without a fix has no button, and an unchanged note is kept': no button for a note without url or action, and the same row widget survives refresh() and a 'state' event with unchanged notes."
+  },
+  "A18-24": {
+   "status": "difference",
+   "difference": "a18-mcp-tile-grants-a-session",
+   "note": "Manage models and Keep records are SettingTiles saved through set_model_management / set_keep_records on io, mirrored with signals blocked, pinned by 'settings tile is off by default and only changes host permission', 'the host toggle saves the opt in' and 'a countdown read from before a switch moved does not move it back'. The MCP tile differs: whenever a PeerMcpSession is provided (the app, with a database) it becomes 'Grant session MCP control to one paired computer', asks which paired computer and confirms, then calls grant_mcp_session(id) for a 15-minute read-only local listener, with a 'Show local MCP session connection' button — a17-paired-mcp. Neither MCP path (grant or the set_manage_mcp fallback) has a test."
+  },
+  "A18-25": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_audit.cpp",
+    "tests/ui_remote/test_remote_page.cpp"
+   ],
+   "note": "Shown and saved (set_tailscale_trust) were pinned by 'settings page connects to a tailnet computer without a code'. Added 'a18 audit: the Tailscale trust tile names whose computers pair without a code' (the description verbatim) and 'a18 audit: without a Tailscale owner there is no code-free tile'."
+  },
+  "A18-26": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'a refresh leaves a port being typed alone': a refresh while the settle timer runs keeps the typed 50000, which is then saved once; the range, default, keyboard tracking, minimum size and description were pinned by 'a18 audit: the host tiles say what they allow, word for word'."
+  },
+  "A18-27": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'the pairing code is drawn large and counts down from the host': the Show a pairing code tooltip with identity().product, the code font (bold, absolute spacing 3, 1.8x) and the 1 s countdown redrawing 'Expires in 0:30.' from a new host_state."
+  },
+  "A18-28": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'each paired computer's row says who, when, how and what it keeps': 'Laptop · paired Nov 14, 2026 · keeps 2 dictations (2.0 KB) here', 'Unnamed computer · connected now · paired Nov 14, 2026 over Tailscale · …', the Rename tooltip and 'No computers are paired yet.'"
+  },
+  "A18-29": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'removing a computer keeps, cancels or asks nothing as its records say': Keep -> remove_device(id,false), Cancel -> no call, no question without records, 'Could not remove computer: <error>' from a throwing remove_device, and the real QMessageBox (answered from its own event loop): title, text, informative text, 'Delete its records' destructive and 'Keep its records' the default."
+  },
+  "A18-30": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h",
+    "src/ui_remote/record_recovery_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'the recovery dialog says what each field is' (title, minimum width 300, 460x280, the device combo's object name, both accessible names, the intro, both field labels, 'Recover records') and 'recovering says it is under way, then how it went' (the button tooltip, 'Recovering stored records…' with the button disabled while recover_device_records is held, the full success text and 'Could not recover records: <error>')."
+  },
+  "A18-31": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'activity reads nothing, other changes read the state again' (an 'activity' event from another thread makes no host_state() call, 'devices' makes one) and 'a records job's progress replaces its busy line' (a 'progress:<text>' outbox event, and bring_back's progress callback, shown in remoteStorageStatus while the job is held)."
+  },
+  "A18-32": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/pair_request_dialog.cpp",
+    "src/ui_remote/pair_request_dialog.h",
+    "src/ui_remote/pair_request_prompter.cpp"
+   ],
+   "tests": [
+    "tests/ui_remote/test_pair_request_dialog.cpp"
+   ],
+   "note": "There was no PairRequestDialog: the prompter built its own window-modal 'Remote engine pairing request' dialog with other wording, 'Allow once', no countdown, and answered Deny when it timed out. Ported pair_request_dialog.py: object name pairRequestDialog, 'Pair a computer', modeless, always on top, min width 440, the title and asking-from lines ('A computer', 'this network' fallbacks), pairRequestCode (format_sas, 'Pairing number'), 'No answer by M:SS turns it down.', the grants sentence (remote_text::pairing_grants_phrase), Deny (neutral, default) and Allow (compact primary); closing (and Escape) denies, running out or dismiss() answers nothing. Pinned by test_the_host_asks_with_the_number_and_passes_the_answer_on, 'PairRequestDialog says this network and A computer without an address or name', test_closing_the_question_denies_and_a_withdrawn_one_just_goes, 'Escape on the pairing question denies it' and 'a request that has run out is closed without an answer'."
+  },
+  "A18-33": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/pair_request_dialog.cpp",
+    "src/ui_remote/pair_request_dialog.h",
+    "src/ui_remote/pair_request_prompter.cpp",
+    "src/ui_remote/remote_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_remote/test_pair_request_dialog.cpp"
+   ],
+   "note": "The prompter now shows PairRequestDialog with show(), raise(), activateWindow() and QApplication::alert, keeps at most one, dismisses it when the request is withdrawn or replaced (no answer), shows it with no grants when pairing_grants() fails, and answers answer_pair_request(id, allow) on io. It hears the service through a Subscription and is a child of the window (the relay's job). Pinned by the four prompter functions of test_remote_pairing_ux.py in tests/ui_remote/test_pair_request_dialog.cpp, including test_a_replaced_prompter_is_not_held_by_a_server_thread."
+  },
+  "A18-34": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/host_dashboard.cpp",
+    "src/ui_remote/host_dashboard.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_host_mode.cpp"
+   ],
+   "note": "HostDashboard was plain labels ('Engine sharing' group boxes). Ported: hostHero with the state property (off/on/starting/error), every title, the where/error/off detail, 'Identity <short fingerprint>' with its tooltip, Start shown when not enabled and Stop when enabled, 'Turn off sharing' on error. Pinned by test_sharing_off_offers_to_start, test_sharing_names_the_engine_where_to_reach_it_and_the_identity, test_a_port_in_use_is_shown_with_a_way_to_turn_sharing_off, 'Host Mode words a VPN address and a host without one as OpenWhisper does' (Starting to share…, VPN note, 'This computer on port N')."
+  },
+  "A18-35": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/host_dashboard.cpp",
+    "src/ui_remote/host_dashboard.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_host_mode.cpp"
+   ],
+   "note": "Ported: the question only while someone is connected, '{name} is connected.' / '{N} computers are connected.', 'Stopping cuts them off until you share again.', Stop sharing (destructive) and Cancel, then set_host_enabled on io. Pinned by 'Host Mode asks before stopping only while someone is connected' through the injectable confirmation; the QMessageBox itself (askToStop) is not driven by a test."
+  },
+  "A18-36": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/host_beacon.cpp",
+    "src/ui_remote/host_beacon.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_host_mode.cpp"
+   ],
+   "note": "Ported HostBeacon (60x60, states, busy waves at 1300 ms, ripple 900 ms, light ring 520 ms, 33 ms tick only while shown). Pinned: state follows the hero, busy while a grouped client is busy (test_connected_computers_are_grouped_and_show_who_is_being_served), a ripple when the transcription count rises and no animation once hidden (test_the_beacon_ripples_when_a_transcription_comes_back). The painted geometry and colours have no reference screenshot yet."
+  },
+  "A18-37": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/host_dashboard.cpp",
+    "src/ui_remote/host_dashboard.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_host_mode.cpp"
+   ],
+   "note": "Ported the four hostStat tiles with their captions and tone dots, 2x2 below 700 px and 4 across from it. Values and details pinned by test_stats_and_recent_activity_follow_what_the_host_counted, test_nothing_yet_says_where_activity_will_appear, 'Host Mode's stats say last session once sharing stops'; the arrangement by test_host_mcp_actions_fit_narrow_windows_and_reflow_when_widened."
+  },
+  "A18-38": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/host_dashboard.cpp",
+    "src/ui_remote/host_dashboard.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_host_mode.cpp"
+   ],
+   "note": "Ported the Engine card: StatusDot (10 px; ready/attention/unknown, busy while loading), hostEngineName with 'No local engine selected', the device/compute/live-preview line, 'Switching to …'/'Loading…', the warning status, 'Serve' and hostModelCombo (min 36x220, tooltip), the hint and 'Download models in Settings'. The picker switches this computer through select_host_model (src/ui_remote/host_model_switch.cpp, wired in buildHostDashboard). Pinned by test_the_engine_picker_switches_through_the_signal_and_says_why_not, test_a_finished_load_ends_the_switch, test_without_ready_models_the_picker_points_to_downloads, 'Host Mode's engine card reads a compute type and a load in progress', and tests/ui_remote/test_host_mode_wiring.cpp."
+  },
+  "A18-39": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/host_dashboard.cpp",
+    "src/ui_remote/host_dashboard.h",
+    "src/ui_widgets/remote_link_glyph.cpp"
+   ],
+   "tests": [
+    "tests/ui_remote/test_host_client_glyph.cpp",
+    "tests/ui_remote/test_host_mode.cpp",
+    "tests/ui_remote/test_host_text.cpp"
+   ],
+   "note": "RemoteLinkGlyph(mirrored) now leads each Host Mode connected row (ClientRow::glyph in src/ui_remote/host_dashboard.cpp), with the tooltip 'This computer on the left, the paired computer on the right', set_link('connected', busy, transcriptions served) on each showClient, as host_dashboard.py _ClientRow. 'Host Mode's connected rows start with the serving chip' pins its place first in the row, mirrored, the tooltip, the drawn wire on the first answer, busy while transcribing and one reply packet per new transcription; grouping and the text stay pinned by test_host_mode.cpp and test_host_text.cpp."
+  },
+  "A18-40": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/host_dashboard.cpp",
+    "src/ui_remote/host_dashboard.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_host_mode.cpp"
+   ],
+   "note": "Ported: 'Pair a computer' (min 150x38) hidden while a code shows or sharing is off, hostPairingBox with the code '123 456', 'Enter this code on the other computer. Expires in M:SS.', Cancel (90x36), the three notes, the Paired computers rows with 'Paired <date>[ over Tailscale]', 'keeps … here', 'Connected' / 'Seen …' and 'Manage sharing and paired computers in Settings'. Pinned by test_pairing_shows_the_code_until_canceled and test_paired_computers_show_how_they_paired_and_what_they_keep_here."
+  },
+  "A18-41": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/host_dashboard.cpp",
+    "src/ui_remote/host_dashboard.h",
+    "src/ui_remote/remote_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_remote/test_host_mode.cpp",
+    "tests/ui_remote/test_host_mode_wiring.cpp"
+   ],
+   "note": "Ported the MCP card over agentapi::McpServerControl (the context's, found when first read): intro, status, Turn on/off saving mcp_enabled (not for the session-only control) and starting on the saved port, the Tailscale hint, copy token and agent prompt with 2 s 'Copied', and the reflowing actions. Pinned by the eight MCP functions of test_host_mode.py in test_host_mode.cpp and test_main_host_window_has_the_shared_mcp_copy_controls."
+  },
+  "A18-42": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/host_dashboard.cpp",
+    "src/ui_remote/host_dashboard.h",
+    "src/ui_remote/host_text.cpp",
+    "src/ui_remote/host_text.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_host_mode.cpp",
+    "tests/ui_remote/test_host_text.cpp"
+   ],
+   "note": "Ported EventRow: time (%I:%M %p without the leading zero, min width 62), tone dot, the text, a 1,600 ms glow on new rows only after the first render, 12 rows. Pinned by test_stats_and_recent_activity_follow_what_the_host_counted and the event_text/event_tone cases of test_host_text.cpp."
+  },
+  "A18-43": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/host_dashboard.cpp",
+    "src/ui_remote/host_dashboard.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_host_mode.cpp"
+   ],
+   "note": "The unbound page said 'Host Mode isn't available.' only. Now 'Host Mode isn't available here' / 'The remote engine hasn't started in this window.', start/stop hidden, cards disabled; pinned by test_an_unbound_page_says_host_mode_isnt_available and test_the_dashboard_reads_the_service_the_controller_is_given."
+  },
+  "A18-44": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/host_dashboard.cpp",
+    "src/ui_remote/host_dashboard.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_host_mode.cpp"
+   ],
+   "note": "Reads run on io, coalesced 40 ms while shown, kept pending while hidden; parts all/engine/live/models/devices as service.py's kinds map them; the clock (30 s), countdown (1 s) and MCP poll (1 s) run only while shown. Pinned by test_the_page_waits_to_be_shown_before_asking_the_service, test_a_closed_page_is_held_by_neither_a_server_thread_nor_its_model_listing and the event cases; the 30 s clock tick itself is not driven by a test."
+  },
+  "A18-45": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/host_text.cpp",
+    "src/ui_remote/host_text.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_host_text.cpp"
+   ],
+   "note": "Ported _span, _quick, _ago, _clock, _iso_ago, _device_label and _speed into host_text (time zone from the clock); pinned by 'Host Mode spans, quick times and speeds read as OpenWhisper's' and 'Host Mode relative times and clock times'. _paired_on is remote_text::paired_on (golden-tested)."
+  },
+  "A18-46": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_audit.cpp",
+    "tests/ui_remote/test_remote_page.cpp"
+   ],
+   "note": "'the unbound page says the remote engine isn't available' pinned the client tile sentence and the hidden rows; added 'a18 audit: the unbound page offers nothing to click' (pairing box hidden; find, management, keep records, MCP, Tailscale, port and devices tiles disabled)."
+  },
+  "A18-47": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_audit.cpp"
+   ],
+   "note": "No test read a tile description. Added 'a18 audit: the host tiles say what they allow, word for word': the Share, Manage models and Keep records descriptions verbatim (and the devices and port texts). The Manage MCP tile's description in the app is the session text of a17-paired-mcp (see A18-24)."
+  },
+  "A18-48": {
+   "status": "other-platform",
+   "reason": "macOS Keychain help, 'Retry Keychain access' and 'Open Keychain Access' are macOS-only in OpenWhisper. macOS Keychain help text, 'Retry Keychain access' and 'Open Keychain Access' (/usr/bin/open -b com.apple.keychainaccess) are macOS-only in OpenWhisper; FioriVoce builds Open Keychain Access hidden and shows the platform_backend_name() help (A18-11). The cross-platform parts of this row are pinned: Retry disabled while a pairing is busy and the panel only while unpaired with a pending name ('page recovers after repeated denials', 'reopening settings keeps the recovery action'); pending_pairing_name is a required RemoteEngineControl method, so no getattr default is needed."
+  },
+  "A18-49": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'a running search says where it looks and holds the find buttons' pins the description worded from tailscale_status before the first search ends and Search again / Check every address disabled while searching; 'the address row and Enter an address hide while a request waits' pins Enter an address hidden while a request waits and the wait box hidden until on_code."
+  },
+  "A18-50": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'a failed records job shows its error, or its class without one' (str(exc), else 'RecordsUnavailable') and 'removing a computer keeps, cancels or asks nothing as its records say' (a computer with an empty name is 'This computer' in the remove question)."
+  },
+  "A18-51": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'recovery says when nothing needs it, or that it couldn't look' ('No records from unpaired computers need recovery.' with computers paired and no old records; 'Could not load stored records: <error>' when recoverable_record_owners throws) and 'recovering says it is under way, then how it went' (Recover stored records… disabled while recovering)."
+  },
+  "A18-52": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'each paired computer's row says who, when, how and what it keeps' sets keep_records false and engine.summary: each row still says 'keeps 2 dictations (2.0 KB) here', read on io in the snapshot. The Host Mode half stays pinned by test_host_mode.cpp."
+  },
+  "A18-53": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/remote_engine_page.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_a18_page_rows.cpp"
+   ],
+   "note": "Checked against settings_remote.py; the C++ matched, the missing assertions are now in tests/ui_remote/test_a18_page_rows.cpp: 'a records job's progress replaces its busy line' (bringing back from location local asks nothing, makes no set_location call, calls bring_back and shows its progress line while busy) and 'choosing the location already chosen saves nothing' (no set_location for the current location, one for another). Small difference kept: OpenWhisper calls set_location(\"local\") on the UI thread before the job, FioriVoce inside the job on io."
+  },
+  "A18-54": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/host_text.cpp",
+    "src/ui_remote/host_text.h",
+    "src/ui_remote/host_dashboard.cpp",
+    "src/ui_remote/host_dashboard.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_host_text.cpp"
+   ],
+   "note": "Pinned by 'Host Mode activity lines and their fallbacks' (name 'A paired computer', 'unknown error', 'another model', unknown kind is the name, unknown tone text-muted) and 'Host Mode groups connections per paired computer' (device_id else name)."
+  },
+  "A18-55": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/host_dashboard.cpp",
+    "src/ui_remote/host_dashboard.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_host_mode.cpp"
+   ],
+   "note": "Pinned by test_sharing_names_the_engine_where_to_reach_it_and_the_identity (the Tailscale line) and 'Host Mode words a VPN address and a host without one as OpenWhisper does' ('This computer on port N', detail hidden while starting, Stop shown while enabled)."
+  },
+  "A18-56": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/host_dashboard.cpp",
+    "src/ui_remote/host_dashboard.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_host_mode.cpp"
+   ],
+   "note": "Pinned by 'Host Mode asks before stopping only while someone is connected' (distinct sorted names, one vs several, starting asks nothing). FioriVoce refreshes once the background change has returned rather than also at once, which shows the same end state."
+  },
+  "A18-57": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/host_dashboard.cpp",
+    "src/ui_remote/host_dashboard.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_host_mode.cpp"
+   ],
+   "note": "Pinned by test_pairing_shows_the_code_until_canceled (box only while running with a code, button hidden then back, the Tailscale-trust note and the plain note) and test_paired_computers_show_how_they_paired_and_what_they_keep_here (empty status when never seen). The expiry scheduling a full read is implemented (showPairing) but not driven by a test."
+  },
+  "A18-58": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/host_dashboard.cpp",
+    "src/ui_remote/host_dashboard.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_host_mode.cpp"
+   ],
+   "note": "Pinned by 'Host Mode's engine card reads a compute type and a load in progress' ('On CPU (int8_float32)', Ready/Attention dots, 'Loading…', the status line) and the picker cases (show_engine_error, switching, placeholder 'No models are ready')."
+  },
+  "A18-59": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/host_dashboard.cpp",
+    "src/ui_remote/host_dashboard.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_host_mode.cpp"
+   ],
+   "note": "Pinned by test_mcp_turns_on_and_off_with_the_setting_settings_uses, test_mcp_that_couldnt_start_says_why_and_offers_to_try_again, test_host_copy_prompt_targets_tailscale_and_explains_local_only and the token cases. The 'Couldn't save the MCP setting. Try again.' notice is implemented but not driven by a test (MemorySettingsStore does not fail)."
+  },
+  "A18-60": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/host_dashboard.cpp",
+    "src/ui_remote/host_dashboard.h"
+   ],
+   "tests": [
+    "tests/ui_remote/test_host_mode.cpp"
+   ],
+   "note": "Pinned by test_connected_computers_are_grouped_and_show_who_is_being_served (count and names), test_stats_and_recent_activity_follow_what_the_host_counted ('since 9:45 AM · 1 failed', tooltip, rebuild on (since, serial), no glow first), 'Host Mode's stats say last session once sharing stops', test_nothing_yet_says_where_activity_will_appear ('0 s', 'no requests yet') and test_the_beacon_ripples_when_a_transcription_comes_back."
+  },
+  "A18-61": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_remote/pair_request_dialog.cpp",
+    "src/ui_remote/pair_request_dialog.h",
+    "src/ui_remote/pair_request_prompter.cpp"
+   ],
+   "tests": [
+    "tests/ui_remote/test_pair_request_dialog.cpp"
+   ],
+   "note": "Title font x1.25 bold, code font x2.4 bold with absolute spacing 4 and centred, the 'this network' fallback, the grants joiner (remote_text::pairing_grants_phrase, golden-tested in test_remote_text.cpp) and the showEvent growth to the size-hint height are ported in PairRequestDialog; the code font, alignment and fallback are pinned by 'PairRequestDialog says this network and A computer without an address or name', the grants sentence by test_the_question_says_what_else_allowing_grants. The showEvent growth is not pinned (it depends on font metrics)."
+  }
+ },
+ "differences": [
+  {
+   "id": "a18-use-for-meetings-opens-the-page",
+   "features": [
+    "A18-14"
+   ],
+   "openwhisper": "'Use for meetings' saves meeting_speech_separate and meeting_asr_source remote (use_remote_for_meetings) and opens Meeting voice; 'Use for dictation' selects the Remote computer engine.",
+   "fiorivoce": "'Use for meetings' opens Settings on Meeting voice (useForMeetingsRequested has no receiver), where the paired host is chosen and confirmed for meeting audio. 'Use for dictation' saves the remote model selection and reloads (remote_feature.cpp); the page's half is pinned by 'settings page pairs with a host and lists the device', the wiring has no test.",
+   "reason": "A dictation preference does not authorize sending meeting audio to another computer: each remote meeting route needs its own confirmation of the named host.",
+   "source": "docs/port/differences.md a25-remote-meeting-consent; src/ui_remote/remote_engine_page.cpp useForMeetings"
+  },
+  {
+   "id": "a18-records-transfer-by-hand",
+   "features": [
+    "A18-18"
+   ],
+   "openwhisper": "The records-location tile keeps new records on the host automatically and describes it so.",
+   "fiorivoce": "The shipped RecordSync reports manual_transfers(), so the tile and its notes use the manual-transfer wording ('Copy or move existing dictations…', 'Choose the transfer button when you are ready.'); OpenWhisper's wording shows only without it and is pinned there.",
+   "reason": "Record sharing is explicit and per session.",
+   "source": "docs/port/audit/a17-remote-engine-services.json a17-retention and a17-backup-transfer"
+  },
+  {
+   "id": "a18-mcp-tile-grants-a-session",
+   "features": [
+    "A18-24"
+   ],
+   "openwhisper": "'Allow paired computers to manage MCP' lets a paired computer change the host's MCP settings.",
+   "fiorivoce": "With a PeerMcpSession (the app) the tile is 'Grant session MCP control to one paired computer': it asks which computer, confirms and calls grant_mcp_session for a 15-minute read-only local listener.",
+   "reason": "Granting one paired device access does not authorize changes to the host's settings or a reusable credential.",
+   "source": "docs/port/audit/a17-remote-engine-services.json a17-paired-mcp"
+  },
+  {
+   "id": "a18-pairing-request-ends-with-page",
+   "features": [
+    "A18-08"
+   ],
+   "openwhisper": "A pairing request waiting for the host's owner keeps its worker thread waiting after Settings closes, until the host answers or the request ends.",
+   "fiorivoce": "Closing the Remote engine page cancels a pairing request still waiting.",
+   "reason": "A request whose page is gone has nowhere to show its code or its result.",
+   "source": "The remote sweep of 2026-11-19 (open item Remote engine page: a pairing request waiting on the host's owner); src/ui_remote/remote_engine_page.cpp ~RemoteEnginePage; tests/ui_remote/test_remote_page.cpp ('closing the page cancels a pairing request still waiting')"
+  }
+ ]
+}

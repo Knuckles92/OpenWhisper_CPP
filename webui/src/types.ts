@@ -1,0 +1,624 @@
+// Wire types mirroring the Python contracts:
+//   meeting/state/schema.py  (MeetingState.to_dict shapes)
+//   meeting/state/patches.py (op vocabulary)
+//   meeting/web/server.py    (WS + REST payloads)
+
+export type Role = 'host' | 'guest';
+
+export type ItemStatus = 'proposed' | 'edited' | 'confirmed' | 'removed';
+export type QuestionStatus = 'open' | 'resolved' | 'dismissed';
+export type ParticipantKind = 'me' | 'others_cluster' | 'guest';
+
+export type CardKey =
+  | 'key_points'
+  | 'decisions'
+  | 'action_items'
+  | 'risks'
+  | 'timeline'
+  | 'live_notes'
+  | 'user_notes';
+
+export const CARD_KEYS: CardKey[] = [
+  'key_points',
+  'decisions',
+  'action_items',
+  'risks',
+  'timeline',
+  'live_notes',
+  'user_notes',
+];
+
+/**
+ * Cards rendered by the generic Captured list / composer / spotlight.
+ * `live_notes` is excluded: the dedicated NotesPane owns that card.
+ */
+export const GENERIC_CARD_KEYS: CardKey[] = CARD_KEYS.filter(
+  (key) => key !== 'live_notes',
+);
+
+export interface InsightAssessment {
+  state?: 'inferred' | 'provisional' | 'unsupported' | 'human';
+  scores?: Record<string, number>;
+  revision?: number;
+  field?: string;
+}
+
+export interface ReviewQuestion {
+  id: string;
+  item_id: string;
+  revision: number;
+  field: string;
+  text: string;
+  choices: Record<string, string>;
+  status: 'open' | 'answered' | 'skipped';
+  evidence: string[];
+  sources: Array<{id: string; start_s: number; text: string}>;
+  owners: Array<{id: string; display_name: string}>;
+  score?: number;
+  reason: string;
+  answer?: string;
+  correction?: string;
+  superseded?: boolean;
+  insight?: CardItem;
+}
+
+export interface InsightReviewState {
+  enabled: boolean;
+  status: 'disabled' | 'pending' | 'running' | 'ready' | 'partial' | 'failed' | 'unavailable';
+  message: string;
+  questions: ReviewQuestion[];
+}
+
+export type LiveHighlightsStatus = 'on' | 'off' | 'unavailable' | 'needs_insights' | 'unknown';
+
+export interface HighlightPulse {
+  id: string;
+  kind: 'decision' | 'disagreement' | 'commitment' | 'number' | 'takeaway';
+  start_s: number;
+  segment_id: string;
+  probability: number;
+  text: string;
+  assessment?: {
+    threshold: number;
+    window_start_s: number;
+    window_end_s: number;
+    scores: Partial<Record<HighlightPulse['kind'], number>>;
+    source_confidence?: number;
+    source_probability?: number;
+    source_rank?: number;
+    source_option_count?: number;
+    source_options?: Array<{
+      segment_id: string | null;
+      probability: number;
+      start_s?: number;
+      text?: string;
+    }>;
+  };
+}
+
+export interface CardItem {
+  id: string;
+  card: CardKey;
+  text: string;
+  data: Record<string, unknown>;
+  review?: InsightAssessment;
+  citation_check?: {status: string; revision: number; confidence?: number | null};
+  status: ItemStatus;
+  author_type: string;
+  author_id: string | null;
+  pinned: boolean;
+  revision: number;
+  evidence: string[];
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Question {
+  id: string;
+  text: string;
+  status: QuestionStatus;
+  suggested_answer: string | null;
+  suggested_confidence: number | null;
+  answer: string | null;
+  answer_source: 'user' | 'audio' | null;
+  confidence: number | null;
+  thread: Array<Record<string, unknown>>;
+  evidence: string[];
+  asked_at: string;
+  resolved_at: string | null;
+  resolved_by: string | null;
+}
+
+export interface Participant {
+  id: string;
+  display_name: string;
+  kind: ParticipantKind;
+  name_source: 'default' | 'human' | 'agent_inferred';
+  is_provisional: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface TopicRevision {
+  text: string;
+  ts: string;
+  evidence: string[];
+  actor_type: string;
+}
+
+export interface TopicState {
+  current: string;
+  history: TopicRevision[];
+}
+
+/** What the host wants out of this meeting's record; steers every agent pass. */
+export interface MeetingIntent {
+  text: string;
+  updated_at: string;
+  author_id: string;
+}
+
+export type FinalizationStatus =
+  | 'pending'
+  | 'running'
+  | 'completed'
+  | 'disabled'
+  | 'unavailable'
+  | 'failed';
+
+export interface FinalizationStep {
+  id: string;
+  name: string;
+  status: 'pending' | 'running' | 'completed' | 'failed' | 'skipped';
+  detail: string;
+}
+
+export interface FinalizationState {
+  status: FinalizationStatus;
+  message: string;
+  stage?: string;
+  current_step?: number;
+  total_steps?: number;
+  step_details?: string;
+  steps?: FinalizationStep[];
+  summary_stats?: Record<string, unknown>;
+  card_deferred?: boolean;
+}
+
+/** A report a participant asked for in their own words. */
+export interface CustomReport {
+  id: string;
+  request: string;
+  status: 'running' | 'ready' | 'failed';
+  title: string;
+  markdown: string;
+  message: string;
+  run_id: string;
+  sources: {
+    transcript_lines?: number;
+    duration_s?: number;
+    transcript_complete?: boolean;
+    tools_used?: Record<string, number>;
+    past_meetings?: boolean;
+    knowledge_folder?: boolean;
+    model?: string;
+    provider?: string;
+  };
+  requested_by: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface MeetingStateDoc {
+  meeting_id: string;
+  seq: number;
+  status: string; // active | paused | ending | ended | failed | needs_recovery
+  cloud_enabled: boolean;
+  intelligence_online: boolean;
+  diarization_available: boolean;
+  /** Why speaker separation is unavailable; empty while it starts or works. */
+  diarization_reason?: string;
+  speech?: { source: 'remote'; host: string; model: string; connected: boolean; message: string };
+  title: string;
+  /** The host's standing brief. Legacy snapshots omit it. */
+  intent?: MeetingIntent;
+  topic: TopicState;
+  rolling_summary: string;
+  rolling_summary_evidence: string[];
+  capture: {
+    mic_available: boolean;
+    loopback_available: boolean;
+    /** Whether callbacks are currently delivering buffers on each channel. */
+    mic_receiving?: boolean;
+    loopback_receiving?: boolean;
+    /** Counts 0.25-second signal windows; used by explicit audio checks. */
+    mic_signal_windows?: number;
+    loopback_signal_windows?: number;
+    mic_source_generation?: number;
+    loopback_source_generation?: number;
+    message: string;
+  };
+  participants: Record<string, Participant>;
+  cards: Record<CardKey, CardItem[]>;
+  questions: Question[];
+  /** Optional post-meeting cloud consolidation outcome. */
+  finalization?: FinalizationState | null;
+  /** Enabled post-meeting report views. Legacy snapshots omit this. */
+  report_views?: string[];
+  insight_review?: Partial<InsightReviewState>;
+  live_highlights?: HighlightPulse[];
+  live_highlights_status?: LiveHighlightsStatus;
+  voice_feedback?: {message?: string; at?: string};
+  /** Tailored reports, oldest first. Legacy snapshots omit this. */
+  custom_reports?: CustomReport[];
+}
+
+export interface Segment {
+  original_text?: string;
+  id: string;
+  meeting_id: string;
+  chunk_id: number | null;
+  channel: string; // mic | loopback
+  start_s: number;
+  end_s: number;
+  text: string;
+  speaker_participant_id: string | null;
+  speaker_source: string; // channel | diarizer | human
+  speaker_pinned: boolean;
+  created_at?: string;
+}
+
+export type InsightsPillTone = 'warning' | 'success' | 'neutral';
+
+export interface MeetingContentSummary {
+  has_audio: boolean;
+  has_loopback_audio: boolean;
+  has_transcript: boolean;
+  is_empty: boolean;
+  audio_chunks: number;
+  transcript_segments: number;
+  can_rerun_speakers: boolean;
+}
+
+export interface MeetingDigest {
+  decisions: number;
+  action_items: number;
+  risks: number;
+  open_questions: number;
+  participant_count: number;
+  participants: Array<Pick<Participant, 'id' | 'display_name' | 'kind' | 'created_at'>>;
+}
+
+export interface MeetingInfo {
+  id: string;
+  title: string;
+  display_title?: string;
+  started_at: string | null;
+  status: string;
+  finalization_status?: FinalizationStatus | string;
+  finalization_deferred?: boolean;
+  insights_pill?: string;
+  insights_tone?: InsightsPillTone | string;
+  content_summary?: MeetingContentSummary;
+  has_audio?: boolean;
+  has_transcript?: boolean;
+  can_rerun_speakers?: boolean;
+  ended_at?: string | null;
+  /** Wall time minus pauses; null when the stored times can't be read. */
+  duration_s?: number | null;
+  /** Counts and people for History rows; absent for unreadable snapshots. */
+  digest?: MeetingDigest;
+  [key: string]: unknown;
+}
+
+export interface Op {
+  op: string;
+  [key: string]: unknown;
+}
+
+export const ops = {
+  addItem(
+    card: CardKey,
+    text: string,
+    data?: Record<string, unknown>,
+    evidence?: string[],
+  ): Op {
+    const op: Op = { op: 'add_item', card, text };
+    if (data && Object.keys(data).length) op.data = data;
+    if (evidence && evidence.length) op.evidence = evidence;
+    return op;
+  },
+  updateItem(id: string, set: { text?: string; data?: Record<string, unknown> }): Op {
+    return { op: 'update_item', id, set };
+  },
+  removeItem(id: string): Op {
+    return { op: 'remove_item', id };
+  },
+  pinItem(id: string): Op {
+    return { op: 'pin_item', id };
+  },
+  unpinItem(id: string): Op {
+    return { op: 'unpin_item', id };
+  },
+  confirmItem(id: string): Op {
+    return { op: 'confirm_item', id };
+  },
+  setTopic(text: string): Op {
+    return { op: 'set_topic', text };
+  },
+  setMeetingIntent(text: string): Op {
+    return { op: 'set_meeting_intent', text };
+  },
+  setTitle(text: string): Op {
+    return { op: 'set_title', text };
+  },
+  setCloudEnabled(enabled: boolean): Op {
+    return { op: 'set_cloud_enabled', enabled };
+  },
+  renameParticipant(participantId: string, displayName: string): Op {
+    return { op: 'rename_participant', participant_id: participantId, display_name: displayName };
+  },
+  answerQuestion(questionId: string, answerText: string): Op {
+    return { op: 'answer_question', question_id: questionId, answer_text: answerText };
+  },
+  dismissQuestion(questionId: string): Op {
+    return { op: 'dismiss_question', question_id: questionId };
+  },
+  reopenQuestion(questionId: string): Op {
+    return { op: 'reopen_question', question_id: questionId };
+  },
+  reassignSegmentSpeaker(segmentId: string, participantId: string | null): Op {
+    return { op: 'reassign_segment_speaker', segment_id: segmentId, participant_id: participantId };
+  },
+};
+
+export type Effect =
+  | { entity: 'live_highlights'; pulses: HighlightPulse[] }
+  | { entity: 'voice_feedback'; feedback: {message: string; at: string} }
+  | { entity: 'review'; review: InsightReviewState; items: CardItem[] }
+  | { entity: 'custom_report'; report: CustomReport; removed: boolean }
+  | { entity: 'item'; item: CardItem }
+  | { entity: 'topic'; topic: TopicState }
+  | { entity: 'rolling_summary'; text: string; evidence: string[] }
+  | { entity: 'title'; text: string }
+  | { entity: 'intent'; intent: MeetingIntent }
+  | { entity: 'cloud_enabled'; enabled: boolean }
+  | { entity: 'participant'; participant: Participant }
+  | { entity: 'question'; question: Question }
+  | {
+      entity: 'segment_speaker';
+      segment_id: string;
+      participant_id: string | null;
+      source: string;
+      pinned: boolean;
+    }
+  | {
+      entity: 'segment_text';
+      segment_id: string;
+      text: string;
+      segment: Segment;
+    };
+
+export interface PatchResult {
+  op: Op;
+  target_id: string | null;
+  effect: Effect | null;
+  seq: number;
+}
+
+export interface ActionResultItem {
+  ok: boolean;
+  reason: string | null;
+  target_id: string | null;
+  seq: number | null;
+  effect: Effect | null;
+}
+
+/**
+ * Kind of live agent tick. `update` is the host's fallback; the trailing
+ * `string` keeps a kind added later on the Python side from breaking the
+ * union, so rendering degrades to the default tone instead of failing.
+ */
+export type AgentActivityKind =
+  | 'thinking'
+  | 'writing'
+  | 'tool'
+  | 'turn'
+  | 'retry'
+  | 'compaction'
+  | 'start'
+  | 'settled'
+  | 'update'
+  | (string & {});
+
+/** Agent pass that produced a tick; `''` when the host has no pass in flight. */
+export type AgentActivityPassKind =
+  | 'cards'
+  | 'notes'
+  | 'polish'
+  | 'consolidation'
+  | '';
+
+/**
+ * One ephemeral Pi activity tick. Never persisted, host sockets only.
+ * `tool` and `pass_kind` are always present and are `''` rather than null.
+ */
+export interface AgentActivityRecord {
+  kind: AgentActivityKind;
+  /** Ready-to-display sentence — render as-is, do not rebuild from `kind`. */
+  label: string;
+  tool: string;
+  pass_kind: AgentActivityPassKind;
+  ts: string;
+}
+
+export interface AgentActivityMsg extends AgentActivityRecord {
+  type: 'agent_activity';
+}
+
+export interface VoiceCommandGuide {
+  names: string[];
+  primary: string;
+  examples: Array<{ label: string; phrase: string }>;
+}
+
+export interface HelloMsg {
+  voice_commands?: VoiceCommandGuide;
+  type: 'hello';
+  role: Role;
+  participant_id: string | null;
+  seq: number;
+  state: MeetingStateDoc;
+  segments: Segment[];
+  urls: { guest?: string };
+  meeting: MeetingInfo;
+  /** Recent agent ticks, oldest first. Host sockets only; absent for guests. */
+  agent_activity?: AgentActivityRecord[];
+}
+
+export interface PatchMsg {
+  type: 'patch';
+  seq: number;
+  results: PatchResult[];
+}
+
+export interface SegmentsMsg {
+  type: 'segments';
+  items: Segment[];
+  /** Segment ids removed by a rolling ASR revise pass. */
+  removed_ids?: string[];
+}
+
+export interface PresenceMsg {
+  type: 'presence';
+  event: 'joined' | 'left';
+  participant: Participant;
+}
+
+export interface StatusMsg {
+  type: 'status';
+  live_highlights_status?: LiveHighlightsStatus;
+  status?: string;
+  intelligence_online?: boolean;
+  diarization_available?: boolean;
+  diarization_reason?: string;
+  speech?: MeetingStateDoc['speech'];
+  capture?: MeetingStateDoc['capture'];
+  finalization?: FinalizationState | null;
+}
+
+export interface ActionResultMsg {
+  type: 'action_result';
+  client_action_id: string;
+  results: ActionResultItem[];
+}
+
+export interface ErrorMsg {
+  type: 'error';
+  code: string;
+  message: string;
+}
+
+export interface MeetingEndedMsg {
+  type: 'meeting_ended';
+  status?: string;
+}
+
+export interface PongMsg {
+  type: 'pong';
+}
+
+export interface SpeechPreviewMsg {
+  type: 'speech_preview';
+  channel: string;
+  text: string;
+  start_s: number;
+  end_s: number;
+  final: boolean;
+}
+
+export interface VoiceFeedbackMsg {
+  type: 'voice_feedback';
+  seq: number;
+  phase: 'heard' | 'recognized' | 'working' | 'saved' | 'uncertain' | 'error' | 'unavailable';
+  message: string;
+  command?: string;
+}
+
+export type ServerMessage =
+  | VoiceFeedbackMsg
+  | SpeechPreviewMsg
+  | HelloMsg
+  | PatchMsg
+  | SegmentsMsg
+  | PresenceMsg
+  | StatusMsg
+  | ActionResultMsg
+  | AgentActivityMsg
+  | ErrorMsg
+  | MeetingEndedMsg
+  | PongMsg;
+
+export interface SessionResponse {
+  voice_commands?: VoiceCommandGuide;
+  role: Role;
+  meeting: MeetingInfo;
+  state: MeetingStateDoc;
+}
+
+export type MeetingRow = MeetingInfo;
+
+export interface MeetingListResponse {
+  meetings: MeetingRow[];
+  next_cursor: string | null;
+}
+
+export interface MeetingDetailResponse {
+  meeting: MeetingRow;
+  state: MeetingStateDoc;
+  segments: Segment[];
+  transcript_next_cursor: string | null;
+  transcript_included?: boolean;
+}
+
+export interface TranscriptPage {
+  items: Segment[];
+  next_cursor: string | null;
+}
+
+export interface AuditEvent {
+  seq: number;
+  ts: string;
+  actor_type: string;
+  actor_id: string | null;
+  action: string;
+  target_id: string | null;
+  payload?: Record<string, unknown>;
+  undoable: boolean;
+}
+
+export interface RegenerateTokensResponse {
+  ok: boolean;
+  host_url: string;
+  guest_url: string;
+}
+
+export interface RerunInsightsResponse {
+  ok: boolean;
+  state: MeetingStateDoc;
+  applied: number;
+  error: string | null;
+}
+
+export interface RerunSpeakersResponse {
+  ok: boolean;
+  state: MeetingStateDoc;
+  applied: number;
+  created?: number;
+  windows?: number;
+  error: string | null;
+}
+
+export type SearchRow = Record<string, unknown>;
+
+export type ExportFormat = 'md' | 'json' | 'txt';

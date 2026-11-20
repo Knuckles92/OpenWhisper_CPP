@@ -1,0 +1,3744 @@
+{
+ "module": "ui_qt.widgets.text_model_picker",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time"
+ },
+ "functions": {
+  "_DESCRIPTIONS": [
+   {
+    "args": [],
+    "result": {
+     "openai": "Direct access to OpenAI chat and reasoning models.",
+     "openrouter": "One catalog with models from OpenAI, Anthropic, Google, and more.",
+     "ollama": "Connect to your Ollama server. Install and manage models in Ollama.",
+     "lm_studio": "Connect to LM Studio's local server. Load a model and start the server in LM Studio.",
+     "vllm": "Connect to a vLLM server started with vllm serve.",
+     "llama_cpp": "Connect to llama.cpp's llama-server.",
+     "localai": "Connect to your LocalAI server.",
+     "groq": "Cloud text models served by Groq.",
+     "opencode_go": "OpenCode Go subscription endpoint.",
+     "opencode_zen": "OpenCode Zen usage-billed endpoint."
+    }
+   }
+  ],
+  "_SORT_OPTIONS": [
+   {
+    "args": [],
+    "result": [
+     [
+      "A → Z",
+      "alphabetical"
+     ],
+     [
+      "Most popular",
+      "most-popular"
+     ],
+     [
+      "Top this week",
+      "top-weekly"
+     ],
+     [
+      "Newest",
+      "newest"
+     ],
+     [
+      "Cheapest first",
+      "pricing-low-to-high"
+     ],
+     [
+      "Priciest first",
+      "pricing-high-to-low"
+     ],
+     [
+      "Largest context",
+      "context-high-to-low"
+     ],
+     [
+      "Highest throughput",
+      "throughput-high-to-low"
+     ],
+     [
+      "Lowest latency",
+      "latency-low-to-high"
+     ]
+    ]
+   }
+  ],
+  "_description": [
+   {
+    "args": [
+     {
+      "id": "openai",
+      "name": "OpenAI",
+      "kind": "openai",
+      "base_url": null,
+      "api_key_env": "OPENAI_API_KEY",
+      "builtin": true
+     },
+     []
+    ],
+    "result": "Direct access to OpenAI chat and reasoning models."
+   },
+   {
+    "args": [
+     {
+      "id": "openrouter",
+      "name": "OpenRouter",
+      "kind": "openrouter",
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": "OPENROUTER_API_KEY",
+      "builtin": true
+     },
+     []
+    ],
+    "result": "One catalog with models from OpenAI, Anthropic, Google, and more."
+   },
+   {
+    "args": [
+     {
+      "id": "ollama",
+      "name": "Ollama",
+      "kind": "ollama",
+      "base_url": "http://localhost:11434/v1",
+      "api_key_env": "",
+      "builtin": true
+     },
+     []
+    ],
+    "result": "Connect to your Ollama server. Install and manage models in Ollama."
+   },
+   {
+    "args": [
+     {
+      "id": "lm_studio",
+      "name": "LM Studio",
+      "kind": "lm_studio",
+      "base_url": "http://127.0.0.1:1234/v1",
+      "api_key_env": "",
+      "builtin": true
+     },
+     []
+    ],
+    "result": "Connect to LM Studio's local server. Load a model and start the server in LM Studio."
+   },
+   {
+    "args": [
+     {
+      "id": "vllm",
+      "name": "vLLM",
+      "kind": "vllm",
+      "base_url": "http://127.0.0.1:8000/v1",
+      "api_key_env": "",
+      "builtin": true
+     },
+     []
+    ],
+    "result": "Connect to a vLLM server started with vllm serve."
+   },
+   {
+    "args": [
+     {
+      "id": "llama_cpp",
+      "name": "llama.cpp",
+      "kind": "llama_cpp",
+      "base_url": "http://127.0.0.1:9931/v1",
+      "api_key_env": "",
+      "builtin": true
+     },
+     []
+    ],
+    "result": "Connect to llama.cpp's llama-server."
+   },
+   {
+    "args": [
+     {
+      "id": "localai",
+      "name": "LocalAI",
+      "kind": "localai",
+      "base_url": "http://127.0.0.1:8080/v1",
+      "api_key_env": "",
+      "builtin": true
+     },
+     []
+    ],
+    "result": "Connect to your LocalAI server."
+   },
+   {
+    "args": [
+     {
+      "id": "groq",
+      "name": "Groq",
+      "kind": "groq",
+      "base_url": "https://api.groq.com/openai/v1",
+      "api_key_env": "GROQ_API_KEY",
+      "builtin": true
+     },
+     []
+    ],
+    "result": "Cloud text models served by Groq."
+   },
+   {
+    "args": [
+     {
+      "id": "opencode_go",
+      "name": "OpenCode Go",
+      "kind": "opencode_go",
+      "base_url": "https://opencode.ai/zen/go/v1",
+      "api_key_env": "OPENCODE_GO_API_KEY",
+      "builtin": true
+     },
+     []
+    ],
+    "result": "OpenCode Go subscription endpoint."
+   },
+   {
+    "args": [
+     {
+      "id": "opencode_zen",
+      "name": "OpenCode Zen",
+      "kind": "opencode_zen",
+      "base_url": "https://opencode.ai/zen/v1",
+      "api_key_env": "OPENCODE_ZEN_API_KEY",
+      "builtin": true
+     },
+     []
+    ],
+    "result": "OpenCode Zen usage-billed endpoint."
+   },
+   {
+    "args": [
+     {
+      "id": "custom_a1b2c3d4",
+      "name": "Gateway",
+      "kind": "custom",
+      "base_url": "https://gateway.test/v1",
+      "api_key_env": "GATEWAY_KEY",
+      "builtin": false
+     },
+     []
+    ],
+    "result": "Any server that speaks the OpenAI Chat Completions API."
+   },
+   {
+    "args": [
+     {
+      "id": "custom_0000beef",
+      "name": "Home LiteLLM",
+      "kind": "custom",
+      "base_url": "http://127.0.0.1:4000/v1",
+      "api_key_env": "",
+      "builtin": false
+     },
+     []
+    ],
+    "result": "Any server that speaks the OpenAI Chat Completions API."
+   },
+   {
+    "args": [
+     {
+      "id": "ollama",
+      "name": "Ollama",
+      "kind": "ollama",
+      "base_url": "http://localhost:11434/v1",
+      "api_key_env": "",
+      "builtin": true
+     },
+     [
+      [
+       "http://localhost:11434/v1",
+       "ollama"
+      ],
+      [
+       "http://127.0.0.1:1235/v1",
+       "lm_studio"
+      ]
+     ]
+    ],
+    "result": "Connect to your Ollama server. Install and manage models in Ollama. Running on this computer."
+   },
+   {
+    "args": [
+     {
+      "id": "lm_studio",
+      "name": "LM Studio",
+      "kind": "lm_studio",
+      "base_url": "http://127.0.0.1:1234/v1",
+      "api_key_env": "",
+      "builtin": true
+     },
+     [
+      [
+       "http://localhost:11434/v1",
+       "ollama"
+      ],
+      [
+       "http://127.0.0.1:1235/v1",
+       "lm_studio"
+      ]
+     ]
+    ],
+    "result": "Connect to LM Studio's local server. Load a model and start the server in LM Studio. Answering at http://127.0.0.1:1235/v1 — choose Edit to use it."
+   },
+   {
+    "args": [
+     {
+      "id": "openai",
+      "name": "OpenAI",
+      "kind": "openai",
+      "base_url": null,
+      "api_key_env": "OPENAI_API_KEY",
+      "builtin": true
+     },
+     [
+      [
+       "http://localhost:11434/v1",
+       "ollama"
+      ],
+      [
+       "http://127.0.0.1:1235/v1",
+       "lm_studio"
+      ]
+     ]
+    ],
+    "result": "Direct access to OpenAI chat and reasoning models."
+   },
+   {
+    "args": [
+     {
+      "id": "custom_ab",
+      "name": "My Ollama",
+      "kind": "custom",
+      "base_url": "http://localhost:11434/v1",
+      "api_key_env": "",
+      "builtin": false
+     },
+     [
+      [
+       "http://localhost:11434/v1",
+       "ollama"
+      ],
+      [
+       "http://127.0.0.1:1235/v1",
+       "lm_studio"
+      ]
+     ]
+    ],
+    "result": "Any server that speaks the OpenAI Chat Completions API."
+   },
+   {
+    "args": [
+     {
+      "id": "vllm",
+      "name": "vLLM",
+      "kind": "vllm",
+      "base_url": "http://127.0.0.1:8000/v1",
+      "api_key_env": "",
+      "builtin": true
+     },
+     [
+      [
+       "http://127.0.0.1:8001/v1",
+       "vllm"
+      ],
+      [
+       "http://127.0.0.1:11435/v1",
+       "ollama"
+      ],
+      [
+       "http://127.0.0.1:11436/v1",
+       "ollama"
+      ]
+     ]
+    ],
+    "result": "Connect to a vLLM server started with vllm serve. Answering at http://127.0.0.1:8001/v1 — choose Edit to use it."
+   },
+   {
+    "args": [
+     {
+      "id": "ollama",
+      "name": "Ollama",
+      "kind": "ollama",
+      "base_url": "http://localhost:11434/v1",
+      "api_key_env": "",
+      "builtin": true
+     },
+     [
+      [
+       "http://127.0.0.1:8001/v1",
+       "vllm"
+      ],
+      [
+       "http://127.0.0.1:11435/v1",
+       "ollama"
+      ],
+      [
+       "http://127.0.0.1:11436/v1",
+       "ollama"
+      ]
+     ]
+    ],
+    "result": "Connect to your Ollama server. Install and manage models in Ollama. Answering at http://127.0.0.1:11435/v1 — choose Edit to use it."
+   },
+   {
+    "args": [
+     {
+      "id": "lm_studio",
+      "name": "LM Studio",
+      "kind": "lm_studio",
+      "base_url": "http://127.0.0.1:1234/v1",
+      "api_key_env": "",
+      "builtin": true
+     },
+     [
+      [
+       "http://127.0.0.1:8001/v1",
+       "vllm"
+      ],
+      [
+       "http://127.0.0.1:11435/v1",
+       "ollama"
+      ],
+      [
+       "http://127.0.0.1:11436/v1",
+       "ollama"
+      ]
+     ]
+    ],
+    "result": "Connect to LM Studio's local server. Load a model and start the server in LM Studio."
+   },
+   {
+    "args": [
+     {
+      "id": "custom_a1b2c3d4",
+      "name": "Gateway",
+      "kind": "custom",
+      "base_url": "https://gateway.test/v1",
+      "api_key_env": "GATEWAY_KEY",
+      "builtin": false
+     },
+     [
+      [
+       "http://127.0.0.1:8001/v1",
+       "vllm"
+      ],
+      [
+       "http://127.0.0.1:11435/v1",
+       "ollama"
+      ],
+      [
+       "http://127.0.0.1:11436/v1",
+       "ollama"
+      ]
+     ]
+    ],
+    "result": "Any server that speaks the OpenAI Chat Completions API."
+   },
+   {
+    "args": [
+     {
+      "id": "localai",
+      "name": "LocalAI",
+      "kind": "localai",
+      "base_url": "http://127.0.0.1:8080/v1",
+      "api_key_env": "",
+      "builtin": true
+     },
+     [
+      [
+       "http://localhost:11434/v1",
+       "ollama"
+      ],
+      [
+       "http://127.0.0.1:1235/v1",
+       "lm_studio"
+      ]
+     ]
+    ],
+    "result": "Connect to your LocalAI server."
+   }
+  ],
+  "_reload_provider_combo": [
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      }
+     ],
+     []
+    ],
+    "result": [
+     [
+      "box-blue.svg",
+      "OpenAI",
+      "openai",
+      "OpenAI — Direct access to OpenAI chat and reasoning models."
+     ],
+     [
+      "stack-purple.svg",
+      "OpenRouter",
+      "openrouter",
+      "OpenRouter — One catalog with models from OpenAI, Anthropic, Google, and more."
+     ],
+     [
+      "stack-slate.svg",
+      "Ollama",
+      "ollama",
+      "Ollama — Connect to your Ollama server. Install and manage models in Ollama."
+     ],
+     [
+      "stack-slate.svg",
+      "LM Studio",
+      "lm_studio",
+      "LM Studio — Connect to LM Studio's local server. Load a model and start the server in LM Studio."
+     ],
+     [
+      "stack-slate.svg",
+      "vLLM",
+      "vllm",
+      "vLLM — Connect to a vLLM server started with vllm serve."
+     ],
+     [
+      "stack-slate.svg",
+      "llama.cpp",
+      "llama_cpp",
+      "llama.cpp — Connect to llama.cpp's llama-server."
+     ],
+     [
+      "stack-slate.svg",
+      "LocalAI",
+      "localai",
+      "LocalAI — Connect to your LocalAI server."
+     ],
+     [
+      "stack-slate.svg",
+      "Groq",
+      "groq",
+      "Groq — Cloud text models served by Groq."
+     ],
+     [
+      "stack-slate.svg",
+      "OpenCode Go",
+      "opencode_go",
+      "OpenCode Go — OpenCode Go subscription endpoint."
+     ],
+     [
+      "stack-slate.svg",
+      "OpenCode Zen",
+      "opencode_zen",
+      "OpenCode Zen — OpenCode Zen usage-billed endpoint."
+     ],
+     [
+      "plus-blue.svg",
+      "Custom…",
+      "__custom__",
+      "Custom — add another OpenAI-compatible server or gateway"
+     ]
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "custom_a1b2c3d4",
+       "name": "Gateway",
+       "kind": "custom",
+       "base_url": "https://gateway.test/v1",
+       "api_key_env": "GATEWAY_KEY",
+       "builtin": false
+      },
+      {
+       "id": "custom_0000beef",
+       "name": "Home LiteLLM",
+       "kind": "custom",
+       "base_url": "http://127.0.0.1:4000/v1",
+       "api_key_env": "",
+       "builtin": false
+      }
+     ],
+     []
+    ],
+    "result": [
+     [
+      "box-blue.svg",
+      "OpenAI",
+      "openai",
+      "OpenAI — Direct access to OpenAI chat and reasoning models."
+     ],
+     [
+      "stack-purple.svg",
+      "OpenRouter",
+      "openrouter",
+      "OpenRouter — One catalog with models from OpenAI, Anthropic, Google, and more."
+     ],
+     [
+      "stack-slate.svg",
+      "Ollama",
+      "ollama",
+      "Ollama — Connect to your Ollama server. Install and manage models in Ollama."
+     ],
+     [
+      "stack-slate.svg",
+      "LM Studio",
+      "lm_studio",
+      "LM Studio — Connect to LM Studio's local server. Load a model and start the server in LM Studio."
+     ],
+     [
+      "stack-slate.svg",
+      "vLLM",
+      "vllm",
+      "vLLM — Connect to a vLLM server started with vllm serve."
+     ],
+     [
+      "stack-slate.svg",
+      "llama.cpp",
+      "llama_cpp",
+      "llama.cpp — Connect to llama.cpp's llama-server."
+     ],
+     [
+      "stack-slate.svg",
+      "LocalAI",
+      "localai",
+      "LocalAI — Connect to your LocalAI server."
+     ],
+     [
+      "stack-slate.svg",
+      "Groq",
+      "groq",
+      "Groq — Cloud text models served by Groq."
+     ],
+     [
+      "stack-slate.svg",
+      "OpenCode Go",
+      "opencode_go",
+      "OpenCode Go — OpenCode Go subscription endpoint."
+     ],
+     [
+      "stack-slate.svg",
+      "OpenCode Zen",
+      "opencode_zen",
+      "OpenCode Zen — OpenCode Zen usage-billed endpoint."
+     ],
+     [
+      "stack-slate.svg",
+      "Gateway",
+      "custom_a1b2c3d4",
+      "Gateway — Any server that speaks the OpenAI Chat Completions API."
+     ],
+     [
+      "stack-slate.svg",
+      "Home LiteLLM",
+      "custom_0000beef",
+      "Home LiteLLM — Any server that speaks the OpenAI Chat Completions API."
+     ],
+     [
+      "plus-blue.svg",
+      "Custom…",
+      "__custom__",
+      "Custom — add another OpenAI-compatible server or gateway"
+     ]
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      }
+     ],
+     [
+      [
+       "http://localhost:11434/v1",
+       "ollama"
+      ],
+      [
+       "http://127.0.0.1:1235/v1",
+       "lm_studio"
+      ]
+     ]
+    ],
+    "result": [
+     [
+      "box-blue.svg",
+      "OpenAI",
+      "openai",
+      "OpenAI — Direct access to OpenAI chat and reasoning models."
+     ],
+     [
+      "stack-purple.svg",
+      "OpenRouter",
+      "openrouter",
+      "OpenRouter — One catalog with models from OpenAI, Anthropic, Google, and more."
+     ],
+     [
+      "stack-slate.svg",
+      "Ollama · Running",
+      "ollama",
+      "Ollama — Connect to your Ollama server. Install and manage models in Ollama. Running on this computer."
+     ],
+     [
+      "stack-slate.svg",
+      "LM Studio",
+      "lm_studio",
+      "LM Studio — Connect to LM Studio's local server. Load a model and start the server in LM Studio. Answering at http://127.0.0.1:1235/v1 — choose Edit to use it."
+     ],
+     [
+      "stack-slate.svg",
+      "vLLM",
+      "vllm",
+      "vLLM — Connect to a vLLM server started with vllm serve."
+     ],
+     [
+      "stack-slate.svg",
+      "llama.cpp",
+      "llama_cpp",
+      "llama.cpp — Connect to llama.cpp's llama-server."
+     ],
+     [
+      "stack-slate.svg",
+      "LocalAI",
+      "localai",
+      "LocalAI — Connect to your LocalAI server."
+     ],
+     [
+      "stack-slate.svg",
+      "Groq",
+      "groq",
+      "Groq — Cloud text models served by Groq."
+     ],
+     [
+      "stack-slate.svg",
+      "OpenCode Go",
+      "opencode_go",
+      "OpenCode Go — OpenCode Go subscription endpoint."
+     ],
+     [
+      "stack-slate.svg",
+      "OpenCode Zen",
+      "opencode_zen",
+      "OpenCode Zen — OpenCode Zen usage-billed endpoint."
+     ],
+     [
+      "plus-blue.svg",
+      "Custom…",
+      "__custom__",
+      "Custom — add another OpenAI-compatible server or gateway"
+     ]
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "custom_a1b2c3d4",
+       "name": "Gateway",
+       "kind": "custom",
+       "base_url": "https://gateway.test/v1",
+       "api_key_env": "GATEWAY_KEY",
+       "builtin": false
+      },
+      {
+       "id": "custom_0000beef",
+       "name": "Home LiteLLM",
+       "kind": "custom",
+       "base_url": "http://127.0.0.1:4000/v1",
+       "api_key_env": "",
+       "builtin": false
+      }
+     ],
+     [
+      [
+       "http://localhost:11434/v1",
+       "ollama"
+      ],
+      [
+       "http://127.0.0.1:1235/v1",
+       "lm_studio"
+      ]
+     ]
+    ],
+    "result": [
+     [
+      "box-blue.svg",
+      "OpenAI",
+      "openai",
+      "OpenAI — Direct access to OpenAI chat and reasoning models."
+     ],
+     [
+      "stack-purple.svg",
+      "OpenRouter",
+      "openrouter",
+      "OpenRouter — One catalog with models from OpenAI, Anthropic, Google, and more."
+     ],
+     [
+      "stack-slate.svg",
+      "Ollama · Running",
+      "ollama",
+      "Ollama — Connect to your Ollama server. Install and manage models in Ollama. Running on this computer."
+     ],
+     [
+      "stack-slate.svg",
+      "LM Studio",
+      "lm_studio",
+      "LM Studio — Connect to LM Studio's local server. Load a model and start the server in LM Studio. Answering at http://127.0.0.1:1235/v1 — choose Edit to use it."
+     ],
+     [
+      "stack-slate.svg",
+      "vLLM",
+      "vllm",
+      "vLLM — Connect to a vLLM server started with vllm serve."
+     ],
+     [
+      "stack-slate.svg",
+      "llama.cpp",
+      "llama_cpp",
+      "llama.cpp — Connect to llama.cpp's llama-server."
+     ],
+     [
+      "stack-slate.svg",
+      "LocalAI",
+      "localai",
+      "LocalAI — Connect to your LocalAI server."
+     ],
+     [
+      "stack-slate.svg",
+      "Groq",
+      "groq",
+      "Groq — Cloud text models served by Groq."
+     ],
+     [
+      "stack-slate.svg",
+      "OpenCode Go",
+      "opencode_go",
+      "OpenCode Go — OpenCode Go subscription endpoint."
+     ],
+     [
+      "stack-slate.svg",
+      "OpenCode Zen",
+      "opencode_zen",
+      "OpenCode Zen — OpenCode Zen usage-billed endpoint."
+     ],
+     [
+      "stack-slate.svg",
+      "Gateway",
+      "custom_a1b2c3d4",
+      "Gateway — Any server that speaks the OpenAI Chat Completions API."
+     ],
+     [
+      "stack-slate.svg",
+      "Home LiteLLM",
+      "custom_0000beef",
+      "Home LiteLLM — Any server that speaks the OpenAI Chat Completions API."
+     ],
+     [
+      "plus-blue.svg",
+      "Custom…",
+      "__custom__",
+      "Custom — add another OpenAI-compatible server or gateway"
+     ]
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      }
+     ],
+     [
+      [
+       "http://127.0.0.1:8001/v1",
+       "vllm"
+      ],
+      [
+       "http://127.0.0.1:11435/v1",
+       "ollama"
+      ],
+      [
+       "http://127.0.0.1:11436/v1",
+       "ollama"
+      ]
+     ]
+    ],
+    "result": [
+     [
+      "box-blue.svg",
+      "OpenAI",
+      "openai",
+      "OpenAI — Direct access to OpenAI chat and reasoning models."
+     ],
+     [
+      "stack-purple.svg",
+      "OpenRouter",
+      "openrouter",
+      "OpenRouter — One catalog with models from OpenAI, Anthropic, Google, and more."
+     ],
+     [
+      "stack-slate.svg",
+      "Ollama",
+      "ollama",
+      "Ollama — Connect to your Ollama server. Install and manage models in Ollama. Answering at http://127.0.0.1:11435/v1 — choose Edit to use it."
+     ],
+     [
+      "stack-slate.svg",
+      "LM Studio",
+      "lm_studio",
+      "LM Studio — Connect to LM Studio's local server. Load a model and start the server in LM Studio."
+     ],
+     [
+      "stack-slate.svg",
+      "vLLM",
+      "vllm",
+      "vLLM — Connect to a vLLM server started with vllm serve. Answering at http://127.0.0.1:8001/v1 — choose Edit to use it."
+     ],
+     [
+      "stack-slate.svg",
+      "llama.cpp",
+      "llama_cpp",
+      "llama.cpp — Connect to llama.cpp's llama-server."
+     ],
+     [
+      "stack-slate.svg",
+      "LocalAI",
+      "localai",
+      "LocalAI — Connect to your LocalAI server."
+     ],
+     [
+      "stack-slate.svg",
+      "Groq",
+      "groq",
+      "Groq — Cloud text models served by Groq."
+     ],
+     [
+      "stack-slate.svg",
+      "OpenCode Go",
+      "opencode_go",
+      "OpenCode Go — OpenCode Go subscription endpoint."
+     ],
+     [
+      "stack-slate.svg",
+      "OpenCode Zen",
+      "opencode_zen",
+      "OpenCode Zen — OpenCode Zen usage-billed endpoint."
+     ],
+     [
+      "plus-blue.svg",
+      "Custom…",
+      "__custom__",
+      "Custom — add another OpenAI-compatible server or gateway"
+     ]
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      }
+     ],
+     [
+      [
+       "http://localhost:11434/v1",
+       "ollama"
+      ],
+      [
+       "http://127.0.0.1:1235/v1",
+       "lm_studio"
+      ]
+     ]
+    ],
+    "result": [
+     [
+      "stack-slate.svg",
+      "Ollama · Running",
+      "ollama",
+      "Ollama — Connect to your Ollama server. Install and manage models in Ollama. Running on this computer."
+     ],
+     [
+      "stack-slate.svg",
+      "LM Studio",
+      "lm_studio",
+      "LM Studio — Connect to LM Studio's local server. Load a model and start the server in LM Studio. Answering at http://127.0.0.1:1235/v1 — choose Edit to use it."
+     ],
+     [
+      "stack-slate.svg",
+      "vLLM",
+      "vllm",
+      "vLLM — Connect to a vLLM server started with vllm serve."
+     ],
+     [
+      "stack-slate.svg",
+      "llama.cpp",
+      "llama_cpp",
+      "llama.cpp — Connect to llama.cpp's llama-server."
+     ],
+     [
+      "stack-slate.svg",
+      "LocalAI",
+      "localai",
+      "LocalAI — Connect to your LocalAI server."
+     ],
+     [
+      "plus-blue.svg",
+      "Custom…",
+      "__custom__",
+      "Custom — add another OpenAI-compatible server or gateway"
+     ]
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      }
+     ],
+     []
+    ],
+    "result": [
+     [
+      "box-blue.svg",
+      "OpenAI",
+      "openai",
+      "OpenAI — Direct access to OpenAI chat and reasoning models."
+     ],
+     [
+      "plus-blue.svg",
+      "Custom…",
+      "__custom__",
+      "Custom — add another OpenAI-compatible server or gateway"
+     ]
+    ]
+   }
+  ],
+  "_update_credential_status": [
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      }
+     ],
+     "openrouter",
+     [
+      true,
+      "OpenRouter API key found"
+     ],
+     []
+    ],
+    "result": {
+     "text": "OpenRouter API key found",
+     "tooltip": "OpenRouter API key found",
+     "available": true,
+     "icon": "check-green.svg"
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      }
+     ],
+     "ollama",
+     [
+      true,
+      "No API key required"
+     ],
+     []
+    ],
+    "result": {
+     "text": "No API key required",
+     "tooltip": "No API key required",
+     "available": true,
+     "icon": "check-green.svg"
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      }
+     ],
+     "openai",
+     [
+      true,
+      "OpenAI API key found"
+     ],
+     [
+      [
+       "http://localhost:11434/v1",
+       "ollama"
+      ],
+      [
+       "http://127.0.0.1:1235/v1",
+       "lm_studio"
+      ]
+     ]
+    ],
+    "result": {
+     "text": "OpenAI API key found",
+     "tooltip": "OpenAI API key found",
+     "available": true,
+     "icon": "check-green.svg"
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      }
+     ],
+     "openai",
+     [
+      false,
+      "Requires OpenAI API key — add it in Settings → App → API keys"
+     ],
+     []
+    ],
+    "result": {
+     "text": "Requires OpenAI API key — add it in Settings → App → API keys",
+     "tooltip": "Requires OpenAI API key — add it in Settings → App → API keys",
+     "available": false,
+     "icon": "info-warning.svg"
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      }
+     ],
+     "openrouter",
+     [
+      false,
+      "Requires OpenRouter API key — add it in Settings → App → API keys"
+     ],
+     []
+    ],
+    "result": {
+     "text": "Requires OpenRouter API key — add it in Settings → App → API keys",
+     "tooltip": "Requires OpenRouter API key — add it in Settings → App → API keys",
+     "available": false,
+     "icon": "info-warning.svg"
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      }
+     ],
+     "groq",
+     [
+      false,
+      "Requires Groq API key — add it in Settings → App → API keys"
+     ],
+     []
+    ],
+    "result": {
+     "text": "Key needed in Settings → App → API keys",
+     "tooltip": "Requires Groq API key — add it in Settings → App → API keys",
+     "available": false,
+     "icon": "info-warning.svg"
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "custom_a1b2c3d4",
+       "name": "Gateway",
+       "kind": "custom",
+       "base_url": "https://gateway.test/v1",
+       "api_key_env": "GATEWAY_KEY",
+       "builtin": false
+      },
+      {
+       "id": "custom_0000beef",
+       "name": "Home LiteLLM",
+       "kind": "custom",
+       "base_url": "http://127.0.0.1:4000/v1",
+       "api_key_env": "",
+       "builtin": false
+      }
+     ],
+     "custom_a1b2c3d4",
+     [
+      false,
+      "Requires GATEWAY_KEY — add it in Settings → App → API keys"
+     ],
+     []
+    ],
+    "result": {
+     "text": "Requires GATEWAY_KEY — add it in Settings → App → API keys",
+     "tooltip": "Requires GATEWAY_KEY — add it in Settings → App → API keys",
+     "available": false,
+     "icon": "info-warning.svg"
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      }
+     ],
+     "openai",
+     [
+      false,
+      "Requires OpenAI API key — add it in Settings → App → API keys"
+     ],
+     [
+      [
+       "http://localhost:11434/v1",
+       "ollama"
+      ],
+      [
+       "http://127.0.0.1:1235/v1",
+       "lm_studio"
+      ]
+     ]
+    ],
+    "result": {
+     "text": "Key needed in Settings → App → API keys, or choose Ollama, running on this computer",
+     "tooltip": "Requires OpenAI API key — add it in Settings → App → API keys",
+     "available": false,
+     "icon": "info-warning.svg"
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      }
+     ],
+     "groq",
+     [
+      false,
+      "Requires Groq API key — add it in Settings → App → API keys"
+     ],
+     [
+      [
+       "http://localhost:11434/v1",
+       "ollama"
+      ],
+      [
+       "http://127.0.0.1:1235/v1",
+       "lm_studio"
+      ]
+     ]
+    ],
+    "result": {
+     "text": "Key needed in Settings → App → API keys, or choose Ollama, running on this computer",
+     "tooltip": "Requires Groq API key — add it in Settings → App → API keys",
+     "available": false,
+     "icon": "info-warning.svg"
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "custom_a1b2c3d4",
+       "name": "Gateway",
+       "kind": "custom",
+       "base_url": "https://gateway.test/v1",
+       "api_key_env": "GATEWAY_KEY",
+       "builtin": false
+      },
+      {
+       "id": "custom_0000beef",
+       "name": "Home LiteLLM",
+       "kind": "custom",
+       "base_url": "http://127.0.0.1:4000/v1",
+       "api_key_env": "",
+       "builtin": false
+      }
+     ],
+     "custom_a1b2c3d4",
+     [
+      false,
+      "Requires GATEWAY_KEY — add it in Settings → App → API keys"
+     ],
+     [
+      [
+       "http://localhost:11434/v1",
+       "ollama"
+      ],
+      [
+       "http://127.0.0.1:1235/v1",
+       "lm_studio"
+      ]
+     ]
+    ],
+    "result": {
+     "text": "Key needed in Settings → App → API keys, or choose Ollama, running on this computer",
+     "tooltip": "Requires GATEWAY_KEY — add it in Settings → App → API keys",
+     "available": false,
+     "icon": "info-warning.svg"
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "custom_a1b2c3d4",
+       "name": "Gateway",
+       "kind": "custom",
+       "base_url": "https://gateway.test/v1",
+       "api_key_env": "GATEWAY_KEY",
+       "builtin": false
+      },
+      {
+       "id": "custom_0000beef",
+       "name": "Home LiteLLM",
+       "kind": "custom",
+       "base_url": "http://127.0.0.1:4000/v1",
+       "api_key_env": "",
+       "builtin": false
+      }
+     ],
+     "custom_0000beef",
+     [
+      false,
+      "Requires nothing"
+     ],
+     [
+      [
+       "http://localhost:11434/v1",
+       "ollama"
+      ],
+      [
+       "http://127.0.0.1:1235/v1",
+       "lm_studio"
+      ]
+     ]
+    ],
+    "result": {
+     "text": "Requires nothing",
+     "tooltip": "Requires nothing",
+     "available": false,
+     "icon": "info-warning.svg"
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      }
+     ],
+     "ollama",
+     [
+      false,
+      "Requires nothing"
+     ],
+     [
+      [
+       "http://localhost:11434/v1",
+       "ollama"
+      ],
+      [
+       "http://127.0.0.1:1235/v1",
+       "lm_studio"
+      ]
+     ]
+    ],
+    "result": {
+     "text": "Key needed in Settings → App → API keys",
+     "tooltip": "Requires nothing",
+     "available": false,
+     "icon": "info-warning.svg"
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      }
+     ],
+     "openai",
+     [
+      false,
+      "Requires OpenAI API key — add it in Settings → App → API keys"
+     ],
+     [
+      [
+       "http://127.0.0.1:8001/v1",
+       "vllm"
+      ],
+      [
+       "http://127.0.0.1:11435/v1",
+       "ollama"
+      ],
+      [
+       "http://127.0.0.1:11436/v1",
+       "ollama"
+      ]
+     ]
+    ],
+    "result": {
+     "text": "Requires OpenAI API key — add it in Settings → App → API keys",
+     "tooltip": "Requires OpenAI API key — add it in Settings → App → API keys",
+     "available": false,
+     "icon": "info-warning.svg"
+    }
+   }
+  ],
+  "_update_active_badge": [
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      }
+     ],
+     "openrouter",
+     "openrouter",
+     "openrouter/free",
+     "openrouter/free"
+    ],
+    "result": {
+     "badge": "Active",
+     "tooltip": "OpenRouter · openrouter/free is the model in use."
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      }
+     ],
+     "openrouter",
+     "openrouter",
+     "openrouter/free",
+     "  openrouter/free  "
+    ],
+    "result": {
+     "badge": "Active",
+     "tooltip": "OpenRouter · openrouter/free is the model in use."
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      }
+     ],
+     "openrouter",
+     "openrouter",
+     "openrouter/free",
+     "anthropic/claude-sonnet-4.5"
+    ],
+    "result": {
+     "badge": "",
+     "tooltip": "Choose from the catalog or type a model id — the choice is saved immediately. In use now: OpenRouter · openrouter/free."
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      }
+     ],
+     "openai",
+     "openrouter",
+     "openrouter/free",
+     "openrouter/free"
+    ],
+    "result": {
+     "badge": "",
+     "tooltip": "Choose from the catalog or type a model id — the choice is saved immediately. In use now: OpenRouter · openrouter/free."
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      }
+     ],
+     "openai",
+     "",
+     "",
+     "gpt-6-luna"
+    ],
+    "result": {
+     "badge": "",
+     "tooltip": "Choose from the catalog or type a model id — the choice is saved immediately. In use now: Endpoint · ."
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      }
+     ],
+     "openai",
+     "openai",
+     "",
+     ""
+    ],
+    "result": {
+     "badge": "Active",
+     "tooltip": "OpenAI ·  is the model in use."
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      }
+     ],
+     "openai",
+     "groq",
+     "llama-3.3-70b-versatile",
+     "gpt-6-luna"
+    ],
+    "result": {
+     "badge": "",
+     "tooltip": "Choose from the catalog or type a model id — the choice is saved immediately. In use now: Groq · llama-3.3-70b-versatile."
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      }
+     ],
+     "openai",
+     "custom_gone",
+     "some-model",
+     "gpt-6-luna"
+    ],
+    "result": {
+     "badge": "",
+     "tooltip": "Choose from the catalog or type a model id — the choice is saved immediately. In use now: custom_gone · some-model."
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "custom_a1b2c3d4",
+       "name": "Gateway",
+       "kind": "custom",
+       "base_url": "https://gateway.test/v1",
+       "api_key_env": "GATEWAY_KEY",
+       "builtin": false
+      },
+      {
+       "id": "custom_0000beef",
+       "name": "Home LiteLLM",
+       "kind": "custom",
+       "base_url": "http://127.0.0.1:4000/v1",
+       "api_key_env": "",
+       "builtin": false
+      }
+     ],
+     "custom_a1b2c3d4",
+     "custom_a1b2c3d4",
+     "gateway-model",
+     "gateway-model"
+    ],
+    "result": {
+     "badge": "Active",
+     "tooltip": "Gateway · gateway-model is the model in use."
+    }
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "openai",
+       "name": "OpenAI",
+       "kind": "openai",
+       "base_url": null,
+       "api_key_env": "OPENAI_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "openrouter",
+       "name": "OpenRouter",
+       "kind": "openrouter",
+       "base_url": "https://openrouter.ai/api/v1",
+       "api_key_env": "OPENROUTER_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "ollama",
+       "name": "Ollama",
+       "kind": "ollama",
+       "base_url": "http://localhost:11434/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "lm_studio",
+       "name": "LM Studio",
+       "kind": "lm_studio",
+       "base_url": "http://127.0.0.1:1234/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "vllm",
+       "name": "vLLM",
+       "kind": "vllm",
+       "base_url": "http://127.0.0.1:8000/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "llama_cpp",
+       "name": "llama.cpp",
+       "kind": "llama_cpp",
+       "base_url": "http://127.0.0.1:9931/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "localai",
+       "name": "LocalAI",
+       "kind": "localai",
+       "base_url": "http://127.0.0.1:8080/v1",
+       "api_key_env": "",
+       "builtin": true
+      },
+      {
+       "id": "groq",
+       "name": "Groq",
+       "kind": "groq",
+       "base_url": "https://api.groq.com/openai/v1",
+       "api_key_env": "GROQ_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_go",
+       "name": "OpenCode Go",
+       "kind": "opencode_go",
+       "base_url": "https://opencode.ai/zen/go/v1",
+       "api_key_env": "OPENCODE_GO_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "opencode_zen",
+       "name": "OpenCode Zen",
+       "kind": "opencode_zen",
+       "base_url": "https://opencode.ai/zen/v1",
+       "api_key_env": "OPENCODE_ZEN_API_KEY",
+       "builtin": true
+      },
+      {
+       "id": "custom_a1b2c3d4",
+       "name": "Gateway",
+       "kind": "custom",
+       "base_url": "https://gateway.test/v1",
+       "api_key_env": "GATEWAY_KEY",
+       "builtin": false
+      },
+      {
+       "id": "custom_0000beef",
+       "name": "Home LiteLLM",
+       "kind": "custom",
+       "base_url": "http://127.0.0.1:4000/v1",
+       "api_key_env": "",
+       "builtin": false
+      }
+     ],
+     "openai",
+     "custom_a1b2c3d4",
+     "gateway-model",
+     "gpt-6-luna"
+    ],
+    "result": {
+     "badge": "",
+     "tooltip": "Choose from the catalog or type a model id — the choice is saved immediately. In use now: Gateway · gateway-model."
+    }
+   }
+  ]
+ }
+}

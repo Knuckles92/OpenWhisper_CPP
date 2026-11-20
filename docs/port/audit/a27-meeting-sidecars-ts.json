@@ -1,0 +1,432 @@
+{
+ "area": "a27-meeting-sidecars-ts",
+ "package": "M10.22 sweep (auditor AU18)",
+ "features": {
+  "A27-01": {
+   "status": "dropped",
+   "reason": "NDJSON JSON-RPC framing exists only between the Python host and a sidecar process. FioriVoce has no sidecar process (M8.md 'The native agent loop (owner decision, amendment 1)', change 2; ARCHITECTURE.md 'One agent loop (M8)'); M8.md's a27 table: 'dropped (no process boundary)'. The core calls the loop and the loop calls the tool host directly."
+  },
+  "A27-02": {
+   "status": "dropped",
+   "reason": "The hello handshake (token, protocol and version checks, outdated-bundle message) authenticates a child process. FioriVoce has no sidecar process (M8.md 'The native agent loop (owner decision, amendment 1)', change 2; ARCHITECTURE.md 'One agent loop (M8)'); M8.md's a27 table: 'dropped (process only)'."
+  },
+  "A27-03": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_agent/native_core.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_audit_a27_loop.cpp",
+    "tests/meeting_agent/test_native_core_passes.cpp",
+    "tests/meeting_agent/test_native_requests.cpp"
+   ],
+   "note": "NativeAgentCore::initialize now refuses an empty AgentConfig::model with runner.ts's sentence \"no model configured (initialize.model is empty)\", after the key check and before the spec check and the probe, so no request is sent and the core stays offline ('a meeting without a model never starts the built-in agent'). sidecar.py prefixed the RPC error with \"sidecar initialize failed: \"; that process wording is not carried (M8.md change 6's rule). Session, key, endpoint fields as before ('a custom endpoint needs no key and its fields carry no secret', 'a meeting's endpoint fields carry its protocol and headers but never its key')."
+  },
+  "A27-04": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/detail/native_pass.cpp",
+    "src/meeting_agent/native_core.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_native_core.cpp",
+    "tests/meeting_agent/test_native_core_passes.cpp",
+    "tests/meeting_agent/test_native_core_authority.cpp"
+   ],
+   "note": "A pass returns the real op results (applied and rejected), the summed usage and canceled as ok=false: 'native meeting passes replay tool responses and start with fresh history', 'a pass's tool calls keep their own pass's authority and real results', the polish and notes flag cases. The host builds the prompt (no user_prompt parameter can be missing)."
+  },
+  "A27-05": {
+   "status": "difference",
+   "difference": "a27-queued-pass-budget",
+   "cpp": [
+    "src/meeting_agent/detail/native_pass.cpp",
+    "src/meeting_agent/native_core.h"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_native_core_passes.cpp",
+    "tests/meeting_agent/test_native_core_budgets.cpp"
+   ],
+   "note": "One pass at a time per core (pass_mutex_), in order; a failed pass never blocks the next ('cancel ends the running pass and every pass waiting behind it', 'a broken transfer fails that pass only')."
+  },
+  "A27-06": {
+   "status": "difference",
+   "difference": "a27-cancel-every-pass",
+   "cpp": [
+    "src/meeting_agent/native_core.cpp",
+    "src/meeting_agent/detail/native_pass.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_native_core_passes.cpp",
+    "tests/meeting_agent/test_native_core_authority.cpp",
+    "tests/meeting_agent/test_native_core.cpp"
+   ],
+   "note": "'cancel ends the running pass and every pass waiting behind it' (a queued pass is pre-canceled and never reaches the model), 'a pass of a stale generation never reaches the model or the host', 'a cancel during a model request drops the reply's writes at once'."
+  },
+  "A27-07": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/native_core.cpp",
+    "src/meeting_agent/detail/native_pass.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_native_core.cpp",
+    "tests/meeting_agent/test_native_core_passes.cpp"
+   ],
+   "note": "shutdown: the session is dropped and the generation canceled, is_healthy() turns false ('native meeting passes replay tool responses...' ends with it) and a later pass is refused without a model call ('a meeting without an API key cannot start the built-in agent'). ping and status are dropped with the process (M8.md a27 table). The refusal reads \"Meeting agent is unavailable.\" where sidecar.py returned \"agent_unavailable\" (see A27-28)."
+  },
+  "A27-08": {
+   "status": "dropped",
+   "reason": "Exiting the process so the supervisor restarts it is a process policy; FioriVoce has no sidecar process (M8.md 'The native agent loop (owner decision, amendment 1)', change 2; ARCHITECTURE.md 'One agent loop (M8)'). What survives (M8.md table: 'a pass that throws fails that pass only') is tested: test_native_core_budgets.cpp 'a broken transfer fails that pass only', test_scheduler.cpp 'a pass that throws a non-standard exception fails that pass only'. Provider errors never reach the log or the user with a body (llm::StreamError texts)."
+  },
+  "A27-09": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/detail/native_pass.cpp",
+    "src/meeting_agent/native_core.cpp",
+    "src/meeting_agent/native_core.h"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_native_core_authority.cpp",
+    "tests/meeting_agent/test_native_core.cpp"
+   ],
+   "note": "Each pass's tool calls run under that pass's cancel token and ToolScope (payload snapshot); after a cancel or timeout no further call reaches the host and the writes made before keep counting: 'a pass's tool calls keep their own pass's authority and real results', 'a timed-out pass keeps its real writes and revokes the tool calls after it', 'a cancel during a write keeps that write and revokes the calls after it', 'native agent cancellation preserves real writes and closes its tool authority'. The 30 s tool RPC timeout is dropped (tools are direct calls, M8.md table). The text \"Meeting request is no longer active\" is only returned when a cancel lands between the loop's check and the call; no test asserts it."
+  },
+  "A27-10": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_agent/native_tools.cpp",
+    "src/meeting_agent/native_tools.h",
+    "src/meeting_agent/detail/native_pass.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_audit_a27_loop.cpp",
+    "tests/fixtures/meeting_agent/native/tools.json",
+    "tests/meeting_agent/test_native_core.cpp",
+    "tests/meeting_agent/test_native_core_passes.cpp"
+   ],
+   "note": "The built-in loop now offers tools.ts's five definitions (native_tools(): PATCH_STATE_DESCRIPTION etc. word for word, the parameter descriptions, the op schema with additionalProperties true, additionalProperties false elsewhere, compiled as pi-adapter.ts's toTypebox does, so an empty required list is left out), rebranded: 'Search earlier {product} meetings' and 'the agent never touches the filesystem' (was 'the sidecar'). Both sidecars registered tools.ts's tools; tool_specs.py's MEETING_TOOLS went only to the installed agents over MCP and to the retired direct agent, so the two texts are separate by design, not drift: meeting_tools()/mcp_tool_definitions() stay for InstalledAgentCore. Vectors hand-written from tools.ts in tests/fixtures/meeting_agent/native/tools.json ('the built-in loop offers tools.ts's five tools, the installed agents tool_specs.py's', 'every built-in pass sends tools.ts's tools'); the two tests that pinned tools == meeting_tools() for the native core now pin native_tools(). Tally, result and bridge-error texts were already tools.ts's and tested ('tool results read as tools.ts wrote them')."
+  },
+  "A27-11": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_agent/native_tools.cpp",
+    "src/meeting_agent/native_tools.h",
+    "src/meeting_agent/detail/native_pass.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_audit_a27_loop.cpp",
+    "tests/fixtures/meeting_agent/native/tools.json",
+    "tests/meeting_agent/test_native_core.cpp",
+    "tests/meeting_agent/test_native_core_passes.cpp"
+   ],
+   "note": "As A27-10: the model now sees tools.ts's ask_question: ASK_QUESTION_DESCRIPTION with its question_limit sentence, text 'The question, phrased for meeting participants.', evidence items 'Transcript segment id (sg_...).' and 'Segment ids motivating the question.', compared whole with tests/fixtures/meeting_agent/native/tools.json in tests/meeting_agent/test_audit_a27_loop.cpp. Tally and result texts unchanged and tested as before."
+  },
+  "A27-12": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_agent/native_tools.cpp",
+    "src/meeting_agent/native_tools.h",
+    "src/meeting_agent/detail/native_pass.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_audit_a27_loop.cpp",
+    "tests/fixtures/meeting_agent/native/tools.json",
+    "tests/meeting_agent/test_native_core.cpp",
+    "tests/meeting_agent/test_native_core_passes.cpp"
+   ],
+   "note": "As A27-10: the model now sees tools.ts's resolve_question: RESOLVE_QUESTION_DESCRIPTION (thresholds deferred to the instructions) and the per-parameter descriptions (question_id 'Id of the open question (q_...).', confidence '0..1 confidence...'), compared whole with tests/fixtures/meeting_agent/native/tools.json in tests/meeting_agent/test_audit_a27_loop.cpp. Tally and result texts unchanged and tested as before."
+  },
+  "A27-13": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_agent/native_tools.cpp",
+    "src/meeting_agent/native_tools.h",
+    "src/meeting_agent/detail/native_pass.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_audit_a27_loop.cpp",
+    "tests/fixtures/meeting_agent/native/tools.json",
+    "tests/meeting_agent/test_native_core.cpp",
+    "tests/meeting_agent/test_native_core_passes.cpp"
+   ],
+   "note": "As A27-10: the model now sees tools.ts's search_past_meetings: SEARCH_PAST_MEETINGS_DESCRIPTION naming identity().product, limit of type number 'Maximum hits to return (default 10, max 20).', no required list, compared whole with tests/fixtures/meeting_agent/native/tools.json in tests/meeting_agent/test_audit_a27_loop.cpp. Tally and result texts unchanged and tested as before."
+  },
+  "A27-14": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_agent/native_tools.cpp",
+    "src/meeting_agent/native_tools.h",
+    "src/meeting_agent/detail/native_pass.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_audit_a27_loop.cpp",
+    "tests/fixtures/meeting_agent/native/tools.json",
+    "tests/meeting_agent/test_native_core.cpp",
+    "tests/meeting_agent/test_native_core_passes.cpp"
+   ],
+   "note": "As A27-10: the model now sees tools.ts's search_context_files: SEARCH_CONTEXT_FILES_DESCRIPTION with the untrusted-content warning; 'the sidecar never touches the filesystem' reads 'the agent never touches the filesystem' (FioriVoce has no sidecar); limit number, no required list, compared whole with tests/fixtures/meeting_agent/native/tools.json in tests/meeting_agent/test_audit_a27_loop.cpp. Tally and result texts unchanged and tested as before."
+  },
+  "A27-15": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/detail/native_pass.cpp",
+    "src/meeting_agent/agent_loop.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_native_core.cpp",
+    "tests/meeting_agent/test_native_core_passes.cpp"
+   ],
+   "note": "Every model request carries exactly the five meeting tools and the charter as its only system message; the loop has no other tool: 'native meeting passes replay tool responses...' and 'the OpenCode core runs every meeting pass with fresh history' (bodies[i][\"tools\"] == meeting_tools(), one system message)."
+  },
+  "A27-16": {
+   "status": "difference",
+   "difference": "a27-native-provider-requests",
+   "cpp": [
+    "src/meeting_agent/agent_request.cpp",
+    "src/meeting_agent/agent_loop.cpp",
+    "src/llm/generation.cpp",
+    "src/llm/streaming.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_native_requests.cpp",
+    "tests/meeting_agent/test_native_core_passes.cpp"
+   ],
+   "note": "Base URLs, keys and the OpenCode Go session header come from llm profiles and provider_headers ('a meeting's endpoint fields carry its protocol and headers but never its key'; requests reach the profile's path prefix in 'a read tool's result goes back to the model through each wire protocol')."
+  },
+  "A27-17": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/model_catalog.cpp",
+    "src/meeting_agent/agent_request.cpp",
+    "src/llm/streaming.cpp",
+    "src/llm/generation.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_native_requests.cpp",
+    "tests/llm/test_streaming.cpp"
+   ],
+   "note": "The protocol comes from model_spec (chat, responses, anthropic, google), each streamed and replayed with tool results ('a read tool's result goes back to the model through each wire protocol' over each protocol case of kCases; 'native OpenAI models run on the Responses API'); a model without tools fails initialize with sidecar.py's \"This model cannot use meeting tools with this meeting engine.\" (the TS texts were never reached behind that check). Pi's Anthropic '/v1' strip existed for its SDK and is dropped (M8.md table: 'SDK-only URL fixups dropped')."
+  },
+  "A27-18": {
+   "status": "difference",
+   "difference": "a27-native-provider-requests",
+   "cpp": [
+    "src/meeting_agent/agent_request.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_audit_a26.cpp"
+   ],
+   "note": "tests/meeting_agent/test_audit_a26.cpp 'a pass thinks at medium exactly when the model reasons' and 'a pass asks for the model's output budget, else Pi's 16,384 tokens' pin agent_request's rules. The kind default of pi-adapter.ts (reasoning for openrouter and openai) never applied in OpenWhisper: writeAgentDir registered `protocol.reasoning ?? kindDefault` and sidecar.py always sent model_metadata = spec.to_dict(), whose reasoning is a bool; agent_request now thinks at medium exactly when the spec reasons. DeepSeek replay (reasoning_content) is tested in test_native_requests.cpp."
+  },
+  "A27-19": {
+   "status": "fixed",
+   "cpp": [
+    "src/llm/streaming.cpp",
+    "src/llm/streaming.h",
+    "src/meeting_agent/agent_loop.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_stream_settle.cpp",
+    "tests/meeting_agent/test_audit_a27_loop.cpp",
+    "tests/meeting_agent/test_native_core.cpp"
+   ],
+   "note": "llm::stream_generate grew StreamOptions::settle_length_stop: a reply cut at the output limit (Chat 'length', Responses 'incomplete' without another reason, Anthropic 'max_tokens', Google 'MAX_TOKENS') returns its text and whole tool calls with finish_reason 'length', read again by generate() from the reply already received (one request). AgentLoop::run_pass asks for it, so a length stop is a settled turn as in Pi's turnFailure: its tool calls run and the loop goes on, or the pass ends ok ('a turn cut off at the output limit settles the pass with what it did'; tests/llm 'a turn cut off at the output limit settles with what arrived', 'a length stop keeps the tool calls that arrived whole'). A content filter, a refusal or a failed Responses reply still fails (pi-ai maps those stop reasons to 'error'; runner.ts does not touch it): 'a content-filter stop still fails the pass', 'a content filter or a failed reply still raises with the option'. 'Model produced no assistant message.' (Pi: 'model produced no assistant message') is asserted by 'a reply without an assistant message fails the pass'. Fresh history per pass and the charter as system message as before (change 5)."
+  },
+  "A27-20": {
+   "status": "difference",
+   "difference": "a27-pass-usage-summed",
+   "cpp": [
+    "src/meeting_agent/agent_loop.cpp",
+    "src/meeting_agent/usage.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_native_core.cpp",
+    "tests/meeting_agent/test_golden.cpp"
+   ],
+   "note": "'native meeting passes replay tool responses...' checks total_tokens 12 for two model calls of 6."
+  },
+  "A27-21": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_agent/agent_loop.cpp",
+    "src/meeting_agent/detail/native_pass.cpp",
+    "src/llm/streaming.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_audit_a26.cpp",
+    "tests/meeting_agent/test_native_core_progress.cpp",
+    "tests/meeting_agent/test_native_core_budgets.cpp"
+   ],
+   "note": "The 2 s throttle of thinking_delta, text_delta and toolcall_delta (AgentLoop::run_pass emit_event) had no test; added 'frequent deltas are reported at most once per 2 s; every other event always' in tests/meeting_agent/test_audit_a26.cpp. Every event, throttled or not, still resets the pass's stall clock ('a stream that keeps thinking outlives the stall budget'). The loop emits no tool_execution_update (tools are direct calls), so that throttled type never occurs."
+  },
+  "A27-22": {
+   "status": "dropped",
+   "reason": "TypeBox compilation fed Pi's SDK; the native loop sends JSON Schema directly in the request's tools (M8.md a27 table: 'dropped (JSON Schema is sent directly)')."
+  },
+  "A27-23": {
+   "status": "dropped",
+   "reason": "The embedded OpenCode SDK host (in-memory DB, plugin, config overlay, log suppression) existed only inside the Bun sidecar; FioriVoce has no sidecar process (M8.md 'The native agent loop (owner decision, amendment 1)', change 2; ARCHITECTURE.md 'One agent loop (M8)'). Its rules survive in the native loop: only the meeting tools and the charter as the only system text (A27-15, A27-27)."
+  },
+  "A27-24": {
+   "status": "difference",
+   "difference": "a27-provider-error-text",
+   "cpp": [
+    "src/meeting_agent/agent_loop.cpp",
+    "src/llm/streaming.cpp",
+    "src/llm/streaming.h",
+    "src/llm/detail/stream_protocol.h"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_audit_a27_loop.cpp",
+    "tests/meeting_agent/test_native_core.cpp",
+    "tests/meeting_agent/test_native_core_passes.cpp",
+    "tests/llm/test_stream_settle.cpp"
+   ],
+   "note": "AgentLoop::run_pass maps a StreamError with a status to profile.name + \" model turn failed (HTTP N)\" and, when the provider named one, \": \" + StreamError::provider_message, the provider's error.message (or message) cleaned by llm::provider_error_message (first line, keys, bearer tokens, key-shaped runs and URL queries removed, 200 code points); a transport failure without a status keeps its sentence. The stream now reads every error body (64 KiB cap) only for that and the signature check; what() stays the SDK's bodiless 'Error code: N'. A 400 naming a corrupted thought signature carries that fixed sentence as its message, so the polish retry still finds it ('signature recovery is bounded': 'Local test model turn failed (HTTP 400): Corrupted thought signature.'). Tested: 'native loop retries bounded transient errors and never echoes provider bodies', 'a failed model turn names the provider, the status and its cleaned message', 'a provider's message is cleaned before anyone sees it', 'a failed request carries the provider's cleaned message, never its body'."
+  },
+  "A27-25": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/agent_loop.cpp",
+    "src/llm/streaming.cpp",
+    "src/meeting_agent/progress_labels.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_native_core_progress.cpp",
+    "tests/meeting_agent/test_audit_a26.cpp",
+    "tests/llm/test_streaming.cpp"
+   ],
+   "note": "Stream deltas arrive as message_update with thinking_*, text_delta, toolcall_* (stream_delta_name); the loop emits agent_start, turn_start/end, tool_execution_start/end with the tool name, auto_retry_start/end and agent_end: 'activity ticks carry the thinking, the real tool names and the pass kind', 'a cards pass reports in a rolling pass's words...', test_audit_a26.cpp. A finished pass emits nothing more (passes are serialized)."
+  },
+  "A27-26": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/agent_loop.cpp",
+    "src/llm/streaming.cpp",
+    "src/llm/openai_client.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_native_core.cpp",
+    "tests/meeting_agent/test_native_core_budgets.cpp"
+   ],
+   "note": "Transient only (429, >= 500, dropped transfer), at most 3 retries, delay = Retry-After or the client's delay clamped to [0, 10 s], none once canceled, auto_retry_start per retry: 'native loop retries bounded transient errors and never echoes provider bodies' (429 to success in 3 calls, 503 fails after 4, 400 and 401 once), 'a broken transfer fails that pass only' (5 calls). The 10 s clamp itself is not exercised by a test."
+  },
+  "A27-27": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/agent_loop.cpp",
+    "src/meeting_agent/detail/native_pass.cpp",
+    "src/meeting_agent/agent_request.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_native_core.cpp",
+    "tests/meeting_agent/test_native_core_passes.cpp",
+    "tests/meeting_agent/test_native_core_authority.cpp",
+    "tests/meeting_agent/test_audit_a26.cpp"
+   ],
+   "note": "Every model request: the pass charter as the only system text, exactly the meeting tools, max_tokens from the model spec (TextModelSpec's 4096 for an unlisted model, as the metadata Pi received; 16,384 only when the spec says 0; OpenCode's own default was 4096); a canceled or timed-out pass makes no further model request ('a timed-out pass keeps its real writes...' counts 2 requests)."
+  },
+  "A27-28": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_agent/agent_loop.cpp",
+    "src/meeting_agent/agent_loop.h",
+    "src/meeting_agent/detail/native_pass.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_audit_a27_loop.cpp",
+    "tests/meeting_agent/test_native_core_authority.cpp",
+    "tests/meeting_agent/test_native_core.cpp",
+    "tests/meeting_agent/test_native_core_passes.cpp"
+   ],
+   "note": "Python's values restored, so both cores agree: a canceled native pass (running or canceled while queued) returns error \"canceled\" (sidecar.py _checkpoint_result, runner.ts's queued reply), a refused one \"agent_unavailable\" (_refuse_checkpoint), as InstalledAgentCore does. Readers: the C++ and the Python only display the value (scheduler 'Final insights failed: {error}', the final polish's '{error} (block i/n; ...)', reinsight's error, the dashboard's note-request summary); nothing compares it, and M8.md change 6 decides no cancel wording. src/meeting/meeting_intelligence.cpp's own 'Meeting agent pass canceled.' statuses are the engine's texts, not a core's value, and are unchanged. Skipped calls: PassOutcome::skipped_calls lists the calls of the last turn the loop never ran; after a cancel native_pass tallies each through tally_bridge_failure (every op of a patch_state, one for a question, none for a read), as Pi's bridge refused them ('Meeting request is no longer active') and tools.ts counted them; after a timeout they are not tallied, as sidecar.py's _checkpoint_failure returned only the real results ('a cancel during a write keeps that write and revokes the calls after it' now pins 2 results, 'a canceled or refused built-in pass returns sidecar.py's values, as installed agents do', 'a timed-out pass returns only its real results')."
+  },
+  "A27-29": {
+   "status": "difference",
+   "difference": "a27-native-provider-requests",
+   "cpp": [
+    "src/meeting_agent/agent_request.cpp",
+    "src/llm/generation.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_native_requests.cpp",
+    "tests/meeting_agent/test_audit_a26.cpp"
+   ]
+  },
+  "A27-30": {
+   "status": "dropped",
+   "reason": "Packaging the Pi bundle with node.exe and the OpenCode Bun payload (pins, per-platform zips, reaper, lease) has no counterpart: the loop is compiled into fv_meeting_agent (M8.md a27 table: 'dropped (no Node or Bun payload)', change 2)."
+  },
+  "A27-31": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/native_core.cpp",
+    "src/meeting_agent/detail/native_pass.cpp",
+    "src/meeting_agent/agent_loop.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_native_core_passes.cpp",
+    "tests/meeting_agent/test_native_core.cpp"
+   ],
+   "note": "'the OpenCode core runs every meeting pass with fresh history' runs the opencode kind over a loopback SSE provider: four passes, two model calls each, every op applied, each pass's first request with exactly one system message and no tool message, the tool list equal to the five meeting tools; 'native meeting passes replay tool responses...' checks the second pass's first request equals the first's."
+  },
+  "A27-32": {
+   "status": "dropped",
+   "reason": "The runtime isolation root and stripped environment protected a Bun child process; FioriVoce has no sidecar process (M8.md 'The native agent loop (owner decision, amendment 1)', change 2; ARCHITECTURE.md 'One agent loop (M8)'). M8.md a27 table: 'dropped (process only)'."
+  }
+ },
+ "differences": [
+  {
+   "id": "a27-cancel-every-pass",
+   "features": [
+    "A27-06"
+   ],
+   "openwhisper": "runner.ts's cancel names one request id: the active pass is aborted, any other id is pre-canceled so that queued checkpoint returns canceled without running; sidecar.py's cancel() sends one per in-flight request and a timed-out request is canceled alone.",
+   "fiorivoce": "AgentCore::cancel cancels every pass of the core at once through its cancel generation (the running pass and every pass waiting for it); there is no per-request cancel, and a pass that runs out of time cancels only itself through its own deadline.",
+   "reason": "With no process there is no request id on the wire; the scheduler only ever cancels everything in flight.",
+   "source": "docs/port/packages/M8.md 'The native agent loop' table ('cancel of every in-flight pass, pre-cancel of a queued pass, cancel generation ... M8.8'); tests/meeting_agent/test_native_core_passes.cpp 'cancel ends the running pass and every pass waiting behind it'"
+  },
+  {
+   "id": "a27-queued-pass-budget",
+   "features": [
+    "A27-05"
+   ],
+   "openwhisper": "sidecar.py starts a checkpoint's wall and stall clocks when it sends the RPC, so a checkpoint queued behind another in the sidecar's chain spends its budget waiting.",
+   "fiorivoce": "A pass waiting for the core's previous pass starts its wall and stall budget when it runs; the scheduler's own bound (run_agent_call's wall for the consolidation) still covers the wait.",
+   "reason": "Passes are serialized in process by a mutex (one pass at a time per core), so the budget measures the pass's own model and tool work.",
+   "source": "docs/port/packages/M8.md 'The native agent loop' table ('checkpoint one pass at a time ... M8.8: one pass at a time per core (mutex), queued passes run in order'); tests/meeting_agent/test_native_core_passes.cpp, test_native_core_budgets.cpp"
+  },
+  {
+   "id": "a27-native-provider-requests",
+   "features": [
+    "A27-16",
+    "A27-18",
+    "A27-29"
+   ],
+   "openwhisper": "Pi registers the provider in a temporary models.json (base URLs, authHeader, compat flags, thinking map) and OpenCode routes through its SDK's provider adapters with its own body shaping (Anthropic budget_tokens, Google thinkingConfig, store:false, 4096 output tokens by default).",
+   "fiorivoce": "The loop builds each request with the same llm request builders as text generation over the meeting's profile and model spec: reasoning at medium when the spec reasons (as OpenWhisper sent it: sidecar.py's model_metadata always carried the spec's bool reasoning, so Pi's openrouter/openai kind default never applied), max_tokens from the spec else 16,384; SDK-only URL fixups and OpenCode's body rules are not carried.",
+   "reason": "One loop replaces both harnesses and follows Pi, the default core; the provider requests are M4.5's.",
+   "source": "docs/port/packages/M8.md changes 4 and 5, M8.8 Scope ('agent_request.{h,cpp}'), 'The native agent loop' table ('Provider registration ... SDK-only URL fixups dropped'); tests/meeting_agent/test_audit_a26.cpp, test_native_requests.cpp"
+  },
+  {
+   "id": "a27-pass-usage-summed",
+   "features": [
+    "A27-20"
+   ],
+   "openwhisper": "Pi returns the last usage it saw in the pass's session events as the checkpoint's usage.",
+   "fiorivoce": "A pass's usage is the sum of every model call it made (merge_usage, with a request count).",
+   "reason": "The native loop sees each response's usage and sums the pass as the scheduler does.",
+   "source": "docs/port/packages/M8.md 'The native agent loop' table ('Usage capture (A27-20), merge_usage (A26-45): M8.8 sums a pass with M8.2's merge_usage'); tests/meeting_agent/test_native_core.cpp"
+  },
+  {
+   "id": "a27-provider-error-text",
+   "features": [
+    "A27-24"
+   ],
+   "openwhisper": "Pi's turnFailure surfaced the SDK's errorMessage for a failed provider turn (which can carry the provider's body), so the user could read e.g. \"Final insights failed: 503 ...\"; the OpenCode sidecar read \"OpenCode model turn failed (HTTP <status>)\" and never surfaced the provider's text.",
+   "fiorivoce": "A failed model turn with an HTTP status reads \"{profile name} model turn failed (HTTP {status})\", followed by \": {message}\" when the provider's error body or stream error names one, cleaned (error.message or message, first line, keys, bearer tokens, key-shaped runs and URL queries removed, at most 200 code points); the body itself is never shown. A transport failure without a status keeps its own sentence (\"Connection error.\", \"Model stream ended before the reply was complete.\").",
+   "reason": "Lead decision: one failure rule for both former sidecars, never a provider body, with the cleaned provider message as the gain M10.22 scoped; the corrupted-signature sentence stays in the message so the polish retry works.",
+   "source": "docs/port/ARCHITECTURE.md amendment 20 'Provider errors (M8)'; docs/port/packages/M8.md lead decision 4 and change 4; docs/port/packages/M10.md M10.22 Scope (gain row) and Contracts (StreamError::provider_message)"
+  }
+ ]
+}

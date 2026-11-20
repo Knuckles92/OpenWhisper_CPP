@@ -1,0 +1,994 @@
+{
+ "module": "services.automation.api",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time"
+ },
+ "functions": {
+  "parse_types": [
+   {
+    "args": [
+     null
+    ],
+    "result": {
+     "value": null
+    }
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": {
+     "value": null
+    }
+   },
+   {
+    "args": [
+     " , "
+    ],
+    "result": {
+     "value": null
+    }
+   },
+   {
+    "args": [
+     ",,"
+    ],
+    "result": {
+     "value": null
+    }
+   },
+   {
+    "args": [
+     "recording.started"
+    ],
+    "result": {
+     "value": [
+      "recording.started"
+     ]
+    }
+   },
+   {
+    "args": [
+     "recording.started, history.saved"
+    ],
+    "result": {
+     "value": [
+      "history.saved",
+      "recording.started"
+     ]
+    }
+   },
+   {
+    "args": [
+     "history.saved,recording.started,history.saved"
+    ],
+    "result": {
+     "value": [
+      "history.saved",
+      "recording.started"
+     ]
+    }
+   },
+   {
+    "args": [
+     " events.gap "
+    ],
+    "result": {
+     "value": [
+      "events.gap"
+     ]
+    }
+   },
+   {
+    "args": [
+     "action.ran,"
+    ],
+    "result": {
+     "value": [
+      "action.ran"
+     ]
+    }
+   },
+   {
+    "args": [
+     "recording.started,nope"
+    ],
+    "result": {
+     "invalid": "types names an event type OpenWhisper doesn't publish.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "nope"
+    ],
+    "result": {
+     "invalid": "types names an event type OpenWhisper doesn't publish.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "Recording.Started"
+    ],
+    "result": {
+     "invalid": "types names an event type OpenWhisper doesn't publish.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "recording.started;x"
+    ],
+    "result": {
+     "invalid": "types names an event type OpenWhisper doesn't publish.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     " recording.started "
+    ],
+    "result": {
+     "value": [
+      "recording.started"
+     ]
+    }
+   },
+   {
+    "args": [
+     "meeting.voice_command,channel.message,route.decided"
+    ],
+    "result": {
+     "value": [
+      "channel.message",
+      "meeting.voice_command",
+      "route.decided"
+     ]
+    }
+   },
+   {
+    "args": [
+     "transcription.preview,filter.failed,meeting.segments"
+    ],
+    "result": {
+     "value": [
+      "filter.failed",
+      "meeting.segments",
+      "transcription.preview"
+     ]
+    }
+   }
+  ],
+  "parse_last_event_id": [
+   {
+    "args": [
+     null
+    ],
+    "result": {
+     "value": null
+    }
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": {
+     "value": null
+    }
+   },
+   {
+    "args": [
+     "   "
+    ],
+    "result": {
+     "value": null
+    }
+   },
+   {
+    "args": [
+     "0"
+    ],
+    "result": {
+     "value": 0
+    }
+   },
+   {
+    "args": [
+     "42"
+    ],
+    "result": {
+     "value": 42
+    }
+   },
+   {
+    "args": [
+     " 42 "
+    ],
+    "result": {
+     "value": 42
+    }
+   },
+   {
+    "args": [
+     "\t7\n"
+    ],
+    "result": {
+     "value": 7
+    }
+   },
+   {
+    "args": [
+     "999999999999999999"
+    ],
+    "result": {
+     "value": 999999999999999999
+    }
+   },
+   {
+    "args": [
+     "9999999999999999999"
+    ],
+    "result": {
+     "invalid": "Last-Event-ID must be the id of an event from this stream.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "1111111111111111111"
+    ],
+    "result": {
+     "invalid": "Last-Event-ID must be the id of an event from this stream.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "-1"
+    ],
+    "result": {
+     "invalid": "Last-Event-ID must be the id of an event from this stream.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "+1"
+    ],
+    "result": {
+     "invalid": "Last-Event-ID must be the id of an event from this stream.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "1.5"
+    ],
+    "result": {
+     "invalid": "Last-Event-ID must be the id of an event from this stream.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "1e3"
+    ],
+    "result": {
+     "invalid": "Last-Event-ID must be the id of an event from this stream.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "evt_1"
+    ],
+    "result": {
+     "invalid": "Last-Event-ID must be the id of an event from this stream.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "0x10"
+    ],
+    "result": {
+     "invalid": "Last-Event-ID must be the id of an event from this stream.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "1_000"
+    ],
+    "result": {
+     "invalid": "Last-Event-ID must be the id of an event from this stream.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "000000000000000001"
+    ],
+    "result": {
+     "value": 1
+    }
+   },
+   {
+    "args": [
+     "0000000000000000001"
+    ],
+    "result": {
+     "invalid": "Last-Event-ID must be the id of an event from this stream.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     " 12 "
+    ],
+    "result": {
+     "value": 12
+    }
+   }
+  ],
+  "sse_frame": [
+   {
+    "args": [
+     {
+      "id": "evt_0123456789abcdef01234567",
+      "seq": 1,
+      "type": "recording.started",
+      "time": "2026-10-10T12:00:00.000Z",
+      "data_json": "{\"job_id\": \"j\"}"
+     },
+     true
+    ],
+    "result": "id: 1\nevent: recording.started\ndata: {\"id\":\"evt_0123456789abcdef01234567\",\"seq\":1,\"type\":\"recording.started\",\"time\":\"2026-10-10T12:00:00.000Z\",\"v\":1,\"data\":{\"job_id\":\"j\"}}\n\n"
+   },
+   {
+    "args": [
+     {
+      "id": "evt_0123456789abcdef01234567",
+      "seq": 7,
+      "type": "transcription.completed",
+      "time": "2026-10-10T12:00:00.000Z",
+      "data_json": "{\"job_id\": \"j\", \"text\": \"two\\nlines\\r\\n \\u2028 \\u2029 \\u0085 caf\\u00e9 \\ud83d\\ude00 \\\"q\\\" </script> \\\\ \\t\"}"
+     },
+     true
+    ],
+    "result": "id: 7\nevent: transcription.completed\ndata: {\"id\":\"evt_0123456789abcdef01234567\",\"seq\":7,\"type\":\"transcription.completed\",\"time\":\"2026-10-10T12:00:00.000Z\",\"v\":1,\"data\":{\"job_id\":\"j\",\"text\":\"two\\nlines\\r\\n \\u2028 \\u2029 \\u0085 caf\\u00e9 \\ud83d\\ude00 \\\"q\\\" </script> \\\\ \\t\"}}\n\n"
+   },
+   {
+    "args": [
+     {
+      "id": "evt_0123456789abcdef01234567",
+      "seq": 7,
+      "type": "transcription.completed",
+      "time": "2026-10-10T12:00:00.000Z",
+      "data_json": "{\"text\": \"half \\ud83d an emoji \\udc00\"}"
+     },
+     true
+    ],
+    "result": "id: 7\nevent: transcription.completed\ndata: {\"id\":\"evt_0123456789abcdef01234567\",\"seq\":7,\"type\":\"transcription.completed\",\"time\":\"2026-10-10T12:00:00.000Z\",\"v\":1,\"data\":{\"text\":\"half \\ud83d an emoji \\udc00\"}}\n\n"
+   },
+   {
+    "args": [
+     {
+      "id": "evt_0123456789abcdef01234567",
+      "seq": 0,
+      "type": "events.gap",
+      "time": "2026-10-10T12:00:00.000Z",
+      "data_json": "{\"missed_from_seq\": 2, \"reason\": \"evicted\"}"
+     },
+     false
+    ],
+    "result": "event: events.gap\ndata: {\"id\":\"evt_0123456789abcdef01234567\",\"seq\":0,\"type\":\"events.gap\",\"time\":\"2026-10-10T12:00:00.000Z\",\"v\":1,\"data\":{\"missed_from_seq\":2,\"reason\":\"evicted\"}}\n\n"
+   },
+   {
+    "args": [
+     {
+      "id": "evt_0123456789abcdef01234567",
+      "seq": 1756728000123,
+      "type": "history.saved",
+      "time": "2026-10-10T12:00:00.000Z",
+      "data_json": "{}"
+     },
+     true
+    ],
+    "result": "id: 1756728000123\nevent: history.saved\ndata: {\"id\":\"evt_0123456789abcdef01234567\",\"seq\":1756728000123,\"type\":\"history.saved\",\"time\":\"2026-10-10T12:00:00.000Z\",\"v\":1,\"data\":{}}\n\n"
+   },
+   {
+    "args": [
+     {
+      "id": "evt_0123456789abcdef01234567",
+      "seq": 3,
+      "type": "action.ran",
+      "time": "2026-10-10T12:00:00.000Z",
+      "data_json": "{\"nested\": {\"a\": [1, 2.5, null, true, false]}, \"n\": -0.0}"
+     },
+     true
+    ],
+    "result": "id: 3\nevent: action.ran\ndata: {\"id\":\"evt_0123456789abcdef01234567\",\"seq\":3,\"type\":\"action.ran\",\"time\":\"2026-10-10T12:00:00.000Z\",\"v\":1,\"data\":{\"nested\":{\"a\":[1,2.5,null,true,false]},\"n\":-0.0}}\n\n"
+   },
+   {
+    "args": [
+     {
+      "id": "evt_0123456789abcdef01234567",
+      "seq": 4,
+      "type": "x",
+      "time": "2026-10-10T12:00:00.000Z",
+      "data_json": "{\"big\": 12345678901234567890, \"f\": 1e-7, \"g\": 1e22}"
+     },
+     true
+    ],
+    "result": "id: 4\nevent: x\ndata: {\"id\":\"evt_0123456789abcdef01234567\",\"seq\":4,\"type\":\"x\",\"time\":\"2026-10-10T12:00:00.000Z\",\"v\":1,\"data\":{\"big\":12345678901234567890,\"f\":1e-07,\"g\":1e+22}}\n\n"
+   }
+  ],
+  "gap_event": [
+   {
+    "args": [
+     1,
+     "evicted"
+    ],
+    "result": {
+     "seq": 0,
+     "type": "events.gap",
+     "data": {
+      "missed_from_seq": 1,
+      "reason": "evicted"
+     },
+     "id_prefix": "evt_",
+     "id_length": 28
+    }
+   },
+   {
+    "args": [
+     2,
+     "restarted"
+    ],
+    "result": {
+     "seq": 0,
+     "type": "events.gap",
+     "data": {
+      "missed_from_seq": 2,
+      "reason": "restarted"
+     },
+     "id_prefix": "evt_",
+     "id_length": 28
+    }
+   },
+   {
+    "args": [
+     1756728000124,
+     "slow"
+    ],
+    "result": {
+     "seq": 0,
+     "type": "events.gap",
+     "data": {
+      "missed_from_seq": 1756728000124,
+      "reason": "slow"
+     },
+     "id_prefix": "evt_",
+     "id_length": 28
+    }
+   },
+   {
+    "args": [
+     0,
+     "evicted"
+    ],
+    "result": {
+     "seq": 0,
+     "type": "events.gap",
+     "data": {
+      "missed_from_seq": 0,
+      "reason": "evicted"
+     },
+     "id_prefix": "evt_",
+     "id_length": 28
+    }
+   }
+  ],
+  "string": [
+   {
+    "args": [
+     "{\"text\": \"hi\"}",
+     "text",
+     true,
+     20000,
+     ""
+    ],
+    "result": {
+     "value": "hi"
+    }
+   },
+   {
+    "args": [
+     "{}",
+     "text",
+     true,
+     20000,
+     ""
+    ],
+    "result": {
+     "invalid": "text must be text of 1 to 20,000 characters.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "{}",
+     "title",
+     false,
+     100,
+     ""
+    ],
+    "result": {
+     "value": ""
+    }
+   },
+   {
+    "args": [
+     "{\"title\": null}",
+     "title",
+     false,
+     100,
+     ""
+    ],
+    "result": {
+     "value": ""
+    }
+   },
+   {
+    "args": [
+     "{\"text\": null}",
+     "text",
+     true,
+     20000,
+     ""
+    ],
+    "result": {
+     "invalid": "text must be text of 1 to 20,000 characters.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "{\"text\": \"\"}",
+     "text",
+     true,
+     20000,
+     ""
+    ],
+    "result": {
+     "invalid": "text must be text of 1 to 20,000 characters.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "{\"title\": \"\"}",
+     "title",
+     false,
+     100,
+     ""
+    ],
+    "result": {
+     "value": ""
+    }
+   },
+   {
+    "args": [
+     "{\"text\": 5}",
+     "text",
+     true,
+     500,
+     ""
+    ],
+    "result": {
+     "invalid": "text must be text of 1 to 500 characters.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "{\"title\": 5}",
+     "title",
+     false,
+     100,
+     ""
+    ],
+    "result": {
+     "invalid": "title must be text of at most 100 characters.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "{\"title\": true}",
+     "title",
+     false,
+     100,
+     ""
+    ],
+    "result": {
+     "invalid": "title must be text of at most 100 characters.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "{\"text\": [\"x\"]}",
+     "text",
+     true,
+     2048,
+     "url"
+    ],
+    "result": {
+     "invalid": "url must be text of 1 to 2,048 characters.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "{\"text\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"}",
+     "text",
+     true,
+     64,
+     ""
+    ],
+    "result": {
+     "value": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+   },
+   {
+    "args": [
+     "{\"text\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"}",
+     "text",
+     true,
+     64,
+     ""
+    ],
+    "result": {
+     "invalid": "text must be text of 1 to 64 characters.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "{\"text\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"}",
+     "text",
+     false,
+     64,
+     ""
+    ],
+    "result": {
+     "invalid": "text must be text of at most 64 characters.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "{\"text\": \"\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\\u00e9\"}",
+     "text",
+     true,
+     64,
+     ""
+    ],
+    "result": {
+     "value": "éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"
+    }
+   },
+   {
+    "args": [
+     "{\"text\": \"\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\"}",
+     "text",
+     true,
+     64,
+     ""
+    ],
+    "result": {
+     "value": "😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀"
+    }
+   },
+   {
+    "args": [
+     "{\"text\": \"\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\\ud83d\\ude00\"}",
+     "text",
+     true,
+     64,
+     ""
+    ],
+    "result": {
+     "invalid": "text must be text of 1 to 64 characters.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "{\"text\": \"fix this \\ud83d\"}",
+     "text",
+     true,
+     20000,
+     ""
+    ],
+    "result": {
+     "invalid": "text must be valid Unicode text.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "{\"title\": \"\\udc00\"}",
+     "title",
+     false,
+     100,
+     ""
+    ],
+    "result": {
+     "invalid": "title must be valid Unicode text.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "{\"action_id\": \"a\\ud800\"}",
+     "action_id",
+     false,
+     64,
+     ""
+    ],
+    "result": {
+     "invalid": "action_id must be valid Unicode text.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "{\"text\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"}",
+     "text",
+     true,
+     1000,
+     ""
+    ],
+    "result": {
+     "invalid": "text must be text of 1 to 1,000 characters.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "{\"text\": \"\"}",
+     "text",
+     true,
+     1000000,
+     "words"
+    ],
+    "result": {
+     "invalid": "words must be text of 1 to 1,000,000 characters.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "{\"text\": 1}",
+     "text",
+     false,
+     1234567,
+     ""
+    ],
+    "result": {
+     "invalid": "text must be text of at most 1,234,567 characters.",
+     "status": 422,
+     "code": "invalid_parameters"
+    }
+   },
+   {
+    "args": [
+     "{\"text\": \"   \"}",
+     "text",
+     true,
+     500,
+     ""
+    ],
+    "result": {
+     "value": "   "
+    }
+   }
+  ],
+  "is_unicode_text": [
+   {
+    "args": [
+     "\"\""
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "\"plain\""
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "\"caf\\u00e9 \\ud83d\\ude00\""
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "\"\\ud83d\""
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "\"\\ude00\""
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "\"x\\udc00y\""
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "\"\\ude00\\ud83d\""
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "\"\\u2028\""
+    ],
+    "result": true
+   }
+  ],
+  "peer_is_local": [
+   {
+    "args": [
+     "127.0.0.1"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "127.8.9.10"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "::1"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "::ffff:127.0.0.1"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "::1%eth0"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "::1%3"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "100.65.148.53"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "192.168.1.10"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "testclient"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "localhost"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "0:0:0:0:0:0:0:1"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "::ffff:7f00:1"
+    ],
+    "result": true
+   },
+   {
+    "args": [
+     "127.000.0.1"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "::ffff:192.168.1.10"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "fe80::1%3"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "::"
+    ],
+    "result": false
+   },
+   {
+    "args": [
+     "0.0.0.0"
+    ],
+    "result": false
+   }
+  ]
+ }
+}

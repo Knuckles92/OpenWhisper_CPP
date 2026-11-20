@@ -1,0 +1,243 @@
+{
+ "module": "services.recording_journal",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time"
+ },
+ "functions": {
+  "recovery_directory": [
+   {
+    "args": [
+     "recorded_audio.wav"
+    ],
+    "result": ".recorded_audio-recovery"
+   },
+   {
+    "args": [
+     "capture.wav"
+    ],
+    "result": ".capture-recovery"
+   },
+   {
+    "args": [
+     "dictation.take.wav"
+    ],
+    "result": ".dictation.take-recovery"
+   },
+   {
+    "args": [
+     "noextension"
+    ],
+    "result": ".noextension-recovery"
+   },
+   {
+    "args": [
+     ".hidden"
+    ],
+    "result": "..hidden-recovery"
+   }
+  ],
+  "session_json": [
+   {
+    "args": [
+     44100,
+     1,
+     2,
+     "2026-11-14T09:30:00"
+    ],
+    "result": "{\"version\": 1, \"rate\": 44100, \"channels\": 1, \"sample_width\": 2, \"created\": \"2026-11-14T09:30:00\"}"
+   },
+   {
+    "args": [
+     44100,
+     1,
+     2,
+     "2026-11-14T09:30:00.123456"
+    ],
+    "result": "{\"version\": 1, \"rate\": 44100, \"channels\": 1, \"sample_width\": 2, \"created\": \"2026-11-14T09:30:00.123456\"}"
+   },
+   {
+    "args": [
+     16000,
+     2,
+     2,
+     "1999-12-31T23:59:59.000001"
+    ],
+    "result": "{\"version\": 1, \"rate\": 16000, \"channels\": 2, \"sample_width\": 2, \"created\": \"1999-12-31T23:59:59.000001\"}"
+   },
+   {
+    "args": [
+     48000,
+     1,
+     4,
+     "2026-01-02T03:04:05.500000"
+    ],
+    "result": "{\"version\": 1, \"rate\": 48000, \"channels\": 1, \"sample_width\": 4, \"created\": \"2026-01-02T03:04:05.500000\"}"
+   }
+  ],
+  "_recovered_wav_path": [
+   {
+    "args": [
+     "2026-11-14T09:30:00",
+     "0123456789abcdef0123456789abcdef"
+    ],
+    "result": "recording_20261114_093000-recovered-0123456789abcdef0123456789abcdef.wav"
+   },
+   {
+    "args": [
+     "2026-11-14T09:30:00.123456",
+     "0123456789abcdef0123456789abcdef"
+    ],
+    "result": "recording_20261114_093000-recovered-0123456789abcdef0123456789abcdef.wav"
+   },
+   {
+    "args": [
+     "1999-12-31T23:59:59.999999",
+     "abc"
+    ],
+    "result": "recording_19991231_235959-recovered-abc.wav"
+   },
+   {
+    "args": [
+     "2026-01-02T03:04:05+02:00",
+     "0123456789abcdef0123456789abcdef"
+    ],
+    "result": "recording_20260102_030405-recovered-0123456789abcdef0123456789abcdef.wav"
+   },
+   {
+    "args": [
+     "2026-01-02",
+     "0123456789abcdef0123456789abcdef"
+    ],
+    "result": "recording_20260102_000000-recovered-0123456789abcdef0123456789abcdef.wav"
+   },
+   {
+    "args": [
+     "not a time",
+     "0123456789abcdef0123456789abcdef"
+    ],
+    "raises": "ValueError"
+   }
+  ],
+  "_session_format": [
+   {
+    "args": [
+     "{\"version\": 1, \"rate\": 44100, \"channels\": 1, \"sample_width\": 2, \"created\": \"x\"}"
+    ],
+    "result": [
+     44100,
+     1,
+     2
+    ]
+   },
+   {
+    "args": [
+     "{\"rate\": 8000, \"channels\": 2, \"sample_width\": 1}"
+    ],
+    "result": [
+     8000,
+     2,
+     1
+    ]
+   },
+   {
+    "args": [
+     "{\"rate\": 384000, \"channels\": 1, \"sample_width\": 4}"
+    ],
+    "result": [
+     384000,
+     1,
+     4
+    ]
+   },
+   {
+    "args": [
+     "{\"rate\": 7999, \"channels\": 1, \"sample_width\": 2}"
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     "{\"rate\": 384001, \"channels\": 1, \"sample_width\": 2}"
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     "{\"rate\": \"44100\", \"channels\": 1, \"sample_width\": 2}"
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     "{\"rate\": true, \"channels\": 1, \"sample_width\": 2}"
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     "{\"rate\": 44100, \"channels\": 0, \"sample_width\": 2}"
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     "{\"rate\": 44100, \"channels\": 3, \"sample_width\": 2}"
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     "{\"rate\": 44100, \"channels\": true, \"sample_width\": 2}"
+    ],
+    "result": [
+     44100,
+     true,
+     2
+    ]
+   },
+   {
+    "args": [
+     "{\"rate\": 44100, \"channels\": 1, \"sample_width\": 0}"
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     "{\"rate\": 44100, \"channels\": 1, \"sample_width\": 5}"
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     "{\"rate\": 44100, \"channels\": 1, \"sample_width\": 3}"
+    ],
+    "result": [
+     44100,
+     1,
+     3
+    ]
+   },
+   {
+    "args": [
+     "{\"rate\": 44100, \"channels\": 1}"
+    ],
+    "raises": "KeyError"
+   },
+   {
+    "args": [
+     "{\"rate\": 44100, \"channels\": \"1\", \"sample_width\": 2}"
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     "not json"
+    ],
+    "raises": "JSONDecodeError"
+   }
+  ]
+ }
+}

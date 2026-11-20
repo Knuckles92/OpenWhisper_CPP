@@ -1,0 +1,2618 @@
+{
+ "scenario": "meeting_ws",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "python": "3.12.10",
+ "context": {
+  "meeting": {
+   "id": "m_ws",
+   "title": "WS Meeting",
+   "status": "active",
+   "started_at": "2026-01-01T12:00:00Z",
+   "host_token": "host-ws-token-cccccccccccccccccccc",
+   "guest_token": "guest-ws-token-dddddddddddddddddddd",
+   "state_json": "{}"
+  },
+  "segments": [
+   {
+    "id": "sg_1",
+    "start_s": 1.0,
+    "end_s": 2.0,
+    "text": "hi",
+    "channel": "mic",
+    "speaker_participant_id": null
+   },
+   {
+    "id": "sg_2",
+    "start_s": 2.5,
+    "end_s": 4.0,
+    "text": "café 日",
+    "channel": "loopback",
+    "speaker_participant_id": null
+   }
+  ],
+  "guest_url": "http://127.0.0.1:9/m/guest-ws-token-dddddddddddddddddddd",
+  "initial_ops": [
+   {
+    "op": "upsert_participant",
+    "display_name": "Me",
+    "kind": "me",
+    "is_provisional": false
+   }
+  ],
+  "now_utc": "2026-01-01T00:00:00+00:00",
+  "ids": "new_id gives <prefix>_<n as 12 hex digits>, n counting from 1"
+ },
+ "steps": [
+  {
+   "open": "host",
+   "query": [
+    [
+     "token",
+     "host-ws-token-cccccccccccccccccccc"
+    ]
+   ],
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "hello",
+       "voice_commands": {
+        "names": [
+         "Assistant",
+         "Note taker",
+         "OpenWhisper"
+        ],
+        "primary": "Assistant",
+        "examples": [
+         {
+          "label": "Take a note",
+          "phrase": "Assistant, note that the launch is Friday."
+         },
+         {
+          "label": "Mark a decision",
+          "phrase": "Assistant, mark that as a decision."
+         },
+         {
+          "label": "Add an action",
+          "phrase": "Assistant, mark that as an action item."
+         },
+         {
+          "label": "Get a recap",
+          "phrase": "Assistant, recap the decisions so far."
+         },
+         {
+          "label": "Change topic",
+          "phrase": "Assistant, new topic: budget."
+         },
+         {
+          "label": "Correct a term",
+          "phrase": "Assistant, replace Acme with Acme Labs."
+         }
+        ]
+       },
+       "role": "host",
+       "participant_id": "p_000000000001",
+       "seq": 1,
+       "state": {
+        "meeting_id": "m_ws",
+        "seq": 1,
+        "status": "active",
+        "cloud_enabled": false,
+        "intelligence_online": false,
+        "diarization_available": false,
+        "diarization_reason": "",
+        "speech": {},
+        "title": "",
+        "intent": {
+         "text": "",
+         "updated_at": "",
+         "author_id": ""
+        },
+        "topic": {
+         "current": "",
+         "history": []
+        },
+        "rolling_summary": "",
+        "rolling_summary_evidence": [],
+        "capture": {
+         "mic_available": false,
+         "loopback_available": false,
+         "message": "",
+         "audio_incomplete": false,
+         "integrity_error": ""
+        },
+        "participants": {
+         "p_000000000001": {
+          "id": "p_000000000001",
+          "display_name": "Me",
+          "kind": "me",
+          "name_source": "human",
+          "is_provisional": false,
+          "created_at": "2026-01-01T00:00:00Z",
+          "updated_at": "2026-01-01T00:00:00Z"
+         }
+        },
+        "cards": {
+         "key_points": [],
+         "decisions": [],
+         "action_items": [],
+         "risks": [],
+         "timeline": [],
+         "live_notes": [],
+         "user_notes": []
+        },
+        "questions": [],
+        "finalization": {
+         "status": "pending",
+         "message": "",
+         "stage": "",
+         "current_step": 0,
+         "total_steps": 0,
+         "step_details": "",
+         "steps": [],
+         "summary_stats": {},
+         "card_deferred": false
+        },
+        "report_views": [
+         "ribbon",
+         "brief",
+         "signal"
+        ],
+        "insight_review": {},
+        "live_highlights": [],
+        "live_highlights_status": "unknown",
+        "voice_feedback": {},
+        "custom_reports": []
+       },
+       "segments": [
+        {
+         "id": "sg_1",
+         "start_s": 1.0,
+         "end_s": 2.0,
+         "text": "hi",
+         "channel": "mic",
+         "speaker_participant_id": null
+        },
+        {
+         "id": "sg_2",
+         "start_s": 2.5,
+         "end_s": 4.0,
+         "text": "café 日",
+         "channel": "loopback",
+         "speaker_participant_id": null
+        }
+       ],
+       "urls": {
+        "guest": "http://127.0.0.1:9/m/guest-ws-token-dddddddddddddddddddd"
+       },
+       "meeting": {
+        "id": "m_ws",
+        "title": "WS Meeting",
+        "started_at": "2026-01-01T12:00:00Z",
+        "status": "active"
+       },
+       "agent_activity": []
+      }
+     }
+    ]
+   }
+  },
+  {
+   "open": "guest",
+   "query": [
+    [
+     "token",
+     "guest-ws-token-dddddddddddddddddddd"
+    ],
+    [
+     "name",
+     "Sam"
+    ],
+    [
+     "guest_id",
+     "g_1"
+    ]
+   ],
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "patch",
+       "seq": 2,
+       "results": [
+        {
+         "op": {
+          "op": "upsert_participant",
+          "display_name": "Sam",
+          "kind": "guest",
+          "is_provisional": false
+         },
+         "target_id": "p_000000000002",
+         "effect": {
+          "entity": "participant",
+          "participant": {
+           "id": "p_000000000002",
+           "display_name": "Sam",
+           "kind": "guest",
+           "name_source": "human",
+           "is_provisional": false,
+           "created_at": "2026-01-01T00:00:00Z",
+           "updated_at": "2026-01-01T00:00:00Z"
+          }
+         },
+         "seq": 2
+        }
+       ]
+      }
+     },
+     {
+      "message": {
+       "type": "presence",
+       "event": "joined",
+       "participant": {
+        "id": "p_000000000002",
+        "display_name": "Sam",
+        "kind": "guest",
+        "name_source": "human",
+        "is_provisional": false,
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
+       }
+      }
+     }
+    ],
+    "guest": [
+     {
+      "message": {
+       "type": "hello",
+       "voice_commands": {
+        "names": [
+         "Assistant",
+         "Note taker",
+         "OpenWhisper"
+        ],
+        "primary": "Assistant",
+        "examples": [
+         {
+          "label": "Take a note",
+          "phrase": "Assistant, note that the launch is Friday."
+         },
+         {
+          "label": "Mark a decision",
+          "phrase": "Assistant, mark that as a decision."
+         },
+         {
+          "label": "Add an action",
+          "phrase": "Assistant, mark that as an action item."
+         },
+         {
+          "label": "Get a recap",
+          "phrase": "Assistant, recap the decisions so far."
+         },
+         {
+          "label": "Change topic",
+          "phrase": "Assistant, new topic: budget."
+         },
+         {
+          "label": "Correct a term",
+          "phrase": "Assistant, replace Acme with Acme Labs."
+         }
+        ]
+       },
+       "role": "guest",
+       "participant_id": "p_000000000002",
+       "seq": 2,
+       "state": {
+        "meeting_id": "m_ws",
+        "seq": 2,
+        "status": "active",
+        "cloud_enabled": false,
+        "intelligence_online": false,
+        "diarization_available": false,
+        "diarization_reason": "",
+        "speech": {},
+        "title": "",
+        "intent": {
+         "text": "",
+         "updated_at": "",
+         "author_id": ""
+        },
+        "topic": {
+         "current": "",
+         "history": []
+        },
+        "rolling_summary": "",
+        "rolling_summary_evidence": [],
+        "capture": {
+         "mic_available": false,
+         "loopback_available": false,
+         "message": "",
+         "audio_incomplete": false,
+         "integrity_error": ""
+        },
+        "participants": {
+         "p_000000000001": {
+          "id": "p_000000000001",
+          "display_name": "Me",
+          "kind": "me",
+          "name_source": "human",
+          "is_provisional": false,
+          "created_at": "2026-01-01T00:00:00Z",
+          "updated_at": "2026-01-01T00:00:00Z"
+         },
+         "p_000000000002": {
+          "id": "p_000000000002",
+          "display_name": "Sam",
+          "kind": "guest",
+          "name_source": "human",
+          "is_provisional": false,
+          "created_at": "2026-01-01T00:00:00Z",
+          "updated_at": "2026-01-01T00:00:00Z"
+         }
+        },
+        "cards": {
+         "key_points": [],
+         "decisions": [],
+         "action_items": [],
+         "risks": [],
+         "timeline": [],
+         "live_notes": [],
+         "user_notes": []
+        },
+        "questions": [],
+        "finalization": {
+         "status": "pending",
+         "message": "",
+         "stage": "",
+         "current_step": 0,
+         "total_steps": 0,
+         "step_details": "",
+         "steps": [],
+         "summary_stats": {},
+         "card_deferred": false
+        },
+        "report_views": [
+         "ribbon",
+         "brief",
+         "signal"
+        ],
+        "insight_review": {},
+        "live_highlights": [],
+        "live_highlights_status": "unknown",
+        "voice_feedback": {}
+       },
+       "segments": [
+        {
+         "id": "sg_1",
+         "start_s": 1.0,
+         "end_s": 2.0,
+         "text": "hi",
+         "channel": "mic",
+         "speaker_participant_id": null
+        },
+        {
+         "id": "sg_2",
+         "start_s": 2.5,
+         "end_s": 4.0,
+         "text": "café 日",
+         "channel": "loopback",
+         "speaker_participant_id": null
+        }
+       ],
+       "urls": {
+        "guest": "http://127.0.0.1:9/m/guest-ws-token-dddddddddddddddddddd"
+       },
+       "meeting": {
+        "id": "m_ws",
+        "title": "WS Meeting",
+        "started_at": "2026-01-01T12:00:00Z",
+        "status": "active"
+       }
+      }
+     },
+     {
+      "message": {
+       "type": "patch",
+       "seq": 2,
+       "results": [
+        {
+         "op": {
+          "op": "upsert_participant",
+          "display_name": "Sam",
+          "kind": "guest",
+          "is_provisional": false
+         },
+         "target_id": "p_000000000002",
+         "effect": {
+          "entity": "participant",
+          "participant": {
+           "id": "p_000000000002",
+           "display_name": "Sam",
+           "kind": "guest",
+           "name_source": "human",
+           "is_provisional": false,
+           "created_at": "2026-01-01T00:00:00Z",
+           "updated_at": "2026-01-01T00:00:00Z"
+          }
+         },
+         "seq": 2
+        }
+       ]
+      }
+     },
+     {
+      "message": {
+       "type": "presence",
+       "event": "joined",
+       "participant": {
+        "id": "p_000000000002",
+        "display_name": "Sam",
+        "kind": "guest",
+        "name_source": "human",
+        "is_provisional": false,
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
+       }
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "guest",
+   "text": "{\"type\": \"action\", \"client_action_id\": \"ca_1\", \"op\": {\"op\": \"add_item\", \"card\": \"user_notes\", \"text\": \"Guest note\"}}",
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "patch",
+       "seq": 3,
+       "results": [
+        {
+         "op": {
+          "op": "add_item",
+          "card": "user_notes",
+          "text": "Guest note"
+         },
+         "target_id": "it_000000000003",
+         "effect": {
+          "entity": "item",
+          "item": {
+           "id": "it_000000000003",
+           "card": "user_notes",
+           "text": "Guest note",
+           "data": {},
+           "status": "edited",
+           "author_type": "user",
+           "author_id": "p_000000000002",
+           "pinned": false,
+           "revision": 1,
+           "evidence": [],
+           "created_at": "2026-01-01T00:00:00Z",
+           "updated_at": "2026-01-01T00:00:00Z",
+           "review": {},
+           "citation_check": {}
+          }
+         },
+         "seq": 3
+        }
+       ]
+      }
+     }
+    ],
+    "guest": [
+     {
+      "message": {
+       "type": "patch",
+       "seq": 3,
+       "results": [
+        {
+         "op": {
+          "op": "add_item",
+          "card": "user_notes",
+          "text": "Guest note"
+         },
+         "target_id": "it_000000000003",
+         "effect": {
+          "entity": "item",
+          "item": {
+           "id": "it_000000000003",
+           "card": "user_notes",
+           "text": "Guest note",
+           "data": {},
+           "status": "edited",
+           "author_type": "user",
+           "author_id": "p_000000000002",
+           "pinned": false,
+           "revision": 1,
+           "evidence": [],
+           "created_at": "2026-01-01T00:00:00Z",
+           "updated_at": "2026-01-01T00:00:00Z",
+           "review": {},
+           "citation_check": {}
+          }
+         },
+         "seq": 3
+        }
+       ]
+      }
+     },
+     {
+      "message": {
+       "type": "action_result",
+       "client_action_id": "ca_1",
+       "results": [
+        {
+         "ok": true,
+         "reason": null,
+         "target_id": "it_000000000003",
+         "seq": 3,
+         "effect": {
+          "entity": "item",
+          "item": {
+           "id": "it_000000000003",
+           "card": "user_notes",
+           "text": "Guest note",
+           "data": {},
+           "status": "edited",
+           "author_type": "user",
+           "author_id": "p_000000000002",
+           "pinned": false,
+           "revision": 1,
+           "evidence": [],
+           "created_at": "2026-01-01T00:00:00Z",
+           "updated_at": "2026-01-01T00:00:00Z",
+           "review": {},
+           "citation_check": {}
+          }
+         }
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "guest",
+   "text": "{\"type\": \"action\", \"client_action_id\": \"ca_2\", \"op\": {\"op\": \"set_title\", \"text\": \"Guest rename\"}}",
+   "received": {
+    "guest": [
+     {
+      "message": {
+       "type": "action_result",
+       "client_action_id": "ca_2",
+       "results": [
+        {
+         "ok": false,
+         "reason": "host_only",
+         "target_id": null,
+         "seq": null,
+         "effect": null
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "guest",
+   "text": "{\"type\": \"action\", \"client_action_id\": \"ca_3\", \"op\": {\"op\": \"set_cloud_enabled\", \"enabled\": true}}",
+   "received": {
+    "guest": [
+     {
+      "message": {
+       "type": "action_result",
+       "client_action_id": "ca_3",
+       "results": [
+        {
+         "ok": false,
+         "reason": "host_only",
+         "target_id": null,
+         "seq": null,
+         "effect": null
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "guest",
+   "text": "{\"type\": \"undo\", \"client_action_id\": \"ca_4\", \"seq\": 1}",
+   "received": {
+    "guest": [
+     {
+      "message": {
+       "type": "action_result",
+       "client_action_id": "ca_4",
+       "results": [
+        {
+         "ok": false,
+         "reason": "host_only",
+         "target_id": null,
+         "seq": null,
+         "effect": null
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "host",
+   "text": "{\"type\": \"action\", \"client_action_id\": \"ca_5\", \"op\": {\"op\": \"set_title\", \"text\": \"Host title\"}}",
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "patch",
+       "seq": 4,
+       "results": [
+        {
+         "op": {
+          "op": "set_title",
+          "text": "Host title"
+         },
+         "target_id": null,
+         "effect": {
+          "entity": "title",
+          "text": "Host title"
+         },
+         "seq": 4
+        }
+       ]
+      }
+     },
+     {
+      "message": {
+       "type": "action_result",
+       "client_action_id": "ca_5",
+       "results": [
+        {
+         "ok": true,
+         "reason": null,
+         "target_id": null,
+         "seq": 4,
+         "effect": {
+          "entity": "title",
+          "text": "Host title"
+         }
+        }
+       ]
+      }
+     }
+    ],
+    "guest": [
+     {
+      "message": {
+       "type": "patch",
+       "seq": 4,
+       "results": [
+        {
+         "op": {
+          "op": "set_title",
+          "text": "Host title"
+         },
+         "target_id": null,
+         "effect": {
+          "entity": "title",
+          "text": "Host title"
+         },
+         "seq": 4
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "host",
+   "text": "{\"type\": \"undo\", \"client_action_id\": \"ca_6\", \"seq\": 2}",
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "action_result",
+       "client_action_id": "ca_6",
+       "results": []
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "host",
+   "text": "{\"type\": \"ping\"}",
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "pong"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "guest",
+   "binary_base64": "AAECbm90IGpzb24=",
+   "received": {
+    "guest": [
+     {
+      "message": {
+       "type": "error",
+       "code": "binary_unsupported",
+       "message": "Binary frames are not supported."
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "guest",
+   "repeat": [
+    "[",
+    20000
+   ],
+   "received": {
+    "guest": [
+     {
+      "message": {
+       "type": "error",
+       "code": "bad_json",
+       "message": "Message was not valid JSON."
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "guest",
+   "repeat": [
+    "x",
+    65537
+   ],
+   "received": {
+    "guest": [
+     {
+      "message": {
+       "type": "error",
+       "code": "message_too_large",
+       "message": "Message exceeds the size limit."
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "guest",
+   "repeat": [
+    "é",
+    65536
+   ],
+   "received": {
+    "guest": [
+     {
+      "message": {
+       "type": "error",
+       "code": "bad_json",
+       "message": "Message was not valid JSON."
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "host",
+   "text": "{\"type\": \"undo\", \"client_action_id\": \"ca_x\", \"seq\": 1e400}",
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "action_result",
+       "client_action_id": "ca_x",
+       "results": [
+        {
+         "ok": false,
+         "reason": "invalid_seq",
+         "target_id": null,
+         "seq": null,
+         "effect": null
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "host",
+   "text": "{\"type\": \"undo\", \"client_action_id\": \"ca_y\", \"seq\": 10000000000000000000000000000000000000000}",
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "action_result",
+       "client_action_id": "ca_y",
+       "results": [
+        {
+         "ok": false,
+         "reason": "invalid_seq",
+         "target_id": null,
+         "seq": null,
+         "effect": null
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "host",
+   "text": "{\"type\": \"undo\", \"client_action_id\": \"ca_z\", \"seq\": \"2\"}",
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "action_result",
+       "client_action_id": "ca_z",
+       "results": []
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "host",
+   "text": "{\"type\": \"undo\", \"client_action_id\": [\"not\", \"an\", \"id\"], \"seq\": 3.7}",
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "action_result",
+       "client_action_id": [
+        "not",
+        "an",
+        "id"
+       ],
+       "results": []
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "host",
+   "text": "[1, 2, 3]",
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "error",
+       "code": "bad_message",
+       "message": "Message must be a JSON object."
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "host",
+   "text": "\"just text\"",
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "error",
+       "code": "bad_message",
+       "message": "Message must be a JSON object."
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "host",
+   "text": "{not json",
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "error",
+       "code": "bad_json",
+       "message": "Message was not valid JSON."
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "host",
+   "text": "{\"type\": \"action\", \"client_action_id\": \"ca_m\", \"op\": \"not-a-dict\"}",
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "action_result",
+       "client_action_id": "ca_m",
+       "results": [
+        {
+         "ok": false,
+         "reason": "malformed_op",
+         "target_id": null,
+         "seq": null,
+         "effect": null
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "host",
+   "text": "{\"type\": \"nonsense\"}",
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "error",
+       "code": "unknown_type",
+       "message": "Unknown message type: 'nonsense'"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "host",
+   "text": "{\"client_action_id\": \"x\"}",
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "error",
+       "code": "unknown_type",
+       "message": "Unknown message type: None"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "host",
+   "text": "{\"type\": 5}",
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "error",
+       "code": "unknown_type",
+       "message": "Unknown message type: 5"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "host",
+   "text": "{\"type\": [\"a\", null, true, 1.5]}",
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "error",
+       "code": "unknown_type",
+       "message": "Unknown message type: ['a', None, True, 1.5]"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "host",
+   "text": "{\"type\": \"action\", \"op\": {\"op\": \"add_item\", \"card\": \"user_notes\", \"text\": \"Host note \\u00e9\\u65e5\"}}",
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "patch",
+       "seq": 5,
+       "results": [
+        {
+         "op": {
+          "op": "add_item",
+          "card": "user_notes",
+          "text": "Host note é日"
+         },
+         "target_id": "it_000000000004",
+         "effect": {
+          "entity": "item",
+          "item": {
+           "id": "it_000000000004",
+           "card": "user_notes",
+           "text": "Host note é日",
+           "data": {},
+           "status": "edited",
+           "author_type": "user",
+           "author_id": "p_000000000001",
+           "pinned": false,
+           "revision": 1,
+           "evidence": [],
+           "created_at": "2026-01-01T00:00:00Z",
+           "updated_at": "2026-01-01T00:00:00Z",
+           "review": {},
+           "citation_check": {}
+          }
+         },
+         "seq": 5
+        }
+       ]
+      }
+     },
+     {
+      "message": {
+       "type": "action_result",
+       "client_action_id": null,
+       "results": [
+        {
+         "ok": true,
+         "reason": null,
+         "target_id": "it_000000000004",
+         "seq": 5,
+         "effect": {
+          "entity": "item",
+          "item": {
+           "id": "it_000000000004",
+           "card": "user_notes",
+           "text": "Host note é日",
+           "data": {},
+           "status": "edited",
+           "author_type": "user",
+           "author_id": "p_000000000001",
+           "pinned": false,
+           "revision": 1,
+           "evidence": [],
+           "created_at": "2026-01-01T00:00:00Z",
+           "updated_at": "2026-01-01T00:00:00Z",
+           "review": {},
+           "citation_check": {}
+          }
+         }
+        }
+       ]
+      }
+     }
+    ],
+    "guest": [
+     {
+      "message": {
+       "type": "patch",
+       "seq": 5,
+       "results": [
+        {
+         "op": {
+          "op": "add_item",
+          "card": "user_notes",
+          "text": "Host note é日"
+         },
+         "target_id": "it_000000000004",
+         "effect": {
+          "entity": "item",
+          "item": {
+           "id": "it_000000000004",
+           "card": "user_notes",
+           "text": "Host note é日",
+           "data": {},
+           "status": "edited",
+           "author_type": "user",
+           "author_id": "p_000000000001",
+           "pinned": false,
+           "revision": 1,
+           "evidence": [],
+           "created_at": "2026-01-01T00:00:00Z",
+           "updated_at": "2026-01-01T00:00:00Z",
+           "review": {},
+           "citation_check": {}
+          }
+         },
+         "seq": 5
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "host",
+   "text": "{\"type\": \"action\", \"client_action_id\": 7, \"op\": {\"op\": \"frobnicate\"}}",
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "action_result",
+       "client_action_id": 7,
+       "results": [
+        {
+         "ok": false,
+         "reason": "unknown_op",
+         "target_id": null,
+         "seq": null,
+         "effect": null
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "send": "guest",
+   "text": "{\"type\": \"ping\", \"extra\": 1}",
+   "received": {
+    "guest": [
+     {
+      "message": {
+       "type": "pong"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "close": "guest",
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "presence",
+       "event": "left",
+       "participant": {
+        "id": "p_000000000002",
+        "display_name": "Sam",
+        "kind": "guest",
+        "name_source": "human",
+        "is_provisional": false,
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
+       }
+      }
+     }
+    ]
+   }
+  },
+  {
+   "open": "guest",
+   "query": [
+    [
+     "token",
+     "guest-ws-token-dddddddddddddddddddd"
+    ],
+    [
+     "name",
+     "Sam"
+    ],
+    [
+     "guest_id",
+     "g_1"
+    ]
+   ],
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "presence",
+       "event": "joined",
+       "participant": {
+        "id": "p_000000000002",
+        "display_name": "Sam",
+        "kind": "guest",
+        "name_source": "human",
+        "is_provisional": false,
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
+       }
+      }
+     }
+    ],
+    "guest": [
+     {
+      "message": {
+       "type": "hello",
+       "voice_commands": {
+        "names": [
+         "Assistant",
+         "Note taker",
+         "OpenWhisper"
+        ],
+        "primary": "Assistant",
+        "examples": [
+         {
+          "label": "Take a note",
+          "phrase": "Assistant, note that the launch is Friday."
+         },
+         {
+          "label": "Mark a decision",
+          "phrase": "Assistant, mark that as a decision."
+         },
+         {
+          "label": "Add an action",
+          "phrase": "Assistant, mark that as an action item."
+         },
+         {
+          "label": "Get a recap",
+          "phrase": "Assistant, recap the decisions so far."
+         },
+         {
+          "label": "Change topic",
+          "phrase": "Assistant, new topic: budget."
+         },
+         {
+          "label": "Correct a term",
+          "phrase": "Assistant, replace Acme with Acme Labs."
+         }
+        ]
+       },
+       "role": "guest",
+       "participant_id": "p_000000000002",
+       "seq": 5,
+       "state": {
+        "meeting_id": "m_ws",
+        "seq": 5,
+        "status": "active",
+        "cloud_enabled": false,
+        "intelligence_online": false,
+        "diarization_available": false,
+        "diarization_reason": "",
+        "speech": {},
+        "title": "Host title",
+        "intent": {
+         "text": "",
+         "updated_at": "",
+         "author_id": ""
+        },
+        "topic": {
+         "current": "",
+         "history": []
+        },
+        "rolling_summary": "",
+        "rolling_summary_evidence": [],
+        "capture": {
+         "mic_available": false,
+         "loopback_available": false,
+         "message": "",
+         "audio_incomplete": false,
+         "integrity_error": ""
+        },
+        "participants": {
+         "p_000000000001": {
+          "id": "p_000000000001",
+          "display_name": "Me",
+          "kind": "me",
+          "name_source": "human",
+          "is_provisional": false,
+          "created_at": "2026-01-01T00:00:00Z",
+          "updated_at": "2026-01-01T00:00:00Z"
+         },
+         "p_000000000002": {
+          "id": "p_000000000002",
+          "display_name": "Sam",
+          "kind": "guest",
+          "name_source": "human",
+          "is_provisional": false,
+          "created_at": "2026-01-01T00:00:00Z",
+          "updated_at": "2026-01-01T00:00:00Z"
+         }
+        },
+        "cards": {
+         "key_points": [],
+         "decisions": [],
+         "action_items": [],
+         "risks": [],
+         "timeline": [],
+         "live_notes": [],
+         "user_notes": [
+          {
+           "id": "it_000000000003",
+           "card": "user_notes",
+           "text": "Guest note",
+           "data": {},
+           "status": "edited",
+           "author_type": "user",
+           "author_id": "p_000000000002",
+           "pinned": false,
+           "revision": 1,
+           "evidence": [],
+           "created_at": "2026-01-01T00:00:00Z",
+           "updated_at": "2026-01-01T00:00:00Z",
+           "review": {},
+           "citation_check": {}
+          },
+          {
+           "id": "it_000000000004",
+           "card": "user_notes",
+           "text": "Host note é日",
+           "data": {},
+           "status": "edited",
+           "author_type": "user",
+           "author_id": "p_000000000001",
+           "pinned": false,
+           "revision": 1,
+           "evidence": [],
+           "created_at": "2026-01-01T00:00:00Z",
+           "updated_at": "2026-01-01T00:00:00Z",
+           "review": {},
+           "citation_check": {}
+          }
+         ]
+        },
+        "questions": [],
+        "finalization": {
+         "status": "pending",
+         "message": "",
+         "stage": "",
+         "current_step": 0,
+         "total_steps": 0,
+         "step_details": "",
+         "steps": [],
+         "summary_stats": {},
+         "card_deferred": false
+        },
+        "report_views": [
+         "ribbon",
+         "brief",
+         "signal"
+        ],
+        "insight_review": {},
+        "live_highlights": [],
+        "live_highlights_status": "unknown",
+        "voice_feedback": {}
+       },
+       "segments": [
+        {
+         "id": "sg_1",
+         "start_s": 1.0,
+         "end_s": 2.0,
+         "text": "hi",
+         "channel": "mic",
+         "speaker_participant_id": null
+        },
+        {
+         "id": "sg_2",
+         "start_s": 2.5,
+         "end_s": 4.0,
+         "text": "café 日",
+         "channel": "loopback",
+         "speaker_participant_id": null
+        }
+       ],
+       "urls": {
+        "guest": "http://127.0.0.1:9/m/guest-ws-token-dddddddddddddddddddd"
+       },
+       "meeting": {
+        "id": "m_ws",
+        "title": "Host title",
+        "started_at": "2026-01-01T12:00:00Z",
+        "status": "active"
+       }
+      }
+     },
+     {
+      "message": {
+       "type": "presence",
+       "event": "joined",
+       "participant": {
+        "id": "p_000000000002",
+        "display_name": "Sam",
+        "kind": "guest",
+        "name_source": "human",
+        "is_provisional": false,
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
+       }
+      }
+     }
+    ]
+   }
+  },
+  {
+   "open": "trudy",
+   "query": [
+    [
+     "token",
+     "guest-ws-token-dddddddddddddddddddd"
+    ],
+    [
+     "name",
+     "Trudy"
+    ],
+    [
+     "guest_id",
+     "g_1"
+    ]
+   ],
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "patch",
+       "seq": 6,
+       "results": [
+        {
+         "op": {
+          "op": "upsert_participant",
+          "display_name": "Trudy",
+          "kind": "guest",
+          "is_provisional": false
+         },
+         "target_id": "p_000000000005",
+         "effect": {
+          "entity": "participant",
+          "participant": {
+           "id": "p_000000000005",
+           "display_name": "Trudy",
+           "kind": "guest",
+           "name_source": "human",
+           "is_provisional": false,
+           "created_at": "2026-01-01T00:00:00Z",
+           "updated_at": "2026-01-01T00:00:00Z"
+          }
+         },
+         "seq": 6
+        }
+       ]
+      }
+     },
+     {
+      "message": {
+       "type": "presence",
+       "event": "joined",
+       "participant": {
+        "id": "p_000000000005",
+        "display_name": "Trudy",
+        "kind": "guest",
+        "name_source": "human",
+        "is_provisional": false,
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
+       }
+      }
+     }
+    ],
+    "guest": [
+     {
+      "message": {
+       "type": "patch",
+       "seq": 6,
+       "results": [
+        {
+         "op": {
+          "op": "upsert_participant",
+          "display_name": "Trudy",
+          "kind": "guest",
+          "is_provisional": false
+         },
+         "target_id": "p_000000000005",
+         "effect": {
+          "entity": "participant",
+          "participant": {
+           "id": "p_000000000005",
+           "display_name": "Trudy",
+           "kind": "guest",
+           "name_source": "human",
+           "is_provisional": false,
+           "created_at": "2026-01-01T00:00:00Z",
+           "updated_at": "2026-01-01T00:00:00Z"
+          }
+         },
+         "seq": 6
+        }
+       ]
+      }
+     },
+     {
+      "message": {
+       "type": "presence",
+       "event": "joined",
+       "participant": {
+        "id": "p_000000000005",
+        "display_name": "Trudy",
+        "kind": "guest",
+        "name_source": "human",
+        "is_provisional": false,
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
+       }
+      }
+     }
+    ],
+    "trudy": [
+     {
+      "message": {
+       "type": "hello",
+       "voice_commands": {
+        "names": [
+         "Assistant",
+         "Note taker",
+         "OpenWhisper"
+        ],
+        "primary": "Assistant",
+        "examples": [
+         {
+          "label": "Take a note",
+          "phrase": "Assistant, note that the launch is Friday."
+         },
+         {
+          "label": "Mark a decision",
+          "phrase": "Assistant, mark that as a decision."
+         },
+         {
+          "label": "Add an action",
+          "phrase": "Assistant, mark that as an action item."
+         },
+         {
+          "label": "Get a recap",
+          "phrase": "Assistant, recap the decisions so far."
+         },
+         {
+          "label": "Change topic",
+          "phrase": "Assistant, new topic: budget."
+         },
+         {
+          "label": "Correct a term",
+          "phrase": "Assistant, replace Acme with Acme Labs."
+         }
+        ]
+       },
+       "role": "guest",
+       "participant_id": "p_000000000005",
+       "seq": 6,
+       "state": {
+        "meeting_id": "m_ws",
+        "seq": 6,
+        "status": "active",
+        "cloud_enabled": false,
+        "intelligence_online": false,
+        "diarization_available": false,
+        "diarization_reason": "",
+        "speech": {},
+        "title": "Host title",
+        "intent": {
+         "text": "",
+         "updated_at": "",
+         "author_id": ""
+        },
+        "topic": {
+         "current": "",
+         "history": []
+        },
+        "rolling_summary": "",
+        "rolling_summary_evidence": [],
+        "capture": {
+         "mic_available": false,
+         "loopback_available": false,
+         "message": "",
+         "audio_incomplete": false,
+         "integrity_error": ""
+        },
+        "participants": {
+         "p_000000000001": {
+          "id": "p_000000000001",
+          "display_name": "Me",
+          "kind": "me",
+          "name_source": "human",
+          "is_provisional": false,
+          "created_at": "2026-01-01T00:00:00Z",
+          "updated_at": "2026-01-01T00:00:00Z"
+         },
+         "p_000000000002": {
+          "id": "p_000000000002",
+          "display_name": "Sam",
+          "kind": "guest",
+          "name_source": "human",
+          "is_provisional": false,
+          "created_at": "2026-01-01T00:00:00Z",
+          "updated_at": "2026-01-01T00:00:00Z"
+         },
+         "p_000000000005": {
+          "id": "p_000000000005",
+          "display_name": "Trudy",
+          "kind": "guest",
+          "name_source": "human",
+          "is_provisional": false,
+          "created_at": "2026-01-01T00:00:00Z",
+          "updated_at": "2026-01-01T00:00:00Z"
+         }
+        },
+        "cards": {
+         "key_points": [],
+         "decisions": [],
+         "action_items": [],
+         "risks": [],
+         "timeline": [],
+         "live_notes": [],
+         "user_notes": [
+          {
+           "id": "it_000000000003",
+           "card": "user_notes",
+           "text": "Guest note",
+           "data": {},
+           "status": "edited",
+           "author_type": "user",
+           "author_id": "p_000000000002",
+           "pinned": false,
+           "revision": 1,
+           "evidence": [],
+           "created_at": "2026-01-01T00:00:00Z",
+           "updated_at": "2026-01-01T00:00:00Z",
+           "review": {},
+           "citation_check": {}
+          },
+          {
+           "id": "it_000000000004",
+           "card": "user_notes",
+           "text": "Host note é日",
+           "data": {},
+           "status": "edited",
+           "author_type": "user",
+           "author_id": "p_000000000001",
+           "pinned": false,
+           "revision": 1,
+           "evidence": [],
+           "created_at": "2026-01-01T00:00:00Z",
+           "updated_at": "2026-01-01T00:00:00Z",
+           "review": {},
+           "citation_check": {}
+          }
+         ]
+        },
+        "questions": [],
+        "finalization": {
+         "status": "pending",
+         "message": "",
+         "stage": "",
+         "current_step": 0,
+         "total_steps": 0,
+         "step_details": "",
+         "steps": [],
+         "summary_stats": {},
+         "card_deferred": false
+        },
+        "report_views": [
+         "ribbon",
+         "brief",
+         "signal"
+        ],
+        "insight_review": {},
+        "live_highlights": [],
+        "live_highlights_status": "unknown",
+        "voice_feedback": {}
+       },
+       "segments": [
+        {
+         "id": "sg_1",
+         "start_s": 1.0,
+         "end_s": 2.0,
+         "text": "hi",
+         "channel": "mic",
+         "speaker_participant_id": null
+        },
+        {
+         "id": "sg_2",
+         "start_s": 2.5,
+         "end_s": 4.0,
+         "text": "café 日",
+         "channel": "loopback",
+         "speaker_participant_id": null
+        }
+       ],
+       "urls": {
+        "guest": "http://127.0.0.1:9/m/guest-ws-token-dddddddddddddddddddd"
+       },
+       "meeting": {
+        "id": "m_ws",
+        "title": "Host title",
+        "started_at": "2026-01-01T12:00:00Z",
+        "status": "active"
+       }
+      }
+     },
+     {
+      "message": {
+       "type": "patch",
+       "seq": 6,
+       "results": [
+        {
+         "op": {
+          "op": "upsert_participant",
+          "display_name": "Trudy",
+          "kind": "guest",
+          "is_provisional": false
+         },
+         "target_id": "p_000000000005",
+         "effect": {
+          "entity": "participant",
+          "participant": {
+           "id": "p_000000000005",
+           "display_name": "Trudy",
+           "kind": "guest",
+           "name_source": "human",
+           "is_provisional": false,
+           "created_at": "2026-01-01T00:00:00Z",
+           "updated_at": "2026-01-01T00:00:00Z"
+          }
+         },
+         "seq": 6
+        }
+       ]
+      }
+     },
+     {
+      "message": {
+       "type": "presence",
+       "event": "joined",
+       "participant": {
+        "id": "p_000000000005",
+        "display_name": "Trudy",
+        "kind": "guest",
+        "name_source": "human",
+        "is_provisional": false,
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
+       }
+      }
+     }
+    ]
+   }
+  },
+  {
+   "open": "anon",
+   "query": [
+    [
+     "token",
+     "guest-ws-token-dddddddddddddddddddd"
+    ],
+    [
+     "name",
+     "  Ann  "
+    ]
+   ],
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "patch",
+       "seq": 7,
+       "results": [
+        {
+         "op": {
+          "op": "upsert_participant",
+          "display_name": "Ann",
+          "kind": "guest",
+          "is_provisional": false
+         },
+         "target_id": "p_000000000006",
+         "effect": {
+          "entity": "participant",
+          "participant": {
+           "id": "p_000000000006",
+           "display_name": "Ann",
+           "kind": "guest",
+           "name_source": "human",
+           "is_provisional": false,
+           "created_at": "2026-01-01T00:00:00Z",
+           "updated_at": "2026-01-01T00:00:00Z"
+          }
+         },
+         "seq": 7
+        }
+       ]
+      }
+     },
+     {
+      "message": {
+       "type": "presence",
+       "event": "joined",
+       "participant": {
+        "id": "p_000000000006",
+        "display_name": "Ann",
+        "kind": "guest",
+        "name_source": "human",
+        "is_provisional": false,
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
+       }
+      }
+     }
+    ],
+    "guest": [
+     {
+      "message": {
+       "type": "patch",
+       "seq": 7,
+       "results": [
+        {
+         "op": {
+          "op": "upsert_participant",
+          "display_name": "Ann",
+          "kind": "guest",
+          "is_provisional": false
+         },
+         "target_id": "p_000000000006",
+         "effect": {
+          "entity": "participant",
+          "participant": {
+           "id": "p_000000000006",
+           "display_name": "Ann",
+           "kind": "guest",
+           "name_source": "human",
+           "is_provisional": false,
+           "created_at": "2026-01-01T00:00:00Z",
+           "updated_at": "2026-01-01T00:00:00Z"
+          }
+         },
+         "seq": 7
+        }
+       ]
+      }
+     },
+     {
+      "message": {
+       "type": "presence",
+       "event": "joined",
+       "participant": {
+        "id": "p_000000000006",
+        "display_name": "Ann",
+        "kind": "guest",
+        "name_source": "human",
+        "is_provisional": false,
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
+       }
+      }
+     }
+    ],
+    "trudy": [
+     {
+      "message": {
+       "type": "patch",
+       "seq": 7,
+       "results": [
+        {
+         "op": {
+          "op": "upsert_participant",
+          "display_name": "Ann",
+          "kind": "guest",
+          "is_provisional": false
+         },
+         "target_id": "p_000000000006",
+         "effect": {
+          "entity": "participant",
+          "participant": {
+           "id": "p_000000000006",
+           "display_name": "Ann",
+           "kind": "guest",
+           "name_source": "human",
+           "is_provisional": false,
+           "created_at": "2026-01-01T00:00:00Z",
+           "updated_at": "2026-01-01T00:00:00Z"
+          }
+         },
+         "seq": 7
+        }
+       ]
+      }
+     },
+     {
+      "message": {
+       "type": "presence",
+       "event": "joined",
+       "participant": {
+        "id": "p_000000000006",
+        "display_name": "Ann",
+        "kind": "guest",
+        "name_source": "human",
+        "is_provisional": false,
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
+       }
+      }
+     }
+    ],
+    "anon": [
+     {
+      "message": {
+       "type": "hello",
+       "voice_commands": {
+        "names": [
+         "Assistant",
+         "Note taker",
+         "OpenWhisper"
+        ],
+        "primary": "Assistant",
+        "examples": [
+         {
+          "label": "Take a note",
+          "phrase": "Assistant, note that the launch is Friday."
+         },
+         {
+          "label": "Mark a decision",
+          "phrase": "Assistant, mark that as a decision."
+         },
+         {
+          "label": "Add an action",
+          "phrase": "Assistant, mark that as an action item."
+         },
+         {
+          "label": "Get a recap",
+          "phrase": "Assistant, recap the decisions so far."
+         },
+         {
+          "label": "Change topic",
+          "phrase": "Assistant, new topic: budget."
+         },
+         {
+          "label": "Correct a term",
+          "phrase": "Assistant, replace Acme with Acme Labs."
+         }
+        ]
+       },
+       "role": "guest",
+       "participant_id": "p_000000000006",
+       "seq": 7,
+       "state": {
+        "meeting_id": "m_ws",
+        "seq": 7,
+        "status": "active",
+        "cloud_enabled": false,
+        "intelligence_online": false,
+        "diarization_available": false,
+        "diarization_reason": "",
+        "speech": {},
+        "title": "Host title",
+        "intent": {
+         "text": "",
+         "updated_at": "",
+         "author_id": ""
+        },
+        "topic": {
+         "current": "",
+         "history": []
+        },
+        "rolling_summary": "",
+        "rolling_summary_evidence": [],
+        "capture": {
+         "mic_available": false,
+         "loopback_available": false,
+         "message": "",
+         "audio_incomplete": false,
+         "integrity_error": ""
+        },
+        "participants": {
+         "p_000000000001": {
+          "id": "p_000000000001",
+          "display_name": "Me",
+          "kind": "me",
+          "name_source": "human",
+          "is_provisional": false,
+          "created_at": "2026-01-01T00:00:00Z",
+          "updated_at": "2026-01-01T00:00:00Z"
+         },
+         "p_000000000002": {
+          "id": "p_000000000002",
+          "display_name": "Sam",
+          "kind": "guest",
+          "name_source": "human",
+          "is_provisional": false,
+          "created_at": "2026-01-01T00:00:00Z",
+          "updated_at": "2026-01-01T00:00:00Z"
+         },
+         "p_000000000005": {
+          "id": "p_000000000005",
+          "display_name": "Trudy",
+          "kind": "guest",
+          "name_source": "human",
+          "is_provisional": false,
+          "created_at": "2026-01-01T00:00:00Z",
+          "updated_at": "2026-01-01T00:00:00Z"
+         },
+         "p_000000000006": {
+          "id": "p_000000000006",
+          "display_name": "Ann",
+          "kind": "guest",
+          "name_source": "human",
+          "is_provisional": false,
+          "created_at": "2026-01-01T00:00:00Z",
+          "updated_at": "2026-01-01T00:00:00Z"
+         }
+        },
+        "cards": {
+         "key_points": [],
+         "decisions": [],
+         "action_items": [],
+         "risks": [],
+         "timeline": [],
+         "live_notes": [],
+         "user_notes": [
+          {
+           "id": "it_000000000003",
+           "card": "user_notes",
+           "text": "Guest note",
+           "data": {},
+           "status": "edited",
+           "author_type": "user",
+           "author_id": "p_000000000002",
+           "pinned": false,
+           "revision": 1,
+           "evidence": [],
+           "created_at": "2026-01-01T00:00:00Z",
+           "updated_at": "2026-01-01T00:00:00Z",
+           "review": {},
+           "citation_check": {}
+          },
+          {
+           "id": "it_000000000004",
+           "card": "user_notes",
+           "text": "Host note é日",
+           "data": {},
+           "status": "edited",
+           "author_type": "user",
+           "author_id": "p_000000000001",
+           "pinned": false,
+           "revision": 1,
+           "evidence": [],
+           "created_at": "2026-01-01T00:00:00Z",
+           "updated_at": "2026-01-01T00:00:00Z",
+           "review": {},
+           "citation_check": {}
+          }
+         ]
+        },
+        "questions": [],
+        "finalization": {
+         "status": "pending",
+         "message": "",
+         "stage": "",
+         "current_step": 0,
+         "total_steps": 0,
+         "step_details": "",
+         "steps": [],
+         "summary_stats": {},
+         "card_deferred": false
+        },
+        "report_views": [
+         "ribbon",
+         "brief",
+         "signal"
+        ],
+        "insight_review": {},
+        "live_highlights": [],
+        "live_highlights_status": "unknown",
+        "voice_feedback": {}
+       },
+       "segments": [
+        {
+         "id": "sg_1",
+         "start_s": 1.0,
+         "end_s": 2.0,
+         "text": "hi",
+         "channel": "mic",
+         "speaker_participant_id": null
+        },
+        {
+         "id": "sg_2",
+         "start_s": 2.5,
+         "end_s": 4.0,
+         "text": "café 日",
+         "channel": "loopback",
+         "speaker_participant_id": null
+        }
+       ],
+       "urls": {
+        "guest": "http://127.0.0.1:9/m/guest-ws-token-dddddddddddddddddddd"
+       },
+       "meeting": {
+        "id": "m_ws",
+        "title": "Host title",
+        "started_at": "2026-01-01T12:00:00Z",
+        "status": "active"
+       }
+      }
+     },
+     {
+      "message": {
+       "type": "patch",
+       "seq": 7,
+       "results": [
+        {
+         "op": {
+          "op": "upsert_participant",
+          "display_name": "Ann",
+          "kind": "guest",
+          "is_provisional": false
+         },
+         "target_id": "p_000000000006",
+         "effect": {
+          "entity": "participant",
+          "participant": {
+           "id": "p_000000000006",
+           "display_name": "Ann",
+           "kind": "guest",
+           "name_source": "human",
+           "is_provisional": false,
+           "created_at": "2026-01-01T00:00:00Z",
+           "updated_at": "2026-01-01T00:00:00Z"
+          }
+         },
+         "seq": 7
+        }
+       ]
+      }
+     },
+     {
+      "message": {
+       "type": "presence",
+       "event": "joined",
+       "participant": {
+        "id": "p_000000000006",
+        "display_name": "Ann",
+        "kind": "guest",
+        "name_source": "human",
+        "is_provisional": false,
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
+       }
+      }
+     }
+    ]
+   }
+  },
+  {
+   "open": "bad",
+   "query": [
+    [
+     "token",
+     "nope"
+    ]
+   ],
+   "received": {
+    "bad": [
+     {
+      "closed": 4401
+     }
+    ]
+   }
+  },
+  {
+   "open": "noname",
+   "query": [
+    [
+     "token",
+     "guest-ws-token-dddddddddddddddddddd"
+    ]
+   ],
+   "received": {
+    "noname": [
+     {
+      "closed": 4400
+     }
+    ]
+   }
+  },
+  {
+   "open": "blank",
+   "query": [
+    [
+     "token",
+     "guest-ws-token-dddddddddddddddddddd"
+    ],
+    [
+     "name",
+     "   "
+    ]
+   ],
+   "received": {
+    "blank": [
+     {
+      "closed": 4400
+     }
+    ]
+   }
+  },
+  {
+   "open": "notoken",
+   "query": [],
+   "received": {
+    "notoken": [
+     {
+      "closed": 4401
+     }
+    ]
+   }
+  },
+  {
+   "open": "host2",
+   "query": [
+    [
+     "token",
+     "wrong"
+    ],
+    [
+     "token",
+     "host-ws-token-cccccccccccccccccccc"
+    ]
+   ],
+   "received": {
+    "host2": [
+     {
+      "message": {
+       "type": "hello",
+       "voice_commands": {
+        "names": [
+         "Assistant",
+         "Note taker",
+         "OpenWhisper"
+        ],
+        "primary": "Assistant",
+        "examples": [
+         {
+          "label": "Take a note",
+          "phrase": "Assistant, note that the launch is Friday."
+         },
+         {
+          "label": "Mark a decision",
+          "phrase": "Assistant, mark that as a decision."
+         },
+         {
+          "label": "Add an action",
+          "phrase": "Assistant, mark that as an action item."
+         },
+         {
+          "label": "Get a recap",
+          "phrase": "Assistant, recap the decisions so far."
+         },
+         {
+          "label": "Change topic",
+          "phrase": "Assistant, new topic: budget."
+         },
+         {
+          "label": "Correct a term",
+          "phrase": "Assistant, replace Acme with Acme Labs."
+         }
+        ]
+       },
+       "role": "host",
+       "participant_id": "p_000000000001",
+       "seq": 7,
+       "state": {
+        "meeting_id": "m_ws",
+        "seq": 7,
+        "status": "active",
+        "cloud_enabled": false,
+        "intelligence_online": false,
+        "diarization_available": false,
+        "diarization_reason": "",
+        "speech": {},
+        "title": "Host title",
+        "intent": {
+         "text": "",
+         "updated_at": "",
+         "author_id": ""
+        },
+        "topic": {
+         "current": "",
+         "history": []
+        },
+        "rolling_summary": "",
+        "rolling_summary_evidence": [],
+        "capture": {
+         "mic_available": false,
+         "loopback_available": false,
+         "message": "",
+         "audio_incomplete": false,
+         "integrity_error": ""
+        },
+        "participants": {
+         "p_000000000001": {
+          "id": "p_000000000001",
+          "display_name": "Me",
+          "kind": "me",
+          "name_source": "human",
+          "is_provisional": false,
+          "created_at": "2026-01-01T00:00:00Z",
+          "updated_at": "2026-01-01T00:00:00Z"
+         },
+         "p_000000000002": {
+          "id": "p_000000000002",
+          "display_name": "Sam",
+          "kind": "guest",
+          "name_source": "human",
+          "is_provisional": false,
+          "created_at": "2026-01-01T00:00:00Z",
+          "updated_at": "2026-01-01T00:00:00Z"
+         },
+         "p_000000000005": {
+          "id": "p_000000000005",
+          "display_name": "Trudy",
+          "kind": "guest",
+          "name_source": "human",
+          "is_provisional": false,
+          "created_at": "2026-01-01T00:00:00Z",
+          "updated_at": "2026-01-01T00:00:00Z"
+         },
+         "p_000000000006": {
+          "id": "p_000000000006",
+          "display_name": "Ann",
+          "kind": "guest",
+          "name_source": "human",
+          "is_provisional": false,
+          "created_at": "2026-01-01T00:00:00Z",
+          "updated_at": "2026-01-01T00:00:00Z"
+         }
+        },
+        "cards": {
+         "key_points": [],
+         "decisions": [],
+         "action_items": [],
+         "risks": [],
+         "timeline": [],
+         "live_notes": [],
+         "user_notes": [
+          {
+           "id": "it_000000000003",
+           "card": "user_notes",
+           "text": "Guest note",
+           "data": {},
+           "status": "edited",
+           "author_type": "user",
+           "author_id": "p_000000000002",
+           "pinned": false,
+           "revision": 1,
+           "evidence": [],
+           "created_at": "2026-01-01T00:00:00Z",
+           "updated_at": "2026-01-01T00:00:00Z",
+           "review": {},
+           "citation_check": {}
+          },
+          {
+           "id": "it_000000000004",
+           "card": "user_notes",
+           "text": "Host note é日",
+           "data": {},
+           "status": "edited",
+           "author_type": "user",
+           "author_id": "p_000000000001",
+           "pinned": false,
+           "revision": 1,
+           "evidence": [],
+           "created_at": "2026-01-01T00:00:00Z",
+           "updated_at": "2026-01-01T00:00:00Z",
+           "review": {},
+           "citation_check": {}
+          }
+         ]
+        },
+        "questions": [],
+        "finalization": {
+         "status": "pending",
+         "message": "",
+         "stage": "",
+         "current_step": 0,
+         "total_steps": 0,
+         "step_details": "",
+         "steps": [],
+         "summary_stats": {},
+         "card_deferred": false
+        },
+        "report_views": [
+         "ribbon",
+         "brief",
+         "signal"
+        ],
+        "insight_review": {},
+        "live_highlights": [],
+        "live_highlights_status": "unknown",
+        "voice_feedback": {},
+        "custom_reports": []
+       },
+       "segments": [
+        {
+         "id": "sg_1",
+         "start_s": 1.0,
+         "end_s": 2.0,
+         "text": "hi",
+         "channel": "mic",
+         "speaker_participant_id": null
+        },
+        {
+         "id": "sg_2",
+         "start_s": 2.5,
+         "end_s": 4.0,
+         "text": "café 日",
+         "channel": "loopback",
+         "speaker_participant_id": null
+        }
+       ],
+       "urls": {
+        "guest": "http://127.0.0.1:9/m/guest-ws-token-dddddddddddddddddddd"
+       },
+       "meeting": {
+        "id": "m_ws",
+        "title": "Host title",
+        "started_at": "2026-01-01T12:00:00Z",
+        "status": "active"
+       },
+       "agent_activity": []
+      }
+     }
+    ]
+   }
+  },
+  {
+   "close": "anon",
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "presence",
+       "event": "left",
+       "participant": {
+        "id": "p_000000000006",
+        "display_name": "Ann",
+        "kind": "guest",
+        "name_source": "human",
+        "is_provisional": false,
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
+       }
+      }
+     }
+    ],
+    "guest": [
+     {
+      "message": {
+       "type": "presence",
+       "event": "left",
+       "participant": {
+        "id": "p_000000000006",
+        "display_name": "Ann",
+        "kind": "guest",
+        "name_source": "human",
+        "is_provisional": false,
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
+       }
+      }
+     }
+    ],
+    "trudy": [
+     {
+      "message": {
+       "type": "presence",
+       "event": "left",
+       "participant": {
+        "id": "p_000000000006",
+        "display_name": "Ann",
+        "kind": "guest",
+        "name_source": "human",
+        "is_provisional": false,
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
+       }
+      }
+     }
+    ],
+    "host2": [
+     {
+      "message": {
+       "type": "presence",
+       "event": "left",
+       "participant": {
+        "id": "p_000000000006",
+        "display_name": "Ann",
+        "kind": "guest",
+        "name_source": "human",
+        "is_provisional": false,
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
+       }
+      }
+     }
+    ]
+   }
+  },
+  {
+   "close": "trudy",
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "presence",
+       "event": "left",
+       "participant": {
+        "id": "p_000000000005",
+        "display_name": "Trudy",
+        "kind": "guest",
+        "name_source": "human",
+        "is_provisional": false,
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
+       }
+      }
+     }
+    ],
+    "guest": [
+     {
+      "message": {
+       "type": "presence",
+       "event": "left",
+       "participant": {
+        "id": "p_000000000005",
+        "display_name": "Trudy",
+        "kind": "guest",
+        "name_source": "human",
+        "is_provisional": false,
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
+       }
+      }
+     }
+    ],
+    "host2": [
+     {
+      "message": {
+       "type": "presence",
+       "event": "left",
+       "participant": {
+        "id": "p_000000000005",
+        "display_name": "Trudy",
+        "kind": "guest",
+        "name_source": "human",
+        "is_provisional": false,
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
+       }
+      }
+     }
+    ]
+   }
+  },
+  {
+   "close": "host2",
+   "received": {}
+  },
+  {
+   "close": "guest",
+   "received": {
+    "host": [
+     {
+      "message": {
+       "type": "presence",
+       "event": "left",
+       "participant": {
+        "id": "p_000000000002",
+        "display_name": "Sam",
+        "kind": "guest",
+        "name_source": "human",
+        "is_provisional": false,
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
+       }
+      }
+     }
+    ]
+   }
+  },
+  {
+   "close": "host",
+   "received": {}
+  }
+ ]
+}

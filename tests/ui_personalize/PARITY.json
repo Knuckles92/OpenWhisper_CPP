@@ -1,0 +1,309 @@
+{
+  "package": "M4.3, M4.7, M4.8, M4.12",
+  "files": {
+    "tests/test_cleanup_rule_dialog.py": {
+      "TestCleanupRuleDialogChoice::test_polish_success_offers_both_choices": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_rule_dialog.cpp"},
+      "TestCleanupRuleDialogChoice::test_use_exactly_as_typed_accepts_original": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_rule_dialog.cpp"},
+      "TestCleanupRuleDialogChoice::test_use_polished_keeps_edits": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_rule_dialog.cpp"},
+      "TestCleanupRuleDialogChoice::test_polish_error_falls_back_to_single_save": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_rule_dialog.cpp"},
+      "TestCleanupRuleDialogChoice::test_identical_texts_skip_choice": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_rule_dialog.cpp"},
+      "TestCleanupRuleDialogChoice::test_typed_original_is_quoted_as_typed": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_rule_dialog.cpp"},
+      "TestCleanupRuleDialogChoice::test_dictated_original_is_quoted_as_said": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_rule_dialog.cpp"},
+      "TestCleanupRuleDialogChoice::test_edit_mode_has_no_choice": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_rule_dialog.cpp"}
+    },
+    "tests/test_rule_composer.py": {
+      "TestLevelTrace::test_level_scale_is_logarithmic_between_floor_and_ceiling": {"status": "ported", "cpp": "tests/ui_personalize/test_rule_activity.cpp", "note": "level_to_height is fv_uimath's; the assertions are the same"},
+      "TestLevelTrace::test_each_step_banks_the_loudest_level_heard": {"status": "ported", "cpp": "tests/ui_personalize/test_rule_activity.cpp", "note": "the trace's time is an injected fv::Clock (a FakeClock moved by hand) in place of the swapped QElapsedTimer"},
+      "TestLevelTrace::test_holding_stops_the_trace_from_taking_levels": {"status": "ported", "cpp": "tests/ui_personalize/test_rule_activity.cpp", "note": "as above"},
+      "TestRuleActivityStrip::test_listening_opens_at_once_and_finish_closes": {"status": "ported", "cpp": "tests/ui_personalize/test_rule_activity.cpp"},
+      "TestRuleActivityStrip::test_opened_strip_grows_to_its_full_height": {"status": "ported", "cpp": "tests/ui_personalize/test_rule_activity.cpp"},
+      "TestRuleActivityStrip::test_work_that_ends_at_once_never_opens_the_strip": {"status": "ported", "cpp": "tests/ui_personalize/test_rule_activity.cpp"},
+      "TestRuleActivityStrip::test_slow_work_opens_after_a_short_delay": {"status": "ported", "cpp": "tests/ui_personalize/test_rule_activity.cpp"},
+      "TestRuleActivityStrip::test_transcribing_follows_listening_without_closing": {"status": "ported", "cpp": "tests/ui_personalize/test_rule_activity.cpp"},
+      "TestRuleActivityStrip::test_clock_turns_amber_near_the_automatic_stop": {"status": "ported", "cpp": "tests/ui_personalize/test_rule_activity.cpp", "note": "the listen clock is the injected FakeClock, moved 51 s; updateClock() is public"},
+      "TestItemGlow::test_flash_washes_the_row_then_fades_away": {"status": "ported", "cpp": "tests/ui_personalize/test_rule_activity.cpp", "note": "the fade is shortened through ItemGlow::animation()"},
+      "TestRuleComposerFlow::test_dictating_shows_a_live_strip_and_a_red_stop": {"status": "ported", "cpp": "tests/ui_personalize/test_rules_page.cpp", "note": "a real Recorder over audio::FakeBackend; a capture block delivered from a thread of its own reaches the trace through the GUI executor"},
+      "TestRuleComposerFlow::test_escape_discards_the_take_and_keeps_settings_open": {"status": "ported", "cpp": "tests/ui_personalize/test_rules_page.cpp", "note": "the take is cancelled on the real Recorder (capture_canceled)"},
+      "TestRuleComposerFlow::test_closing_settings_mid_take_leaves_no_stale_stop_button": {"status": "ported", "cpp": "tests/ui_personalize/test_rules_page.cpp", "note": "the recorder is released and its stream closed"},
+      "TestRuleComposerFlow::test_dictated_words_wait_in_the_input_when_the_review_is_canceled": {"status": "ported", "cpp": "tests/ui_personalize/test_rules_page.cpp", "note": "a fake RuleTranscriber; the review is the section's reviewRule seam"},
+      "TestRuleComposerFlow::test_dictation_adds_to_words_already_typed": {"status": "ported", "cpp": "tests/ui_personalize/test_rules_page.cpp"},
+      "TestRuleComposerFlow::test_saved_rule_joins_the_library_and_glows": {"status": "ported", "cpp": "tests/ui_personalize/test_rules_page.cpp"},
+      "TestRuleComposerFlow::test_typed_rule_notice_says_written_when_polish_fails": {"status": "ported", "cpp": "tests/ui_personalize/test_rules_page.cpp", "note": "polish_cleanup_rule is CleanupServices::polishRule"},
+      "TestRuleComposerFlow::test_duplicate_rule_is_a_notice_and_starts_no_work": {"status": "ported", "cpp": "tests/ui_personalize/test_rules_page.cpp"},
+      "TestRuleComposerFlow::test_rail_counts_in_the_singular": {"status": "ported", "cpp": "tests/ui_personalize/test_rules_page.cpp"}
+    },
+    "tests/test_personalize_fix_f4_frozen_modules.py": {
+      "test_every_module_named_in_a_string_ships_in_the_frozen_build": {"status": "dropped", "reason": "PyInstaller module collection and import audits; C++ pages link statically and register through the generated feature registry"},
+      "test_spec_collects_every_settings_page_and_dialog_export": {"status": "dropped", "reason": "PyInstaller module collection and import audits; C++ pages link statically and register through the generated feature registry"},
+      "test_self_test_imports_every_page_and_on_demand_flow_module": {"status": "dropped", "reason": "PyInstaller module collection and import audits; C++ pages link statically and register through the generated feature registry"},
+      "test_every_listed_app_module_imports": {"status": "dropped", "reason": "PyInstaller module collection and import audits; C++ pages link statically and register through the generated feature registry"},
+      "test_import_app_modules_loads_pages_and_exports": {"status": "dropped", "reason": "PyInstaller module collection and import audits; C++ pages link statically and register through the generated feature registry"}
+    },
+    "tests/test_personalize_s4_settings_page.py": {
+      "TestComposer::test_enter_adds_a_word_with_its_variants": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp"},
+      "TestComposer::test_problems_are_explained_and_nothing_changes": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp"},
+      "TestComposer::test_a_failed_save_says_so": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp", "note": "the in-memory settings file fails its next write in place of a patched mutate_settings"},
+      "TestComposer::test_editing_a_word": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp"},
+      "TestComposer::test_cancelling_an_edit": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp"},
+      "TestLibrary::test_rows_show_stars_badges_and_variants": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp"},
+      "TestLibrary::test_star_remove_and_undo": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp"},
+      "TestLibrary::test_keep_all_clears_the_new_badges": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp"},
+      "TestLibrary::test_a_long_dictionary_is_capped_and_searchable": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp"},
+      "TestLibrary::test_empty_dictionary": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp"},
+      "TestRecognitionAndLearning::test_engine_line": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp", "note": "FioriVoce's engines (parakeet, api, remote); the local_whisper row has no engine here"},
+      "TestRecognitionAndLearning::test_engine_line_names_the_api_server": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp"},
+      "TestRecognitionAndLearning::test_the_page_reads_the_live_backend": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp", "note": "the live backend is DictionaryPage::setBackendProvider's BackendInfo"},
+      "TestRecognitionAndLearning::test_steering_switch": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp", "note": "OpenWhisper's local_whisper engine (one that takes hints) is the API engine here: FioriVoce has no local Whisper"},
+      "TestRecognitionAndLearning::test_learning_waits_for_text_reading": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp"},
+      "TestRecognitionAndLearning::test_loading_never_writes": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp", "note": "loadSettings stands for the private show_settings; the file's write count is checked too"},
+      "TestBasicRow::test_basic_shows_the_count_and_opens_the_composer": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp"},
+      "TestBasicRow::test_basic_row_without_words": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp", "note": "OpenWhisper's local_whisper engine (one that takes hints) is the API engine here: FioriVoce has no local Whisper"},
+      "test_page_fits_narrow_windows_at_large_fonts": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp", "note": "the classic variant; the omarchy variant is Linux's Omarchy desktop look, not ported"},
+      "TestSpellingRules::test_moving_spelling_rules_updates_the_rules_page": {"status": "ported", "cpp": "tests/ui_personalize/test_rules_page.cpp", "note": "the Learned rules page re-reads the rules when it is shown, so the window is shown and the page selected before its list is read"}
+    },
+    "tests/test_personalize_fix3_h2_dictionary_honesty.py": {
+      "TestDefaultWindowsSetup::test_the_page_says_what_happens_and_offers_cleanup": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp"},
+      "TestDefaultWindowsSetup::test_the_steer_switch_says_why_it_does_nothing": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp"},
+      "TestDefaultWindowsSetup::test_adding_a_word_without_sounds_like_says_it_wont_be_fixed": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp"},
+      "TestDefaultWindowsSetup::test_one_click_turns_cleanup_on_and_the_page_updates": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp"},
+      "TestDefaultWindowsSetup::test_spelling_rules_dont_promise_to_work_without_cleanup": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp"},
+      "TestWhereWordsDoCount::test_no_notice_and_a_plain_confirmation": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp", "note": "OpenWhisper's local_whisper engine (one that takes hints) is the API engine here: FioriVoce has no local Whisper"},
+      "TestWhereWordsDoCount::test_engines_that_take_hints_keep_the_switch": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp", "note": "OpenWhisper's local_whisper engine (one that takes hints) is the API engine here: FioriVoce has no local Whisper"},
+      "TestWhereWordsDoCount::test_a_spelling_rule_with_a_variant_still_works_without_cleanup": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp"},
+      "TestWhereWordsDoCount::test_an_unknown_remote_engine_claims_nothing": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp"},
+      "TestBasicRow::test_default_setup_says_only_sounds_like_spellings_are_fixed": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp"},
+      "TestBasicRow::test_without_words_it_says_what_a_word_needs": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp"},
+      "TestBasicRow::test_with_cleanup_on_it_just_counts": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp"},
+      "test_notice_fits_narrow_windows_at_large_fonts": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp", "note": "the classic variant; the omarchy variant is Linux's Omarchy desktop look, not ported"}
+    },
+    "tests/test_personalize_fix2_g2_dictionary_focus.py": {
+      "test_tab_reaches_the_words_in_order_before_the_switches_below": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_focus.cpp", "note": "OpenWhisper's local_whisper engine (one that takes hints) is the API engine here: FioriVoce has no local Whisper"},
+      "test_a_new_word_is_reached_first": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_focus.cpp"},
+      "test_removing_the_bottom_word_focuses_the_one_above_then_the_word_field": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_focus.cpp"},
+      "test_removing_a_word_focuses_the_one_that_takes_its_place": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_focus.cpp"},
+      "test_undoing_a_learned_word_moves_focus_like_remove": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_focus.cpp"},
+      "test_removing_the_only_search_match_focuses_the_search": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_focus.cpp"},
+      "test_starring_by_keyboard_keeps_focus_on_the_star": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_focus.cpp"},
+      "test_typing_a_search_leaves_focus_in_the_search": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_focus.cpp"}
+    },
+    "tests/test_personalize_s5_settings_page.py": {
+      "test_rail_value_counts_snippets_and_says_when_off": {"status": "ported", "cpp": "tests/ui_personalize/test_snippets_page.cpp"},
+      "test_the_switch_saves_and_tells_the_app": {"status": "ported", "cpp": "tests/ui_personalize/test_snippets_page.cpp"},
+      "test_a_failed_switch_save_shows_what_is_still_saved": {"status": "ported", "cpp": "tests/ui_personalize/test_snippets_page.cpp", "note": "the in-memory settings file fails its next write in place of a patched save_setting"},
+      "test_the_page_has_its_tiles_and_shows_the_first_snippet": {"status": "ported", "cpp": "tests/ui_personalize/test_snippets_page.cpp"},
+      "test_a_new_snippet_is_saved_and_reported": {"status": "ported", "cpp": "tests/ui_personalize/test_snippets_page.cpp"},
+      "test_save_explains_what_is_missing_and_writes_nothing": {"status": "ported", "cpp": "tests/ui_personalize/test_snippets_page.cpp"},
+      "test_trigger_notes_flag_duplicates_and_near_misses": {"status": "ported", "cpp": "tests/ui_personalize/test_snippets_page.cpp"},
+      "test_switching_away_from_unsaved_edits_asks_first": {"status": "ported", "cpp": "tests/ui_personalize/test_snippets_page.cpp", "note": "QMessageBox.question is the panel's question seam"},
+      "test_refreshing_settings_keeps_an_unsaved_draft": {"status": "ported", "cpp": "tests/ui_personalize/test_snippets_page.cpp"},
+      "test_duplicate_starts_an_unsaved_copy_with_a_free_trigger": {"status": "ported", "cpp": "tests/ui_personalize/test_snippets_page.cpp"},
+      "test_delete_asks_then_removes_and_shows_the_next_snippet": {"status": "ported", "cpp": "tests/ui_personalize/test_snippets_page.cpp", "note": "QMessageBox.question is the panel's question seam"},
+      "test_an_empty_library_offers_starters": {"status": "ported", "cpp": "tests/ui_personalize/test_snippets_page.cpp"},
+      "test_snippet_text_is_never_logged": {"status": "ported", "cpp": "tests/ui_personalize/test_snippets_page.cpp", "note": "through a capturing log sink at DEBUG; a failed save is checked too"},
+      "test_home_counts_snippets_and_adds_one": {"status": "ported", "cpp": "tests/ui_personalize/test_snippets_page.cpp"},
+      "test_the_page_fits_narrow_windows_at_large_fonts": {"status": "ported", "cpp": "tests/ui_personalize/test_snippets_page.cpp", "note": "the classic variant; the omarchy variant is Linux's Omarchy desktop look, not ported"},
+      "test_the_home_row_fits_narrow_windows_at_large_fonts": {"status": "ported", "cpp": "tests/ui_personalize/test_snippets_page.cpp", "note": "the classic variant; the omarchy variant is Linux's Omarchy desktop look, not ported"}
+    },
+    "tests/test_personalize_fix_f4_styles_gate.py": {
+      "test_dictionary_learning_gate_says_where_it_goes": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp"},
+      "test_styles_shows_the_shared_cleanup_gate_and_turns_cleanup_on_in_place": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp"},
+      "test_awareness_gate_shows_only_once_cleanup_is_on": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp", "note": "dialog.turn_on_cleanup is CleanupGates::turnOnCleanup with the page as origin"},
+      "test_the_style_switch_has_one_name": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp"},
+      "test_command_mode_field_reads_like_every_other_shortcut_field": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp"},
+      "test_cleanup_turned_on_on_its_own_page_unlocks_styles": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp"},
+      "test_cleanup_turned_off_on_its_own_page_locks_styles": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp"},
+      "test_learned_rules_turn_on_unlocks_styles": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp"},
+      "test_provider_changed_while_away_shows_on_return": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp"}
+    },
+    "tests/test_personalize_fix2_g2_enter_key.py": {
+      "test_enter_adds_words_one_after_another": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp", "note": "both keys (Return, keypad Enter); the classic variant; the omarchy one is Linux's Omarchy desktop look"},
+      "test_enter_in_sounds_like_adds_the_word": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp", "note": "the classic variant; the omarchy one is Linux's Omarchy desktop look"},
+      "test_add_word_is_named_after_its_label": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp", "note": "the classic variant; the omarchy one is Linux's Omarchy desktop look"},
+      "test_enter_adds_an_app_to_never_read_from": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp", "note": "the classic variant; the omarchy one is Linux's Omarchy desktop look"},
+      "test_enter_moves_an_app_to_a_style": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp", "note": "the classic variant; the omarchy one is Linux's Omarchy desktop look"},
+      "test_enter_in_a_field_without_an_action_changes_nothing": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp", "note": "the Dictionary, Snippets and Commands cases; the Recording case is the Recording page's (a stand-in in these tests); the classic variant; the omarchy one is Linux's Omarchy desktop look"},
+      "test_enter_on_a_focused_button_still_presses_it": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp", "note": "the classic variant; the omarchy one is Linux's Omarchy desktop look"},
+      "test_escape_still_closes_settings": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp", "note": "the classic variant; the omarchy one is Linux's Omarchy desktop look"},
+      "test_enter_adds_a_learned_rule": {"status": "ported", "cpp": "tests/ui_personalize/test_rules_page.cpp", "note": "the classic variant; the omarchy one is Linux's Omarchy desktop look; the polish is seen as CleanupServices::polishRule's one request"},
+      "test_every_home_button_with_a_label_keeps_it_in_its_name": {"status": "ported", "cpp": "tests/ui_personalize/test_rules_page.cpp", "note": "the classic variant; the omarchy one is Linux's Omarchy desktop look; Home with the AI cleanup rows"}
+    },
+    "tests/test_dictionary_cleanup_revert.py": {
+      "test_a_protected_word_shows_its_badge": {"status": "ported", "cpp": "tests/ui_personalize/test_dictionary_page.cpp"}
+    },
+    "tests/test_personalize_s1_settings_page.py": {
+      "test_rail_value": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp", "note": "all five parameter sets in one case"},
+      "test_apps_summary_follows_the_users_choices": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp"},
+      "test_defaults_show_awareness_on_and_reading_off": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp"},
+      "test_exclusions_need_app_awareness": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp"},
+      "test_switches_save_and_tell_the_app": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp"},
+      "test_privacy_note_names_where_the_text_goes": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp"},
+      "test_other_platforms_say_reading_text_is_windows_only": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp", "note": "text_reading_supported and recent_apps are StylesPage::setPlatform's answers"},
+      "test_excluded_apps_add_and_remove": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp"},
+      "test_pickers_offer_this_sessions_apps_first": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp", "note": "recent_apps is StylesPage::setPlatform's answer"},
+      "test_cleanup_off_shows_the_gate_and_locks_styles": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp", "note": "dialog.turn_on_cleanup is CleanupGates::turnOnCleanup with the page as origin"},
+      "test_awareness_off_gate_turns_it_back_on": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp"},
+      "test_picking_a_tone_saves_every_category_and_shows_an_example": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp"},
+      "test_loading_tones_never_saves": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp", "note": "the file's write count is checked too"},
+      "test_styles_off_dims_the_cards": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp"},
+      "test_overrides_add_replace_and_remove": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp"},
+      "test_search_finds_the_page_before_and_after_it_is_built": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp", "note": "the search index is the page's registered search fields, the same before and after it is built; each names a built control with that title"},
+      "test_home_row_matches_tone_and_explains_when_it_cannot": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp"},
+      "test_page_fits_narrow_windows_at_large_fonts": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp", "note": "the classic variant (940 px); the omarchy ones are Linux's Omarchy desktop look, not ported"}
+    },
+    "tests/test_personalize_fix2_g2_styles_focus.py": {
+      "test_removing_an_excluded_app_focuses_the_next_then_the_picker": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp"},
+      "test_removing_the_last_excluded_app_focuses_the_one_above": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp"},
+      "test_removing_a_style_override_focuses_the_next_then_the_picker": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp"},
+      "test_a_rebuild_keeps_focus_on_the_same_app": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp"},
+      "test_adding_an_app_leaves_focus_on_add": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp"},
+      "test_tab_walks_each_list_in_order_before_its_picker": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp", "note": "both lists in one case; the classic variant, as the shared fixture's omarchy one is Linux's"},
+      "test_tab_order_holds_after_adding_an_app": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp"}
+    },
+    "tests/test_personalize_fix3_h1_basic_tone_copy.py": {
+      "test_an_upgraded_install_is_told_every_app_is_formal": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp", "note": "the row's line is found among Home's row descriptions"},
+      "test_a_blocker_still_replaces_the_tones": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp", "note": "the row's line is found among Home's row descriptions"},
+      "test_the_summary_names_each_tone_where_it_applies": {"status": "ported", "cpp": "tests/ui_personalize/test_styles_page.cpp"}
+    },
+    "tests/test_personalize_s3_commands_page.py": {
+      "test_rail_value_counts_transforms_and_the_shortcut": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp"},
+      "test_the_ai_cleanup_notice_shows_only_without_a_provider": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp", "note": "provider_readiness is the CommandReadiness check, answered off the GUI thread"},
+      "test_the_shortcut_saves_through_the_hotkey_path": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp", "note": "the window's standard-shortcut handler is the test rig's port of set_standard_hotkey (the Hotkeys page is a stand-in)"},
+      "test_a_taken_shortcut_is_refused_inline": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp", "note": "as above"},
+      "test_capturing_pauses_global_shortcuts_and_leaving_stops_it": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp", "note": "through the window's recorded setHotkeyCaptureSuspended"},
+      "test_a_shortcut_set_elsewhere_shows_when_the_page_returns": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp"},
+      "test_the_hint_follows_the_recording_mode": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp", "note": "both modes in one case"},
+      "test_writing_without_a_selection_is_a_saved_switch": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp"},
+      "test_the_page_says_rewrites_are_kept_in_history": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp"},
+      "test_profile_shortcuts_are_listed_and_link_to_profiles": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp"},
+      "test_a_new_transform_is_saved_and_registered": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp"},
+      "test_a_taken_transform_shortcut_is_refused_when_captured": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp"},
+      "test_invalid_transforms_explain_themselves": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp"},
+      "test_starters_fill_the_instruction": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp", "note": "QMessageBox.question is the panel's question seam"},
+      "test_an_unsaved_draft_survives_a_refresh_and_asks_before_switching": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp", "note": "settings_commands.refresh is the page's refreshPage; QMessageBox.question is the panel's question seam"},
+      "test_duplicates_stay_drafts_until_saved": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp"},
+      "test_delete_asks_first": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp", "note": "QMessageBox.question is the panel's question seam"},
+      "test_cancel_capture_stops_every_capture_on_the_page": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp"},
+      "test_basic_has_a_command_mode_shortcut_row": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp"},
+      "test_the_page_fits_a_narrow_window_at_large_fonts": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp", "note": "the classic variant; the omarchy one is Linux's Omarchy desktop look, not ported"}
+    },
+    "tests/test_personalize_fix_f4_command_field.py": {
+      "test_commands_page_field_never_overlaps_clear": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp", "note": "the classic variant (940 px) at 100 % and 130 %; the omarchy widths are Linux's Omarchy desktop look"},
+      "test_home_row_field_never_overlaps_change": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp", "note": "560 and 460 px at 130 %, in FioriVoce's one look (the Python test runs them in Linux's Omarchy look)"},
+      "test_a_wide_field_keeps_its_buttons_beside_the_box": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp"},
+      "test_stacks_when_a_button_floor_exceeds_its_hint": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp"}
+    },
+    "tests/test_personalize_fix3_h1_command_setup.py": {
+      "test_basic_says_command_mode_needs_an_ai_model": {"status": "ported", "cpp": "tests/ui_personalize/test_commands_page.cpp", "note": "provider_readiness is the CommandReadiness check; the row's line is found among Home's row descriptions"}
+    },
+    "tests/test_cleanup_profiles.py": {
+      "test_editor_save_duplicate_and_delete_update_library": {"status": "ported", "cpp": "tests/ui_personalize/test_profiles_page.cpp", "note": "the panel edits an in-memory settings file; QMessageBox.question is the panel's question seam"},
+      "test_editor_reports_conflict_and_keeps_draft": {"status": "ported", "cpp": "tests/ui_personalize/test_profiles_page.cpp"},
+      "test_save_while_switching_keeps_list_and_editor_on_destination": {"status": "ported", "cpp": "tests/ui_personalize/test_profiles_page.cpp"},
+      "test_cancel_switch_and_refresh_keep_unsaved_work": {"status": "ported", "cpp": "tests/ui_personalize/test_profiles_page.cpp"},
+      "test_capture_accepts_tab_without_moving_focus": {"status": "ported", "cpp": "tests/ui_personalize/test_profiles_page.cpp"},
+      "test_leaving_settings_saves_a_valid_draft": {"status": "ported", "cpp": "tests/ui_personalize/test_profiles_page.cpp"},
+      "test_leaving_settings_asks_before_dropping_a_draft_that_cannot_save": {"status": "ported", "cpp": "tests/ui_personalize/test_profiles_page.cpp"}
+    },
+    "tests/test_personalize_fix_f4_unsaved_drafts.py": {
+      "test_leaving_the_page_saves_a_snippet_draft": {"status": "ported", "cpp": "tests/ui_personalize/test_unsaved_drafts.cpp"},
+      "test_done_saves_a_transform_draft": {"status": "ported", "cpp": "tests/ui_personalize/test_unsaved_drafts.cpp"},
+      "test_escape_saves_drafts_on_every_page": {"status": "ported", "cpp": "tests/ui_personalize/test_unsaved_drafts.cpp"},
+      "test_going_home_saves_a_draft": {"status": "ported", "cpp": "tests/ui_personalize/test_unsaved_drafts.cpp"},
+      "test_an_unfinished_draft_stays_when_the_page_is_left": {"status": "ported", "cpp": "tests/ui_personalize/test_unsaved_drafts.cpp"},
+      "test_done_with_an_unfinished_draft_can_keep_editing": {"status": "ported", "cpp": "tests/ui_personalize/test_unsaved_drafts.cpp", "note": "QMessageBox.question is the editors' question seam"},
+      "test_done_with_an_unfinished_draft_can_discard_it": {"status": "ported", "cpp": "tests/ui_personalize/test_unsaved_drafts.cpp", "note": "QMessageBox.question is the editors' question seam"},
+      "test_closing_without_drafts_asks_nothing": {"status": "ported", "cpp": "tests/ui_personalize/test_unsaved_drafts.cpp"}
+    },
+    "tests/test_personalize_s2_settings.py": {
+      "test_the_bar_shows_the_saved_level_and_saves_only_clicks": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp", "note": "QMessageBox.question is CleanupSettings' question seam"},
+      "test_the_level_follows_the_switch": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp"},
+      "test_a_saved_custom_prompt_shows_as_custom": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp"},
+      "test_a_saved_built_in_prompt_is_not_custom": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp", "note": "all three saved prompts"},
+      "test_declining_keeps_the_custom_prompt": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp", "note": "QMessageBox.question is CleanupSettings' question seam"},
+      "test_declining_in_a_real_dialog_still_shows_custom": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp", "note": "the question seam runs an event loop of its own for 30 ms before answering No"},
+      "test_accepting_removes_the_custom_prompt_and_saves_the_level": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp", "note": "QMessageBox.question is CleanupSettings' question seam"},
+      "test_clicking_custom_while_it_is_in_use_changes_nothing": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp", "note": "QMessageBox.question is CleanupSettings' question seam"},
+      "test_typing_a_prompt_makes_it_custom_on_focus_out": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp"},
+      "test_empty_or_built_in_text_removes_the_prompt": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp", "note": "all four texts"},
+      "test_closing_never_saves_preset_text": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp"},
+      "test_reset_asks_then_removes_the_key": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp", "note": "QMessageBox.question is CleanupSettings' question seam"},
+      "test_reset_also_clears_an_old_default_saved_by_earlier_versions": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp", "note": "QMessageBox.question is CleanupSettings' question seam"},
+      "test_the_editor_starts_from_the_levels_instructions": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp", "note": "CleanupPromptDialog is the page's editPrompt seam"},
+      "test_rail_and_home_name_the_level": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp", "note": "all five parameter sets"},
+      "test_the_learned_rules_gate_turns_cleanup_on_at_the_saved_level": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp"},
+      "test_a_gate_on_another_page_turns_cleanup_on_without_building_it": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp", "note": "the gate is CleanupSettings::cleanupGateTile's, put on Home's page"},
+      "test_basic_shows_the_level_under_the_switch": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp", "note": "against the real Home with the cleanup rows added; the row's line is found among Home's row descriptions"},
+      "test_basic_level_is_disabled_while_cleanup_is_off": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp", "note": "against the real Home"},
+      "test_basic_saves_a_level_without_building_the_cleanup_page": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp", "note": "against the real Home"},
+      "test_basic_asks_before_replacing_a_custom_prompt": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp", "note": "against the real Home"},
+      "test_basic_follows_a_change_made_on_the_cleanup_page": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp", "note": "against the real Home"},
+      "test_cleanup_tiles_fit_narrow_windows_at_large_fonts": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp", "note": "the classic variant (940 px at 130 %); the omarchy one is Linux's Omarchy desktop look"}
+    },
+    "tests/test_personalize_s7_settings.py": {
+      "test_rule_dictation_records_from_the_saved_order": {"status": "ported", "cpp": "tests/ui_personalize/test_rules_page.cpp", "note": "CleanupServices::makeRecorder records the order; no microphone of the fake backend opens, as the Python fake refuses to start"}
+    },
+    "tests/test_settings_models.py": {
+      "TestCleanupAgents::test_cleanup_agent_card_shows_the_saved_model_and_thinking_level": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp", "note": "case: AI cleanup displays the approved agent model and effort while disabled: _assert_agent_card, the agent's model row shows the saved haiku rather than the memory's opus, Claude Code's levels low to max, Max saved. FioriVoce requires the saved approval, and shows the card with cleanup off"},
+      "TestCleanupAgents::test_cleanup_thinking_follows_the_runner_and_says_what_runs": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp", "note": "case: Codex cleanup shows cached model effort without saving the nearest level: Codex's per-model efforts (read off the GUI thread), Ultra last, Low shown for a saved Off with 'Your Off setting runs at Low', nothing saved until Ultra is chosen; then models picked in the agent's model row (gpt-b, the default) refill the levels"},
+      "TestTextModelPicker::test_provider_credential_status_shows_when_key_is_found": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp", "note": "the key is read off the GUI thread through llm::credential_status over an in-memory credential store"},
+      "TestTextModelPicker::test_provider_credential_status_keeps_requirement_when_key_is_missing": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp", "note": "as above"},
+      "TestTextModelPicker::test_picker_is_one_column_of_labeled_fields": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp", "note": "the picker has no activate button by construction"},
+      "TestTextModelPicker::test_text_models_use_one_labeled_provider_selector": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp"},
+      "TestTextModelPicker::test_selecting_custom_asks_to_add_and_restores_the_current_endpoint": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp"},
+      "TestTextModelPicker::test_adding_from_custom_selects_the_new_endpoint": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp", "note": "TextEndpointDialog is the section's editEndpoint seam"},
+      "TestTextModelPicker::test_switching_provider_updates_the_same_model_picker": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp"},
+      "TestTextModelPicker::test_badge_marks_only_the_endpoint_actually_in_use": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp"},
+      "TestTextModelPicker::test_picking_a_model_persists_it_without_a_confirm_step": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp"},
+      "TestTextModelPicker::test_typed_model_id_persists_on_enter": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp"},
+      "TestTextModelPicker::test_search_fragment_is_not_saved_when_focus_leaves": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp"},
+      "TestTextModelPicker::test_set_active_persists_provider_and_model": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp"},
+      "TestTextModelPicker::test_local_preset_shows_its_default_url_and_offers_edit_not_delete": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp"},
+      "TestTextModelPicker::test_editing_a_local_preset_updates_its_server_and_key_variable": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp", "note": "the forced reload is seen as the catalog's one request"},
+      "TestTextModelPicker::test_custom_endpoint_appears_and_activation_persists": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp"},
+      "TestTextModelPicker::test_assigned_custom_endpoint_cannot_be_deleted": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp"},
+      "TestTextModelPicker::test_catalog_result_populates_matching_provider": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp", "note": "both parameter sets"},
+      "TestTextModelPicker::test_opening_a_text_destination_loads_that_provider_catalog": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp", "note": "the cleanup half; the meeting picker is M8's"},
+      "TestCleanupSettingsOwnership::test_thinking_level_loads_saves_and_refreshes": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp", "note": "all four levels"},
+      "TestCleanupSettingsOwnership::test_saving_cleanup_settings_preserves_text_model_keys": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp"},
+      "TestCleanupSettingsOwnership::test_cleanup_page_hosts_the_cleanup_model_picker": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp"},
+      "TestNewTextProviders::test_independent_model_memory_survives_dialog_recreation": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp", "note": "the cleanup half; the meeting model memory is M8's"},
+      "TestNewTextProviders::test_unknown_go_model_cannot_be_assigned": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp"},
+      "TestNewTextProviders::test_stale_ollama_catalog_result_is_discarded": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp", "note": "the request is held on a ManualExecutor, the catalog invalidated, then the request run"},
+      "TestNewTextProviders::test_failed_refresh_keeps_last_catalog_after_provider_switch": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp"},
+      "TestNewTextProviders::test_running_local_servers_are_marked_and_offered_instead_of_a_missing_key": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp", "note": "detect_running_servers is CleanupServices::detectServers"},
+      "TestNewTextProviders::test_local_thinking_model_enables_the_thinking_level": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp"},
+      "TestNewTextProviders::test_ollama_exposes_edit_but_not_delete": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp"},
+      "TestRail::test_registered_local_model_survives_assignment_refresh": {"status": "dropped", "reason": "custom Whisper models (Model Manager's registered local models); FioriVoce has no Whisper engine"},
+      "TestCleanupAgents::test_cleanup_agent_persists_default_and_model_and_restores_api": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_agent_choice.cpp", "note": "case of the same name, over claude_code, codex and opencode_cli, through the agent picker: the agent's tile and Apply (consent answered Yes, difference a04-agent-cleanup-scope) save the agent with its default model; _assert_agent_card (the agent's model row in the Cleanup model card, the endpoint picker out of it, the description and the thinking note naming the agent); a model picked in the agent's model row (one from the fake catalog in place of 'chosen-model') kept across a reload and in text_summary; the 'API / local model' tile restoring openai/gpt-test with the 'API keys' description; the agent again restoring its model. The omarchy appearance is Linux's Omarchy desktop look"},
+      "TestCleanupAgents::test_cleanup_agent_loads_saved_selection_without_api_key_warning": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_agent_choice.cpp", "note": "case of the same name: the picker's choice is codex, _assert_agent_card, text_summary 'Codex · default model', Home's cleanup status names Codex without 'API key needed' (the approval FioriVoce asks first is saved in the fixture)"}
+    },
+    "tests/test_luna_cleanup_picker.py": {
+      "test_openai_picker_uses_luna_and_retains_explicit_model": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp", "note": "one case: the appearance parameter (classic, omarchy) is Linux's Omarchy desktop look"},
+      "test_saved_legacy_cleanup_selection_shows_luna_without_changing_provider": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_model_section.cpp"}
+    },
+    "tests/test_settings_general_layout.py": {
+      "TestSettingsGeneralLayout::test_cleanup_toggle_gates_the_prompt_and_rule_tiles": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp"},
+      "TestSettingsGeneralLayout::test_learned_rules_gate_button_turns_cleanup_on": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp"}
+    },
+    "tests/test_settings_unified.py": {
+      "TestRouting::test_cleanup_profiles_model_link_opens_the_cleanup_model": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp"},
+      "TestControllerRouting::test_text_alias_scrolls_to_the_cleanup_model": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp", "note": "SettingsWindow::open(\"text\") over the real page, in place of a MagicMock dialog"},
+      "TestRailValues::test_cleanup_rail_combines_the_level_and_the_hosted_model": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp"}
+    },
+    "tests/test_desktop_performance.py": {
+      "test_initializing_another_settings_page_preserves_unfinished_prompt": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp"}
+    },
+    "tests/test_personalize_foundation_ui_settings.py": {
+      "test_new_pages_fit_narrow_windows_at_large_fonts": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_page.cpp", "note": "every Personalize page and AI cleanup; the classic variant (940 px at 130 %); the omarchy one is Linux's Omarchy desktop look"}
+    },
+    "tests/test_hotkey_directory.py": {
+      "test_a_shortcut_changed_on_its_own_page_shows_on_hotkeys": {"status": "ported", "cpp": "tests/ui_controller/test_personalize_hotkeys.cpp", "note": "the controller registers the rows on the app's Hotkeys page (PersonalizeWiring)"},
+      "test_a_profile_draft_takes_the_shortcut_set_on_hotkeys": {"status": "ported", "cpp": "tests/ui_controller/test_personalize_hotkeys.cpp"}
+    },
+    "tests/test_cleanup_agent_offer.py": {
+      "test_yes_switches_and_refreshes": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_agent_offer.cpp", "note": "cases of the same names; FioriVoce asks the AI cleanup consent question after the offer, and a No there declines (case: declining the consent question declines the offer)"},
+      "test_no_declines": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_agent_offer.cpp", "note": "cases of the same names; FioriVoce asks the AI cleanup consent question after the offer, and a No there declines (case: declining the consent question declines the offer)"},
+      "test_nothing_is_asked_without_an_agent_or_when_not_due": {"status": "ported", "cpp": "tests/ui_personalize/test_cleanup_agent_offer.cpp", "note": "cases of the same names; FioriVoce asks the AI cleanup consent question after the offer, and a No there declines (case: declining the consent question declines the offer)"}
+    }
+  }
+}

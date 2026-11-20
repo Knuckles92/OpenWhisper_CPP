@@ -1,0 +1,1140 @@
+{
+ "area": "a03-ui-controller",
+ "package": "M10 sweep",
+ "features": {
+  "A03-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/controller_feature.cpp",
+    "src/settings/install.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_wiring.cpp",
+    "tests/settings/test_install.cpp",
+    "tests/dictation/test_hotkey_runtime.cpp"
+   ],
+   "note": "ControllerFeature::provide calls seed_new_install_settings first, then the recorder from settings, capture/keys/clipboard, history, TranscriptionRuntime, backup and updater (provideM3), ApplicationController, HotkeyManager+HotkeyRuntime, personalize, StreamingRuntime, model/component runtimes; install() ends with connect_signals, setup_hotkeys, setup_hook_watchdog as Python's constructor does. The order is read in code; tests pin the pieces (recorder from settings, seeding, watchdog), not the sequence. Streaming set-up follows the load through StreamingRuntime::attach."
+  },
+  "A03-02": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/controller_feature.cpp",
+    "src/ui_shell/bootstrap.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_application_controller.cpp",
+    "tests/dictation/test_walkthrough_job.cpp"
+   ],
+   "note": "Executors are the architecture's strands: AppContext jobs (shared work), io (startup database step), persistence (drained, never cancelled: 'test_quit_drains_queued_history_before_closing_database'), ModelServices' downloads/components strands (one worker each, CancelQueued) and the walkthrough strand that WalkthroughFeature sets with set_walkthrough_strand (walkthrough_feature.cpp:375)."
+  },
+  "A03-03": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/controller_feature.cpp",
+    "src/ui_controller/application_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_application_controller.cpp"
+   ],
+   "note": "Backend table is resolve_engine over the saved selected_model: parakeet resolves runtime folder and model (models::resolve_parakeet), api and remote pass the id to SpeechService. Pinned by 'test_model_switch_updates_backend_and_device_info', 'test_notify_main_ui_ready_skips_local_load_for_api_backend', 'the remote engine connects when the main window is shown'. The 'Using transcription backend: X' log line is not written (log only). Other engines dropped (A03-09)."
+  },
+  "A03-04": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/ui_controller.cpp",
+    "src/ui_controller/controller_feature.cpp",
+    "src/ui_controller/settings_bindings.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_feature_wiring.cpp",
+    "tests/ui_controller/test_wiring.cpp"
+   ],
+   "note": "Callbacks are signal connections and std::function members read at call time; 'controller connects every signal' checks every MainWindow/tray/overlay signal is connected and 'test_settings_changes_reach_a_handler_assigned_later' the read-at-call-time rule."
+  },
+  "A03-05": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/application_controller.cpp",
+    "src/ui_controller/controller_feature.cpp",
+    "src/ui_controller/personalize_wiring.cpp",
+    "src/ui_controller/update_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_personalize_wiring.cpp",
+    "tests/ui_controller/test_update_presenter.cpp"
+   ],
+   "note": "transforms/hotkeys/actions refresh profile hotkeys ('test_settings_changes_refresh_shortcuts_for_transforms_and_hotkeys'); 'updates' refreshes the notice first (installM3 wraps onSettingsChanged) and the updater re-reads its keys itself ('notices follow the notify setting'). webhooks/programs/filters/mcp_events reach no AutomationService: nothing constructs it, by the owner's consent-first design (difference a19-hooks-not-started)."
+  },
+  "A03-06": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/engine_reload.cpp",
+    "src/ui_controller/application_controller.cpp"
+   ],
+   "tests": [
+    "tests/appcore/test_engine_reload.cpp",
+    "tests/golden/services.application_controller.json",
+    "tests/ui_controller/test_application_controller.cpp",
+    "tests/ui_controller/test_thread_hops.cpp"
+   ],
+   "note": "EngineReloadMachine: 400 ms debounce on the UI executor, refusal statuses 'End the meeting before changing the engine' / 'Finish recording before changing the engine' with busy false, re-arm while recording/transcribing/in flight, 'Reloading speech engine...'. Any-thread request marks pending at once ('test_a_hotkey_readiness_check_really_reloads_the_engine')."
+  },
+  "A03-07": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/engine_reload.cpp",
+    "src/ui_controller/application_controller.cpp",
+    "src/speech/speech_service.cpp"
+   ],
+   "tests": [
+    "tests/appcore/test_engine_reload.cpp",
+    "tests/ui_controller/test_application_controller.cpp",
+    "tests/golden/services.application_controller.json"
+   ],
+   "note": "The load runs on the speech thread (SpeechService::select), warm-up is SpeechService::warm_up after Ready, 'Engine load failed: {exc}' on failure, switched-away load discarded (discard_load). Lease during load/warm-up pinned by 'a lease during the load releases...' and 'a lease during the warm-up...'."
+  },
+  "A03-08": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/engine_reload.cpp",
+    "src/ui_controller/application_controller.cpp",
+    "src/ui_controller/ui_controller.cpp"
+   ],
+   "tests": [
+    "tests/appcore/test_engine_reload.cpp",
+    "tests/ui_controller/test_application_controller.cpp"
+   ],
+   "note": "Finish: busy false, missing runtime -> runtime_consent_requested -> ModelRuntime::prompt_for_runtime; a leased engine offers nothing ('a restore right after a release reloads the engine and offers no runtime'); preview set-up follows via StreamingRuntime::attach. Remote branch (remote_settled) is the remote area's (a17, M9.20)."
+  },
+  "A03-09": {
+   "status": "dropped",
+   "reason": "Local Whisper engine (the map's 'Engine-specific code'; M1 Scope: drop)."
+  },
+  "A03-10": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/application_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_application_controller.cpp"
+   ],
+   "note": "notify_main_ui_ready: parakeet/remote -> initial_load ('Loading speech engine...'), api -> select now and streaming set-up next tick; pinned by 'test_notify_main_ui_ready_loads_deferred_local_backend' and '..._skips_local_load_for_api_backend'."
+  },
+  "A03-11": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/application_controller.cpp",
+    "src/ui_controller/controller_feature.cpp",
+    "src/ui_shell/bootstrap.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_application_controller.cpp",
+    "tests/ui_controller/test_wiring.cpp"
+   ],
+   "note": "DB step on the startup strand, updater prune_leftovers + schedule_check(launch) (start_background_jobs), component listing and model scan on io (warmModelViews_), keyring warm-up at window show ('the unresponsive keyring is the ambient status once the window is up'). automation_service.start is not made: a19-hooks-not-started. Remote host start is the remote area's (a17). SDK warm-up dropped (A03-90)."
+  },
+  "A03-12": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/application_controller.cpp",
+    "src/ui_controller/controller_feature.cpp",
+    "src/ui_controller/backup_lifecycle.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_application_controller.cpp"
+   ],
+   "note": "Error -> update_readiness_error and status, nothing starts ('test_startup_database_failure_or_shutdown_does_not_start_dependents'); success -> recover_recordings on jobs, backup coordinator start. MeetingRuntime::setup runs at MeetingFeature::install (meeting_feature.cpp:372), not after the DB step: Bootstrap opens the database before features, so it is there; meeting area (a31) owns that. Record sync / client history are the remote area's (a17)."
+  },
+  "A03-13": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/application_controller.cpp",
+    "src/meeting/model_lease.cpp",
+    "src/ui_meeting/meeting_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_audit_a03_meeting_lease.cpp",
+    "tests/ui_controller/test_remote_engine_hooks.cpp",
+    "tests/appcore/test_engine_reload.cpp"
+   ],
+   "note": "The meeting lease now goes through the controller, as MeetingRuntime._model_lease does: MeetingFeature::install routes SpeechModelLease::route_dictation to ApplicationController::lease_release_hook/lease_restore_hook (release_local_engine/restore_local_engine, application_controller.py 651-694). Pinned in the composed app by test_audit_a03_meeting_lease.cpp (the MeetingFeature run over a ControllerRig: the lease taken on a meeting thread marks the reload machine released_for_lease and the card reads Released while Meeting Mode runs; its end reloads with Reloading speech engine... and the busy state); a remote engine is left connected (test_remote_engine_hooks.cpp test_a_meeting_leaves_the_remote_connection_alone); restore-after-reload when the lease ends mid-reload is the reload machine (test_engine_reload.cpp)."
+  },
+  "A03-14": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/readiness.cpp",
+    "src/ui_controller/application_controller.cpp"
+   ],
+   "tests": [
+    "tests/appcore/test_readiness.cpp",
+    "tests/golden/services.application_controller.json",
+    "tests/ui_controller/test_application_controller.cpp"
+   ],
+   "note": "Decision table incl. 'No transcription engine is selected', 'Speech engine is still loading...', model missing -> consent + device_info, never loaded -> reload + 'Reloading speech engine...', API key sentence, generic unavailable; callers pinned by 'test_start_recording_refused_while_local_engine_loading', 'test_start_recording_prompts_for_missing_model_before_capture', 'test_start_recording_refuses_unavailable_api_before_capture'. Whisper branch dropped; remote branch A03-15."
+  },
+  "A03-15": {
+   "status": "fixed",
+   "cpp": [
+    "src/appcore/readiness.cpp",
+    "src/ui_controller/application_controller.cpp",
+    "src/ui_remote/remote_feature.cpp"
+   ],
+   "tests": [
+    "tests/appcore/test_readiness_remote.cpp",
+    "tests/ui_controller/test_remote_engine_hooks.cpp"
+   ],
+   "note": "_remote_engine_readiness_message is ported: the remote branch asks retry_now (RemoteEngineHooks::retry_now, set by remote_feature.cpp to the dictation link) instead of a reload, and says Connecting to <host, else the remote engine>... while restoring or before any attempt failed, else <last_error> Trying again... Pinned by test_readiness_remote.cpp (both sentences, the host fallback) and test_remote_engine_hooks.cpp test_readiness_retries_a_remote_engine_that_could_not_connect (through the controller: the retry, no reload, the refused start on the status line)."
+  },
+  "A03-16": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/action_wiring.cpp",
+    "src/ui_controller/application_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_route_by_voice.cpp"
+   ],
+   "note": "The Route by voice shortcut now refuses when automation::status(settings) is not ready: ActionWiring's route_record_requested handler reads the status on the io executor (it reads the judge's key) and, back on the GUI thread, emits status.message instead of calling toggle_route_recording; a press while recording still stops. Pinned by tests/ui_controller/test_route_by_voice.cpp 'the Route by voice shortcut says what it needs instead of recording'."
+  },
+  "A03-17": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/activity.cpp",
+    "src/ui_controller/application_controller.cpp"
+   ],
+   "tests": [
+    "tests/appcore/test_golden_gates.cpp",
+    "tests/appcore/test_activity.cpp",
+    "tests/ui_controller/test_application_controller.cpp"
+   ],
+   "note": "refuse_dictation order backup -> meeting setup -> meeting with the three texts; refusal and roll-back pinned by 'test_dictation_start_is_refused_and_rolled_back_during_a_meeting', 'test_dictation_is_refused_while_meeting_setup_owns_audio', 'test_toggle_recording_is_refused_during_a_meeting'."
+  },
+  "A03-18": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/activity.cpp",
+    "src/models/model_runtime.cpp"
+   ],
+   "tests": [
+    "tests/models/test_model_runtime.cpp",
+    "tests/golden/services.application_controller.json",
+    "tests/ui_controller/test_application_controller.cpp"
+   ]
+  },
+  "A03-19": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/action_wiring.cpp",
+    "src/ui_controller/application_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_action_cancel.cpp",
+    "tests/ui_controller/test_cancel_routing.cpp"
+   ],
+   "note": "ActionWiring registers the CancelRouter step at order 30 (kCancelActionsOrder, after the transcription at 0 and the write-up at 20) that calls ActionRuntime::cancel and reports whether it reached anything, so 'Nothing to cancel' comes only when nothing ran. Pinned by tests/ui_controller/test_action_cancel.cpp 'test_cancel_stops_running_actions_only_with_no_job_to_cancel', 'test_cancel_with_nothing_at_all_says_so', 'test_a_cancel_from_the_hotkey_thread_reaches_actions_on_the_qt_thread'; the write-up step by test_cancel_routing.cpp 'a Cancel once the walkthrough is over stops its AI write-up'."
+  },
+  "A03-20": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/rule_transcriber.cpp",
+    "src/ui_controller/personalize_wiring.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_personalize_wiring.cpp"
+   ],
+   "note": "transcribe_clip gates in order (backup, host update '{product} is preparing an update. Try again shortly.' via identity().product, meeting, 'No transcription engine is available', 'Transcription engine is busy'); pinned by 'test_transcribe_clip_delegates_to_current_backend', '..._raises_without_backend_or_when_busy', '..._is_refused_during_a_meeting'."
+  },
+  "A03-21": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/application_controller.cpp",
+    "src/ui_controller/ui_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_application_controller.cpp"
+   ],
+   "note": "'Finish recording or transcription before changing engines', meeting gates, forget_runtime_prompts then on_model_changed; Remote ignores local-engine changes. 'test_optional_selection_cannot_change_while_a_job_is_active', 'test_local_engine_settings_leave_a_remote_engine_alone'."
+  },
+  "A03-22": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/application_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_controller_gates.cpp",
+    "tests/ui_controller/test_wiring.cpp",
+    "tests/ui_controller/test_settings_bindings.cpp"
+   ],
+   "note": "Code right, refusal untested: added 'a new microphone order waits for the recording to finish' (refusal text while recording, then 'Audio device changed' once idle). FioriVoce applies the saved order to the same recorder (Recorder::set_device_priority on io) instead of rebuilding it, so the switch/level connections stay; 'test_the_recorder_comes_from_settings_and_reports_switches' pins that."
+  },
+  "A03-23": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/backup_lifecycle.cpp",
+    "src/appcore/activity.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_backup_lifecycle.cpp",
+    "tests/appcore/test_golden_gates.cpp",
+    "tests/ui_controller/test_personalize_wiring.cpp"
+   ],
+   "note": "backup_refusal texts (startup text via identity().product), central widget disabled and restored, restore staged -> exit with restart_exit_code; 'backup pauses client sync and host requests and releases both' covers the pause hooks."
+  },
+  "A03-24": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/activity.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/appcore/test_golden_gates.cpp",
+    "tests/golden/services.application_controller.json"
+   ],
+   "note": "walkthrough_library_refusal's six texts are golden-replayed; the reservation itself is the walkthrough area's (a22/a23)."
+  },
+  "A03-25": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/preview_throttle.cpp",
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/appcore/test_preview_throttle.cpp",
+    "tests/dictation/test_streaming_runtime.cpp",
+    "tests/dictation/test_automation_pipeline.cpp"
+   ],
+   "note": "Wired: TranscriptionRuntime::set_streaming (called by ControllerFeature::provide) builds the PreviewThrottle over streaming_text_update and publishes transcription.preview for the recording's job ('live preview text arrives every window while dictating' sees the events). Throttle timing pinned by test_preview_throttle.cpp."
+  },
+  "A03-26": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/application_controller.cpp",
+    "src/dictation/transcription_runtime.h",
+    "src/ui_controller/ui_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_thread_hops.cpp",
+    "tests/ui_controller/test_wiring.cpp"
+   ],
+   "note": "fv::Signal members connected on the UI executor; 'test_feature_runtimes_deliver_worker_signals_on_the_qt_thread' and 'test_recording_storage_failure_is_delivered_on_qt_thread'."
+  },
+  "A03-27": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/application_controller.cpp",
+    "src/ui_controller/ui_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_application_controller.cpp"
+   ],
+   "note": "'test_minimize_hotkey_toggles_tray_visibility_on_main_thread'."
+  },
+  "A03-28": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/ui_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_personalize_wiring.cpp",
+    "tests/ui_controller/test_application_controller.cpp"
+   ],
+   "note": "onRecordingStateChanged sets isRecording_, Quick Record's recording profile on start, window recording chrome; 'test_hotkey_dictation_routes_back_from_upload_to_quick_record'."
+  },
+  "A03-29": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/shutdown_plan.cpp",
+    "src/ui_controller/application_controller.cpp",
+    "src/ui_controller/controller_feature.cpp"
+   ],
+   "tests": [
+    "tests/appcore/test_shutdown_plan.cpp",
+    "tests/ui_controller/test_application_controller.cpp",
+    "tests/ui_controller/test_wiring.cpp"
+   ],
+   "note": "ShutdownPlan's fixed step order with per-step failure logs and shutdown_s; backends interrupted before strands join; persistence drained ('test_quit_drains_queued_history_before_closing_database'); 'test_cleanup_is_safe_with_partial_state'. Worker-process close dropped."
+  },
+  "A03-30": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/overlay_state.cpp"
+   ],
+   "tests": [
+    "tests/appcore/test_overlay_state.cpp"
+   ]
+  },
+  "A03-31": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/overlay_router.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_overlay_router.cpp",
+    "tests/ui_controller/test_notices.cpp",
+    "tests/ui_record/test_upload_presenter.cpp"
+   ],
+   "note": "Code right; added test_overlay_router.cpp (NONE hides, STT moment, work states clear the preview). Upload branch pinned by 'an upload job's stages go to the card, not the overlay'. Walkthrough panel dismissal on CANCELING is WalkthroughFeature's (walkthrough_feature.cpp:463)."
+  },
+  "A03-32": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/overlay_router.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_overlay_router.cpp"
+   ],
+   "note": "Code right, untested: 'listening shows the live preview while it runs and a work state replaces it' pins command_listening, streaming kept while the flow is active, recording otherwise."
+  },
+  "A03-33": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/overlay_router.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_overlay_router.cpp"
+   ],
+   "note": "Code right, untested: 'a cancel plays its animation then hides the overlay' (still up at 1200 ms, hidden after 1400 ms) and 'a recording started during the cancel animation keeps its overlay'."
+  },
+  "A03-34": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/overlay_router.cpp",
+    "src/ui_controller/ui_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_overlay_router.cpp",
+    "tests/ui_controller/test_m2_end_to_end.cpp"
+   ],
+   "note": "Code right; the new router test pins hide leaving the overlay up and ending the flow; the M2 e2e shows the streaming state."
+  },
+  "A03-35": {
+   "status": "fixed",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp",
+    "src/ui_controller/overlay_router.cpp",
+    "src/ui_controller/ui_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_sweep_retry_failure.cpp",
+    "tests/ui_controller/test_audit_a32_controller.cpp",
+    "tests/dictation/test_runtime_flow.cpp"
+   ],
+   "note": "Retry half: transcription_retry_progress (Retrying connection (n/3)...) -> OverlayRouter::showTranscriptionRetry, the processing label (a32 OV-05; runtime side test_runtime_flow.cpp). Failure half, as transcription.py on_history_persisted: when remote_retry_exhausted_ is set for the job, TranscriptionRuntime::on_history_persisted emits transcription_retry_failed with the failed recording notice (Reconnect failed. Audio saved in History.) instead of notice_requested; UiController connects it to OverlayRouter::showTranscriptionRetryFailure, which calls overlay.showNotice whatever window is active (ui_controller.py show_transcription_retry_failure), where showNotice skips the overlay while the main window is active. Any other failure notice still goes through notice_requested. Tests: sweep A03-35 cases (the notice shows over the active main window; an ordinary notice does not), and the remote offline and never-settling flow cases, which now see the notice on transcription_retry_failed and none on notice_requested."
+  },
+  "A03-36": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/overlay_router.cpp",
+    "src/ui_record/upload_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_presenter.cpp",
+    "tests/dictation/test_uploads.cpp"
+   ],
+   "note": "Upload job -> card stage (pinned); overlay branch (setLargeFileInfo + kStateLargeFileSplitting) read in code, only the API engine splits."
+  },
+  "A03-37": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/ui_controller.cpp",
+    "src/ui_record/upload_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_presenter.cpp",
+    "tests/ui_controller/test_dictation_end_to_end.cpp"
+   ],
+   "note": "Quick Record set_transcript+expand, error clears the transcript; Upload results stay on the tab. Walkthrough panel dismissal on error is WalkthroughFeature's."
+  },
+  "A03-38": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/ui_controller.cpp",
+    "src/ui_record/upload_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_presenter.cpp",
+    "tests/ui_controller/test_update_presenter.cpp"
+   ],
+   "note": "'engine messages after an upload reach the visible status', 'upload job messages stay in the upload panel'; ambient -> set_ambient_message ('auto update check failure is background status')."
+  },
+  "A03-39": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/ui_controller.cpp",
+    "src/ui_controller/overlay_router.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_controller_refreshes.cpp"
+   ],
+   "note": "The connection was in place and unpinned; now pinned by tests/ui_controller/test_controller_refreshes.cpp 'the recorder's level reaches every bar of the overlay' (Recorder::level emitted through the ControllerRig reaches every bar of the WaveformOverlay)."
+  },
+  "A03-40": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/ui_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_application_controller.cpp",
+    "tests/ui_controller/test_wiring.cpp"
+   ],
+   "note": "'test_dictation_start_is_refused_and_rolled_back_during_a_meeting', 'test_the_window_button_records_with_source_ui'; profile start via onProfileRecordStart ('Quick Record's profile starts through the profile start...')."
+  },
+  "A03-41": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/ui_controller.cpp",
+    "src/ui_record/upload_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_presenter.cpp",
+    "tests/ui_controller/test_window_with_tabs.cpp"
+   ],
+   "note": "cancelRecording clears chrome, app cancel, clears the QR transcript; Upload stop only cancels the tab's own job ('stop cancels only the tab's own running job')."
+  },
+  "A03-42": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/ui_controller.cpp",
+    "src/ui_shell/system_tray.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_update_handoff.cpp",
+    "tests/ui_controller/test_wiring.cpp",
+    "tests/ui_shell/test_system_tray.cpp"
+   ],
+   "note": "Exit through the window ('tray exit goes through the window'), toggle source ui/dbus, copy original, scratchpad/stats, update item, language menu. Meeting toggle and dashboard are the meeting presenter's (meeting area a31); walkthrough/screenshot WalkthroughFeature's."
+  },
+  "A03-43": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/ui_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_feature_wiring.cpp"
+   ],
+   "note": "'controller connects every signal'; lazily built Quick Record/Upload wired on screenCreated."
+  },
+  "A03-44": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/session_mcp.cpp",
+    "src/agentapi/mcp_runtime.cpp",
+    "src/agentapi/agent_controls.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_agent_changes.cpp"
+   ],
+   "note": "Not a gap: provideSessionMcp (src/ui_automation/session_mcp.cpp, reached from registerMcpPage) calls McpRuntime::configure_controls(sessionMcpDesktopChanges(context), ...), which sets AgentControls::on_change for every session. The handler posts to the GUI thread and re-reads the latest saved settings (_apply_agent_changes): theme, font scale, streaming, overlay font and layout, trigger mode, the cleanup controls and Settings, and History or Past Meetings on 'transcription'/'meeting'. Pinned by tests/ui_controller/test_agent_changes.cpp 'test_a_level_change_from_an_agent_refreshes_the_cleanup_controls' over the ControllerRig."
+  },
+  "A03-45": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/ui_controller.cpp",
+    "src/ui_downloads/downloads_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_controller_refreshes.cpp"
+   ],
+   "note": "UiController::setEngineBusy(false) now refreshes the model views (refresh_model_views) so the Downloads delete lock follows the loaded model. Pinned by tests/ui_controller/test_controller_refreshes.cpp 'the model views follow the engine once it is idle again' (Settings Downloads open; one inventory scan on idle, none on busy). The Host screen half is the remote area's."
+  },
+  "A03-46": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/ui_controller.cpp",
+    "src/ui_controller/application_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_application_controller.cpp"
+   ],
+   "note": "device_info_update -> every transcription tab's set_device_info ('test_model_switch_updates_backend_and_device_info'). Remote models refresh and note_remote_runtime are the remote area's (a17, M9.20)."
+  },
+  "A03-47": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/application_controller.cpp",
+    "src/ui_controller/ui_controller.cpp",
+    "src/ui_remote/remote_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_remote_engine_hooks.cpp",
+    "tests/ui_controller/test_audit_a03_remote_hooks.cpp",
+    "tests/ui_remote/test_host_mode_wiring.cpp",
+    "tests/ui_remote/test_pair_request_dialog.cpp"
+   ],
+   "note": "The remote hooks are composed by remote_feature.cpp into ApplicationController::set_remote_engine (retry, restoring, host name, link, model choices, model requests, connected clients) and UiController (remote model and runtime selection, retry, link and clients to the record tabs); the pair-request prompter and Host Mode dashboard factory are installed on the main window there. Pinned: model and runtime selection, refusal during a meeting (test_remote_engine_hooks.cpp a Model field choice switches the paired computer through the controller); link, served computers and retry reaching the record tab engine card (test_audit_a03_remote_hooks.cpp); Switching models is not available in this window. on the dashboard (test_host_mode_wiring.cpp Host Mode picker case); the prompter (test_pair_request_dialog.cpp)."
+  },
+  "A03-48": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/ui_controller.cpp",
+    "src/ui_record/upload_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_presenter.cpp",
+    "tests/ui_controller/test_wiring.cpp"
+   ],
+   "note": "Stats routed to Upload when its job, else Quick Record; clear never builds the Upload screen ('test_controller_startup_keeps_inactive_views_unbuilt')."
+  },
+  "A03-49": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/overlay_router.cpp",
+    "src/ui_controller/ui_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_notices.cpp"
+   ],
+   "note": "'test_the_main_window_in_front_gets_no_notice'."
+  },
+  "A03-50": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/overlay_router.cpp",
+    "src/ui_controller/ui_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_presenter.cpp",
+    "tests/ui_controller/test_wiring.cpp"
+   ],
+   "note": "Upload copy and History dialog copy show kStateCopied. Meeting and guest-link callers are the meeting area's."
+  },
+  "A03-51": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/clipboard_service.cpp",
+    "src/clipboard/temporary_clipboard.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_clipboard_service.cpp",
+    "tests/ui_controller/test_wiring.cpp"
+   ],
+   "note": "Staging with/without html and restore, capture_selection with the copy shortcut and 700 ms, 'Ready (Pasted; clipboard restore failed)' (kRestoreFailedStatus)."
+  },
+  "A03-52": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/ui_controller.cpp",
+    "src/ui_record/upload_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_presenter.cpp",
+    "tests/ui_record/test_quick_record_tab.cpp"
+   ],
+   "note": "QR -> show_copy_result; Upload -> 'Copied to clipboard' + animation or 'Copy failed'."
+  },
+  "A03-53": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_walkthrough_feature.cpp"
+   ],
+   "note": "Controller side tested through the composition: tab and shortcuts to the recording runtime, snap kept, ready card, paste report 'PDF and instructions pasted; review them before sending', copy again 'Walkthrough copied', library opens, column kept out of screenshots, cancel dismisses. Paste warning texts, library refresh rule and walkthrough_minimize_to_tray are the walkthrough area's audits (a22/a23)."
+  },
+  "A03-54": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/ui_controller.cpp",
+    "src/ui_record/scratchpad.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_wiring.cpp",
+    "tests/ui_controller/test_notices.cpp"
+   ],
+   "note": "'test_view_menu_opens_the_scratchpad_and_stats', 'the overlay chip and the shortcut cycle the dictation language', paste/copy original tests, hands-free."
+  },
+  "A03-55": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/ui_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_wiring.cpp"
+   ],
+   "note": "Status and caption texts, default name 'the system default microphone'."
+  },
+  "A03-56": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/ui_controller.cpp",
+    "src/ui_controller/personalize_wiring.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_personalize_wiring.cpp"
+   ],
+   "note": "'test_learned_term_says_so_and_refreshes_the_dictionary_page'."
+  },
+  "A03-57": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_history/history_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_history/test_stats_dialog.cpp"
+   ],
+   "note": "openStatsFeature: meetings/files/walkthroughs -> past items, actions/commands/snippets/dictionary -> Settings pages (test_stats_dialog.cpp:681-723)."
+  },
+  "A03-58": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_automation/actions_page.cpp",
+    "src/ui_automation/automation_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_actions_page.cpp"
+   ],
+   "note": "Try it goes through the context's automation::ActionTester (ui_automation's ManualActionTester; absent, the page says so instead of 'Actions aren't ready yet.'); closing Settings cancels its runs (cancelTryRuns). What a run may send follows a19-confirmed-actions."
+  },
+  "A03-59": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_setup/guided_setup_offer.cpp",
+    "src/ui_controller/ui_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_setup/test_guided_setup_offer.cpp",
+    "tests/ui_controller/test_m2_end_to_end.cpp"
+   ],
+   "note": "750 ms offer, 1000 ms retry while a modal/hidden window, singleton, try box hears dictations (wireM2Runtimes)."
+  },
+  "A03-60": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_window.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_feature.cpp",
+    "tests/ui_settings/test_api_keys.cpp"
+   ],
+   "note": "Destinations, aliases ('text' scrolls to the cleanup model, legacy names), engine help, policy link."
+  },
+  "A03-61": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/settings_bindings.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_settings_bindings.cpp"
+   ],
+   "note": "Page signals bound once per dialog (font, theme, overlay font/layout/look, streaming, hotkeys, trigger mode, capture suspension, API keys, developer mode, voice model page)."
+  },
+  "A03-62": {
+   "status": "dropped",
+   "reason": "Python construction-cost plumbing: M2 'Changes to the cut' item 6 and its Scope row drop the staged Settings build (architecture 8.5: no staged idle build; pages stay lazy)."
+  },
+  "A03-63": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/settings_bindings.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_settings_bindings.cpp"
+   ],
+   "note": "'the font scale redraws the transcripts and a theme change applies the palette', 'a Settings theme change goes through the application's own theme manager'."
+  },
+  "A03-64": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/downloads_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_window.cpp",
+    "tests/ui_controller/test_m2_end_to_end.cpp"
+   ]
+  },
+  "A03-65": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/downloads_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_window.cpp"
+   ],
+   "note": "'the fallback progress dialog shows only when Settings is hidden'."
+  },
+  "A03-66": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/downloads_presenter.cpp",
+    "src/ui_controller/controller_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_window.cpp",
+    "tests/ui_controller/test_m2_end_to_end.cpp"
+   ],
+   "note": "'component events reach the page's rows and message'; the CUDA runtime install e2e."
+  },
+  "A03-67": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/downloads_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_consent_dialogs.cpp",
+    "tests/ui_controller/test_m2_end_to_end.cpp"
+   ]
+  },
+  "A03-68": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_presenter.cpp",
+    "src/meeting/setup_check.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_readiness.cpp"
+   ],
+   "note": "Meeting start readiness (ensure_meeting_start_readiness) is MeetingPresenter::start/acknowledgePlatform/runSetup; test_meeting_start_readiness_seams.py's Windows cases are ported in test_meeting_readiness.cpp: test_start_seams_forward_ready_policy_once, test_start_seams_cancel_starts_nothing, test_start_seams_forward_mic_only_disabled (tab and tray), test_first_start_runs_shared_setup (Windows rows), test_demo_uses_platform_ack_without_audio_readiness (the demo starts with policy 'disabled', asks the platform acknowledgement once on an unsupported platform, never setup), test_demo_cancelled_by_platform_ack_starts_nothing, test_hotkey_controller_uses_readiness_once. The macOS system-audio permission and the Linux audio remediation dialog are other-platform for the Windows product."
+  },
+  "A03-69": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_readiness.cpp"
+   ],
+   "note": "The refusal is in MeetingPresenter::runSetup ('Finish Quick Record before checking meeting audio.', verbatim from _open_meeting_setup) and pinned by test_meeting_readiness.cpp 'Quick Record holds meeting setup with a status line' (status line and the tab's pill; the first start that needs setup does not start either; setup opens once recording stops)."
+  },
+  "A03-70": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_readiness.cpp"
+   ],
+   "note": "MeetingPresenter::end asks 'End meeting?' with the end text (product via identity) and default No; pinned by test_meeting_readiness.cpp test_active_tray_end_requires_confirmation (title, text, default button No, Yes ends and No does not) and 'the tab's End asks the same question and an idle End asks nothing'."
+  },
+  "A03-71": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_readiness.cpp",
+    "tests/ui_meeting/test_meeting_presenter_flow.cpp"
+   ],
+   "note": "on_meeting_state_changed is MeetingPresenter::applyState. Pinned: test_meeting_readiness.cpp 'the state payload reaches the tab, the tabs, Past Meetings and the tray' (tab state with dashboard_available defaulted, Host Mode left and Meeting Mode selected, Quick Record locked then unlocked, past-meeting selection cleared on start and set to the ended meeting, tray Start/End Meeting and its dashboard action, the menu's dashboard action); test_meeting_presenter_flow.cpp 'a finished meeting and the runtime's request refresh Past Meetings' (refresh for ended, failed, needs_recovery, canceled only when capture stopped; past_meetings_refresh_requested refreshes)."
+  },
+  "A03-72": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_readiness.cpp"
+   ],
+   "note": "'Guest link copied' and 'Transcript copied' are in MeetingPresenter (bindRuntime's meeting_guest_link_ready, copyPastMeeting) and pinned by test_meeting_readiness.cpp 'a copied guest link and a copied transcript say what was copied' (clipboard, status line, tab pill; nothing to copy says nothing). The error path: 'a meeting error after a code change offers a restart with the error' (offerRestartForFailure gets the text; unchanged code shows 'Meeting Error' with 'Meeting error' for an empty message)."
+  },
+  "A03-73": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_presenter.cpp"
+   ],
+   "note": "Recovery scan box: non-modal warning 'Meeting Recovery', reused while visible, 'Retry scan'/'Later', status 'Meeting recovery scan failed' (pinned). The consent dialog half is M8.7's (meeting area)."
+  },
+  "A03-74": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/ui_controller.cpp",
+    "src/hotkeys/defaults.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_application_controller.cpp",
+    "tests/settings/test_store.cpp"
+   ],
+   "note": "'test_hotkeys_backfill_minimize_tray_and_refresh_display_on_update'; walkthrough and screenshot without defaults."
+  },
+  "A03-75": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/upload_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_upload_presenter.cpp",
+    "tests/ui_controller/test_m2_end_to_end.cpp"
+   ]
+  },
+  "A03-76": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_shell/main_window.cpp",
+    "src/ui_meeting/meeting_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_host_mode_window.cpp",
+    "tests/ui_meeting/test_meeting_host_mode.cpp"
+   ],
+   "note": "switch_to_tab is MainWindow::switchToTab: it leaves Host Mode first, then selects the tab (test_host_mode_window.cpp test_a_meeting_starting_here_leaves_host_mode_for_its_tab). The switch_to_meeting_mode half is covered by worker R8 test: a meeting that starts while Host Mode shows leaves it for the Meeting Mode tab through MeetingPresenter (test_meeting_host_mode.cpp a meeting that starts in Host Mode switches to its tab). Both ran and passed."
+  },
+  "A03-77": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/update_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_update_presenter.cpp"
+   ],
+   "note": "Seven test_update_notice cases incl. failed check keeps the release and the open dialog's result is left alone."
+  },
+  "A03-78": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/update_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_update_presenter.cpp"
+   ],
+   "note": "Release notes / releases page open; 'Help > Check for Updates without an updater opens nothing'."
+  },
+  "A03-79": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/activity.cpp",
+    "src/ui_controller/quit_confirm.cpp",
+    "src/ui_controller/update_handoff.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_update_handoff.cpp",
+    "tests/appcore/test_activity.cpp"
+   ],
+   "note": "busy_reasons order; quit and update texts with identity().product; 'a user quit mid task asks first', 'declining an update start while busy says it was not started'."
+  },
+  "A03-80": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/update_handoff.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_update_handoff.cpp"
+   ],
+   "note": "Setup fallback flags, mutex release/reacquire, launch failures, cancel after close. Native helper command is a16's (M10.12)."
+  },
+  "A03-81": {
+   "status": "other-platform",
+   "reason": "macOS update helper (map: other-platform)."
+  },
+  "A03-82": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/update_handoff.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_update_handoff.cpp"
+   ],
+   "note": "'handoff exits instead of asking to quit', 'a stalled exit is forced', 'the hand-off's exit ends the event loop that runs'."
+  },
+  "A03-83": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/code_change_restart.cpp",
+    "src/ui_controller/controller_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_code_change_restart.cpp"
+   ],
+   "note": "Ported for the installed executable (M3 'Changes to the cut' 9), texts via identity().product. Its five box tests segfaulted on this Linux tree earlier on 2026-11-19 (QMessageBox::setIcon -> PNG decode -> system libz inflateReset2 freeing state that inflateInit2_ had allocated in the test executable's statically linked vcpkg zlib, which the executable then exported in part); after a later relink the executable exports no zlib symbols and all six pass. An ELF symbol-interposition issue of the Linux link, not a lifetime or ordering defect here."
+  },
+  "A03-84": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/code_change_restart.cpp",
+    "src/ui_controller/controller_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_code_change_restart.cpp"
+   ],
+   "note": "'a leftover update error is shown once in an Update failed box', 'the controller shows the previous launch's update error once the window shows'."
+  },
+  "A03-85": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/about_box.cpp",
+    "src/ui_controller/update_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_about_box.cpp",
+    "tests/ui_controller/test_update_presenter.cpp"
+   ],
+   "note": "FioriVoce wording (map decision 'port with FioriVoce wording'), product via identity(), version, install channel, optional update status; the website line is left out. 'Help > About shows the About box over the window' passes since the relink noted at A03-83; 'the About box shows the update status of the last check' fails on Linux only because installChannel() reads LOCALAPPDATA ('Install: Windows installer' expected)."
+  },
+  "A03-86": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/ui_controller.cpp",
+    "src/ui_controller/application_controller.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_controller_gates.cpp"
+   ],
+   "note": "Code right, the gate untested: 're-transcribe from the window is refused during a meeting' (window signal -> app retranscribe_audio -> meeting sentence, no job)."
+  },
+  "A03-87": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/ui_controller.cpp",
+    "src/ui_controller/overlay_router.cpp",
+    "src/ui_controller/controller_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_application_controller.cpp"
+   ],
+   "note": "UiController::cleanup (clipboard restore, router stops the cancel timer and overlay) in the UiController shutdown step with the code-change timer stopped; 'test_cleanup_is_safe_with_partial_state' sees the overlay closed. Tray and window are Bootstrap's."
+  },
+  "A03-88": {
+   "status": "other-platform",
+   "reason": "Wayland overlay parenting (Linux)."
+  },
+  "A03-89": {
+   "status": "other-platform",
+   "reason": "macOS dock icon sync."
+  },
+  "A03-90": {
+   "status": "dropped",
+   "reason": "Python import warm-up of the OpenAI SDK and PyAV (map: drop)."
+  },
+  "A03-91": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/ui_controller.cpp",
+    "src/ui_controller/settings_bindings.cpp",
+    "src/ui_controller/controller_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_application_controller.cpp",
+    "tests/ui_settings/test_home.cpp"
+   ],
+   "note": "'Model changed to: {name}' then on_model_changed; whisperEngineChanged and the Voice model page go to on_local_engine_settings_changed; backend picks through the page handler, and a voice chosen on Home while that page is unbuilt through HomeSources::backendChanged (models.on_backend_changed, set in controller_feature.cpp; test_voice_choice_uses_the_canonical_controller_label_without_model_setup)."
+  },
+  "A03-92": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/ui_controller.cpp",
+    "src/ui_controller/settings_bindings.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_settings_bindings.cpp"
+   ],
+   "note": "'test_tab_toggle_reconfigures_streaming', 'test_settings_dialog_toggle_refreshes_tabs_then_reconfigures'."
+  },
+  "A03-93": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/personalize_wiring.cpp",
+    "src/ui_personalize/cleanup_agent_offer.cpp",
+    "src/llm/cleanup_agent_offer.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_cleanup_agent_offer.cpp",
+    "tests/llm/test_cleanup_agent_offer.cpp",
+    "tests/ui_controller/test_personalize_wiring.cpp"
+   ],
+   "note": "The cleanup fan-out was already wired and tested ('the AI cleanup settings reach Quick Record and the profile shortcuts'); the missing CleanupAgentOffer.maybe_offer step after a cleanup change is now ported (PersonalizeWiring owns the offer). Pinned by tests/ui_personalize/test_cleanup_agent_offer.cpp 'test_yes_switches_and_refreshes', 'test_nothing_is_asked_without_an_agent_or_when_not_due' and tests/llm/test_cleanup_agent_offer.cpp; accepting selects the agent only after the AI cleanup settings' consent question (difference a04-agent-cleanup-scope)."
+  },
+  "A03-94": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/settings_bindings.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_controller_refreshes.cpp"
+   ],
+   "note": "onApiKeysChanged was in place and unpinned; now pinned by tests/ui_controller/test_controller_refreshes.cpp 'a key saved in Settings refreshes the model views' (SettingsPagesSignals::apiKeysChanged rescans the Downloads inventory). The refresh_api_engine half is not asserted there."
+  },
+  "A03-95": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/downloads_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_batch_and_details.cpp",
+    "tests/ui_downloads/test_downloads_window.cpp"
+   ]
+  },
+  "A03-96": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp",
+    "src/dictation/hotkey_runtime.cpp",
+    "src/ui_controller/controller_feature.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_hotkey_runtime.cpp",
+    "tests/ui_controller/test_dictation_end_to_end.cpp"
+   ],
+   "note": "The runtime handles its own completion/failure/batch results (no controller forward needed); setup_hook_watchdog called once at the end of install."
+  },
+  "A03-97": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_readiness.cpp",
+    "tests/ui_meeting/test_meeting_presenter_flow.cpp",
+    "tests/ui_meeting/test_meeting_presenter.cpp"
+   ],
+   "note": "The Meeting tab's forwards (MeetingPresenter::bindTab/bindHistory) are pinned: demo (test_meeting_readiness.cpp test_demo_uses_platform_ack_without_audio_readiness), pause/resume/dashboard/report/guest link/retry insights/retry speakers/retry step/background/defer/past-meeting open and AI settings ('every Meeting Mode tab action reaches the runtime'), Past Meetings open, delete with/without audio and clear ('every Past Meetings action reaches the runtime'), copy ('a copied guest link and a copied transcript say what was copied'), the cloud toggle (test_meeting_presenter_flow.cpp 'the AI insights switch reaches the runtime only with consent': nothing without a meeting, a declined consent changes nothing, an accepted one turns live insights on and saves the consent, off asks nothing; end to end in test_meeting_presenter.cpp)."
+  },
+  "A03-98": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/update_handoff.cpp",
+    "src/ui_controller/update_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_update_handoff.cpp"
+   ],
+   "note": "Busy confirmation before download/setup, cancel sets the canceled flag ('ui cancel after success is queued keeps app open', 'cancel after the dialog closed does not pop a failure')."
+  },
+  "A03-99": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/ui_controller.cpp",
+    "src/ui_controller/update_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_update_presenter.cpp",
+    "tests/ui_controller/test_wiring.cpp"
+   ],
+   "note": "'notice and tray open the found release' (restore then show); caption and dictation-started profile through the router/Quick Record."
+  },
+  "A03-100": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_controller/backup_lifecycle.cpp",
+    "src/ui_controller/controller_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_backup_lifecycle.cpp",
+    "tests/ui_controller/test_m3_end_to_end.cpp"
+   ],
+   "note": "'backup restore only requests restart after success', 'Quit ends the reservation without giving the window back'; the coordinator is built in provideM3."
+  }
+ },
+ "differences": [
+  {
+   "id": "a03-cpu-runtime-offer-after-crash",
+   "features": [],
+   "openwhisper": "OpenWhisper makes no offer at start after its speech engine crashed in the previous session.",
+   "fiorivoce": "When the last session's crash log names a module in the speech runtime's folder and the runtime setting is not the CPU, the next start offers to switch to the CPU runtime. The offer is made once per crash, remembered in '<crash log>.offered' whether it is taken or declined; a later crash is offered again.",
+   "reason": "The runtime is loaded into FioriVoce's own process, so a GPU runtime that crashes ends the app; the CPU runtime is the way back, and a declined offer must not come back at every start.",
+   "source": "The shell sweep of 2026-11-19 (open item ui_controller/engine_setup.cpp); src/ui_controller/engine_setup.cpp, src/ui_controller/controller_feature.cpp; tests/ui_controller/test_sweep_crash_offer.cpp ('a declined crash offer does not come back at the next start', 'crashAlreadyOffered matches the time, code and module')"
+  },
+  {
+   "id": "a03-quit-aborts-http",
+   "features": [
+    "A03-29"
+   ],
+   "openwhisper": "At quit OpenWhisper leaves requests, an installed-agent probe and a model adoption still running on its daemon threads; the process exits without waiting for them.",
+   "fiorivoce": "Quit's first cancellation step aborts every HTTP transfer (http::AbortableClient::abort_all), stops the installed-agent scan and kills its probe's process tree, and cancels an adoption of OpenWhisper's runtime or model, whose copy or hash stops and whose staging is removed; Quit still waits for the io task that ran each, so a request to a server that never answers holds Quit for about a second, not for its idle timeout.",
+   "reason": "A C++ task that uses the application context cannot be abandoned while that context is destroyed, so Quit waits for running io work; cancelling that work bounds the wait.",
+   "source": "The shell sweep of 2026-11-19 (open item ui_shell/bootstrap.cpp waitForRunningTasks); src/ui_shell/bootstrap.cpp (ShutdownStep::CancelRoot), src/http/abortable_client.cpp; tests/ui_shell/test_sweep_quit_http.cpp ('a request to a server that never answers does not hold Quit'), tests/http/test_sweep_abortable_client.cpp ('abort_all ends a request that waits on a silent server'); tests/ui_shell/test_sweep_quit_agent_scan.cpp ('an agent scan waiting on a probe that never answers does not hold Quit'), tests/ui_controller/test_sweep_adoption_quit.cpp ('sweep: Quit cancels the adoption the engine setup is running'), tests/models/test_sweep_adoption_cancel.cpp ('sweep: Quit during a model's adoption leaves nothing half adopted')"
+  }
+ ]
+}

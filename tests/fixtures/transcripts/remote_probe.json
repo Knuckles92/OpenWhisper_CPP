@@ -1,0 +1,207 @@
+{
+ "scenario": "remote_probe",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "python": "3.12.10",
+ "setup": {
+  "host_name": "studio",
+  "device_name": "laptop",
+  "addresses": [
+   "192.168.1.20",
+   "100.101.102.103"
+  ],
+  "pairing_code": "246810",
+  "fingerprint": "<fingerprint#1>",
+  "engines": {
+   "available": {
+    "family": "parakeet",
+    "model": "parakeet-v3",
+    "label": "Fake Parakeet",
+    "device": "cuda",
+    "streaming": false,
+    "available": true,
+    "status": "ready"
+   },
+   "unavailable": {
+    "family": "parakeet",
+    "model": "parakeet-v3",
+    "label": "Fake Parakeet",
+    "device": "cuda",
+    "streaming": false,
+    "available": false,
+    "status": "not loaded"
+   }
+  },
+  "patches": [
+   "tailscale.status reports not_installed and tailscale.whois finds nobody (tests/fakes/remote.py no_real_tailscale)",
+   "discovery.find_host and discovery.search find nothing (no UDP leaves the process)",
+   "SpeechHost.start serves on 127.0.0.1 only, without discovery"
+  ],
+  "steps": [
+   {
+    "name": "available",
+    "client": "probe_host",
+    "outcomes": [
+     {
+      "call": "probe_host",
+      "returned": {
+       "host_name": "studio",
+       "protocol": 1,
+       "engine": {
+        "label": "Fake Parakeet",
+        "device": "cuda",
+        "available": true,
+        "family": "parakeet"
+       },
+       "tailscale_pairing": false,
+       "fingerprint": "<fingerprint#1>",
+       "approval": true
+      }
+     }
+    ]
+   },
+   {
+    "name": "unavailable",
+    "client": "probe_host",
+    "outcomes": [
+     {
+      "call": "probe_host",
+      "returned": {
+       "host_name": "studio",
+       "protocol": 1,
+       "engine": {
+        "label": "Fake Parakeet",
+        "device": "cuda",
+        "available": false,
+        "family": "parakeet"
+       },
+       "tailscale_pairing": false,
+       "fingerprint": "<fingerprint#1>",
+       "approval": true
+      }
+     }
+    ]
+   },
+   {
+    "name": "tailscale_owner",
+    "client": "probe_host",
+    "outcomes": [
+     {
+      "call": "probe_host",
+      "returned": {
+       "host_name": "studio",
+       "protocol": 1,
+       "engine": {
+        "label": "Fake Parakeet",
+        "device": "cuda",
+        "available": true,
+        "family": "parakeet"
+       },
+       "tailscale_pairing": true,
+       "fingerprint": "<fingerprint#1>",
+       "approval": true
+      }
+     }
+    ],
+    "notes": [
+     "tailscale_owner returns owner@example.com"
+    ]
+   }
+  ]
+ },
+ "frames": [
+  {
+   "step": "available",
+   "conn": 0,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"probe\", \"protocol\": 1}"
+  },
+  {
+   "step": "available",
+   "conn": 0,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"probe\",\"protocol\":1,\"host\":{\"name\":\"studio\"},\"engine\":{\"label\":\"Fake Parakeet\",\"device\":\"cuda\",\"available\":true,\"family\":\"parakeet\"},\"tailscale_pairing\":false,\"approval\":true}"
+  },
+  {
+   "step": "available",
+   "conn": 0,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 1000,
+   "reason": ""
+  },
+  {
+   "step": "available",
+   "conn": 0,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 1000,
+   "reason": "",
+   "echo": true
+  },
+  {
+   "step": "unavailable",
+   "conn": 1,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"probe\", \"protocol\": 1}"
+  },
+  {
+   "step": "unavailable",
+   "conn": 1,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"probe\",\"protocol\":1,\"host\":{\"name\":\"studio\"},\"engine\":{\"label\":\"Fake Parakeet\",\"device\":\"cuda\",\"available\":false,\"family\":\"parakeet\"},\"tailscale_pairing\":false,\"approval\":true}"
+  },
+  {
+   "step": "unavailable",
+   "conn": 1,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 1000,
+   "reason": ""
+  },
+  {
+   "step": "unavailable",
+   "conn": 1,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 1000,
+   "reason": "",
+   "echo": true
+  },
+  {
+   "step": "tailscale_owner",
+   "conn": 2,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"probe\", \"protocol\": 1}"
+  },
+  {
+   "step": "tailscale_owner",
+   "conn": 2,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"probe\",\"protocol\":1,\"host\":{\"name\":\"studio\"},\"engine\":{\"label\":\"Fake Parakeet\",\"device\":\"cuda\",\"available\":true,\"family\":\"parakeet\"},\"tailscale_pairing\":true,\"approval\":true}"
+  },
+  {
+   "step": "tailscale_owner",
+   "conn": 2,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 1000,
+   "reason": ""
+  },
+  {
+   "step": "tailscale_owner",
+   "conn": 2,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 1000,
+   "reason": "",
+   "echo": true
+  }
+ ],
+ "normalize": []
+}

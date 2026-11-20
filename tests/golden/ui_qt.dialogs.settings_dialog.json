@@ -1,0 +1,2672 @@
+{
+ "module": "ui_qt.dialogs.settings_dialog",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time",
+  "note": "Appearance and Developer rail values are the expressions of _render_rail_values; the methods run on SimpleNamespace stand-ins (see the case file)"
+ },
+ "functions": {
+  "cleanup_rail_value": [
+   {
+    "args": [
+     {}
+    ],
+    "result": "Off"
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_enabled": true
+     }
+    ],
+    "result": "Medium · openrouter/free"
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_enabled": true,
+      "transcript_cleanup_level": "high"
+     }
+    ],
+    "result": "High · openrouter/free"
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_enabled": true,
+      "transcript_cleanup_level": "light",
+      "transcript_cleanup_provider": "openai",
+      "transcript_cleanup_model": "gpt-test"
+     }
+    ],
+    "result": "Light · gpt-test"
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_enabled": true,
+      "transcript_cleanup_prompt": "Rewrite it as a friendly Slack message.",
+      "transcript_cleanup_provider": "openai",
+      "transcript_cleanup_model": "gpt-test"
+     }
+    ],
+    "result": "Custom · gpt-test"
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_prompt": "Rewrite it as a friendly Slack message.",
+      "transcript_cleanup_level": "light"
+     }
+    ],
+    "result": "Off"
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_enabled": true,
+      "transcript_cleanup_prompt": "   "
+     }
+    ],
+    "result": "Medium · openrouter/free"
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_enabled": true,
+      "transcript_cleanup_level": "bogus"
+     }
+    ],
+    "result": "Medium · openrouter/free"
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_enabled": true,
+      "transcript_cleanup_provider": "ollama",
+      "transcript_cleanup_model": "  llama3.2 "
+     }
+    ],
+    "result": "Medium · llama3.2"
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_enabled": true,
+      "transcript_cleanup_provider": "openai",
+      "transcript_cleanup_model": "gpt-4o-mini"
+     }
+    ],
+    "result": "Medium · gpt-6-luna"
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_enabled": true,
+      "transcript_cleanup_provider": "openai",
+      "transcript_cleanup_model": "   "
+     }
+    ],
+    "result": "Medium · openrouter/free"
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_enabled": true,
+      "transcript_cleanup_provider": "claude_code",
+      "transcript_cleanup_model": ""
+     }
+    ],
+    "result": "Medium"
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_enabled": false,
+      "transcript_cleanup_level": "high",
+      "transcript_cleanup_provider": "openai",
+      "transcript_cleanup_model": "gpt-test"
+     }
+    ],
+    "result": "Off"
+   }
+  ],
+  "SettingsDialog._refresh_home": [
+   {
+    "args": [
+     {}
+    ],
+    "result": {
+     "provider": "openrouter",
+     "local": [
+      "Dictation voice",
+      "Meeting voice",
+      "Text near the cursor (off)",
+      "Meeting intelligence",
+      "Learned rules",
+      "Recordings"
+     ],
+     "cloud": [
+      "AI cleanup (off)"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_provider": "openrouter",
+      "transcript_cleanup_model": "openrouter/free",
+      "transcript_cleanup_enabled": true
+     }
+    ],
+    "result": {
+     "provider": "openrouter",
+     "local": [
+      "Dictation voice",
+      "Meeting voice",
+      "Text near the cursor (off)",
+      "Meeting intelligence",
+      "Learned rules",
+      "Recordings"
+     ],
+     "cloud": [
+      "AI cleanup (on)"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_provider": "ollama",
+      "transcript_cleanup_model": "llama3.2",
+      "transcript_cleanup_enabled": true
+     }
+    ],
+    "result": {
+     "provider": "ollama",
+     "local": [
+      "Dictation voice",
+      "Meeting voice",
+      "AI cleanup (on)",
+      "Text near the cursor (off)",
+      "Meeting intelligence",
+      "Learned rules",
+      "Recordings"
+     ],
+     "cloud": []
+    }
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_provider": "ollama",
+      "transcript_cleanup_model": "llama3.2",
+      "transcript_cleanup_enabled": true,
+      "transcript_cleanup_level": "high"
+     }
+    ],
+    "result": {
+     "provider": "ollama",
+     "local": [
+      "Dictation voice",
+      "Meeting voice",
+      "AI cleanup (on)",
+      "Text near the cursor (off)",
+      "Meeting intelligence",
+      "Learned rules",
+      "Recordings"
+     ],
+     "cloud": []
+    }
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_provider": "ollama",
+      "transcript_cleanup_model": "llama3.2",
+      "transcript_cleanup_enabled": false,
+      "transcript_cleanup_level": "high"
+     }
+    ],
+    "result": {
+     "provider": "ollama",
+     "local": [
+      "Dictation voice",
+      "Meeting voice",
+      "AI cleanup (off)",
+      "Text near the cursor (off)",
+      "Meeting intelligence",
+      "Learned rules",
+      "Recordings"
+     ],
+     "cloud": []
+    }
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_provider": "openrouter",
+      "transcript_cleanup_model": "openrouter/free",
+      "app_context_read_text": true
+     }
+    ],
+    "result": {
+     "provider": "openrouter",
+     "local": [
+      "Dictation voice",
+      "Meeting voice",
+      "Meeting intelligence",
+      "Learned rules",
+      "Recordings"
+     ],
+     "cloud": [
+      "AI cleanup (off)",
+      "Text near the cursor (with AI cleanup)"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_provider": "ollama",
+      "transcript_cleanup_model": "llama3.2",
+      "app_context_read_text": true
+     }
+    ],
+    "result": {
+     "provider": "ollama",
+     "local": [
+      "Dictation voice",
+      "Meeting voice",
+      "AI cleanup (off)",
+      "Text near the cursor",
+      "Meeting intelligence",
+      "Learned rules",
+      "Recordings"
+     ],
+     "cloud": []
+    }
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_provider": "openrouter",
+      "transcript_cleanup_model": "openrouter/free",
+      "app_context_read_text": true,
+      "app_context_enabled": false
+     }
+    ],
+    "result": {
+     "provider": "openrouter",
+     "local": [
+      "Dictation voice",
+      "Meeting voice",
+      "Text near the cursor (off)",
+      "Meeting intelligence",
+      "Learned rules",
+      "Recordings"
+     ],
+     "cloud": [
+      "AI cleanup (off)"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "app_context_read_text": true,
+      "app_context_enabled": true
+     }
+    ],
+    "result": {
+     "provider": "openrouter",
+     "local": [
+      "Dictation voice",
+      "Meeting voice",
+      "Meeting intelligence",
+      "Learned rules",
+      "Recordings"
+     ],
+     "cloud": [
+      "AI cleanup (off)",
+      "Text near the cursor (with AI cleanup)"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_provider": "claude_code",
+      "transcript_cleanup_model": "sonnet",
+      "app_context_read_text": true
+     }
+    ],
+    "result": {
+     "provider": "claude_code",
+     "local": [
+      "Dictation voice",
+      "Meeting voice",
+      "Meeting intelligence",
+      "Learned rules",
+      "Recordings"
+     ],
+     "cloud": [
+      "AI cleanup (off)",
+      "Text near the cursor (with AI cleanup)"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_provider": "bogus",
+      "transcript_cleanup_model": "x"
+     }
+    ],
+    "result": {
+     "provider": "openrouter",
+     "local": [
+      "Dictation voice",
+      "Meeting voice",
+      "Text near the cursor (off)",
+      "Meeting intelligence",
+      "Learned rules",
+      "Recordings"
+     ],
+     "cloud": [
+      "AI cleanup (off)"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_provider": "custom_box",
+      "transcript_cleanup_model": "m",
+      "transcript_cleanup_enabled": true,
+      "text_llm_profiles": [
+       {
+        "id": "custom_box",
+        "name": "Box",
+        "base_url": "http://127.0.0.1:5000/v1"
+       }
+      ]
+     }
+    ],
+    "result": {
+     "provider": "custom_box",
+     "local": [
+      "Dictation voice",
+      "Meeting voice",
+      "AI cleanup (on)",
+      "Text near the cursor (off)",
+      "Meeting intelligence",
+      "Learned rules",
+      "Recordings"
+     ],
+     "cloud": []
+    }
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_provider": "custom_cloud",
+      "transcript_cleanup_model": "m",
+      "app_context_read_text": true,
+      "text_llm_profiles": [
+       {
+        "id": "custom_cloud",
+        "name": "Cloud",
+        "base_url": "https://llm.example.test/v1",
+        "api_key_env": "CLOUD_KEY"
+       }
+      ]
+     }
+    ],
+    "result": {
+     "provider": "custom_cloud",
+     "local": [
+      "Dictation voice",
+      "Meeting voice",
+      "Meeting intelligence",
+      "Learned rules",
+      "Recordings"
+     ],
+     "cloud": [
+      "AI cleanup (off)",
+      "Text near the cursor (with AI cleanup)"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_provider": "custom_gone",
+      "transcript_cleanup_model": "m",
+      "app_context_read_text": true
+     }
+    ],
+    "result": {
+     "provider": "openrouter",
+     "local": [
+      "Dictation voice",
+      "Meeting voice",
+      "Meeting intelligence",
+      "Learned rules",
+      "Recordings"
+     ],
+     "cloud": [
+      "AI cleanup (off)",
+      "Text near the cursor (with AI cleanup)"
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_provider": "lm_studio",
+      "transcript_cleanup_model": "m",
+      "transcript_cleanup_enabled": true,
+      "app_context_read_text": true
+     }
+    ],
+    "result": {
+     "provider": "lm_studio",
+     "local": [
+      "Dictation voice",
+      "Meeting voice",
+      "AI cleanup (on)",
+      "Text near the cursor",
+      "Meeting intelligence",
+      "Learned rules",
+      "Recordings"
+     ],
+     "cloud": []
+    }
+   },
+   {
+    "args": [
+     {
+      "transcript_cleanup_provider": "ollama",
+      "transcript_cleanup_model": "m",
+      "ollama_base_url": "http://gpu-box:11434/v1",
+      "app_context_read_text": true
+     }
+    ],
+    "result": {
+     "provider": "ollama",
+     "local": [
+      "Dictation voice",
+      "Meeting voice",
+      "Meeting intelligence",
+      "Learned rules",
+      "Recordings"
+     ],
+     "cloud": [
+      "AI cleanup (off)",
+      "Text near the cursor (with AI cleanup)"
+     ]
+    }
+   }
+  ],
+  "_general_rail_value": [
+   {
+    "args": [
+     {}
+    ],
+    "result": "Auto-paste on"
+   },
+   {
+    "args": [
+     {
+      "auto_paste": true
+     }
+    ],
+    "result": "Auto-paste on"
+   },
+   {
+    "args": [
+     {
+      "auto_paste": false
+     }
+    ],
+    "result": "Clipboard"
+   },
+   {
+    "args": [
+     {
+      "auto_paste": false,
+      "copy_clipboard": false
+     }
+    ],
+    "result": "Manual"
+   },
+   {
+    "args": [
+     {
+      "auto_paste": false,
+      "copy_clipboard": true
+     }
+    ],
+    "result": "Clipboard"
+   },
+   {
+    "args": [
+     {
+      "auto_paste": "yes"
+     }
+    ],
+    "result": "Auto-paste on"
+   },
+   {
+    "args": [
+     {
+      "auto_paste": 0
+     }
+    ],
+    "result": "Auto-paste on"
+   },
+   {
+    "args": [
+     {
+      "auto_paste": null,
+      "copy_clipboard": false
+     }
+    ],
+    "result": "Auto-paste on"
+   },
+   {
+    "args": [
+     {
+      "auto_paste": 1,
+      "copy_clipboard": false
+     }
+    ],
+    "result": "Auto-paste on"
+   }
+  ],
+  "appearance_rail_value": [
+   {
+    "args": [
+     {}
+    ],
+    "result": "Dark · Bars"
+   },
+   {
+    "args": [
+     {
+      "ui_theme": "light"
+     }
+    ],
+    "result": "Light · Bars"
+   },
+   {
+    "args": [
+     {
+      "ui_theme": "system",
+      "recording_overlay_look": "ribbon"
+     }
+    ],
+    "result": "Match system · Ribbon"
+   },
+   {
+    "args": [
+     {
+      "ui_theme": "omarchy",
+      "recording_overlay_look": "legacy"
+     }
+    ],
+    "result": "Omarchy desktop · Classic"
+   },
+   {
+    "args": [
+     {
+      "ui_theme": "unknown",
+      "recording_overlay_look": "orb"
+     }
+    ],
+    "result": "Dark · Pulse"
+   },
+   {
+    "args": [
+     {
+      "recording_overlay_look": "bubbles"
+     }
+    ],
+    "result": "Dark · Bait ball"
+   },
+   {
+    "args": [
+     {
+      "recording_overlay_look": "live"
+     }
+    ],
+    "result": "Dark · Ribbon"
+   },
+   {
+    "args": [
+     {
+      "recording_overlay_look": "glow",
+      "ui_theme": "dark"
+     }
+    ],
+    "result": "Dark · Deep-sea glow"
+   },
+   {
+    "args": [
+     {
+      "recording_overlay_look": 7
+     }
+    ],
+    "result": "Dark · Bars"
+   },
+   {
+    "args": [
+     {
+      "recording_overlay_look": "fish"
+     }
+    ],
+    "result": "Dark · Real fish"
+   },
+   {
+    "args": [
+     {
+      "recording_overlay_look": "fizz"
+     }
+    ],
+    "result": "Dark · Fizz"
+   },
+   {
+    "args": [
+     {
+      "recording_overlay_look": "wave"
+     }
+    ],
+    "result": "Dark · Mirror wave"
+   },
+   {
+    "args": [
+     {
+      "recording_overlay_look": "aurora"
+     }
+    ],
+    "result": "Dark · Aurora"
+   },
+   {
+    "args": [
+     {
+      "recording_overlay_look": "dots"
+     }
+    ],
+    "result": "Dark · Dots"
+   },
+   {
+    "args": [
+     {
+      "recording_overlay_look": "baitball"
+     }
+    ],
+    "result": "Dark · Bait ball"
+   },
+   {
+    "args": [
+     {
+      "recording_overlay_look": "pulse"
+     }
+    ],
+    "result": "Dark · Pulse"
+   }
+  ],
+  "developer_rail_value": [
+   {
+    "args": [
+     {}
+    ],
+    "result": "Developer mode off"
+   },
+   {
+    "args": [
+     {
+      "developer_mode": true
+     }
+    ],
+    "result": "Developer mode on"
+   },
+   {
+    "args": [
+     {
+      "developer_mode": false
+     }
+    ],
+    "result": "Developer mode off"
+   },
+   {
+    "args": [
+     {
+      "developer_mode": "true"
+     }
+    ],
+    "result": "Developer mode off"
+   },
+   {
+    "args": [
+     {
+      "developer_mode": 1
+     }
+    ],
+    "result": "Developer mode off"
+   }
+  ],
+  "SettingsDialog._hotkey_rail_value": [
+   {
+    "args": [
+     {
+      "record_toggle": "kp *"
+     }
+    ],
+    "result": {
+     "display": "*",
+     "value": "*"
+    }
+   },
+   {
+    "args": [
+     {
+      "record_toggle": ""
+     }
+    ],
+    "result": {
+     "display": "",
+     "value": "Not set"
+    }
+   },
+   {
+    "args": [
+     {
+      "record_toggle": "ctrl+alt+r"
+     }
+    ],
+    "result": {
+     "display": "Ctrl+Alt+R",
+     "value": "Ctrl+Alt+R"
+    }
+   },
+   {
+    "args": [
+     {
+      "cancel": "kp -"
+     }
+    ],
+    "result": {
+     "display": "",
+     "value": "Not set"
+    }
+   },
+   {
+    "args": [
+     {
+      "record_toggle": "ctrl+shift+f12"
+     }
+    ],
+    "result": {
+     "display": "Ctrl+Shift+F12",
+     "value": "Ctrl+Shift+F12"
+    }
+   },
+   {
+    "args": [
+     {
+      "record_toggle": "x1"
+     }
+    ],
+    "result": {
+     "display": "X1",
+     "value": "X1"
+    }
+   },
+   {
+    "args": [
+     {
+      "record_toggle": "alt+space"
+     }
+    ],
+    "result": {
+     "display": "Alt+Space",
+     "value": "Alt+Space"
+    }
+   },
+   {
+    "args": [
+     {
+      "record_toggle": "f9"
+     }
+    ],
+    "result": {
+     "display": "F9",
+     "value": "F9"
+    }
+   }
+  ],
+  "SettingsDialog._commit_retention": [
+   {
+    "args": [
+     {},
+     "custom",
+     20,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": null,
+     "persisted": null,
+     "applied": false,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {},
+     "custom",
+     20,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": null,
+     "persisted": null,
+     "applied": false,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {},
+     "custom",
+     10,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": [
+      10,
+      null
+     ],
+     "persisted": {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 10,
+      "max_saved_recordings_mb": 1024
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {},
+     "custom",
+     10,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": [
+      10,
+      null
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {}
+    }
+   },
+   {
+    "args": [
+     {},
+     "custom",
+     50,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": [
+      50,
+      null
+     ],
+     "persisted": {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50,
+      "max_saved_recordings_mb": 1024
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {},
+     "custom",
+     50,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": [
+      50,
+      null
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {}
+    }
+   },
+   {
+    "args": [
+     {},
+     "keep_all",
+     20,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": [
+      null,
+      null
+     ],
+     "persisted": {
+      "recording_retention_mode": "keep_all",
+      "max_saved_recordings": 20,
+      "max_saved_recordings_mb": 1024
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {},
+     "keep_all",
+     20,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": [
+      null,
+      null
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {}
+    }
+   },
+   {
+    "args": [
+     {},
+     "size_limit",
+     20,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": [
+      null,
+      1073741824
+     ],
+     "persisted": {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings": 20,
+      "max_saved_recordings_mb": 1024
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {},
+     "size_limit",
+     20,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": [
+      null,
+      1073741824
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {}
+    }
+   },
+   {
+    "args": [
+     {},
+     "size_limit",
+     20,
+     2048,
+     true
+    ],
+    "result": {
+     "confirm": [
+      null,
+      2147483648
+     ],
+     "persisted": {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings": 20,
+      "max_saved_recordings_mb": 2048
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {},
+     "size_limit",
+     20,
+     2048,
+     false
+    ],
+    "result": {
+     "confirm": [
+      null,
+      2147483648
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {}
+    }
+   },
+   {
+    "args": [
+     {},
+     "size_limit",
+     20,
+     100,
+     true
+    ],
+    "result": {
+     "confirm": [
+      null,
+      104857600
+     ],
+     "persisted": {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings": 20,
+      "max_saved_recordings_mb": 100
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {},
+     "size_limit",
+     20,
+     100,
+     false
+    ],
+    "result": {
+     "confirm": [
+      null,
+      104857600
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {}
+    }
+   },
+   {
+    "args": [
+     {},
+     "custom",
+     0,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": [
+      1,
+      null
+     ],
+     "persisted": {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 0,
+      "max_saved_recordings_mb": 1024
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {},
+     "custom",
+     0,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": [
+      1,
+      null
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {}
+    }
+   },
+   {
+    "args": [
+     {},
+     "bogus",
+     20,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": null,
+     "persisted": null,
+     "applied": false,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {},
+     "bogus",
+     20,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": null,
+     "persisted": null,
+     "applied": false,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "keep_all"
+     },
+     "custom",
+     20,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": [
+      20,
+      null
+     ],
+     "persisted": {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 20,
+      "max_saved_recordings_mb": 1024
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "keep_all"
+     },
+     "custom",
+     20,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": [
+      20,
+      null
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {
+      "recording_retention_mode": "keep_all"
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "keep_all"
+     },
+     "custom",
+     10,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": [
+      10,
+      null
+     ],
+     "persisted": {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 10,
+      "max_saved_recordings_mb": 1024
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "keep_all"
+     },
+     "custom",
+     10,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": [
+      10,
+      null
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {
+      "recording_retention_mode": "keep_all"
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "keep_all"
+     },
+     "custom",
+     50,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": [
+      50,
+      null
+     ],
+     "persisted": {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50,
+      "max_saved_recordings_mb": 1024
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "keep_all"
+     },
+     "custom",
+     50,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": [
+      50,
+      null
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {
+      "recording_retention_mode": "keep_all"
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "keep_all"
+     },
+     "keep_all",
+     20,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": null,
+     "persisted": null,
+     "applied": false,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "keep_all"
+     },
+     "keep_all",
+     20,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": null,
+     "persisted": null,
+     "applied": false,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "keep_all"
+     },
+     "size_limit",
+     20,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": [
+      null,
+      1073741824
+     ],
+     "persisted": {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings": 20,
+      "max_saved_recordings_mb": 1024
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "keep_all"
+     },
+     "size_limit",
+     20,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": [
+      null,
+      1073741824
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {
+      "recording_retention_mode": "keep_all"
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "keep_all"
+     },
+     "size_limit",
+     20,
+     2048,
+     true
+    ],
+    "result": {
+     "confirm": [
+      null,
+      2147483648
+     ],
+     "persisted": {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings": 20,
+      "max_saved_recordings_mb": 2048
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "keep_all"
+     },
+     "size_limit",
+     20,
+     2048,
+     false
+    ],
+    "result": {
+     "confirm": [
+      null,
+      2147483648
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {
+      "recording_retention_mode": "keep_all"
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "keep_all"
+     },
+     "size_limit",
+     20,
+     100,
+     true
+    ],
+    "result": {
+     "confirm": [
+      null,
+      104857600
+     ],
+     "persisted": {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings": 20,
+      "max_saved_recordings_mb": 100
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "keep_all"
+     },
+     "size_limit",
+     20,
+     100,
+     false
+    ],
+    "result": {
+     "confirm": [
+      null,
+      104857600
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {
+      "recording_retention_mode": "keep_all"
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "keep_all"
+     },
+     "custom",
+     0,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": [
+      1,
+      null
+     ],
+     "persisted": {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 0,
+      "max_saved_recordings_mb": 1024
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "keep_all"
+     },
+     "custom",
+     0,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": [
+      1,
+      null
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {
+      "recording_retention_mode": "keep_all"
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "keep_all"
+     },
+     "bogus",
+     20,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": [
+      20,
+      null
+     ],
+     "persisted": {
+      "recording_retention_mode": "bogus",
+      "max_saved_recordings": 20,
+      "max_saved_recordings_mb": 1024
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "keep_all"
+     },
+     "bogus",
+     20,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": [
+      20,
+      null
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {
+      "recording_retention_mode": "keep_all"
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     },
+     "custom",
+     20,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": [
+      20,
+      null
+     ],
+     "persisted": {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 20,
+      "max_saved_recordings_mb": 1024
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     },
+     "custom",
+     20,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": [
+      20,
+      null
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     },
+     "custom",
+     10,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": [
+      10,
+      null
+     ],
+     "persisted": {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 10,
+      "max_saved_recordings_mb": 1024
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     },
+     "custom",
+     10,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": [
+      10,
+      null
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     },
+     "custom",
+     50,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": null,
+     "persisted": null,
+     "applied": false,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     },
+     "custom",
+     50,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": null,
+     "persisted": null,
+     "applied": false,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     },
+     "keep_all",
+     20,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": [
+      null,
+      null
+     ],
+     "persisted": {
+      "recording_retention_mode": "keep_all",
+      "max_saved_recordings": 20,
+      "max_saved_recordings_mb": 1024
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     },
+     "keep_all",
+     20,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": [
+      null,
+      null
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     },
+     "size_limit",
+     20,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": [
+      null,
+      1073741824
+     ],
+     "persisted": {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings": 20,
+      "max_saved_recordings_mb": 1024
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     },
+     "size_limit",
+     20,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": [
+      null,
+      1073741824
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     },
+     "size_limit",
+     20,
+     2048,
+     true
+    ],
+    "result": {
+     "confirm": [
+      null,
+      2147483648
+     ],
+     "persisted": {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings": 20,
+      "max_saved_recordings_mb": 2048
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     },
+     "size_limit",
+     20,
+     2048,
+     false
+    ],
+    "result": {
+     "confirm": [
+      null,
+      2147483648
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     },
+     "size_limit",
+     20,
+     100,
+     true
+    ],
+    "result": {
+     "confirm": [
+      null,
+      104857600
+     ],
+     "persisted": {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings": 20,
+      "max_saved_recordings_mb": 100
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     },
+     "size_limit",
+     20,
+     100,
+     false
+    ],
+    "result": {
+     "confirm": [
+      null,
+      104857600
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     },
+     "custom",
+     0,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": [
+      1,
+      null
+     ],
+     "persisted": {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 0,
+      "max_saved_recordings_mb": 1024
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     },
+     "custom",
+     0,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": [
+      1,
+      null
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     },
+     "bogus",
+     20,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": [
+      20,
+      null
+     ],
+     "persisted": {
+      "recording_retention_mode": "bogus",
+      "max_saved_recordings": 20,
+      "max_saved_recordings_mb": 1024
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     },
+     "bogus",
+     20,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": [
+      20,
+      null
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     },
+     "custom",
+     20,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": [
+      20,
+      null
+     ],
+     "persisted": {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 20,
+      "max_saved_recordings_mb": 1024
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     },
+     "custom",
+     20,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": [
+      20,
+      null
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     },
+     "custom",
+     10,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": [
+      10,
+      null
+     ],
+     "persisted": {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 10,
+      "max_saved_recordings_mb": 1024
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     },
+     "custom",
+     10,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": [
+      10,
+      null
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     },
+     "custom",
+     50,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": [
+      50,
+      null
+     ],
+     "persisted": {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 50,
+      "max_saved_recordings_mb": 1024
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     },
+     "custom",
+     50,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": [
+      50,
+      null
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     },
+     "keep_all",
+     20,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": [
+      null,
+      null
+     ],
+     "persisted": {
+      "recording_retention_mode": "keep_all",
+      "max_saved_recordings": 20,
+      "max_saved_recordings_mb": 1024
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     },
+     "keep_all",
+     20,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": [
+      null,
+      null
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     },
+     "size_limit",
+     20,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": [
+      null,
+      1073741824
+     ],
+     "persisted": {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings": 20,
+      "max_saved_recordings_mb": 1024
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     },
+     "size_limit",
+     20,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": [
+      null,
+      1073741824
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     },
+     "size_limit",
+     20,
+     2048,
+     true
+    ],
+    "result": {
+     "confirm": null,
+     "persisted": null,
+     "applied": false,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     },
+     "size_limit",
+     20,
+     2048,
+     false
+    ],
+    "result": {
+     "confirm": null,
+     "persisted": null,
+     "applied": false,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     },
+     "size_limit",
+     20,
+     100,
+     true
+    ],
+    "result": {
+     "confirm": [
+      null,
+      104857600
+     ],
+     "persisted": {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings": 20,
+      "max_saved_recordings_mb": 100
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     },
+     "size_limit",
+     20,
+     100,
+     false
+    ],
+    "result": {
+     "confirm": [
+      null,
+      104857600
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     },
+     "custom",
+     0,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": [
+      1,
+      null
+     ],
+     "persisted": {
+      "recording_retention_mode": "custom",
+      "max_saved_recordings": 0,
+      "max_saved_recordings_mb": 1024
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     },
+     "custom",
+     0,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": [
+      1,
+      null
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     },
+     "bogus",
+     20,
+     1024,
+     true
+    ],
+    "result": {
+     "confirm": [
+      20,
+      null
+     ],
+     "persisted": {
+      "recording_retention_mode": "bogus",
+      "max_saved_recordings": 20,
+      "max_saved_recordings_mb": 1024
+     },
+     "applied": true,
+     "reloaded": null
+    }
+   },
+   {
+    "args": [
+     {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     },
+     "bogus",
+     20,
+     1024,
+     false
+    ],
+    "result": {
+     "confirm": [
+      20,
+      null
+     ],
+     "persisted": null,
+     "applied": false,
+     "reloaded": {
+      "recording_retention_mode": "size_limit",
+      "max_saved_recordings_mb": 2048
+     }
+    }
+   }
+  ],
+  "SettingsDialog._confirm_recording_removal": [
+   {
+    "args": [
+     null,
+     null,
+     [
+      100
+     ],
+     true
+    ],
+    "result": {
+     "result": true,
+     "previewed": [],
+     "asked": null
+    }
+   },
+   {
+    "args": [
+     20,
+     null,
+     [],
+     true
+    ],
+    "result": {
+     "result": true,
+     "previewed": [
+      [
+       20,
+       null
+      ]
+     ],
+     "asked": null
+    }
+   },
+   {
+    "args": [
+     20,
+     null,
+     [
+      1048576
+     ],
+     true
+    ],
+    "result": {
+     "result": true,
+     "previewed": [
+      [
+       20,
+       null
+      ]
+     ],
+     "asked": {
+      "title": "Delete 1 saved recording?",
+      "text": "The new limit permanently deletes 1 older saved recording (1.0 MB) from disk right away. This can't be undone.\n\nTranscription history text is kept.",
+      "default": "Cancel"
+     }
+    }
+   },
+   {
+    "args": [
+     20,
+     null,
+     [
+      1048576
+     ],
+     false
+    ],
+    "result": {
+     "result": false,
+     "previewed": [
+      [
+       20,
+       null
+      ]
+     ],
+     "asked": {
+      "title": "Delete 1 saved recording?",
+      "text": "The new limit permanently deletes 1 older saved recording (1.0 MB) from disk right away. This can't be undone.\n\nTranscription history text is kept.",
+      "default": "Cancel"
+     }
+    }
+   },
+   {
+    "args": [
+     5,
+     null,
+     [
+      1000,
+      2000,
+      3000
+     ],
+     true
+    ],
+    "result": {
+     "result": true,
+     "previewed": [
+      [
+       5,
+       null
+      ]
+     ],
+     "asked": {
+      "title": "Delete 3 saved recordings?",
+      "text": "The new limit permanently deletes 3 older saved recordings (5.9 KB) from disk right away. This can't be undone.\n\nTranscription history text is kept.",
+      "default": "Cancel"
+     }
+    }
+   },
+   {
+    "args": [
+     null,
+     104857600,
+     [
+      1536,
+      512
+     ],
+     false
+    ],
+    "result": {
+     "result": false,
+     "previewed": [
+      [
+       null,
+       104857600
+      ]
+     ],
+     "asked": {
+      "title": "Delete 2 saved recordings?",
+      "text": "The new limit permanently deletes 2 older saved recordings (2.0 KB) from disk right away. This can't be undone.\n\nTranscription history text is kept.",
+      "default": "Cancel"
+     }
+    }
+   },
+   {
+    "args": [
+     null,
+     1073741824,
+     [
+      5368709120
+     ],
+     true
+    ],
+    "result": {
+     "result": true,
+     "previewed": [
+      [
+       null,
+       1073741824
+      ]
+     ],
+     "asked": {
+      "title": "Delete 1 saved recording?",
+      "text": "The new limit permanently deletes 1 older saved recording (5.0 GB) from disk right away. This can't be undone.\n\nTranscription history text is kept.",
+      "default": "Cancel"
+     }
+    }
+   },
+   {
+    "args": [
+     1,
+     null,
+     [
+      0
+     ],
+     true
+    ],
+    "result": {
+     "result": true,
+     "previewed": [
+      [
+       1,
+       null
+      ]
+     ],
+     "asked": {
+      "title": "Delete 1 saved recording?",
+      "text": "The new limit permanently deletes 1 older saved recording (0 B) from disk right away. This can't be undone.\n\nTranscription history text is kept.",
+      "default": "Cancel"
+     }
+    }
+   }
+  ],
+  "SettingsDialog._apply_recordings_usage": [
+   {
+    "args": [
+     0,
+     0
+    ],
+    "result": "Currently 0 recordings using 0 B."
+   },
+   {
+    "args": [
+     1,
+     512
+    ],
+    "result": "Currently 1 recording using 512 B."
+   },
+   {
+    "args": [
+     2,
+     1536
+    ],
+    "result": "Currently 2 recordings using 1.5 KB."
+   },
+   {
+    "args": [
+     12,
+     1048576
+    ],
+    "result": "Currently 12 recordings using 1.0 MB."
+   },
+   {
+    "args": [
+     1,
+     5368709120
+    ],
+    "result": "Currently 1 recording using 5.0 GB."
+   }
+  ]
+ }
+}

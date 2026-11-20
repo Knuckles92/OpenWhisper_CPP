@@ -1,0 +1,487 @@
+{
+  "package": "M1.13, M2.8, M9.4",
+  "files": {
+    "tests/test_database.py": {
+      "TestDatabaseManager::test_history_cleanup_metadata_crud": {
+        "status": "ported",
+        "cpp": "tests/history/test_repository.cpp"
+      },
+      "TestDatabaseManager::test_history_crud": {
+        "status": "ported",
+        "cpp": "tests/history/test_repository.cpp"
+      },
+      "TestDatabaseManager::test_history_raw_text_crud": {
+        "status": "ported",
+        "cpp": "tests/history/test_repository.cpp"
+      },
+      "TestDatabaseManager::test_history_search_is_bounded_and_treats_wildcards_literally": {
+        "status": "ported",
+        "cpp": "tests/history/test_repository.cpp"
+      },
+      "TestDatabaseManager::test_history_source_name_crud": {
+        "status": "ported",
+        "cpp": "tests/history/test_repository.cpp"
+      }
+    },
+    "tests/test_format_utils.py": {
+      "test_format_audio_duration_keeps_subsecond_precision": {
+        "status": "ported",
+        "cpp": "tests/history/test_format_utils.cpp"
+      },
+      "test_format_timestamp_converts_aware_utc_to_local": {
+        "status": "ported",
+        "cpp": "tests/history/test_format_utils.cpp"
+      },
+      "test_format_timestamp_keeps_naive_legacy_wall_time": {
+        "status": "ported",
+        "cpp": "tests/history/test_format_utils.cpp"
+      },
+      "test_format_timestamp_returns_unreadable_values_unchanged": {
+        "status": "ported",
+        "cpp": "tests/history/test_format_utils.cpp"
+      },
+      "test_history_create_stores_aware_utc_and_empty_preview": {
+        "status": "ported",
+        "cpp": "tests/history/test_format_utils.cpp"
+      }
+    },
+    "tests/test_personalize_fix_f5_stats_spoken.py": {
+      "test_a_dictation_without_snippets_counts_as_before": {
+        "status": "ported",
+        "cpp": "tests/history/test_dictation_stats.cpp",
+        "note": "the transcription runtime harness is M1.14's; this replays what it saves (cleaned text, raw text, spoken_text) through HistoryManager.add_entry and StatsRepository.record"
+      },
+      "test_spoken_text_wins_over_the_saved_text": {
+        "status": "ported",
+        "cpp": "tests/history/test_dictation_stats.cpp"
+      }
+    },
+    "tests/test_personalize_foundation_history.py": {
+      "test_add_history_entry_stores_context_and_leaves_unset_ones_null": {
+        "status": "ported",
+        "cpp": "tests/history/test_manager.cpp"
+      },
+      "test_dictation_stats_rows_round_trip": {
+        "status": "ported",
+        "cpp": "tests/history/test_manager.cpp"
+      },
+      "test_failed_recording_retry_replaces_the_row_and_keeps_the_audio": {
+        "status": "ported",
+        "cpp": "tests/history/test_manager.cpp"
+      },
+      "test_history_manager_passes_context_through_and_drops_the_rest": {
+        "status": "ported",
+        "cpp": "tests/history/test_manager.cpp"
+      },
+      "test_only_known_context_columns_reach_the_model": {
+        "status": "ported",
+        "cpp": "tests/history/test_manager.cpp"
+      },
+      "test_history_export_carries_the_context_columns": {
+        "status": "ported",
+        "cpp": "tests/history/test_export.cpp"
+      }
+    },
+    "tests/test_personalize_s9_history_edit.py": {
+      "test_a_host_kept_entry_is_never_edited": {
+        "status": "ported",
+        "cpp": "tests/history/test_versions.cpp",
+        "note": "remote_history_entry arrives with record sync; the test builds the host-kept entry it returns (stored_on set) by hand"
+      },
+      "test_a_legacy_entry_fills_in_its_ai_version_on_the_first_undo": {
+        "status": "ported",
+        "cpp": "tests/history/test_versions.cpp"
+      },
+      "test_choosing_the_original_and_back_never_swaps_fields": {
+        "status": "ported",
+        "cpp": "tests/history/test_versions.cpp"
+      },
+      "test_choosing_the_version_already_shown_changes_nothing": {
+        "status": "ported",
+        "cpp": "tests/history/test_versions.cpp"
+      },
+      "test_last_dictation_skips_files_rewrites_and_other_computers": {
+        "status": "ported",
+        "cpp": "tests/history/test_versions.cpp"
+      },
+      "test_only_this_computers_entries_with_an_ai_edit_can_change": {
+        "status": "ported",
+        "cpp": "tests/history/test_versions.cpp"
+      },
+      "test_saving_an_ai_edit_keeps_both_versions": {
+        "status": "ported",
+        "cpp": "tests/history/test_versions.cpp"
+      },
+      "test_search_finds_entries_by_app": {
+        "status": "ported",
+        "cpp": "tests/history/test_versions.cpp"
+      },
+      "test_the_database_only_edits_the_text_fields": {
+        "status": "ported",
+        "cpp": "tests/history/test_versions.cpp"
+      },
+      "test_export_and_agents_read_the_chosen_text": {
+        "status": "ported",
+        "cpp": "tests/history/test_export.cpp"
+      }
+    },
+    "tests/test_personalize_s9_stats.py": {
+      "test_a_rewrite_adds_its_edits_but_no_spoken_words": {
+        "status": "ported",
+        "cpp": "tests/history/test_dictation_stats.cpp"
+      },
+      "test_a_saved_dictation_is_counted_from_its_entry": {
+        "status": "ported",
+        "cpp": "tests/history/test_dictation_stats.cpp",
+        "note": "dictation_pipeline.record_stats (M1.19/M1.14) is the StatsRepository.record call it wraps"
+      },
+      "test_earlier_dictations_are_counted_once_on_first_load": {
+        "status": "ported",
+        "cpp": "tests/history/test_dictation_stats.cpp",
+        "note": "load_summary is M2's: the summary numbers this test reads are checked on the rows load_summary counts (ensure_backfilled, count_features, then the counted and feature kinds)"
+      },
+      "test_files_add_no_dictated_words_and_other_computers_entries_are_not_counted": {
+        "status": "ported",
+        "cpp": "tests/history/test_dictation_stats.cpp",
+        "note": "load_summary is M2's: the summary numbers this test reads are checked on the rows load_summary counts (ensure_backfilled, count_features, then the counted and feature kinds)"
+      },
+      "test_listeners_hear_each_counted_dictation_once": {
+        "status": "ported",
+        "cpp": "tests/history/test_dictation_stats.cpp"
+      },
+      "test_local_times_convert_aware_times_and_keep_naive_ones": {
+        "status": "ported",
+        "cpp": "tests/history/test_dictation_stats.cpp"
+      },
+      "test_reset_clears_stats_keeps_history_and_doesnt_count_it_again": {
+        "status": "ported",
+        "cpp": "tests/history/test_dictation_stats.cpp",
+        "note": "load_summary is M2's: the summary numbers this test reads are checked on the rows load_summary counts (ensure_backfilled, count_features, then the counted and feature kinds)"
+      },
+      "test_words_count_spaces_or_cjk_characters": {
+        "status": "ported",
+        "cpp": "tests/history/test_dictation_stats.cpp"
+      },
+      "test_words_edited_counts_word_level_changes": {
+        "status": "ported",
+        "cpp": "tests/history/test_dictation_stats.cpp"
+      },
+      "test_the_summary_counts_days_pace_streak_and_apps": {
+        "status": "ported",
+        "cpp": "tests/history/test_stats_summary.cpp"
+      },
+      "test_time_of_day_and_weekday_follow_local_time": {
+        "status": "ported",
+        "cpp": "tests/history/test_stats_summary.cpp"
+      },
+      "test_time_saved_compares_typing_with_your_pace": {
+        "status": "ported",
+        "cpp": "tests/history/test_stats_summary.cpp"
+      },
+      "test_all_time_bars_are_months_back_to_the_first_dictation": {
+        "status": "ported",
+        "cpp": "tests/history/test_stats_summary.cpp"
+      },
+      "test_the_streak_survives_until_the_day_ends_and_breaks_on_a_gap": {
+        "status": "ported",
+        "cpp": "tests/history/test_stats_summary.cpp"
+      },
+      "test_activity_covers_a_year_ending_today": {
+        "status": "ported",
+        "cpp": "tests/history/test_stats_summary.cpp"
+      },
+      "test_days_follow_the_local_zone": {
+        "status": "ported",
+        "cpp": "tests/history/test_stats_summary.cpp"
+      },
+      "test_top_apps_keep_the_five_busiest": {
+        "status": "ported",
+        "cpp": "tests/history/test_stats_summary.cpp"
+      },
+      "test_the_next_milestone_is_the_smallest_above": {
+        "status": "ported",
+        "cpp": "tests/history/test_stats_summary.cpp"
+      }
+    },
+    "tests/test_recording_retention.py": {
+      "TestHistoryEntryDeletion::test_delete_entry_can_delete_attached_audio": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestHistoryEntryDeletion::test_delete_entry_keeps_audio_by_default": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestRecordingRetentionPersistence::test_save_and_resolve_custom": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestRecordingRetentionPersistence::test_save_and_resolve_keep_all": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestRecordingRetentionPersistence::test_save_and_resolve_size_limit": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestRecordingRotation::test_count_and_size_limits_both_apply": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestRecordingRotation::test_explicit_limit_does_not_read_settings": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp",
+        "note": "the explicit-limits constructor takes no settings, so not reading them is structural"
+      },
+      "TestRecordingRotation::test_keep_all_skips_rotation": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestRecordingRotation::test_omitted_limits_read_saved_size_policy": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestRecordingRotation::test_recordings_over_limit_previews_without_deleting": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestRecordingRotation::test_recordings_usage_totals_saved_audio": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestRecordingRotation::test_recordings_with_unparsable_names_fall_back_to_file_time": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestRecordingRotation::test_rotate_keeps_newest_n": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestRecordingRotation::test_same_second_recordings_never_overwrite_each_other": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestRecordingRotation::test_saving_rotates_by_size": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestRecordingRotation::test_set_retention_applies_immediately": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestRecordingRotation::test_set_retention_switches_to_size_limit": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestRecordingRotation::test_size_limit_always_keeps_newest": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestRecordingRotation::test_size_limit_exact_fit_keeps_everything": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestRecordingRotation::test_size_limit_keeps_newest_that_fit": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestResolveMaxSavedRecordings::test_custom_clamps_to_at_least_one": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestResolveMaxSavedRecordings::test_custom_uses_count": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestResolveMaxSavedRecordings::test_default_is_custom_config_limit": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestResolveMaxSavedRecordings::test_invalid_count_falls_back_to_config": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestResolveMaxSavedRecordings::test_keep_all_returns_none": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestResolveMaxSavedRecordings::test_size_limit_disables_count": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestResolveMaxSavedRecordingsBytes::test_default_has_no_size_limit": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestResolveMaxSavedRecordingsBytes::test_invalid_size_falls_back_to_config": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestResolveMaxSavedRecordingsBytes::test_other_modes_have_no_size_limit": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestResolveMaxSavedRecordingsBytes::test_size_clamps_to_at_least_one_megabyte": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestResolveMaxSavedRecordingsBytes::test_size_limit_converts_megabytes": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      },
+      "TestResolveMaxSavedRecordingsBytes::test_size_limit_defaults_to_config": {
+        "status": "ported",
+        "cpp": "tests/history/test_retention.cpp"
+      }
+    },
+    "tests/test_stats_features.py": {
+      "test_a_meeting_deleted_before_stats_were_opened_is_still_counted": {
+        "status": "ported",
+        "cpp": "tests/history/test_dictation_stats.cpp",
+        "note": "load_summary is M2's: the summary numbers this test reads are checked on the rows load_summary counts (ensure_backfilled, count_features, then the counted and feature kinds); meetings are inserted straight into the schema, and SqlMeetingRepository.delete_meeting (M7) is replayed as count_features, then deleting the meeting's rows"
+      },
+      "test_a_reset_forgets_past_meetings_and_counts_later_ones": {
+        "status": "ported",
+        "cpp": "tests/history/test_dictation_stats.cpp",
+        "note": "load_summary is M2's: the summary numbers this test reads are checked on the rows load_summary counts (ensure_backfilled, count_features, then the counted and feature kinds); meetings are inserted straight into the schema, and SqlMeetingRepository.delete_meeting (M7) is replayed as count_features, then deleting the meeting's rows"
+      },
+      "test_finished_meetings_are_counted_once_and_outlive_their_deletion": {
+        "status": "ported",
+        "cpp": "tests/history/test_dictation_stats.cpp",
+        "note": "load_summary is M2's: the summary numbers this test reads are checked on the rows load_summary counts (ensure_backfilled, count_features, then the counted and feature kinds); meetings are inserted straight into the schema, and SqlMeetingRepository.delete_meeting (M7) is replayed as count_features, then deleting the meeting's rows"
+      },
+      "test_history_from_before_is_counted_once_without_retranscribed_recordings": {
+        "status": "ported",
+        "cpp": "tests/history/test_dictation_stats.cpp",
+        "note": "load_summary is M2's: the summary numbers this test reads are checked on the rows load_summary counts (ensure_backfilled, count_features, then the counted and feature kinds); meetings are inserted straight into the schema, and SqlMeetingRepository.delete_meeting (M7) is replayed as count_features, then deleting the meeting's rows"
+      },
+      "test_each_feature_gets_its_own_counts_and_none_of_the_dictated_words": {
+        "status": "ported",
+        "cpp": "tests/history/test_stats_summary.cpp"
+      },
+      "test_a_feature_alone_keeps_no_streak_but_fills_the_window": {
+        "status": "ported",
+        "cpp": "tests/history/test_stats_summary.cpp"
+      },
+      "test_words_break_down_by_app_kind_cleanup_language_and_hour": {
+        "status": "ported",
+        "cpp": "tests/history/test_stats_summary.cpp"
+      },
+      "test_a_breakdown_no_row_names_is_left_out": {
+        "status": "ported",
+        "cpp": "tests/history/test_stats_summary.cpp"
+      }
+    },
+    "tests/test_history_export.py": {
+      "test_serialize_history_entry_adds_display_fields": {
+        "status": "ported",
+        "cpp": "tests/history/test_export.cpp"
+      },
+      "test_list_export_entries_uses_manager_order": {
+        "status": "ported",
+        "cpp": "tests/history/test_export.cpp"
+      },
+      "test_filter_export_entries_applies_date_and_audio": {
+        "status": "ported",
+        "cpp": "tests/history/test_export.cpp"
+      },
+      "test_markdown_toggles_cleaned_and_raw": {
+        "status": "ported",
+        "cpp": "tests/history/test_export.cpp"
+      },
+      "test_txt_and_json_ignore_markdown_toggles": {
+        "status": "ported",
+        "cpp": "tests/history/test_export.cpp"
+      },
+      "test_combined_documents_wrap_entries": {
+        "status": "ported",
+        "cpp": "tests/history/test_export.cpp"
+      },
+      "test_write_per_entry_files_disambiguates_stems": {
+        "status": "ported",
+        "cpp": "tests/history/test_export.cpp"
+      },
+      "test_write_per_entry_files_never_overwrites_prior_export": {
+        "status": "ported",
+        "cpp": "tests/history/test_export.cpp"
+      },
+      "test_entry_file_stem_uses_local_stamp_and_preview": {
+        "status": "ported",
+        "cpp": "tests/history/test_export.cpp"
+      }
+    },
+    "tests/test_history_calendar.py": {
+      "test_local_wall_time_converts_aware_values_and_keeps_naive_ones": {
+        "status": "ported",
+        "cpp": "tests/history/test_calendar.cpp"
+      },
+      "test_classify_source": {
+        "status": "ported",
+        "cpp": "tests/history/test_calendar.cpp"
+      },
+      "test_classify_source_trusts_the_entry_kind": {
+        "status": "ported",
+        "cpp": "tests/history/test_calendar.cpp"
+      },
+      "test_query_bounds_are_a_day_wider_than_the_month": {
+        "status": "ported",
+        "cpp": "tests/history/test_calendar.cpp"
+      },
+      "test_month_weeks_start_on_the_chosen_weekday": {
+        "status": "ported",
+        "cpp": "tests/history/test_calendar.cpp"
+      },
+      "test_shift_month_wraps_years": {
+        "status": "ported",
+        "cpp": "tests/history/test_calendar.cpp"
+      },
+      "test_milestones_and_labels": {
+        "status": "ported",
+        "cpp": "tests/history/test_calendar.cpp"
+      },
+      "test_index_counts_days_and_months_with_filters": {
+        "status": "ported",
+        "cpp": "tests/history/test_calendar.cpp"
+      },
+      "test_month_stats_pick_the_earliest_of_the_busiest_days": {
+        "status": "ported",
+        "cpp": "tests/history/test_calendar.cpp"
+      },
+      "test_streak_counts_back_from_today_or_yesterday": {
+        "status": "ported",
+        "cpp": "tests/history/test_calendar.cpp"
+      },
+      "test_milestones_follow_every_recording_in_time_order": {
+        "status": "ported",
+        "cpp": "tests/history/test_calendar.cpp"
+      },
+      "test_nearest_month_prefers_the_closer_then_the_earlier": {
+        "status": "ported",
+        "cpp": "tests/history/test_calendar.cpp"
+      },
+      "test_source_places_utc_entries_on_their_local_day": {
+        "status": "ported",
+        "cpp": "tests/history/test_calendar.cpp"
+      },
+      "test_source_sorts_rewrites_with_dictations_and_shows_given_titles": {
+        "status": "ported",
+        "cpp": "tests/history/test_calendar.cpp"
+      },
+      "test_source_merges_host_kept_records_and_copies": {"status": "ported", "cpp": "tests/remote_records/test_calendar_source.cpp", "note": "case: test_source_merges_host_kept_records_and_copies"},
+      "test_source_reports_an_unreachable_host": {"status": "ported", "cpp": "tests/history/test_calendar.cpp", "note": "case: source reports a fake host that cannot be reached (OpenWhisper's test uses a fake record sync too)"}
+    },
+    "tests/test_remote_records.py": {
+      "test_the_hosts_clear_keeps_paired_computers_entries": {
+        "status": "ported",
+        "cpp": "tests/history/test_origins.cpp",
+        "note": "the host part: the host already holds the entry as the client's move (M9.14) stores it, then clears"
+      }
+    },
+    "tests/test_personalize_coordinator.py": {
+      "test_export_says_when_the_original_was_kept": {
+        "status": "ported",
+        "cpp": "tests/history/test_export.cpp"
+      }
+    }
+  }
+}

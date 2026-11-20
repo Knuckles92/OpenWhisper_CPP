@@ -1,0 +1,1546 @@
+{
+ "module": "meeting.export.transcript_txt",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time",
+  "now_utc": "2026-01-01T00:00:00+00:00",
+  "timezone_note": "the machine's zone is America/New_York while a case runs (US rules since 2007, fold=0); replay with a FakeClock in that zone"
+ },
+ "functions": {
+  "format_clock": [
+   {
+    "args": [
+     0
+    ],
+    "result": "00:00:00"
+   },
+   {
+    "args": [
+     5.0
+    ],
+    "result": "00:00:05"
+   },
+   {
+    "args": [
+     59.999
+    ],
+    "result": "00:00:59"
+   },
+   {
+    "args": [
+     60
+    ],
+    "result": "00:01:00"
+   },
+   {
+    "args": [
+     3599
+    ],
+    "result": "00:59:59"
+   },
+   {
+    "args": [
+     3600
+    ],
+    "result": "01:00:00"
+   },
+   {
+    "args": [
+     3725.9
+    ],
+    "result": "01:02:05"
+   },
+   {
+    "args": [
+     86399
+    ],
+    "result": "23:59:59"
+   },
+   {
+    "args": [
+     360000
+    ],
+    "result": "100:00:00"
+   },
+   {
+    "args": [
+     -5
+    ],
+    "result": "00:00:00"
+   },
+   {
+    "args": [
+     -0.5
+    ],
+    "result": "00:00:00"
+   },
+   {
+    "args": [
+     10000000000.0
+    ],
+    "result": "2777777:46:40"
+   },
+   {
+    "args": [
+     true
+    ],
+    "result": "00:00:01"
+   }
+  ],
+  "format_mmss": [
+   {
+    "args": [
+     0
+    ],
+    "result": "00:00"
+   },
+   {
+    "args": [
+     5.9
+    ],
+    "result": "00:05"
+   },
+   {
+    "args": [
+     60
+    ],
+    "result": "01:00"
+   },
+   {
+    "args": [
+     3599
+    ],
+    "result": "59:59"
+   },
+   {
+    "args": [
+     3600
+    ],
+    "result": "60:00"
+   },
+   {
+    "args": [
+     3725.9
+    ],
+    "result": "62:05"
+   },
+   {
+    "args": [
+     -1
+    ],
+    "result": "00:00"
+   },
+   {
+    "args": [
+     360000
+    ],
+    "result": "6000:00"
+   }
+  ],
+  "resolve_title": [
+   {
+    "args": [
+     {},
+     {}
+    ],
+    "result": "Meeting"
+   },
+   {
+    "args": [
+     {},
+     {
+      "title": " State title "
+     }
+    ],
+    "result": "State title"
+   },
+   {
+    "args": [
+     {
+      "title": "Planning Sync",
+      "started_at": "2026-03-15T14:30:00"
+     },
+     {}
+    ],
+    "result": "Planning Sync"
+   },
+   {
+    "args": [
+     {
+      "title": "Planning Sync",
+      "started_at": "2026-03-15T14:30:00"
+     },
+     {
+      "title": " State title "
+     }
+    ],
+    "result": "Planning Sync"
+   },
+   {
+    "args": [
+     {
+      "title": "  ",
+      "started_at": "2026-09-20T01:30:00+00:00"
+     },
+     {}
+    ],
+    "result": "Meeting 2026-09-19"
+   },
+   {
+    "args": [
+     {
+      "title": "  ",
+      "started_at": "2026-09-20T01:30:00+00:00"
+     },
+     {
+      "title": " State title "
+     }
+    ],
+    "result": "State title"
+   },
+   {
+    "args": [
+     {
+      "title": null,
+      "started_at": "2026-03-08T07:30:00Z"
+     },
+     {}
+    ],
+    "result": "Meeting 2026-03-08"
+   },
+   {
+    "args": [
+     {
+      "title": null,
+      "started_at": "2026-03-08T07:30:00Z"
+     },
+     {
+      "title": " State title "
+     }
+    ],
+    "result": "State title"
+   },
+   {
+    "args": [
+     {
+      "started_at": "not a date"
+     },
+     {}
+    ],
+    "result": "Meeting"
+   },
+   {
+    "args": [
+     {
+      "started_at": "not a date"
+     },
+     {
+      "title": " State title "
+     }
+    ],
+    "result": "State title"
+   },
+   {
+    "args": [
+     {
+      "started_at": 20260820
+     },
+     {}
+    ],
+    "result": "Meeting 2026-08-20"
+   },
+   {
+    "args": [
+     {
+      "started_at": 20260820
+     },
+     {
+      "title": " State title "
+     }
+    ],
+    "result": "State title"
+   },
+   {
+    "args": [
+     {
+      "started_at": ""
+     },
+     {}
+    ],
+    "result": "Meeting"
+   },
+   {
+    "args": [
+     {
+      "started_at": ""
+     },
+     {
+      "title": " State title "
+     }
+    ],
+    "result": "State title"
+   },
+   {
+    "args": [
+     {
+      "title": " Kept ",
+      "started_at": "2026-11-01T05:30:00Z"
+     },
+     {}
+    ],
+    "result": "Kept"
+   },
+   {
+    "args": [
+     {
+      "title": " Kept ",
+      "started_at": "2026-11-01T05:30:00Z"
+     },
+     {
+      "title": " State title "
+     }
+    ],
+    "result": "Kept"
+   }
+  ],
+  "format_meeting_date": [
+   {
+    "args": [
+     {}
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     {
+      "title": "Planning Sync",
+      "started_at": "2026-03-15T14:30:00"
+     }
+    ],
+    "result": "2026-03-15 14:30"
+   },
+   {
+    "args": [
+     {
+      "title": "  ",
+      "started_at": "2026-09-20T01:30:00+00:00"
+     }
+    ],
+    "result": "2026-09-19 21:30"
+   },
+   {
+    "args": [
+     {
+      "title": null,
+      "started_at": "2026-03-08T07:30:00Z"
+     }
+    ],
+    "result": "2026-03-08 03:30"
+   },
+   {
+    "args": [
+     {
+      "started_at": "not a date"
+     }
+    ],
+    "result": "not a date"
+   },
+   {
+    "args": [
+     {
+      "started_at": 20260820
+     }
+    ],
+    "result": "2026-08-20 00:00"
+   },
+   {
+    "args": [
+     {
+      "started_at": ""
+     }
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     {
+      "title": " Kept ",
+      "started_at": "2026-11-01T05:30:00Z"
+     }
+    ],
+    "result": "2026-11-01 01:30"
+   }
+  ],
+  "participant_names": [
+   {
+    "args": [
+     {}
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     {
+      "title": " State title "
+     }
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     {
+      "title": "",
+      "participants": {
+       "p_2": {
+        "id": "p_2",
+        "display_name": "Sam",
+        "kind": "guest"
+       },
+       "p_blank": {
+        "id": "p_blank",
+        "display_name": "  ",
+        "kind": "others_cluster"
+       },
+       "p_none": {
+        "id": "p_none",
+        "display_name": null,
+        "kind": "me"
+       },
+       "p_me": {
+        "id": "p_me",
+        "display_name": " Alex ",
+        "kind": "me"
+       },
+       "p_3": {
+        "id": "p_3",
+        "display_name": "Speaker 3",
+        "kind": "others_cluster"
+       }
+      }
+     }
+    ],
+    "result": [
+     "Alex",
+     "Sam",
+     "Speaker 3"
+    ]
+   },
+   {
+    "args": [
+     {
+      "participants": null
+     }
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     {
+      "participants": {}
+     }
+    ],
+    "result": []
+   }
+  ],
+  "speaker_name": [
+   {
+    "args": [
+     {
+      "id": "sg_1",
+      "start_s": 5.0,
+      "end_s": 8.0,
+      "text": " Welcome everyone ",
+      "channel": "mic",
+      "speaker_participant_id": "p_me"
+     },
+     {
+      "p_2": {
+       "id": "p_2",
+       "display_name": "Sam",
+       "kind": "guest"
+      },
+      "p_blank": {
+       "id": "p_blank",
+       "display_name": "  ",
+       "kind": "others_cluster"
+      },
+      "p_none": {
+       "id": "p_none",
+       "display_name": null,
+       "kind": "me"
+      },
+      "p_me": {
+       "id": "p_me",
+       "display_name": " Alex ",
+       "kind": "me"
+      },
+      "p_3": {
+       "id": "p_3",
+       "display_name": "Speaker 3",
+       "kind": "others_cluster"
+      }
+     }
+    ],
+    "result": "Alex"
+   },
+   {
+    "args": [
+     {
+      "id": "sg_2",
+      "start_s": 10.4,
+      "text": "Let's plan Q3",
+      "channel": "loopback",
+      "speaker_participant_id": "p_2"
+     },
+     {
+      "p_2": {
+       "id": "p_2",
+       "display_name": "Sam",
+       "kind": "guest"
+      },
+      "p_blank": {
+       "id": "p_blank",
+       "display_name": "  ",
+       "kind": "others_cluster"
+      },
+      "p_none": {
+       "id": "p_none",
+       "display_name": null,
+       "kind": "me"
+      },
+      "p_me": {
+       "id": "p_me",
+       "display_name": " Alex ",
+       "kind": "me"
+      },
+      "p_3": {
+       "id": "p_3",
+       "display_name": "Speaker 3",
+       "kind": "others_cluster"
+      }
+     }
+    ],
+    "result": "Sam"
+   },
+   {
+    "args": [
+     {
+      "id": "sg_3",
+      "start_s": 3725.99,
+      "text": "Late",
+      "channel": "mic",
+      "speaker_participant_id": "p_blank"
+     },
+     {
+      "p_2": {
+       "id": "p_2",
+       "display_name": "Sam",
+       "kind": "guest"
+      },
+      "p_blank": {
+       "id": "p_blank",
+       "display_name": "  ",
+       "kind": "others_cluster"
+      },
+      "p_none": {
+       "id": "p_none",
+       "display_name": null,
+       "kind": "me"
+      },
+      "p_me": {
+       "id": "p_me",
+       "display_name": " Alex ",
+       "kind": "me"
+      },
+      "p_3": {
+       "id": "p_3",
+       "display_name": "Speaker 3",
+       "kind": "others_cluster"
+      }
+     }
+    ],
+    "result": "Me"
+   },
+   {
+    "args": [
+     {
+      "id": "sg_4",
+      "start_s": null,
+      "text": "No start",
+      "channel": "loopback"
+     },
+     {
+      "p_2": {
+       "id": "p_2",
+       "display_name": "Sam",
+       "kind": "guest"
+      },
+      "p_blank": {
+       "id": "p_blank",
+       "display_name": "  ",
+       "kind": "others_cluster"
+      },
+      "p_none": {
+       "id": "p_none",
+       "display_name": null,
+       "kind": "me"
+      },
+      "p_me": {
+       "id": "p_me",
+       "display_name": " Alex ",
+       "kind": "me"
+      },
+      "p_3": {
+       "id": "p_3",
+       "display_name": "Speaker 3",
+       "kind": "others_cluster"
+      }
+     }
+    ],
+    "result": "Others"
+   },
+   {
+    "args": [
+     {
+      "id": "sg_5",
+      "start_s": "12.5",
+      "text": "String start",
+      "speaker_participant_id": ""
+     },
+     {
+      "p_2": {
+       "id": "p_2",
+       "display_name": "Sam",
+       "kind": "guest"
+      },
+      "p_blank": {
+       "id": "p_blank",
+       "display_name": "  ",
+       "kind": "others_cluster"
+      },
+      "p_none": {
+       "id": "p_none",
+       "display_name": null,
+       "kind": "me"
+      },
+      "p_me": {
+       "id": "p_me",
+       "display_name": " Alex ",
+       "kind": "me"
+      },
+      "p_3": {
+       "id": "p_3",
+       "display_name": "Speaker 3",
+       "kind": "others_cluster"
+      }
+     }
+    ],
+    "result": "Others"
+   },
+   {
+    "args": [
+     {
+      "id": "sg_6",
+      "start_s": 7,
+      "text": "   "
+     },
+     {
+      "p_2": {
+       "id": "p_2",
+       "display_name": "Sam",
+       "kind": "guest"
+      },
+      "p_blank": {
+       "id": "p_blank",
+       "display_name": "  ",
+       "kind": "others_cluster"
+      },
+      "p_none": {
+       "id": "p_none",
+       "display_name": null,
+       "kind": "me"
+      },
+      "p_me": {
+       "id": "p_me",
+       "display_name": " Alex ",
+       "kind": "me"
+      },
+      "p_3": {
+       "id": "p_3",
+       "display_name": "Speaker 3",
+       "kind": "others_cluster"
+      }
+     }
+    ],
+    "result": "Others"
+   },
+   {
+    "args": [
+     {
+      "id": "sg_7",
+      "start_s": 360000,
+      "text": "A hundred hours",
+      "channel": "mic",
+      "speaker_participant_id": "p_unknown"
+     },
+     {
+      "p_2": {
+       "id": "p_2",
+       "display_name": "Sam",
+       "kind": "guest"
+      },
+      "p_blank": {
+       "id": "p_blank",
+       "display_name": "  ",
+       "kind": "others_cluster"
+      },
+      "p_none": {
+       "id": "p_none",
+       "display_name": null,
+       "kind": "me"
+      },
+      "p_me": {
+       "id": "p_me",
+       "display_name": " Alex ",
+       "kind": "me"
+      },
+      "p_3": {
+       "id": "p_3",
+       "display_name": "Speaker 3",
+       "kind": "others_cluster"
+      }
+     }
+    ],
+    "result": "Me"
+   },
+   {
+    "args": [
+     {
+      "id": "sg_8",
+      "start_s": -3,
+      "text": "Negative",
+      "channel": "other"
+     },
+     {
+      "p_2": {
+       "id": "p_2",
+       "display_name": "Sam",
+       "kind": "guest"
+      },
+      "p_blank": {
+       "id": "p_blank",
+       "display_name": "  ",
+       "kind": "others_cluster"
+      },
+      "p_none": {
+       "id": "p_none",
+       "display_name": null,
+       "kind": "me"
+      },
+      "p_me": {
+       "id": "p_me",
+       "display_name": " Alex ",
+       "kind": "me"
+      },
+      "p_3": {
+       "id": "p_3",
+       "display_name": "Speaker 3",
+       "kind": "others_cluster"
+      }
+     }
+    ],
+    "result": "Others"
+   },
+   {
+    "args": [
+     {
+      "channel": "mic"
+     },
+     {}
+    ],
+    "result": "Me"
+   }
+  ],
+  "transcript_lines": [
+   {
+    "args": [
+     [
+      {
+       "id": "sg_1",
+       "start_s": 5.0,
+       "end_s": 8.0,
+       "text": " Welcome everyone ",
+       "channel": "mic",
+       "speaker_participant_id": "p_me"
+      },
+      {
+       "id": "sg_2",
+       "start_s": 10.4,
+       "text": "Let's plan Q3",
+       "channel": "loopback",
+       "speaker_participant_id": "p_2"
+      },
+      {
+       "id": "sg_3",
+       "start_s": 3725.99,
+       "text": "Late",
+       "channel": "mic",
+       "speaker_participant_id": "p_blank"
+      },
+      {
+       "id": "sg_4",
+       "start_s": null,
+       "text": "No start",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_5",
+       "start_s": "12.5",
+       "text": "String start",
+       "speaker_participant_id": ""
+      },
+      {
+       "id": "sg_6",
+       "start_s": 7,
+       "text": "   "
+      },
+      {
+       "id": "sg_7",
+       "start_s": 360000,
+       "text": "A hundred hours",
+       "channel": "mic",
+       "speaker_participant_id": "p_unknown"
+      },
+      {
+       "id": "sg_8",
+       "start_s": -3,
+       "text": "Negative",
+       "channel": "other"
+      }
+     ],
+     {
+      "p_2": {
+       "id": "p_2",
+       "display_name": "Sam",
+       "kind": "guest"
+      },
+      "p_blank": {
+       "id": "p_blank",
+       "display_name": "  ",
+       "kind": "others_cluster"
+      },
+      "p_none": {
+       "id": "p_none",
+       "display_name": null,
+       "kind": "me"
+      },
+      "p_me": {
+       "id": "p_me",
+       "display_name": " Alex ",
+       "kind": "me"
+      },
+      "p_3": {
+       "id": "p_3",
+       "display_name": "Speaker 3",
+       "kind": "others_cluster"
+      }
+     }
+    ],
+    "result": [
+     "[00:00:05] Alex: Welcome everyone",
+     "[00:00:10] Sam: Let's plan Q3",
+     "[01:02:05] Me: Late",
+     "[00:00:00] Others: No start",
+     "[00:00:12] Others: String start",
+     "[100:00:00] Me: A hundred hours",
+     "[00:00:00] Others: Negative"
+    ]
+   },
+   {
+    "args": [
+     [],
+     {}
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     [
+      {
+       "id": "sg_1",
+       "start_s": 5.0,
+       "end_s": 8.0,
+       "text": " Welcome everyone ",
+       "channel": "mic",
+       "speaker_participant_id": "p_me"
+      },
+      {
+       "id": "sg_2",
+       "start_s": 10.4,
+       "text": "Let's plan Q3",
+       "channel": "loopback",
+       "speaker_participant_id": "p_2"
+      }
+     ],
+     {}
+    ],
+    "result": [
+     "[00:00:05] Me: Welcome everyone",
+     "[00:00:10] Others: Let's plan Q3"
+    ]
+   }
+  ],
+  "export_transcript_txt": [
+   {
+    "args": [
+     {},
+     {
+      "title": " State title "
+     },
+     [
+      {
+       "id": "sg_1",
+       "start_s": 5.0,
+       "end_s": 8.0,
+       "text": " Welcome everyone ",
+       "channel": "mic",
+       "speaker_participant_id": "p_me"
+      },
+      {
+       "id": "sg_2",
+       "start_s": 10.4,
+       "text": "Let's plan Q3",
+       "channel": "loopback",
+       "speaker_participant_id": "p_2"
+      },
+      {
+       "id": "sg_3",
+       "start_s": 3725.99,
+       "text": "Late",
+       "channel": "mic",
+       "speaker_participant_id": "p_blank"
+      },
+      {
+       "id": "sg_4",
+       "start_s": null,
+       "text": "No start",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_5",
+       "start_s": "12.5",
+       "text": "String start",
+       "speaker_participant_id": ""
+      },
+      {
+       "id": "sg_6",
+       "start_s": 7,
+       "text": "   "
+      },
+      {
+       "id": "sg_7",
+       "start_s": 360000,
+       "text": "A hundred hours",
+       "channel": "mic",
+       "speaker_participant_id": "p_unknown"
+      },
+      {
+       "id": "sg_8",
+       "start_s": -3,
+       "text": "Negative",
+       "channel": "other"
+      }
+     ]
+    ],
+    "result": "State title\n\n[00:00:05] Me: Welcome everyone\n[00:00:10] Others: Let's plan Q3\n[01:02:05] Me: Late\n[00:00:00] Others: No start\n[00:00:12] Others: String start\n[100:00:00] Me: A hundred hours\n[00:00:00] Others: Negative\n"
+   },
+   {
+    "args": [
+     {},
+     {
+      "title": "",
+      "participants": {
+       "p_2": {
+        "id": "p_2",
+        "display_name": "Sam",
+        "kind": "guest"
+       },
+       "p_blank": {
+        "id": "p_blank",
+        "display_name": "  ",
+        "kind": "others_cluster"
+       },
+       "p_none": {
+        "id": "p_none",
+        "display_name": null,
+        "kind": "me"
+       },
+       "p_me": {
+        "id": "p_me",
+        "display_name": " Alex ",
+        "kind": "me"
+       },
+       "p_3": {
+        "id": "p_3",
+        "display_name": "Speaker 3",
+        "kind": "others_cluster"
+       }
+      }
+     },
+     [
+      {
+       "id": "sg_1",
+       "start_s": 5.0,
+       "end_s": 8.0,
+       "text": " Welcome everyone ",
+       "channel": "mic",
+       "speaker_participant_id": "p_me"
+      },
+      {
+       "id": "sg_2",
+       "start_s": 10.4,
+       "text": "Let's plan Q3",
+       "channel": "loopback",
+       "speaker_participant_id": "p_2"
+      },
+      {
+       "id": "sg_3",
+       "start_s": 3725.99,
+       "text": "Late",
+       "channel": "mic",
+       "speaker_participant_id": "p_blank"
+      },
+      {
+       "id": "sg_4",
+       "start_s": null,
+       "text": "No start",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_5",
+       "start_s": "12.5",
+       "text": "String start",
+       "speaker_participant_id": ""
+      },
+      {
+       "id": "sg_6",
+       "start_s": 7,
+       "text": "   "
+      },
+      {
+       "id": "sg_7",
+       "start_s": 360000,
+       "text": "A hundred hours",
+       "channel": "mic",
+       "speaker_participant_id": "p_unknown"
+      },
+      {
+       "id": "sg_8",
+       "start_s": -3,
+       "text": "Negative",
+       "channel": "other"
+      }
+     ]
+    ],
+    "result": "Meeting\nParticipants: Alex, Sam, Speaker 3\n\n[00:00:05] Alex: Welcome everyone\n[00:00:10] Sam: Let's plan Q3\n[01:02:05] Me: Late\n[00:00:00] Others: No start\n[00:00:12] Others: String start\n[100:00:00] Me: A hundred hours\n[00:00:00] Others: Negative\n"
+   },
+   {
+    "args": [
+     {
+      "title": "Planning Sync",
+      "started_at": "2026-03-15T14:30:00"
+     },
+     {
+      "title": " State title "
+     },
+     [
+      {
+       "id": "sg_1",
+       "start_s": 5.0,
+       "end_s": 8.0,
+       "text": " Welcome everyone ",
+       "channel": "mic",
+       "speaker_participant_id": "p_me"
+      },
+      {
+       "id": "sg_2",
+       "start_s": 10.4,
+       "text": "Let's plan Q3",
+       "channel": "loopback",
+       "speaker_participant_id": "p_2"
+      },
+      {
+       "id": "sg_3",
+       "start_s": 3725.99,
+       "text": "Late",
+       "channel": "mic",
+       "speaker_participant_id": "p_blank"
+      },
+      {
+       "id": "sg_4",
+       "start_s": null,
+       "text": "No start",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_5",
+       "start_s": "12.5",
+       "text": "String start",
+       "speaker_participant_id": ""
+      },
+      {
+       "id": "sg_6",
+       "start_s": 7,
+       "text": "   "
+      },
+      {
+       "id": "sg_7",
+       "start_s": 360000,
+       "text": "A hundred hours",
+       "channel": "mic",
+       "speaker_participant_id": "p_unknown"
+      },
+      {
+       "id": "sg_8",
+       "start_s": -3,
+       "text": "Negative",
+       "channel": "other"
+      }
+     ]
+    ],
+    "result": "Planning Sync\n2026-03-15 14:30\n\n[00:00:05] Me: Welcome everyone\n[00:00:10] Others: Let's plan Q3\n[01:02:05] Me: Late\n[00:00:00] Others: No start\n[00:00:12] Others: String start\n[100:00:00] Me: A hundred hours\n[00:00:00] Others: Negative\n"
+   },
+   {
+    "args": [
+     {
+      "title": "Planning Sync",
+      "started_at": "2026-03-15T14:30:00"
+     },
+     {
+      "title": "",
+      "participants": {
+       "p_2": {
+        "id": "p_2",
+        "display_name": "Sam",
+        "kind": "guest"
+       },
+       "p_blank": {
+        "id": "p_blank",
+        "display_name": "  ",
+        "kind": "others_cluster"
+       },
+       "p_none": {
+        "id": "p_none",
+        "display_name": null,
+        "kind": "me"
+       },
+       "p_me": {
+        "id": "p_me",
+        "display_name": " Alex ",
+        "kind": "me"
+       },
+       "p_3": {
+        "id": "p_3",
+        "display_name": "Speaker 3",
+        "kind": "others_cluster"
+       }
+      }
+     },
+     [
+      {
+       "id": "sg_1",
+       "start_s": 5.0,
+       "end_s": 8.0,
+       "text": " Welcome everyone ",
+       "channel": "mic",
+       "speaker_participant_id": "p_me"
+      },
+      {
+       "id": "sg_2",
+       "start_s": 10.4,
+       "text": "Let's plan Q3",
+       "channel": "loopback",
+       "speaker_participant_id": "p_2"
+      },
+      {
+       "id": "sg_3",
+       "start_s": 3725.99,
+       "text": "Late",
+       "channel": "mic",
+       "speaker_participant_id": "p_blank"
+      },
+      {
+       "id": "sg_4",
+       "start_s": null,
+       "text": "No start",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_5",
+       "start_s": "12.5",
+       "text": "String start",
+       "speaker_participant_id": ""
+      },
+      {
+       "id": "sg_6",
+       "start_s": 7,
+       "text": "   "
+      },
+      {
+       "id": "sg_7",
+       "start_s": 360000,
+       "text": "A hundred hours",
+       "channel": "mic",
+       "speaker_participant_id": "p_unknown"
+      },
+      {
+       "id": "sg_8",
+       "start_s": -3,
+       "text": "Negative",
+       "channel": "other"
+      }
+     ]
+    ],
+    "result": "Planning Sync\n2026-03-15 14:30\nParticipants: Alex, Sam, Speaker 3\n\n[00:00:05] Alex: Welcome everyone\n[00:00:10] Sam: Let's plan Q3\n[01:02:05] Me: Late\n[00:00:00] Others: No start\n[00:00:12] Others: String start\n[100:00:00] Me: A hundred hours\n[00:00:00] Others: Negative\n"
+   },
+   {
+    "args": [
+     {
+      "title": "  ",
+      "started_at": "2026-09-20T01:30:00+00:00"
+     },
+     {
+      "title": " State title "
+     },
+     [
+      {
+       "id": "sg_1",
+       "start_s": 5.0,
+       "end_s": 8.0,
+       "text": " Welcome everyone ",
+       "channel": "mic",
+       "speaker_participant_id": "p_me"
+      },
+      {
+       "id": "sg_2",
+       "start_s": 10.4,
+       "text": "Let's plan Q3",
+       "channel": "loopback",
+       "speaker_participant_id": "p_2"
+      },
+      {
+       "id": "sg_3",
+       "start_s": 3725.99,
+       "text": "Late",
+       "channel": "mic",
+       "speaker_participant_id": "p_blank"
+      },
+      {
+       "id": "sg_4",
+       "start_s": null,
+       "text": "No start",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_5",
+       "start_s": "12.5",
+       "text": "String start",
+       "speaker_participant_id": ""
+      },
+      {
+       "id": "sg_6",
+       "start_s": 7,
+       "text": "   "
+      },
+      {
+       "id": "sg_7",
+       "start_s": 360000,
+       "text": "A hundred hours",
+       "channel": "mic",
+       "speaker_participant_id": "p_unknown"
+      },
+      {
+       "id": "sg_8",
+       "start_s": -3,
+       "text": "Negative",
+       "channel": "other"
+      }
+     ]
+    ],
+    "result": "State title\n2026-09-19 21:30\n\n[00:00:05] Me: Welcome everyone\n[00:00:10] Others: Let's plan Q3\n[01:02:05] Me: Late\n[00:00:00] Others: No start\n[00:00:12] Others: String start\n[100:00:00] Me: A hundred hours\n[00:00:00] Others: Negative\n"
+   },
+   {
+    "args": [
+     {
+      "title": "  ",
+      "started_at": "2026-09-20T01:30:00+00:00"
+     },
+     {
+      "title": "",
+      "participants": {
+       "p_2": {
+        "id": "p_2",
+        "display_name": "Sam",
+        "kind": "guest"
+       },
+       "p_blank": {
+        "id": "p_blank",
+        "display_name": "  ",
+        "kind": "others_cluster"
+       },
+       "p_none": {
+        "id": "p_none",
+        "display_name": null,
+        "kind": "me"
+       },
+       "p_me": {
+        "id": "p_me",
+        "display_name": " Alex ",
+        "kind": "me"
+       },
+       "p_3": {
+        "id": "p_3",
+        "display_name": "Speaker 3",
+        "kind": "others_cluster"
+       }
+      }
+     },
+     [
+      {
+       "id": "sg_1",
+       "start_s": 5.0,
+       "end_s": 8.0,
+       "text": " Welcome everyone ",
+       "channel": "mic",
+       "speaker_participant_id": "p_me"
+      },
+      {
+       "id": "sg_2",
+       "start_s": 10.4,
+       "text": "Let's plan Q3",
+       "channel": "loopback",
+       "speaker_participant_id": "p_2"
+      },
+      {
+       "id": "sg_3",
+       "start_s": 3725.99,
+       "text": "Late",
+       "channel": "mic",
+       "speaker_participant_id": "p_blank"
+      },
+      {
+       "id": "sg_4",
+       "start_s": null,
+       "text": "No start",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_5",
+       "start_s": "12.5",
+       "text": "String start",
+       "speaker_participant_id": ""
+      },
+      {
+       "id": "sg_6",
+       "start_s": 7,
+       "text": "   "
+      },
+      {
+       "id": "sg_7",
+       "start_s": 360000,
+       "text": "A hundred hours",
+       "channel": "mic",
+       "speaker_participant_id": "p_unknown"
+      },
+      {
+       "id": "sg_8",
+       "start_s": -3,
+       "text": "Negative",
+       "channel": "other"
+      }
+     ]
+    ],
+    "result": "Meeting 2026-09-19\n2026-09-19 21:30\nParticipants: Alex, Sam, Speaker 3\n\n[00:00:05] Alex: Welcome everyone\n[00:00:10] Sam: Let's plan Q3\n[01:02:05] Me: Late\n[00:00:00] Others: No start\n[00:00:12] Others: String start\n[100:00:00] Me: A hundred hours\n[00:00:00] Others: Negative\n"
+   },
+   {
+    "args": [
+     {
+      "title": null,
+      "started_at": "2026-03-08T07:30:00Z"
+     },
+     {
+      "title": " State title "
+     },
+     [
+      {
+       "id": "sg_1",
+       "start_s": 5.0,
+       "end_s": 8.0,
+       "text": " Welcome everyone ",
+       "channel": "mic",
+       "speaker_participant_id": "p_me"
+      },
+      {
+       "id": "sg_2",
+       "start_s": 10.4,
+       "text": "Let's plan Q3",
+       "channel": "loopback",
+       "speaker_participant_id": "p_2"
+      },
+      {
+       "id": "sg_3",
+       "start_s": 3725.99,
+       "text": "Late",
+       "channel": "mic",
+       "speaker_participant_id": "p_blank"
+      },
+      {
+       "id": "sg_4",
+       "start_s": null,
+       "text": "No start",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_5",
+       "start_s": "12.5",
+       "text": "String start",
+       "speaker_participant_id": ""
+      },
+      {
+       "id": "sg_6",
+       "start_s": 7,
+       "text": "   "
+      },
+      {
+       "id": "sg_7",
+       "start_s": 360000,
+       "text": "A hundred hours",
+       "channel": "mic",
+       "speaker_participant_id": "p_unknown"
+      },
+      {
+       "id": "sg_8",
+       "start_s": -3,
+       "text": "Negative",
+       "channel": "other"
+      }
+     ]
+    ],
+    "result": "State title\n2026-03-08 03:30\n\n[00:00:05] Me: Welcome everyone\n[00:00:10] Others: Let's plan Q3\n[01:02:05] Me: Late\n[00:00:00] Others: No start\n[00:00:12] Others: String start\n[100:00:00] Me: A hundred hours\n[00:00:00] Others: Negative\n"
+   },
+   {
+    "args": [
+     {
+      "title": null,
+      "started_at": "2026-03-08T07:30:00Z"
+     },
+     {
+      "title": "",
+      "participants": {
+       "p_2": {
+        "id": "p_2",
+        "display_name": "Sam",
+        "kind": "guest"
+       },
+       "p_blank": {
+        "id": "p_blank",
+        "display_name": "  ",
+        "kind": "others_cluster"
+       },
+       "p_none": {
+        "id": "p_none",
+        "display_name": null,
+        "kind": "me"
+       },
+       "p_me": {
+        "id": "p_me",
+        "display_name": " Alex ",
+        "kind": "me"
+       },
+       "p_3": {
+        "id": "p_3",
+        "display_name": "Speaker 3",
+        "kind": "others_cluster"
+       }
+      }
+     },
+     [
+      {
+       "id": "sg_1",
+       "start_s": 5.0,
+       "end_s": 8.0,
+       "text": " Welcome everyone ",
+       "channel": "mic",
+       "speaker_participant_id": "p_me"
+      },
+      {
+       "id": "sg_2",
+       "start_s": 10.4,
+       "text": "Let's plan Q3",
+       "channel": "loopback",
+       "speaker_participant_id": "p_2"
+      },
+      {
+       "id": "sg_3",
+       "start_s": 3725.99,
+       "text": "Late",
+       "channel": "mic",
+       "speaker_participant_id": "p_blank"
+      },
+      {
+       "id": "sg_4",
+       "start_s": null,
+       "text": "No start",
+       "channel": "loopback"
+      },
+      {
+       "id": "sg_5",
+       "start_s": "12.5",
+       "text": "String start",
+       "speaker_participant_id": ""
+      },
+      {
+       "id": "sg_6",
+       "start_s": 7,
+       "text": "   "
+      },
+      {
+       "id": "sg_7",
+       "start_s": 360000,
+       "text": "A hundred hours",
+       "channel": "mic",
+       "speaker_participant_id": "p_unknown"
+      },
+      {
+       "id": "sg_8",
+       "start_s": -3,
+       "text": "Negative",
+       "channel": "other"
+      }
+     ]
+    ],
+    "result": "Meeting 2026-03-08\n2026-03-08 03:30\nParticipants: Alex, Sam, Speaker 3\n\n[00:00:05] Alex: Welcome everyone\n[00:00:10] Sam: Let's plan Q3\n[01:02:05] Me: Late\n[00:00:00] Others: No start\n[00:00:12] Others: String start\n[100:00:00] Me: A hundred hours\n[00:00:00] Others: Negative\n"
+   },
+   {
+    "args": [
+     {},
+     {},
+     []
+    ],
+    "result": "Meeting\n\n(no transcript)\n"
+   },
+   {
+    "args": [
+     {
+      "started_at": "not a date"
+     },
+     {},
+     []
+    ],
+    "result": "Meeting\nnot a date\n\n(no transcript)\n"
+   }
+  ]
+ }
+}

@@ -1,0 +1,153 @@
+{
+  "package": "M6.7, M6.14",
+  "files": {
+    "tests/test_walkthrough_document.py": {
+      "test_pdf_holds_the_words_and_captions_as_text": {
+        "status": "ported",
+        "cpp": "tests/documents/test_pdf.cpp"
+      },
+      "test_pdf_metadata_names_the_walkthrough": {
+        "status": "ported",
+        "cpp": "tests/documents/test_pdf.cpp"
+      },
+      "test_a_section_that_would_split_starts_the_next_page": {
+        "status": "ported",
+        "cpp": "tests/documents/test_pdf.cpp"
+      },
+      "test_a_screenshot_without_words_moves_whole": {
+        "status": "ported",
+        "cpp": "tests/documents/test_pdf.cpp"
+      },
+      "test_a_screenshot_without_words_is_never_shrunk": {
+        "status": "ported",
+        "cpp": "tests/documents/test_pdf.cpp"
+      },
+      "test_the_first_section_stays_on_the_first_page_with_the_title": {
+        "status": "ported",
+        "cpp": "tests/documents/test_pdf.cpp"
+      },
+      "test_a_section_longer_than_a_page_flows_on": {
+        "status": "ported",
+        "cpp": "tests/documents/test_pdf.cpp"
+      },
+      "test_write_pdf_works_on_a_worker_thread": {
+        "status": "ported",
+        "cpp": "tests/documents/test_pdf.cpp"
+      },
+      "test_a_walkthrough_without_screenshots_is_text_only": {
+        "status": "ported",
+        "cpp": "tests/documents/test_pdf.cpp"
+      },
+      "test_a_walkthrough_with_nothing_said_still_writes_its_header": {
+        "status": "ported",
+        "cpp": "tests/documents/test_pdf.cpp"
+      },
+      "test_an_unreadable_screenshot_keeps_its_words_and_caption": {
+        "status": "ported",
+        "cpp": "tests/documents/test_pdf.cpp"
+      },
+      "test_an_unwritable_pdf_raises": {
+        "status": "ported",
+        "cpp": "tests/documents/test_pdf.cpp"
+      },
+      "test_paper_follows_the_locale_unless_given": {
+        "status": "ported",
+        "cpp": "tests/documents/test_pdf.cpp"
+      },
+      "test_pdf_without_a_header_or_captions_holds_only_the_words": {
+        "status": "ported",
+        "cpp": "tests/documents/test_pdf.cpp"
+      },
+      "test_pdf_uses_the_chosen_title": {
+        "status": "ported",
+        "cpp": "tests/documents/test_pdf.cpp"
+      },
+      "test_without_captions_a_section_still_stays_on_one_page": {
+        "status": "ported",
+        "cpp": "tests/documents/test_pdf.cpp"
+      }
+    },
+    "tests/test_walkthrough_write_up.py": {
+      "test_the_look_colours_the_words_but_not_links": {
+        "status": "ported",
+        "cpp": "tests/documents/test_markdown_pdf.cpp"
+      },
+      "test_a_colour_qt_cant_read_leaves_the_words_as_they_were": {
+        "status": "ported",
+        "cpp": "tests/documents/test_markdown_pdf.cpp"
+      },
+      "test_purple_text_comes_out_purple_in_the_pdf": {
+        "status": "ported",
+        "cpp": "tests/documents/test_markdown_pdf.cpp"
+      },
+      "test_any_markdown_lays_out_with_its_screenshots_framed": {
+        "status": "ported",
+        "cpp": "tests/documents/test_markdown_pdf.cpp"
+      },
+      "test_list_numbers_and_bullets_are_in_the_pdf": {
+        "status": "ported",
+        "cpp": "tests/documents/test_markdown_pdf.cpp"
+      },
+      "test_a_screenshot_in_a_list_keeps_to_its_column": {
+        "status": "ported",
+        "cpp": "tests/documents/test_markdown_pdf.cpp"
+      },
+      "test_a_tables_cells_are_placed_below_the_title": {
+        "status": "ported",
+        "cpp": "tests/documents/test_markdown_pdf.cpp"
+      },
+      "test_a_missing_screenshot_is_left_out_and_html_is_only_text": {
+        "status": "ported",
+        "cpp": "tests/documents/test_markdown_pdf.cpp"
+      },
+      "test_a_screenshot_keeps_its_heading_and_words_on_its_page": {
+        "status": "ported",
+        "cpp": "tests/documents/test_markdown_pdf.cpp"
+      }
+    },
+    "tests/test_walkthrough_document_threads.py": {
+      "test_write_ups_written_back_to_back_on_a_worker_stay_usable": {
+        "status": "ported",
+        "cpp": "tests/documents/test_threads.cpp"
+      },
+      "test_a_worker_never_waits_for_a_blocked_main_thread": {
+        "status": "ported",
+        "cpp": "tests/documents/test_threads.cpp"
+      },
+      "test_a_document_built_on_a_worker_is_deleted_on_the_main_thread": {
+        "status": "dropped",
+        "reason": "Works around a PyQt wrapper problem (_release, _MainThreadDeleter): a worker-built QTextDocument's destroyed signal reached PyQt's monitor too late. C++ deletes each document on the thread that built it."
+      },
+      "test_write_ups_can_be_written_on_the_main_thread": {
+        "status": "ported",
+        "cpp": "tests/documents/test_threads.cpp"
+      }
+    },
+    "tests/test_walkthrough_word.py": {
+      "test_a_walkthrough_reads_as_its_pdf_does_with_each_section_kept_on_a_page": {
+        "status": "ported",
+        "cpp": "tests/documents/test_docx.cpp"
+      },
+      "test_the_documents_format_settings_apply_to_word_too": {
+        "status": "ported",
+        "cpp": "tests/documents/test_docx.cpp"
+      },
+      "test_a_write_up_keeps_its_structure_links_and_look": {
+        "status": "ported",
+        "cpp": "tests/documents/test_docx.cpp"
+      },
+      "test_word_documents_are_written_beside_the_pdf_and_copied_as_files": {
+        "status": "ported",
+        "cpp": "tests/documents/test_docx.cpp"
+      },
+      "test_the_word_document_is_sized_in_points_like_the_pdf": {
+        "status": "ported",
+        "cpp": "tests/documents/test_docx.cpp"
+      },
+      "test_agent_copy_includes_selected_pdf_and_action_instructions": {
+        "status": "ported",
+        "cpp": "tests/documents/test_docx.cpp"
+      }
+    }
+  }
+}

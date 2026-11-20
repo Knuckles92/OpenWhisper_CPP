@@ -1,0 +1,1124 @@
+{
+ "area": "a32-user-facing-features",
+ "package": "M10 sweep",
+ "features": {},
+ "differences": [],
+ "checklist": {
+  "WT-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp",
+    "src/ui_widgets/tabbed_content.cpp",
+    "src/ui_shell/main_window.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_main_window.cpp",
+    "tests/ui_walkthrough/test_tab_column.cpp",
+    "tests/ui_shell/test_recording_relay.cpp",
+    "tests/ui_controller/test_walkthrough_window.cpp"
+   ],
+   "note": "Tab order Quick Record, Upload File, Walkthrough, Meeting Mode (test_main_window.cpp tab titles); Start/Finish Walkthrough with Cancel in the shortcuts slot, hover pill shows the start shortcut, badge New then ? with walkthrough_intro_seen (test_tab_column.cpp: during a walkthrough the tab finishes or cancels it, the tab shows both shortcuts, the badge says new until the first walkthrough); the Walkthrough tab stays in front when its recording starts (test_recording_relay.cpp)."
+  },
+  "WT-02": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp",
+    "src/ui_widgets/studio.cpp",
+    "src/ui_shell/main_window.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_stage.cpp",
+    "tests/ui_walkthrough/test_tab_column.cpp",
+    "tests/ui_widgets/test_composite_widgets.cpp",
+    "tests/ui_controller/test_walkthrough_window.cpp"
+   ],
+   "note": "Column 320 (test_tab_column: a larger type size widens the column) + gap 16 + stage 704 (test_composite_widgets stage sizeHint) = preferredWidth 1040; a storyboard widens the window and the next tab gives the width back, the window keeps one size whatever the stage shows, closing the side panel gives back what a small screen took (test_tab_stage); too narrow for both the column goes above the stage; the settings link opens Settings on the walkthroughs destination (test_walkthrough_window: the walkthrough tab reaches the window)."
+  },
+  "WT-03": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp",
+    "src/ui_settings/walkthroughs_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp",
+    "tests/ui_walkthrough/test_tab_screenshots.cpp",
+    "tests/ui_settings/test_walkthroughs_page.cpp"
+   ],
+   "note": "CAPTURE (Auto Mode, Capture delay, Minimize to tray), WRITE-UP (AI write-up, Written by, Style, Follow my notes, Edit the prompt…), COPY (On finish, copy) in walkthrough_tab.cpp, recorded in the walkthrough_tab reference trees (tests/reference/walkthrough_tab/*); every control saves the walkthrough_* key the Settings Walkthroughs page edits (the tab opens on the saved choices, the copy choice is saved, a prompt changed in settings shows when the window is back)."
+  },
+  "WT-05": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp",
+    "src/ui_walkthrough/new_style_dialog.cpp",
+    "src/walkthrough/styles.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp",
+    "tests/ui_walkthrough/test_tab_styles.cpp",
+    "tests/walkthrough/test_styles.cpp"
+   ],
+   "note": "Popover beside the column with the Start from combo, 400 ms autosave and save on close (editing the prompt opens it beside the column..., closing the prompt saves what was typed, typing your own prompt saves it...); Save as style (your own words can be saved as a style), Delete style keeps the words (deleting a style keeps its words as your own), New style (a style can be made from the menu and is used at once); a saved name replaces case-insensitively (walkthrough styles tests, area A22-24)."
+  },
+  "WT-07": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp",
+    "src/ui_walkthrough/walkthrough_presenter.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp",
+    "tests/ui_walkthrough/test_presenter_glue.cpp"
+   ],
+   "note": "Off by default and saved when switched on (minimizing to tray on start is off until switched on and then saved); the presenter minimizes a shown window when any walkthrough recording becomes active (tab, shortcut or tray all go through the runtime state) and finishing leaves the window where it is (a walkthrough starting minimizes the window to the tray when ticked)."
+  },
+  "WT-10": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/past_walkthroughs.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp",
+    "src/ui_shell/side_panel_host.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_past_walkthroughs.cpp",
+    "tests/ui_controller/test_walkthrough_window.cpp",
+    "tests/ui_shell/test_side_panel.cpp"
+   ],
+   "note": "Panel page Walkthroughs while the tab is open (the walkthrough tab lists walkthroughs in the side panel, the sidebar shows walkthroughs while their tab is open); cards newest first and a click opens in the tab, Open library opens the dialog (past walkthrough cards open in the tab and the library button in the library); titles from the write-up heading or first words, AI write-up / Interrupted pill, search over all words, 60 newest (area A23-82, A23-83 tests in test_past_walkthroughs.cpp)."
+  },
+  "WT-11": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/shell_feature.cpp",
+    "src/ui_shell/system_tray.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_shell/test_system_tray.cpp"
+   ],
+   "note": "Start Walkthrough and Take Screenshot in the tray menu in OpenWhisper order (the tray menu holds OpenWhisper's items in order); the item reads Finish Walkthrough while one records (system_tray.cpp)."
+  },
+  "WT-12": {
+   "status": "verified",
+   "cpp": [
+    "src/settings/hotkeys.cpp",
+    "src/ui_hotkeys/standard_hotkeys.cpp",
+    "src/ui_settings/walkthroughs_page.cpp"
+   ],
+   "tests": [
+    "tests/settings/test_store.cpp",
+    "tests/golden/services.settings.json",
+    "tests/ui_hotkeys/test_shortcut_rows.cpp",
+    "tests/ui_settings/test_walkthroughs_page.cpp"
+   ],
+   "note": "walkthrough and screenshot unbound, paste_walkthrough ctrl+shift+f12 (area A01-07); the three rows on the Hotkeys page and the Walkthroughs page are the same rows (the three rows are the Hotkeys page's, word for word). The macOS Control+Shift+F12 spelling is other-platform."
+  },
+  "WT-20": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_panel.cpp",
+    "src/ui_walkthrough/walkthrough_column.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_panel.cpp",
+    "tests/ui_walkthrough/test_column.cpp",
+    "tests/ui_controller/test_walkthrough_feature.cpp"
+   ],
+   "note": "Area A23-62..A23-77: right-edge no-focus tool window re-placed at each begin, dragged by non-button areas (the column opens at the right edge of the screen, centred; dragging anywhere but a button moves the column), ticks and shot badges (rows of ticks fit as OpenWhisper's do), open slot hint, header clock and count (the header says what the walkthrough is doing), wheel scroll (the wheel scrolls back...), ticks to lines then fade (a walkthrough fills the column then it fades once ready), kept out of screenshots (the walkthrough column is kept out of screenshots and a cancel dismisses it). The Wayland half (no column) is other-platform (A23-63)."
+  },
+  "WT-21": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_panel.cpp",
+    "tests/ui_walkthrough/test_snap_menu.cpp"
+   ],
+   "note": "Snap with chevron, Hold for note, Undo, Pause, Cancel, Done and their enabled rules (the footer snaps undoes cancels and finishes); only Cancel is left, filling the row, while the document is written (while it is written only cancel is left)."
+  },
+  "WT-23": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_panel.cpp",
+    "src/walkthrough/session.cpp",
+    "src/walkthrough/sections.cpp",
+    "src/walkthrough/document.cpp",
+    "src/walkthrough/runtime.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_panel.cpp",
+    "tests/walkthrough/test_session.cpp",
+    "tests/walkthrough/test_sections.cpp",
+    "tests/walkthrough/test_runtime.cpp",
+    "tests/dictation/test_walkthrough_job.cpp"
+   ],
+   "note": "Press-and-hold note button, off without AI write-up (holding the button writes a note until it is let go; without an ai write up there is no one to read a note; notes are offered only when write-up is enabled); purple slot hint and note row (A23-68, A23-89); held stretches cut exactly and kept in notes_s / the manifest (held stretches reach the storyboard, golden clip_stretches); a held note goes to the write-up not the document."
+  },
+  "WT-24": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/session.cpp",
+    "src/walkthrough/runtime.cpp",
+    "src/recorder/recorder.cpp",
+    "src/recorder/post_roll.cpp",
+    "src/ui_walkthrough/walkthrough_panel.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_session.cpp",
+    "tests/walkthrough/test_runtime.cpp",
+    "tests/recorder/test_recorder.cpp",
+    "tests/recorder/test_post_roll.cpp",
+    "tests/ui_walkthrough/test_panel.cpp",
+    "tests/dictation/test_walkthrough_job.cpp"
+   ],
+   "note": "Undo takes the newest screenshot and its words stay (undo takes the newest screenshot wherever it moved; an undone screenshot leaves its words to the section after it); pause drops blocks while the frame count carries on (A05-12) and a stop while paused ends at once (A05-11 post-roll reason paused); no note starts while paused (pausing ends a note and no note starts while paused); Cancel deletes the screenshots (canceling a walkthrough deletes its screenshots, A22-10)."
+  },
+  "WT-25": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_panel.cpp",
+    "src/walkthrough/session.cpp",
+    "src/walkthrough/runtime.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_panel.cpp",
+    "tests/walkthrough/test_session.cpp",
+    "tests/walkthrough/test_runtime.cpp"
+   ],
+   "note": "Hover tools up/down/remove with their tooltips (hovering a screenshot offers to move or remove it); words travel with their screenshot, a removed one's words join the next section and its file is deleted after its write, the words being spoken stay last (a removed screenshot leaves its words to the next section, a moved screenshot takes its words with it, the words still being spoken stay last); walkthrough board moves and removes screenshots and keeps their labels."
+  },
+  "WT-26": {
+   "status": "other-platform",
+   "reason": "Wayland only: without the column the recording overlay offers Snap and Done; FioriVoce is a Windows product and always builds the column there (area A23-63 other-platform)."
+  },
+  "WT-27": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_overlay/waveform_overlay.cpp",
+    "src/ui_overlay/walkthrough_controls.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp",
+    "src/walkthrough/runtime.cpp"
+   ],
+   "tests": [
+    "tests/ui_overlay/test_walkthrough_controls.cpp",
+    "tests/ui_overlay/test_drag.cpp",
+    "tests/ui_walkthrough/test_panel.cpp"
+   ],
+   "note": "Stand-in hides listening/work states while the column shows the recording and keeps notices (A07-41; the column stands in for the overlay only while it records or writes); Snap/Done pills show their shortcut pills on hover (A07-39); corner parking top-left + 16 px and back (A07-40, test_drag.cpp)."
+  },
+  "WT-28": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/walkthrough_job.cpp",
+    "src/dictation/job_slot.cpp",
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_walkthrough_job.cpp",
+    "tests/dictation/test_cleanup_runtime.cpp"
+   ],
+   "note": "The write-up runs off the job slot: a dictation runs while the write up is still writing; a dictation started while the write-up runs completes and pastes; a cancel during the write up keeps the walkthrough as spoken; a busy recording or walkthrough start shows by the pointer."
+  },
+  "WT-30": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_snap/session.cpp",
+    "src/ui_snap/capture.cpp",
+    "src/ui_snap/overlay.cpp",
+    "src/ui_snap/affinity.cpp",
+    "src/ui_snap/win/affinity_win.cpp",
+    "src/walkthrough/runtime.cpp"
+   ],
+   "tests": [
+    "tests/ui_snap/test_session.cpp",
+    "tests/ui_snap/test_overlay.cpp",
+    "tests/ui_snap/test_affinity.cpp",
+    "tests/walkthrough/test_runtime.cpp"
+   ],
+   "note": "Every screen grabbed before any UI shows so the overlay is never in its shot (A22-36); enter with no selection keeps the whole screen, double click with no selection takes the whole screen, enter keeps the dragged selection, escape drops exactly once (test_overlay.cpp); pressing screenshot again keeps the open selection, the hint says recording continues (walkthrough starts and chooses a screenshot mode), walkthrough shortcut starts with the overlay kept out of screenshots (test_runtime.cpp); WDA_EXCLUDEFROMCAPTURE 0x11 through the Win32Desktop seam (test_affinity.cpp; win/affinity_win.cpp read, not run). The multi-screen cases (each screen is captured and covered, selecting on another screen moves the selection there, esc on any screen drops the whole snap) exist but fail on this Linux kit at REQUIRE(screens.available()) (MACHINE.md). Hyprland focused-monitor-only is other-platform."
+  },
+  "WT-31": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_snap/overlay.cpp",
+    "src/ui_snap/annotations.cpp",
+    "src/ui_snap/toolbar.cpp",
+    "src/ui_snap/export.cpp"
+   ],
+   "tests": [
+    "tests/ui_snap/test_overlay.cpp",
+    "tests/ui_snap/test_annotations.cpp",
+    "tests/ui_snap/test_toolbar.cpp",
+    "tests/ui_snap/test_capture_delay.cpp",
+    "tests/ui_snap/test_geometry.cpp"
+   ],
+   "note": "Letters A B O P H T N R and digits 1-4, Ctrl+Z / Ctrl+Shift+Z / Ctrl+Y (letters pick tools, digits pick colours, undo and redo); outlines by default with a saved Infill (shapes have no infill by default, box infill is saved and restored for new overlays); Shift squares/circles/45 degree arrows (shift drag makes squares and circles in every direction, shift arrows align to 45 degree bearings); redact bakes an opaque cover (redact tool exports an opaque cover and supports undo, redaction replaces all covered pixels in kept crops); wrapping (wrapped tools stay visible and clickable, toolbar wraps delay and controls on small screens). The _wrap/_layout goldens fail here on Segoe UI widths only (MACHINE.md)."
+  },
+  "WT-32": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_snap/geometry.cpp",
+    "src/ui_snap/overlay.cpp",
+    "src/ui_snap/live.cpp",
+    "src/ui_snap/pointed.cpp",
+    "src/ui_snap/win/pointed_win.cpp"
+   ],
+   "tests": [
+    "tests/ui_snap/test_geometry.cpp",
+    "tests/ui_snap/test_overlay.cpp",
+    "tests/ui_snap/test_live.cpp",
+    "tests/ui_snap/test_pointed.cpp"
+   ],
+   "note": "S toggles and saves snap_to_edges (test_overlay.cpp, test_live.cpp), golden snap_point (10 px magnet, corner favoured), snapping live applies only to arrows, boxes and ellipses, window edges from pointed (unreadable window edges are no targets); the Windows window-edge enumeration in win/pointed_win.cpp was read, not run."
+  },
+  "WT-33": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/runtime.cpp",
+    "src/walkthrough/storage.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_runtime.cpp",
+    "tests/walkthrough/test_storage.cpp",
+    "tests/walkthrough/test_runtime_texts.cpp",
+    "tests/walkthrough/test_runtime_copy_unsaved.cpp"
+   ],
+   "note": "captures/screenshots/<stamp>.png then -2 (test_storage.cpp); a plain screenshot copies its image, file and path; a screenshot that cannot be saved to disk is still copied; the status texts are pinned (area A04-91)."
+  },
+  "WT-34": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_snap/support.cpp",
+    "src/ui_snap/capture.cpp"
+   ],
+   "tests": [
+    "tests/ui_snap/test_support.cpp",
+    "tests/ui_snap/test_capture.cpp"
+   ],
+   "note": "Windows half: snap_support says supported on Windows and the capture goes through Qt screen grabs with our windows excluded (golden snap_support matches OpenWhisper on every platform). The macOS permission flow, X11, Hyprland grim and the Wayland refusal text are other-platform (A22-55..A22-58 rows); the Wayland/other reasons are still pinned by the golden."
+  },
+  "WT-04": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp",
+    "src/walkthrough/styles.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp",
+    "tests/ui_walkthrough/test_audit_a32_tab.cpp",
+    "tests/walkthrough/test_styles.cpp"
+   ],
+   "note": "Agent menu Claude Code / Codex / OpenCode with each scan status, amber field for a missing agent, picking one turns the write-up on (picking an agent turns the write up on with it, agents the scan did not find are marked, a missing agent shows on its field). The Style menu order was only checked by contains(): added tests/ui_walkthrough/test_audit_a32_tab.cpp \"the style menu lists every style, then your own, then the prompt and new style\" (Walkthrough, Step-by-step guide, Bug report, Design feedback, Task for an agent, a user style, Your own, separator, Edit the prompt…, New style…). No code change."
+  },
+  "WT-06": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp",
+    "src/ui_walkthrough/walkthrough_copy_tips.cpp",
+    "src/settings/keys.inc"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp",
+    "tests/ui_walkthrough/test_copy_tips.cpp",
+    "tests/ui_walkthrough/test_audit_a32_tab.cpp"
+   ],
+   "note": "Wrapped rich-text tips word for word (test_copy_tips.cpp) and each choice saved (the copy choice is saved). The menu order and the PDF default were not pinned: added \"the copy menu lists the five choices in order, PDF first\" in tests/ui_walkthrough/test_audit_a32_tab.cpp. No code change."
+  },
+  "WT-08": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_stage.cpp",
+    "tests/ui_walkthrough/test_tab_column.cpp",
+    "tests/ui_walkthrough/test_audit_a32_tab.cpp"
+   ],
+   "note": "Newest walkthrough on the stage unless edits are open, × closes it until a newer one finishes, also across a relaunch (closing the walkthrough puts the tab back until one is chosen, a closed walkthrough stays closed until a newer one finishes, a finished walkthrough never replaces unsaved edits); the recording card with both shortcuts and Cancel in their place, cancelling gives the storyboard back (a recording takes the stage and gives the storyboard back, the tab shows both shortcuts). Only Return on a recent row and the empty list were tested: added \"the empty stage offers the three newest walkthroughs to a click, Enter or Space\" (RECENT_SHOWN 3, newest first) in tests/ui_walkthrough/test_audit_a32_tab.cpp. No code change."
+  },
+  "WT-09": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp",
+    "src/ui_walkthrough/walkthrough_ready.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review_runs.cpp",
+    "tests/ui_walkthrough/test_review.cpp",
+    "tests/ui_walkthrough/test_tab_stage.cpp",
+    "tests/ui_walkthrough/test_file_chip.cpp",
+    "tests/ui_walkthrough/test_audit_a32_tab.cpp"
+   ],
+   "note": "Copy PDF / Copy Markdown (copy buttons send explicit clipboard formats), the PDF chip (test_file_chip.cpp), Open drops below Copy when narrow (dragged to its narrowest the storyboard shows whole), the corner copy button with picture, file and path and no wait for unsaved edits (a screenshot corner button copies just that picture, a screenshot copies even with unsaved edits). Copy Word, Open PDF and a click on a screenshot opening the PNG had no test: added \"the storyboard copies Word, opens the PDF and opens a screenshot full size\" in tests/ui_walkthrough/test_audit_a32_tab.cpp. No code change."
+  },
+  "WT-22": {
+   "status": "fixed",
+   "cpp": [
+    "src/walkthrough/runtime.cpp",
+    "src/ui_walkthrough/walkthrough_snap_menu.cpp",
+    "src/ui_snap/pointed.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_runtime.cpp",
+    "tests/ui_walkthrough/test_snap_menu.cpp",
+    "tests/walkthrough/test_audit_a32_runtime.cpp"
+   ],
+   "note": "Labels Region / Window under the pointer / Whole screen / In 3 seconds, Window only where pointed is supported (the menu lists each kind by its label, the current one ticked; the menu offers a window only where one can be found); a pick is taken at once, the column takes the front window and the shortcut the one under the pointer, window/screen take no drawing overlay, delayed counts down (walkthrough shortcuts manage screenshot modes and countdown, the column's Snap takes the front window). Persistence across walkthroughs and the region-only shortcut outside one were unpinned: added \"a snap mode picked from the menu is repeated by later walkthroughs\" in tests/walkthrough/test_audit_a32_runtime.cpp. No code change."
+  },
+  "WT-40": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/runtime.cpp",
+    "src/hotkeys/mouse_hook.cpp",
+    "src/hotkeys/win/mouse_hook.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_runtime.cpp",
+    "tests/hotkeys/test_click_observer.cpp",
+    "tests/walkthrough/test_runtime_texts.cpp"
+   ],
+   "note": "Clicks settle then save the clicked monitor and quick clicks make one screenshot (auto clicks coalesce and capture after settling: 350 ms after the last click, take Screen at the click point); only left/right presses that began outside our process count (ClickFilter in test_click_observer.cpp; the WH_MOUSE_LL half in win/mouse_hook.cpp read, not run); a missing hook says Snap still works (test_runtime_texts.cpp). The macOS half is other-platform."
+  },
+  "WT-41": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_snap/capture_delay.cpp",
+    "src/ui_snap/live.cpp",
+    "src/walkthrough/runtime.cpp",
+    "src/settings/keys.inc"
+   ],
+   "tests": [
+    "tests/ui_snap/test_capture_delay.cpp",
+    "tests/ui_snap/test_live.cpp",
+    "tests/walkthrough/test_runtime.cpp"
+   ],
+   "note": "Presets 0/1/2/3/5/10 saved as walkthrough_capture_delay (the chip's arrow keys step through the presets as OpenWhisper's, live picker saves delay without taking focus and cancels pending capture); chip text and shrinking arc golden; × on the chip cancels only the pending shot (delay chip cancel keeps the tool...), Clear marks and the toolbar × cancel too (step numbers count per canvas and Clear starts them again, live toolbar close is dimmed when it has nothing to do); each mark restarts, another monitor saves the waiting one (delayed drawings on one screen restart and combine, drawings on different screens get separate screenshots); Done keeps a pending drawing and shortens a click's wait (Done captures a pending drawing before stopping, Done shortens a delayed click to its settle time); pause drops it (pausing drops an in-flight automatic screenshot)."
+  },
+  "WT-42": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_snap/live.cpp",
+    "src/ui_snap/toolbar.cpp",
+    "src/walkthrough/runtime.cpp"
+   ],
+   "tests": [
+    "tests/ui_snap/test_live.cpp",
+    "tests/ui_snap/test_toolbar.cpp",
+    "tests/walkthrough/test_runtime.cpp",
+    "tests/walkthrough/test_audit_a32_runtime.cpp"
+   ],
+   "note": "Toolbar at the top centre of the pointer's screen (A22-49), tool stays selected until switched or toggled off, text saves on commit, × dimmed when idle and only puts the tool down (live tool stays selected until switched or toggled off, live text saves on commit, live toolbar close is dimmed when it has nothing to do, the live toolbar's drop explains itself...); release saves after the delay (delayed drawings on one screen restart and combine). The column's Draw arming the pen was unpinned: added \"in auto mode the column's Draw arms the live drawing\" in tests/walkthrough/test_audit_a32_runtime.cpp (LiveAnnotations::arm defaults to SnapTool::Pen). No code change."
+  },
+  "WT-43": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_snap/live.cpp",
+    "src/ui_snap/toolbar.cpp",
+    "src/walkthrough/runtime.cpp"
+   ],
+   "tests": [
+    "tests/ui_snap/test_live.cpp",
+    "tests/walkthrough/test_runtime.cpp",
+    "tests/ui_snap/test_audit_a32_live.cpp"
+   ],
+   "note": "1.5 s lifetime, Keep marks saved, Ctrl pins, K and C, Clear marks leaves saved shots alone (live toolbar keeps new marks and clears them without arming, temporary marks survive countdown then clear with successful snap, delayed snap preserves kept and individually pinned marks); F8/F9 registered as global shortcuts unless taken (auto mark shortcuts follow enabled drawing..., auto mark shortcuts leave existing bindings alone); redactions leave with their screenshot (live redactions leave with their screenshot like other marks). The fallback tips when F8/F9 are taken were pinned only by the _layout golden, which fails here on label widths: added tests/ui_snap/test_audit_a32_live.cpp \"without its function key a mark button names the key that works while drawing\". No code change."
+  },
+  "WT-44": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_snap/live.cpp",
+    "src/walkthrough/runtime.cpp"
+   ],
+   "tests": [
+    "tests/ui_snap/test_live.cpp",
+    "tests/walkthrough/test_runtime.cpp"
+   ],
+   "note": "Region button and badge, 4 px minimum, click-through outline, 24 px × to return to the whole monitor (the region badge and close control sit where OpenWhisper puts them, tiny region drag does not replace region, auto region stays click-through until closed and survives pause); clicks and drawings use and crop to the region (auto clicks use the selected region and its pinned marks, auto drawing crops the selected region and retains marks); the drawing is closed at the walkthrough's cleanup, so the region ends with it (auto mark shortcuts ... are removed on cleanup checks drawing closed)."
+  },
+  "WT-45": {
+   "status": "other-platform",
+   "reason": "macOS-only Auto Mode details (passive NSEvent monitor, Spaces, Retina, ScreenCaptureKit filtering); FioriVoce is a Windows product (area A22-55/A22-56 other-platform)."
+  },
+  "WT-50": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/session.cpp",
+    "src/walkthrough/runtime.cpp",
+    "src/recorder/recorder.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_session.cpp",
+    "tests/golden/services.walkthrough.session.json",
+    "tests/dictation/test_walkthrough_job.cpp"
+   ],
+   "note": "Each shot is kept at recording_duration() (the recorder's frame count, carried through pauses: A05-12) and closes the section before it; the words after the last shot come last (golden _storyboard, the words still being spoken stay last; each section is transcribed and the document copied gives first / second / last part)."
+  },
+  "WT-51": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/sections.cpp",
+    "src/walkthrough/session.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_sections.cpp",
+    "tests/golden/services.walkthrough.sections.json",
+    "tests/walkthrough/test_session.cpp",
+    "tests/golden/services.walkthrough.session.json"
+   ],
+   "note": "REACH 0.75 s, 0.1 s window, moved only at or below half the energy at the mark, cuts in keeping order (golden cut_frames/_quietest/split_recording, area A22-11); the storyboard cuts only between non-consecutive pieces so speech joined by an undo or removal is one stretch (golden _storyboard, A22-06)."
+  },
+  "WT-52": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/finish.cpp",
+    "src/dictation/walkthrough_job.cpp",
+    "src/dictation/transcription_runtime.cpp",
+    "src/dictation/job.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_finish.cpp",
+    "tests/dictation/test_walkthrough_job.cpp"
+   ],
+   "note": "Clips decoded one by one through the dictation's own transcribe call (so a remote engine is used the same way), no timestamps needed (area A22-12); clean_sections runs maybe_cleanup_transcript (dictionary, snippets, AI cleanup) per section (each section is cleaned up on its own); no app or text near the cursor is read (a walkthrough reads nothing on screen)."
+  },
+  "WT-53": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/walkthrough_job.cpp",
+    "src/walkthrough/finish.cpp",
+    "src/remote_records/dictation_records.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_walkthrough_job.cpp",
+    "tests/walkthrough/test_finish.cpp",
+    "tests/remote_records/test_kinds.cpp"
+   ],
+   "note": "History entry source Walkthrough, entry_kind walkthrough, [Screenshot N] markers (each section is transcribed and the document copied); a failure keeps the shots and names the folder (a failed walkthrough keeps its screenshots and says where). Remote (kept): the entry travels to a paired host as a dictation record with entry_kind in entry_ext and its audio, and records carry no screenshots (remote_records/dictation_records.cpp, read; that directory is another worker's and was not changed)."
+  },
+  "WT-60": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/storage.cpp",
+    "src/walkthrough/finish.cpp",
+    "src/walkthrough/document.cpp",
+    "src/documents/composer.cpp",
+    "src/documents/pdf.cpp",
+    "src/documents/docx.cpp",
+    "src/walkthrough/write_up.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_storage.cpp",
+    "tests/walkthrough/test_library.cpp",
+    "tests/walkthrough/test_markdown.cpp",
+    "tests/documents/test_pdf.cpp",
+    "tests/documents/test_docx.cpp",
+    "tests/golden/services.walkthrough.document.json"
+   ],
+   "note": "captures/<date>_<time> (A22-01), walkthrough.md with shot-N.png links, walkthrough.json with sections/omitted_shot/notes, PDF (title, details, words, full-resolution lossless shots, captions Screenshot N · m:ss, text drawn as text) and .docx with keep-with-next per section (A22-14, A22-16..A22-20); write-up.* and write-up-N.* earlier versions (writing up again keeps each earlier write up). The documents goldens that replay layout fail here on Segoe UI metrics only (MACHINE.md)."
+  },
+  "WT-61": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/walkthroughs_page.cpp",
+    "src/walkthrough/finish.cpp",
+    "src/walkthrough/document.cpp",
+    "src/documents/composer.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_walkthroughs_page.cpp",
+    "tests/walkthrough/test_library_golden.cpp",
+    "tests/walkthrough/test_markdown.cpp",
+    "tests/documents/test_pdf.cpp"
+   ],
+   "note": "Title (empty = none), details, about, captions, paper Automatic/Letter/A4 with Letter for ImperialUS locales (A22-18, A22-21: golden document_settings, markdown without a header starts with the words, pdf uses the chosen title); the page's intro says words and screenshots are always included and changes apply to the next walkthrough (A11-96, the page lists its groups and tiles as OpenWhisper's does)."
+  },
+  "WT-62": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/session.cpp",
+    "src/dictation/walkthrough_job.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_session.cpp",
+    "tests/dictation/test_walkthrough_job.cpp"
+   ],
+   "note": "pdf = the PDF file, both = PDF file plus the Markdown with absolute screenshot paths, agent = Markdown, word = .docx, agent_task = instructions (what a copy puts on the clipboard follows the format, finished walkthrough uses preferred copy); all four documents are written whatever the copy format (A22-14)."
+  },
+  "WT-63": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/walkthrough_job.cpp",
+    "src/walkthrough/paste.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_walkthrough_job.cpp",
+    "tests/walkthrough/test_paste.cpp",
+    "tests/ui_controller/test_walkthrough_feature.cpp"
+   ],
+   "note": "Agent with Auto-paste on: two-part paste into the chat the walkthrough started in, after the write-up, with the as-spoken PDF when it failed (only agent auto paste uses two part delivery, agent auto paste waits for write up and uses delivered pdf); Ctrl+V only, never Enter (walkthrough paste sends PDF then instructions); Auto-paste off copies the instructions only (finished walkthrough agent copy has pdf and action prompt)."
+  },
+  "WT-64": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp",
+    "src/ui_walkthrough/walkthrough_ready.cpp",
+    "src/walkthrough/session.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review_runs.cpp",
+    "tests/ui_walkthrough/test_review.cpp",
+    "tests/ui_walkthrough/test_ready_card.cpp",
+    "tests/walkthrough/test_session.cpp"
+   ],
+   "note": "Copy for agent copies no files, only the instructions with the PDF's full path, with Auto-paste ignored (copy buttons send explicit clipboard formats; prompt verbatim in A22-32); the shown version (copying waits for saved edits and copies the version shown) or the card's result (test_ready_card.cpp copy picks)."
+  },
+  "WT-65": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/paste.cpp",
+    "src/walkthrough/library.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_paste.cpp",
+    "tests/walkthrough/test_library.cpp",
+    "tests/ui_controller/test_walkthrough_feature.cpp"
+   ],
+   "note": "latest_result = newest folder with a manifest, drafts skipped (latest completed walkthrough skips a newer draft), loaded with load_result's default, which is the newest write-up when there is one (writing up again keeps each earlier write up: load_result(folder) gives the write-up); PDF, 800 ms, then instructions, Ctrl+V only, stops if focus, modifiers or clipboard changed, preflight refusals (walkthrough paste sends PDF then instructions, walkthrough paste stops if the clipboard changes, paste stops if focus or modifiers change during PDF delivery, paste preflight refuses...); the hotkey path reaches it whatever the copy format (walkthrough feature saves a captured screenshot and shows the ready card)."
+  },
+  "WT-66": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_ready.cpp",
+    "src/ui_walkthrough/past_walkthroughs.cpp",
+    "src/ui_walkthrough/walkthrough_review.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_ready_card.cpp",
+    "tests/ui_walkthrough/test_past_walkthroughs.cpp",
+    "tests/ui_controller/test_walkthrough_window.cpp"
+   ],
+   "note": "Card menu Open PDF, Open Word document, Show in folder, Copy PDF, Copy for agent, Copy Word document, Copy Markdown with chip and Review (test_ready_card.cpp menu labels, Review, Open PDF, Open Word and Show in folder hide the card...); the side panel opens a walkthrough in the storyboard, which has the same actions (past walkthrough cards open in the tab...). The Show in folder test expects Windows' explorer /select, (MACHINE.md)."
+  },
+  "WT-67": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/walkthrough_job.cpp",
+    "src/walkthrough/session.cpp",
+    "src/walkthrough/runtime.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_walkthrough_job.cpp",
+    "tests/walkthrough/test_session.cpp",
+    "tests/walkthrough/test_runtime_texts.cpp"
+   ],
+   "note": "A document the disk refuses keeps the words in History and the clipboard (a document that cannot be written keeps the words, a document the disk refuses says the system's reason...); a failed PNG leaves no partial file and the status counts it (a screenshot that fails to write is reported and leaves no partial file, screenshots that could not be saved are named in the status); the walkthrough keeps recording (a screenshot the writer could not save says the walkthrough keeps recording); nothing said and no shots writes no document and dismisses the column (no screenshots and no words is no speech)."
+  },
+  "WT-70": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_library.cpp",
+    "src/ui_walkthrough/walkthrough_review.cpp",
+    "src/walkthrough/library.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_library_dialog.cpp",
+    "tests/ui_walkthrough/test_review.cpp",
+    "tests/ui_walkthrough/test_review_runs.cpp",
+    "tests/walkthrough/test_library.cpp"
+   ],
+   "note": "Library lists documents and drafts beside the storyboard (A23-84); rows with preview and editable words, a screenshot left out fades and comes back, grip and Alt+Up/Down move a row with its words (moving a row renumbers it and saving keeps the new order, alt arrows in the words move their row); Save regenerates the four documents in a staging folder and publishes them, keeps walkthrough.original.json (review save tests, A22-26). The documents are rendered md, pdf, docx, manifest as OpenWhisper's save_review does (library.py:263-266); the changelog's PDF/Word/Markdown order is not what the Python does."
+  },
+  "WT-71": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp",
+    "src/walkthrough/document.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review.cpp",
+    "tests/walkthrough/test_markdown.cpp",
+    "tests/walkthrough/test_library.cpp"
+   ],
+   "note": "Purple held-note labels on their rows that move with them and survive a save (held notes show on their rows and stay through a save); notes stay out of the documents and History (a manifest keeps omitted screenshots and held notes; load_result history_text has no note words in test_library.cpp)."
+  },
+  "WT-72": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp",
+    "src/walkthrough/library.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review.cpp",
+    "tests/ui_walkthrough/test_review_runs.cpp",
+    "tests/ui_walkthrough/test_review_states.cpp",
+    "tests/walkthrough/test_library.cpp"
+   ],
+   "note": "Opens on the write-up with an As spoken switch (a write-up opens on itself and can switch to the words as spoken); rows cut at screenshot lines and saved back in order (saving edited write-up rows rebuilds the write-up in their order, a write up cuts at its screenshots and joins back unchanged); Save and redo write-up only for as-spoken edits of a written-up walkthrough (the save bar offers a redo only...); a failed redo keeps the saved words and says so (a failed redo after saving shows what was saved); copy acts on the version shown (copying waits for saved edits and copies the version shown)."
+  },
+  "WT-73": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp",
+    "src/ui_walkthrough/review_text.cpp",
+    "src/ui_walkthrough/write_up_prompt_dialog.cpp",
+    "src/walkthrough/write_up.cpp",
+    "src/walkthrough/library.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review.cpp",
+    "tests/ui_walkthrough/test_review_text.cpp",
+    "tests/ui_walkthrough/test_redo.cpp",
+    "tests/walkthrough/test_library.cpp"
+   ],
+   "note": "Every write-up kept as write-up-N.* with a Version N of M picker (writing it up again keeps the one before under a version picker, the version picker and its menu read as OpenWhisper's, an earlier write up saves in place); the menu says Write up as / Redo as with every style and a new prompt with an optional style name (the menu says write up until there is one, redo as lists every style..., a new prompt writes it up once without changing settings)."
+  },
+  "WT-74": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/library.cpp",
+    "src/ui_walkthrough/walkthrough_review.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_library.cpp",
+    "tests/ui_walkthrough/test_review_runs.cpp"
+   ],
+   "note": "Retry from the saved as-spoken document with the held notes and the current agent and instructions (retry uses the spoken document and current agent settings, retry follows the notes held while recording); a failed retry leaves the documents (retry render failure does not replace existing write up); off the UI thread with a Cancel button (review write-up retry is off thread and cancelable). The button reads Cancel as in OpenWhisper's walkthrough_review.py:790; Cancel operation is only the documentation's name for it."
+  },
+  "WT-75": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/session.cpp",
+    "src/walkthrough/library.cpp",
+    "src/dictation/walkthrough_job.cpp",
+    "src/ui_walkthrough/walkthrough_review.cpp",
+    "src/ui_walkthrough/walkthrough_library.cpp",
+    "src/ui_controller/controller_feature.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_session.cpp",
+    "tests/walkthrough/test_library.cpp",
+    "tests/dictation/test_walkthrough_job.cpp",
+    "tests/ui_walkthrough/test_review_runs.cpp",
+    "tests/ui_walkthrough/test_review_states.cpp",
+    "tests/ui_walkthrough/test_library_dialog.cpp",
+    "tests/ui_controller/test_walkthrough_recovery_attach.cpp"
+   ],
+   "note": "draft.json checkpoint and audio.wav (A22-08, A22-09); startup joins drafts to recovered audio (startup recovery joins an interrupted walkthrough to its recovered audio in the app); Recover draft shows Recovering then the result or the refusal (a draft shows that it is recovering, recovering a walkthrough is refused while another is saved or recorded); recovery rebuilds from readable shots in kept order with held notes out of the words (recovered walkthrough claims a walkthrough job and keeps sections, a draft keeps held notes so recovery leaves them out); a draft without audio says restarting finishes it; Refresh asks once (Saved Walkthroughs asks once before a refresh...)."
+  },
+  "WT-76": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_library.cpp",
+    "src/ui_walkthrough/walkthrough_review.h",
+    "src/walkthrough/library.cpp",
+    "src/dictation/recovery.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_audit_a32_tab.cpp",
+    "tests/ui_walkthrough/test_library_dialog.cpp",
+    "tests/walkthrough/test_library.cpp",
+    "tests/ui_controller/test_walkthrough_recovery.cpp",
+    "tests/ui_walkthrough/test_review_runs.cpp"
+   ],
+   "note": "Forever by default, only finished walkthroughs pruned, drafts/links/unexpected files refused, pruned at startup (A22-30, A22-31, startup recovery prunes expired walkthroughs under the captures root); Delete confirms (a delete that is not confirmed keeps the walkthrough); Forever refused keeps edits. The library's retention question went straight to QMessageBox::question, so the confirm-and-apply path could not be tested: WalkthroughLibraryDialog::changeRetention now asks through WalkthroughReview::ask (made public; the same setQuestion seam, same title, text, Yes/No default No), and tests/ui_walkthrough/test_audit_a32_tab.cpp \"a retention is applied only after its question, deleting expired walkthroughs now\" pins the question text, the revert on No, set_retention + prune on Yes (expired finished walkthrough gone, draft kept), Retention updated. The OpenWhisper code asks with the Keep walkthroughs combo, not an Apply retention… button (the documentation's wording)."
+  },
+  "WT-77": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_feature.cpp",
+    "src/ui_walkthrough/walkthrough_tab.cpp",
+    "src/ui_walkthrough/walkthrough_library.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_audit_a32_walkthrough_sync.cpp",
+    "tests/ui_walkthrough/test_tab_stage.cpp",
+    "tests/ui_walkthrough/test_library_dialog.cpp"
+   ],
+   "note": "Library -> tab was wired (changed -> reloadWalkthrough; reloading keeps edits, follows a deleted walkthrough...), and closing the library drops discarded edits (Saved Walkthroughs asks once before a refresh and drops discarded edits on close). Tab -> library was missing: the tab's walkthroughsChanged only refreshed the side panel, so an open library kept showing the old words after a save or delete in the tab. WalkthroughFeature now refreshes an open, idle, clean library on it, as ui_controller._refresh_walkthrough_library does (6 lines). Pinned by tests/ui_controller/test_audit_a32_walkthrough_sync.cpp \"a save in the tab or the library shows in the other\", which fails without the change."
+  },
+  "WT-78": {
+   "status": "verified",
+   "cpp": [
+    "src/backup/names.cpp",
+    "src/backup/coordinator.cpp",
+    "src/ui_settings/settings_backup.cpp",
+    "src/walkthrough/library.cpp"
+   ],
+   "tests": [
+    "tests/backup/test_create_inspect.cpp",
+    "tests/walkthrough/test_library.cpp"
+   ],
+   "note": "captures/ goes into a backup only with Include saved recordings and captures (test_create_inspect.cpp: captures are recordings too, and data/captures/... members when included); reopened results rebuild image paths for this machine (result round trip rebuilds paths for the current machine, A22-25)."
+  },
+  "WT-80": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/write_up.cpp",
+    "src/dictation/walkthrough_job.cpp",
+    "src/walkthrough/runtime.cpp",
+    "src/ui_controller/application_controller.cpp",
+    "src/settings/keys.inc"
+   ],
+   "tests": [
+    "tests/walkthrough/test_write_up.cpp",
+    "tests/dictation/test_walkthrough_job.cpp",
+    "tests/walkthrough/test_runtime.cpp"
+   ],
+   "note": "walkthrough_write_up defaults false; after the as-spoken documents the agent's Markdown becomes write-up.* and the as-spoken files stay (the write up becomes the document and the as spoken one stays); the write-up is what gets copied (a walkthrough written up is what gets copied); a new walkthrough is refused while it runs (walkthrough start explains recording, write-up and readiness refusals), and the library, recovery and backups wait for it (a walkthrough job holds the library and a write-up keeps holding it, recovering a walkthrough is refused while another is saved or recorded; A03-23/A03-24 refusal texts)."
+  },
+  "WT-81": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/write_up.cpp",
+    "src/walkthrough/styles.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_write_up.cpp",
+    "tests/walkthrough/test_library_golden.cpp",
+    "tests/ui_walkthrough/test_tab_column.cpp"
+   ],
+   "note": "DEFAULT_INSTRUCTIONS leads the prompt (claude code reads the pdf in its folder with the default instructions), the user's own words replace it (the users own instructions replace the default), an empty setting is the default (the prompt shows the default words and saves them as default); golden prompts."
+  },
+  "WT-82": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/write_up.cpp",
+    "src/agents/agent_tasks.cpp",
+    "src/agents/detail/claude_driver.cpp",
+    "src/agents/detail/codex_driver.cpp",
+    "src/agents/detail/opencode_driver.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_write_up.cpp",
+    "tests/agents/test_drivers.cpp",
+    "tests/agents/test_agent_tasks.cpp"
+   ],
+   "note": "Claude Code gets the walkthrough folder as read_folder: --restricted --tools Read --add-dir <folder>, --strict-mcp-config with only ours, its own --settings with no user hooks (test_drivers.cpp, claude without restricted cannot read a folder); Codex and OpenCode read no files and get walkthrough.md in the prompt with the screenshots attached (codex and opencode read no files and see the words and screenshots); Codex runs read-only with approval never (codex_driver.cpp)."
+  },
+  "WT-83": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/write_up.cpp",
+    "src/ui_walkthrough/walkthrough_tab.cpp",
+    "src/ui_settings/walkthroughs_page.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_write_up.cpp",
+    "tests/ui_walkthrough/test_tab_column.cpp",
+    "tests/ui_settings/test_walkthroughs_page.cpp",
+    "tests/dictation/test_walkthrough_job.cpp"
+   ],
+   "note": "walkthrough_write_up_notes off by default and dimmed with the write-up off (switching the write up off keeps the agent for next time; Follow notes gated on the Settings page); spoken notes followed only when set (notes to the agent are followed only when settings says so); held notes always passed with where they were said (held notes follow the walkthrough with where each was said); the charter limits notes to the write-up's words and look; the as-spoken documents keep every word (a held note goes to the write-up not the document)."
+  },
+  "WT-84": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/write_up.cpp",
+    "src/documents/markdown_composer.cpp",
+    "src/documents/docx.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_write_up.cpp",
+    "tests/walkthrough/test_library_golden.cpp",
+    "tests/documents/test_markdown_pdf.cpp",
+    "tests/documents/test_docx.cpp"
+   ],
+   "note": "The look block (text color, heading color, font) is read and kept out of write-up.md and the clipboard and reaches the renderer (the look block is read and kept out of the document, golden split_look); colours by Qt name or #rrggbb colour the words but not links and an unreadable colour is ignored (the look colours the words but not links, a colour qt cant read leaves the words as they were); the Word writer keeps the look and links (a write up keeps its structure links and look); a missing font falls back through Qt's font matching."
+  },
+  "WT-85": {
+   "status": "verified",
+   "cpp": [
+    "src/walkthrough/write_up.cpp",
+    "src/dictation/walkthrough_job.cpp",
+    "src/dictation/messages.cpp",
+    "src/ui_controller/application_controller.cpp",
+    "src/walkthrough/runtime.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_write_up.cpp",
+    "tests/dictation/test_walkthrough_job.cpp",
+    "tests/ui_controller/test_cancel_routing.cpp",
+    "tests/ui_walkthrough/test_tab_column.cpp"
+   ],
+   "note": "A failure delivers the as-spoken walkthrough with Write-up failed and the whole reason first (a failed write up copies the walkthrough as spoken), the reason ends in Choose another agent in Settings → Dictation → Walkthroughs (a missing agent points to the walkthroughs page); agents not found are marked in the menu (agents the scan did not find are marked); Cancel from the column (runtime cancel -> cancel_write_up) or the Cancel hotkey once idle keeps it as spoken (a cancel during the write up keeps the walkthrough as spoken, a Cancel once the walkthrough is over stops its AI write-up)."
+  },
+  "WT-86": {
+   "status": "verified",
+   "cpp": [
+    "src/documents/qt_renderer.cpp",
+    "src/documents/composer.cpp",
+    "src/documents/pdf.cpp",
+    "src/documents/docx.cpp",
+    "src/dictation/walkthrough_job.cpp"
+   ],
+   "tests": [
+    "tests/documents/test_threads.cpp",
+    "tests/documents/test_pdf.cpp"
+   ],
+   "note": "Documents are built on the job's worker; each call makes and deletes its own QTextDocument and writer on the calling thread (composer.h, qt_renderer.h affinity notes), so the PyQt garbage-collection race the changelog fixed by freeing on the main thread cannot occur (write ups written back to back on a worker stay usable, a worker never waits for a blocked main thread, write pdf works on a worker thread)."
+  },
+  "HK-01": {
+   "status": "verified",
+   "cpp": [
+    "src/settings/hotkeys.cpp",
+    "src/hotkeys/defaults.cpp",
+    "src/ui_hotkeys/standard_hotkeys.cpp"
+   ],
+   "tests": [
+    "tests/settings/test_store.cpp",
+    "tests/golden/services.settings.json",
+    "tests/hotkeys/test_golden.cpp",
+    "tests/ui_hotkeys/test_hotkeys_page.cpp"
+   ],
+   "note": "Windows defaults kp * (record), kp - (cancel), ctrl+alt+kp * (enable/disable), ctrl+alt+m (minimize), ctrl+shift+f12 (paste latest walkthrough) (A01-07, A06-03; partial settings merge with platform defaults). The macOS Control+Option set is other-platform."
+  },
+  "HK-02": {
+   "status": "verified",
+   "cpp": [
+    "src/settings/hotkeys.cpp",
+    "src/ui_hotkeys/standard_hotkeys.cpp",
+    "src/ui_hotkeys/hotkey_bindings.cpp",
+    "src/dictation/hotkey_runtime.cpp"
+   ],
+   "tests": [
+    "tests/settings/test_store.cpp",
+    "tests/ui_hotkeys/test_bindings.cpp",
+    "tests/ui_hotkeys/test_hotkeys_page.cpp",
+    "tests/dictation/test_hotkey_runtime_actions.cpp",
+    "tests/dictation/test_hotkey_runtime_families.cpp"
+   ],
+   "note": "Command Mode, Scratchpad, Switch language, Paste original, Route by voice, Walkthrough, Screenshot are optional rows with empty defaults (A11-92: every standard shortcut has a row on hotkeys); profile, transform and action shortcuts exist only once the user sets them (without saved actions no action shortcut is registered; action shortcuts register beside profiles and transforms)."
+  },
+  "HK-03": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/hold_machine.cpp",
+    "src/dictation/hotkey_runtime.cpp",
+    "src/dictation/command_runtime.cpp",
+    "src/ui_hotkeys/hotkeys_page.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_hold_runtime.cpp",
+    "tests/dictation/test_hotkey_runtime.cpp",
+    "tests/dictation/test_command_runtime.cpp",
+    "tests/dictation/test_hotkey_runtime_families.cpp",
+    "tests/ui_hotkeys/test_hotkeys_page.cpp"
+   ],
+   "note": "Toggle / push-and-hold, a hold under 250 ms cancels (A04-52, A04-47: test_short_tap_cancels_without_the_hands_free_latch, test_a_short_tap_cancels); the mode applies at once (test_set_mode_applies_to_manager_and_resets_state, recording trigger mode loads and applies, the trigger mode switch says which mode is on); Command Mode holds in push-hold mode (A06-07); profile shortcuts toggle once per press (test_windows_profile_shortcuts_toggle_once_per_press_and_unregister)."
+  },
+  "HK-04": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/hold_machine.cpp",
+    "src/dictation/hotkey_runtime.cpp",
+    "src/settings/keys.inc"
+   ],
+   "tests": [
+    "tests/dictation/test_hold_runtime.cpp",
+    "tests/dictation/test_hotkey_runtime.cpp",
+    "tests/golden/services.runtime.hotkeys.json"
+   ],
+   "note": "recording_hands_free_latch default true; a second press within 400 ms of a short tap latches and the next press stops, a lone tap cancels after the window (test_a_double_tap_before_any_audio_latches_and_the_next_press_stops, a tap and a second press latch hands-free and say how to stop, test_without_the_latch_a_tap_cancels_at_once; hold_trace golden)."
+  },
+  "HK-05": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/mouse_hook.cpp",
+    "src/hotkeys/win/mouse_hook.cpp",
+    "src/hotkeys/mouse_shortcuts.cpp",
+    "src/ui_hotkeys/hotkey_capture.cpp"
+   ],
+   "tests": [
+    "tests/hotkeys/test_mouse_hook.cpp",
+    "tests/hotkeys/test_golden_mouse.cpp",
+    "tests/hotkeys/test_capture.cpp",
+    "tests/ui_hotkeys/test_capture_fields.cpp"
+   ],
+   "note": "Windows half: Mouse 4/5 with or without modifiers through WH_MOUSE_LL, the bound press and its release swallowed (MouseButtonFilter traces replayed from Python, A06-14), the note Mouse 4 won't work as Back in other apps while it's a shortcut (A06-50). win/mouse_hook.cpp was read, not run (its fake-user32 test is Windows-only). The two ui_hotkeys side-button cases that expect Windows wording fail here (MACHINE.md). X11 side buttons and their warning are other-platform; macOS/Hyprland have none."
+  },
+  "HK-06": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_hotkeys/hotkey_capture.cpp",
+    "src/ui_hotkeys/profile_hotkey_input.cpp",
+    "src/hotkeys/capture.cpp",
+    "src/hotkeys/win/capture.cpp",
+    "src/hotkeys/conflicts.cpp",
+    "src/hotkeys/matcher.cpp"
+   ],
+   "tests": [
+    "tests/ui_hotkeys/test_capture_fields.cpp",
+    "tests/hotkeys/test_capture.cpp",
+    "tests/hotkeys/test_conflicts.cpp",
+    "tests/hotkeys/test_physical_keys.cpp",
+    "tests/ui_hotkeys/test_hotkeys_page.cpp",
+    "tests/ui_hotkeys/test_bindings.cpp"
+   ],
+   "note": "Click, press, commit on release, Esc alone cancels, Clear on every row (A06-47, A06-49, clear and confirmed reset apply immediately); conflicts across standard, profiles, transforms and actions named as people read them (A06-46, conflicts name standard shortcuts as people read them, standard hotkey conflicts match any spelling and profiles); Win key combos and kp names, physical key by scan code (A06-01, A06-11, A06-73). Linux label spelling is other-platform."
+  },
+  "HK-07": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_hotkeys/hotkeys_page.cpp",
+    "src/ui_hotkeys/hotkey_bindings.cpp",
+    "src/ui_hotkeys/standard_hotkeys.cpp"
+   ],
+   "tests": [
+    "tests/ui_hotkeys/test_bindings.cpp",
+    "tests/ui_hotkeys/test_hotkeys_page.cpp"
+   ],
+   "note": "every standard shortcut has a row on hotkeys, binding rows show, refuse, clear and explain shortcuts (the note when a shortcut does nothing), each group opens its own page, reset leaves your own shortcuts alone."
+  },
+  "HK-08": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/hotkey_runtime.cpp",
+    "src/hotkeys/matcher.cpp",
+    "src/hotkeys/hotkey_manager.cpp",
+    "src/hotkeys/dispatcher.cpp",
+    "src/hotkeys/win/keyboard_hook.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_hotkey_runtime.cpp",
+    "tests/hotkeys/test_physical_keys.cpp",
+    "tests/hotkeys/test_hold_active.cpp",
+    "tests/hotkeys/test_enable_disable.cpp",
+    "tests/hotkeys/test_dispatcher.cpp",
+    "tests/hotkeys/test_golden.cpp"
+   ],
+   "note": "Windows half: watchdog 10 s tick, >30 s gap rehooks, 5-minute refresh deferred while a hold is active (the watchdog rehooks after a sleep and refreshes every five minutes, A04-56/A06-12); repeats of a held key swallowed within 2.5 s, Ctrl+Alt+Num* toggles once while held (A06-11, A06-59, test_enable_disable.cpp); FIFO dispatcher with hook timestamps (A06-55, A06-06). win/keyboard_hook.cpp read, not run. The macOS/Linux dedupe and X11 key consumption are other-platform."
+  },
+  "HK-09": {
+   "status": "other-platform",
+   "reason": "Linux (Wayland focused-window shortcuts) and macOS fallback hotkeys; Windows always has the global hook (area A06-22, A06-23 other-platform)."
+  },
+  "HK-10": {
+   "status": "other-platform",
+   "reason": "macOS Carbon hotkeys and the Accessibility set-up for auto-paste (area A06-17, A06-53, A06-54 other-platform)."
+  },
+  "HK-11": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/readiness.cpp",
+    "src/ui_controller/application_controller.cpp",
+    "src/appcore/engine_reload.cpp"
+   ],
+   "tests": [
+    "tests/appcore/test_readiness.cpp",
+    "tests/golden/services.application_controller.json",
+    "tests/ui_controller/test_application_controller.cpp"
+   ],
+   "note": "A record press with the engine closed by a Cancel or never loaded requests a reload and says Reloading speech engine... instead of recording; once loaded the next press records (A03-14 decision table and its callers)."
+  },
+  "HK-12": {
+   "status": "verified",
+   "cpp": [
+    "src/hotkeys/matcher.cpp",
+    "src/hotkeys/hotkey_manager.cpp",
+    "src/dictation/hotkey_runtime.cpp"
+   ],
+   "tests": [
+    "tests/hotkeys/test_enable_disable.cpp",
+    "tests/hotkeys/test_hotkey_manager.cpp",
+    "tests/dictation/test_hotkey_runtime.cpp"
+   ],
+   "note": "Enable/disable flips program_enabled, still works while disabled, other shortcuts pass through while off, STT Enabled / STT Disabled (A06-08)."
+  },
+  "OUT-01": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/delivery.cpp",
+    "src/focus/synthetic_keys.cpp",
+    "src/focus/win/keyboard_port.cpp",
+    "src/ui_settings/general_page.cpp",
+    "src/settings/keys.inc"
+   ],
+   "tests": [
+    "tests/dictation/test_delivery.cpp",
+    "tests/dictation/test_transcription_runtime.cpp",
+    "tests/focus/test_synthetic_keys.cpp"
+   ],
+   "note": "auto_paste (default on) stages and sends Ctrl+V, else copy only, with the Ready (Pasted) / (paste failed) / (copy failed) / Ready statuses (A04-23, A06-27). The Windows SendInput port (win/keyboard_port.cpp) was read, not run. Hyprland, macOS Accessibility and Linux terminal caveats are other-platform."
+  },
+  "OUT-02": {
+   "status": "verified",
+   "cpp": [
+    "src/clipboard/temporary_clipboard.cpp",
+    "src/clipboard/snapshot.cpp",
+    "src/dictation/delivery.cpp",
+    "src/dictation/transcription_runtime.cpp",
+    "src/ui_settings/general_page.cpp",
+    "src/settings/keys.inc"
+   ],
+   "tests": [
+    "tests/clipboard/test_temporary_clipboard.cpp",
+    "tests/clipboard/test_golden.cpp",
+    "tests/dictation/test_delivery.cpp",
+    "tests/dictation/test_paste_latency.cpp"
+   ],
+   "note": "restore_clipboard default false, tile Restore the clipboard after pasting on General; every MIME format snapshotted and restored, blank not restored, per-paste marker token checked (the offscreen QClipboard stages, restores and keeps rich formats; A06-31, A06-76); with it off no prefetch is taken (A04-08, test_paste_latency); the shared paste_transcript reads it for dictation and for the forced Command Mode / transform paste (a forced paste pastes with auto-paste off and restores after 250 ms)."
+  },
+  "OUT-03": {
+   "status": "verified",
+   "cpp": [
+    "src/clipboard/html.cpp",
+    "src/clipboard/temporary_clipboard.cpp",
+    "src/focus/join.cpp"
+   ],
+   "tests": [
+    "tests/clipboard/test_rich_text.cpp",
+    "tests/clipboard/test_golden.cpp",
+    "tests/focus/test_join.cpp",
+    "tests/golden/services.focus_context.json"
+   ],
+   "note": "HTML with a plain-text alternative, wrapped as a fragment document (A06-35); the caret join for plain and HTML replays 745 + 259 Python vectors (A06-45, A06-68)."
+  },
+  "OUT-04": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/rewrite_jobs.cpp",
+    "src/dictation/transcription_runtime.cpp",
+    "src/automation/action_runtime.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_command_delivery.cpp",
+    "tests/dictation/test_rewrite_jobs.cpp",
+    "tests/automation/test_action_runtime.cpp"
+   ],
+   "note": "Command Mode and transforms paste only into the app they started in, else copy with Rewrite copied — the app changed... (A04-24, golden _copy_rewrite); action answers likewise (test_paste_lands_only_in_the_app_the_job_started_in, test_paste_into_another_app_is_copied_instead, A19-13)."
+  },
+  "OUT-05": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_setup/guided_setup_dialog.cpp",
+    "src/ui_settings/home_page.cpp",
+    "src/dictation/transcription_runtime.cpp"
+   ],
+   "tests": [
+    "tests/ui_setup/test_guided_setup.cpp",
+    "tests/ui_settings/test_home.cpp"
+   ],
+   "note": "Show live transcript on the guided setup Output page and on Home writes streaming_enabled (test_guided_setup.cpp and test_home.cpp switch cases), the setting that turns the live preview on (A04-61, A08-06)."
+  },
+  "OUT-06": {
+   "status": "verified",
+   "cpp": [
+    "src/clipboard/backend.cpp",
+    "src/clipboard/temporary_clipboard.cpp",
+    "src/ui_controller/controller_feature.cpp"
+   ],
+   "tests": [
+    "tests/clipboard/test_temporary_clipboard.cpp"
+   ],
+   "note": "Every clipboard read and write goes through QClipboard (qt_clipboard_backend over QGuiApplication::clipboard(), wired in controller_feature.cpp); the offscreen QClipboard case exercises it. Windows-only additions are the sequence number and the delayed-render pre-render (win/), read, not run."
+  }
+ }
+}

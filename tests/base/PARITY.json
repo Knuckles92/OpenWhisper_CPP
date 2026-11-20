@@ -1,0 +1,69 @@
+{
+  "package": "M0.2",
+  "files": {
+    "tests/test_data_root.py": {
+      "test_a_source_tree_without_git_shares_the_per_user_directory": {
+        "status": "ported",
+        "cpp": "tests/base/test_paths.cpp"
+      },
+      "test_it_does_not_matter_where_it_was_started": {
+        "status": "ported",
+        "cpp": "tests/base/test_paths.cpp"
+      },
+      "test_a_git_checkout_keeps_its_data_in_the_checkout": {
+        "status": "dropped",
+        "reason": "deliberate difference (architecture 3.1): a source checkout never becomes the data root"
+      },
+      "test_settings_in_the_working_directory_stay_in_use": {
+        "status": "dropped",
+        "reason": "deliberate difference (architecture 3.1): settings in the working directory are never picked up"
+      },
+      "test_settings_in_the_checkout_stay_in_use_from_anywhere": {
+        "status": "dropped",
+        "reason": "deliberate difference (architecture 3.1): there is no checkout data root"
+      },
+      "test_the_environment_variable_wins": {
+        "status": "ported",
+        "cpp": "tests/base/test_paths.cpp"
+      },
+      "test_frozen_builds_use_the_per_user_directory": {
+        "status": "ported",
+        "cpp": "tests/base/test_paths.cpp",
+        "note": "as 'always per-user': FioriVoce has no source-run mode"
+      }
+    },
+    "tests/test_settings.py": {
+      "test_platform_helpers_skip_the_architecture_query_off_their_platform": {
+        "status": "ported",
+        "cpp": "tests/base/test_platform_info.cpp",
+        "note": "host_machine asks only its own platform's source; the parakeet_*_supported half moves to M1.11 with the catalog"
+      },
+      "test_windows_architecture_comes_from_the_kernel_not_wmi": {
+        "status": "ported",
+        "cpp": "tests/base/test_platform_info.cpp",
+        "note": "host_machine half; the parakeet_default_supported and current_platform_tag checks move to M1.11"
+      },
+      "test_windows_architecture_falls_back_to_cpython_environment": {
+        "status": "ported",
+        "cpp": "tests/base/test_platform_info.cpp"
+      },
+      "test_windows_kernel_reports_a_known_architecture": {
+        "status": "ported",
+        "cpp": "tests/base/test_platform_info.cpp"
+      }
+    },
+    "tests/test_backup_startup.py": {
+      "test_shared_processes_coexist_and_exclusive_waits_for_exit": {
+        "status": "ported",
+        "cpp": "tests/base/test_data_lease.cpp",
+        "note": "the reader process is fv_base_lease_helper"
+      }
+    },
+    "tests/test_main_window_compact.py": {
+      "test_native_wayland_session_detection": {
+        "status": "ported",
+        "cpp": "tests/base/test_desktop_session.cpp"
+      }
+    }
+  }
+}

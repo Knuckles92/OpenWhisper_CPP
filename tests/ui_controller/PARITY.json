@@ -1,0 +1,609 @@
+{
+    "package":  "M1.16, M2.28, M3.10, M4.14",
+    "files":  {
+                  "tests/test_application_controller.py":  {
+                    "TestApplicationController::test_profile_shortcuts_refresh_and_capture_preserve_standard_hotkeys": {"status": "ported", "cpp": "tests/ui_controller/test_personalize_wiring.cpp", "note": "the profile's press is the hotkey runtime's profile_record_requested, which the manager's family callback emits"},
+                    "TestApplicationController::test_transcribe_clip_delegates_to_current_backend": {"status": "ported", "cpp": "tests/ui_controller/test_personalize_wiring.cpp", "note": "ControllerRuleTranscriber over the speech service's dictation engine (the fake engine), never a Recognizer of its own"},
+                    "TestApplicationController::test_transcribe_clip_raises_without_backend_or_when_busy": {"status": "ported", "cpp": "tests/ui_controller/test_personalize_wiring.cpp", "note": "no backend is the dictation slot with nothing loaded; busy is ApplicationController::is_transcribing, given as a port"},
+                    "TestApplicationController::test_transcribe_clip_is_refused_during_a_meeting": {"status": "ported", "cpp": "tests/ui_controller/test_personalize_wiring.cpp", "note": "also the order: backup preparation, then a host's update, then the meeting"},
+                    "TestApplicationController::test_backup_waits_for_a_rule_dictation_in_settings": {"status": "ported", "cpp": "tests/ui_controller/test_personalize_wiring.cpp", "note": "BackupLifecycle reads the Learned rules page's dictation state as it reserves (BackupLifecyclePorts::ruleDictationBusy)"},
+                                                               "TestApplicationController::test_model_switch_updates_backend_and_device_info":  {
+                                                                                                                                                    "status":  "ported",
+                                                                                                                                                    "cpp":  "tests/ui_controller/test_application_controller.cpp",
+                                                                                                                                                    "note":  "the engines are parakeet and api: the device readout clears on a switch and the local engine reloads"
+                                                                                                                                                },
+                                                               "TestApplicationController::test_reload_whisper_model_runs_in_background_and_reports":  {
+                                                                                                                                                           "status":  "ported",
+                                                                                                                                                           "cpp":  "tests/ui_controller/test_application_controller.cpp",
+                                                                                                                                                           "note":  "the Parakeet engine through the speech service; the fake engine counts the loads Python counted as executor submissions"
+                                                                                                                                                       },
+                                                               "TestApplicationController::test_reload_whisper_model_refused_while_recording":  {
+                                                                                                                                                    "status":  "ported",
+                                                                                                                                                    "cpp":  "tests/ui_controller/test_application_controller.cpp"
+                                                                                                                                                },
+                                                               "TestApplicationController::test_hotkeys_backfill_minimize_tray_and_refresh_display_on_update":  {
+                                                                                                                                                                    "status":  "ported",
+                                                                                                                                                                    "cpp":  "tests/ui_controller/test_application_controller.cpp"
+                                                                                                                                                                },
+                                                               "TestApplicationController::test_minimize_hotkey_toggles_tray_visibility_on_main_thread":  {
+                                                                                                                                                              "status":  "ported",
+                                                                                                                                                              "cpp":  "tests/ui_controller/test_application_controller.cpp"
+                                                                                                                                                          },
+                                                               "TestApplicationController::test_dictation_start_is_refused_and_rolled_back_during_a_meeting":  {
+                                                                                                                                                                   "status":  "ported",
+                                                                                                                                                                   "cpp":  "tests/ui_controller/test_application_controller.cpp"
+                                                                                                                                                               },
+                                                               "TestApplicationController::test_recording_starts_normally_without_a_meeting":  {
+                                                                                                                                                   "status":  "ported",
+                                                                                                                                                   "cpp":  "tests/ui_controller/test_application_controller.cpp"
+                                                                                                                                               },
+                                                               "TestApplicationController::test_dictation_is_refused_while_meeting_setup_owns_audio":  {
+                                                                                                                                                           "status":  "ported",
+                                                                                                                                                           "cpp":  "tests/ui_controller/test_application_controller.cpp"
+                                                                                                                                                       },
+                                                               "TestApplicationController::test_toggle_recording_is_refused_during_a_meeting":  {
+                                                                                                                                                    "status":  "ported",
+                                                                                                                                                    "cpp":  "tests/ui_controller/test_application_controller.cpp"
+                                                                                                                                                },
+                                                               "TestApplicationController::test_whisper_reload_is_refused_during_a_meeting":  {
+                                                                                                                                                  "status":  "ported",
+                                                                                                                                                  "cpp":  "tests/ui_controller/test_application_controller.cpp",
+                                                                                                                                                  "note":  "the Parakeet engine"
+                                                                                                                                              },
+                                                               "TestApplicationController::test_release_frees_the_local_model_and_owes_a_reload":  {
+                                                                                                                                                       "status":  "ported",
+                                                                                                                                                       "cpp":  "tests/ui_controller/test_application_controller.cpp",
+                                                                                                                                                       "note":  "the speech service releases the slot (readiness Offline)"
+                                                                                                                                                   },
+                                                               "TestApplicationController::test_release_is_a_noop_when_no_model_is_loaded":  {
+                                                                                                                                                 "status":  "ported",
+                                                                                                                                                 "cpp":  "tests/ui_controller/test_application_controller.cpp"
+                                                                                                                                             },
+                                                               "TestApplicationController::test_restore_reloads_only_after_a_release":  {
+                                                                                                                                            "status":  "ported",
+                                                                                                                                            "cpp":  "tests/ui_controller/test_application_controller.cpp"
+                                                                                                                                        },
+                                                               "TestApplicationController::test_restore_is_idempotent":  {
+                                                                                                                             "status":  "ported",
+                                                                                                                             "cpp":  "tests/ui_controller/test_application_controller.cpp"
+                                                                                                                         },
+                                                               "TestApplicationController::test_cleanup_is_safe_with_partial_state":  {
+                                                                                                                                          "status":  "ported",
+                                                                                                                                          "cpp":  "tests/ui_controller/test_application_controller.cpp",
+                                                                                                                                          "note":  "Quit before the window was shown: the plan runs and the database closes"
+                                                                                                                                      },
+                                                               "TestApplicationController::test_notify_main_ui_ready_loads_deferred_local_backend":  {
+                                                                                                                                                         "status":  "ported",
+                                                                                                                                                         "cpp":  "tests/ui_controller/test_application_controller.cpp",
+                                                                                                                                                         "note":  "the Parakeet engine loads after the engine setup, then warms up"
+                                                                                                                                                     },
+                                                               "TestApplicationController::test_startup_database_is_deferred_and_dependencies_wait_for_completion":  {
+                                                                                                                                                                         "status":  "ported",
+                                                                                                                                                                         "cpp":  "tests/ui_controller/test_application_controller.cpp",
+                                                                                                                                                                         "note":  "M1\u0027s dependent is recovery of interrupted recordings; the meeting set-up, record sync and client history join it in M7 and M9"
+                                                                                                                                                                     },
+                                                               "TestApplicationController::test_startup_database_failure_or_shutdown_does_not_start_dependents":  {
+                                                                                                                                                                      "status":  "ported",
+                                                                                                                                                                      "cpp":  "tests/ui_controller/test_application_controller.cpp"
+                                                                                                                                                                  },
+                                                               "TestApplicationController::test_start_recording_refused_while_local_engine_loading":  {
+                                                                                                                                                          "status":  "ported",
+                                                                                                                                                          "cpp":  "tests/ui_controller/test_application_controller.cpp"
+                                                                                                                                                      },
+                                                               "TestApplicationController::test_start_recording_prompts_for_missing_model_before_capture":  {
+                                                                                                                                                                "status":  "ported",
+                                                                                                                                                                "cpp":  "tests/ui_controller/test_application_controller.cpp",
+                                                                                                                                                                "note":  "the prompt is the runtime setup dialog until Downloads (M2) has the consent flow"
+                                                                                                                                                            },
+                                                               "TestApplicationController::test_repeated_lease_release_keeps_restore_obligation":  {
+                                                                                                                                                       "status":  "ported",
+                                                                                                                                                       "cpp":  "tests/ui_controller/test_application_controller.cpp"
+                                                                                                                                                   },
+                                                               "TestApplicationController::test_optional_selection_cannot_change_while_a_job_is_active":  {
+                                                                                                                                                              "status":  "ported",
+                                                                                                                                                              "cpp":  "tests/ui_controller/test_application_controller.cpp"
+                                                                                                                                                          },
+                                                               "TestApplicationController::test_quit_drains_queued_history_before_closing_database":  {
+                                                                                                                                                          "status":  "ported",
+                                                                                                                                                          "cpp":  "tests/ui_controller/test_application_controller.cpp"
+                                                                                                                                                      },
+                                                               "TestApplicationController::test_declining_optional_download_preserves_whisper_settings":  {
+                                                                                                                                                              "status":  "dropped",
+                                                                                                                                                              "reason":  "Whisper settings are dropped"
+                                                                                                                                                          },
+                                                               "TestApplicationController::test_streaming_defers_when_tiny_en_is_missing":  {
+                                                                                                                                                "status":  "dropped",
+                                                                                                                                                "reason":  "the Whisper tiny.en preview model is dropped with its engine"
+                                                                                                                                            },
+                                                               "TestApplicationController::test_meeting_agent_install_does_not_ask_for_restart":  {
+                                                                                                                                                      "status":  "dropped",
+                                                                                                                                                      "reason":  "the meeting agent sidecar is replaced by the in-process loop (amendment 20)"
+                                                                                                                                                  },
+                                                               "TestApplicationController::test_declined_download_reverts_model_selection":  {
+                                                                                                                                                 "status":  "dropped",
+                                                                                                                                                 "reason":  "Whisper download consent: the engine is dropped"
+                                                                                                                                             },
+                                                               "TestApplicationController::test_declined_download_without_prior_model_keeps_selection":  {
+                                                                                                                                                             "status":  "dropped",
+                                                                                                                                                             "reason":  "Whisper download consent: the engine is dropped"
+                                                                                                                                                         },
+                                                               "TestApplicationController::test_streaming_preview_follows_the_nemotron_native_stream":  {
+                                                                                                                                                            "status":  "dropped",
+                                                                                                                                                            "reason":  "Nemotron is dropped"
+                                                                                                                                                        },
+                                                               "TestApplicationController::test_native_stream_needs_a_streaming_model_not_just_the_backend":  {
+                                                                                                                                                                  "status":  "dropped",
+                                                                                                                                                                  "reason":  "Nemotron\u0027s native stream is dropped"
+                                                                                                                                                              },
+                                                               "TestApplicationController::test_gpu_fallback_reverts_device_setting_and_names_the_fix":  {
+                                                                                                                                                             "status":  "dropped",
+                                                                                                                                                             "reason":  "the Whisper GPU fallback is dropped with its engine"
+                                                                                                                                                         },
+                                                               "TestApplicationController::test_gpu_fallback_out_of_memory_does_not_advertise_the_component":  {
+                                                                                                                                                                   "status":  "dropped",
+                                                                                                                                                                   "reason":  "the Whisper GPU fallback is dropped with its engine"
+                                                                                                                                                               },
+                                                               "TestApplicationController::test_reload_worker_leaves_the_fallback_warning_visible":  {
+                                                                                                                                                         "status":  "dropped",
+                                                                                                                                                         "reason":  "the Whisper GPU fallback warning is dropped with its engine"
+                                                                                                                                                     },
+                                                               "TestApplicationController::test_startup_fallback_is_reported_once_the_ui_is_ready":  {
+                                                                                                                                                         "status":  "dropped",
+                                                                                                                                                         "reason":  "the Whisper GPU fallback warning is dropped with its engine"
+                                                                                                                                                     },
+                                                               "TestApplicationController::test_optional_engine_switch_releases_whisper_before_loading":  {
+                                                                                                                                                              "status":  "dropped",
+                                                                                                                                                              "reason":  "switches to and from Whisper: the engine is dropped"
+                                                                                                                                                          },
+                                                               "TestApplicationController::test_switching_from_optional_to_api_does_not_load_whisper":  {
+                                                                                                                                                            "status":  "dropped",
+                                                                                                                                                            "reason":  "switches to and from Whisper: the engine is dropped"
+                                                                                                                                                        },
+                                                               "TestApplicationController::test_returning_to_whisper_reloads_released_model":  {
+                                                                                                                                                   "status":  "dropped",
+                                                                                                                                                   "reason":  "switches to and from Whisper: the engine is dropped"
+                                                                                                                                               },
+                                                               "TestApplicationController::test_blocked_auto_paste_leaves_transcript_for_manual_paste":  {
+                                                                                                                                                             "status":  "dropped",
+                                                                                                                                                             "reason":  "other-platform: a desktop that blocks synthetic input (Wayland)"
+                                                                                                                                                         },
+                                                               "test_stubbed_modules_leave_no_copies_on_their_packages":  {
+                                                                                                                              "status":  "dropped",
+                                                                                                                              "reason":  "tests Python\u0027s own module stubbing"
+                                                                                                                          },
+                                                               "TestApplicationController::test_notify_main_ui_ready_skips_local_load_for_api_backend":  {
+                                                                                                                                                             "status":  "ported",
+                                                                                                                                                             "cpp":  "tests/ui_controller/test_application_controller.cpp",
+                                                                                                                                                             "note":  "the API engine goes into the speech slot outside the reload machine, so its readiness says whether a key resolves; no local model loads"
+                                                                                                                                                         },
+                                                               "TestApplicationController::test_start_recording_refuses_unavailable_api_before_capture":  {
+                                                                                                                                                              "status":  "ported",
+                                                                                                                                                              "cpp":  "tests/ui_controller/test_application_controller.cpp",
+                                                                                                                                                              "note":  "the slot reports NeedsKey where Python asked is_available"
+                                                                                                                                                          },
+                                                               "TestApplicationController::test_backup_reservation_blocks_capture_jobs_and_meetings":  {
+                                                                                                                                                           "status":  "ported",
+                                                                                                                                                           "cpp":  "tests/ui_controller/test_backup_lifecycle.cpp",
+                                                                                                                                                           "note":  "Meeting Mode and transcribe_clip arrive with M7; the recording start and the job claim read the same backup flag"
+                                                                                                                                                       },
+                                                               "TestApplicationController::test_backup_waits_for_startup_recovery_and_active_work":  {
+                                                                                                                                                         "status":  "ported",
+                                                                                                                                                         "cpp":  "tests/ui_controller/test_backup_lifecycle.cpp"
+                                                                                                                                                     },
+                                                               "TestApplicationController::test_backup_restore_only_requests_restart_after_success":  {
+                                                                                                                                                          "status":  "ported",
+                                                                                                                                                          "cpp":  "tests/ui_controller/test_backup_lifecycle.cpp",
+                                                                                                                                                          "note":  "the stage is reported through the provided coordinator\u0027s restore_staged; the exit is the controller platform\u0027s"
+                                                                                                                                                      },
+                                                               "TestApplicationController::test_backup_pauses_client_sync_and_host_requests_and_releases_both":  {
+                                                                                                                                                                     "status":  "ported",
+                                                                                                                                                                     "cpp":  "tests/ui_controller/test_backup_lifecycle.cpp",
+                                                                                                                                                                     "note":  "recording pauses stand for the record sync and the host, which register theirs in M9"
+                                                                                                                                                                 },
+                                                               "TestApplicationController::test_auto_update_check_failure_is_background_status":  {
+                                                                                                                                                      "status":  "ported",
+                                                                                                                                                      "cpp":  "tests/ui_controller/test_update_presenter.cpp"
+                                                                                                                                                  },
+                      "TestApplicationController::test_walkthrough_library_edit_leaves_dictation_free": {"status": "ported", "cpp": "tests/ui_controller/test_walkthrough_library_lease.cpp", "note": "case: a walkthrough library edit leaves dictation free and the window enabled (the walkthrough feature's ReviewHost lease, the backup lifecycle and a second library edit through the composed app)"},
+                      "TestApplicationController::test_a_walkthrough_write_up_holds_the_library_but_not_dictation": {"status": "ported", "cpp": "tests/ui_controller/test_walkthrough_library_lease.cpp", "note": "case: a walkthrough write-up holds the library but not dictation (a recorded walkthrough's write-up through the composed app; the user's Cancel through ApplicationController::cancel reaches it)"},
+                      "TestApplicationController::test_a_paired_computer_switches_this_one_to_another_model": {"status": "ported", "cpp": "tests/remote_host/test_model_management.cpp", "note": "case of the same name in tests/remote_host/test_model_management.cpp (HostModelManager::select): the meeting refusal in remote.py's words, the model saved with its backend, the reload note 'Switching to <label> for laptop...', and the answer held until the queued reload has run"},
+                      "TestApplicationController::test_remote_capture_reservation_lasts_through_history": {"status": "other-platform", "reason": "Deliberately not ported (audit A04-46, A17-25): OpenWhisper's client reserves a recording on the host (recording_begin/recording_end) and transcription.py prepare_host_update refuses during local work only to serve the host's update hold, whose one caller is services/omarchy_controls.py (the Linux Omarchy desktop); the Windows product never asks a host to hold an update. FioriVoce's dictation engine therefore does not advertise recording_activity (tests/remote_host/test_runtime_links.cpp 'the dictation engine does not advertise recording reservations'), and the host half (SpeechHost::prepare_update with OpenWhisper clients' reservations) stays and is tested."},
+                      "TestApplicationController::test_host_update_reservation_protects_local_recording_and_processing": {"status": "other-platform", "reason": "Deliberately not ported (audit A04-46, A17-25): OpenWhisper's client reserves a recording on the host (recording_begin/recording_end) and transcription.py prepare_host_update refuses during local work only to serve the host's update hold, whose one caller is services/omarchy_controls.py (the Linux Omarchy desktop); the Windows product never asks a host to hold an update. FioriVoce's dictation engine therefore does not advertise recording_activity (tests/remote_host/test_runtime_links.cpp 'the dictation engine does not advertise recording reservations'), and the host half (SpeechHost::prepare_update with OpenWhisper clients' reservations) stays and is tested."},
+                      "TestApplicationController::test_recording_waits_briefly_for_the_remote_engine": {"status": "ported", "cpp": "tests/dictation/test_runtime_flow.cpp", "note": "cases 'a recording waits briefly for the remote engine, then keeps the audio' (offline), 'a recording decodes once the remote engine reconnects' (reconnected), 'a recording waiting for the remote engine can be canceled' (canceled: one attempt, nothing kept) and 'a recording stops waiting for a remote reconnect that never settles' (timeout: one attempt over the whole 12 s wait; found and fixed: a truncated remainder ran the other two attempts at once)"},
+                      "TestApplicationController::test_recording_retries_a_decode_the_remote_host_refused_before_starting": {"status": "ported", "cpp": "tests/dictation/test_runtime_flow.cpp", "note": "case of the same name: a decode the paired host refused before starting it (EngineError Retry::Connection, which RemoteSpeechBackend::decode now gives a RemoteDecodeNotStarted) joins one reconnect and is decoded again; the words are kept, not pasted. Ported here: TranscriptionRuntime::decode_and_complete's retry (it was missing)"}
+                                                           },
+                  "tests/test_controller_thread_hops.py":  {
+                                                               "test_a_hotkey_readiness_check_really_reloads_the_engine":  {
+                                                                                                                               "status":  "ported",
+                                                                                                                               "cpp":  "tests/ui_controller/test_thread_hops.cpp",
+                                                                                                                               "note":  "never-loaded; the speech service does not close an engine on a Cancel, so closed-by-cancel reads the same"
+                                                                                                                           },
+                                                               "test_a_reload_asked_for_on_the_qt_thread_is_armed_at_once":  {
+                                                                                                                                 "status":  "ported",
+                                                                                                                                 "cpp":  "tests/ui_controller/test_thread_hops.cpp"
+                                                                                                                             },
+                                                               "test_recording_storage_failure_is_delivered_on_qt_thread":  {
+                                                                                                                                "status":  "ported",
+                                                                                                                                "cpp":  "tests/ui_controller/test_thread_hops.cpp",
+                                                                                                                                "note":  "the real recorder with nothing recorded (has_audio False)"
+                                                                                                                            },
+                                                               "test_a_busy_hotkey_notice_is_shown_on_the_qt_thread":  {
+                                                                                                                           "status":  "ported",
+                                                                                                                           "cpp":  "tests/ui_controller/test_thread_hops.cpp"
+                                                                                                                       },
+                                                               "test_feature_runtimes_deliver_worker_signals_on_the_qt_thread":  {
+                                                                                                                                     "status":  "ported",
+                                                                                                                                     "cpp":  "tests/ui_controller/test_thread_hops.cpp",
+                                                                                                                                     "note":  "the hotkey runtime\u0027s signals; the other runtimes arrive with M2, M3, M7 and M9"
+                                                                                                                                 }
+                                                           },
+                  "tests/test_personalize_foundation_controller.py":  {
+                    "test_command_keys_and_transforms_reach_the_command_runtime": {"status": "ported", "cpp": "tests/ui_controller/test_personalize_wiring.cpp", "note": "the hook's Command Mode press and release reach the CommandRuntime the controller installed (HotkeyRuntime::set_command_keys), observed through its refusal"},
+                    "test_commands_and_transforms_without_a_provider_say_how_to_start": {"status": "ported", "cpp": "tests/ui_controller/test_personalize_wiring.cpp", "note": "the endpoint's key variable is in no environment; the rig reads no key of this computer"},
+                    "test_settings_changes_refresh_shortcuts_for_transforms_and_hotkeys": {"status": "ported", "cpp": "tests/ui_controller/test_personalize_wiring.cpp", "note": "the refreshes are counted through HotkeyRuntime::set_transform_loader; \"actions\" refreshes too, as in Python"},
+                                                                          "test_ui_signals_reach_their_ui_methods":  {
+                                                                                                                         "status":  "ported",
+                                                                                                                         "cpp":  "tests/ui_controller/test_wiring.cpp",
+                                                                                                                         "note":  "M1\u0027s signals: hands-free, a microphone switch, Paste original"
+                                                                                                                     },
+                                                                          "test_the_recorder_comes_from_settings_and_reports_switches":  {
+                                                                                                                                             "status":  "ported",
+                                                                                                                                             "cpp":  "tests/ui_controller/test_wiring.cpp",
+                                                                                                                                             "note":  "the new microphone order is applied to the same recorder, whose connections stay"
+                                                                                                                                         },
+                                                                          "test_cleanup_stops_playback_focus_capture_and_commands":  {
+                                                                                                                                         "status":  "ported",
+                                                                                                                                         "cpp":  "tests/ui_controller/test_wiring.cpp"
+                                                                                                                                     }
+                                                                      },
+                  "tests/test_personalize_foundation_ui_shell.py":  {
+                    "TestFeatureDelegation::test_learned_term_says_so_and_refreshes_the_dictionary_page": {"status": "ported", "cpp": "tests/ui_controller/test_personalize_wiring.cpp", "note": "the learner says whether the word is protected (term_learned's second value) instead of the notice reading the dictionary again"},
+                                                                        "TestClipboardHooks::test_staging_without_html_keeps_the_one_argument_call":  {
+                                                                                                                                                          "status":  "ported",
+                                                                                                                                                          "cpp":  "tests/ui_controller/test_wiring.cpp"
+                                                                                                                                                      },
+                                                                        "TestClipboardHooks::test_staging_with_html_passes_it_on":  {
+                                                                                                                                        "status":  "ported",
+                                                                                                                                        "cpp":  "tests/ui_controller/test_wiring.cpp"
+                                                                                                                                    },
+                                                                        "TestClipboardHooks::test_staging_without_restore_passes_it_on":  {
+                                                                                                                                              "status":  "ported",
+                                                                                                                                              "cpp":  "tests/ui_controller/test_wiring.cpp"
+                                                                                                                                          },
+                                                                        "TestClipboardHooks::test_capture_selection_hands_over_the_copy_shortcut_and_timeout":  {
+                                                                                                                                                                    "status":  "ported",
+                                                                                                                                                                    "cpp":  "tests/ui_controller/test_wiring.cpp"
+                                                                                                                                                                },
+                                                                        "TestFeatureDelegation::test_hands_free_and_device_switch_reach_the_overlay":  {
+                                                                                                                                                           "status":  "ported",
+                                                                                                                                                           "cpp":  "tests/ui_controller/test_wiring.cpp"
+                                                                                                                                                       },
+                                                                        "TestEmptyStates::test_entry_points_do_nothing_without_their_target":  {
+                                                                                                                                                   "status":  "ported",
+                                                                                                                                                   "cpp":  "tests/ui_controller/test_wiring.cpp"
+                                                                                                                                               },
+                                                                        "TestAppWiring::test_settings_changes_reach_a_handler_assigned_later":  {
+                                                                                                                                                    "status":  "ported",
+                                                                                                                                                    "cpp":  "tests/ui_controller/test_wiring.cpp"
+                                                                                                                                                },
+                                                                        "TestAppWiring::test_command_listening_records_and_rewriting_cleans_up_in_their_own_looks":  {
+                                                                                                                                                                         "status":  "ported",
+                                                                                                                                                                         "cpp":  "tests/ui_controller/test_wiring.cpp",
+                                                                                                                                                                         "note":  "the controller\u0027s half (tray item, Quick Record\u0027s activity line); the overlay\u0027s half is tests/ui_overlay\u0027s"
+                                                                                                                                                                     },
+                                                                        "TestAppWiring::test_new_overlay_hooks_change_nothing_yet":  {
+                                                                                                                                         "status":  "ported",
+                                                                                                                                         "cpp":  "tests/ui_controller/test_wiring.cpp",
+                                                                                                                                         "note":  "the controller\u0027s half; the overlay\u0027s half is tests/ui_overlay\u0027s"
+                                                                                                                                     },
+                                                                        "TestAppWiring::test_tray_offers_the_new_actions_and_routes_them":  {
+                                                                                                                                                "status":  "ported",
+                                                                                                                                                "cpp":  "tests/ui_controller/test_wiring.cpp",
+                                                                                                                                                "note":  "the features themselves answer in place of the monkeypatched functions: the Scratchpad shows, Stats opens, Copy original copies"
+                                                                                                                                            },
+                                                                        "TestAppWiring::test_view_menu_opens_the_scratchpad_and_stats":  {
+                                                                                                                                             "status":  "ported",
+                                                                                                                                             "cpp":  "tests/ui_controller/test_wiring.cpp",
+                                                                                                                                             "note":  "the View menu items as MenuRegistry actions; the menu order is the shell\u0027s (appkit/order.h)"
+                                                                                                                                         },
+                      "TestFeatureDelegation::test_actions_hand_the_controller_to_their_module": {"status": "ported", "cpp": "tests/ui_controller/test_wiring.cpp", "note": "case: test_view_menu_opens_the_scratchpad_and_stats (scratchpad and stats through the controller), with tests/ui_controller/test_notices.cpp test_paste_and_copy_original_report_where_the_user_is for paste_last_original; real behaviour instead of the Python mocks"},
+                      "test_omarchy_header_carries_the_same_view_actions": {"status": "other-platform", "reason": "Omarchy is the Linux Hyprland desktop; FioriVoce has no DesktopHeader and reads a saved 'omarchy' theme as dark (src/ui_theme/font_scale.h). The View actions themselves: tests/ui_controller/test_wiring.cpp test_view_menu_opens_the_scratchpad_and_stats"},
+                      "TestFeatureDelegation::test_language_menu_is_filled_by_its_module": {"status": "ported", "cpp": "tests/ui_controller/test_language_menu_delegation.cpp", "note": "case: the controller's language menu is filled by the language menu module (no mock in C++: the tray's menu gets the module's rows over the saved languages)"}
+                                                                    },
+                  "tests/test_personalize_s9_paste_original.py":  {
+                                                                      "test_the_controller_gives_the_ui_its_paste":  {
+                                                                                                                         "status":  "ported",
+                                                                                                                         "cpp":  "tests/ui_controller/test_wiring.cpp"
+                                                                                                                     }
+                                                                  },
+                  "tests/test_personalize_fix_f1_tray_copy_original.py":  {
+                                                                              "test_the_tray_item_copies_and_never_pastes":  {
+                                                                                                                                 "status":  "ported",
+                                                                                                                                 "cpp":  "tests/ui_controller/test_wiring.cpp"
+                                                                                                                             }
+                                                                          },
+                  "tests/test_automation_fix_pipeline_sources.py":  {
+                                                                        "test_the_window_button_records_with_source_ui":  {
+                                                                                                                              "status":  "ported",
+                                                                                                                              "cpp":  "tests/ui_controller/test_wiring.cpp",
+                                                                                                                              "note":  "no profile start until cleanup profiles (M4)"
+                                                                                                                          },
+                                                                        "test_the_tray_records_with_source_ui_and_the_shell_with_dbus":  {
+                                                                                                                                             "status":  "ported",
+                                                                                                                                             "cpp":  "tests/ui_controller/test_wiring.cpp",
+                                                                                                                                             "note":  "the tray half; the desktop shell\u0027s D-Bus button is not on Windows"
+                                                                                                                                         },
+                                                                        "test_the_controller_passes_the_source_on":  {
+                                                                                                                         "status":  "ported",
+                                                                                                                         "cpp":  "tests/ui_controller/test_wiring.cpp"
+                                                                                                                     },
+                                                                        "test_a_shortcut_still_records_with_source_hotkey":  {
+                                                                                                                                 "status":  "ported",
+                                                                                                                                 "cpp":  "tests/ui_controller/test_wiring.cpp"
+                                                                                                                             },
+                                                                        "test_an_omarchy_shell_click_records_with_source_dbus":  {
+                                                                                                                                     "status":  "dropped",
+                                                                                                                                     "reason":  "other-platform: Omarchy\u0027s D-Bus controls are Linux only"
+                                                                                                                                 }
+                                                                    },
+                  "tests/test_deferred_screens.py":  {
+                                                         "test_controller_startup_keeps_inactive_views_unbuilt":  {
+                                                                                                                      "status":  "ported",
+                                                                                                                      "cpp":  "tests/ui_controller/test_wiring.cpp",
+                                                                                                                      "note":  "M1\u0027s inactive screen is the Upload File stand-in; Meeting Mode arrives with M7"
+                                                                                                                  }
+                                                     },
+                  "tests/test_personalize_fix3_h1_outcome_notices.py":  {
+                                                                            "test_a_recording_in_progress_keeps_its_overlay":  {
+                                                                                                                                   "status":  "ported",
+                                                                                                                                   "cpp":  "tests/ui_controller/test_notices.cpp"
+                                                                                                                               },
+                                                                            "test_a_job_in_progress_keeps_its_overlay_and_shows_the_notice":  {
+                                                                                                                                                  "status":  "ported",
+                                                                                                                                                  "cpp":  "tests/ui_controller/test_notices.cpp"
+                                                                                                                                              },
+                                                                            "test_the_main_window_in_front_gets_no_notice":  {
+                                                                                                                                 "status":  "ported",
+                                                                                                                                 "cpp":  "tests/ui_controller/test_notices.cpp"
+                                                                                                                             },
+                                                                            "test_a_failed_paste_of_the_original_is_reported":  {
+                                                                                                                                    "status":  "ported",
+                                                                                                                                    "cpp":  "tests/ui_controller/test_notices.cpp"
+                                                                                                                                },
+                                                                            "test_paste_and_copy_original_report_where_the_user_is":  {
+                                                                                                                                          "status":  "ported",
+                                                                                                                                          "cpp":  "tests/ui_controller/test_notices.cpp"
+                                                                                                                                      }
+                                                                        },
+                  "tests/test_main_window_compact.py":  {
+                                                            "TestMainWindowCompactMode::test_compact_controls_delegate_to_quick_record":  {
+                                                                                                                                              "status":  "ported",
+                                                                                                                                              "cpp":  "tests/ui_controller/test_window_with_tabs.cpp"
+                                                                                                                                          },
+                                                            "TestMainWindowCompactMode::test_quick_record_controls_fit_at_minimum_height":  {
+                                                                                                                                                "status":  "ported",
+                                                                                                                                                "cpp":  "tests/ui_controller/test_window_with_tabs.cpp",
+                                                                                                                                                "note":  "the profile card arrives with cleanup profiles (M4)"
+                                                                                                                                            },
+                      "TestMainWindowCompactMode::test_the_walkthrough_tab_reaches_the_window": {"status": "ported", "cpp": "tests/ui_controller/test_walkthrough_window.cpp", "note": "case: the walkthrough tab reaches the window (the feature connects the tab, Open library and the settings link; FioriVoce's window does not relay them as signals of its own)"},
+                      "TestMainWindowCompactMode::test_the_walkthrough_tab_lists_walkthroughs_in_the_side_panel": {"status": "ported", "cpp": "tests/ui_controller/test_walkthrough_window.cpp", "note": "case: the walkthrough tab lists walkthroughs in the side panel"},
+                      "TestMainWindowCompactMode::test_walkthrough_tab_fits_when_opened_at_minimum_size": {"status": "ported", "cpp": "tests/ui_controller/test_walkthrough_window.cpp", "note": "case: the walkthrough tab fits when opened at the minimum size (also elastic)"}
+                                                        },
+                  "tests/test_window_fits_tab.py":  {
+                                                        "test_every_tab_fits_the_window_to_its_page":  {
+                                                                                                           "status":  "ported",
+                                                                                                           "cpp":  "tests/ui_controller/test_window_with_tabs.cpp",
+                                                                                                           "note":  "Quick Record and Upload File; M6 and M7 add their tabs"
+                                                                                                       },
+                                                        "test_an_open_transcript_keeps_the_height_the_user_gives_it":  {
+                                                                                                                           "status":  "ported",
+                                                                                                                           "cpp":  "tests/ui_controller/test_window_with_tabs.cpp",
+                                                                                                                           "note":  "Quick Record\u0027s half; the Upload File half runs once M2\u0027s Upload tab exists"
+                                                                                                                       },
+                                                        "test_quick_record_fits_wrapped_text_and_shrinks_after_a_long_result":  {
+                                                                                                                                    "status":  "ported",
+                                                                                                                                    "cpp":  "tests/ui_controller/test_window_with_tabs.cpp"
+                                                                                                                                }
+                                                    },
+                  "tests/test_main_entrypoint.py":  {
+                                                        "test_source_startup_activates_components_before_backend_imports":  {
+                                                                                                                                "status":  "ported",
+                                                                                                                                "cpp":  "tests/ui_controller/test_engine_setup.cpp",
+                                                                                                                                "note":  "adapted: component startup recovery runs, and its failure is logged, before the first runtime load; gpu-accel activation is dropped"
+                                                                                                                            }
+                                                    },
+                  "tests/test_live_preview_control.py":  {
+                                                             "TestUiControllerHooks::test_tab_toggle_reconfigures_streaming":  {
+                                                                                                                                   "status":  "ported",
+                                                                                                                                   "cpp":  "tests/ui_controller/test_settings_bindings.cpp",
+                                                                                                                                   "note":  "the live preview is set up (StreamingRuntime::configured) where Python asserted the hook call"
+                                                                                                                               },
+                                                             "TestUiControllerHooks::test_settings_dialog_toggle_refreshes_tabs_then_reconfigures":  {
+                                                                                                                                                         "status":  "ported",
+                                                                                                                                                         "cpp":  "tests/ui_controller/test_settings_bindings.cpp",
+                                                                                                                                                         "note":  "the tab shows the saved switch and the preview is set up"
+                                                                                                                                                     }
+                                                         },
+                  "tests/test_app_update_handoff.py":  {
+                                                           "TestNativeHandoff::test_handoff_exits_instead_of_asking_to_quit":  {
+                                                                                                                                   "status":  "ported",
+                                                                                                                                   "cpp":  "tests/ui_controller/test_update_handoff.cpp",
+                                                                                                                                   "note":  "adapted: the setup\u0027s hand-off, since the native helper is M10\u0027s"
+                                                                                                                               },
+                                                           "TestNativeHandoff::test_failed_launch_keeps_the_app_running":  {
+                                                                                                                               "status":  "ported",
+                                                                                                                               "cpp":  "tests/ui_controller/test_update_handoff.cpp",
+                                                                                                                               "note":  "adapted: the setup\u0027s hand-off, since the native helper is M10\u0027s"
+                                                                                                                           },
+                                                           "TestNativeHandoff::test_cancel_after_the_dialog_closed_does_not_pop_a_failure":  {
+                                                                                                                                                 "status":  "ported",
+                                                                                                                                                 "cpp":  "tests/ui_controller/test_update_handoff.cpp"
+                                                                                                                                             },
+                                                           "TestNativeHandoff::test_tray_exit_goes_through_the_window":  {
+                                                                                                                             "status":  "ported",
+                                                                                                                             "cpp":  "tests/ui_controller/test_update_handoff.cpp",
+                                                                                                                             "note":  "the window\u0027s confirmation is counted where Python counted quit_application"
+                                                                                                                         },
+                                                           "TestNativeHandoff::test_a_user_quit_mid_task_asks_first":  {
+                                                                                                                           "status":  "ported",
+                                                                                                                           "cpp":  "tests/ui_controller/test_update_handoff.cpp",
+                                                                                                                           "note":  "the Yes half asks the window\u0027s confirmation instead of quitting the test\u0027s application"
+                                                                                                                       },
+                                                           "TestNativeHandoff::test_the_update_handoff_quits_without_asking_again":  {
+                                                                                                                                         "status":  "ported",
+                                                                                                                                         "cpp":  "tests/ui_controller/test_update_handoff.cpp"
+                                                                                                                                     },
+                                                           "TestSetupHandoff::test_setup_fallback_skips_wizard_preserves_install_and_restarts":  {
+                                                                                                                                                     "status":  "ported",
+                                                                                                                                                     "cpp":  "tests/ui_controller/test_update_handoff.cpp",
+                                                                                                                                                     "note":  "the registration is the install probe update::setup_command reads"
+                                                                                                                                                 },
+                                                           "TestSetupHandoff::test_failed_setup_launch_reacquires_mutex_and_keeps_work_open":  {
+                                                                                                                                                   "status":  "ported",
+                                                                                                                                                   "cpp":  "tests/ui_controller/test_update_handoff.cpp"
+                                                                                                                                               },
+                                                           "TestHandoffWatchdog::test_a_stalled_exit_is_forced":  {
+                                                                                                                      "status":  "ported",
+                                                                                                                      "cpp":  "tests/ui_controller/test_update_handoff.cpp",
+                                                                                                                      "note":  "a fake hard exit; std::_Exit itself would end the test runner"
+                                                                                                                  },
+                                                           "TestHandoffWatchdog::test_a_normal_exit_leaves_nothing_holding_the_process":  {
+                                                                                                                                              "status":  "ported",
+                                                                                                                                              "cpp":  "tests/ui_controller/test_update_handoff.cpp",
+                                                                                                                                              "note":  "the detached thread ends on cancel"
+                                                                                                                                          },
+                                                           "test_mac_handoff_opens_disk_image_then_exits":  {
+                                                                                                                "status":  "dropped",
+                                                                                                                "reason":  "other-platform: the macOS disk image hand-off"
+                                                                                                            }
+                                                       },
+                  "tests/test_update_notice.py":  {
+                                                      "test_automatic_check_lights_the_notice_without_a_dialog":  {
+                                                                                                                      "status":  "ported",
+                                                                                                                      "cpp":  "tests/ui_controller/test_update_presenter.cpp"
+                                                                                                                  },
+                                                      "test_manual_check_opens_the_dialog_and_lights_the_notice":  {
+                                                                                                                       "status":  "ported",
+                                                                                                                       "cpp":  "tests/ui_controller/test_update_presenter.cpp"
+                                                                                                                   },
+                                                      "test_failed_check_keeps_a_release_found_earlier":  {
+                                                                                                              "status":  "ported",
+                                                                                                              "cpp":  "tests/ui_controller/test_update_presenter.cpp"
+                                                                                                          },
+                                                      "test_up_to_date_result_withdraws_the_notice":  {
+                                                                                                          "status":  "ported",
+                                                                                                          "cpp":  "tests/ui_controller/test_update_presenter.cpp"
+                                                                                                      },
+                                                      "test_notices_follow_the_notify_setting":  {
+                                                                                                     "status":  "ported",
+                                                                                                     "cpp":  "tests/ui_controller/test_update_presenter.cpp"
+                                                                                                 },
+                                                      "test_check_while_the_dialog_is_open_leaves_its_result_alone":  {
+                                                                                                                          "status":  "ported",
+                                                                                                                          "cpp":  "tests/ui_controller/test_update_presenter.cpp"
+                                                                                                                      },
+                                                      "test_notice_and_tray_open_the_found_release":  {
+                                                                                                          "status":  "ported",
+                                                                                                          "cpp":  "tests/ui_controller/test_update_presenter.cpp"
+                                                                                                      },
+                                                      "test_compact_window_drops_the_version_but_keeps_it_in_the_tooltip":  {
+                                                                                                                                "status":  "ported",
+                                                                                                                                "cpp":  "tests/ui_widgets/test_update_notice.cpp",
+                                                                                                                                "note":  "M0.10\u0027s"
+                                                                                                                            }
+                                                  },
+                  "tests/test_code_change_restart.py":  {
+                                                            "test_the_poll_asks_once_the_code_changed_and_nothing_is_running":  {
+                                                                                                                                    "status":  "ported",
+                                                                                                                                    "cpp":  "tests/ui_controller/test_code_change_restart.cpp",
+                                                                                                                                    "note":  "the offer\u0027s box is answered by clicking its buttons where Python patched QMessageBox.exec"
+                                                                                                                                },
+                                                            "test_dont_show_again_mutes_the_unprompted_offer":  {
+                                                                                                                    "status":  "ported",
+                                                                                                                    "cpp":  "tests/ui_controller/test_code_change_restart.cpp",
+                                                                                                                    "note":  "the offer\u0027s box is answered by clicking its buttons where Python patched QMessageBox.exec"
+                                                                                                                },
+                                                            "test_an_error_offer_has_no_dont_show_again":  {
+                                                                                                               "status":  "ported",
+                                                                                                               "cpp":  "tests/ui_controller/test_code_change_restart.cpp",
+                                                                                                               "note":  "the offer\u0027s box is answered by clicking its buttons where Python patched QMessageBox.exec"
+                                                                                                           },
+                                                            "test_restart_now_confirms_running_work_before_restarting":  {
+                                                                                                                             "status":  "ported",
+                                                                                                                             "cpp":  "tests/ui_controller/test_code_change_restart.cpp",
+                                                                                                                             "note":  "the offer\u0027s box is answered by clicking its buttons where Python patched QMessageBox.exec"
+                                                                                                                         },
+                                                            "test_a_restart_exits_with_the_code_main_relaunches_on":  {
+                                                                                                                          "status":  "ported",
+                                                                                                                          "cpp":  "tests/ui_controller/test_code_change_restart.cpp",
+                                                                                                                          "note":  "the geometry save and the exit code; MainWindow\u0027s force-quit flag is not public and exit() closes no window"
+                                                                                                                      }
+                                                        },
+                  "tests/test_update_resilience.py":  {
+                                                          "test_ui_cancel_after_success_is_queued_keeps_app_open":  {
+                                                                                                                        "status":  "ported",
+                                                                                                                        "cpp":  "tests/ui_controller/test_update_handoff.cpp",
+                                                                                                                        "note":  "adapted: a setup hand-off"
+                                                                                                                    },
+                                                          "test_new_work_at_download_completion_can_decline_restart":  {
+                                                                                                                           "status":  "ported",
+                                                                                                                           "cpp":  "tests/ui_controller/test_update_handoff.cpp",
+                                                                                                                           "note":  "adapted: a setup hand-off"
+                                                                                                                       }
+                                                      },
+              "tests/test_personalize_s3_controller.py":  {
+                  "test_holding_the_command_shortcut_rewrites_the_selection_and_pastes": {"status": "ported", "cpp": "tests/ui_controller/test_m4_end_to_end.cpp", "note": "a loopback OpenAI-compatible endpoint answers the rewrite; the selection is the fake copy's"},
+                  "test_a_transform_shortcut_rewrites_the_selection": {"status": "ported", "cpp": "tests/ui_controller/test_m4_end_to_end.cpp", "note": "the starter transform Polish; History names it \"Transform · Polish\""}
+              },
+              "tests/test_cleanup_profiles.py":  {
+                  "test_capture_suspends_only_until_release_or_cancel": {"status": "ported", "cpp": "tests/ui_controller/test_personalize_wiring.cpp"},
+                  "test_hotkey_dictation_routes_back_from_upload_to_quick_record": {"status": "ported", "cpp": "tests/ui_controller/test_personalize_wiring.cpp"}
+              },
+        "tests/test_remote_engine.py": {
+            "test_local_engine_settings_leave_a_remote_engine_alone": {"status": "ported", "cpp": "tests/ui_controller/test_application_controller.cpp", "note": "case of the same name: with Remote selected ApplicationController::on_local_engine_settings_changed reloads nothing; with Parakeet selected it reloads"},
+            "test_readiness_retries_a_remote_engine_that_could_not_connect": {"status": "ported", "cpp": "tests/ui_controller/test_remote_engine_hooks.cpp", "note": "case of the same name: the readiness check answers '<last_error> Trying again...' (or 'Connecting to <host>...' while a reconnect runs) and asks RemoteEngineHooks::retry_now (RemoteEngineService::dictation_link) rather than a reload; the remote branch's sentences are also tests/appcore/test_readiness_remote.cpp"},
+            "test_a_meeting_leaves_the_remote_connection_alone": {"status": "ported", "cpp": "tests/ui_controller/test_remote_engine_hooks.cpp", "note": "case of the same name: with Remote selected ApplicationController::release_local_engine returns false, the scripted remote backend is never released and nothing says 'Released'; restore reconnects nothing; the meeting's SpeechModelLease routed through the controller (route_dictation, as MeetingFeature::install does) leaves it connected too"}
+        },
+        "tests/test_automation_fix_pipeline_control.py": {
+            "test_cancel_stops_running_actions_only_with_no_job_to_cancel": {"status": "ported", "cpp": "tests/ui_controller/test_action_cancel.cpp", "note": "case: test_cancel_stops_running_actions_only_with_no_job_to_cancel (both parameters, over the real ActionRuntime)"}
+        },
+        "tests/test_automation_r3_cancel_window.py": {
+            "test_the_users_cancel_while_a_delivered_job_is_saved_stops_its_quick_answer": {"status": "ported", "cpp": "tests/ui_controller/test_action_cancel.cpp", "note": "case: test_the_users_cancel_while_a_delivered_job_is_saved_stops_its_quick_answer"}
+        },
+        "tests/test_automation_r4_cancel_runtime.py": {
+            "test_cancel_that_reached_actions_leaves_them_to_say_what_it_did": {"status": "ported", "cpp": "tests/ui_controller/test_action_cancel.cpp", "note": "cases of the same names"},
+            "test_cancel_with_nothing_at_all_says_so": {"status": "ported", "cpp": "tests/ui_controller/test_action_cancel.cpp", "note": "cases of the same names"}
+        },
+        "tests/test_automation_fix2_cancel.py": {
+            "test_a_cancel_from_the_hotkey_thread_reaches_actions_on_the_qt_thread": {"status": "ported", "cpp": "tests/ui_controller/test_action_cancel.cpp", "note": "case: test_a_cancel_from_the_hotkey_thread_reaches_actions_on_the_qt_thread (the cancel key pressed on another thread; the router's steps run on the GUI thread)"}
+        },
+        "tests/test_automation_fix_pipeline_events.py": {
+            "test_deleting_history_drops_the_replay_buffer": {"status": "ported", "cpp": "tests/ui_controller/test_action_cancel.cpp", "note": "case: test_deleting_history_drops_the_replay_buffer (delete_entry, clear_history, clear_history_and_recordings)"}
+        },
+        "tests/test_automation_fix_pipeline_lifecycle.py": {
+            "test_the_last_throttled_preview_still_goes_out": {"status": "ported", "cpp": "tests/ui_controller/test_preview_events.cpp", "note": "cases of the same names, the streaming runtime's text through the composed TranscriptionRuntime"},
+            "test_a_final_preview_goes_out_at_once_and_drops_the_held_one": {"status": "ported", "cpp": "tests/ui_controller/test_preview_events.cpp", "note": "cases of the same names, the streaming runtime's text through the composed TranscriptionRuntime"}
+        },
+        "tests/test_agent_recording_indicator.py": {
+            "test_agent_destination_survives_preview_captions_and_work": {"status": "ported", "cpp": "tests/ui_controller/test_agent_destination.cpp", "note": "cases of the same names; painted text read as the drawn badge (badgeRect) with the destination it shows"},
+            "test_destination_clears_when_capture_is_abandoned_or_replaced": {"status": "ported", "cpp": "tests/ui_controller/test_agent_destination.cpp", "note": "cases of the same names; painted text read as the drawn badge (badgeRect) with the destination it shows"},
+            "test_finished_capture_keeps_the_destination_through_fade_then_clears_it": {"status": "ported", "cpp": "tests/ui_controller/test_agent_destination.cpp", "note": "cases of the same names; painted text read as the drawn badge (badgeRect) with the destination it shows"},
+            "test_recording_shows_its_selected_agent_before_streaming_starts": {"status": "ported", "cpp": "tests/ui_controller/test_agent_destination.cpp", "note": "cases of the same names; painted text read as the drawn badge (badgeRect) with the destination it shows"},
+            "test_plain_dictation_clears_the_previous_destination_even_during_a_fade": {"status": "ported", "cpp": "tests/ui_controller/test_agent_destination.cpp", "note": "cases of the same names; painted text read as the drawn badge (badgeRect) with the destination it shows"},
+            "test_refused_start_does_not_publish_an_agent_destination": {"status": "ported", "cpp": "tests/ui_controller/test_agent_destination.cpp", "note": "cases of the same names; painted text read as the drawn badge (badgeRect) with the destination it shows"}
+        },
+        "tests/test_personalize_s2_mcp.py": {
+            "test_a_level_change_from_an_agent_refreshes_the_cleanup_controls": {"status": "ported", "cpp": "tests/ui_controller/test_agent_changes.cpp", "note": "case: test_a_level_change_from_an_agent_refreshes_the_cleanup_controls (sessionMcpDesktopChanges over the composed context)"}
+        },
+        "tests/test_past_walkthroughs.py": {
+            "test_cards_list_newest_first_and_open_in_the_library": {"status": "ported", "cpp": "tests/ui_controller/test_walkthrough_window.cpp", "note": "case: past walkthrough cards open in the tab and the library button in the library (the cards' order and signal: tests/ui_walkthrough/test_past_walkthroughs.cpp)"},
+            "test_the_sidebar_shows_walkthroughs_while_their_tab_is_open": {"status": "ported", "cpp": "tests/ui_controller/test_walkthrough_window.cpp", "note": "case: the sidebar shows walkthroughs while their tab is open (the page is set at install, not made on first show)"}
+        },
+        "tests/test_walkthrough_storyboard.py": {
+            "test_a_side_panel_pick_opens_in_the_tab_and_open_library_opens_the_dialog": {"status": "ported", "cpp": "tests/ui_controller/test_walkthrough_window.cpp", "note": "case: a side panel pick opens in the tab and open library opens the dialog"}
+        },
+        "tests/test_personalize_s8_language_menu.py": {
+            "TestControllerWiring::test_overlay_chip_and_shortcut_cycle_the_language": {"status": "ported", "cpp": "tests/ui_controller/test_wiring.cpp", "note": "case: the overlay chip and the shortcut cycle the dictation language (the chip's languageCycleRequested and the hotkey runtime's cycle_language_requested each move the language on)"}
+        }
+              }
+}

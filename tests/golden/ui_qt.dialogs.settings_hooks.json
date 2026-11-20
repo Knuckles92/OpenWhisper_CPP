@@ -1,0 +1,294 @@
+{
+ "module": "ui_qt.dialogs.settings_hooks",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time",
+  "program_path_note": "a program's path is C:\\Tools\\journal.exe, absolute on Windows, where the vectors are made"
+ },
+ "functions": {
+  "rail_value": [
+   {
+    "args": [
+     {}
+    ],
+    "result": "None yet"
+   },
+   {
+    "args": [
+     {
+      "automation_webhooks": []
+     }
+    ],
+    "result": "None yet"
+   },
+   {
+    "args": [
+     {
+      "automation_webhooks": [
+       {
+        "id": "hook01",
+        "name": "Home",
+        "url": "https://example.com/in",
+        "events": [
+         "transcription.completed"
+        ],
+        "enabled": true
+       }
+      ]
+     }
+    ],
+    "result": "1 hook"
+   },
+   {
+    "args": [
+     {
+      "automation_webhooks": [
+       {
+        "id": "hook02",
+        "name": "Office",
+        "url": "https://example.com/in",
+        "events": [
+         "transcription.completed"
+        ],
+        "enabled": false
+       }
+      ]
+     }
+    ],
+    "result": "1 hook · 0 on"
+   },
+   {
+    "args": [
+     {
+      "automation_webhooks": [
+       {
+        "id": "hook01",
+        "name": "Home",
+        "url": "https://example.com/in",
+        "events": [
+         "transcription.completed"
+        ],
+        "enabled": true
+       },
+       {
+        "id": "hook02",
+        "name": "Office",
+        "url": "https://example.com/in",
+        "events": [
+         "transcription.completed"
+        ],
+        "enabled": false
+       }
+      ]
+     }
+    ],
+    "result": "2 hooks · 1 on"
+   },
+   {
+    "args": [
+     {
+      "automation_webhooks": [
+       {
+        "id": "hook01",
+        "name": "Home",
+        "url": "https://example.com/in",
+        "events": [
+         "transcription.completed"
+        ],
+        "enabled": true
+       }
+      ],
+      "automation_programs": [
+       {
+        "id": "prog01",
+        "name": "Journal",
+        "program": "C:\\Tools\\journal.exe",
+        "args": [
+         "--append"
+        ],
+        "events": [
+         "history.saved"
+        ],
+        "enabled": true,
+        "timeout_s": 30
+       }
+      ],
+      "automation_filters": [
+       {
+        "id": "filt01",
+        "name": "Names",
+        "kind": "http",
+        "stage": "after_cleanup",
+        "url": "http://127.0.0.1:5005/fix",
+        "timeout_ms": 1500,
+        "enabled": false
+       }
+      ]
+     }
+    ],
+    "result": "3 hooks · 2 on"
+   },
+   {
+    "args": [
+     {
+      "automation_programs": [
+       {
+        "id": "prog01",
+        "name": "Journal",
+        "program": "C:\\Tools\\journal.exe",
+        "args": [
+         "--append"
+        ],
+        "events": [
+         "history.saved"
+        ],
+        "enabled": true,
+        "timeout_s": 30
+       }
+      ]
+     }
+    ],
+    "result": "1 hook"
+   },
+   {
+    "args": [
+     {
+      "automation_filters": [
+       {
+        "id": "filt01",
+        "name": "Names",
+        "kind": "http",
+        "stage": "after_cleanup",
+        "url": "http://127.0.0.1:5005/fix",
+        "timeout_ms": 1500,
+        "enabled": false
+       }
+      ]
+     }
+    ],
+    "result": "1 hook · 0 on"
+   },
+   {
+    "args": [
+     {
+      "automation_filters": [
+       {
+        "id": "filt01",
+        "name": "Names",
+        "kind": "http",
+        "stage": "after_cleanup",
+        "url": "http://127.0.0.1:5005/fix",
+        "timeout_ms": 1500,
+        "enabled": false
+       },
+       {
+        "id": "filt02",
+        "name": "More",
+        "kind": "http",
+        "stage": "after_cleanup",
+        "url": "http://127.0.0.1:5005/fix",
+        "timeout_ms": 1500,
+        "enabled": true
+       }
+      ]
+     }
+    ],
+    "result": "2 hooks · 1 on"
+   },
+   {
+    "args": [
+     {
+      "automation_webhooks": [
+       {
+        "id": "hook01",
+        "name": "Home",
+        "url": "https://example.com/in",
+        "events": [
+         "transcription.completed"
+        ],
+        "enabled": true
+       },
+       {
+        "id": "hook01",
+        "name": "Again",
+        "url": "https://example.com/in",
+        "events": [
+         "transcription.completed"
+        ],
+        "enabled": true
+       }
+      ]
+     }
+    ],
+    "result": "1 hook"
+   },
+   {
+    "args": [
+     {
+      "automation_webhooks": [
+       {
+        "id": "hook01",
+        "name": "Home",
+        "url": "ftp://example.com",
+        "events": [
+         "transcription.completed"
+        ],
+        "enabled": true
+       }
+      ]
+     }
+    ],
+    "result": "1 hook"
+   },
+   {
+    "args": [
+     {
+      "automation_webhooks": "oops",
+      "automation_programs": null
+     }
+    ],
+    "result": "None yet"
+   },
+   {
+    "args": [
+     {
+      "automation_webhooks": [
+       {
+        "id": "hook01",
+        "name": "Home",
+        "url": "https://example.com/in",
+        "events": [
+         "transcription.completed"
+        ],
+        "enabled": true
+       },
+       "oops",
+       7
+      ]
+     }
+    ],
+    "result": "1 hook"
+   },
+   {
+    "args": [
+     {
+      "automation_webhooks": [
+       {
+        "id": "hook01",
+        "name": "Home",
+        "url": "https://example.com/in",
+        "events": [
+         "transcription.completed"
+        ],
+        "enabled": "yes"
+       }
+      ]
+     }
+    ],
+    "result": "1 hook"
+   }
+  ]
+ }
+}

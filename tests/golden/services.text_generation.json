@@ -1,0 +1,6706 @@
+{
+ "module": "services.text_generation",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time",
+  "secret": "the key every request carries; vectors record only whether it was the one given",
+  "fixtures": "tests/fixtures/llm/generation/scenarios.json and replies.json"
+ },
+ "functions": {
+  "generate": [
+   {
+    "args": [
+     "roundtrip_openai_gpt-6-luna"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "",
+       "tool_calls": [
+        {
+         "id": "call_1",
+         "name": "search_context_files",
+         "arguments": "{\"query\":\"budget\"}"
+        }
+       ],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+         {
+          "id": "call_1",
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "arguments": "{\"query\":\"budget\"}"
+          }
+         }
+        ],
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "arguments": "{\"query\":\"budget\"}",
+          "call_id": "call_1",
+          "name": "search_context_files",
+          "type": "function_call",
+          "id": "fc_1"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      },
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "id": "msg_1",
+          "content": [
+           {
+            "annotations": [],
+            "text": "Clean text.",
+            "type": "output_text"
+           }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-6-luna",
+        "store": false,
+        "tool_choice": "auto",
+        "tools": [
+         {
+          "type": "function",
+          "strict": false,
+          "name": "search_context_files",
+          "description": "Find evidence",
+          "parameters": {
+           "type": "object",
+           "properties": {
+            "query": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "query"
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         },
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "arguments": "{\"query\":\"budget\"}",
+          "call_id": "call_1",
+          "name": "search_context_files",
+          "type": "function_call",
+          "id": "fc_1"
+         },
+         {
+          "type": "function_call_output",
+          "call_id": "call_1",
+          "output": "{\"hits\":[]}"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-6-luna",
+        "store": false,
+        "tool_choice": "auto",
+        "tools": [
+         {
+          "type": "function",
+          "strict": false,
+          "name": "search_context_files",
+          "description": "Find evidence",
+          "parameters": {
+           "type": "object",
+           "properties": {
+            "query": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "query"
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "roundtrip_openai_o4-mini"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "",
+       "tool_calls": [
+        {
+         "id": "call_1",
+         "name": "search_context_files",
+         "arguments": "{\"query\":\"budget\"}"
+        }
+       ],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+         {
+          "id": "call_1",
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "arguments": "{\"query\":\"budget\"}"
+          }
+         }
+        ],
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "arguments": "{\"query\":\"budget\"}",
+          "call_id": "call_1",
+          "name": "search_context_files",
+          "type": "function_call",
+          "id": "fc_1"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      },
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "id": "msg_1",
+          "content": [
+           {
+            "annotations": [],
+            "text": "Clean text.",
+            "type": "output_text"
+           }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "o4-mini",
+        "store": false,
+        "tool_choice": "auto",
+        "tools": [
+         {
+          "type": "function",
+          "strict": false,
+          "name": "search_context_files",
+          "description": "Find evidence",
+          "parameters": {
+           "type": "object",
+           "properties": {
+            "query": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "query"
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         },
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "arguments": "{\"query\":\"budget\"}",
+          "call_id": "call_1",
+          "name": "search_context_files",
+          "type": "function_call",
+          "id": "fc_1"
+         },
+         {
+          "type": "function_call_output",
+          "call_id": "call_1",
+          "output": "{\"hits\":[]}"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "o4-mini",
+        "store": false,
+        "tool_choice": "auto",
+        "tools": [
+         {
+          "type": "function",
+          "strict": false,
+          "name": "search_context_files",
+          "description": "Find evidence",
+          "parameters": {
+           "type": "object",
+           "properties": {
+            "query": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "query"
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "roundtrip_openai_gpt-5.6-luna"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "",
+       "tool_calls": [
+        {
+         "id": "call_1",
+         "name": "search_context_files",
+         "arguments": "{\"query\":\"budget\"}"
+        }
+       ],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+         {
+          "id": "call_1",
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "arguments": "{\"query\":\"budget\"}"
+          }
+         }
+        ],
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "arguments": "{\"query\":\"budget\"}",
+          "call_id": "call_1",
+          "name": "search_context_files",
+          "type": "function_call",
+          "id": "fc_1"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      },
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "id": "msg_1",
+          "content": [
+           {
+            "annotations": [],
+            "text": "Clean text.",
+            "type": "output_text"
+           }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-5.6-luna",
+        "store": false,
+        "tool_choice": "auto",
+        "tools": [
+         {
+          "type": "function",
+          "strict": false,
+          "name": "search_context_files",
+          "description": "Find evidence",
+          "parameters": {
+           "type": "object",
+           "properties": {
+            "query": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "query"
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         },
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "arguments": "{\"query\":\"budget\"}",
+          "call_id": "call_1",
+          "name": "search_context_files",
+          "type": "function_call",
+          "id": "fc_1"
+         },
+         {
+          "type": "function_call_output",
+          "call_id": "call_1",
+          "output": "{\"hits\":[]}"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-5.6-luna",
+        "store": false,
+        "tool_choice": "auto",
+        "tools": [
+         {
+          "type": "function",
+          "strict": false,
+          "name": "search_context_files",
+          "description": "Find evidence",
+          "parameters": {
+           "type": "object",
+           "properties": {
+            "query": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "query"
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "roundtrip_openai_gpt-4o-mini"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "",
+       "tool_calls": [
+        {
+         "id": "call_1",
+         "name": "search_context_files",
+         "arguments": "{\"query\":\"budget\"}"
+        }
+       ],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+         {
+          "id": "call_1",
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "arguments": "{\"query\":\"budget\"}"
+          }
+         }
+        ],
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "arguments": "{\"query\":\"budget\"}",
+          "call_id": "call_1",
+          "name": "search_context_files",
+          "type": "function_call",
+          "id": "fc_1"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      },
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "id": "msg_1",
+          "content": [
+           {
+            "annotations": [],
+            "text": "Clean text.",
+            "type": "output_text"
+           }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "input": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-4o-mini",
+        "store": false,
+        "tool_choice": "auto",
+        "tools": [
+         {
+          "type": "function",
+          "strict": false,
+          "name": "search_context_files",
+          "description": "Find evidence",
+          "parameters": {
+           "type": "object",
+           "properties": {
+            "query": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "query"
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "input": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         },
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "arguments": "{\"query\":\"budget\"}",
+          "call_id": "call_1",
+          "name": "search_context_files",
+          "type": "function_call",
+          "id": "fc_1"
+         },
+         {
+          "type": "function_call_output",
+          "call_id": "call_1",
+          "output": "{\"hits\":[]}"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-4o-mini",
+        "store": false,
+        "tool_choice": "auto",
+        "tools": [
+         {
+          "type": "function",
+          "strict": false,
+          "name": "search_context_files",
+          "description": "Find evidence",
+          "parameters": {
+           "type": "object",
+           "properties": {
+            "query": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "query"
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "roundtrip_openai_gpt-4.1-mini"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "",
+       "tool_calls": [
+        {
+         "id": "call_1",
+         "name": "search_context_files",
+         "arguments": "{\"query\":\"budget\"}"
+        }
+       ],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+         {
+          "id": "call_1",
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "arguments": "{\"query\":\"budget\"}"
+          }
+         }
+        ],
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "arguments": "{\"query\":\"budget\"}",
+          "call_id": "call_1",
+          "name": "search_context_files",
+          "type": "function_call",
+          "id": "fc_1"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      },
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "id": "msg_1",
+          "content": [
+           {
+            "annotations": [],
+            "text": "Clean text.",
+            "type": "output_text"
+           }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "input": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-4.1-mini",
+        "store": false,
+        "tool_choice": "auto",
+        "tools": [
+         {
+          "type": "function",
+          "strict": false,
+          "name": "search_context_files",
+          "description": "Find evidence",
+          "parameters": {
+           "type": "object",
+           "properties": {
+            "query": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "query"
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "input": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         },
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "arguments": "{\"query\":\"budget\"}",
+          "call_id": "call_1",
+          "name": "search_context_files",
+          "type": "function_call",
+          "id": "fc_1"
+         },
+         {
+          "type": "function_call_output",
+          "call_id": "call_1",
+          "output": "{\"hits\":[]}"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-4.1-mini",
+        "store": false,
+        "tool_choice": "auto",
+        "tools": [
+         {
+          "type": "function",
+          "strict": false,
+          "name": "search_context_files",
+          "description": "Find evidence",
+          "parameters": {
+           "type": "object",
+           "properties": {
+            "query": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "query"
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "roundtrip_openai_gpt-3.5-turbo"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "",
+       "tool_calls": [
+        {
+         "id": "call_1",
+         "name": "search_context_files",
+         "arguments": "{\"query\":\"budget\"}"
+        }
+       ],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+         {
+          "id": "call_1",
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "arguments": "{\"query\":\"budget\"}"
+          }
+         }
+        ],
+        "reasoning_content": "private reasoning"
+       },
+       "usage": null,
+       "finish_reason": "tool_calls"
+      },
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "reasoning_content": "private reasoning"
+       },
+       "usage": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "gpt-3.5-turbo",
+        "tools": [
+         {
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "description": "Find evidence",
+           "parameters": {
+            "type": "object",
+            "properties": {
+             "query": {
+              "type": "string"
+             }
+            },
+            "required": [
+             "query"
+            ]
+           }
+          }
+         }
+        ]
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         },
+         {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+           {
+            "id": "call_1",
+            "type": "function",
+            "function": {
+             "name": "search_context_files",
+             "arguments": "{\"query\":\"budget\"}"
+            }
+           }
+          ],
+          "reasoning_content": "private reasoning"
+         },
+         {
+          "role": "tool",
+          "tool_call_id": "call_1",
+          "content": "{\"hits\":[]}"
+         }
+        ],
+        "model": "gpt-3.5-turbo",
+        "tools": [
+         {
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "description": "Find evidence",
+           "parameters": {
+            "type": "object",
+            "properties": {
+             "query": {
+              "type": "string"
+             }
+            },
+            "required": [
+             "query"
+            ]
+           }
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "roundtrip_ollama_llama3.2"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "",
+       "tool_calls": [
+        {
+         "id": "call_1",
+         "name": "search_context_files",
+         "arguments": "{\"query\":\"budget\"}"
+        }
+       ],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+         {
+          "id": "call_1",
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "arguments": "{\"query\":\"budget\"}"
+          }
+         }
+        ],
+        "reasoning_content": "private reasoning"
+       },
+       "usage": null,
+       "finish_reason": "tool_calls"
+      },
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "reasoning_content": "private reasoning"
+       },
+       "usage": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "llama3.2",
+        "tools": [
+         {
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "description": "Find evidence",
+           "parameters": {
+            "type": "object",
+            "properties": {
+             "query": {
+              "type": "string"
+             }
+            },
+            "required": [
+             "query"
+            ]
+           }
+          }
+         }
+        ]
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         },
+         {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+           {
+            "id": "call_1",
+            "type": "function",
+            "function": {
+             "name": "search_context_files",
+             "arguments": "{\"query\":\"budget\"}"
+            }
+           }
+          ],
+          "reasoning_content": "private reasoning"
+         },
+         {
+          "role": "tool",
+          "tool_call_id": "call_1",
+          "content": "{\"hits\":[]}"
+         }
+        ],
+        "model": "llama3.2",
+        "tools": [
+         {
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "description": "Find evidence",
+           "parameters": {
+            "type": "object",
+            "properties": {
+             "query": {
+              "type": "string"
+             }
+            },
+            "required": [
+             "query"
+            ]
+           }
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "roundtrip_vllm_qwen3-8b"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "",
+       "tool_calls": [
+        {
+         "id": "call_1",
+         "name": "search_context_files",
+         "arguments": "{\"query\":\"budget\"}"
+        }
+       ],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+         {
+          "id": "call_1",
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "arguments": "{\"query\":\"budget\"}"
+          }
+         }
+        ],
+        "reasoning_content": "private reasoning"
+       },
+       "usage": null,
+       "finish_reason": "tool_calls"
+      },
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "reasoning_content": "private reasoning"
+       },
+       "usage": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "qwen3-8b",
+        "tools": [
+         {
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "description": "Find evidence",
+           "parameters": {
+            "type": "object",
+            "properties": {
+             "query": {
+              "type": "string"
+             }
+            },
+            "required": [
+             "query"
+            ]
+           }
+          }
+         }
+        ]
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         },
+         {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+           {
+            "id": "call_1",
+            "type": "function",
+            "function": {
+             "name": "search_context_files",
+             "arguments": "{\"query\":\"budget\"}"
+            }
+           }
+          ],
+          "reasoning_content": "private reasoning"
+         },
+         {
+          "role": "tool",
+          "tool_call_id": "call_1",
+          "content": "{\"hits\":[]}"
+         }
+        ],
+        "model": "qwen3-8b",
+        "tools": [
+         {
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "description": "Find evidence",
+           "parameters": {
+            "type": "object",
+            "properties": {
+             "query": {
+              "type": "string"
+             }
+            },
+            "required": [
+             "query"
+            ]
+           }
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "roundtrip_groq_llama-3.3-70b-versatile"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "",
+       "tool_calls": [
+        {
+         "id": "call_1",
+         "name": "search_context_files",
+         "arguments": "{\"query\":\"budget\"}"
+        }
+       ],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+         {
+          "id": "call_1",
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "arguments": "{\"query\":\"budget\"}"
+          }
+         }
+        ],
+        "reasoning_content": "private reasoning"
+       },
+       "usage": null,
+       "finish_reason": "tool_calls"
+      },
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "reasoning_content": "private reasoning"
+       },
+       "usage": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/openai/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "llama-3.3-70b-versatile",
+        "max_tokens": 4096,
+        "tools": [
+         {
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "description": "Find evidence",
+           "parameters": {
+            "type": "object",
+            "properties": {
+             "query": {
+              "type": "string"
+             }
+            },
+            "required": [
+             "query"
+            ]
+           }
+          }
+         }
+        ]
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/openai/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         },
+         {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+           {
+            "id": "call_1",
+            "type": "function",
+            "function": {
+             "name": "search_context_files",
+             "arguments": "{\"query\":\"budget\"}"
+            }
+           }
+          ],
+          "reasoning_content": "private reasoning"
+         },
+         {
+          "role": "tool",
+          "tool_call_id": "call_1",
+          "content": "{\"hits\":[]}"
+         }
+        ],
+        "model": "llama-3.3-70b-versatile",
+        "max_tokens": 4096,
+        "tools": [
+         {
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "description": "Find evidence",
+           "parameters": {
+            "type": "object",
+            "properties": {
+             "query": {
+              "type": "string"
+             }
+            },
+            "required": [
+             "query"
+            ]
+           }
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "roundtrip_opencode_go_glm-5.2"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "",
+       "tool_calls": [
+        {
+         "id": "call_1",
+         "name": "search_context_files",
+         "arguments": "{\"query\":\"budget\"}"
+        }
+       ],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+         {
+          "id": "call_1",
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "arguments": "{\"query\":\"budget\"}"
+          }
+         }
+        ],
+        "reasoning_content": "private reasoning"
+       },
+       "usage": null,
+       "finish_reason": "tool_calls"
+      },
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "reasoning_content": "private reasoning"
+       },
+       "usage": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/zen/go/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper",
+        "x-opencode-session": "meeting-1"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "glm-5.2",
+        "max_tokens": 16384,
+        "tools": [
+         {
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "description": "Find evidence",
+           "parameters": {
+            "type": "object",
+            "properties": {
+             "query": {
+              "type": "string"
+             }
+            },
+            "required": [
+             "query"
+            ]
+           }
+          }
+         }
+        ]
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/zen/go/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper",
+        "x-opencode-session": "meeting-1"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         },
+         {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+           {
+            "id": "call_1",
+            "type": "function",
+            "function": {
+             "name": "search_context_files",
+             "arguments": "{\"query\":\"budget\"}"
+            }
+           }
+          ],
+          "reasoning_content": "private reasoning"
+         },
+         {
+          "role": "tool",
+          "tool_call_id": "call_1",
+          "content": "{\"hits\":[]}"
+         }
+        ],
+        "model": "glm-5.2",
+        "max_tokens": 16384,
+        "tools": [
+         {
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "description": "Find evidence",
+           "parameters": {
+            "type": "object",
+            "properties": {
+             "query": {
+              "type": "string"
+             }
+            },
+            "required": [
+             "query"
+            ]
+           }
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "roundtrip_opencode_go_gpt-5.6-luna"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "",
+       "tool_calls": [
+        {
+         "id": "call_1",
+         "name": "search_context_files",
+         "arguments": "{\"query\":\"budget\"}"
+        }
+       ],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+         {
+          "id": "call_1",
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "arguments": "{\"query\":\"budget\"}"
+          }
+         }
+        ],
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "arguments": "{\"query\":\"budget\"}",
+          "call_id": "call_1",
+          "name": "search_context_files",
+          "type": "function_call",
+          "id": "fc_1"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      },
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "id": "msg_1",
+          "content": [
+           {
+            "annotations": [],
+            "text": "Clean text.",
+            "type": "output_text"
+           }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/zen/go/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper",
+        "x-opencode-session": "meeting-1"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-5.6-luna",
+        "store": false,
+        "tool_choice": "auto",
+        "tools": [
+         {
+          "type": "function",
+          "strict": false,
+          "name": "search_context_files",
+          "description": "Find evidence",
+          "parameters": {
+           "type": "object",
+           "properties": {
+            "query": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "query"
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/zen/go/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper",
+        "x-opencode-session": "meeting-1"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         },
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "arguments": "{\"query\":\"budget\"}",
+          "call_id": "call_1",
+          "name": "search_context_files",
+          "type": "function_call",
+          "id": "fc_1"
+         },
+         {
+          "type": "function_call_output",
+          "call_id": "call_1",
+          "output": "{\"hits\":[]}"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-5.6-luna",
+        "store": false,
+        "tool_choice": "auto",
+        "tools": [
+         {
+          "type": "function",
+          "strict": false,
+          "name": "search_context_files",
+          "description": "Find evidence",
+          "parameters": {
+           "type": "object",
+           "properties": {
+            "query": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "query"
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "roundtrip_opencode_go_minimax-m3"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "",
+       "tool_calls": [
+        {
+         "id": "call_1",
+         "name": "search_context_files",
+         "arguments": "{\"query\": \"budget\"}"
+        }
+       ],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+         {
+          "id": "call_1",
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "arguments": "{\"query\": \"budget\"}"
+          }
+         }
+        ],
+        "_anthropic": [
+         {
+          "type": "thinking",
+          "thinking": "private reasoning",
+          "signature": "signed-reasoning"
+         },
+         {
+          "type": "tool_use",
+          "id": "call_1",
+          "name": "search_context_files",
+          "input": {
+           "query": "budget"
+          }
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "tool_use"
+      },
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "_anthropic": [
+         {
+          "type": "thinking",
+          "thinking": "private reasoning",
+          "signature": "signed-reasoning"
+         },
+         {
+          "type": "text",
+          "text": "Clean text."
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "end_turn"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/zen/go/v1/messages",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper",
+        "x-opencode-session": "meeting-1"
+       },
+       "body": {
+        "model": "minimax-m3",
+        "system": "Use evidence.",
+        "messages": [
+         {
+          "role": "user",
+          "content": [
+           {
+            "type": "text",
+            "text": "Budget?"
+           }
+          ]
+         }
+        ],
+        "max_tokens": 16384,
+        "tools": [
+         {
+          "name": "search_context_files",
+          "description": "Find evidence",
+          "input_schema": {
+           "type": "object",
+           "properties": {
+            "query": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "query"
+           ]
+          }
+         }
+        ],
+        "tool_choice": {
+         "type": "auto"
+        }
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/zen/go/v1/messages",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper",
+        "x-opencode-session": "meeting-1"
+       },
+       "body": {
+        "model": "minimax-m3",
+        "system": "Use evidence.",
+        "messages": [
+         {
+          "role": "user",
+          "content": [
+           {
+            "type": "text",
+            "text": "Budget?"
+           }
+          ]
+         },
+         {
+          "role": "assistant",
+          "content": [
+           {
+            "type": "thinking",
+            "thinking": "private reasoning",
+            "signature": "signed-reasoning"
+           },
+           {
+            "type": "tool_use",
+            "id": "call_1",
+            "name": "search_context_files",
+            "input": {
+             "query": "budget"
+            }
+           }
+          ]
+         },
+         {
+          "role": "user",
+          "content": [
+           {
+            "type": "tool_result",
+            "tool_use_id": "call_1",
+            "content": "{\"hits\":[]}"
+           }
+          ]
+         }
+        ],
+        "max_tokens": 16384,
+        "tools": [
+         {
+          "name": "search_context_files",
+          "description": "Find evidence",
+          "input_schema": {
+           "type": "object",
+           "properties": {
+            "query": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "query"
+           ]
+          }
+         }
+        ],
+        "tool_choice": {
+         "type": "auto"
+        }
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "roundtrip_opencode_zen_glm-5.2"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "",
+       "tool_calls": [
+        {
+         "id": "call_1",
+         "name": "search_context_files",
+         "arguments": "{\"query\":\"budget\"}"
+        }
+       ],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+         {
+          "id": "call_1",
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "arguments": "{\"query\":\"budget\"}"
+          }
+         }
+        ],
+        "reasoning_content": "private reasoning"
+       },
+       "usage": null,
+       "finish_reason": "tool_calls"
+      },
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "reasoning_content": "private reasoning"
+       },
+       "usage": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/zen/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "glm-5.2",
+        "max_tokens": 16384,
+        "tools": [
+         {
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "description": "Find evidence",
+           "parameters": {
+            "type": "object",
+            "properties": {
+             "query": {
+              "type": "string"
+             }
+            },
+            "required": [
+             "query"
+            ]
+           }
+          }
+         }
+        ]
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/zen/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         },
+         {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+           {
+            "id": "call_1",
+            "type": "function",
+            "function": {
+             "name": "search_context_files",
+             "arguments": "{\"query\":\"budget\"}"
+            }
+           }
+          ],
+          "reasoning_content": "private reasoning"
+         },
+         {
+          "role": "tool",
+          "tool_call_id": "call_1",
+          "content": "{\"hits\":[]}"
+         }
+        ],
+        "model": "glm-5.2",
+        "max_tokens": 16384,
+        "tools": [
+         {
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "description": "Find evidence",
+           "parameters": {
+            "type": "object",
+            "properties": {
+             "query": {
+              "type": "string"
+             }
+            },
+            "required": [
+             "query"
+            ]
+           }
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "roundtrip_opencode_zen_gpt-5.6-luna"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "",
+       "tool_calls": [
+        {
+         "id": "call_1",
+         "name": "search_context_files",
+         "arguments": "{\"query\":\"budget\"}"
+        }
+       ],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+         {
+          "id": "call_1",
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "arguments": "{\"query\":\"budget\"}"
+          }
+         }
+        ],
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "arguments": "{\"query\":\"budget\"}",
+          "call_id": "call_1",
+          "name": "search_context_files",
+          "type": "function_call",
+          "id": "fc_1"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      },
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "id": "msg_1",
+          "content": [
+           {
+            "annotations": [],
+            "text": "Clean text.",
+            "type": "output_text"
+           }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/zen/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-5.6-luna",
+        "store": false,
+        "tool_choice": "auto",
+        "tools": [
+         {
+          "type": "function",
+          "strict": false,
+          "name": "search_context_files",
+          "description": "Find evidence",
+          "parameters": {
+           "type": "object",
+           "properties": {
+            "query": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "query"
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/zen/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         },
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "arguments": "{\"query\":\"budget\"}",
+          "call_id": "call_1",
+          "name": "search_context_files",
+          "type": "function_call",
+          "id": "fc_1"
+         },
+         {
+          "type": "function_call_output",
+          "call_id": "call_1",
+          "output": "{\"hits\":[]}"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-5.6-luna",
+        "store": false,
+        "tool_choice": "auto",
+        "tools": [
+         {
+          "type": "function",
+          "strict": false,
+          "name": "search_context_files",
+          "description": "Find evidence",
+          "parameters": {
+           "type": "object",
+           "properties": {
+            "query": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "query"
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "roundtrip_opencode_zen_claude-sonnet-4-6"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "",
+       "tool_calls": [
+        {
+         "id": "call_1",
+         "name": "search_context_files",
+         "arguments": "{\"query\": \"budget\"}"
+        }
+       ],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+         {
+          "id": "call_1",
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "arguments": "{\"query\": \"budget\"}"
+          }
+         }
+        ],
+        "_anthropic": [
+         {
+          "type": "thinking",
+          "thinking": "private reasoning",
+          "signature": "signed-reasoning"
+         },
+         {
+          "type": "tool_use",
+          "id": "call_1",
+          "name": "search_context_files",
+          "input": {
+           "query": "budget"
+          }
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "tool_use"
+      },
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "_anthropic": [
+         {
+          "type": "thinking",
+          "thinking": "private reasoning",
+          "signature": "signed-reasoning"
+         },
+         {
+          "type": "text",
+          "text": "Clean text."
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "end_turn"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/zen/v1/messages",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper"
+       },
+       "body": {
+        "model": "claude-sonnet-4-6",
+        "system": "Use evidence.",
+        "messages": [
+         {
+          "role": "user",
+          "content": [
+           {
+            "type": "text",
+            "text": "Budget?"
+           }
+          ]
+         }
+        ],
+        "max_tokens": 16384,
+        "tools": [
+         {
+          "name": "search_context_files",
+          "description": "Find evidence",
+          "input_schema": {
+           "type": "object",
+           "properties": {
+            "query": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "query"
+           ]
+          }
+         }
+        ],
+        "tool_choice": {
+         "type": "auto"
+        }
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/zen/v1/messages",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper"
+       },
+       "body": {
+        "model": "claude-sonnet-4-6",
+        "system": "Use evidence.",
+        "messages": [
+         {
+          "role": "user",
+          "content": [
+           {
+            "type": "text",
+            "text": "Budget?"
+           }
+          ]
+         },
+         {
+          "role": "assistant",
+          "content": [
+           {
+            "type": "thinking",
+            "thinking": "private reasoning",
+            "signature": "signed-reasoning"
+           },
+           {
+            "type": "tool_use",
+            "id": "call_1",
+            "name": "search_context_files",
+            "input": {
+             "query": "budget"
+            }
+           }
+          ]
+         },
+         {
+          "role": "user",
+          "content": [
+           {
+            "type": "tool_result",
+            "tool_use_id": "call_1",
+            "content": "{\"hits\":[]}"
+           }
+          ]
+         }
+        ],
+        "max_tokens": 16384,
+        "tools": [
+         {
+          "name": "search_context_files",
+          "description": "Find evidence",
+          "input_schema": {
+           "type": "object",
+           "properties": {
+            "query": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "query"
+           ]
+          }
+         }
+        ],
+        "tool_choice": {
+         "type": "auto"
+        }
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "roundtrip_opencode_zen_gemini-3.1-pro"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "",
+       "tool_calls": [
+        {
+         "id": "call_1",
+         "name": "search_context_files",
+         "arguments": "{\"query\": \"budget\"}"
+        }
+       ],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+         {
+          "id": "call_1",
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "arguments": "{\"query\": \"budget\"}"
+          }
+         }
+        ],
+        "_google": [
+         {
+          "text": "private reasoning",
+          "thought": true,
+          "thoughtSignature": "signed-reasoning"
+         },
+         {
+          "functionCall": {
+           "id": "call_1",
+           "name": "search_context_files",
+           "args": {
+            "query": "budget"
+           }
+          },
+          "thoughtSignature": "tool-signature"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "STOP"
+      },
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "_google": [
+         {
+          "text": "private reasoning",
+          "thought": true,
+          "thoughtSignature": "signed-reasoning"
+         },
+         {
+          "text": "Clean text."
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "STOP"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/zen/v1/models/gemini-3.1-pro:generateContent",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper"
+       },
+       "body": {
+        "contents": [
+         {
+          "role": "user",
+          "parts": [
+           {
+            "text": "Budget?"
+           }
+          ]
+         }
+        ],
+        "generationConfig": {
+         "maxOutputTokens": 16384
+        },
+        "systemInstruction": {
+         "parts": [
+          {
+           "text": "Use evidence."
+          }
+         ]
+        },
+        "tools": [
+         {
+          "functionDeclarations": [
+           {
+            "name": "search_context_files",
+            "description": "Find evidence",
+            "parametersJsonSchema": {
+             "type": "object",
+             "properties": {
+              "query": {
+               "type": "string"
+              }
+             },
+             "required": [
+              "query"
+             ]
+            }
+           }
+          ]
+         }
+        ]
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/zen/v1/models/gemini-3.1-pro:generateContent",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper"
+       },
+       "body": {
+        "contents": [
+         {
+          "role": "user",
+          "parts": [
+           {
+            "text": "Budget?"
+           }
+          ]
+         },
+         {
+          "role": "model",
+          "parts": [
+           {
+            "text": "private reasoning",
+            "thought": true,
+            "thoughtSignature": "signed-reasoning"
+           },
+           {
+            "functionCall": {
+             "id": "call_1",
+             "name": "search_context_files",
+             "args": {
+              "query": "budget"
+             }
+            },
+            "thoughtSignature": "tool-signature"
+           }
+          ]
+         },
+         {
+          "role": "user",
+          "parts": [
+           {
+            "functionResponse": {
+             "id": "call_1",
+             "name": "search_context_files",
+             "response": {
+              "result": "{\"hits\":[]}"
+             }
+            }
+           }
+          ]
+         }
+        ],
+        "generationConfig": {
+         "maxOutputTokens": 16384
+        },
+        "systemInstruction": {
+         "parts": [
+          {
+           "text": "Use evidence."
+          }
+         ]
+        },
+        "tools": [
+         {
+          "functionDeclarations": [
+           {
+            "name": "search_context_files",
+            "description": "Find evidence",
+            "parametersJsonSchema": {
+             "type": "object",
+             "properties": {
+              "query": {
+               "type": "string"
+              }
+             },
+             "required": [
+              "query"
+             ]
+            }
+           }
+          ]
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "chat_length"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "TextGenerationError",
+       "message": "Model output was incomplete (length)."
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "gpt-3.5-turbo"
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "chat_content_filter"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "TextGenerationError",
+       "message": "Model output was incomplete (content_filter)."
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "llama3.2"
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "chat_refusal"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "TextGenerationError",
+       "message": "Model refused the request."
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "gpt-3.5-turbo"
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "chat_nontext"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "TextGenerationError",
+       "message": "Model returned non-text content."
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "gpt-3.5-turbo"
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "chat_empty_choices"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "",
+       "tool_calls": [],
+       "assistant_message": {},
+       "usage": null,
+       "finish_reason": ""
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "gpt-3.5-turbo"
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "chat_null_finish"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text."
+       },
+       "usage": null,
+       "finish_reason": ""
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "llama3.2"
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "chat_usage_and_stripped_keys"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "  Clean text.  ",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "  Clean text.  "
+       },
+       "usage": {
+        "completion_tokens": 3,
+        "prompt_tokens": 12,
+        "total_tokens": 15
+       },
+       "finish_reason": "stop"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Tidy."
+         },
+         {
+          "role": "user",
+          "content": "raw text"
+         }
+        ],
+        "model": "vendor/small-model",
+        "response_format": {
+         "type": "json_object"
+        },
+        "temperature": 0
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "chat_reasoning_fields"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Done.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Done.",
+        "reasoning": "short thought",
+        "reasoning_details": [
+         {
+          "type": "reasoning.text",
+          "text": "step",
+          "signature": null,
+          "index": 0
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "vendor/small-model",
+        "reasoning": {
+         "effort": "low"
+        }
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "chat_dict_arguments"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "",
+       "tool_calls": [
+        {
+         "id": "call_7",
+         "name": "search_context_files",
+         "arguments": "{\"query\": \"caf\\u00e9\", \"limit\": 3}"
+        }
+       ],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+         {
+          "id": "call_7",
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "arguments": "{\"query\": \"caf\\u00e9\", \"limit\": 3}"
+          }
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "tool_calls"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "llama3.2",
+        "tools": [
+         {
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "description": "Find evidence",
+           "parameters": {
+            "type": "object",
+            "properties": {
+             "query": {
+              "type": "string"
+             }
+            },
+            "required": [
+             "query"
+            ]
+           }
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "chat_timeout_and_headers"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean."
+       },
+       "usage": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 12.5,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-extra": "1",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "vendor/small-model",
+        "temperature": 0.2
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "responses_incomplete"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "TextGenerationError",
+       "message": "Model output was incomplete or failed."
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-6-luna",
+        "store": false
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "responses_failed"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "TextGenerationError",
+       "message": "Model output was incomplete or failed."
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-6-luna",
+        "store": false
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "responses_error"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "TextGenerationError",
+       "message": "Model output was incomplete or failed."
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-6-luna",
+        "store": false
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "responses_refusal"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "TextGenerationError",
+       "message": "Model refused the request."
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-6-luna",
+        "store": false
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "responses_empty_output"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "",
+        "_responses": []
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-6-luna",
+        "store": false
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "responses_usage_and_input"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Part one, part two.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Part one, part two.",
+        "_responses": [
+         {
+          "id": "msg_2",
+          "content": [
+           {
+            "annotations": [],
+            "text": "Part one, ",
+            "type": "output_text"
+           },
+           {
+            "annotations": [],
+            "text": "part two.",
+            "type": "output_text"
+           }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+         }
+        ]
+       },
+       "usage": {
+        "prompt_tokens": 20,
+        "completion_tokens": 5,
+        "total_tokens": 25
+       },
+       "finish_reason": "completed"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "input": [
+         {
+          "role": "developer",
+          "content": "Be brief."
+         },
+         {
+          "role": "user",
+          "content": ""
+         },
+         {
+          "role": "assistant",
+          "content": "Earlier answer."
+         },
+         {
+          "role": "user",
+          "content": "Next?"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-4.1-mini",
+        "store": false
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "responses_reasoning_high_luna"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "id": "msg_1",
+          "content": [
+           {
+            "annotations": [],
+            "text": "Clean text.",
+            "type": "output_text"
+           }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "user",
+          "content": "Hi"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-5.6-luna",
+        "reasoning": {
+         "effort": "high"
+        },
+        "store": false
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "responses_reasoning_high_opencode_go"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "id": "msg_1",
+          "content": [
+           {
+            "annotations": [],
+            "text": "Clean text.",
+            "type": "output_text"
+           }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/zen/go/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "user",
+          "content": "Hi"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-5.6-luna",
+        "reasoning": {
+         "effort": "high"
+        },
+        "store": false
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "responses_non_reasoning_json_gpt-4o-mini"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "id": "msg_1",
+          "content": [
+           {
+            "annotations": [],
+            "text": "Clean text.",
+            "type": "output_text"
+           }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "input": [
+         {
+          "role": "user",
+          "content": "JSON please"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-4o-mini",
+        "store": false,
+        "temperature": 0,
+        "text": {
+         "format": {
+          "type": "json_object"
+         }
+        }
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "responses_non_reasoning_json_gpt-4.1-mini"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "id": "msg_1",
+          "content": [
+           {
+            "annotations": [],
+            "text": "Clean text.",
+            "type": "output_text"
+           }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "input": [
+         {
+          "role": "user",
+          "content": "JSON please"
+         }
+        ],
+        "max_output_tokens": 300,
+        "model": "gpt-4.1-mini",
+        "store": false,
+        "temperature": 0,
+        "text": {
+         "format": {
+          "type": "json_object"
+         }
+        }
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "responses_reasoning_o3-mini"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "id": "msg_1",
+          "content": [
+           {
+            "annotations": [],
+            "text": "Clean text.",
+            "type": "output_text"
+           }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "user",
+          "content": "Hi"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "o3-mini",
+        "reasoning": {
+         "effort": "high"
+        },
+        "store": false
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "responses_reasoning_o4-mini"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "id": "msg_1",
+          "content": [
+           {
+            "annotations": [],
+            "text": "Clean text.",
+            "type": "output_text"
+           }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "user",
+          "content": "Hi"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "o4-mini",
+        "reasoning": {
+         "effort": "high"
+        },
+        "store": false
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "responses_luna_cleanup_off"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "id": "msg_1",
+          "content": [
+           {
+            "annotations": [],
+            "text": "Clean text.",
+            "type": "output_text"
+           }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "system",
+          "content": "Tidy."
+         },
+         {
+          "role": "user",
+          "content": "raw transcript"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-6-luna",
+        "reasoning": {
+         "effort": "none"
+        },
+        "store": false
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "responses_luna_cleanup_medium"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "id": "msg_1",
+          "content": [
+           {
+            "annotations": [],
+            "text": "Clean text.",
+            "type": "output_text"
+           }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "system",
+          "content": "Tidy."
+         },
+         {
+          "role": "user",
+          "content": "raw transcript"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-6-luna",
+        "reasoning": {
+         "effort": "medium"
+        },
+        "store": false
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "responses_custom_off"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "id": "msg_1",
+          "content": [
+           {
+            "annotations": [],
+            "text": "Clean text.",
+            "type": "output_text"
+           }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "user",
+          "content": "raw"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-6-luna",
+        "store": false
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "responses_custom_gateway_tools"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "",
+       "tool_calls": [
+        {
+         "id": "call_1",
+         "name": "search_context_files",
+         "arguments": "{\"query\":\"budget\"}"
+        }
+       ],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+         {
+          "id": "call_1",
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "arguments": "{\"query\":\"budget\"}"
+          }
+         }
+        ],
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "arguments": "{\"query\":\"budget\"}",
+          "call_id": "call_1",
+          "name": "search_context_files",
+          "type": "function_call",
+          "id": "fc_1"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      },
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "_responses": [
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "id": "msg_1",
+          "content": [
+           {
+            "annotations": [],
+            "text": "Clean text.",
+            "type": "output_text"
+           }
+          ],
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "completed"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "o4-mini",
+        "store": false,
+        "tool_choice": "auto",
+        "tools": [
+         {
+          "type": "function",
+          "strict": false,
+          "name": "search_context_files",
+          "description": "Find evidence",
+          "parameters": {
+           "type": "object",
+           "properties": {
+            "query": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "query"
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "user",
+          "content": "Budget?"
+         },
+         {
+          "id": "rs_1",
+          "summary": [],
+          "type": "reasoning",
+          "encrypted_content": "signed-reasoning"
+         },
+         {
+          "arguments": "{\"query\":\"budget\"}",
+          "call_id": "call_1",
+          "name": "search_context_files",
+          "type": "function_call",
+          "id": "fc_1"
+         },
+         {
+          "type": "function_call_output",
+          "call_id": "call_1",
+          "output": "hits"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "o4-mini",
+        "store": false,
+        "tool_choice": "auto",
+        "tools": [
+         {
+          "type": "function",
+          "strict": false,
+          "name": "search_context_files",
+          "description": "Find evidence",
+          "parameters": {
+           "type": "object",
+           "properties": {
+            "query": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "query"
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "responses_cancel"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "TextGenerationError",
+       "message": "canceled"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "user",
+          "content": "Budget"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-6-luna",
+        "store": false,
+        "tool_choice": "auto",
+        "tools": [
+         {
+          "type": "function",
+          "strict": false,
+          "name": "search_context_files",
+          "description": "Find evidence",
+          "parameters": {
+           "type": "object",
+           "properties": {
+            "query": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "query"
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "anthropic_merges_turns"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "_anthropic": [
+         {
+          "type": "text",
+          "text": "Clean "
+         },
+         {
+          "type": "text",
+          "text": "text."
+         }
+        ]
+       },
+       "usage": {
+        "prompt_tokens": 30,
+        "completion_tokens": 0,
+        "total_tokens": 30
+       },
+       "finish_reason": "end_turn"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/zen/v1/messages",
+       "query": "",
+       "bearer": true,
+       "timeout": 30,
+       "headers": {
+        "accept": "application/json",
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper"
+       },
+       "body": {
+        "model": "claude-sonnet-4-6",
+        "system": "One.\n\nTwo.",
+        "messages": [
+         {
+          "role": "user",
+          "content": [
+           {
+            "type": "text",
+            "text": "First."
+           },
+           {
+            "type": "text",
+            "text": "Second."
+           }
+          ]
+         },
+         {
+          "role": "assistant",
+          "content": [
+           {
+            "type": "text",
+            "text": "Answer."
+           }
+          ]
+         },
+         {
+          "role": "user",
+          "content": [
+           {
+            "type": "text",
+            "text": ""
+           }
+          ]
+         }
+        ],
+        "max_tokens": 512
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "anthropic_max_tokens"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "TextGenerationError",
+       "message": "Model output was incomplete (max_tokens)."
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/zen/v1/messages",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper"
+       },
+       "body": {
+        "model": "claude-sonnet-4-6",
+        "system": "Use evidence.",
+        "messages": [
+         {
+          "role": "user",
+          "content": [
+           {
+            "type": "text",
+            "text": "Budget?"
+           }
+          ]
+         }
+        ],
+        "max_tokens": 16384
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "anthropic_refusal"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "TextGenerationError",
+       "message": "Model output was incomplete (refusal)."
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/zen/v1/messages",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper"
+       },
+       "body": {
+        "model": "claude-sonnet-4-6",
+        "system": "Use evidence.",
+        "messages": [
+         {
+          "role": "user",
+          "content": [
+           {
+            "type": "text",
+            "text": "Budget?"
+           }
+          ]
+         }
+        ],
+        "max_tokens": 16384
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "anthropic_pause_turn"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "TextGenerationError",
+       "message": "Model output was incomplete (pause_turn)."
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/zen/go/v1/messages",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper",
+        "x-opencode-session": "s-2"
+       },
+       "body": {
+        "model": "minimax-m3",
+        "system": "Use evidence.",
+        "messages": [
+         {
+          "role": "user",
+          "content": [
+           {
+            "type": "text",
+            "text": "Budget?"
+           }
+          ]
+         }
+        ],
+        "max_tokens": 16384
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "anthropic_no_system"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "_anthropic": [
+         {
+          "type": "thinking",
+          "thinking": "private reasoning",
+          "signature": "signed-reasoning"
+         },
+         {
+          "type": "text",
+          "text": "Clean text."
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": "end_turn"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/zen/go/v1/messages",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper"
+       },
+       "body": {
+        "model": "minimax-m3",
+        "system": "",
+        "messages": [
+         {
+          "role": "user",
+          "content": [
+           {
+            "type": "text",
+            "text": "Hi"
+           }
+          ]
+         }
+        ],
+        "max_tokens": 16384
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "google_merges_turns_and_json"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Looking.",
+       "tool_calls": [
+        {
+         "id": "call_1",
+         "name": "search_context_files",
+         "arguments": "{\"query\": \"budget\"}"
+        }
+       ],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Looking.",
+        "tool_calls": [
+         {
+          "id": "call_1",
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "arguments": "{\"query\": \"budget\"}"
+          }
+         }
+        ],
+        "_google": [
+         {
+          "text": "Looking.",
+          "thought": false
+         },
+         {
+          "functionCall": {
+           "name": "search_context_files",
+           "args": {
+            "query": "budget"
+           }
+          }
+         }
+        ]
+       },
+       "usage": {
+        "prompt_tokens": 7,
+        "completion_tokens": 2,
+        "total_tokens": 9
+       },
+       "finish_reason": "STOP"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/zen/v1/models/gemini-3.1-pro:generateContent",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper"
+       },
+       "body": {
+        "contents": [
+         {
+          "role": "user",
+          "parts": [
+           {
+            "text": "First."
+           },
+           {
+            "text": "Second."
+           }
+          ]
+         }
+        ],
+        "generationConfig": {
+         "maxOutputTokens": 16384,
+         "responseMimeType": "application/json"
+        },
+        "systemInstruction": {
+         "parts": [
+          {
+           "text": "One.\n\nTwo."
+          }
+         ]
+        }
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "google_max_tokens"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "TextGenerationError",
+       "message": "Model output was incomplete (MAX_TOKENS)."
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/zen/v1/models/gemini-3.1-pro:generateContent",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper"
+       },
+       "body": {
+        "contents": [
+         {
+          "role": "user",
+          "parts": [
+           {
+            "text": "Budget?"
+           }
+          ]
+         }
+        ],
+        "generationConfig": {
+         "maxOutputTokens": 16384
+        },
+        "systemInstruction": {
+         "parts": [
+          {
+           "text": "Use evidence."
+          }
+         ]
+        }
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "google_no_candidates"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "TextGenerationError",
+       "message": "Model returned no candidate (possibly blocked)."
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/zen/v1/models/gemini-3.1-pro:generateContent",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper"
+       },
+       "body": {
+        "contents": [
+         {
+          "role": "user",
+          "parts": [
+           {
+            "text": "Budget?"
+           }
+          ]
+         }
+        ],
+        "generationConfig": {
+         "maxOutputTokens": 16384
+        },
+        "systemInstruction": {
+         "parts": [
+          {
+           "text": "Use evidence."
+          }
+         ]
+        }
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "google_null_finish"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "TextGenerationError",
+       "message": "Model output was incomplete (None)."
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/zen/v1/models/gemini-3.1-pro:generateContent",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper"
+       },
+       "body": {
+        "contents": [
+         {
+          "role": "user",
+          "parts": [
+           {
+            "text": "Budget?"
+           }
+          ]
+         }
+        ],
+        "generationConfig": {
+         "maxOutputTokens": 16384
+        },
+        "systemInstruction": {
+         "parts": [
+          {
+           "text": "Use evidence."
+          }
+         ]
+        }
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "google_missing_finish"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean text.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean text.",
+        "_google": [
+         {
+          "text": "Clean text."
+         }
+        ]
+       },
+       "usage": null,
+       "finish_reason": ""
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/zen/v1/models/gemini-3.1-pro:generateContent",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper"
+       },
+       "body": {
+        "contents": [
+         {
+          "role": "user",
+          "parts": [
+           {
+            "text": "Budget?"
+           }
+          ]
+         }
+        ],
+        "generationConfig": {
+         "maxOutputTokens": 16384
+        },
+        "systemInstruction": {
+         "parts": [
+          {
+           "text": "Use evidence."
+          }
+         ]
+        }
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "chat_cancel"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "TextGenerationError",
+       "message": "canceled"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "user",
+          "content": "Budget"
+         }
+        ],
+        "model": "llama3.2",
+        "tools": [
+         {
+          "type": "function",
+          "function": {
+           "name": "search_context_files",
+           "description": "Find evidence",
+           "parameters": {
+            "type": "object",
+            "properties": {
+             "query": {
+              "type": "string"
+             }
+            },
+            "required": [
+             "query"
+            ]
+           }
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "anthropic_cancel"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "TextGenerationError",
+       "message": "canceled"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/zen/v1/messages",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper"
+       },
+       "body": {
+        "model": "claude-sonnet-4-6",
+        "system": "",
+        "messages": [
+         {
+          "role": "user",
+          "content": [
+           {
+            "type": "text",
+            "text": "Budget"
+           }
+          ]
+         }
+        ],
+        "max_tokens": 16384,
+        "tools": [
+         {
+          "name": "search_context_files",
+          "description": "Find evidence",
+          "input_schema": {
+           "type": "object",
+           "properties": {
+            "query": {
+             "type": "string"
+            }
+           },
+           "required": [
+            "query"
+           ]
+          }
+         }
+        ],
+        "tool_choice": {
+         "type": "auto"
+        }
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "google_cancel"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "TextGenerationError",
+       "message": "canceled"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/zen/v1/models/gemini-3.1-pro:generateContent",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper"
+       },
+       "body": {
+        "contents": [
+         {
+          "role": "user",
+          "parts": [
+           {
+            "text": "Budget"
+           }
+          ]
+         }
+        ],
+        "generationConfig": {
+         "maxOutputTokens": 16384
+        },
+        "tools": [
+         {
+          "functionDeclarations": [
+           {
+            "name": "search_context_files",
+            "description": "Find evidence",
+            "parametersJsonSchema": {
+             "type": "object",
+             "properties": {
+              "query": {
+               "type": "string"
+              }
+             },
+             "required": [
+              "query"
+             ]
+            }
+           }
+          ]
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "hosted_groq_strips_options"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean."
+       },
+       "usage": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/openai/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "user",
+          "content": "raw"
+         }
+        ],
+        "model": "llama-3.3-70b-versatile",
+        "max_tokens": 4096
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "hosted_groq_keeps_caller_max_tokens"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean."
+       },
+       "usage": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/openai/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "user",
+          "content": "raw"
+         }
+        ],
+        "model": "llama-3.3-70b-versatile",
+        "max_tokens": 77
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "hosted_off_openrouter"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean."
+       },
+       "usage": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "user",
+          "content": "raw"
+         }
+        ],
+        "model": "vendor/small-model",
+        "temperature": 0
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "hosted_off_groq"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean."
+       },
+       "usage": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/openai/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "user",
+          "content": "raw"
+         }
+        ],
+        "model": "llama-3.3-70b-versatile",
+        "max_tokens": 4096
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "hosted_off_opencode_go"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean."
+       },
+       "usage": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/zen/go/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "user",
+          "content": "raw"
+         }
+        ],
+        "model": "glm-5.2",
+        "max_tokens": 16384
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "hosted_opencode_zen_session"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean."
+       },
+       "usage": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/zen/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "user-agent": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "user",
+          "content": "raw"
+         }
+        ],
+        "model": "glm-5.2",
+        "max_tokens": 16384
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "openrouter_session_ignored"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean."
+       },
+       "usage": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-keep": "1",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "user",
+          "content": "raw"
+         }
+        ],
+        "model": "vendor/small-model"
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "local_vllm_off"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean."
+       },
+       "usage": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "user",
+          "content": "raw"
+         }
+        ],
+        "model": "Qwen/Qwen3-8B",
+        "reasoning_effort": "none",
+        "temperature": 0
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "local_vllm_high"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean."
+       },
+       "usage": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "user",
+          "content": "raw"
+         }
+        ],
+        "model": "Qwen/Qwen3-8B",
+        "reasoning_effort": "high"
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "local_vllm_unknown_model"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean."
+       },
+       "usage": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "user",
+          "content": "raw"
+         }
+        ],
+        "model": "other",
+        "temperature": 0
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "local_deepseek_high"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean."
+       },
+       "usage": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "user",
+          "content": "raw"
+         }
+        ],
+        "model": "deepseek-r9",
+        "temperature": 0,
+        "thinking": {
+         "type": "enabled"
+        },
+        "reasoning_effort": "high"
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "local_deepseek_low"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean."
+       },
+       "usage": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "user",
+          "content": "raw"
+         }
+        ],
+        "model": "deepseek-r9",
+        "thinking": {
+         "type": "enabled"
+        }
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "local_no_tools"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "TextGenerationError",
+       "message": "This model does not support tool calls."
+      }
+     ],
+     "requests": []
+    }
+   },
+   {
+    "args": [
+     "unknown_opencode_route"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "ValueError",
+       "message": "future-model has no supported API route for OpenCode Go. Choose a supported model."
+      }
+     ],
+     "requests": []
+    }
+   },
+   {
+    "args": [
+     "status_401"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "AuthenticationError",
+       "message": "Error code: 401 - {'error': {'message': 'Synthetic failure'}}"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/openai/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "llama-3.3-70b-versatile",
+        "max_tokens": 4096
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "status_403"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "PermissionDeniedError",
+       "message": "Error code: 403 - {'error': {'message': 'Synthetic failure'}}"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/openai/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "llama-3.3-70b-versatile",
+        "max_tokens": 4096
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "status_404_text"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "NotFoundError",
+       "message": "Not Found"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/openai/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "llama-3.3-70b-versatile",
+        "max_tokens": 4096
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "status_429"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "RateLimitError",
+       "message": "Error code: 429 - {'error': {'message': 'Synthetic failure'}}"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/openai/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "llama-3.3-70b-versatile",
+        "max_tokens": 4096
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "status_503"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "InternalServerError",
+       "message": "Error code: 503 - {'error': {'message': 'Unavailable'}}"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-6-luna",
+        "store": false
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "status_422_empty"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "UnprocessableEntityError",
+       "message": "Error code: 422"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "gpt-3.5-turbo"
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "read_timeout"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "APITimeoutError",
+       "message": "Request timed out."
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/v1/responses",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+       },
+       "body": {
+        "include": [
+         "reasoning.encrypted_content"
+        ],
+        "input": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "max_output_tokens": 16384,
+        "model": "gpt-6-luna",
+        "store": false
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "connect_error"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "APIConnectionError",
+       "message": "Connection error."
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "vendor/small-model"
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "retry_then_ok"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean."
+       },
+       "usage": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "vendor/small-model"
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "vendor/small-model"
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "vendor/small-model"
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "retry_exhausted"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "InternalServerError",
+       "message": "Error code: 502 - {'error': {'message': 'synthetic'}}"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "vendor/small-model"
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "vendor/small-model"
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "retry_connect_then_ok"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean."
+       },
+       "usage": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "vendor/small-model"
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "vendor/small-model"
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "no_retry_400"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "BadRequestError",
+       "message": "Error code: 400 - {'error': {'message': 'bad'}}"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "vendor/small-model"
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "no_retry_should_retry_false"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "InternalServerError",
+       "message": "Error code: 503 - {'error': {'message': 'busy'}}"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "vendor/small-model"
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "retry_should_retry_true"
+    ],
+    "result": {
+     "turns": [
+      {
+       "text": "Clean.",
+       "tool_calls": [],
+       "assistant_message": {
+        "role": "assistant",
+        "content": "Clean."
+       },
+       "usage": null,
+       "finish_reason": "stop"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "vendor/small-model"
+       }
+      },
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "vendor/small-model"
+       }
+      }
+     ]
+    }
+   },
+   {
+    "args": [
+     "no_retry_after_too_long"
+    ],
+    "result": {
+     "turns": [
+      {
+       "raises": "RateLimitError",
+       "message": "Error code: 429 - {'error': {'message': 'slow down'}}"
+      }
+     ],
+     "requests": [
+      {
+       "method": "POST",
+       "path": "/api/v1/chat/completions",
+       "query": "",
+       "bearer": true,
+       "timeout": 15.0,
+       "headers": {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-title": "OpenWhisper"
+       },
+       "body": {
+        "messages": [
+         {
+          "role": "system",
+          "content": "Use evidence."
+         },
+         {
+          "role": "user",
+          "content": "Budget?"
+         }
+        ],
+        "model": "vendor/small-model"
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

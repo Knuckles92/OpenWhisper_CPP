@@ -1,0 +1,805 @@
+{
+ "module": "services.format_utils",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time",
+  "timezone_note": "format_timestamp converts aware values with astimezone(), so aware cases hold the local_timezone of the machine that made them (Pacific Standard Time: America/Los_Angeles rules); replay them with that zone passed in explicitly"
+ },
+ "traced_from": [
+  "tests/test_format_utils.py"
+ ],
+ "functions": {
+  "format_audio_duration": [
+   {
+    "args": [
+     null
+    ],
+    "result": "0.0s"
+   },
+   {
+    "args": [
+     0
+    ],
+    "result": "0.0s"
+   },
+   {
+    "args": [
+     0.04
+    ],
+    "result": "0.0s"
+   },
+   {
+    "args": [
+     0.05
+    ],
+    "result": "0.1s"
+   },
+   {
+    "args": [
+     0.15
+    ],
+    "result": "0.1s"
+   },
+   {
+    "args": [
+     0.25
+    ],
+    "result": "0.2s"
+   },
+   {
+    "args": [
+     3.7
+    ],
+    "result": "3.7s"
+   },
+   {
+    "args": [
+     59.94
+    ],
+    "result": "59.9s"
+   },
+   {
+    "args": [
+     59.95
+    ],
+    "result": "60.0s"
+   },
+   {
+    "args": [
+     60
+    ],
+    "result": "1m 0s"
+   },
+   {
+    "args": [
+     62.5
+    ],
+    "result": "1m 2s"
+   },
+   {
+    "args": [
+     63.5
+    ],
+    "result": "1m 4s"
+   },
+   {
+    "args": [
+     125
+    ],
+    "result": "2m 5s"
+   },
+   {
+    "args": [
+     3599.5
+    ],
+    "result": "1h"
+   },
+   {
+    "args": [
+     3600
+    ],
+    "result": "1h"
+   },
+   {
+    "args": [
+     3660
+    ],
+    "result": "1h 1m"
+   },
+   {
+    "args": [
+     7322
+    ],
+    "result": "2h 2m"
+   },
+   {
+    "args": [
+     -5
+    ],
+    "result": "0.0s"
+   },
+   {
+    "args": [
+     "12.5"
+    ],
+    "result": "12.5s"
+   },
+   {
+    "args": [
+     "x"
+    ],
+    "result": "0.0s"
+   },
+   {
+    "args": [
+     125.5
+    ],
+    "result": "2m 6s"
+   },
+   {
+    "args": [
+     59.99
+    ],
+    "result": "60.0s"
+   },
+   {
+    "args": [
+     3659.5
+    ],
+    "result": "1h 1m"
+   },
+   {
+    "args": [
+     86400
+    ],
+    "result": "24h"
+   },
+   {
+    "args": [
+     90061
+    ],
+    "result": "25h 1m"
+   },
+   {
+    "args": [
+     -0.0
+    ],
+    "result": "-0.0s"
+   },
+   {
+    "args": [
+     {
+      "$float": "-inf"
+     }
+    ],
+    "result": "0.0s"
+   },
+   {
+    "args": [
+     3.72
+    ],
+    "result": "3.7s",
+    "traced": true
+   },
+   {
+    "args": [
+     59.9
+    ],
+    "result": "59.9s",
+    "traced": true
+   }
+  ],
+  "format_audio_duration_edge_cases": [
+   {
+    "args": [
+     124.5
+    ],
+    "result": "2m 4s"
+   },
+   {
+    "args": [
+     true
+    ],
+    "result": "1.0s"
+   },
+   {
+    "args": [
+     false
+    ],
+    "result": "0.0s"
+   },
+   {
+    "args": [
+     " 61 "
+    ],
+    "result": "1m 1s"
+   },
+   {
+    "args": [
+     "1e2"
+    ],
+    "result": "1m 40s"
+   },
+   {
+    "args": [
+     {
+      "$float": "nan"
+     }
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     {
+      "$float": "inf"
+     }
+    ],
+    "raises": "OverflowError"
+   },
+   {
+    "args": [
+     "nan"
+    ],
+    "raises": "ValueError"
+   },
+   {
+    "args": [
+     "-inf"
+    ],
+    "result": "0.0s"
+   }
+  ],
+  "format_short_duration": [
+   {
+    "args": [
+     0
+    ],
+    "result": "0 ms"
+   },
+   {
+    "args": [
+     0.0005
+    ],
+    "result": "0 ms"
+   },
+   {
+    "args": [
+     0.0315
+    ],
+    "result": "32 ms"
+   },
+   {
+    "args": [
+     0.9994
+    ],
+    "result": "999 ms"
+   },
+   {
+    "args": [
+     0.9996
+    ],
+    "result": "1000 ms"
+   },
+   {
+    "args": [
+     1
+    ],
+    "result": "1.0s"
+   },
+   {
+    "args": [
+     61
+    ],
+    "result": "1m 1s"
+   },
+   {
+    "args": [
+     -1
+    ],
+    "result": "0 ms"
+   },
+   {
+    "args": [
+     "bad"
+    ],
+    "result": "0 ms"
+   },
+   {
+    "args": [
+     null
+    ],
+    "result": "0 ms"
+   },
+   {
+    "args": [
+     0.0025
+    ],
+    "result": "2 ms"
+   },
+   {
+    "args": [
+     0.0015
+    ],
+    "result": "2 ms"
+   },
+   {
+    "args": [
+     {
+      "$float": "nan"
+     }
+    ],
+    "result": "0 ms"
+   },
+   {
+    "args": [
+     125.5
+    ],
+    "result": "2m 6s"
+   }
+  ],
+  "format_size_bytes": [
+   {
+    "args": [
+     0
+    ],
+    "result": "0 B"
+   },
+   {
+    "args": [
+     999
+    ],
+    "result": "999 B"
+   },
+   {
+    "args": [
+     1000
+    ],
+    "result": "1 KB"
+   },
+   {
+    "args": [
+     1499
+    ],
+    "result": "1 KB"
+   },
+   {
+    "args": [
+     1500
+    ],
+    "result": "2 KB"
+   },
+   {
+    "args": [
+     2500
+    ],
+    "result": "2 KB"
+   },
+   {
+    "args": [
+     999999
+    ],
+    "result": "1000 KB"
+   },
+   {
+    "args": [
+     1000000
+    ],
+    "result": "1 MB"
+   },
+   {
+    "args": [
+     1500000
+    ],
+    "result": "2 MB"
+   },
+   {
+    "args": [
+     2500000
+    ],
+    "result": "2 MB"
+   },
+   {
+    "args": [
+     999999999
+    ],
+    "result": "1000 MB"
+   },
+   {
+    "args": [
+     1000000000
+    ],
+    "result": "1.00 GB"
+   },
+   {
+    "args": [
+     1234567890
+    ],
+    "result": "1.23 GB"
+   },
+   {
+    "args": [
+     -5
+    ],
+    "result": "-5 B"
+   },
+   {
+    "args": [
+     1005000000
+    ],
+    "result": "1.00 GB"
+   },
+   {
+    "args": [
+     12345678901234
+    ],
+    "result": "12345.68 GB"
+   }
+  ],
+  "format_sample_rate": [
+   {
+    "args": [
+     0
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     -1
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     8000
+    ],
+    "result": "8 kHz"
+   },
+   {
+    "args": [
+     16000
+    ],
+    "result": "16 kHz"
+   },
+   {
+    "args": [
+     22050
+    ],
+    "result": "22.1 kHz"
+   },
+   {
+    "args": [
+     44100
+    ],
+    "result": "44.1 kHz"
+   },
+   {
+    "args": [
+     48000
+    ],
+    "result": "48 kHz"
+   },
+   {
+    "args": [
+     44150
+    ],
+    "result": "44.1 kHz"
+   },
+   {
+    "args": [
+     "16000"
+    ],
+    "result": "16 kHz"
+   },
+   {
+    "args": [
+     "x"
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     null
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     44100.9
+    ],
+    "result": "44.1 kHz"
+   },
+   {
+    "args": [
+     true
+    ],
+    "result": "0.0 kHz"
+   },
+   {
+    "args": [
+     " 22050 "
+    ],
+    "result": "22.1 kHz"
+   },
+   {
+    "args": [
+     11025
+    ],
+    "result": "11.0 kHz"
+   },
+   {
+    "args": [
+     1050
+    ],
+    "result": "1.1 kHz"
+   }
+  ],
+  "format_file_size": [
+   {
+    "args": [
+     0
+    ],
+    "result": "0 B"
+   },
+   {
+    "args": [
+     1023
+    ],
+    "result": "1023 B"
+   },
+   {
+    "args": [
+     1024
+    ],
+    "result": "1.0 KB"
+   },
+   {
+    "args": [
+     1536
+    ],
+    "result": "1.5 KB"
+   },
+   {
+    "args": [
+     1048575
+    ],
+    "result": "1024.0 KB"
+   },
+   {
+    "args": [
+     1048576
+    ],
+    "result": "1.0 MB"
+   },
+   {
+    "args": [
+     5368709120
+    ],
+    "result": "5.0 GB"
+   },
+   {
+    "args": [
+     1023.9
+    ],
+    "result": "1023 B"
+   },
+   {
+    "args": [
+     -5
+    ],
+    "result": "-5 B"
+   },
+   {
+    "args": [
+     1099511627776
+    ],
+    "result": "1024.0 GB"
+   },
+   {
+    "args": [
+     1101004
+    ],
+    "result": "1.0 MB"
+   },
+   {
+    "args": [
+     {
+      "$float": "nan"
+     }
+    ],
+    "result": "nan GB"
+   }
+  ],
+  "format_timestamp": [
+   {
+    "args": [
+     "2026-03-04T05:06:07"
+    ],
+    "result": "Mar 04, 2026 05:06 AM"
+   },
+   {
+    "args": [
+     "2026-12-31T23:59:59"
+    ],
+    "result": "Dec 31, 2026 11:59 PM"
+   },
+   {
+    "args": [
+     "2026-01-01T00:00:00"
+    ],
+    "result": "Jan 01, 2026 12:00 AM"
+   },
+   {
+    "args": [
+     "2026-07-15T12:30:00"
+    ],
+    "result": "Jul 15, 2026 12:30 PM"
+   },
+   {
+    "args": [
+     "not a date"
+    ],
+    "result": "not a date"
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     "2026-08-20T16:46:00+00:00"
+    ],
+    "result": "Aug 20, 2026 09:46 AM"
+   },
+   {
+    "args": [
+     "2026-01-15T08:00:00Z"
+    ],
+    "result": "Jan 15, 2026 12:00 AM"
+   },
+   {
+    "args": [
+     "2026-03-08T09:59:00+00:00"
+    ],
+    "result": "Mar 08, 2026 01:59 AM"
+   },
+   {
+    "args": [
+     "2026-03-08T10:00:00+00:00"
+    ],
+    "result": "Mar 08, 2026 03:00 AM"
+   },
+   {
+    "args": [
+     "2026-11-01T08:30:00+00:00"
+    ],
+    "result": "Nov 01, 2026 01:30 AM"
+   },
+   {
+    "args": [
+     "2026-11-01T09:30:00+00:00"
+    ],
+    "result": "Nov 01, 2026 01:30 AM"
+   },
+   {
+    "args": [
+     "2026-08-20T16:46:00.123456+05:30"
+    ],
+    "result": "Aug 20, 2026 04:16 AM"
+   },
+   {
+    "args": [
+     "2026-08-20T23:59:59.999999-07:00"
+    ],
+    "result": "Aug 20, 2026 11:59 PM"
+   },
+   {
+    "args": [
+     "1969-12-31T23:59:59+00:00"
+    ],
+    "result": "1969-12-31T23:59:59+00:00"
+   },
+   {
+    "args": [
+     "1970-01-01T00:00:00+00:00"
+    ],
+    "result": "Dec 31, 1969 04:00 PM"
+   },
+   {
+    "args": [
+     "3001-01-19T07:59:59+00:00"
+    ],
+    "result": "Jan 18, 3001 11:59 PM"
+   },
+   {
+    "args": [
+     "3001-01-19T08:00:00+00:00"
+    ],
+    "result": "3001-01-19T08:00:00+00:00"
+   },
+   {
+    "args": [
+     "9999-12-31T23:59:59+00:00"
+    ],
+    "result": "9999-12-31T23:59:59+00:00"
+   },
+   {
+    "args": [
+     "0001-01-01T00:00:00+05:00"
+    ],
+    "result": "0001-01-01T00:00:00+05:00"
+   },
+   {
+    "args": [
+     "20260820T164600"
+    ],
+    "result": "Aug 20, 2026 04:46 PM"
+   },
+   {
+    "args": [
+     "2026-08-20 16:46"
+    ],
+    "result": "Aug 20, 2026 04:46 PM"
+   },
+   {
+    "args": [
+     "2026-08-20"
+    ],
+    "result": "Aug 20, 2026 12:00 AM"
+   },
+   {
+    "args": [
+     "0005-01-02T03:04:00"
+    ],
+    "result": "Jan 02, 0005 03:04 AM"
+   },
+   {
+    "args": [
+     "2026-08-20T00:30:00"
+    ],
+    "result": "Aug 20, 2026 12:30 AM"
+   },
+   {
+    "args": [
+     "2026-08-20T12:00:00"
+    ],
+    "result": "Aug 20, 2026 12:00 PM"
+   },
+   {
+    "args": [
+     "2026-02-30T10:00:00"
+    ],
+    "result": "2026-02-30T10:00:00"
+   },
+   {
+    "args": [
+     " 2026-08-20"
+    ],
+    "result": " 2026-08-20"
+   },
+   {
+    "args": [
+     "2026-W34-4T10:00"
+    ],
+    "result": "Aug 20, 2026 10:00 AM"
+   },
+   {
+    "args": [
+     "2026-08-20T16:46:00"
+    ],
+    "result": "Aug 20, 2026 04:46 PM",
+    "traced": true
+   },
+   {
+    "args": [
+     null
+    ],
+    "result": null,
+    "traced": true
+   }
+  ]
+ }
+}

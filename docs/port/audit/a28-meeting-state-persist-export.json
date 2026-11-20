@@ -1,0 +1,824 @@
+{
+ "area": "a28-meeting-state-persist-export",
+ "package": "M10 sweep",
+ "features": {
+  "A28-01": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/schema.cpp",
+    "src/meeting_state/schema.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_schema.cpp",
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.state.schema.json"
+   ],
+   "note": "Key order, report_views default and the five capture keys: 'a new document has Python's defaults and key order'; round_trip (30 cases) replays from_dict/to_dict."
+  },
+  "A28-02": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/schema.h",
+    "src/meeting_state/schema.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.state.schema.json",
+    "tests/meeting_state/test_store.cpp"
+   ],
+   "note": "CARD_KEYS in order; CardItem::is_protected (pinned, edited/confirmed, system+voice_command) replayed by card_protected (8) and 'test_spoken_note_survives_agent_updates...'."
+  },
+  "A28-03": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/schema.cpp",
+    "src/meeting_state/schema.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_schema.cpp",
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.state.schema.json",
+    "tests/meeting_state/test_store.cpp"
+   ],
+   "note": "history_pill: 78 golden cases plus TestFinalizationState::test_history_pill_precedence."
+  },
+  "A28-04": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/schema.cpp",
+    "src/meeting_state/schema.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_schema.cpp",
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.state.schema.json",
+    "tests/meeting_state/test_store.cpp"
+   ],
+   "note": "The four messages are schema.h constants; infer_legacy (14), coerce (72) and normalize_historical (224) golden cases."
+  },
+  "A28-05": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/patches.cpp",
+    "src/meeting_state/patches.h",
+    "src/meeting_state/detail/patches_meta.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_patches.cpp",
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.state.patches.json"
+   ],
+   "note": "21 golden op scripts compare every OpResult (reason strings) and the final state; 'a handler that throws is internal_error and the batch goes on'."
+  },
+  "A28-06": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/patches.h",
+    "src/meeting_state/patches.cpp",
+    "src/meeting_state/detail/patches_meta.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_patches.cpp",
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.state.patches.json",
+    "tests/meeting_state/test_store.cpp"
+   ],
+   "note": "AGENT_OPS, AGENT_ONLY_OPS, HOST_ONLY_OPS match patches.py; 'every op has domains and flags matching Python's sets' and the gate script."
+  },
+  "A28-07": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/detail/patches_items.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.state.patches.json",
+    "tests/meeting_state/test_store.cpp"
+   ],
+   "note": "Thresholds 0.60/0.75 same card, 0.75/0.90 across, containment only at >= 4 tokens, live_notes and user_notes rules as Python; item_text_too_similar (10) and normalize_item_text (11) golden plus TestItemOps duplicate tests."
+  },
+  "A28-08": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/patches.h",
+    "src/meeting_state/corrections.h",
+    "src/meeting_state/detail/patches_items.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.state.patches.json",
+    "tests/meeting_state/test_store.cpp"
+   ],
+   "note": "Every limit is a patches.h/corrections.h constant equal to Python's; the scripts probe the edges (21 evidence refs, 501 topic, 8001 summary, 2001 intent, 4097-byte data, 201 participants, question caps)."
+  },
+  "A28-09": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/detail/patches_items.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.state.patches.json",
+    "tests/meeting_state/test_store.cpp"
+   ]
+  },
+  "A28-10": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/detail/patches_items.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.state.patches.json",
+    "tests/meeting_state/test_store.cpp"
+   ],
+   "note": "check_timeline_data: missing_start_s / invalid_start_s, stored as float; TestItemOps::test_agent_timeline_requires_start_s."
+  },
+  "A28-11": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/detail/patches_meta.cpp",
+    "src/meeting_state/patches.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.state.patches.json",
+    "tests/meeting_state/test_intent.cpp",
+    "tests/meeting_state/test_titles.cpp"
+   ]
+  },
+  "A28-12": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/detail/patches_people.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.state.patches.json",
+    "tests/meeting_state/test_store.cpp"
+   ]
+  },
+  "A28-13": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/detail/patches_people.cpp",
+    "src/meeting_state/patches.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.state.patches.json",
+    "tests/meeting_state/test_store.cpp"
+   ],
+   "note": "RESOLVE_CONFIDENCE 0.8, SUGGEST_CONFIDENCE 0.4; TestQuestions tests and the question script."
+  },
+  "A28-14": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/detail/patches_people.cpp",
+    "src/meeting_state/segment_ops.cpp",
+    "src/meeting_state/store.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.state.patches.json",
+    "tests/meeting_state/test_store.cpp",
+    "tests/meeting_state/test_revise_segment_text.cpp",
+    "tests/meeting_state/test_scoped_corrections.cpp"
+   ],
+   "note": "A pinned predicate that raises fails closed (golden '!raise' batches); TestPinnedSpeakerProtection, TestSegmentHandlerFix, test_agent_polish_cannot_bake_a_scoped_correction_into_raw_text."
+  },
+  "A28-15": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/patches.cpp",
+    "src/meeting_state/patches.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_notes.cpp",
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.state.patches.json"
+   ]
+  },
+  "A28-16": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/store.cpp",
+    "src/meeting_state/store.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_store.cpp",
+    "tests/meeting_state/test_copy_on_write.cpp"
+   ],
+   "note": "std::recursive_mutex; copy-on-write candidate adopted after the repository write; persistence_error / stale_selection marking (TestAgentBoundaries::test_persistence_failure_rejects_without_state_or_notification, copy-on-write tests)."
+  },
+  "A28-17": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_state/store.cpp",
+    "src/meeting_state/detail/sql_state.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_sql_repository.cpp",
+    "tests/meeting_state/test_audit_a28.cpp",
+    "tests/meeting_state/test_fake_repository.cpp"
+   ],
+   "note": "The code matched; the SQL repository's 'undo:<seq>' action and the system actor of the undo row were only checked on the fake repository. Added 'audit A28-17/37/59: audit events, their shapes and the undo action over SQL'."
+  },
+  "A28-18": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/store.cpp",
+    "src/meeting_state/review_ops.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_copy_on_write.cpp",
+    "tests/meeting_state/test_review_ops.cpp",
+    "tests/meeting_state/test_store.cpp"
+   ],
+   "note": "update_runtime_fields persists first; entering finalization running clears citation checks and open review questions (test_new_finalization_invalidates_open_reviews_but_preserves_human_answers, test_runtime_finalization_invalidation_rolls_back_with_failed_write)."
+  },
+  "A28-19": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/review_ops.cpp",
+    "src/meeting_state/review_ops.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_review_ops.cpp",
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.state.review.json"
+   ],
+   "note": "The state ops (consent typesafe-text-v1, the four strings, answer labels, prefixes) are M7.11's and replayed by 19 golden scripts; the reviewer worker is meeting_intel's (A29-11)."
+  },
+  "A28-20": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/review_ops.cpp",
+    "src/meeting_state/detail/patches_items.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_review_ops.cpp",
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.state.review.json"
+   ]
+  },
+  "A28-21": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/custom_report_ops.cpp",
+    "src/meeting_state/custom_report_ops.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_custom_report_ops.cpp",
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.state.custom_reports.json"
+   ],
+   "note": "Limits 20/2000/60000/200/500 and the running message are constants; the writer is M8.5's (meeting_intel custom_report)."
+  },
+  "A28-22": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/repair.cpp",
+    "src/meeting_state/repair.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_repair.cpp",
+    "tests/meeting_state/test_golden_extras.cpp",
+    "tests/golden/meeting.state.repair.json"
+   ]
+  },
+  "A28-23": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/corrections.cpp",
+    "src/meeting_state/corrections.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_corrections.cpp",
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.corrections.json"
+   ]
+  },
+  "A28-24": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/corrections.cpp",
+    "src/meeting_state/detail/patches_items.cpp",
+    "src/meeting_state/detail/sql_state.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_scoped_corrections.cpp",
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.corrections.json"
+   ],
+   "note": "fnv1a64:%016x over UTF-8 (test_fingerprint_is_stable_for_utf8_text); the in-transaction revalidation is 'a stale one-occurrence correction is refused and writes nothing' and test_selection_changed_before_save_is_rejected_without_persisting_note."
+  },
+  "A28-25": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/corrections.cpp",
+    "src/meeting_state/corrections.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_corrections.cpp",
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.corrections.json"
+   ],
+   "note": "vocabulary_terms/vocabulary_hint (12 terms, 160 chars, ', ' and '.') replayed by golden; the function has no consumer because Parakeet has no initial prompt (M7.md change 3, engine-specific)."
+  },
+  "A28-26": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/guidance.cpp",
+    "src/meeting_agent/guidance.h"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_guidance.cpp",
+    "tests/meeting_agent/test_golden.cpp",
+    "tests/golden/meeting.corrections.json"
+   ],
+   "note": "guidance_prompt moved to meeting_agent (M8.2); the 11 golden cases of meeting.corrections are replayed there."
+  },
+  "A28-27": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/stored.cpp",
+    "src/meeting_state/stored.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_stored.cpp",
+    "tests/meeting_state/test_golden_extras.cpp",
+    "tests/golden/meeting.stored.json"
+   ],
+   "note": "load_state 34 + 5 golden cases carry both interruption messages exactly."
+  },
+  "A28-28": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/content.cpp",
+    "src/meeting_state/content.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_content.cpp",
+    "tests/meeting_state/test_golden_extras.cpp",
+    "tests/golden/meeting.content.json"
+   ]
+  },
+  "A28-29": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_state/detail/sql_meetings.cpp",
+    "src/meeting_state/sql_repository.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_sql_repository.cpp",
+    "tests/meeting_state/test_titles.cpp",
+    "tests/meeting_state/test_audit_a28.cpp"
+   ],
+   "note": "rename_meeting (BEGIN IMMEDIATE, column and snapshot) was tested; replace_tokens had no SQL test. Added 'audit A28-29: replace_tokens writes both tokens and refuses an unknown meeting'."
+  },
+  "A28-30": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_state/detail/sql_search.cpp",
+    "src/meeting_state/sql_repository.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_sql_repository.cpp",
+    "tests/meeting_state/test_golden_extras.cpp",
+    "tests/golden/meeting.persist.repository.json",
+    "tests/meeting_state/test_audit_a28.cpp"
+   ],
+   "note": "Query, keyset cursor, LIKE escaping (search_filter golden, 20) and the 3 aggregate reads were tested; nothing pinned the 101 default or the 1..501 clamp. Added 'audit A28-30: the Past Meetings page limit defaults to 101 and is clamped from 1'."
+  },
+  "A28-31": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/origin_rows.cpp",
+    "src/meeting_state/origin_rows.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_origin_rows.cpp",
+    "tests/meeting_state/test_golden_origin.cpp",
+    "tests/golden/meeting.persist.repository_origin.json"
+   ]
+  },
+  "A28-32": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_state/detail/sql_chunks.cpp",
+    "src/meeting_state/repository.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_sql_repository.cpp",
+    "tests/meeting_state/test_fake_repository.cpp",
+    "tests/meeting_state/test_audit_a28.cpp"
+   ],
+   "note": "Attempts, processing-is-retryable, done terminal, idempotent registration and the connection-failure refund were tested on SQL; the 2000-character error cut only on the fake. Added 'audit A28-32: a stored chunk error keeps its first 2000 characters' (code points, both set_chunk_status and defer_chunk_after_connection_failure)."
+  },
+  "A28-33": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/detail/sql_segments.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_sql_repository.cpp",
+    "tests/meeting_state/test_corrections_repository.cpp",
+    "tests/meeting_state/test_fake_repository.cpp"
+   ]
+  },
+  "A28-34": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/detail/sql_segments.cpp",
+    "src/meeting_state/sql_repository.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_sql_repository.cpp",
+    "tests/meeting_state/test_golden_extras.cpp",
+    "tests/golden/meeting.persist.repository.json"
+   ],
+   "note": "MIN_MATCH_IOU 0.25; match_live_to_offline (8) and remap_state_evidence (8) golden; TestReplaceFinalTranscript tests."
+  },
+  "A28-35": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/detail/sql_segments.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_delivery_cursor.cpp"
+   ],
+   "note": "Page clamp 1..301, consumers cards/notes only, cursor upsert with max(); the consumer is meeting_agent's scheduler (M8.4)."
+  },
+  "A28-36": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/detail/sql_state.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_sql_repository.cpp",
+    "tests/meeting_state/test_titles.cpp",
+    "tests/meeting_state/test_fake_repository.cpp"
+   ]
+  },
+  "A28-37": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_state/detail/sql_state.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_sql_repository.cpp",
+    "tests/meeting_state/test_audit_a28.cpp"
+   ],
+   "note": "Newest first and undoable were tested; the 1..500 clamp and before_seq were not. Added to 'audit A28-17/37/59: audit events, their shapes and the undo action over SQL'."
+  },
+  "A28-38": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/detail/sql_search.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_sql_repository.cpp"
+   ],
+   "note": "Each term quoted with doubled quotes, snippet(..., '[', ']', ' … ', 12), started_at desc then start_s, clamp 1..200, exceptions logged and []; TestSearchAndDelete tests."
+  },
+  "A28-39": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/detail/sql_candidates.cpp",
+    "src/meeting_state/sql_repository.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_search_candidates.cpp"
+   ],
+   "note": "Stop list, terms > 2 chars, at most 20 ORed, half the budget lexical then recent minute passages, shared_only default true as Python; the cloud ranking that consumes it is meeting_intel's."
+  },
+  "A28-40": {
+   "status": "difference",
+   "difference": "a28-delete-keeps-host-copy",
+   "cpp": [
+    "src/meeting_state/data_lifecycle.cpp",
+    "src/meeting/detail/runtime_past.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_data_lifecycle.cpp",
+    "tests/meeting_state/test_audit_a28.cpp"
+   ],
+   "note": "The local half matches Python and is tested (direct-child validation, restore on a failed delete, mtime refresh, the callback with has_origin); the tombstone name was not, so 'audit A28-40/61: the spool is a .deleting-<id>-<32 hex> tombstone at the commit point' was added. MeetingRuntime::forget_deleted clears the replay buffer and ignores the meeting id and has_origin."
+  },
+  "A28-41": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/data_lifecycle.cpp",
+    "src/meeting_state/data_lifecycle.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_data_lifecycle.cpp"
+   ]
+  },
+  "A28-42": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/export_markdown.cpp",
+    "src/meeting_state/export_markdown.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_export.cpp",
+    "tests/meeting_state/test_golden_extras.cpp",
+    "tests/golden/meeting.export.markdown.json",
+    "tests/meeting_state/test_intent.cpp",
+    "tests/meeting_state/test_notes.cpp"
+   ]
+  },
+  "A28-43": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/export_json.cpp",
+    "src/meeting_state/export_json.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_export.cpp",
+    "tests/meeting_state/test_golden_extras.cpp",
+    "tests/golden/meeting.export.json_export.json"
+   ]
+  },
+  "A28-44": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/export_txt.cpp",
+    "src/meeting_state/export_txt.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_export.cpp",
+    "tests/meeting_state/test_golden_extras.cpp",
+    "tests/golden/meeting.export.transcript_txt.json"
+   ]
+  },
+  "A28-45": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/export_bulk.cpp",
+    "src/meeting_state/export_bulk.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_export_bulk.cpp",
+    "tests/meeting_state/test_golden_extras.cpp",
+    "tests/golden/meeting.export.bulk.json"
+   ]
+  },
+  "A28-46": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_state/highlights.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_schema.cpp",
+    "tests/meeting_state/test_audit_a28.cpp"
+   ],
+   "note": "Only 'commitment' was asserted. Added 'audit A28-46: every pulse kind has OpenWhisper's label, in its order'."
+  },
+  "A28-47": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/schema.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_schema.cpp",
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.state.schema.json"
+   ]
+  },
+  "A28-48": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/detail/patches_people.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.state.patches.json",
+    "tests/meeting_state/test_store.cpp"
+   ]
+  },
+  "A28-49": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/detail/patches_meta.cpp",
+    "src/meeting_state/detail/patches_people.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.state.patches.json",
+    "tests/meeting_state/test_store.cpp"
+   ]
+  },
+  "A28-50": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/detail/patches_meta.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.state.patches.json"
+   ]
+  },
+  "A28-51": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/detail/patches_items.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.state.patches.json"
+   ]
+  },
+  "A28-52": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/review_ops.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_review_ops.cpp",
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.state.review.json"
+   ]
+  },
+  "A28-53": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/detail/patches_items.cpp",
+    "src/meeting_state/review_ops.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_patches.cpp",
+    "tests/meeting_state/test_review_ops.cpp"
+   ],
+   "note": "Both supersede strings asserted by 'item edits supersede linked review questions' and test_later_human_edit_supersedes_old_correction_everywhere."
+  },
+  "A28-54": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/detail/sql_search.cpp",
+    "src/meeting_state/content.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_sql_repository.cpp",
+    "tests/meeting_state/test_content.cpp",
+    "tests/meeting_state/test_golden_extras.cpp",
+    "tests/golden/meeting.persist.repository.json"
+   ]
+  },
+  "A28-55": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/detail/sql_search.cpp",
+    "src/meeting_state/sql_repository.h"
+   ],
+   "tests": [
+    "tests/meeting_state/test_sql_repository.cpp",
+    "tests/meeting_state/test_golden_origin.cpp",
+    "tests/golden/meeting.persist.repository_origin.json"
+   ],
+   "note": "Origin Any/Local/Device, started_from >=, started_before <, started_after by julianday, cursor and include_running in 'the past-meeting calendar feed and origin filters'; full row dicts against the OpenWhisper fixture database."
+  },
+  "A28-56": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/detail/sql_search.cpp",
+    "src/meeting_state/calendar_meetings.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_sql_repository.cpp",
+    "tests/meeting_state/test_calendar_meetings.cpp"
+   ]
+  },
+  "A28-57": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/detail/sql_meetings.cpp",
+    "src/meeting_state/detail/sql_chunks.cpp",
+    "src/meeting_state/detail/sql_segments.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_sql_repository.cpp",
+    "tests/fixtures/meeting_state/openwhisper-meetings.db",
+    "tests/fixtures/meeting_state/openwhisper-meetings.json"
+   ],
+   "note": "'a database OpenWhisper made reads back every meeting, segment and event unchanged' compares the dicts with Python's."
+  },
+  "A28-58": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_state/detail/sql_segments.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_sql_repository.cpp",
+    "tests/meeting_state/test_audit_a28.cpp"
+   ],
+   "note": "The code matched; nothing pinned strict > on start_s, limit 0 as unbounded, one created_at per batch, no embedding in rows, or the ValueError for another meeting's participant. Added 'audit A28-58: segment reads are strictly after a start, ...'."
+  },
+  "A28-59": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_state/detail/sql_state.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_sql_repository.cpp",
+    "tests/meeting_state/test_audit_a28.cpp"
+   ],
+   "note": "get_event and list_events key sets, payload_json stored with ensure_ascii off and a missing seq were untested; added to 'audit A28-17/37/59: ...'."
+  },
+  "A28-60": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_state/detail/sql_search.cpp",
+    "src/meeting_state/detail/sql_candidates.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_sql_repository.cpp",
+    "tests/meeting_state/test_search_candidates.cpp",
+    "tests/meeting_state/test_audit_a28.cpp"
+   ],
+   "note": "The candidate half was tested; the search_transcripts row keys, raw text under a term correction and the empty query were not. Added 'audit A28-60: transcript search rows carry the raw text in Python's shape'."
+  },
+  "A28-61": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_state/data_lifecycle.cpp",
+    "src/meeting_state/detail/sql_meetings.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_data_lifecycle.cpp",
+    "tests/meeting_state/test_sql_repository.cpp",
+    "tests/meeting_state/test_audit_a28.cpp"
+   ],
+   "note": "Keep-spool delete, keep-spool clear, root validation, unknown id false and the feature counter were tested; an empty meetings root or spool_dir and the clear without orphan purge were not. Added 'audit A28-61: no meetings root means rows only, and a keep-recordings clear leaves orphan folders'."
+  },
+  "A28-62": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/time_utils.cpp",
+    "src/meeting_state/export_txt.cpp",
+    "src/meeting_state/export_markdown.cpp",
+    "src/meeting_state/export_bulk.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_time_utils.cpp",
+    "tests/meeting_state/test_export_features.cpp",
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.time_utils.json",
+    "tests/golden/meeting.export.transcript_txt.json"
+   ]
+  },
+  "A28-63": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/export_json.h",
+    "src/meeting_state/export_json.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_export.cpp",
+    "tests/meeting_state/test_export_features.cpp",
+    "tests/golden/meeting.export.json_export.json"
+   ],
+   "note": "Kept as OpenWhisper (only the five volatile fields stripped; spool_dir stays): M7.md lead decision 8."
+  },
+  "A28-64": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/export_markdown.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_golden_extras.cpp",
+    "tests/golden/meeting.export.markdown.json",
+    "tests/meeting_state/test_export.cpp"
+   ],
+   "note": "The 21 golden documents include removed items, the plain decisions/user_notes bullets, an empty transcript, the intelligence toggle and confidences 0.125/1/True/'0.5'."
+  },
+  "A28-65": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_state/corrections.cpp",
+    "src/meeting_state/corrections.h",
+    "src/meeting_state/detail/sql_state.cpp"
+   ],
+   "tests": [
+    "tests/meeting_state/test_corrections.cpp",
+    "tests/meeting_state/test_corrections_repository.cpp",
+    "tests/meeting_state/test_golden.cpp",
+    "tests/golden/meeting.corrections.json"
+   ]
+  }
+ },
+ "differences": [
+  {
+   "id": "a28-delete-keeps-host-copy",
+   "features": [
+    "A28-40"
+   ],
+   "openwhisper": "Deleting a meeting of this computer calls record_sync.record_deleted, which deletes the copy the paired host keeps.",
+   "fiorivoce": "Deleting a meeting removes only this computer's rows and spool; RecordSync::record_deleted is a no-op and a copy shared to the host stays until it is deleted there or from the host-kept list.",
+   "reason": "Record transfers are user-initiated: nothing is copied to the host automatically, so nothing is removed from it automatically either.",
+   "source": "docs/port/audit/a17-remote-engine-services.json a17-retention and a17-backup-transfer; src/remote_records/sync.h (RecordSync: 'User-initiated dictation transfers', record_deleted empty); src/meeting/detail/runtime_past.cpp forget_deleted"
+  }
+ ]
+}

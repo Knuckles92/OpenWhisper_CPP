@@ -1,0 +1,1022 @@
+{
+  "package": "M5, M9.9",
+  "files": {
+    "tests/test_agent_api.py": {
+      "test_every_route_requires_token": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_history_api.cpp",
+        "note": "also every route and authorization variant in tests/fixtures/transcripts/agent_api.json (test_transcript.cpp)"
+      },
+      "test_token_is_not_accepted_in_query_or_cookie": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_history_api.cpp"
+      },
+      "test_host_and_browser_origin_are_rejected": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_history_api.cpp"
+      },
+      "test_transcription_pages_have_stable_ties_and_normalized_time": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_history_api.cpp"
+      },
+      "test_cursor_survives_newer_insert_and_deleted_previous_row": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_history_api.cpp"
+      },
+      "test_cursor_is_validated_and_bound_to_filters": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_history_api.cpp",
+        "note": "malformed, foreign and hand-made cursors byte for byte in the transcript"
+      },
+      "test_search_returns_fetchable_citations_and_raw_matches": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_history_api.cpp"
+      },
+      "test_search_treats_wildcards_and_sql_as_literal_text": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_history_api.cpp"
+      },
+      "test_date_kind_and_title_filters": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_history_api.cpp"
+      },
+      "test_non_ascii_excerpt_uses_same_matching_rules_as_search": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_history_api.cpp"
+      },
+      "test_remote_records_require_explicit_opt_in_on_every_surface": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_history_api.cpp"
+      },
+      "test_segment_pagination_ranges_and_meeting_scope": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_history_api.cpp"
+      },
+      "test_insights_preserve_evidence_and_omit_removed_items": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_history_api.cpp"
+      },
+      "test_corrupt_snapshot_does_not_hide_transcript": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_history_api.cpp"
+      },
+      "test_private_fields_are_never_serialized": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_history_api.cpp"
+      },
+      "test_parameter_bounds": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_history_api.cpp"
+      },
+      "test_invalid_semantic_parameters": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_history_api.cpp"
+      },
+      "test_openapi_documents_auth_and_stable_operations": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_history_api.cpp"
+      },
+      "test_storage_is_read_only_and_does_not_create_or_migrate": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_history_api.cpp",
+        "note": "the read-only connection is agentapi::open_read_only, which every store call uses"
+      },
+      "test_database_errors_do_not_leak_sql": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_history_api.cpp",
+        "note": "a real SQLite error (a renamed table) instead of a monkeypatched check()"
+      },
+      "test_invalid_startup_tokens": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_history_api.cpp"
+      }
+    },
+    "tests/test_personalize_s9_history_edit.py": {
+      "test_export_and_agents_read_the_chosen_text": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_history_api.cpp",
+        "note": "the History API half; the export half is tests/history/test_export.cpp"
+      }
+    },
+    "tests/test_agent_mcp.py": {
+      "test_authenticated_boundary_and_disable": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_protocol.cpp",
+        "note": "M5.9; also every gate answer byte for byte in tests/fixtures/transcripts/agent_mcp.json"
+      },
+      "test_official_client_discovery_retrieval_and_validation": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_protocol.cpp",
+        "note": "M5.9; both wires through McpApp; the agent_mcp transcript replays every tool, the paging and the validation errors on both wires"
+      },
+      "test_control_permissions_writes_and_live_revocation": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_protocol.cpp",
+        "note": "M5.9; the grants, writes, refusals and revocations are exchanges of the agent_mcp transcript (the 'Permissions' section), replayed against the same settings"
+      },
+      "test_runtime_restart_uses_saved_token_and_releases_port": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_runtime.cpp",
+        "note": "M5.9"
+      },
+      "test_desktop_restore_uses_default_credentials_and_restarts": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_runtime.cpp",
+        "note": "M5.9; an in-memory credential store stands in for the default one"
+      },
+      "test_occupied_port_and_missing_database_are_recoverable": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_runtime.cpp",
+        "note": "M5.9"
+      },
+      "test_token_store_error_names_a_missing_store_not_an_unlock": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_runtime.cpp",
+        "note": "M5.9; the platform is token_store_error's argument instead of a patched sys.platform"
+      },
+      "test_failed_credentials_do_not_start_listener": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_runtime.cpp",
+        "note": "M5.9"
+      },
+      "test_locked_credential_store_asks_to_unlock": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_runtime.cpp",
+        "note": "M5.9"
+      },
+      "test_retry_starts_after_the_credential_store_appears": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_runtime.cpp",
+        "note": "M5.9"
+      },
+      "test_tailscale_host_checks_auth_origin_and_peer": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_runtime.cpp",
+        "note": "M5.9; the peer cases are also in the agent_mcp transcript"
+      },
+      "test_tailscale_listener_keeps_local_access_and_releases_both_ports": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_runtime.cpp",
+        "note": "M5.9; McpRuntimeDeps::resolve_tailscale stands in for the patched _tailscale_address"
+      },
+      "test_tailscale_bind_failure_releases_loopback_socket": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_runtime.cpp",
+        "note": "M5.9; the released port is checked by listening on it again"
+      },
+      "test_unavailable_tailscale_does_not_start_or_fall_back": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_runtime.cpp",
+        "note": "M5.9; FakeTailscaleProbe"
+      }
+    },
+    "tests/test_automation_fix_api_not_found.py": {
+      "test_unknown_paths_are_json_404s": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_runtime.cpp",
+        "note": "M5.9; the live API's routes are declared in the test until M5.16 installs them"
+      },
+      "test_known_paths_with_the_wrong_method_are_json_405s": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_runtime.cpp",
+        "note": "M5.9"
+      },
+      "test_the_token_is_still_checked_first": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_runtime.cpp",
+        "note": "M5.9"
+      },
+      "test_mcp_and_real_routes_are_untouched": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_runtime.cpp",
+        "note": "M5.9"
+      }
+    },
+    "tests/test_automation_mcp_tools.py": {
+      "test_tools_are_listed_with_honest_annotations_and_limits": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_protocol.cpp",
+        "note": "M5.9"
+      },
+      "test_instructions_describe_live_permissions_and_untrusted_text": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_protocol.cpp",
+        "note": "M5.9"
+      },
+      "test_state_and_actions_need_only_the_token": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_tools.cpp",
+        "note": "M5.9"
+      },
+      "test_run_action_is_refused_until_allowed_and_rechecked_each_call": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_tools.cpp",
+        "note": "M5.9"
+      },
+      "test_recording_tools_need_permission_to_control_recordings": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_tools.cpp",
+        "note": "M5.9"
+      },
+      "test_notify_user_needs_permission_to_run_actions": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_tools.cpp",
+        "note": "M5.9"
+      },
+      "test_recent_events_reads_the_bus_with_gaps_paging_and_types": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_tools.cpp",
+        "note": "M5.9"
+      },
+      "test_capabilities_and_status_report_live_permissions": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_tools.cpp",
+        "note": "M5.9"
+      }
+    },
+    "tests/test_automation_fix_mcp_agent_prompts.py": {
+      "test_the_app_refusing_for_agent_prompts_reads_as_permission_denied": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_tools.cpp",
+        "note": "M5.9"
+      },
+      "test_mcp_events_describe_who_started_a_job": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12"
+      },
+      "test_agent_prompts_is_a_write_capability": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_tools.cpp",
+        "note": "M5.9"
+      }
+    },
+    "tests/test_automation_fix_mcp_since.py": {
+      "test_a_position_from_a_previous_session_reports_a_gap_and_returns_everything": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_tools.cpp",
+        "note": "M5.9"
+      },
+      "test_large_positions_are_accepted": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_tools.cpp",
+        "note": "M5.9"
+      }
+    },
+    "tests/test_automation_fix_mcp_unicode.py": {
+      "test_tools_refuse_text_that_is_not_valid_unicode": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_tools.cpp",
+        "note": "M5.9; the handshake wire's parser refusing the same bodies is in the agent_mcp transcript"
+      },
+      "test_whole_emoji_still_run": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_tools.cpp",
+        "note": "M5.9"
+      },
+      "test_an_event_body_with_a_lone_surrogate_is_still_built": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12"
+      }
+    },
+    "tests/test_mcp_controls.py": {
+      "test_retitles_preserve_source_text_and_saved_insights": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_agent_controls.cpp",
+        "note": "M5.9"
+      },
+      "test_unfinished_meetings_cannot_be_retitled": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_agent_controls.cpp",
+        "note": "M5.9"
+      },
+      "test_remote_meetings_are_not_writable_and_bad_snapshots_are_preserved": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_agent_controls.cpp",
+        "note": "M5.9"
+      },
+      "test_permission_check_is_inside_settings_transaction": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_agent_controls.cpp",
+        "note": "M5.9; another writer revokes access through the settings file, since SettingsStore::mutate cannot be patched"
+      },
+      "test_concurrent_updates_preserve_other_preferences": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_agent_controls.cpp",
+        "note": "M5.9"
+      },
+      "test_missing_database_is_not_created": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_agent_controls.cpp",
+        "note": "M5.9"
+      },
+      "test_schema_14_migration_preserves_history": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_agent_controls.cpp",
+        "note": "M5.9; through fv::Database::open_or_create"
+      },
+      "test_settings_save_failure_preserves_existing_values": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_agent_controls.cpp",
+        "note": "M5.9"
+      },
+      "test_malformed_grants_do_not_authorize_writes": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_agent_controls.cpp",
+        "note": "M5.9"
+      }
+    },
+    "tests/test_agent_mcp_theme.py": {
+      "test_inherited_theme_round_trip_preserves_desktop_default": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_agent_controls.cpp",
+        "note": "M5.9; FIORIVOCE_UI forces the Omarchy theme as OPENWHISPER_UI did"
+      },
+      "test_saved_theme_overrides_environment_and_restores_explicitly": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_agent_controls.cpp",
+        "note": "M5.9"
+      },
+      "test_invalid_saved_theme_reports_resolver_fallback": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_agent_controls.cpp",
+        "note": "M5.9"
+      },
+      "test_environment_detected_omarchy_matches_desktop_resolver": {
+        "status": "dropped",
+        "reason": "other-platform: Omarchy is detected only on Linux (OMARCHY_PATH); the forced setting is covered on every platform"
+      },
+      "test_scalar_previous_remains_usable_for_restoring_appearance": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_agent_controls.cpp",
+        "note": "M5.9"
+      },
+      "test_resetting_an_already_inherited_theme_is_idempotent": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_agent_controls.cpp",
+        "note": "M5.9"
+      },
+      "test_theme_reset_keeps_existing_permission_gate_and_batch_atomicity": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_agent_controls.cpp",
+        "note": "M5.9"
+      },
+      "test_null_is_not_a_general_settings_reset": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_agent_controls.cpp",
+        "note": "M5.9"
+      },
+      "test_other_preferences_do_not_advertise_or_accept_reset": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_agent_controls.cpp",
+        "note": "M5.9"
+      },
+      "test_theme_reset_storage_failure_preserves_file_and_skips_notification": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_agent_controls.cpp",
+        "note": "M5.9"
+      },
+      "test_mcp_schema_and_theme_restoration_round_trip": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_agent_controls.cpp",
+        "note": "M5.9"
+      }
+    },
+    "tests/test_personalize_s2_mcp.py": {
+      "test_the_level_is_a_live_choice_in_the_cleanup_group": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_agent_controls.cpp",
+        "note": "M5.9"
+      },
+      "test_an_agent_changes_the_level_and_bad_values_are_refused": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_agent_controls.cpp",
+        "note": "M5.9"
+      },
+      "test_a_corrupt_saved_level_reads_as_medium": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_agent_controls.cpp",
+        "note": "M5.9"
+      },
+      "test_agents_can_neither_read_nor_change_the_custom_cleanup_prompt": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_agent_controls.cpp",
+        "note": "M5.9"
+      }
+    },
+    "tests/test_automation_mcp_events.py": {
+      "test_switch_off_hides_the_capability_and_refuses_every_method": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12; also both wires and every switch combination in tests/fixtures/transcripts/mcp_events.json (test_mcp_events_protocol.cpp)"
+      },
+      "test_events_list_describes_every_public_event": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12; the listing byte for byte in the mcp_events transcript and the descriptors() golden vector"
+      },
+      "test_subscribe_verifies_then_delivers_signed_filtered_events": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12"
+      },
+      "test_retries_transient_failures_and_not_client_errors": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12; McpEventsOptions::retry_delays_s stands in for the patched RETRY_DELAYS_S"
+      },
+      "test_unsubscribe_and_subscriptions_survive_a_restart": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12; a new McpEvents over the same file and credential store is the new app process"
+      },
+      "test_bad_requests_and_failed_verification_save_nothing": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12; a closed loopback port stands in for the listener that drops each connection (both are connection_refused); every refusal in order is in the mcp_events transcript"
+      },
+      "test_limits_on_subscriptions_and_payload_size": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12; McpEventsOptions::max_subscriptions stands in for the patched MAX_SUBSCRIPTIONS; the real cap of 50 is in the mcp_events transcript"
+      },
+      "test_switches_and_permissions_are_rechecked_and_clear_forgets_all": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12"
+      },
+      "test_a_new_secret_is_signed_alongside_the_old_one_for_a_while": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12"
+      },
+      "test_expired_subscriptions_are_neither_counted_nor_delivered": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12"
+      }
+    },
+    "tests/test_automation_fix_mcp_events_gone.py": {
+      "test_gone_is_an_error_on_that_delivery_only": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12"
+      }
+    },
+    "tests/test_automation_fix_mcp_events_registry.py": {
+      "test_slow_secret_removal_blocks_neither_counting_nor_the_bus": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events_registry.cpp",
+        "note": "M5.12"
+      },
+      "test_a_slow_save_of_a_new_subscription_does_not_block_counting": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events_registry.cpp",
+        "note": "M5.12"
+      },
+      "test_a_slow_fsync_does_not_block_counting": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events_registry.cpp",
+        "note": "M5.12; a stalled file writer (Registry::set_writer) stands in for the patched os.fsync"
+      },
+      "test_starting_delivery_forgets_expired_subscriptions": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events_registry.cpp",
+        "note": "M5.12"
+      },
+      "test_counting_forgets_expired_subscriptions": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events_registry.cpp",
+        "note": "M5.12"
+      },
+      "test_a_subscription_that_expires_while_running_is_forgotten_when_counted": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events_registry.cpp",
+        "note": "M5.12; a FakeClock moves wall time instead of a sleep"
+      }
+    },
+    "tests/test_automation_fix_mcp_events_remote.py": {
+      "test_a_peer_cannot_point_deliveries_at_this_computer_or_its_network": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12; the ten URLs as sections; 27 more in the mcp_events transcript"
+      },
+      "test_handshake_era_clients_are_told_apart_the_same_way": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12"
+      },
+      "test_a_name_that_resolves_to_this_computer_counts_as_this_computer": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12; McpEventsOptions::network stands in for the patched socket.getaddrinfo"
+      },
+      "test_this_computer_may_still_subscribe_its_own_receivers": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12"
+      },
+      "test_a_peers_subscription_is_delivered_only_while_tailscale_access_is_on": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12; McpEventsOptions::destination stands in for the patched _destination"
+      },
+      "test_an_event_from_while_access_was_off_stays_unsent_when_access_returns_first": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12; McpEventsOptions::before_try and after_try hold and count the tries as HeldSends does"
+      },
+      "test_access_turned_off_before_the_send_still_stops_it": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12"
+      },
+      "test_a_local_subscription_does_not_need_tailscale_access": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12"
+      },
+      "test_a_peers_callback_that_later_resolves_here_is_not_delivered": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12"
+      },
+      "test_saved_subscriptions_without_an_origin_count_as_a_peers": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12; also the from_record golden vectors"
+      },
+      "test_a_peers_callback_is_verified_at_the_address_that_was_checked": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12; a fake network resolves names and an HTTP client wrapper refuses anything but loopback"
+      },
+      "test_each_try_to_deliver_to_a_peer_goes_to_the_address_it_checked": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12"
+      },
+      "test_this_computers_own_tailscale_addresses_count_as_this_computer": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12"
+      },
+      "test_another_computer_on_the_tailnet_is_the_peers_own_business": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12"
+      },
+      "test_this_computers_addresses_are_the_ones_it_can_bind": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12"
+      },
+      "test_a_pinned_request_keeps_the_host_name_for_tls_and_the_host_header": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12; a plain-HTTP loopback receiver sees the Host header of a pinned request and a recording client the request's shape; no TLS server (SNI and the certificate rest on http::Client's pinned_address)"
+      }
+    },
+    "tests/test_automation_fix_mcp_events_rollback.py": {
+      "test_a_refresh_that_could_not_be_saved_keeps_the_old_secret": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events_registry.cpp",
+        "note": "M5.12"
+      },
+      "test_a_rotation_in_progress_survives_a_refresh_that_failed": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events_registry.cpp",
+        "note": "M5.12"
+      },
+      "test_a_refresh_with_the_same_secret_that_failed_changes_nothing": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events_registry.cpp",
+        "note": "M5.12"
+      },
+      "test_a_new_subscription_that_could_not_be_saved_leaves_no_secret": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events_registry.cpp",
+        "note": "M5.12"
+      }
+    },
+    "tests/test_automation_fix_mcp_events_logging.py": {
+      "test_deliveries_and_verifications_leave_no_url_in_the_logs": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12"
+      },
+      "test_other_requests_keep_their_log_lines": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_mcp_events.cpp",
+        "note": "M5.12; FioriVoce's request log line keeps the path and drops the query of every URL, so the path is what is checked"
+      }
+    },
+    "tests/test_automation_api_routes.py": {
+      "test_every_route_needs_the_token": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16; every route's 401 and 403 is also in tests/fixtures/transcripts/live_api.json"
+      },
+      "test_state_has_control_state_permissions_and_listeners": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16"
+      },
+      "test_without_the_app_behind_it_state_and_actions_are_unavailable": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16"
+      },
+      "test_actions_are_listed_with_the_token_alone": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16"
+      },
+      "test_powerful_routes_are_off_by_default": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16; the eight cases as sections"
+      },
+      "test_permissions_are_reread_on_every_request": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16"
+      },
+      "test_run_action_returns_the_job": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16"
+      },
+      "test_run_action_text_must_be_1_to_20000_characters": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16"
+      },
+      "test_the_longest_text_is_accepted_even_fully_escaped": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16"
+      },
+      "test_bodies_must_be_small_json_objects": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16; more bodies (BOM, NaN, repeated keys, trailing text) in the live_api transcript"
+      },
+      "test_a_body_without_a_length_is_still_limited": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16; a request without Content-Length, and one the server stopped reading (HttpRequest::body_too_large)"
+      },
+      "test_action_ids_are_bounded": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16"
+      },
+      "test_control_errors_keep_their_code_and_message": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16"
+      },
+      "test_unexpected_failures_are_reported_without_their_message": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16; the log names the C++ exception type (std::runtime_error) where Python names RuntimeError"
+      },
+      "test_recording_routes": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16"
+      },
+      "test_recording_start_checks_the_action_id": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16"
+      },
+      "test_notify_shows_short_messages": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16"
+      },
+      "test_filter_leases": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16; the real FilterLeases on a fake clock instead of a monkeypatched filters module; the transcript replays OpenWhisper's real leases with pinned ids and time"
+      },
+      "test_event_stream_requests_are_checked_before_streaming": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16"
+      },
+      "test_without_settings_the_defaults_apply": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16; an empty settings store stands in for settings=None"
+      },
+      "test_the_contract_lists_the_live_routes": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16; the listener's whole /openapi.json is also compared in the transcript"
+      },
+      "test_types_and_resume_positions_parse": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16; also golden vectors (test_live_golden.cpp)"
+      },
+      "test_frames_are_one_line_of_json_per_event": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16; also golden vectors (test_live_golden.cpp)"
+      },
+      "test_stopping_the_listener_drops_leased_filters": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16; McpRuntime with mount_live_api on a loopback port"
+      }
+    },
+    "tests/test_automation_api_sse.py": {
+      "test_events_arrive_live_as_server_sent_events": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_sse.cpp",
+        "note": "M5.16; a loopback listener read by fv_http's curl client"
+      },
+      "test_events_published_as_the_stream_opens_are_not_missed": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_sse.cpp",
+        "note": "M5.16"
+      },
+      "test_line_break_characters_in_text_survive_line_readers": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_sse.cpp",
+        "note": "M5.16"
+      },
+      "test_types_limit_the_stream": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_sse.cpp",
+        "note": "M5.16"
+      },
+      "test_reconnecting_with_last_event_id_replays_what_was_missed": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_sse.cpp",
+        "note": "M5.16"
+      },
+      "test_since_replays_buffered_events_of_the_wanted_types": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_sse.cpp",
+        "note": "M5.16"
+      },
+      "test_a_position_the_buffer_no_longer_holds_starts_with_a_gap": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_sse.cpp",
+        "note": "M5.16"
+      },
+      "test_a_position_from_an_earlier_app_session_replays_this_one_after_a_gap": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_sse.cpp",
+        "note": "M5.16"
+      },
+      "test_channel_clients_are_counted_apart_and_released_on_disconnect": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_sse.cpp",
+        "note": "M5.16; X-FioriVoce-Client, and OpenWhisper's header as well"
+      },
+      "test_streams_end_when_mcp_is_switched_off": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_sse.cpp",
+        "note": "M5.16"
+      },
+      "test_streams_end_when_live_events_are_disallowed": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_sse.cpp",
+        "note": "M5.16; LiveApi::set_stream_options stands in for the patched PERMISSION_CHECK_S"
+      },
+      "test_an_idle_stream_pings": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_sse.cpp",
+        "note": "M5.16; LiveApi::set_stream_options stands in for the patched PING_INTERVAL_S; the 15 s interval on a fake clock in 'an idle stream pings every 15 seconds and rereads its permission every 2'"
+      },
+      "test_stopping_the_listener_ends_open_streams_promptly": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_sse.cpp",
+        "note": "M5.16; McpRuntime with mount_live_api"
+      },
+      "test_a_server_stopped_without_disabling_still_releases_its_streams": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_sse.cpp",
+        "note": "M5.16; the subscription is released at the stream's next check (within 0.5 s of the server closing the connection), so it is waited for"
+      },
+      "test_a_reader_too_slow_for_the_queue_gets_a_gap_and_the_end": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_sse.cpp",
+        "note": "M5.16; a fake socket that stops taking frames stands in for the generator that is not read"
+      }
+    },
+    "tests/test_automation_fix_api_sse_order.py": {
+      "test_events_the_client_already_has_are_not_sent_again": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_sse.cpp",
+        "note": "M5.16"
+      },
+      "test_a_stream_without_a_position_starts_after_what_was_already_published": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_sse.cpp",
+        "note": "M5.16"
+      },
+      "test_a_preview_older_than_the_replay_is_not_sent_after_it": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_sse.cpp",
+        "note": "M5.16"
+      },
+      "test_live_events_after_the_replay_still_arrive_in_order": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_sse.cpp",
+        "note": "M5.16"
+      },
+      "test_a_position_from_a_previous_session_gets_a_gap_then_everything": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_sse.cpp",
+        "note": "M5.16"
+      },
+      "test_eighteen_digit_positions_are_accepted": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_sse.cpp",
+        "note": "M5.16"
+      },
+      "test_a_stream_from_a_large_position_still_delivers_live_events": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_sse.cpp",
+        "note": "M5.16"
+      },
+      "test_streams_release_their_subscription": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_sse.cpp",
+        "note": "M5.16"
+      }
+    },
+    "tests/test_automation_fix_api_unicode.py": {
+      "test_text_that_is_not_valid_unicode_is_refused": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16"
+      },
+      "test_whole_emoji_and_escaped_text_still_pass": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16"
+      },
+      "test_a_frame_with_a_lone_surrogate_is_still_sent": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16"
+      },
+      "test_frames_are_ascii_so_line_readers_never_split_them": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16"
+      }
+    },
+    "tests/test_automation_fix_api_remote_filters.py": {
+      "test_a_tailscale_peer_cannot_lease_a_filter": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16; the peer is HttpRequest::peer"
+      },
+      "test_a_program_on_this_computer_still_can": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16"
+      },
+      "test_who_counts_as_this_computer": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16; also golden vectors"
+      }
+    },
+    "tests/test_automation_fix_api_agent_prompts.py": {
+      "test_recording_for_an_agent_or_channel_action_needs_agent_prompts": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16; UiAppControl over a fake ControlHost"
+      },
+      "test_with_agent_prompts_allowed_the_recording_starts": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16"
+      },
+      "test_other_actions_and_plain_dictation_need_no_agent_prompts": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16"
+      },
+      "test_the_app_refusing_for_agent_prompts_is_a_403": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_live_api.cpp",
+        "note": "M5.16"
+      }
+    },
+    "tests/test_automation_api_app_control.py": {
+      "test_install_registers_the_qt_app_control": {"status": "dropped", "reason": "Difference a19-live-api-not-served: FioriVoce's running app never calls set_app_control or mount_live_api, so no UiAppControl is registered (lead decision, owner commit 8cf2b8e). tests/agentapi/test_session_without_live_tools.cpp ('the desktop's local MCP session has no live tools') and tests/ui_controller/test_agent_changes.cpp ('the running app registers no live API control') pin what happens instead."},
+      "test_calls_from_another_thread_run_on_the_qt_thread": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_app_control.cpp",
+        "note": "M5.16; UiAppControl over a fake ControlHost, the test's thread running the UI executor"
+      },
+      "test_errors_raised_on_the_qt_thread_reach_the_caller": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_app_control.cpp",
+        "note": "M5.16"
+      },
+      "test_a_call_made_on_the_qt_thread_runs_at_once": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_app_control.cpp",
+        "note": "M5.16"
+      },
+      "test_an_unresponsive_qt_thread_is_unavailable_and_the_call_never_runs": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_app_control.cpp",
+        "note": "M5.16; a fake clock stands in for the shortened timeouts"
+      },
+      "test_a_call_already_running_is_waited_for_so_the_answer_is_true": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_app_control.cpp",
+        "note": "M5.16; a fake clock"
+      },
+      "test_a_call_still_running_after_the_grace_is_unavailable": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_app_control.cpp",
+        "note": "M5.16; a fake clock"
+      },
+      "test_start_returns_the_new_job": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_app_control.cpp",
+        "note": "M5.16"
+      },
+      "test_start_for_an_action_records_for_it": {"status": "dropped", "reason": "Difference a19-live-api-not-served: FioriVoce's running app never calls set_app_control or mount_live_api, so no UiAppControl is registered (lead decision, owner commit 8cf2b8e). tests/agentapi/test_session_without_live_tools.cpp ('the desktop's local MCP session has no live tools') and tests/ui_controller/test_agent_changes.cpp ('the running app registers no live API control') pin what happens instead."},
+      "test_start_refusals_say_why": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_app_control.cpp",
+        "note": "M5.16"
+      },
+      "test_a_start_the_app_refuses_reports_what_it_told_the_user": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_app_control.cpp",
+        "note": "M5.16"
+      },
+      "test_stop_and_cancel_need_something_to_act_on": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_app_control.cpp",
+        "note": "M5.16; ControlHost::stop_recording and cancel answer whether there was something to act on"
+      },
+      "test_notices_are_one_line": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_app_control.cpp",
+        "note": "M5.16; ControlHost::notify shows the line on the status line and as a notice"
+      },
+      "test_state_is_read_without_waiting_for_the_qt_thread": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_app_control.cpp",
+        "note": "M5.16"
+      },
+      "test_listed_actions_are_the_enabled_ones_without_private_settings": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_app_control.cpp",
+        "note": "M5.16"
+      },
+      "test_the_control_never_keeps_the_controller_alive": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_app_control.cpp",
+        "note": "M5.16; the control holds the host by reference and UiAppControl::release() forgets it, after which every call is unavailable"
+      },
+      "test_a_relay_first_needed_off_the_qt_thread_moves_onto_it": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_app_control.cpp",
+        "note": "M5.16; as 'calls from any thread run on the UI executor': there is no relay object"
+      },
+      "test_one_relay_serves_every_call_from_the_qt_thread": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_app_control.cpp",
+        "note": "M5.16; as 'calls from any thread run on the UI executor'"
+      }
+    },
+    "tests/test_client_history.py": {
+      "test_pagination_duplicates_filters_revocation_and_offline_copies": {
+        "status": "ported",
+        "cpp": "tests/agentapi/test_federation.cpp",
+        "note": "Adapted for explicit provider injection: tests merge and deduplicate a live reply and stored copy, and cover disabled and revoked peers."
+      }
+    },
+    "tests/test_automation_api_end_to_end.py": {
+      "test_running_an_action_over_http_goes_through_the_real_runtime": {"status": "dropped", "reason": "Difference a19-live-api-not-served: the live HTTP API is not served by the running app (lead decision, owner commit 8cf2b8e). tests/agentapi/test_session_without_live_tools.cpp ('the desktop's local MCP session has no live tools') and tests/ui_controller/test_agent_changes.cpp ('the running app registers no live API control') pin what happens instead."},
+      "test_recording_over_http_starts_reports_and_stops_the_real_runtime": {"status": "dropped", "reason": "Difference a19-live-api-not-served: the live HTTP API is not served by the running app (lead decision, owner commit 8cf2b8e). tests/agentapi/test_session_without_live_tools.cpp ('the desktop's local MCP session has no live tools') and tests/ui_controller/test_agent_changes.cpp ('the running app registers no live API control') pin what happens instead."},
+      "test_a_start_the_app_refuses_answers_with_what_the_user_was_told": {"status": "dropped", "reason": "Difference a19-live-api-not-served: the live HTTP API is not served by the running app (lead decision, owner commit 8cf2b8e). tests/agentapi/test_session_without_live_tools.cpp ('the desktop's local MCP session has no live tools') and tests/ui_controller/test_agent_changes.cpp ('the running app registers no live API control') pin what happens instead."},
+      "test_permissions_still_gate_the_real_app": {"status": "dropped", "reason": "Difference a19-live-api-not-served: the live HTTP API is not served by the running app (lead decision, owner commit 8cf2b8e). tests/agentapi/test_session_without_live_tools.cpp ('the desktop's local MCP session has no live tools') and tests/ui_controller/test_agent_changes.cpp ('the running app registers no live API control') pin what happens instead."}
+    },
+    "tests/test_segment_cursor_sources.py": {
+      "test_segment_cursor_survives_switching_sources": {"status": "ported", "cpp": "tests/agentapi/test_segment_cursor_sources.cpp", "note": "cases named as the functions (all parametrizations by GENERATE). HistoryApi's segments route with an in-process ClientHistorySource over the client's HistoryStore (OpenWhisper's InProcessClient/HistoryReader). The live product gives no server a client history source (docs/port/differences.md a20-peer-history-session); the cursor rules are HistoryStore::segments' and the route's"},
+      "test_existing_segment_cursor_is_accepted_on_either_source": {"status": "ported", "cpp": "tests/agentapi/test_segment_cursor_sources.cpp", "note": "cases named as the functions (all parametrizations by GENERATE). HistoryApi's segments route with an in-process ClientHistorySource over the client's HistoryStore (OpenWhisper's InProcessClient/HistoryReader). The live product gives no server a client history source (docs/port/differences.md a20-peer-history-session); the cursor rules are HistoryStore::segments' and the route's"},
+      "test_fallback_segment_cursor_remains_bound_to_meeting_and_range": {"status": "ported", "cpp": "tests/agentapi/test_segment_cursor_sources.cpp", "note": "cases named as the functions (all parametrizations by GENERATE). HistoryApi's segments route with an in-process ClientHistorySource over the client's HistoryStore (OpenWhisper's InProcessClient/HistoryReader). The live product gives no server a client history source (docs/port/differences.md a20-peer-history-session); the cursor rules are HistoryStore::segments' and the route's"},
+      "test_offline_segment_fallback_still_requires_opt_in_and_matching_origin": {"status": "ported", "cpp": "tests/agentapi/test_segment_cursor_sources.cpp", "note": "cases named as the functions (all parametrizations by GENERATE). HistoryApi's segments route with an in-process ClientHistorySource over the client's HistoryStore (OpenWhisper's InProcessClient/HistoryReader). The live product gives no server a client history source (docs/port/differences.md a20-peer-history-session); the cursor rules are HistoryStore::segments' and the route's"},
+      "test_fallback_segment_cursor_keeps_time_range_and_deleted_boundary": {"status": "ported", "cpp": "tests/agentapi/test_segment_cursor_sources.cpp", "note": "cases named as the functions (all parametrizations by GENERATE). HistoryApi's segments route with an in-process ClientHistorySource over the client's HistoryStore (OpenWhisper's InProcessClient/HistoryReader). The live product gives no server a client history source (docs/port/differences.md a20-peer-history-session); the cursor rules are HistoryStore::segments' and the route's"}
+    }
+  }
+}

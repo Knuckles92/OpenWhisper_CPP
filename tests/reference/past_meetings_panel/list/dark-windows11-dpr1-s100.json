@@ -1,0 +1,1064 @@
+{
+ "widget": "past_meetings_panel/list",
+ "variant": "dark-windows11-dpr1-s100",
+ "builder": "a31",
+ "ow_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "logical_size": [
+  380,
+  900
+ ],
+ "image_size": [
+  380,
+  900
+ ],
+ "device_pixel_ratio": 1.0,
+ "qt": "6.11.0",
+ "pyqt": "6.11.0",
+ "platform": "offscreen",
+ "base_style": "QWindows11Style",
+ "style": "QStyleSheetStyle",
+ "theme": "dark",
+ "color_scheme": "Unknown",
+ "font_scale_percent": 100,
+ "app_font": "Segoe UI,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+ "font_resolved": "Segoe UI",
+ "qt_qpa_fontdir": "C:\\WINDOWS\\Fonts",
+ "stylesheet_sha1": "d610c169543ec64cda1c263a28ed322bc66a03ce",
+ "pixels_sha1": "361f66b86ed44fee8602504d6defe1fa8b83e275",
+ "tree": {
+  "class": "PastMeetingsPanel",
+  "qtClass": "QWidget",
+  "objectName": "pastMeetingsContent",
+  "geometry": [
+   0,
+   0,
+   380,
+   900
+  ],
+  "visible": true,
+  "hasFocus": false,
+  "properties": {
+   "unscaledStyleSheet": "\n            QWidget#pastMeetingsContent {\n                background-color: @bg;\n                border-left: 1px solid rgba(@overlay-rgb, 0.08);\n            }\n            QLabel#pastMeetingsHeader {\n                color: @text-heading;\n                font-weight: 700;\n                background-color: transparent;\n            }\n            QLabel#sectionHeader {\n                color: @text-secondary-strong;\n                padding-top: 4px;\n                font-size: 11px;\n                font-weight: 600;\n                background-color: transparent;\n            }\n            QPushButton#pastMeetingsMenuBtn {\n                background-color: transparent;\n                color: @text-secondary;\n                border: none;\n                border-radius: 14px;\n                padding: 0px;\n                font-size: 15px;\n            }\n            QPushButton#pastMeetingsMenuBtn:hover {\n                background-color: rgba(@overlay-rgb, 0.1);\n                color: @text-heading;\n            }\n            QLineEdit#historySearchInput {\n                background-color: rgba(@surface-rgb, 0.8);\n                color: @text;\n                border: 1px solid rgba(@overlay-rgb, 0.08);\n                border-radius: 8px;\n                padding: 4px 10px;\n                font-size: 12px;\n            }\n            QLineEdit#historySearchInput:focus {\n                border: 1px solid @accent;\n                background-color: rgba(@surface-rgb, 1.0);\n            }\n            QLineEdit#historySearchInput::placeholder {\n                color: @text-muted;\n            }\n            QLabel#pastMeetingsEmpty {\n                color: @text-muted;\n                font-size: 12px;\n                padding: 8px 0px;\n                background-color: transparent;\n            }\n            QScrollArea#pastMeetingsScrollArea {\n                background-color: transparent;\n                border: none;\n            }\n            QScrollArea#pastMeetingsScrollArea > QWidget > QWidget {\n                background-color: transparent;\n            }\n            QScrollArea#pastMeetingsScrollArea QScrollBar:vertical {\n                background: transparent;\n                width: 8px;\n                margin: 0px;\n            }\n            QScrollArea#pastMeetingsScrollArea QScrollBar::handle:vertical {\n                background: rgba(@overlay-rgb, 0.15);\n                border-radius: 4px;\n                min-height: 30px;\n            }\n            QScrollArea#pastMeetingsScrollArea QScrollBar::handle:vertical:hover {\n                background: rgba(@overlay-rgb, 0.3);\n            }\n            QScrollArea#pastMeetingsScrollArea QScrollBar::add-line:vertical,\n            QScrollArea#pastMeetingsScrollArea QScrollBar::sub-line:vertical {\n                height: 0px;\n            }\n            QScrollArea#pastMeetingsScrollArea QScrollBar::add-page:vertical,\n            QScrollArea#pastMeetingsScrollArea QScrollBar::sub-page:vertical {\n                background: transparent;\n            }\n            QFrame#pastMeetingItem {\n                background-color: rgba(@surface-rgb, 0.5);\n                border-radius: 12px;\n                border: 1px solid rgba(@overlay-rgb, 0.05);\n            }\n            QFrame#pastMeetingItem:hover {\n                background-color: rgba(@surface-hover-rgb, 0.6);\n                border: 1px solid rgba(@accent-rgb, 0.35);\n            }\n            QFrame#pastMeetingItem[selected=\"true\"] {\n                background-color: rgba(@accent-rgb, 0.16);\n                border: 1px solid rgba(@accent-rgb, 0.55);\n            }\n            QLabel#pastMeetingTitle {\n                color: @text;\n                background-color: transparent;\n            }\n            QLabel#pastMeetingMeta {\n                color: @text-secondary-strong;\n                font-size: 10px;\n                background-color: transparent;\n            }\n            QLabel#pastMeetingPreview {\n                color: @text-body;\n                background-color: transparent;\n            }\n            QLabel#pastMeetingContentWarning {\n                color: @warning-text;\n                font-size: 11px;\n                background-color: transparent;\n            }\n            /* The shared meeting pill: fully rounded, tinted, no outline\n               (see the meeting badge rules in theme.qss). */\n            QLabel#pastMeetingInsightsPill {\n                color: @text-secondary-strong;\n                background-color: rgba(@overlay-rgb, 0.08);\n                border: none;\n                border-radius: 10px;\n                padding: 0px 8px;\n                font-size: 11px;\n                font-weight: 600;\n            }\n            QLabel#pastMeetingInsightsPill[pillTone=\"warning\"] {\n                color: @warning-text;\n                background-color: rgba(@warning-rgb, 0.15);\n            }\n            QLabel#pastMeetingInsightsPill[pillTone=\"success\"] {\n                color: @success-text;\n                background-color: rgba(@success-rgb, 0.15);\n            }\n            QLabel#pastMeetingInsightsPill[pillTone=\"location\"] {\n                color: @accent-soft;\n                background-color: rgba(@accent-rgb, 0.15);\n            }\n            QLabel#pastMeetingInsightsPill[pillTone=\"neutral\"] {\n                color: @text-secondary-strong;\n                background-color: rgba(@overlay-rgb, 0.08);\n            }\n        ",
+   "scaledStyleSheet": "\n            QWidget#pastMeetingsContent {\n                background-color: #1c1c1e;\n                border-left: 1px solid rgba(255, 255, 255, 0.08);\n            }\n            QLabel#pastMeetingsHeader {\n                color: #ffffff;\n                font-weight: 700;\n                background-color: transparent;\n            }\n            QLabel#sectionHeader {\n                color: #98989d;\n                padding-top: 4px;\n                font-size: 11px;\n                font-weight: 600;\n                background-color: transparent;\n            }\n            QPushButton#pastMeetingsMenuBtn {\n                background-color: transparent;\n                color: #8e8e93;\n                border: none;\n                border-radius: 14px;\n                padding: 0px;\n                font-size: 15px;\n            }\n            QPushButton#pastMeetingsMenuBtn:hover {\n                background-color: rgba(255, 255, 255, 0.1);\n                color: #ffffff;\n            }\n            QLineEdit#historySearchInput {\n                background-color: rgba(44, 44, 46, 0.8);\n                color: #f5f5f7;\n                border: 1px solid rgba(255, 255, 255, 0.08);\n                border-radius: 8px;\n                padding: 4px 10px;\n                font-size: 12px;\n            }\n            QLineEdit#historySearchInput:focus {\n                border: 1px solid #0a84ff;\n                background-color: rgba(44, 44, 46, 1.0);\n            }\n            QLineEdit#historySearchInput::placeholder {\n                color: #636366;\n            }\n            QLabel#pastMeetingsEmpty {\n                color: #636366;\n                font-size: 12px;\n                padding: 8px 0px;\n                background-color: transparent;\n            }\n            QScrollArea#pastMeetingsScrollArea {\n                background-color: transparent;\n                border: none;\n            }\n            QScrollArea#pastMeetingsScrollArea > QWidget > QWidget {\n                background-color: transparent;\n            }\n            QScrollArea#pastMeetingsScrollArea QScrollBar:vertical {\n                background: transparent;\n                width: 8px;\n                margin: 0px;\n            }\n            QScrollArea#pastMeetingsScrollArea QScrollBar::handle:vertical {\n                background: rgba(255, 255, 255, 0.15);\n                border-radius: 4px;\n                min-height: 30px;\n            }\n            QScrollArea#pastMeetingsScrollArea QScrollBar::handle:vertical:hover {\n                background: rgba(255, 255, 255, 0.3);\n            }\n            QScrollArea#pastMeetingsScrollArea QScrollBar::add-line:vertical,\n            QScrollArea#pastMeetingsScrollArea QScrollBar::sub-line:vertical {\n                height: 0px;\n            }\n            QScrollArea#pastMeetingsScrollArea QScrollBar::add-page:vertical,\n            QScrollArea#pastMeetingsScrollArea QScrollBar::sub-page:vertical {\n                background: transparent;\n            }\n            QFrame#pastMeetingItem {\n                background-color: rgba(44, 44, 46, 0.5);\n                border-radius: 12px;\n                border: 1px solid rgba(255, 255, 255, 0.05);\n            }\n            QFrame#pastMeetingItem:hover {\n                background-color: rgba(58, 58, 60, 0.6);\n                border: 1px solid rgba(10, 132, 255, 0.35);\n            }\n            QFrame#pastMeetingItem[selected=\"true\"] {\n                background-color: rgba(10, 132, 255, 0.16);\n                border: 1px solid rgba(10, 132, 255, 0.55);\n            }\n            QLabel#pastMeetingTitle {\n                color: #f5f5f7;\n                background-color: transparent;\n            }\n            QLabel#pastMeetingMeta {\n                color: #98989d;\n                font-size: 10px;\n                background-color: transparent;\n            }\n            QLabel#pastMeetingPreview {\n                color: #d1d1d6;\n                background-color: transparent;\n            }\n            QLabel#pastMeetingContentWarning {\n                color: #ff9f0a;\n                font-size: 11px;\n                background-color: transparent;\n            }\n            /* The shared meeting pill: fully rounded, tinted, no outline\n               (see the meeting badge rules in theme.qss). */\n            QLabel#pastMeetingInsightsPill {\n                color: #98989d;\n                background-color: rgba(255, 255, 255, 0.08);\n                border: none;\n                border-radius: 10px;\n                padding: 0px 8px;\n                font-size: 11px;\n                font-weight: 600;\n            }\n            QLabel#pastMeetingInsightsPill[pillTone=\"warning\"] {\n                color: #ff9f0a;\n                background-color: rgba(255, 159, 10, 0.15);\n            }\n            QLabel#pastMeetingInsightsPill[pillTone=\"success\"] {\n                color: #30d158;\n                background-color: rgba(48, 209, 88, 0.15);\n            }\n            QLabel#pastMeetingInsightsPill[pillTone=\"location\"] {\n                color: #6fb1ff;\n                background-color: rgba(10, 132, 255, 0.15);\n            }\n            QLabel#pastMeetingInsightsPill[pillTone=\"neutral\"] {\n                color: #98989d;\n                background-color: rgba(255, 255, 255, 0.08);\n            }\n        "
+  },
+  "styleSheet": "\n            QWidget#pastMeetingsContent {\n                background-color: #1c1c1e;\n                border-left: 1px solid rgba(255, 255, 255, 0.08);\n            }\n            QLabel#pastMeetingsHeader {\n                color: #ffffff;\n                font-weight: 700;\n                background-color: transparent;\n            }\n            QLabel#sectionHeader {\n                color: #98989d;\n                padding-top: 4px;\n                font-size: 11px;\n                font-weight: 600;\n                background-color: transparent;\n            }\n            QPushButton#pastMeetingsMenuBtn {\n                background-color: transparent;\n                color: #8e8e93;\n                border: none;\n                border-radius: 14px;\n                padding: 0px;\n                font-size: 15px;\n            }\n            QPushButton#pastMeetingsMenuBtn:hover {\n                background-color: rgba(255, 255, 255, 0.1);\n                color: #ffffff;\n            }\n            QLineEdit#historySearchInput {\n                background-color: rgba(44, 44, 46, 0.8);\n                color: #f5f5f7;\n                border: 1px solid rgba(255, 255, 255, 0.08);\n                border-radius: 8px;\n                padding: 4px 10px;\n                font-size: 12px;\n            }\n            QLineEdit#historySearchInput:focus {\n                border: 1px solid #0a84ff;\n                background-color: rgba(44, 44, 46, 1.0);\n            }\n            QLineEdit#historySearchInput::placeholder {\n                color: #636366;\n            }\n            QLabel#pastMeetingsEmpty {\n                color: #636366;\n                font-size: 12px;\n                padding: 8px 0px;\n                background-color: transparent;\n            }\n            QScrollArea#pastMeetingsScrollArea {\n                background-color: transparent;\n                border: none;\n            }\n            QScrollArea#pastMeetingsScrollArea > QWidget > QWidget {\n                background-color: transparent;\n            }\n            QScrollArea#pastMeetingsScrollArea QScrollBar:vertical {\n                background: transparent;\n                width: 8px;\n                margin: 0px;\n            }\n            QScrollArea#pastMeetingsScrollArea QScrollBar::handle:vertical {\n                background: rgba(255, 255, 255, 0.15);\n                border-radius: 4px;\n                min-height: 30px;\n            }\n            QScrollArea#pastMeetingsScrollArea QScrollBar::handle:vertical:hover {\n                background: rgba(255, 255, 255, 0.3);\n            }\n            QScrollArea#pastMeetingsScrollArea QScrollBar::add-line:vertical,\n            QScrollArea#pastMeetingsScrollArea QScrollBar::sub-line:vertical {\n                height: 0px;\n            }\n            QScrollArea#pastMeetingsScrollArea QScrollBar::add-page:vertical,\n            QScrollArea#pastMeetingsScrollArea QScrollBar::sub-page:vertical {\n                background: transparent;\n            }\n            QFrame#pastMeetingItem {\n                background-color: rgba(44, 44, 46, 0.5);\n                border-radius: 12px;\n                border: 1px solid rgba(255, 255, 255, 0.05);\n            }\n            QFrame#pastMeetingItem:hover {\n                background-color: rgba(58, 58, 60, 0.6);\n                border: 1px solid rgba(10, 132, 255, 0.35);\n            }\n            QFrame#pastMeetingItem[selected=\"true\"] {\n                background-color: rgba(10, 132, 255, 0.16);\n                border: 1px solid rgba(10, 132, 255, 0.55);\n            }\n            QLabel#pastMeetingTitle {\n                color: #f5f5f7;\n                background-color: transparent;\n            }\n            QLabel#pastMeetingMeta {\n                color: #98989d;\n                font-size: 10px;\n                background-color: transparent;\n            }\n            QLabel#pastMeetingPreview {\n                color: #d1d1d6;\n                background-color: transparent;\n            }\n            QLabel#pastMeetingContentWarning {\n                color: #ff9f0a;\n                font-size: 11px;\n                background-color: transparent;\n            }\n            /* The shared meeting pill: fully rounded, tinted, no outline\n               (see the meeting badge rules in theme.qss). */\n            QLabel#pastMeetingInsightsPill {\n                color: #98989d;\n                background-color: rgba(255, 255, 255, 0.08);\n                border: none;\n                border-radius: 10px;\n                padding: 0px 8px;\n                font-size: 11px;\n                font-weight: 600;\n            }\n            QLabel#pastMeetingInsightsPill[pillTone=\"warning\"] {\n                color: #ff9f0a;\n                background-color: rgba(255, 159, 10, 0.15);\n            }\n            QLabel#pastMeetingInsightsPill[pillTone=\"success\"] {\n                color: #30d158;\n                background-color: rgba(48, 209, 88, 0.15);\n            }\n            QLabel#pastMeetingInsightsPill[pillTone=\"location\"] {\n                color: #6fb1ff;\n                background-color: rgba(10, 132, 255, 0.15);\n            }\n            QLabel#pastMeetingInsightsPill[pillTone=\"neutral\"] {\n                color: #98989d;\n                background-color: rgba(255, 255, 255, 0.08);\n            }\n        ",
+  "font": "Segoe UI,-1,14,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+  "children": [
+   {
+    "class": "QPushButton",
+    "qtClass": "QPushButton",
+    "objectName": "pastMeetingsMenuBtn",
+    "geometry": [
+     16,
+     16,
+     28,
+     28
+    ],
+    "visible": true,
+    "hasFocus": true,
+    "properties": {},
+    "text": "\u2630",
+    "isChecked": false,
+    "isDefault": false,
+    "font": "Segoe UI,-1,15,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+    "children": []
+   },
+   {
+    "class": "QLabel",
+    "qtClass": "QLabel",
+    "objectName": "pastMeetingsHeader",
+    "geometry": [
+     52,
+     16,
+     93,
+     28
+    ],
+    "visible": true,
+    "hasFocus": false,
+    "properties": {},
+    "text": "Past Meetings",
+    "alignment": 129,
+    "wordWrap": false,
+    "font": "Segoe UI,-1,14,5,700,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+    "children": []
+   },
+   {
+    "class": "CalendarGlyphButton",
+    "qtClass": "QPushButton",
+    "objectName": "calendarGlyphBtn",
+    "geometry": [
+     336,
+     16,
+     28,
+     28
+    ],
+    "visible": true,
+    "hasFocus": false,
+    "properties": {
+     "unscaledStyleSheet": "\n            QPushButton#calendarGlyphBtn {\n                background-color: transparent;\n                border: none;\n                border-radius: 14px;\n                padding: 0px;\n            }\n            QPushButton#calendarGlyphBtn:hover {\n                background-color: rgba(@overlay-rgb, 0.1);\n            }\n        ",
+     "scaledStyleSheet": "\n            QPushButton#calendarGlyphBtn {\n                background-color: transparent;\n                border: none;\n                border-radius: 14px;\n                padding: 0px;\n            }\n            QPushButton#calendarGlyphBtn:hover {\n                background-color: rgba(255, 255, 255, 0.1);\n            }\n        "
+    },
+    "text": "",
+    "isChecked": false,
+    "isDefault": false,
+    "styleSheet": "\n            QPushButton#calendarGlyphBtn {\n                background-color: transparent;\n                border: none;\n                border-radius: 14px;\n                padding: 0px;\n            }\n            QPushButton#calendarGlyphBtn:hover {\n                background-color: rgba(255, 255, 255, 0.1);\n            }\n        ",
+    "font": "Segoe UI,-1,14,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+    "children": []
+   },
+   {
+    "class": "QLineEdit",
+    "qtClass": "QLineEdit",
+    "objectName": "historySearchInput",
+    "geometry": [
+     16,
+     56,
+     348,
+     32
+    ],
+    "visible": true,
+    "hasFocus": false,
+    "properties": {},
+    "text": "",
+    "alignment": 129,
+    "font": "Segoe UI,-1,12,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+    "children": [
+     {
+      "class": "QLineEditIconButton",
+      "qtClass": "QLineEditIconButton",
+      "objectName": "",
+      "geometry": [
+       322,
+       7,
+       22,
+       18
+      ],
+      "visible": false,
+      "hasFocus": false,
+      "properties": {},
+      "text": "",
+      "isChecked": false,
+      "font": "Segoe UI,-1,14,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+      "children": []
+     }
+    ]
+   },
+   {
+    "class": "QScrollArea",
+    "qtClass": "QScrollArea",
+    "objectName": "pastMeetingsScrollArea",
+    "geometry": [
+     16,
+     100,
+     348,
+     784
+    ],
+    "visible": true,
+    "hasFocus": false,
+    "properties": {},
+    "alignment": 0,
+    "font": "Segoe UI,-1,14,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+    "children": [
+     {
+      "class": "QWidget",
+      "qtClass": "QWidget",
+      "objectName": "qt_scrollarea_viewport",
+      "geometry": [
+       0,
+       0,
+       348,
+       784
+      ],
+      "visible": true,
+      "hasFocus": false,
+      "properties": {},
+      "font": "Segoe UI,-1,14,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+      "children": [
+       {
+        "class": "QWidget",
+        "qtClass": "QWidget",
+        "objectName": "",
+        "geometry": [
+         0,
+         0,
+         348,
+         784
+        ],
+        "visible": true,
+        "hasFocus": false,
+        "properties": {},
+        "font": "Segoe UI,-1,14,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+        "children": [
+         {
+          "class": "QLabel",
+          "qtClass": "QLabel",
+          "objectName": "sectionHeader",
+          "geometry": [
+           0,
+           0,
+           342,
+           19
+          ],
+          "visible": true,
+          "hasFocus": false,
+          "properties": {},
+          "text": "5 meetings",
+          "alignment": 129,
+          "wordWrap": false,
+          "font": "Segoe UI,-1,11,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+          "children": []
+         },
+         {
+          "class": "PastMeetingItem",
+          "qtClass": "QFrame",
+          "objectName": "pastMeetingItem",
+          "geometry": [
+           0,
+           31,
+           342,
+           130
+          ],
+          "visible": true,
+          "hasFocus": false,
+          "properties": {
+           "selected": "False"
+          },
+          "font": "Segoe UI,-1,14,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+          "children": [
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingTitle",
+            "geometry": [
+             15,
+             13,
+             312,
+             19
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {},
+            "text": "Planning review",
+            "alignment": 129,
+            "wordWrap": true,
+            "font": "Segoe UI,-1,14,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingMeta",
+            "geometry": [
+             15,
+             42,
+             312,
+             14
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {},
+            "text": "Mar 14, 2026 \u00b7 09:30 AM",
+            "alignment": 129,
+            "wordWrap": false,
+            "font": "Segoe UI,-1,10,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingPreview",
+            "geometry": [
+             15,
+             66,
+             312,
+             19
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {},
+            "text": "We should ship the sidebar polish next.",
+            "alignment": 129,
+            "wordWrap": true,
+            "font": "Segoe UI,-1,14,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingContentWarning",
+            "geometry": [
+             0,
+             0,
+             100,
+             30
+            ],
+            "visible": false,
+            "hasFocus": false,
+            "properties": {},
+            "text": "",
+            "alignment": 129,
+            "wordWrap": true,
+            "font": "Segoe UI,-1,11,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingMeta",
+            "geometry": [
+             15,
+             97,
+             30,
+             20
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {},
+            "text": "40 min",
+            "alignment": 129,
+            "wordWrap": false,
+            "font": "Segoe UI,-1,10,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingInsightsPill",
+            "geometry": [
+             53,
+             97,
+             48,
+             20
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {
+             "pillTone": "success"
+            },
+            "text": "Ready",
+            "alignment": 132,
+            "wordWrap": false,
+            "font": "Segoe UI,-1,11,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingInsightsPill",
+            "geometry": [
+             0,
+             0,
+             100,
+             20
+            ],
+            "visible": false,
+            "hasFocus": false,
+            "properties": {
+             "pillTone": "location"
+            },
+            "text": "",
+            "alignment": 132,
+            "wordWrap": false,
+            "font": "Segoe UI,-1,11,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           }
+          ]
+         },
+         {
+          "class": "PastMeetingItem",
+          "qtClass": "QFrame",
+          "objectName": "pastMeetingItem",
+          "geometry": [
+           0,
+           173,
+           342,
+           130
+          ],
+          "visible": true,
+          "hasFocus": false,
+          "properties": {
+           "selected": "True"
+          },
+          "font": "Segoe UI,-1,14,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+          "children": [
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingTitle",
+            "geometry": [
+             15,
+             13,
+             312,
+             19
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {},
+            "text": "Deferred review",
+            "alignment": 129,
+            "wordWrap": true,
+            "font": "Segoe UI,-1,14,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingMeta",
+            "geometry": [
+             15,
+             42,
+             312,
+             14
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {},
+            "text": "Mar 13, 2026 \u00b7 03:00 PM",
+            "alignment": 129,
+            "wordWrap": false,
+            "font": "Segoe UI,-1,10,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingPreview",
+            "geometry": [
+             15,
+             66,
+             312,
+             19
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {},
+            "text": "Notes were not finished before the meeting ended.",
+            "alignment": 129,
+            "wordWrap": true,
+            "font": "Segoe UI,-1,14,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingContentWarning",
+            "geometry": [
+             0,
+             0,
+             100,
+             30
+            ],
+            "visible": false,
+            "hasFocus": false,
+            "properties": {},
+            "text": "",
+            "alignment": 129,
+            "wordWrap": true,
+            "font": "Segoe UI,-1,11,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingMeta",
+            "geometry": [
+             15,
+             97,
+             30,
+             20
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {},
+            "text": "25 min",
+            "alignment": 129,
+            "wordWrap": false,
+            "font": "Segoe UI,-1,10,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingInsightsPill",
+            "geometry": [
+             53,
+             97,
+             91,
+             20
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {
+             "pillTone": "warning"
+            },
+            "text": "Saved for later",
+            "alignment": 132,
+            "wordWrap": false,
+            "font": "Segoe UI,-1,11,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingInsightsPill",
+            "geometry": [
+             0,
+             0,
+             100,
+             20
+            ],
+            "visible": false,
+            "hasFocus": false,
+            "properties": {
+             "pillTone": "location"
+            },
+            "text": "",
+            "alignment": 132,
+            "wordWrap": false,
+            "font": "Segoe UI,-1,11,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           }
+          ]
+         },
+         {
+          "class": "PastMeetingItem",
+          "qtClass": "QFrame",
+          "objectName": "pastMeetingItem",
+          "geometry": [
+           0,
+           315,
+           342,
+           126
+          ],
+          "visible": true,
+          "hasFocus": false,
+          "properties": {
+           "selected": "False"
+          },
+          "font": "Segoe UI,-1,14,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+          "children": [
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingTitle",
+            "geometry": [
+             15,
+             13,
+             312,
+             19
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {},
+            "text": "Failed meeting",
+            "alignment": 129,
+            "wordWrap": true,
+            "font": "Segoe UI,-1,14,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingMeta",
+            "geometry": [
+             15,
+             42,
+             312,
+             14
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {},
+            "text": "Mar 12, 2026 \u00b7 02:00 PM",
+            "alignment": 129,
+            "wordWrap": false,
+            "font": "Segoe UI,-1,10,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingPreview",
+            "geometry": [
+             0,
+             0,
+             100,
+             30
+            ],
+            "visible": false,
+            "hasFocus": false,
+            "properties": {},
+            "text": "",
+            "alignment": 129,
+            "wordWrap": true,
+            "font": "Segoe UI,-1,14,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingContentWarning",
+            "geometry": [
+             15,
+             66,
+             312,
+             15
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {},
+            "text": "Meeting failed to start",
+            "alignment": 129,
+            "wordWrap": true,
+            "font": "Segoe UI,-1,11,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingMeta",
+            "geometry": [
+             15,
+             93,
+             55,
+             20
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {},
+            "text": "0 sec \u00b7 Failed",
+            "alignment": 129,
+            "wordWrap": false,
+            "font": "Segoe UI,-1,10,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingInsightsPill",
+            "geometry": [
+             78,
+             93,
+             73,
+             20
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {
+             "pillTone": "warning"
+            },
+            "text": "Failed start",
+            "alignment": 132,
+            "wordWrap": false,
+            "font": "Segoe UI,-1,11,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingInsightsPill",
+            "geometry": [
+             0,
+             0,
+             100,
+             20
+            ],
+            "visible": false,
+            "hasFocus": false,
+            "properties": {
+             "pillTone": "location"
+            },
+            "text": "",
+            "alignment": 132,
+            "wordWrap": false,
+            "font": "Segoe UI,-1,11,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           }
+          ]
+         },
+         {
+          "class": "PastMeetingItem",
+          "qtClass": "QFrame",
+          "objectName": "pastMeetingItem",
+          "geometry": [
+           0,
+           453,
+           342,
+           126
+          ],
+          "visible": true,
+          "hasFocus": false,
+          "properties": {
+           "selected": "False"
+          },
+          "font": "Segoe UI,-1,14,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+          "children": [
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingTitle",
+            "geometry": [
+             15,
+             13,
+             312,
+             19
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {},
+            "text": "Morning stand-up",
+            "alignment": 129,
+            "wordWrap": true,
+            "font": "Segoe UI,-1,14,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingMeta",
+            "geometry": [
+             15,
+             42,
+             312,
+             14
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {},
+            "text": "Mar 11, 2026 \u00b7 08:30 AM",
+            "alignment": 129,
+            "wordWrap": false,
+            "font": "Segoe UI,-1,10,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingPreview",
+            "geometry": [
+             0,
+             0,
+             100,
+             30
+            ],
+            "visible": false,
+            "hasFocus": false,
+            "properties": {},
+            "text": "",
+            "alignment": 129,
+            "wordWrap": true,
+            "font": "Segoe UI,-1,14,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingContentWarning",
+            "geometry": [
+             15,
+             66,
+             312,
+             15
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {},
+            "text": "No audio or transcript captured",
+            "alignment": 129,
+            "wordWrap": true,
+            "font": "Segoe UI,-1,11,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingMeta",
+            "geometry": [
+             15,
+             93,
+             27,
+             20
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {},
+            "text": "20 sec",
+            "alignment": 129,
+            "wordWrap": false,
+            "font": "Segoe UI,-1,10,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingInsightsPill",
+            "geometry": [
+             50,
+             93,
+             49,
+             20
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {
+             "pillTone": "warning"
+            },
+            "text": "Empty",
+            "alignment": 132,
+            "wordWrap": false,
+            "font": "Segoe UI,-1,11,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingInsightsPill",
+            "geometry": [
+             0,
+             0,
+             100,
+             20
+            ],
+            "visible": false,
+            "hasFocus": false,
+            "properties": {
+             "pillTone": "location"
+            },
+            "text": "",
+            "alignment": 132,
+            "wordWrap": false,
+            "font": "Segoe UI,-1,11,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           }
+          ]
+         },
+         {
+          "class": "PastMeetingItem",
+          "qtClass": "QFrame",
+          "objectName": "pastMeetingItem",
+          "geometry": [
+           0,
+           591,
+           342,
+           130
+          ],
+          "visible": true,
+          "hasFocus": false,
+          "properties": {
+           "selected": "False"
+          },
+          "font": "Segoe UI,-1,14,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+          "children": [
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingTitle",
+            "geometry": [
+             15,
+             13,
+             312,
+             19
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {},
+            "text": "Quarterly roadmap",
+            "alignment": 129,
+            "wordWrap": true,
+            "font": "Segoe UI,-1,14,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingMeta",
+            "geometry": [
+             15,
+             42,
+             312,
+             14
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {},
+            "text": "Mar 10, 2026 \u00b7 11:00 AM",
+            "alignment": 129,
+            "wordWrap": false,
+            "font": "Segoe UI,-1,10,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingPreview",
+            "geometry": [
+             15,
+             66,
+             312,
+             19
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {},
+            "text": "Let's start with last quarter's numbers.",
+            "alignment": 129,
+            "wordWrap": true,
+            "font": "Segoe UI,-1,14,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingContentWarning",
+            "geometry": [
+             0,
+             0,
+             100,
+             30
+            ],
+            "visible": false,
+            "hasFocus": false,
+            "properties": {},
+            "text": "",
+            "alignment": 129,
+            "wordWrap": true,
+            "font": "Segoe UI,-1,11,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingMeta",
+            "geometry": [
+             15,
+             97,
+             28,
+             20
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {},
+            "text": "1h 1m",
+            "alignment": 129,
+            "wordWrap": false,
+            "font": "Segoe UI,-1,10,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingInsightsPill",
+            "geometry": [
+             51,
+             97,
+             32,
+             20
+            ],
+            "visible": true,
+            "hasFocus": false,
+            "properties": {
+             "pillTone": "neutral"
+            },
+            "text": "Off",
+            "alignment": 132,
+            "wordWrap": false,
+            "font": "Segoe UI,-1,11,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           },
+           {
+            "class": "QLabel",
+            "qtClass": "QLabel",
+            "objectName": "pastMeetingInsightsPill",
+            "geometry": [
+             0,
+             0,
+             100,
+             20
+            ],
+            "visible": false,
+            "hasFocus": false,
+            "properties": {
+             "pillTone": "location"
+            },
+            "text": "",
+            "alignment": 132,
+            "wordWrap": false,
+            "font": "Segoe UI,-1,11,5,600,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+            "children": []
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "class": "QWidget",
+      "qtClass": "QWidget",
+      "objectName": "qt_scrollarea_hcontainer",
+      "geometry": [
+       0,
+       0,
+       100,
+       12
+      ],
+      "visible": false,
+      "hasFocus": false,
+      "properties": {},
+      "font": "Segoe UI,-1,14,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+      "children": [
+       {
+        "class": "QScrollBar",
+        "qtClass": "QScrollBar",
+        "objectName": "",
+        "geometry": [
+         0,
+         0,
+         100,
+         12
+        ],
+        "visible": false,
+        "hasFocus": false,
+        "properties": {},
+        "font": "Segoe UI,-1,14,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+        "children": []
+       }
+      ]
+     },
+     {
+      "class": "QWidget",
+      "qtClass": "QWidget",
+      "objectName": "qt_scrollarea_vcontainer",
+      "geometry": [
+       0,
+       0,
+       8,
+       30
+      ],
+      "visible": false,
+      "hasFocus": false,
+      "properties": {},
+      "font": "Segoe UI,-1,14,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+      "children": [
+       {
+        "class": "QScrollBar",
+        "qtClass": "QScrollBar",
+        "objectName": "",
+        "geometry": [
+         0,
+         0,
+         8,
+         30
+        ],
+        "visible": false,
+        "hasFocus": false,
+        "properties": {},
+        "font": "Segoe UI,-1,14,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0",
+        "children": []
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

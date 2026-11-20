@@ -1,0 +1,2586 @@
+{
+ "module": "services.local_text_servers",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time",
+  "fixtures": "tests/fixtures/llm/servers/<name>.json answer every request; unknown routes 404",
+  "discover": "_server_specs is cleared before each discover case"
+ },
+ "functions": {
+  "discover_chat_models": [
+   {
+    "args": [
+     "empty",
+     "http://127.0.0.1:8080/v1",
+     null,
+     null
+    ],
+    "result": {
+     "raises": "HTTPStatusError",
+     "message": "Client error '404 Not Found' for url 'http://127.0.0.1:8080/v1/models'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404",
+     "requests": [
+      [
+       "GET",
+       "/v1/models",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "llama_cpp",
+     "http://127.0.0.1:8080/v1",
+     null,
+     null
+    ],
+    "result": {
+     "models": [
+      "qwen3-4b.gguf"
+     ],
+     "specs": {
+      "qwen3-4b.gguf": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 16384,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": "none"
+       }
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/v1/models",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "llama_cpp_keyed",
+     "http://127.0.0.1:8080/v1",
+     null,
+     null
+    ],
+    "result": {
+     "raises": "HTTPStatusError",
+     "message": "Client error '404 Not Found' for url 'http://127.0.0.1:8080/v1/models'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404",
+     "requests": [
+      [
+       "GET",
+       "/v1/models",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "llama_cpp_router",
+     "http://127.0.0.1:8080/v1",
+     null,
+     null
+    ],
+    "result": {
+     "models": [
+      "a.gguf",
+      "b.gguf",
+      "c.gguf"
+     ],
+     "specs": {
+      "a.gguf": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 65536,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": "none"
+       }
+      },
+      "b.gguf": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": "none"
+       }
+      },
+      "c.gguf": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 1024,
+       "max_output_tokens": 512,
+       "reasoning": false,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": "none"
+       }
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/v1/models",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "lm_studio",
+     "http://127.0.0.1:8080/v1",
+     null,
+     null
+    ],
+    "result": {
+     "models": [
+      "google/gemma-3-4b",
+      "qwen/qwen3-4b",
+      "unlisted/model"
+     ],
+     "specs": {
+      "qwen/qwen3-4b": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 8192,
+       "max_output_tokens": 4096,
+       "reasoning": true,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": null,
+        "low": "low",
+        "medium": "medium",
+        "high": "high"
+       }
+      },
+      "google/gemma-3-4b": {
+       "protocol": "chat",
+       "tools": false,
+       "context_window": 131072,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      },
+      "unlisted/model": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/",
+       false
+      ],
+      [
+       "GET",
+       "/.well-known/localai.json",
+       false
+      ],
+      [
+       "GET",
+       "/api/v1/models",
+       false
+      ],
+      [
+       "GET",
+       "/props",
+       false
+      ],
+      [
+       "GET",
+       "/v1/models",
+       false
+      ],
+      [
+       "GET",
+       "/version",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "lm_studio_reasoning",
+     "http://127.0.0.1:8080/v1",
+     null,
+     null
+    ],
+    "result": {
+     "models": [
+      "a",
+      "b",
+      "c"
+     ],
+     "specs": {
+      "a": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 4096,
+       "max_output_tokens": 2048,
+       "reasoning": true,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      },
+      "b": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 2000000,
+       "max_output_tokens": 4096,
+       "reasoning": true,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": null,
+        "low": null,
+        "medium": null,
+        "high": "high"
+       }
+      },
+      "c": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/",
+       false
+      ],
+      [
+       "GET",
+       "/.well-known/localai.json",
+       false
+      ],
+      [
+       "GET",
+       "/api/v1/models",
+       false
+      ],
+      [
+       "GET",
+       "/props",
+       false
+      ],
+      [
+       "GET",
+       "/v1/models",
+       false
+      ],
+      [
+       "GET",
+       "/version",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "lm_studio_v0",
+     "http://127.0.0.1:8080/v1",
+     null,
+     null
+    ],
+    "result": {
+     "models": [
+      "google/gemma-3-4b",
+      "qwen/qwen3-4b"
+     ],
+     "specs": {
+      "qwen/qwen3-4b": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 40960,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      },
+      "google/gemma-3-4b": {
+       "protocol": "chat",
+       "tools": false,
+       "context_window": 131072,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/",
+       false
+      ],
+      [
+       "GET",
+       "/.well-known/localai.json",
+       false
+      ],
+      [
+       "GET",
+       "/api/v0/models",
+       false
+      ],
+      [
+       "GET",
+       "/api/v1/models",
+       false
+      ],
+      [
+       "GET",
+       "/props",
+       false
+      ],
+      [
+       "GET",
+       "/v1/models",
+       false
+      ],
+      [
+       "GET",
+       "/version",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "localai",
+     "http://127.0.0.1:8080/v1",
+     null,
+     null
+    ],
+    "result": {
+     "models": [
+      "llama-3.2-1b",
+      "qwen3-8b"
+     ],
+     "specs": {
+      "qwen3-8b": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": true,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": "none"
+       }
+      },
+      "llama-3.2-1b": {
+       "protocol": "chat",
+       "tools": false,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/.well-known/localai.json",
+       false
+      ],
+      [
+       "GET",
+       "/v1/models",
+       false
+      ],
+      [
+       "GET",
+       "/v1/models/capabilities",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "localai_no_capabilities",
+     "http://127.0.0.1:8080/v1",
+     null,
+     null
+    ],
+    "result": {
+     "models": [
+      "kokoro",
+      "llama-3.2-1b",
+      "nottsx",
+      "qwen3-8b",
+      "tts1"
+     ],
+     "specs": {
+      "qwen3-8b": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      },
+      "llama-3.2-1b": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      },
+      "kokoro": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      },
+      "tts1": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      },
+      "nottsx": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/.well-known/localai.json",
+       false
+      ],
+      [
+       "GET",
+       "/v1/models",
+       false
+      ],
+      [
+       "GET",
+       "/v1/models/capabilities",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "not_json",
+     "http://127.0.0.1:8080/v1",
+     null,
+     null
+    ],
+    "result": {
+     "raises": "JSONDecodeError",
+     "message": "Expecting value: line 1 column 1 (char 0)",
+     "requests": [
+      [
+       "GET",
+       "/v1/models",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "ollama",
+     "http://127.0.0.1:8080/v1",
+     null,
+     null
+    ],
+    "result": {
+     "models": [
+      "big",
+      "llama3.2",
+      "qwen3"
+     ],
+     "specs": {
+      "qwen3": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 16384,
+       "max_output_tokens": 4096,
+       "reasoning": true,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": "none"
+       }
+      },
+      "llama3.2": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 4096,
+       "max_output_tokens": 2048,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      },
+      "big": {
+       "protocol": "chat",
+       "tools": false,
+       "context_window": 2000000,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/",
+       false
+      ],
+      [
+       "GET",
+       "/.well-known/localai.json",
+       false
+      ],
+      [
+       "GET",
+       "/v1/models",
+       false
+      ],
+      [
+       "POST",
+       "/api/show",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "ollama_odd",
+     "http://127.0.0.1:8080/v1",
+     null,
+     null
+    ],
+    "result": {
+     "models": [
+      "qwen3"
+     ],
+     "specs": {
+      "qwen3": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/",
+       false
+      ],
+      [
+       "GET",
+       "/.well-known/localai.json",
+       false
+      ],
+      [
+       "GET",
+       "/v1/models",
+       false
+      ],
+      [
+       "POST",
+       "/api/show",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     "http://127.0.0.1:8080/v1",
+     null,
+     null
+    ],
+    "result": {
+     "models": [
+      "m1"
+     ],
+     "specs": {
+      "m1": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/",
+       false
+      ],
+      [
+       "GET",
+       "/.well-known/localai.json",
+       false
+      ],
+      [
+       "GET",
+       "/api/v0/models",
+       false
+      ],
+      [
+       "GET",
+       "/api/v1/models",
+       false
+      ],
+      [
+       "GET",
+       "/props",
+       false
+      ],
+      [
+       "GET",
+       "/v1/models",
+       false
+      ],
+      [
+       "GET",
+       "/version",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "vllm",
+     "http://127.0.0.1:8080/v1",
+     null,
+     null
+    ],
+    "result": {
+     "models": [
+      "Qwen/Qwen3-8B"
+     ],
+     "specs": {
+      "Qwen/Qwen3-8B": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 8192,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": "none"
+       }
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/v1/models",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "vllm_keyed",
+     "http://127.0.0.1:8080/v1",
+     null,
+     null
+    ],
+    "result": {
+     "raises": "HTTPStatusError",
+     "message": "Client error '401 Unauthorized' for url 'http://127.0.0.1:8080/v1/models'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+     "requests": [
+      [
+       "GET",
+       "/v1/models",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "llama_cpp",
+     "http://127.0.0.1:8080/v1",
+     "llama_cpp",
+     null
+    ],
+    "result": {
+     "models": [
+      "qwen3-4b.gguf"
+     ],
+     "specs": {
+      "qwen3-4b.gguf": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 16384,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": "none"
+       }
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/v1/models",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "llama_cpp_router",
+     "http://127.0.0.1:8080/v1",
+     "llama_cpp",
+     null
+    ],
+    "result": {
+     "models": [
+      "a.gguf",
+      "b.gguf",
+      "c.gguf"
+     ],
+     "specs": {
+      "a.gguf": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 65536,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": "none"
+       }
+      },
+      "b.gguf": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": "none"
+       }
+      },
+      "c.gguf": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 1024,
+       "max_output_tokens": 512,
+       "reasoning": false,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": "none"
+       }
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/v1/models",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "lm_studio",
+     "http://127.0.0.1:8080/v1",
+     "lm_studio",
+     null
+    ],
+    "result": {
+     "models": [
+      "google/gemma-3-4b",
+      "qwen/qwen3-4b",
+      "unlisted/model"
+     ],
+     "specs": {
+      "qwen/qwen3-4b": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 8192,
+       "max_output_tokens": 4096,
+       "reasoning": true,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": null,
+        "low": "low",
+        "medium": "medium",
+        "high": "high"
+       }
+      },
+      "google/gemma-3-4b": {
+       "protocol": "chat",
+       "tools": false,
+       "context_window": 131072,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      },
+      "unlisted/model": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/api/v1/models",
+       false
+      ],
+      [
+       "GET",
+       "/v1/models",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "lm_studio_reasoning",
+     "http://127.0.0.1:8080/v1",
+     "lm_studio",
+     null
+    ],
+    "result": {
+     "models": [
+      "a",
+      "b",
+      "c"
+     ],
+     "specs": {
+      "a": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 4096,
+       "max_output_tokens": 2048,
+       "reasoning": true,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      },
+      "b": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 2000000,
+       "max_output_tokens": 4096,
+       "reasoning": true,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": null,
+        "low": null,
+        "medium": null,
+        "high": "high"
+       }
+      },
+      "c": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/api/v1/models",
+       false
+      ],
+      [
+       "GET",
+       "/v1/models",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "lm_studio_v0",
+     "http://127.0.0.1:8080/v1",
+     "lm_studio",
+     null
+    ],
+    "result": {
+     "models": [
+      "google/gemma-3-4b",
+      "qwen/qwen3-4b"
+     ],
+     "specs": {
+      "qwen/qwen3-4b": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 40960,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      },
+      "google/gemma-3-4b": {
+       "protocol": "chat",
+       "tools": false,
+       "context_window": 131072,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/api/v0/models",
+       false
+      ],
+      [
+       "GET",
+       "/api/v1/models",
+       false
+      ],
+      [
+       "GET",
+       "/v1/models",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "localai",
+     "http://127.0.0.1:8080/v1",
+     "localai",
+     null
+    ],
+    "result": {
+     "models": [
+      "llama-3.2-1b",
+      "qwen3-8b"
+     ],
+     "specs": {
+      "qwen3-8b": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": true,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": "none"
+       }
+      },
+      "llama-3.2-1b": {
+       "protocol": "chat",
+       "tools": false,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/v1/models",
+       false
+      ],
+      [
+       "GET",
+       "/v1/models/capabilities",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "localai_no_capabilities",
+     "http://127.0.0.1:8080/v1",
+     "localai",
+     null
+    ],
+    "result": {
+     "models": [
+      "kokoro",
+      "llama-3.2-1b",
+      "nottsx",
+      "qwen3-8b",
+      "tts1"
+     ],
+     "specs": {
+      "qwen3-8b": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      },
+      "llama-3.2-1b": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      },
+      "kokoro": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      },
+      "tts1": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      },
+      "nottsx": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/v1/models",
+       false
+      ],
+      [
+       "GET",
+       "/v1/models/capabilities",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "ollama",
+     "http://127.0.0.1:8080/v1",
+     "ollama",
+     null
+    ],
+    "result": {
+     "models": [
+      "big",
+      "llama3.2",
+      "qwen3"
+     ],
+     "specs": {
+      "qwen3": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 16384,
+       "max_output_tokens": 4096,
+       "reasoning": true,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": "none"
+       }
+      },
+      "llama3.2": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 4096,
+       "max_output_tokens": 2048,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      },
+      "big": {
+       "protocol": "chat",
+       "tools": false,
+       "context_window": 2000000,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/v1/models",
+       false
+      ],
+      [
+       "POST",
+       "/api/show",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "ollama_odd",
+     "http://127.0.0.1:8080/v1",
+     "ollama",
+     null
+    ],
+    "result": {
+     "models": [
+      "qwen3"
+     ],
+     "specs": {
+      "qwen3": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/v1/models",
+       false
+      ],
+      [
+       "POST",
+       "/api/show",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "vllm",
+     "http://127.0.0.1:8080/v1",
+     "vllm",
+     null
+    ],
+    "result": {
+     "models": [
+      "Qwen/Qwen3-8B"
+     ],
+     "specs": {
+      "Qwen/Qwen3-8B": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 8192,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": "none"
+       }
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/v1/models",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "vllm_keyed",
+     "http://127.0.0.1:8080/v1",
+     "vllm",
+     null
+    ],
+    "result": {
+     "raises": "HTTPStatusError",
+     "message": "Client error '401 Unauthorized' for url 'http://127.0.0.1:8080/v1/models'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+     "requests": [
+      [
+       "GET",
+       "/v1/models",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "vllm",
+     "http://127.0.0.1:8080/v1",
+     "vllm",
+     "sk-local"
+    ],
+    "result": {
+     "models": [
+      "Qwen/Qwen3-8B"
+     ],
+     "specs": {
+      "Qwen/Qwen3-8B": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 8192,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": "none"
+       }
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/v1/models",
+       true
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "ollama",
+     "http://127.0.0.1:8080/v1/",
+     "ollama",
+     null
+    ],
+    "result": {
+     "models": [
+      "big",
+      "llama3.2",
+      "qwen3"
+     ],
+     "specs": {
+      "qwen3": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 16384,
+       "max_output_tokens": 4096,
+       "reasoning": true,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": "none"
+       }
+      },
+      "llama3.2": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 4096,
+       "max_output_tokens": 2048,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      },
+      "big": {
+       "protocol": "chat",
+       "tools": false,
+       "context_window": 2000000,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/v1/models",
+       false
+      ],
+      [
+       "POST",
+       "/api/show",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "lm_studio",
+     "http://127.0.0.1:8080/v1",
+     "ollama",
+     null
+    ],
+    "result": {
+     "models": [
+      "google/gemma-3-4b",
+      "qwen/qwen3-4b",
+      "unlisted/model"
+     ],
+     "specs": {
+      "qwen/qwen3-4b": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      },
+      "google/gemma-3-4b": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      },
+      "unlisted/model": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/v1/models",
+       false
+      ],
+      [
+       "POST",
+       "/api/show",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "localai",
+     "http://127.0.0.1:8080/v1",
+     "vllm",
+     null
+    ],
+    "result": {
+     "models": [
+      "bert-embeddings",
+      "kokoro",
+      "llama-3.2-1b",
+      "piper-tts",
+      "qwen3-8b",
+      "whisper-base"
+     ],
+     "specs": {
+      "qwen3-8b": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": "none"
+       }
+      },
+      "llama-3.2-1b": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": "none"
+       }
+      },
+      "kokoro": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": "none"
+       }
+      },
+      "whisper-base": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": "none"
+       }
+      },
+      "bert-embeddings": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": "none"
+       }
+      },
+      "piper-tts": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": "none"
+       }
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/v1/models",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "lm_studio",
+     "http://127.0.0.1:8080/v1",
+     null,
+     "sk-local"
+    ],
+    "result": {
+     "models": [
+      "google/gemma-3-4b",
+      "qwen/qwen3-4b",
+      "unlisted/model"
+     ],
+     "specs": {
+      "qwen/qwen3-4b": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 8192,
+       "max_output_tokens": 4096,
+       "reasoning": true,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": null,
+        "low": "low",
+        "medium": "medium",
+        "high": "high"
+       }
+      },
+      "google/gemma-3-4b": {
+       "protocol": "chat",
+       "tools": false,
+       "context_window": 131072,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      },
+      "unlisted/model": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 32768,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/",
+       true
+      ],
+      [
+       "GET",
+       "/.well-known/localai.json",
+       true
+      ],
+      [
+       "GET",
+       "/api/v1/models",
+       true
+      ],
+      [
+       "GET",
+       "/props",
+       true
+      ],
+      [
+       "GET",
+       "/v1/models",
+       true
+      ],
+      [
+       "GET",
+       "/version",
+       true
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "ollama",
+     "http://127.0.0.1:8080/v1",
+     null,
+     "sk-local"
+    ],
+    "result": {
+     "models": [
+      "big",
+      "llama3.2",
+      "qwen3"
+     ],
+     "specs": {
+      "qwen3": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 16384,
+       "max_output_tokens": 4096,
+       "reasoning": true,
+       "reasoning_format": "openai",
+       "pi_compat": null,
+       "thinking_levels": {
+        "off": "none"
+       }
+      },
+      "llama3.2": {
+       "protocol": "chat",
+       "tools": true,
+       "context_window": 4096,
+       "max_output_tokens": 2048,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      },
+      "big": {
+       "protocol": "chat",
+       "tools": false,
+       "context_window": 2000000,
+       "max_output_tokens": 4096,
+       "reasoning": false,
+       "reasoning_format": "",
+       "pi_compat": null,
+       "thinking_levels": null
+      }
+     },
+     "requests": [
+      [
+       "GET",
+       "/",
+       true
+      ],
+      [
+       "GET",
+       "/.well-known/localai.json",
+       true
+      ],
+      [
+       "GET",
+       "/v1/models",
+       true
+      ],
+      [
+       "POST",
+       "/api/show",
+       true
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "llama_cpp_keyed",
+     "http://127.0.0.1:8080/v1",
+     null,
+     "sk-local"
+    ],
+    "result": {
+     "raises": "HTTPStatusError",
+     "message": "Client error '404 Not Found' for url 'http://127.0.0.1:8080/v1/models'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404",
+     "requests": [
+      [
+       "GET",
+       "/v1/models",
+       true
+      ]
+     ]
+    }
+   }
+  ],
+  "identify_server": [
+   {
+    "args": [
+     "empty",
+     "http://127.0.0.1:8080/v1"
+    ],
+    "result": {
+     "server": null,
+     "requests": [
+      [
+       "GET",
+       "/.well-known/localai.json",
+       false
+      ],
+      [
+       "GET",
+       "/",
+       false
+      ],
+      [
+       "GET",
+       "/props",
+       false
+      ],
+      [
+       "GET",
+       "/version",
+       false
+      ],
+      [
+       "GET",
+       "/api/v1/models",
+       false
+      ],
+      [
+       "GET",
+       "/api/v0/models",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "llama_cpp",
+     "http://127.0.0.1:8080/v1"
+    ],
+    "result": {
+     "server": "llama_cpp",
+     "requests": [
+      [
+       "GET",
+       "/.well-known/localai.json",
+       false
+      ],
+      [
+       "GET",
+       "/",
+       false
+      ],
+      [
+       "GET",
+       "/props",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "llama_cpp_keyed",
+     "http://127.0.0.1:8080/v1"
+    ],
+    "result": {
+     "server": "llama_cpp",
+     "requests": [
+      [
+       "GET",
+       "/.well-known/localai.json",
+       false
+      ],
+      [
+       "GET",
+       "/",
+       false
+      ],
+      [
+       "GET",
+       "/props",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "llama_cpp_router",
+     "http://127.0.0.1:8080/v1"
+    ],
+    "result": {
+     "server": null,
+     "requests": [
+      [
+       "GET",
+       "/.well-known/localai.json",
+       false
+      ],
+      [
+       "GET",
+       "/",
+       false
+      ],
+      [
+       "GET",
+       "/props",
+       false
+      ],
+      [
+       "GET",
+       "/version",
+       false
+      ],
+      [
+       "GET",
+       "/api/v1/models",
+       false
+      ],
+      [
+       "GET",
+       "/api/v0/models",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "lm_studio",
+     "http://127.0.0.1:8080/v1"
+    ],
+    "result": {
+     "server": "lm_studio",
+     "requests": [
+      [
+       "GET",
+       "/.well-known/localai.json",
+       false
+      ],
+      [
+       "GET",
+       "/",
+       false
+      ],
+      [
+       "GET",
+       "/props",
+       false
+      ],
+      [
+       "GET",
+       "/version",
+       false
+      ],
+      [
+       "GET",
+       "/api/v1/models",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "lm_studio_reasoning",
+     "http://127.0.0.1:8080/v1"
+    ],
+    "result": {
+     "server": "lm_studio",
+     "requests": [
+      [
+       "GET",
+       "/.well-known/localai.json",
+       false
+      ],
+      [
+       "GET",
+       "/",
+       false
+      ],
+      [
+       "GET",
+       "/props",
+       false
+      ],
+      [
+       "GET",
+       "/version",
+       false
+      ],
+      [
+       "GET",
+       "/api/v1/models",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "lm_studio_v0",
+     "http://127.0.0.1:8080/v1"
+    ],
+    "result": {
+     "server": "lm_studio",
+     "requests": [
+      [
+       "GET",
+       "/.well-known/localai.json",
+       false
+      ],
+      [
+       "GET",
+       "/",
+       false
+      ],
+      [
+       "GET",
+       "/props",
+       false
+      ],
+      [
+       "GET",
+       "/version",
+       false
+      ],
+      [
+       "GET",
+       "/api/v1/models",
+       false
+      ],
+      [
+       "GET",
+       "/api/v0/models",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "localai",
+     "http://127.0.0.1:8080/v1"
+    ],
+    "result": {
+     "server": "localai",
+     "requests": [
+      [
+       "GET",
+       "/.well-known/localai.json",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "localai_no_capabilities",
+     "http://127.0.0.1:8080/v1"
+    ],
+    "result": {
+     "server": "localai",
+     "requests": [
+      [
+       "GET",
+       "/.well-known/localai.json",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "not_json",
+     "http://127.0.0.1:8080/v1"
+    ],
+    "result": {
+     "server": null,
+     "requests": [
+      [
+       "GET",
+       "/.well-known/localai.json",
+       false
+      ],
+      [
+       "GET",
+       "/",
+       false
+      ],
+      [
+       "GET",
+       "/props",
+       false
+      ],
+      [
+       "GET",
+       "/version",
+       false
+      ],
+      [
+       "GET",
+       "/api/v1/models",
+       false
+      ],
+      [
+       "GET",
+       "/api/v0/models",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "ollama",
+     "http://127.0.0.1:8080/v1"
+    ],
+    "result": {
+     "server": "ollama",
+     "requests": [
+      [
+       "GET",
+       "/.well-known/localai.json",
+       false
+      ],
+      [
+       "GET",
+       "/",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "ollama_odd",
+     "http://127.0.0.1:8080/v1"
+    ],
+    "result": {
+     "server": "ollama",
+     "requests": [
+      [
+       "GET",
+       "/.well-known/localai.json",
+       false
+      ],
+      [
+       "GET",
+       "/",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "unknown",
+     "http://127.0.0.1:8080/v1"
+    ],
+    "result": {
+     "server": null,
+     "requests": [
+      [
+       "GET",
+       "/.well-known/localai.json",
+       false
+      ],
+      [
+       "GET",
+       "/",
+       false
+      ],
+      [
+       "GET",
+       "/props",
+       false
+      ],
+      [
+       "GET",
+       "/version",
+       false
+      ],
+      [
+       "GET",
+       "/api/v1/models",
+       false
+      ],
+      [
+       "GET",
+       "/api/v0/models",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "vllm",
+     "http://127.0.0.1:8080/v1"
+    ],
+    "result": {
+     "server": "vllm",
+     "requests": [
+      [
+       "GET",
+       "/.well-known/localai.json",
+       false
+      ],
+      [
+       "GET",
+       "/",
+       false
+      ],
+      [
+       "GET",
+       "/props",
+       false
+      ],
+      [
+       "GET",
+       "/version",
+       false
+      ],
+      [
+       "GET",
+       "/v1/models",
+       false
+      ]
+     ]
+    }
+   },
+   {
+    "args": [
+     "vllm_keyed",
+     "http://127.0.0.1:8080/v1"
+    ],
+    "result": {
+     "server": "vllm",
+     "requests": [
+      [
+       "GET",
+       "/.well-known/localai.json",
+       false
+      ],
+      [
+       "GET",
+       "/",
+       false
+      ],
+      [
+       "GET",
+       "/props",
+       false
+      ],
+      [
+       "GET",
+       "/version",
+       false
+      ],
+      [
+       "GET",
+       "/v1/models",
+       false
+      ]
+     ]
+    }
+   }
+  ],
+  "server_root": [
+   {
+    "args": [
+     "http://127.0.0.1:8080/v1"
+    ],
+    "result": "http://127.0.0.1:8080"
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8080/v1/"
+    ],
+    "result": "http://127.0.0.1:8080"
+   },
+   {
+    "args": [
+     "http://127.0.0.1:8080"
+    ],
+    "result": "http://127.0.0.1:8080"
+   },
+   {
+    "args": [
+     "http://host:1/prefix/v1"
+    ],
+    "result": "http://host:1/prefix"
+   },
+   {
+    "args": [
+     "http://host:1/prefix/v1/"
+    ],
+    "result": "http://host:1/prefix"
+   },
+   {
+    "args": [
+     "http://host:1/v1x"
+    ],
+    "result": "http://host:1/v1x"
+   },
+   {
+    "args": [
+     "https://h/v1?x=1#f"
+    ],
+    "result": "https://h"
+   },
+   {
+    "args": [
+     "http://h/v1/v1"
+    ],
+    "result": "http://h/v1"
+   },
+   {
+    "args": [
+     "http://[::1]:9/v1"
+    ],
+    "result": "http://[::1]:9"
+   }
+  ],
+  "_spec": [
+   {
+    "args": [
+     0,
+     true,
+     false,
+     null
+    ],
+    "result": {
+     "protocol": "chat",
+     "tools": true,
+     "context_window": 32768,
+     "max_output_tokens": 4096,
+     "reasoning": false,
+     "reasoning_format": "",
+     "pi_compat": null,
+     "thinking_levels": null
+    }
+   },
+   {
+    "args": [
+     8192,
+     true,
+     false,
+     {
+      "off": "none"
+     }
+    ],
+    "result": {
+     "protocol": "chat",
+     "tools": true,
+     "context_window": 8192,
+     "max_output_tokens": 4096,
+     "reasoning": false,
+     "reasoning_format": "openai",
+     "pi_compat": null,
+     "thinking_levels": {
+      "off": "none"
+     }
+    }
+   },
+   {
+    "args": [
+     100,
+     false,
+     true,
+     null
+    ],
+    "result": {
+     "protocol": "chat",
+     "tools": false,
+     "context_window": 1024,
+     "max_output_tokens": 512,
+     "reasoning": true,
+     "reasoning_format": "",
+     "pi_compat": null,
+     "thinking_levels": null
+    }
+   },
+   {
+    "args": [
+     5000000,
+     true,
+     false,
+     {}
+    ],
+    "result": {
+     "protocol": "chat",
+     "tools": true,
+     "context_window": 2000000,
+     "max_output_tokens": 4096,
+     "reasoning": false,
+     "reasoning_format": "openai",
+     "pi_compat": null,
+     "thinking_levels": null
+    }
+   },
+   {
+    "args": [
+     8191,
+     true,
+     true,
+     {
+      "off": null,
+      "low": "low"
+     }
+    ],
+    "result": {
+     "protocol": "chat",
+     "tools": true,
+     "context_window": 8191,
+     "max_output_tokens": 4095,
+     "reasoning": true,
+     "reasoning_format": "openai",
+     "pi_compat": null,
+     "thinking_levels": {
+      "off": null,
+      "low": "low"
+     }
+    }
+   },
+   {
+    "args": [
+     -5,
+     true,
+     false,
+     null
+    ],
+    "result": {
+     "protocol": "chat",
+     "tools": true,
+     "context_window": 32768,
+     "max_output_tokens": 4096,
+     "reasoning": false,
+     "reasoning_format": "",
+     "pi_compat": null,
+     "thinking_levels": null
+    }
+   },
+   {
+    "args": [
+     1,
+     true,
+     false,
+     null
+    ],
+    "result": {
+     "protocol": "chat",
+     "tools": true,
+     "context_window": 1024,
+     "max_output_tokens": 512,
+     "reasoning": false,
+     "reasoning_format": "",
+     "pi_compat": null,
+     "thinking_levels": null
+    }
+   },
+   {
+    "args": [
+     9000,
+     false,
+     false,
+     {
+      "off": "none"
+     }
+    ],
+    "result": {
+     "protocol": "chat",
+     "tools": false,
+     "context_window": 9000,
+     "max_output_tokens": 4096,
+     "reasoning": false,
+     "reasoning_format": "openai",
+     "pi_compat": null,
+     "thinking_levels": {
+      "off": "none"
+     }
+    }
+   }
+  ],
+  "_by_name": [
+   {
+    "args": [
+     "qwen3"
+    ],
+    "result": {
+     "protocol": "chat",
+     "tools": true,
+     "context_window": 32768,
+     "max_output_tokens": 4096,
+     "reasoning": false,
+     "reasoning_format": "",
+     "pi_compat": null,
+     "thinking_levels": null
+    }
+   },
+   {
+    "args": [
+     "text-embedding-3"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "EMBED"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "bge-reranker"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "whisper-1"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "tts"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "tts-1"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "piper_tts.onnx"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "my/tts"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "attsx"
+    ],
+    "result": {
+     "protocol": "chat",
+     "tools": true,
+     "context_window": 32768,
+     "max_output_tokens": 4096,
+     "reasoning": false,
+     "reasoning_format": "",
+     "pi_compat": null,
+     "thinking_levels": null
+    }
+   },
+   {
+    "args": [
+     "kokoro"
+    ],
+    "result": {
+     "protocol": "chat",
+     "tools": true,
+     "context_window": 32768,
+     "max_output_tokens": 4096,
+     "reasoning": false,
+     "reasoning_format": "",
+     "pi_compat": null,
+     "thinking_levels": null
+    }
+   },
+   {
+    "args": [
+     "ttsx"
+    ],
+    "result": {
+     "protocol": "chat",
+     "tools": true,
+     "context_window": 32768,
+     "max_output_tokens": 4096,
+     "reasoning": false,
+     "reasoning_format": "",
+     "pi_compat": null,
+     "thinking_levels": null
+    }
+   },
+   {
+    "args": [
+     "x-tts"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "x-tts-y"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     "Whisper"
+    ],
+    "result": null
+   }
+  ]
+ }
+}

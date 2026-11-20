@@ -1,0 +1,182 @@
+{
+ "scenario": "remote_pair_tailscale",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "python": "3.12.10",
+ "setup": {
+  "host_name": "studio",
+  "device_name": "laptop",
+  "addresses": [
+   "192.168.1.20",
+   "100.101.102.103"
+  ],
+  "pairing_code": "246810",
+  "fingerprint": "<fingerprint#1>",
+  "tailscale_owner": "owner@example.com",
+  "patches": [
+   "tailscale.status reports not_installed and tailscale.whois finds nobody (tests/fakes/remote.py no_real_tailscale)",
+   "discovery.find_host and discovery.search find nothing (no UDP leaves the process)",
+   "SpeechHost.start serves on 127.0.0.1 only, without discovery",
+   {
+    "step": "owners_computer",
+    "patch": "services.remote_asr.tailscale.own_device names laptop-node, the owner's own untagged computer"
+   }
+  ],
+  "steps": [
+   {
+    "name": "no_owner",
+    "client": "pair_with_host(tailscale=True)",
+    "outcomes": [
+     {
+      "call": "pair_with_host",
+      "raised": {
+       "type": "RemoteEngineError",
+       "message": "This host doesn't pair over Tailscale without a code. Enter the pairing code shown there instead."
+      }
+     }
+    ]
+   },
+   {
+    "name": "not_owners_computer",
+    "client": "pair_with_host(tailscale=True)",
+    "outcomes": [
+     {
+      "call": "pair_with_host",
+      "raised": {
+       "type": "RemoteEngineError",
+       "message": "This host only lets its owner's own Tailscale computers pair without a code. Enter the pairing code shown there instead."
+      }
+     }
+    ]
+   },
+   {
+    "name": "owners_computer",
+    "client": "pair_with_host(tailscale=True)",
+    "outcomes": [
+     {
+      "call": "pair_with_host",
+      "returned": {
+       "token": "<token#1>",
+       "device_id": "<device_id#1>",
+       "host_name": "studio",
+       "fingerprint": "<fingerprint#1>",
+       "alternates": [
+        "192.168.1.20",
+        "100.101.102.103"
+       ],
+       "via": "tailscale"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "frames": [
+  {
+   "step": "no_owner",
+   "conn": 0,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair\", \"protocol\": 1, \"device_name\": \"laptop\", \"tailscale\": true}"
+  },
+  {
+   "step": "no_owner",
+   "conn": 0,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"error\",\"code\":\"tailscale_refused\",\"message\":\"This host doesn't pair over Tailscale without a code. Enter the pairing code shown there instead.\"}"
+  },
+  {
+   "step": "no_owner",
+   "conn": 0,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4401,
+   "reason": "tailscale_refused"
+  },
+  {
+   "step": "no_owner",
+   "conn": 0,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4401,
+   "reason": "tailscale_refused",
+   "echo": true
+  },
+  {
+   "step": "not_owners_computer",
+   "conn": 1,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair\", \"protocol\": 1, \"device_name\": \"laptop\", \"tailscale\": true}"
+  },
+  {
+   "step": "not_owners_computer",
+   "conn": 1,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"error\",\"code\":\"tailscale_refused\",\"message\":\"This host only lets its owner's own Tailscale computers pair without a code. Enter the pairing code shown there instead.\"}"
+  },
+  {
+   "step": "not_owners_computer",
+   "conn": 1,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4401,
+   "reason": "tailscale_refused"
+  },
+  {
+   "step": "not_owners_computer",
+   "conn": 1,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4401,
+   "reason": "tailscale_refused",
+   "echo": true
+  },
+  {
+   "step": "owners_computer",
+   "conn": 2,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair\", \"protocol\": 1, \"device_name\": \"laptop\", \"tailscale\": true}"
+  },
+  {
+   "step": "owners_computer",
+   "conn": 2,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"paired\",\"token\":\"<token#1>\",\"device_id\":\"<device_id#1>\",\"host\":{\"name\":\"studio\",\"fingerprint\":\"<fingerprint#1>\",\"addresses\":[\"192.168.1.20\",\"100.101.102.103\"]}}"
+  },
+  {
+   "step": "owners_computer",
+   "conn": 2,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 1000,
+   "reason": ""
+  },
+  {
+   "step": "owners_computer",
+   "conn": 2,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 1000,
+   "reason": "",
+   "echo": true
+  }
+ ],
+ "normalize": [
+  {
+   "path": "9/token",
+   "as": "token"
+  },
+  {
+   "path": "9/device_id",
+   "as": "device_id"
+  },
+  {
+   "path": "9/host/fingerprint",
+   "as": "fingerprint"
+  }
+ ]
+}

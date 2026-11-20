@@ -1,0 +1,252 @@
+{
+ "area": "a07-overlays",
+ "package": "M10 sweep",
+ "features": {
+  "A07-01": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp", "src/uimath/overlay_layout.h"],
+   "tests": ["tests/ui_overlay/test_overlay_window.cpp", "tests/uimath/test_overlay_layout.cpp"]
+  },
+  "A07-02": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp", "src/ui_overlay/waveform_overlay.h", "src/ui_overlay/recording_look_preview.cpp"],
+   "tests": ["tests/ui_overlay/test_overlay_window.cpp", "tests/ui_overlay/test_look_preview.cpp", "tests/ui_overlay/test_drag.cpp"],
+   "note": "Standalone and preview are ported. The embedded mode is the Wayland overlay, other-platform (M1.md scope row A07-02; ARCHITECTURE.md lead amendment 19: Wayland variants have no milestone): WaveformOverlay::Mode has no Embedded, and only its layout maths are kept in uimath/overlay_layout."
+  },
+  "A07-03": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp", "src/ui_overlay/waveform_overlay.h"],
+   "tests": ["tests/ui_overlay/test_overlay_window.cpp", "tests/ui_overlay/test_recording_look.cpp", "tests/ui_overlay/test_moments.cpp", "tests/ui_controller/test_dictation_end_to_end.cpp"]
+  },
+  "A07-04": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp", "src/uimath/particles.cpp"],
+   "tests": ["tests/ui_overlay/test_overlay_window.cpp", "tests/uimath/test_particles.cpp"]
+  },
+  "A07-05": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp", "src/uimath/overlay_position.cpp"],
+   "tests": ["tests/uimath/test_overlay_position.cpp", "tests/ui_overlay/test_drag.cpp"]
+  },
+  "A07-06": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp", "src/ui_widgets/drag_move.cpp"],
+   "tests": ["tests/ui_overlay/test_drag.cpp"]
+  },
+  "A07-07": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp", "src/uimath/overlay_layout.cpp", "src/uimath/overlay_position.cpp"],
+   "tests": ["tests/uimath/test_overlay_layout.cpp", "tests/uimath/test_overlay_position.cpp", "tests/ui_overlay/test_preview_layout.cpp"]
+  },
+  "A07-08": {
+   "status": "fixed",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp"],
+   "tests": ["tests/ui_overlay/test_preview_layout.cpp", "tests/ui_overlay/test_reference_screenshots.cpp"],
+   "note": "The code matched; nothing tested that the words are stripped, that the saved font size (16, kept within 10 to 48) sizes them, or that refreshStreamingFontSize reflows. Added 'the words are stripped and a new font size reflows them'. The embedded QTextLayout path is the Wayland overlay's."
+  },
+  "A07-09": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp", "src/uimath/overlay_layout.cpp"],
+   "tests": ["tests/ui_overlay/test_preview_layout.cpp", "tests/uimath/test_overlay_layout.cpp", "tests/ui_overlay/test_reference_screenshots.cpp"]
+  },
+  "A07-10": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp", "src/uimath/overlay_layout.cpp"],
+   "tests": ["tests/ui_overlay/test_preview_layout.cpp", "tests/uimath/test_overlay_layout.cpp"]
+  },
+  "A07-11": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp", "src/uimath/overlay_layout.cpp", "src/ui_overlay/visual.h"],
+   "tests": ["tests/ui_overlay/test_preview_layout.cpp", "tests/uimath/test_overlay_layout.cpp"]
+  },
+  "A07-12": {
+   "status": "verified",
+   "cpp": ["src/uimath/overlay_look.cpp", "src/uimath/overlay_look.h", "src/ui_overlay/visual.cpp", "src/settings/keys.inc"],
+   "tests": ["tests/uimath/test_overlay_look.cpp", "tests/ui_overlay/test_looks.cpp", "tests/ui_overlay/test_recording_look.cpp"]
+  },
+  "A07-13": {
+   "status": "verified",
+   "cpp": ["src/uimath/voice_ribbon.cpp", "src/uimath/loudness.cpp"],
+   "tests": ["tests/uimath/test_voice_ribbon.cpp", "tests/uimath/test_loudness.cpp"]
+  },
+  "A07-14": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/ribbon_look.cpp", "src/uimath/look_sims.cpp", "src/uimath/voice_ribbon.cpp"],
+   "tests": ["tests/uimath/test_look_sims.cpp", "tests/uimath/test_voice_ribbon.cpp", "tests/ui_overlay/test_looks.cpp", "tests/ui_overlay/test_recording_look.cpp", "tests/ui_overlay/test_reference_screenshots.cpp"]
+  },
+  "A07-15": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/bars_look.cpp", "src/uimath/look_sims.cpp"],
+   "tests": ["tests/uimath/test_look_sims.cpp", "tests/ui_overlay/test_recording_look.cpp", "tests/ui_overlay/test_reference_screenshots.cpp"]
+  },
+  "A07-16": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/mirror_wave_look.cpp", "src/uimath/look_sims.cpp"],
+   "tests": ["tests/uimath/test_look_sims.cpp", "tests/ui_overlay/test_recording_look.cpp", "tests/ui_overlay/test_reference_screenshots.cpp"]
+  },
+  "A07-17": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/aurora_look.cpp", "src/uimath/look_sims.cpp"],
+   "tests": ["tests/uimath/test_look_sims.cpp", "tests/ui_overlay/test_recording_look.cpp", "tests/ui_overlay/test_reference_screenshots.cpp"]
+  },
+  "A07-18": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/pulse_look.cpp", "src/uimath/look_sims.cpp"],
+   "tests": ["tests/uimath/test_look_sims.cpp", "tests/ui_overlay/test_looks.cpp", "tests/ui_overlay/test_recording_look.cpp", "tests/ui_overlay/test_reference_screenshots.cpp"]
+  },
+  "A07-19": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/dots_look.cpp", "src/uimath/look_sims.cpp"],
+   "tests": ["tests/uimath/test_look_sims.cpp", "tests/ui_overlay/test_recording_look.cpp", "tests/ui_overlay/test_reference_screenshots.cpp"]
+  },
+  "A07-20": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/ocean_looks.cpp", "src/uimath/ocean_school.cpp", "src/uimath/ocean_school.h"],
+   "tests": ["tests/uimath/test_ocean_school.cpp", "tests/ui_overlay/test_looks.cpp", "tests/ui_overlay/test_recording_look.cpp"],
+   "note": "python_random_engine replays Python's random.Random(5) stream, so the school matches the golden frames exactly rather than statistically."
+  },
+  "A07-21": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/ocean_looks.cpp", "src/uimath/fizz.cpp", "src/uimath/fizz.h"],
+   "tests": ["tests/uimath/test_fizz.cpp", "tests/ui_overlay/test_looks.cpp", "tests/ui_overlay/test_recording_look.cpp"]
+  },
+  "A07-22": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/classic_look.cpp", "src/uimath/particles.cpp", "src/ui_overlay/waveform_overlay.cpp"],
+   "tests": ["tests/ui_overlay/test_recording_look.cpp", "tests/uimath/test_particles.cpp", "tests/ui_overlay/test_reference_screenshots.cpp"]
+  },
+  "A07-23": {
+   "status": "verified",
+   "cpp": ["src/uimath/particles.cpp", "src/uimath/particles.h", "src/ui_overlay/waveform_overlay.cpp"],
+   "tests": ["tests/uimath/test_particles.cpp", "tests/ui_overlay/test_looks.cpp", "tests/ui_overlay/test_recording_look.cpp"]
+  },
+  "A07-24": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/live_label_painter.cpp", "src/uimath/live_label.cpp", "src/ui_overlay/waveform_overlay.cpp"],
+   "tests": ["tests/ui_overlay/test_recording_look.cpp", "tests/uimath/test_voice_ribbon.cpp", "tests/ui_overlay/test_reference_screenshots.cpp"]
+  },
+  "A07-25": {
+   "status": "fixed",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp", "src/ui_overlay/moments_painter.cpp"],
+   "tests": ["tests/ui_overlay/test_recording_look.cpp"],
+   "note": "The code matched; the grow-in was tested but no test or reference frame (they are taken 1.2 s or more into the recording) showed the edge flash. Added 'a recording flashes the pill's edge as it starts and a command does not'."
+  },
+  "A07-26": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp", "src/ui_overlay/visual.cpp"],
+   "tests": ["tests/ui_overlay/test_recording_look.cpp", "tests/ui_overlay/test_moments.cpp", "tests/ui_overlay/test_reference_screenshots.cpp"]
+  },
+  "A07-27": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/tidy_lines_painter.cpp", "src/uimath/tidy_lines.cpp", "src/ui_overlay/moments_painter.cpp"],
+   "tests": ["tests/uimath/test_tidy_lines.cpp", "tests/ui_overlay/test_recording_look.cpp", "tests/ui_overlay/test_overlay_window.cpp", "tests/ui_overlay/test_reference_screenshots.cpp"]
+  },
+  "A07-28": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp"],
+   "tests": ["tests/ui_overlay/test_recording_look.cpp"]
+  },
+  "A07-29": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/moments_painter.cpp", "src/uimath/moments.cpp", "src/uimath/easing.cpp"],
+   "tests": ["tests/uimath/test_moments.cpp", "tests/uimath/test_easing.cpp", "tests/ui_overlay/test_moments.cpp", "tests/ui_overlay/test_reference_screenshots.cpp"]
+  },
+  "A07-30": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/moments_painter.cpp", "src/ui_overlay/waveform_overlay.cpp", "src/uimath/moments.cpp"],
+   "tests": ["tests/ui_overlay/test_moments.cpp", "tests/uimath/test_moments.cpp", "tests/ui_overlay/test_reference_screenshots.cpp"]
+  },
+  "A07-31": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/moments_painter.cpp", "src/ui_overlay/waveform_overlay.cpp", "src/uimath/moments.cpp"],
+   "tests": ["tests/ui_overlay/test_moments.cpp", "tests/uimath/test_moments.cpp", "tests/uimath/test_easing.cpp", "tests/ui_overlay/test_reference_screenshots.cpp"]
+  },
+  "A07-32": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp"],
+   "tests": ["tests/ui_overlay/test_notices.cpp", "tests/ui_overlay/test_moments.cpp", "tests/ui_overlay/test_rewrite_timeout_notice.cpp", "tests/ui_overlay/test_reference_screenshots.cpp"]
+  },
+  "A07-33": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp"],
+   "tests": ["tests/ui_overlay/test_overlay_window.cpp", "tests/ui_overlay/test_preview_layout.cpp", "tests/ui_overlay/test_notices.cpp", "tests/ui_overlay/test_reference_screenshots.cpp"]
+  },
+  "A07-34": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp"],
+   "tests": ["tests/ui_overlay/test_overlay_window.cpp", "tests/ui_overlay/test_preview_layout.cpp", "tests/ui_overlay/test_reference_screenshots.cpp"]
+  },
+  "A07-35": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp"],
+   "tests": ["tests/ui_overlay/test_overlay_window.cpp"]
+  },
+  "A07-36": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp"],
+   "tests": ["tests/ui_overlay/test_overlay_window.cpp"]
+  },
+  "A07-37": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp"],
+   "tests": ["tests/ui_overlay/test_language_chip.cpp", "tests/ui_overlay/test_reference_screenshots.cpp"]
+  },
+  "A07-38": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp", "src/ui_overlay/language_menu.cpp"],
+   "tests": ["tests/ui_overlay/test_language_chip.cpp", "tests/ui_overlay/test_language_menu.cpp", "tests/ui_overlay/test_moments.cpp", "tests/ui_overlay/test_reference_screenshots.cpp"]
+  },
+  "A07-39": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/walkthrough_controls.cpp", "src/ui_overlay/waveform_overlay.cpp", "src/ui_walkthrough/walkthrough_feature.cpp"],
+   "tests": ["tests/ui_overlay/test_walkthrough_controls.cpp", "tests/ui_overlay/test_drag.cpp", "tests/ui_overlay/test_reference_screenshots.cpp"],
+   "note": "The golden case 'ui_qt.overlays.waveform_overlay controls' fails on the Linux tree only because the label widths it replays are Segoe UI's (25 and 27 px against the fallback font's 27 and 28); the layout rule itself was read against the Python."
+  },
+  "A07-40": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp", "src/ui_snap/session.cpp"],
+   "tests": ["tests/ui_overlay/test_drag.cpp"],
+   "note": "Raising the window level while parked is macOS-only and has no counterpart."
+  },
+  "A07-41": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp", "src/ui_walkthrough/walkthrough_feature.cpp"],
+   "tests": ["tests/ui_overlay/test_walkthrough_controls.cpp"]
+  },
+  "A07-42": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp", "src/ui_controller/overlay_router.cpp"],
+   "tests": ["tests/ui_overlay/test_moments.cpp", "tests/ui_overlay/test_reference_screenshots.cpp"]
+  },
+  "A07-43": {
+   "status": "fixed",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp"],
+   "tests": ["tests/ui_overlay/test_error_frame.cpp"],
+   "note": "The code matched; the tests only ever asserted that no paint error was logged. Added tests/ui_overlay/test_error_frame.cpp: a look that throws is logged once ('Error drawing waveform frame') and every frame after fills the pill's rectangle with overlay-bg and draws on it."
+  },
+  "A07-44": {
+   "status": "verified",
+   "cpp": ["src/ui_theme/palette.cpp", "src/ui_overlay/visual.cpp", "src/uimath/overlay_look.cpp", "src/uimath/color.cpp"],
+   "tests": ["tests/uimath/test_overlay_look.cpp", "tests/uimath/test_ocean_school.cpp", "tests/ui_overlay/test_language_chip.cpp", "tests/ui_overlay/test_reference_screenshots.cpp"]
+  },
+  "A07-45": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/recording_look_preview.cpp", "src/uimath/sample_voice.cpp"],
+   "tests": ["tests/ui_overlay/test_look_preview.cpp", "tests/uimath/test_sample_voice.cpp", "tests/ui_overlay/test_reference_screenshots.cpp"],
+   "note": "The throwaway take is <product>_overlay_preview.wav. The reference tree of recording_look_preview fails on the Linux tree on one button width (189 px expected, 192 with the fallback font)."
+  },
+  "A07-46": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/language_menu.cpp", "src/ui_controller/ui_controller.cpp"],
+   "tests": ["tests/ui_overlay/test_language_menu.cpp"],
+   "note": "No FioriVoce engine gives a single-language reason for a local model; the reason rows are still shown when the language module returns one (the remote engine's)."
+  },
+  "A07-47": {
+   "status": "verified",
+   "cpp": ["src/ui_overlay/waveform_overlay.cpp", "src/ui_widgets/buttons.cpp"],
+   "tests": ["tests/ui_overlay/test_walkthrough_controls.cpp"],
+   "note": "The Qt tooltip fallback is for compositor-managed Wayland only."
+  }
+ },
+ "differences": []
+}

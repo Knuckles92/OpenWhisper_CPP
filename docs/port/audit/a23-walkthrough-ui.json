@@ -1,0 +1,999 @@
+{
+ "area": "a23-walkthrough-ui",
+ "package": "M10 sweep",
+ "features": {
+  "A23-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp",
+    "tests/ui_controller/test_walkthrough_feature.cpp"
+   ],
+   "note": "'the button asks for a walkthrough', 'during a walkthrough the tab finishes or cancels it', 'a dictation in progress holds the button', 'start walkthrough spans the control column'; the feature connects walkthroughRequested to runtime->toggle('ui') ('walkthrough feature connects the tab to the recording runtime')."
+  },
+  "A23-02": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp",
+    "tests/ui_controller/test_walkthrough_feature.cpp"
+   ],
+   "note": "'during a walkthrough the tab finishes or cancels it'; cancelRequested reaches runtime->cancel() in the feature."
+  },
+  "A23-03": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp"
+   ],
+   "note": "'the tab shows both shortcuts', 'the two shortcuts line up as a column'; the feature pushes the formatted hotkeys through screens().update(..., setHotkeys) on start and on hotkeys_changed."
+  },
+  "A23-04": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp"
+   ],
+   "note": "'the badge says new until the first walkthrough', 'clicking the badge never starts a walkthrough', 'the badge leads the shortcut row not the button'."
+  },
+  "A23-05": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp"
+   ],
+   "note": "The map's 'other-platform only (Win/macOS)' means the row shows only on Windows and macOS; Windows is the product, so it is audited: 'auto mode is opt in and set before recording', 'auto mode is offered on supported desktops'."
+  },
+  "A23-06": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp",
+    "src/ui_snap/capture_delay.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp",
+    "tests/ui_snap/test_capture_delay.cpp"
+   ],
+   "note": "Shown on Windows (the product); chip from ui_snap::CaptureDelay with the tab's settings: 'tab delay can be changed with arrow keys', 'walkthrough_capture_delay falls back as OpenWhisper's'."
+  },
+  "A23-07": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp"
+   ],
+   "note": "'minimizing to tray on start is off until switched on and then saved'. The action (WalkthroughFeature: minimizeToTray when walkthrough_active and the setting is on) omits Python's main_window.isVisible() check; minimizing a hidden window is harmless, and no composition test covers the action."
+  },
+  "A23-08": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp",
+    "tests/ui_walkthrough/test_tab_screenshots.cpp"
+   ],
+   "note": "'switching the write up off keeps the agent for next time' (rows dimmed but in place), tooltip '{agent} lays out a clean document from it. The as-spoken PDF is kept too.' / 'Off: you get it as spoken.'; 'the tab with the write-up off' reference. Reference test exists; its pixel half skips here and its tree half may fail on Windows font metrics, so it did not run to completion here."
+  },
+  "A23-09": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp"
+   ],
+   "note": "'picking an agent turns the write up on with it', 'the agent menu marks the chosen agent', 'a missing agent shows on its field', 'agents the scan did not find are marked', 'without a scan one runs and labels stay plain' (scan through agent_picker::scanSeam on the io executor)."
+  },
+  "A23-10": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp",
+    "tests/ui_walkthrough/test_tab_styles.cpp"
+   ],
+   "note": "'a style picked from the column fills the prompt', 'a style fills the prompt and is saved at once', 'deleting a style keeps its words as your own' ('Your own')."
+  },
+  "A23-11": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp"
+   ],
+   "note": "Switch and its tooltip were right but nothing tested that toggling saves walkthrough_write_up_notes; added 'the tab's switches are named for what they do and the notes switch is saved'."
+  },
+  "A23-12": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp"
+   ],
+   "note": "'editing the prompt opens it beside the column and turns the write up on'."
+  },
+  "A23-13": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp",
+    "tests/ui_walkthrough/test_tab_screenshots.cpp",
+    "tests/ui_walkthrough/test_tab_styles.cpp"
+   ],
+   "note": "'editing the prompt opens it beside the column...', 'closing the prompt saves what was typed', 'a dialog the prompt opens first puts its popover away', 'the prompt popover matches the reference'. Reference test exists; its pixel half skips here and its tree half may fail on Windows font metrics, so it did not run to completion here."
+  },
+  "A23-14": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp"
+   ],
+   "note": "400 ms debounce, '' saved for the default words: 'the prompt shows the default words and saves them as default', 'typing your own prompt saves it and a style can be tried and undone', 'typing not yet saved wins over reloading', 'loading the settings writes none of them back'."
+  },
+  "A23-15": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp",
+    "tests/ui_walkthrough/test_tab_styles.cpp"
+   ],
+   "note": "'typing your own prompt saves it and a style can be tried and undone', 'a style can be made from the menu and is used at once'."
+  },
+  "A23-16": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_styles.cpp"
+   ],
+   "note": "'your own words can be saved as a style', 'a style name that cant be saved is said in a warning'."
+  },
+  "A23-17": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_styles.cpp"
+   ],
+   "note": "'deleting a style keeps its words as your own', 'the default style cant be deleted'."
+  },
+  "A23-18": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp",
+    "src/ui_walkthrough/new_style_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_styles.cpp",
+    "tests/ui_walkthrough/test_tab_screenshots.cpp"
+   ],
+   "note": "'a style can be made from the menu and is used at once', 'cancelling a new style leaves the prompt and menu as they were', 'a new style that cant be saved says why'."
+  },
+  "A23-19": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp",
+    "src/ui_walkthrough/walkthrough_copy_tips.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp",
+    "tests/ui_walkthrough/test_copy_tips.cpp"
+   ],
+   "note": "'the copy choice is saved' over every COPY_CHOICES entry (PDF, Agent, PDF + Markdown, Markdown, Word), tips in test_copy_tips.cpp."
+  },
+  "A23-20": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_walkthrough_feature.cpp",
+    "tests/ui_walkthrough/test_tab_column.cpp"
+   ],
+   "note": "settingsRequested('walkthroughs') opens Settings at the Walkthroughs page ('walkthrough feature connects the tab to the recording runtime' checks currentDestination)."
+  },
+  "A23-21": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp",
+    "tests/ui_walkthrough/test_tab_styles.cpp",
+    "tests/ui_walkthrough/test_tab_stage.cpp"
+   ],
+   "note": "'a prompt changed in settings shows when the window is back', 'a style saved elsewhere shows on return', 'reloading keeps edits, follows a deleted walkthrough and rereads the list'."
+  },
+  "A23-22": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp",
+    "tests/ui_walkthrough/test_tab_screenshots.cpp"
+   ],
+   "note": "'a larger type size widens the column'; the 130 % references. Reference test exists; its pixel half skips here and its tree half may fail on Windows font metrics, so it did not run to completion here."
+  },
+  "A23-23": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp",
+    "tests/ui_walkthrough/test_tab_stage.cpp",
+    "tests/ui_controller/test_walkthrough_feature.cpp"
+   ],
+   "note": "The tab stacked and asked its width correctly ('too narrow for both the column goes above the stage', 'a dragged walkthrough height stays' with the test rig's own setPageElastic call), but the app never called MainWindow::setPageElastic for it, so a height the user drags was not kept (open-items 'Registering the Walkthrough tab'). WalkthroughFeature's screen factory now calls setPageElastic(tab, tab->fillsHeight()); 'walkthrough feature connects the tab to the recording runtime' checks isPageElastic(tab)."
+  },
+  "A23-24": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_stage.cpp"
+   ],
+   "note": "'a recording takes the stage and gives the storyboard back', 'a dictation leaves the stage alone', 'the window keeps one size whatever the stage shows'."
+  },
+  "A23-25": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_stage.cpp",
+    "tests/ui_walkthrough/test_tab_screenshots.cpp"
+   ],
+   "note": "'Recording your walkthrough', 'It opens here as a storyboard when you finish.'; 'the tab recording matches the reference'. Reference test exists; its pixel half skips here and its tree half may fail on Windows font metrics, so it did not run to completion here."
+  },
+  "A23-26": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_stage.cpp",
+    "tests/ui_walkthrough/test_tab_screenshots.cpp"
+   ],
+   "note": "'with no walkthrough the stage says how and offers none' (hint switches to '..., or open a recent one below.'), the three steps verbatim; 'the tab's empty stage' references."
+  },
+  "A23-27": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_stage.cpp"
+   ],
+   "note": "'a recent walkthrough opens on the stage' (Return activates)."
+  },
+  "A23-28": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_stage.cpp"
+   ],
+   "note": "'the empty stage reads its list on the way in and drops a stale read'; in the app it reads on the io executor (WalkthroughTabOptions.io set by the feature)."
+  },
+  "A23-29": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_stage.cpp"
+   ],
+   "note": "'closing the walkthrough puts the tab back until one is chosen' (walkthrough_closed saved), 'a closed walkthrough stays closed until a newer one finishes'; the feature calls tab->showWalkthrough(result.folder) from show_walkthrough_ready."
+  },
+  "A23-30": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_stage.cpp"
+   ],
+   "note": "'closing asks before letting unsaved edits go', 'a finished walkthrough never replaces unsaved edits'."
+  },
+  "A23-31": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_stage.cpp"
+   ],
+   "note": "'reloading keeps edits, follows a deleted walkthrough and rereads the list'; the library dialog's changed() calls tab->reloadWalkthrough() in the feature."
+  },
+  "A23-32": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_stage.cpp"
+   ],
+   "note": "'saving in the tab says the walkthrough lists are stale'; walkthroughsChanged refreshes the side panel's page in the feature."
+  },
+  "A23-33": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp",
+    "src/ui_walkthrough/review_text.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review_text.cpp",
+    "tests/ui_walkthrough/test_review_screenshots.cpp"
+   ],
+   "note": "'the header says what OpenWhisper's says', 'the review dates its versions and keeps the recorded title across years'."
+  },
+  "A23-34": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review.cpp"
+   ],
+   "note": "'a write-up opens on itself and can switch to the words as spoken', 'the version switch sits inside the header beside the title'."
+  },
+  "A23-35": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp",
+    "src/ui_walkthrough/review_text.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review_text.cpp",
+    "tests/ui_walkthrough/test_review.cpp"
+   ],
+   "note": "'the version picker and its menu read as OpenWhisper's', 'writing it up again keeps the one before under a version picker'."
+  },
+  "A23-36": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_stage.cpp"
+   ],
+   "note": "'only the tab offers to close its walkthrough'."
+  },
+  "A23-37": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review_runs.cpp",
+    "tests/ui_walkthrough/test_review_screenshots.cpp"
+   ],
+   "note": "'copy buttons send explicit clipboard formats'; layout in the storyboard references. Reference test exists; its pixel half skips here and its tree half may fail on Windows font metrics, so it did not run to completion here."
+  },
+  "A23-38": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_redo.cpp",
+    "tests/ui_walkthrough/test_review_runs.cpp"
+   ],
+   "note": "'the menu says write up until there is one', 'redo as lists every style and writes it up with the one picked', 'a delete that is not confirmed keeps the walkthrough'."
+  },
+  "A23-39": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp",
+    "src/ui_walkthrough/review_text.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review_text.cpp",
+    "tests/ui_walkthrough/test_review_states.cpp"
+   ],
+   "note": "'the copy notices and the hints are OpenWhisper's, word for word'."
+  },
+  "A23-40": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review.cpp",
+    "tests/ui_walkthrough/test_review_screenshots.cpp"
+   ],
+   "note": "'rows show each screenshot beside its words', 'a screenshot left out fades and comes back'. Reference test exists; its pixel half skips here and its tree half may fail on Windows font metrics, so it did not run to completion here."
+  },
+  "A23-41": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review.cpp",
+    "tests/ui_walkthrough/test_review_layout_cycle.cpp"
+   ],
+   "note": "'alt arrows in the words move their row', 'the storyboard scroll range settles as text and previews reflow'."
+  },
+  "A23-42": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review.cpp",
+    "tests/ui_walkthrough/test_review_states.cpp"
+   ],
+   "note": "'a screenshot grows with its row and keeps its shape', 'a screenshot that can't be read, and a section without one, keep their places'."
+  },
+  "A23-43": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review.cpp",
+    "tests/ui_walkthrough/test_review_states.cpp"
+   ],
+   "note": "'a screenshot corner button copies just that picture', 'a screenshot copies even with unsaved edits', 'with no host copy a screenshot goes on the clipboard'."
+  },
+  "A23-44": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review.cpp",
+    "tests/ui_walkthrough/test_review_states.cpp"
+   ],
+   "note": "'a row dropped on the board lands by row centre', 'moving a row renumbers it and saving keeps the new order'; the MIME type is application/x-<product>-walkthrough-row by the identity rule ('a dragged row is named after the product, not spelled')."
+  },
+  "A23-45": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review.cpp"
+   ],
+   "note": "'a screenshot left out fades and comes back'."
+  },
+  "A23-46": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review.cpp"
+   ],
+   "note": "'held notes show on their rows and stay through a save'."
+  },
+  "A23-47": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review_states.cpp",
+    "tests/ui_walkthrough/test_review_screenshots.cpp"
+   ],
+   "note": "'the save bar offers a redo only for the words of a written-up walkthrough'; 'the storyboard with unsaved edits' references."
+  },
+  "A23-48": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review.cpp",
+    "tests/ui_walkthrough/test_review_runs.cpp"
+   ],
+   "note": "'saving edited write-up rows rebuilds the write-up in their order', 'saving the words as spoken keeps the write-up and stays on them', 'a failed redo after saving shows what was saved'."
+  },
+  "A23-49": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review_runs.cpp",
+    "tests/ui_walkthrough/test_review_states.cpp"
+   ],
+   "note": "'gate refusal starts no worker', 'executor submission failure releases the gate', 'work that fails with no standard exception still gives the gate back', 'work off the UI thread holds every action until it ends'. The feature's host.acquire refuses with walkthrough_library_refusal and sets ActivityState.library_change; submit posts to the walkthrough-library strand. A review destroyed while busy is guarded by the library dialog's canClose (A23-88)."
+  },
+  "A23-50": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp",
+    "src/ui_walkthrough/review_text.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review_states.cpp",
+    "tests/ui_walkthrough/test_review_runs.cpp"
+   ],
+   "note": "'copying says what it copied, or that it could not', 'unsaved edits cannot be shared or written up', 'copying waits for saved edits and copies the version shown'."
+  },
+  "A23-51": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp",
+    "src/ui_walkthrough/write_up_prompt_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_redo.cpp",
+    "tests/ui_walkthrough/test_review_runs.cpp"
+   ],
+   "note": "'a new prompt writes it up once without changing settings', 'unsaved edits hold a redo with a new prompt', 'review write-up retry is off thread and cancelable'."
+  },
+  "A23-52": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/controller_feature.cpp",
+    "src/dictation/transcription_runtime.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_walkthrough_recovery_attach.cpp",
+    "tests/ui_walkthrough/test_review_runs.cpp",
+    "tests/ui_walkthrough/test_review_states.cpp"
+   ],
+   "note": "The banner's promise is true again: the controller feature sets services.captures_root, so startup joins an interrupted walkthrough's draft to its recovered audio. Pinned in the composed app by tests/ui_controller/test_walkthrough_recovery_attach.cpp 'startup recovery joins an interrupted walkthrough to its recovered audio in the app'; the banner, its bodies and Recover draft by test_review_runs.cpp and test_review_states.cpp as before."
+  },
+  "A23-53": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review_runs.cpp"
+   ],
+   "note": "'delete does not say saved', 'a delete that is not confirmed keeps the walkthrough'."
+  },
+  "A23-54": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review_runs.cpp",
+    "tests/ui_walkthrough/test_review.cpp"
+   ],
+   "note": "Open PDF/Word and Show in folder use the shown version's files ('copying waits for saved edits and copies the version shown' shares the version lookup); reveal through reveal_in_file_manager."
+  },
+  "A23-55": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review_states.cpp"
+   ],
+   "note": "'with nothing to show the storyboard says how to start one', 'a walkthrough that can't be read says so'."
+  },
+  "A23-56": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_stage.cpp",
+    "tests/ui_walkthrough/test_library_dialog.cpp"
+   ],
+   "note": "'closing asks before letting unsaved edits go', 'Saved Walkthroughs asks once before a refresh and drops discarded edits on close'."
+  },
+  "A23-57": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_review.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review.cpp"
+   ],
+   "note": "'saving the words as spoken keeps the write-up and stays on them', 'saving edited write-up rows rebuilds the write-up in their order'."
+  },
+  "A23-58": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_ready.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_file_chip.cpp"
+   ],
+   "note": "'the file chip names the document and drops it as a file', 'a click on the file chip opens it'."
+  },
+  "A23-59": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/review_text.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_review_text.cpp"
+   ],
+   "note": "'the storyboard's day and time read as OpenWhisper's', 'a walkthrough's start comes from its document, its draft or its folder's name', 'a write-up's time reads as the version menu says it'."
+  },
+  "A23-60": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_copy_tips.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_copy_tips.cpp"
+   ],
+   "note": "'copy tips are OpenWhisper's, word for word', 'manual copy hints match in review and ready card'."
+  },
+  "A23-61": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_icons.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_panel.cpp"
+   ],
+   "note": "'every glyph is a path on the 24-unit grid'."
+  },
+  "A23-62": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_panel.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_panel.cpp",
+    "tests/ui_controller/test_walkthrough_feature.cpp"
+   ],
+   "note": "The window (flags, size, placement, DragToMove) was right and tested ('the column is a frameless tool window that explains its buttons', 'the column opens at the right edge of the screen, centred', 'dragging anywhere but a button moves the column'), but nothing kept it out of screenshots: ui_controller._show_walkthrough_panel calls keep_out_of_screenshots(panel, True) after begin(). WalkthroughFeature now calls setKeepOutOfScreenshots(panel, true) after panel->begin(); new composition test 'the walkthrough column is kept out of screenshots and a cancel dismisses it' checks ui_snap::isKeptOut(panel) over the fake Win32 desktop."
+  },
+  "A23-63": {
+   "status": "other-platform",
+   "reason": "Wayland/Omarchy only: no column under a compositor-managed desktop; on Windows WalkthroughFeature always builds the panel (it is skipped only when ui_snap::currentPlatform().wayland)."
+  },
+  "A23-64": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_column.cpp",
+    "src/ui_walkthrough/walkthrough_column.h"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_column.cpp"
+   ],
+   "note": "TICK_S 0.075, SPEECH_GATE 0.14: 'speech writes ticks and the room writes none', 'louder speech writes taller ticks'; the feature feeds Recorder::level to panel->hear."
+  },
+  "A23-65": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_column.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_column.cpp"
+   ],
+   "note": "'a screenshot closes the paragraph and opens the next', 'a removed screenshots words run into the next section', 'a screenshot while held closes the section and the note goes on', 'the column replays OpenWhisper's scripts'."
+  },
+  "A23-66": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_panel.cpp",
+    "src/ui_walkthrough/walkthrough_column.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_panel.cpp",
+    "tests/ui_walkthrough/test_column.cpp",
+    "tests/ui_walkthrough/test_reference_screenshots.cpp"
+   ],
+   "note": "'the header says what the walkthrough is doing', 'rows of ticks fit as OpenWhisper's do', 'every state paints'; column references. Reference test exists; its pixel half skips here and its tree half may fail on Windows font metrics, so it did not run to completion here."
+  },
+  "A23-67": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_reference_screenshots.cpp",
+    "tests/ui_walkthrough/test_panel.cpp"
+   ],
+   "note": "Slot geometry and hint read against walkthrough_panel.py:1072-1131. Reference test exists; its pixel half skips here and its tree half may fail on Windows font metrics, so it did not run to completion here."
+  },
+  "A23-68": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_reference_screenshots.cpp",
+    "tests/ui_walkthrough/test_column.cpp"
+   ],
+   "note": "'the column holding a note' references; 'words said while held are a note of their own'. Reference test exists; its pixel half skips here and its tree half may fail on Windows font metrics, so it did not run to completion here."
+  },
+  "A23-69": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_panel.cpp",
+    "tests/ui_walkthrough/test_column.cpp"
+   ],
+   "note": "kThumbPx 592 (2 x 296), 'screenshots are kept as thumbnails', 'the column eases as OpenWhisper's does'."
+  },
+  "A23-70": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_panel.cpp",
+    "tests/ui_walkthrough/test_reference_screenshots.cpp"
+   ],
+   "note": "'hovering a screenshot offers to move or remove it'; the tool signals reach the runtime through WalkthroughPanelPort (tests/walkthrough/test_runtime.cpp 'walkthrough board moves and removes screenshots and keeps their labels')."
+  },
+  "A23-71": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_panel.cpp"
+   ],
+   "note": "'the footer snaps undoes cancels and finishes', 'while it is written only cancel is left', 'draw is off while auto mode is paused', 'the countdown shows on snap'."
+  },
+  "A23-72": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_panel.cpp"
+   ],
+   "note": "'holding the button writes a note until it is let go', 'a note ends when the button comes up where the column never heard', 'without an ai write up there is no one to read a note', 'done while held ends the note'."
+  },
+  "A23-73": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_panel.cpp",
+    "src/ui_walkthrough/panel_port.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_panel.cpp",
+    "tests/walkthrough/test_runtime.cpp"
+   ],
+   "note": "'pause asks and the paused column stops its clock and its ticks', 'pausing ends a note and no note starts while paused'; 'column cancel, note and pause controls reach the recording'."
+  },
+  "A23-74": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_column.cpp",
+    "src/ui_walkthrough/walkthrough_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_column.cpp",
+    "tests/ui_walkthrough/test_panel.cpp"
+   ],
+   "note": "'each control explains itself, and Auto Mode's Snap draws', 'each control explains itself when the pointer rests on it'."
+  },
+  "A23-75": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_panel.cpp",
+    "src/ui_walkthrough/walkthrough_snap_menu.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_panel.cpp",
+    "tests/ui_walkthrough/test_snap_menu.cpp"
+   ],
+   "note": "'the chevron opens the menu beside the column'."
+  },
+  "A23-76": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_panel.cpp"
+   ],
+   "note": "'a tall column scrolls to keep the newest in view', 'the wheel scrolls back and a new screenshot brings the newest'."
+  },
+  "A23-77": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_panel.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_panel.cpp",
+    "tests/ui_controller/test_walkthrough_feature.cpp"
+   ],
+   "note": "The panel's life cycle was right and tested ('a walkthrough fills the column then it fades once ready', 'a canceled walkthrough fades at once', 'a column whose document never comes gives up after ten minutes', 'the column stands in for the overlay only while it records or writes'). Its composition differed from ui_controller: a Cancel (overlay state CANCELING) never dismissed the column, which sat on 'Writing it up' for ten minutes; a failure dismissed it even during an AI write-up; and the overlay stand-in ignored the write-up. WalkthroughFeature now dismisses on OverlayState::Canceling unless TranscriptionRuntime::writing_up(), skips the failure dismiss while writing up, and the stand-in is showsRecording() && !writing_up(). New composition test 'the walkthrough column is kept out of screenshots and a cancel dismisses it' covers the cancel; the two write-up conditions are not tested (a ControllerRig write-up needs a fake agent runner)."
+  },
+  "A23-78": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/panel_port.cpp",
+    "src/ui_walkthrough/walkthrough_panel.h",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/walkthrough/test_runtime.cpp",
+    "tests/walkthrough/test_runtime_ports.cpp",
+    "tests/ui_walkthrough/test_panel.cpp"
+   ],
+   "note": "Every panel signal is forwarded by WalkthroughPanelPort and attached with runtime->attach_panel in the feature ('the column's buttons are connected only once', 'the column's Snap takes the front window', 'every runtime port can be implemented and driven'); 'the menu offers a window only where one can be found'."
+  },
+  "A23-79": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/screenshot_flight.cpp",
+    "src/ui_walkthrough/walkthrough_panel.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_flight.cpp",
+    "tests/ui_walkthrough/test_panel.cpp"
+   ],
+   "note": "'the card follows OpenWhisper's arc', 'a flight is click-through and covers its arc on every frame', 'a flight lands at removal, at the next capture and on cancel'; flight keeps itself out of screenshots; QtSnapPort's beforeStart hook calls panel->endCaptureAnimation() in the feature."
+  },
+  "A23-80": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_snap_menu.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_snap_menu.cpp",
+    "tests/ui_walkthrough/test_panel.cpp",
+    "tests/ui_walkthrough/test_reference_screenshots.cpp"
+   ],
+   "note": "'the menu opens left of the column, else right of it, and never above the screen', 'the menu lists each kind by its label, the current one ticked', 'the menu never takes the focus', 'the menu closes once the pointer has wandered off'."
+  },
+  "A23-81": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_ready.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_ready_card.cpp",
+    "tests/ui_walkthrough/test_ready_screenshots.cpp",
+    "tests/ui_controller/test_walkthrough_feature.cpp"
+   ],
+   "note": "'the card says what it copied and how, line by line', 'the card stays 14 s, then 4 s after the pointer leaves, and the menu holds it', 'the card sits at the bottom right of the pointer's screen, 18 px in'; shown by WalkthroughFeature::show_walkthrough_ready ('walkthrough feature saves a captured screenshot and shows the ready card')."
+  },
+  "A23-82": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/past_walkthroughs.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_past_walkthroughs.cpp",
+    "tests/ui_controller/test_walkthrough_feature.cpp"
+   ],
+   "note": "MAX_SHOWN 60, messages verbatim, 'search keeps the cards holding every word', 'only the newest are built'; the feature installs it as the side panel's Walkthroughs page with the io executor ('walkthrough feature connects the tab to the recording runtime' finds it)."
+  },
+  "A23-83": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/past_walkthroughs.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_past_walkthroughs.cpp"
+   ],
+   "note": "golden 'past walkthroughs: card titles match OpenWhisper', 'an interrupted draft says so'."
+  },
+  "A23-84": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_library.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_library_dialog.cpp",
+    "tests/ui_controller/test_walkthrough_feature.cpp"
+   ],
+   "note": "1100x780, 'N saved' / 'None yet', retention combo; opened from the ready card's Review and MainWindow::walkthroughLibraryRequested in the feature."
+  },
+  "A23-85": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/write_up_prompt_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_redo.cpp",
+    "tests/ui_walkthrough/test_review_screenshots.cpp"
+   ],
+   "note": "'the prompt dialog says what it does', 'the dialog starts on the style its words are', 'an empty prompt isn't sent', 'naming the prompt keeps it as a style', 'a name that can't be saved keeps the dialog open'."
+  },
+  "A23-86": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_column.cpp"
+   ],
+   "note": "The names were set (walkthrough_tab.cpp) but only the prompt's was tested (test_redo.cpp); added 'the tab's switches are named for what they do and the notes switch is saved' for the write-up, notes, minimize and Auto Mode switches, the prompt and the style combo."
+  },
+  "A23-87": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_ready.cpp",
+    "src/ui_walkthrough/walkthrough_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_ready_card.cpp",
+    "tests/ui_controller/test_walkthrough_feature.cpp"
+   ],
+   "note": "The card's rules were right and tested ('Review, Open PDF, Open Word and Show in folder hide the card, copying does not', 'a paste status replaces the card's words only for its own PDF'), but nothing called showPasteStatus: WalkthroughPaste's report only set the status line. WalkthroughFeature now ports ui_controller.paste_walkthrough: the paste in progress is remembered, each report adds 'Write-up failed: ...' and '<n> screenshot(s) couldn't be saved' to the status and goes to the card, a second paste says 'Walkthrough saved; another walkthrough paste is in progress', a started one 'Pasting PDF, then instructions…'; copy-again reloads the result from disk and says 'Walkthrough copied' / 'Couldn't copy the walkthrough' / 'Couldn't open the walkthrough: ...'; the paste shortcut says 'No completed walkthrough to paste yet' and 'Couldn't open the latest walkthrough: ...' as Python's. 'walkthrough feature saves a captured screenshot and shows the ready card' now checks the status line and the card's subtitle after the paste and the copy-again status."
+  },
+  "A23-88": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_library.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_library_dialog.cpp"
+   ],
+   "note": "canClose: busy only cancels, else discardChanges then drop edits; 'Saved Walkthroughs asks once before a refresh and drops discarded edits on close', 'keeping walkthroughs forever can be refused without losing edits'; an unknown saved value is added as '<days> days'."
+  },
+  "A23-89": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_reference_screenshots.cpp"
+   ],
+   "note": "walkthrough_panel.cpp paints holding ? kNoteHint : paused ? kPausedHint : autoMode ? kAutoSlotHint : kSlotHint; the paused and holding-a-note column references record the hint text. Reference test exists; its pixel half skips here and its tree half may fail on Windows font metrics, so it did not run to completion here."
+  },
+  "A23-90": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/walkthrough_tab.cpp",
+    "src/ui_walkthrough/past_walkthroughs.cpp",
+    "src/ui_walkthrough/walkthrough_review.cpp"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_stage.cpp",
+    "tests/ui_walkthrough/test_past_walkthroughs.cpp",
+    "tests/ui_walkthrough/test_review.cpp"
+   ],
+   "note": "Return on a recent row ('a recent walkthrough opens on the stage') and on a card (test_past_walkthroughs.cpp keyClick Return), Alt+Up/Down ('alt arrows in the words move their row')."
+  }
+ },
+ "differences": []
+}

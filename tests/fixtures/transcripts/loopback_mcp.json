@@ -1,0 +1,2072 @@
+{
+ "scenario": "loopback_mcp",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "normalize": [
+  "port",
+  "{token}",
+  "{closed_token}",
+  "/response/headers/Date",
+  "/response/headers/Server"
+ ],
+ "tools": [
+  {
+   "name": "patch_state",
+   "description": "Change the state.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "ops": {
+      "type": "array"
+     }
+    },
+    "required": [
+     "ops"
+    ]
+   }
+  },
+  {
+   "name": "explode",
+   "description": "Fails.",
+   "inputSchema": {
+    "type": "object"
+   }
+  },
+  {
+   "name": "ask_question",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "text": {
+      "type": "string"
+     }
+    }
+   }
+  }
+ ],
+ "listed": true,
+ "calls": [
+  [
+   "patch_state",
+   {
+    "ops": [
+     {
+      "op": "set_topic",
+      "text": "Beta é日",
+      "evidence": [
+       "sg_1"
+      ]
+     }
+    ]
+   },
+   {
+    "k": "v"
+   }
+  ],
+  [
+   "explode",
+   {},
+   {}
+  ],
+  [
+   "ask_question",
+   {},
+   {}
+  ]
+ ],
+ "exchanges": [
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "96"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"initialize\", \"params\": {\"protocolVersion\": \"2025-06-18\"}}"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "216"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 1, \"result\": {\"protocolVersion\": \"2025-06-18\", \"capabilities\": {\"tools\": {\"listChanged\": false}}, \"serverInfo\": {\"name\": \"openwhisper\", \"title\": \"OpenWhisper meeting tools\", \"version\": \"1\"}}}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "96"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 2, \"method\": \"initialize\", \"params\": {\"protocolVersion\": \"1999-01-01\"}}"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "216"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 2, \"result\": {\"protocolVersion\": \"2025-06-18\", \"capabilities\": {\"tools\": {\"listChanged\": false}}, \"serverInfo\": {\"name\": \"openwhisper\", \"title\": \"OpenWhisper meeting tools\", \"version\": \"1\"}}}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "102"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": \"three\", \"method\": \"initialize\", \"params\": {\"protocolVersion\": \"2024-11-05\"}}"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "222"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": \"three\", \"result\": {\"protocolVersion\": \"2024-11-05\", \"capabilities\": {\"tools\": {\"listChanged\": false}}, \"serverInfo\": {\"name\": \"openwhisper\", \"title\": \"OpenWhisper meeting tools\", \"version\": \"1\"}}}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "51"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 4, \"method\": \"initialize\"}"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "216"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 4, \"result\": {\"protocolVersion\": \"2025-06-18\", \"capabilities\": {\"tools\": {\"listChanged\": false}}, \"serverInfo\": {\"name\": \"openwhisper\", \"title\": \"OpenWhisper meeting tools\", \"version\": \"1\"}}}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "57"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"method\": \"notifications/initialized\"}"
+   },
+   "response": {
+    "status": 202,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Length",
+      "0"
+     ]
+    ],
+    "body": ""
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "51"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 5, \"method\": \"tools/list\"}"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "395"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 5, \"result\": {\"tools\": [{\"name\": \"patch_state\", \"description\": \"Change the state.\", \"inputSchema\": {\"type\": \"object\", \"properties\": {\"ops\": {\"type\": \"array\"}}, \"required\": [\"ops\"]}}, {\"name\": \"explode\", \"description\": \"Fails.\", \"inputSchema\": {\"type\": \"object\"}}, {\"name\": \"ask_question\", \"inputSchema\": {\"type\": \"object\", \"properties\": {\"text\": {\"type\": \"string\"}}}}]}}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "203"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 6, \"method\": \"tools/call\", \"params\": {\"name\": \"patch_state\", \"arguments\": {\"ops\": [{\"op\": \"set_topic\", \"text\": \"Beta \\u00e9\\u65e5\", \"evidence\": [\"sg_1\"]}]}, \"_meta\": {\"k\": \"v\"}}}"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "131"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 6, \"result\": {\"content\": [{\"type\": \"text\", \"text\": \"{\\\"results\\\": [{\\\"ok\\\": true}]}\"}], \"isError\": false}}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "96"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 7, \"method\": \"tools/call\", \"params\": {\"name\": \"Bash\", \"arguments\": {}}}"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "164"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 7, \"result\": {\"content\": [{\"type\": \"text\", \"text\": \"Unknown tool 'Bash'. Use only: patch_state, explode, ask_question\"}], \"isError\": true}}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "99"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 8, \"method\": \"tools/call\", \"params\": {\"name\": \"explode\", \"arguments\": {}}}"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "134"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 8, \"result\": {\"content\": [{\"type\": \"text\", \"text\": \"{\\\"error\\\": \\\"tool broke \\\\u00e9\\\"}\"}], \"isError\": true}}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "119"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 9, \"method\": \"tools/call\", \"params\": {\"name\": \"ask_question\", \"arguments\": [1], \"_meta\": \"x\"}}"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "131"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 9, \"result\": {\"content\": [{\"type\": \"text\", \"text\": \"{\\\"results\\\": [{\\\"ok\\\": true}]}\"}], \"isError\": false}}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "81"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 10, \"method\": \"tools/call\", \"params\": {\"arguments\": {}}}"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "161"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 10, \"result\": {\"content\": [{\"type\": \"text\", \"text\": \"Unknown tool ''. Use only: patch_state, explode, ask_question\"}], \"isError\": true}}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "57"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 11, \"method\": \"server/discover\"}"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "103"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 11, \"error\": {\"code\": -32601, \"message\": \"method not found: server/discover\"}}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "46"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 12, \"method\": \"ping\"}"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "42"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 12, \"result\": {}}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "48"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": null, \"method\": \"ping\"}"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "44"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": null, \"result\": {}}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "28"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 13}"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "92"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 13, \"error\": {\"code\": -32601, \"message\": \"method not found: None\"}}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "161"
+     ]
+    ],
+    "body": "[{\"jsonrpc\": \"2.0\", \"id\": 14, \"method\": \"ping\"}, {\"jsonrpc\": \"2.0\", \"method\": \"notifications/initialized\"}, {\"jsonrpc\": \"2.0\", \"id\": 15, \"method\": \"tools/list\"}]"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "442"
+     ]
+    ],
+    "body": "[{\"jsonrpc\": \"2.0\", \"id\": 14, \"result\": {}}, {\"jsonrpc\": \"2.0\", \"id\": 15, \"result\": {\"tools\": [{\"name\": \"patch_state\", \"description\": \"Change the state.\", \"inputSchema\": {\"type\": \"object\", \"properties\": {\"ops\": {\"type\": \"array\"}}, \"required\": [\"ops\"]}}, {\"name\": \"explode\", \"description\": \"Fails.\", \"inputSchema\": {\"type\": \"object\"}}, {\"name\": \"ask_question\", \"inputSchema\": {\"type\": \"object\", \"properties\": {\"text\": {\"type\": \"string\"}}}}]}}]"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "116"
+     ]
+    ],
+    "body": "[{\"jsonrpc\": \"2.0\", \"method\": \"notifications/initialized\"}, {\"jsonrpc\": \"2.0\", \"method\": \"notifications/cancelled\"}]"
+   },
+   "response": {
+    "status": 202,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Length",
+      "0"
+     ]
+    ],
+    "body": ""
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "2"
+     ]
+    ],
+    "body": "[]"
+   },
+   "response": {
+    "status": 202,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Length",
+      "0"
+     ]
+    ],
+    "body": ""
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "1"
+     ]
+    ],
+    "body": "5"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "87"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": null, \"error\": {\"code\": -32600, \"message\": \"invalid request\"}}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "51"
+     ]
+    ],
+    "body": "[1, {\"jsonrpc\": \"2.0\", \"id\": 16, \"method\": \"ping\"}]"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "133"
+     ]
+    ],
+    "body": "[{\"jsonrpc\": \"2.0\", \"id\": null, \"error\": {\"code\": -32600, \"message\": \"invalid request\"}}, {\"jsonrpc\": \"2.0\", \"id\": 16, \"result\": {}}]"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "1"
+     ]
+    ],
+    "body": "{"
+   },
+   "response": {
+    "status": 400,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "83"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": null, \"error\": {\"code\": -32700, \"message\": \"parse error\"}}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "0"
+     ]
+    ],
+    "body": ""
+   },
+   "response": {
+    "status": 400,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "21"
+     ]
+    ],
+    "body": "{\"error\": \"bad body\"}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "49"
+     ]
+    ],
+    "body": "﻿{\"jsonrpc\": \"2.0\", \"id\": 17, \"method\": \"ping\"}"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "42"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 17, \"result\": {}}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "43"
+     ]
+    ],
+    "body_base64": "eyJqc29ucnBjIjogIjIuMCIsICJpZCI6IDE4LCAibWV0aG9kIjogIv8ifQ=="
+   },
+   "response": {
+    "status": 400,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "83"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": null, \"error\": {\"code\": -32700, \"message\": \"parse error\"}}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "56"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 19, \"method\": \"ping\", \"x\": NaN}"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "42"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 19, \"result\": {}}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "4194305"
+     ]
+    ]
+   },
+   "response": {
+    "status": 413,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "21"
+     ]
+    ],
+    "body": "{\"error\": \"bad body\"}"
+   }
+  },
+  {
+   "request": {
+    "method": "GET",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ]
+    ]
+   },
+   "response": {
+    "status": 405,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "28"
+     ]
+    ],
+    "body": "{\"error\": \"no event stream\"}"
+   }
+  },
+  {
+   "request": {
+    "method": "DELETE",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ]
+    ]
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "2"
+     ]
+    ],
+    "body": "{}"
+   }
+  },
+  {
+   "request": {
+    "method": "PUT",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "46"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 20, \"method\": \"ping\"}"
+   },
+   "response": {
+    "status": 501,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Connection",
+      "close"
+     ],
+     [
+      "Content-Type",
+      "text/html;charset=utf-8"
+     ],
+     [
+      "Content-Length",
+      "356"
+     ]
+    ],
+    "body": "<!DOCTYPE HTML>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <title>Error response</title>\n    </head>\n    <body>\n        <h1>Error response</h1>\n        <p>Error code: 501</p>\n        <p>Message: Unsupported method ('PUT').</p>\n        <p>Error code explanation: 501 - Server does not support this operation.</p>\n    </body>\n</html>\n"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/nope",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer nope"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "52"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 21, \"method\": \"tools/list\"}"
+   },
+   "response": {
+    "status": 401,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "25"
+     ]
+    ],
+    "body": "{\"error\": \"unauthorized\"}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "52"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 22, \"method\": \"tools/list\"}"
+   },
+   "response": {
+    "status": 401,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "25"
+     ]
+    ],
+    "body": "{\"error\": \"unauthorized\"}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token} "
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "52"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 23, \"method\": \"tools/list\"}"
+   },
+   "response": {
+    "status": 401,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "25"
+     ]
+    ],
+    "body": "{\"error\": \"unauthorized\"}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "52"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 24, \"method\": \"tools/list\"}"
+   },
+   "response": {
+    "status": 401,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "25"
+     ]
+    ],
+    "body": "{\"error\": \"unauthorized\"}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Origin",
+      "https://evil.example"
+     ],
+     [
+      "Content-Length",
+      "52"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 25, \"method\": \"tools/list\"}"
+   },
+   "response": {
+    "status": 403,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "22"
+     ]
+    ],
+    "body": "{\"error\": \"forbidden\"}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Origin",
+      "null"
+     ],
+     [
+      "Content-Length",
+      "46"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 26, \"method\": \"ping\"}"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "42"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 26, \"result\": {}}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Origin",
+      ""
+     ],
+     [
+      "Content-Length",
+      "46"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 27, \"method\": \"ping\"}"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "42"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 27, \"result\": {}}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "46"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 28, \"method\": \"ping\"}"
+   },
+   "response": {
+    "status": 404,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "22"
+     ]
+    ],
+    "body": "{\"error\": \"not found\"}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/other/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "46"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 29, \"method\": \"ping\"}"
+   },
+   "response": {
+    "status": 404,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "22"
+     ]
+    ],
+    "body": "{\"error\": \"not found\"}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}/extra",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "46"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 30, \"method\": \"ping\"}"
+   },
+   "response": {
+    "status": 404,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "22"
+     ]
+    ],
+    "body": "{\"error\": \"not found\"}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}/",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "46"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 31, \"method\": \"ping\"}"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "42"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 31, \"result\": {}}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "//mcp/{token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "46"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 32, \"method\": \"ping\"}"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "42"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 32, \"result\": {}}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{token}?x=1",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "46"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 33, \"method\": \"ping\"}"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "42"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 33, \"result\": {}}"
+   }
+  },
+  {
+   "request": {
+    "method": "GET",
+    "path": "/",
+    "headers": []
+   },
+   "response": {
+    "status": 404,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "22"
+     ]
+    ],
+    "body": "{\"error\": \"not found\"}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{closed_token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {closed_token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "52"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 34, \"method\": \"tools/list\"}"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "396"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 34, \"result\": {\"tools\": [{\"name\": \"patch_state\", \"description\": \"Change the state.\", \"inputSchema\": {\"type\": \"object\", \"properties\": {\"ops\": {\"type\": \"array\"}}, \"required\": [\"ops\"]}}, {\"name\": \"explode\", \"description\": \"Fails.\", \"inputSchema\": {\"type\": \"object\"}}, {\"name\": \"ask_question\", \"inputSchema\": {\"type\": \"object\", \"properties\": {\"text\": {\"type\": \"string\"}}}}]}}"
+   }
+  },
+  {
+   "action": "deactivate"
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{closed_token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {closed_token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "183"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 35, \"method\": \"tools/call\", \"params\": {\"name\": \"patch_state\", \"arguments\": {\"ops\": [{\"op\": \"set_topic\", \"text\": \"Beta \\u00e9\\u65e5\", \"evidence\": [\"sg_1\"]}]}}}"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "150"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 35, \"result\": {\"content\": [{\"type\": \"text\", \"text\": \"This meeting pass has ended; its tools are closed.\"}], \"isError\": true}}"
+   }
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{closed_token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {closed_token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "52"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 36, \"method\": \"tools/list\"}"
+   },
+   "response": {
+    "status": 200,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "396"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 36, \"result\": {\"tools\": [{\"name\": \"patch_state\", \"description\": \"Change the state.\", \"inputSchema\": {\"type\": \"object\", \"properties\": {\"ops\": {\"type\": \"array\"}}, \"required\": [\"ops\"]}}, {\"name\": \"explode\", \"description\": \"Fails.\", \"inputSchema\": {\"type\": \"object\"}}, {\"name\": \"ask_question\", \"inputSchema\": {\"type\": \"object\", \"properties\": {\"text\": {\"type\": \"string\"}}}}]}}"
+   }
+  },
+  {
+   "action": "close"
+  },
+  {
+   "request": {
+    "method": "POST",
+    "path": "/mcp/{closed_token}",
+    "headers": [
+     [
+      "Authorization",
+      "Bearer {closed_token}"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "183"
+     ]
+    ],
+    "body": "{\"jsonrpc\": \"2.0\", \"id\": 37, \"method\": \"tools/call\", \"params\": {\"name\": \"patch_state\", \"arguments\": {\"ops\": [{\"op\": \"set_topic\", \"text\": \"Beta \\u00e9\\u65e5\", \"evidence\": [\"sg_1\"]}]}}}"
+   },
+   "response": {
+    "status": 401,
+    "headers": [
+     [
+      "Server",
+      "<server>"
+     ],
+     [
+      "Date",
+      "<date>"
+     ],
+     [
+      "Content-Type",
+      "application/json"
+     ],
+     [
+      "Content-Length",
+      "25"
+     ]
+    ],
+    "body": "{\"error\": \"unauthorized\"}"
+   }
+  }
+ ]
+}

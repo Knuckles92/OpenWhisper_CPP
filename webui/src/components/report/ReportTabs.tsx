@@ -1,0 +1,147 @@
+import { ReviewCorrections } from '../InsightReview';
+import { flushSync } from 'react-dom';
+import { useEffect, useMemo, useState, type RefObject } from 'react';
+import {
+  enabledReportViews,
+  resolveReportView,
+  segmentMap,
+  writeStoredReportView,
+  type ReportViewId,
+} from '../../report';
+import { EvidenceProvider } from '../../evidence';
+import type { MeetingInfo, MeetingStateDoc, Segment } from '../../types';
+import BriefReport from './BriefReport';
+import CustomReports from './CustomReports';
+import EditorialReport from './EditorialReport';
+import FullMeetingDocument from './FullMeetingDocument';
+import HandoffReport from './HandoffReport';
+import ReportDownload from './ReportDownload';
+import ReportViewSelect from './ReportViewSelect';
+import RibbonReport from './RibbonReport';
+import SignalReport from './SignalReport';
+
+interface ReportTabsProps {
+  state: MeetingStateDoc;
+  segments: Segment[];
+  meeting?: MeetingInfo | null;
+  onEvidenceClick?: (segmentId: string) => void;
+  onSeek?: (seconds: number) => void;
+  /** Recording element the Ribbon minimap draws its playhead from. */
+  audioRef?: RefObject<HTMLAudioElement | null>;
+  /** Changes whenever that element is replaced, so the playhead re-binds. */
+  audioKey?: string;
+  /** When false, Full download stays disabled so a partial transcript is never printed. */
+  transcriptComplete?: boolean;
+  onPrepareFull?: () => Promise<void>;
+  /** Hide the in-toolbar download when the header already owns it. */
+  showDownload?: boolean;
+  /** Hide the in-page switcher when the header already owns it. */
+  showSwitcher?: boolean;
+  activeView?: ReportViewId;
+  onViewChange?: (view: ReportViewId) => void;
+  /** Page token. Omitted for guests, which hides the report composer. */
+  token?: string;
+  /** Fresh state after a report action, for views without a live socket. */
+  onState?: (state: MeetingStateDoc) => void;
+}
+
+export default function ReportTabs({
+  state,
+  segments,
+  meeting,
+  onEvidenceClick,
+  onSeek,
+  audioRef,
+  audioKey,
+  transcriptComplete = false,
+  onPrepareFull,
+  showDownload = true,
+  showSwitcher = true,
+  activeView,
+  onViewChange,
+  token,
+  onState,
+}: ReportTabsProps) {
+  const [printingFull, setPrintingFull] = useState(false);
+  useEffect(() => {
+    // beforeprint must commit the tree before the browser snapshots the page.
+    const before = () => {
+      if (document.body.dataset.printScope === 'full') flushSync(() => setPrintingFull(true));
+    };
+    const after = () => setPrintingFull(false);
+    const media = window.matchMedia?.('print');
+    const mediaChanged = (event: MediaQueryListEvent) => { if (!event.matches) after(); };
+    window.addEventListener('beforeprint', before);
+    window.addEventListener('afterprint', after);
+    media?.addEventListener('change', mediaChanged);
+    return () => {
+      window.removeEventListener('beforeprint', before);
+      window.removeEventListener('afterprint', after);
+      media?.removeEventListener('change', mediaChanged);
+    };
+  }, []);
+  const views = enabledReportViews(state);
+  const segs = useMemo(() => segmentMap(segments), [segments]);
+  const [internalView, setInternalView] = useState<ReportViewId>(() =>
+    activeView && views.includes(activeView) ? activeView : resolveReportView(views),
+  );
+  const active = activeView && views.includes(activeView) ? activeView : internalView;
+
+  useEffect(() => {
+    if (!views.includes(internalView)) {
+      setInternalView(resolveReportView(views));
+    }
+  }, [internalView, views]);
+
+  const select = (view: ReportViewId) => {
+    if (onViewChange) onViewChange(view);
+    else {
+      setInternalView(view);
+      writeStoredReportView(view);
+    }
+  };
+
+  const shared = { state, segments, segs, meeting, onEvidenceClick, onSeek };
+  const showToolbar = showSwitcher || showDownload;
+  const participants = useMemo(() => Object.values(state.participants), [state.participants]);
+
+  return (
+    <EvidenceProvider segments={segments} participants={participants}>
+      <section className="report-stage">
+        {showToolbar && (
+          <div className="report-toolbar">
+            {showSwitcher && (
+              <ReportViewSelect views={views} active={active} onSelect={select} />
+            )}
+            {showDownload && (
+              <ReportDownload
+                state={state}
+                meeting={meeting}
+                transcriptComplete={transcriptComplete}
+                onPrepareFull={onPrepareFull}
+                activeView={active}
+              />
+            )}
+          </div>
+        )}
+        <div className="report-sheet">
+          <ReviewCorrections state={state} />
+          {active === 'ribbon' && <RibbonReport {...shared} audioRef={audioRef} audioKey={audioKey} />}
+          {active === 'brief' && <BriefReport {...shared} />}
+          {active === 'signal' && <SignalReport {...shared} />}
+          {active === 'editorial' && <EditorialReport {...shared} />}
+          {active === 'handoff' && <HandoffReport {...shared} />}
+        </div>
+        {token && (
+          <CustomReports
+            state={state}
+            token={token}
+            meetingId={state.meeting_id}
+            onState={onState}
+          />
+        )}
+        {printingFull && <FullMeetingDocument state={state} segments={segments} />}
+      </section>
+    </EvidenceProvider>
+  );
+}

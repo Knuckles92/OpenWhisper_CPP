@@ -1,0 +1,280 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": { "major": 3, "minor": 25, "patch": 0 },
+  "configurePresets": [
+    {
+      "name": "default",
+      "displayName": "Default",
+      "description": "The platform's default generator, building into build/: the engine, the CLI and their tests, with no vcpkg",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": { "FIORIVOCE_ENGINE_ONLY": "ON" }
+    },
+    {
+      "name": "dev-base",
+      "hidden": true,
+      "description": "Ninja + vcpkg, building into out/build/<preset>. Needs VCPKG_ROOT.",
+      "generator": "Ninja Multi-Config",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+    },
+    {
+      "name": "windows",
+      "displayName": "Windows (MSVC x64)",
+      "inherits": "dev-base",
+      "condition": { "type": "equals", "lhs": "${hostSystemName}", "rhs": "Windows" },
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "cl",
+        "VCPKG_TARGET_TRIPLET": "x64-windows"
+      }
+    },
+    {
+      "name": "windows-ci",
+      "displayName": "Windows CI (MSVC x64, warnings as errors, lints and screenshots)",
+      "inherits": "windows",
+      "cacheVariables": {
+        "FIORIVOCE_BUILD_APP": "ON",
+        "FIORIVOCE_WARNINGS_AS_ERRORS": "ON",
+        "FIORIVOCE_REQUIRE_LINT": "ON",
+        "FIORIVOCE_SCREENSHOT_TESTS": "ON"
+      }
+    },
+    {
+      "name": "windows-core",
+      "displayName": "Windows core modules only (MSVC x64, no Qt)",
+      "inherits": "windows",
+      "cacheVariables": { "FIORIVOCE_BUILD_APP": "OFF" }
+    },
+    {
+      "name": "linux",
+      "displayName": "Linux (GCC)",
+      "inherits": "dev-base",
+      "condition": { "type": "equals", "lhs": "${hostSystemName}", "rhs": "Linux" },
+      "cacheVariables": { "CMAKE_CXX_COMPILER": "g++" }
+    },
+    {
+      "name": "linux-core",
+      "displayName": "Linux core modules only (GCC, no Qt)",
+      "inherits": "linux",
+      "cacheVariables": { "FIORIVOCE_BUILD_APP": "OFF" }
+    },
+    {
+      "name": "linux-asan",
+      "displayName": "Linux (Clang, ASan + UBSan)",
+      "inherits": "dev-base",
+      "condition": { "type": "equals", "lhs": "${hostSystemName}", "rhs": "Linux" },
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "clang++",
+        "CMAKE_CXX_FLAGS": "-fsanitize=address,undefined -fno-omit-frame-pointer"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "debug", "configurePreset": "default", "configuration": "Debug" },
+    { "name": "release", "configurePreset": "default", "configuration": "RelWithDebInfo" },
+    { "name": "windows-debug", "configurePreset": "windows", "configuration": "Debug" },
+    { "name": "windows-release", "configurePreset": "windows", "configuration": "RelWithDebInfo" },
+    { "name": "windows-ci", "configurePreset": "windows-ci", "configuration": "RelWithDebInfo" },
+    { "name": "windows-core-debug", "configurePreset": "windows-core", "configuration": "Debug" },
+    { "name": "linux-debug", "configurePreset": "linux", "configuration": "Debug" },
+    { "name": "linux-release", "configurePreset": "linux", "configuration": "RelWithDebInfo" },
+    { "name": "linux-core", "configurePreset": "linux-core", "configuration": "Debug" },
+    { "name": "linux-asan", "configurePreset": "linux-asan", "configuration": "Debug" }
+  ],
+  "testPresets": [
+    {
+      "name": "debug",
+      "configurePreset": "default",
+      "configuration": "Debug",
+      "output": { "outputOnFailure": true }
+    },
+    {
+      "name": "release",
+      "configurePreset": "default",
+      "configuration": "RelWithDebInfo",
+      "output": { "outputOnFailure": true }
+    },
+    {
+      "name": "windows-debug",
+      "configurePreset": "windows",
+      "configuration": "Debug",
+      "output": { "outputOnFailure": true },
+      "filter": { "exclude": { "label": "interactive|perf" } }
+    },
+    {
+      "name": "windows-release",
+      "configurePreset": "windows",
+      "configuration": "RelWithDebInfo",
+      "output": { "outputOnFailure": true },
+      "filter": { "exclude": { "label": "interactive|perf" } }
+    },
+    {
+      "name": "windows-ci",
+      "configurePreset": "windows-ci",
+      "configuration": "RelWithDebInfo",
+      "output": { "outputOnFailure": true },
+      "filter": { "exclude": { "label": "interactive|perf" } },
+      "execution": { "noTestsAction": "error" }
+    },
+    {
+      "name": "windows-interactive",
+      "displayName": "Tests that take over the desktop session (hooks, input, clipboard, devices)",
+      "configurePreset": "windows",
+      "configuration": "Debug",
+      "output": { "outputOnFailure": true },
+      "filter": { "include": { "label": "interactive" } },
+      "execution": { "noTestsAction": "ignore", "jobs": 1 }
+    },
+    {
+      "name": "windows-perf",
+      "displayName": "The measuring tests (tools/perf/run_perf.py runs them, one at a time)",
+      "configurePreset": "windows",
+      "configuration": "RelWithDebInfo",
+      "output": { "outputOnFailure": true },
+      "filter": { "include": { "label": "perf" } },
+      "execution": { "jobs": 1 }
+    },
+    {
+      "name": "linux-perf",
+      "displayName": "The measuring tests on Linux (not the product's numbers)",
+      "configurePreset": "linux",
+      "configuration": "RelWithDebInfo",
+      "output": { "outputOnFailure": true },
+      "filter": { "include": { "label": "perf" } },
+      "execution": { "jobs": 1 }
+    },
+    {
+      "name": "windows-core-debug",
+      "configurePreset": "windows-core",
+      "configuration": "Debug",
+      "output": { "outputOnFailure": true },
+      "filter": { "exclude": { "label": "interactive|perf" } }
+    },
+    {
+      "name": "parity",
+      "displayName": "Golden vectors and reference screenshots, with the pinned environment",
+      "configurePreset": "windows-ci",
+      "configuration": "RelWithDebInfo",
+      "output": { "outputOnFailure": true },
+      "filter": { "include": { "label": "golden|screenshot" }, "exclude": { "label": "interactive|perf" } },
+      "execution": { "noTestsAction": "ignore" },
+      "environment": {
+        "QT_QPA_PLATFORM": "offscreen",
+        "QT_QPA_FONTDIR": "$env{WINDIR}\\Fonts",
+        "QT_FONT_DPI": "96",
+        "QT_SCALE_FACTOR": "1",
+        "QT_ENABLE_HIGHDPI_SCALING": "1"
+      }
+    },
+    {
+      "name": "linux-debug",
+      "configurePreset": "linux",
+      "configuration": "Debug",
+      "output": { "outputOnFailure": true },
+      "filter": { "exclude": { "label": "interactive|perf" } }
+    },
+    {
+      "name": "linux-release",
+      "configurePreset": "linux",
+      "configuration": "RelWithDebInfo",
+      "output": { "outputOnFailure": true },
+      "filter": { "exclude": { "label": "interactive|perf" } }
+    },
+    {
+      "name": "linux-core",
+      "configurePreset": "linux-core",
+      "configuration": "Debug",
+      "output": { "outputOnFailure": true },
+      "filter": { "exclude": { "label": "interactive|perf" } }
+    },
+    {
+      "name": "linux-asan",
+      "configurePreset": "linux-asan",
+      "configuration": "Debug",
+      "output": { "outputOnFailure": true },
+      "filter": { "exclude": { "label": "interactive|perf" } }
+    }
+  ],
+  "workflowPresets": [
+    {
+      "name": "windows-debug",
+      "displayName": "Windows: configure, build and test (Debug)",
+      "steps": [
+        { "type": "configure", "name": "windows" },
+        { "type": "build", "name": "windows-debug" },
+        { "type": "test", "name": "windows-debug" }
+      ]
+    },
+    {
+      "name": "windows-release",
+      "displayName": "Windows: configure, build and test (RelWithDebInfo)",
+      "steps": [
+        { "type": "configure", "name": "windows" },
+        { "type": "build", "name": "windows-release" },
+        { "type": "test", "name": "windows-release" }
+      ]
+    },
+    {
+      "name": "windows-ci",
+      "displayName": "Windows CI: warnings as errors, every test and lint (RelWithDebInfo)",
+      "steps": [
+        { "type": "configure", "name": "windows-ci" },
+        { "type": "build", "name": "windows-ci" },
+        { "type": "test", "name": "windows-ci" }
+      ]
+    },
+    {
+      "name": "windows-core",
+      "displayName": "Windows: core modules and their tests only (Debug, no Qt)",
+      "steps": [
+        { "type": "configure", "name": "windows-core" },
+        { "type": "build", "name": "windows-core-debug" },
+        { "type": "test", "name": "windows-core-debug" }
+      ]
+    },
+    {
+      "name": "parity",
+      "displayName": "Windows: golden vectors and reference screenshots (RelWithDebInfo)",
+      "steps": [
+        { "type": "configure", "name": "windows-ci" },
+        { "type": "build", "name": "windows-ci" },
+        { "type": "test", "name": "parity" }
+      ]
+    },
+    {
+      "name": "linux-debug",
+      "displayName": "Linux: configure, build and test (Debug)",
+      "steps": [
+        { "type": "configure", "name": "linux" },
+        { "type": "build", "name": "linux-debug" },
+        { "type": "test", "name": "linux-debug" }
+      ]
+    },
+    {
+      "name": "linux-release",
+      "displayName": "Linux: configure, build and test (RelWithDebInfo)",
+      "steps": [
+        { "type": "configure", "name": "linux" },
+        { "type": "build", "name": "linux-release" },
+        { "type": "test", "name": "linux-release" }
+      ]
+    },
+    {
+      "name": "linux-core",
+      "displayName": "Linux: core modules and their tests only (GCC, Debug)",
+      "steps": [
+        { "type": "configure", "name": "linux-core" },
+        { "type": "build", "name": "linux-core" },
+        { "type": "test", "name": "linux-core" }
+      ]
+    },
+    {
+      "name": "linux-asan",
+      "displayName": "Linux: configure, build and test under ASan + UBSan",
+      "steps": [
+        { "type": "configure", "name": "linux-asan" },
+        { "type": "build", "name": "linux-asan" },
+        { "type": "test", "name": "linux-asan" }
+      ]
+    }
+  ]
+}

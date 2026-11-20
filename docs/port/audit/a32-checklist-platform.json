@@ -1,0 +1,825 @@
+{
+ "area": "a32-user-facing-features",
+ "package": "M10 sweep",
+ "features": {},
+ "differences": [
+  {
+   "id": "a32-no-update-source",
+   "features": [
+    "UP-01",
+    "NP-01"
+   ],
+   "openwhisper": "The update check is on by default and asks GitHub (api.github.com, the Knuckles92/OpenWhisper repository) 8 s after every launch and every 4 hours while running.",
+   "fiorivoce": "The release identity names no update source ({\"kind\": \"none\"} in src/update/data/release_identity.json) until the lead records a FioriVoce repository: automatic checks never run and a manual check says the build has no update source, without touching the network; the scheduling, the request and its fallbacks are ported and tested against a configured repository and the loopback feed (FIORIVOCE_UPDATE_FEED_URL).",
+   "reason": "FioriVoce has no release feed of its own yet, and OpenWhisper's repository constant must not be ported (it would offer OpenWhisper releases to FioriVoce).",
+   "source": "docs/port/packages/M3.md, Changes to the cut 3 (No update source by default) and Open decisions 3; tests/update/test_schedule.cpp (a build without an update source never checks), tests/update/test_runtime.cpp (a build without an update source says so and never schedules)"
+  }
+ ],
+ "checklist": {
+  "GS-01": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/guided_setup_state.cpp",
+    "src/ui_setup/guided_setup_offer.cpp",
+    "src/ui_setup/setup_feature.cpp",
+    "src/ui_setup/guided_setup_dialog.cpp"
+   ],
+   "tests": [
+    "tests/appcore/test_guided_setup_state.cpp",
+    "tests/ui_setup/test_guided_setup_offer.cpp",
+    "tests/ui_setup/test_guided_setup.cpp",
+    "tests/ui_controller/test_startup_health_launch.cpp"
+   ],
+   "note": "750 ms after the window first shows and only while pending (kOfferDelayMs), waits for a modal, a hidden or a minimized window; eligibility (no settings file, no prior data) seeded before the database; the five states; a health launch offers nothing (GuidedSetup::install skips watchFirstShow with UpdateHealthLaunch); Not now / close / Esc / All settings save skipped (Skip setup is the same reject() button); Finish saves completed and a later skip keeps it; a failed save keeps the window; File > Guided setup opens on Record; Close replaces Skip setup after completion."
+  },
+  "GS-03": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_setup/guided_setup_dialog.cpp",
+    "src/ui_setup/setup_speech.cpp",
+    "src/ui_record/microphone_check.cpp"
+   ],
+   "tests": [
+    "tests/ui_setup/test_guided_setup.cpp",
+    "tests/ui_setup/test_guided_setup_golden.cpp",
+    "tests/ui_record/test_microphone_check.cpp"
+   ],
+   "note": "Microphone Test (level bar, works / Not hearing anything / Couldn't open the microphone: <reason>, nothing recorded, stops on Stop, kListenMs 15000 and on leaving the step), shortcut capture through Settings' conflict check, No number pad? Choose Change., press-or-hold through Settings with restore on a failed save, speech status with in-place model + runtime download, progress in the row, retry after failure, and Change to the Voice model page. The download goes through the app's downloadModel callback, so the app's consent and runtime dialogs decide."
+  },
+  "GS-04": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_setup/guided_setup_dialog.cpp",
+    "src/ui_setup/cleanup_provider_row.cpp"
+   ],
+   "tests": [
+    "tests/ui_setup/test_guided_setup_cleanup.cpp",
+    "tests/ui_setup/test_guided_setup.cpp",
+    "tests/ui_setup/test_guided_setup_cleanup_screenshots.cpp",
+    "tests/ui_setup/test_cleanup_provider_row.cpp"
+   ],
+   "note": "The switch writes through Settings and setup never changes it on its own (test_open_and_continue_preserve_all_choices_and_custom_prompt); the privacy sentence follows the actual endpoint and its remote=true tint (amber) is pinned by the reference widget tree; Add key opens api_keys, a saved key reads Connection not tested, never Connected, with no network probe; Light/Medium/High tiles with the example; a custom prompt leaves no tile selected and asks before replacing it."
+  },
+  "GS-06": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_setup/guided_setup_dialog.cpp",
+    "src/ui_setup/setup_speech.cpp",
+    "src/ui_setup/cleanup_provider_row.cpp"
+   ],
+   "tests": [
+    "tests/ui_setup/test_guided_setup.cpp",
+    "tests/ui_setup/test_guided_setup_cleanup.cpp",
+    "tests/ui_setup/test_guided_setup_screenshots.cpp"
+   ],
+   "note": "Keycap, try-it box with focus, where-text-lands line (three variants), Almost ready with Download and the cleanup Add key line, That worked / the failure reason, text put in the box after kTryFillQuickMs / kTryFillMs when it was not pasted, projections restored on a failed save, no provider probe and no download without a click, fiorivoceHotkeyWindow set (asserted and in the reference tree)."
+  },
+  "UP-01": {
+   "status": "difference",
+   "difference": "a32-no-update-source",
+   "cpp": [
+    "src/update/schedule.cpp",
+    "src/update/runtime.cpp",
+    "src/update/release_feed.cpp",
+    "src/update/trust.cpp",
+    "src/http/user_agent.cpp",
+    "src/ui_settings/general_page.cpp",
+    "src/ui_settings/app_pages.cpp"
+   ],
+   "tests": [
+    "tests/update/test_schedule.cpp",
+    "tests/update/test_runtime.cpp",
+    "tests/update/test_release_feed.cpp",
+    "tests/update/test_rate_limit.cpp",
+    "tests/update/test_check.cpp",
+    "tests/update/test_download.cpp",
+    "tests/ui_settings/test_app_pages.cpp"
+   ],
+   "note": "Against a configured source: launch check after 8 s that skips the 4 h interval once, 4 h interval, 1 h after a failure, FioriVoce/<version> User-Agent and nothing else, the HEAD latest-release redirect plus SHA256SUMS.txt fallback on a rate limit, and the certificate-failure text naming api.github.com, github.com and release-assets.githubusercontent.com (test_check.cpp, test_download.cpp) are pinned; the Settings tile text saying what is contacted is in the settings_general and settings_home reference trees. No git channel exists to exclude (a16-two-channels)."
+  },
+  "UP-02": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_setup/app_update_dialog.cpp",
+    "src/ui_setup/notes_view.cpp",
+    "src/uimath/release_notes.cpp",
+    "src/update/download.cpp"
+   ],
+   "tests": [
+    "tests/ui_setup/test_app_update_dialog.cpp",
+    "tests/ui_setup/test_app_update_dialog_screenshots.cpp",
+    "tests/uimath/test_release_notes.cpp",
+    "tests/update/test_download_fallback.cpp"
+   ],
+   "note": "Rendered notes with checksum sections and Full Changelog lines dropped (golden), a 56-280 px notes view fading only at clipped edges, progress with bytes and percent, Later / Don't notify me again / Don't check automatically saved once, Cancel turning into Close, an error restoring the notes with the body tone error, and the asset-API fallback on a gateway error."
+  },
+  "UP-03": {
+   "status": "verified",
+   "cpp": [
+    "src/update/release_feed.cpp",
+    "src/update/check.cpp",
+    "src/update/schedule.cpp",
+    "src/ui_settings/general_page.cpp"
+   ],
+   "tests": [
+    "tests/update/test_release_track.cpp",
+    "tests/update/test_runtime.cpp",
+    "tests/ui_settings/test_app_pages.cpp"
+   ],
+   "note": "releases?per_page=30, highest version, drafts and suffixed tags skipped, stable wins a tie, no downgrade after leaving beta (join then leave), rate-limited beta falls back to stable, the toggle makes the next check due; the Get beta updates tile saves update_beta_track_enabled. Like every check it needs an update source (a32-no-update-source)."
+  },
+  "UP-04": {
+   "status": "difference",
+   "difference": "a34-archive",
+   "cpp": [
+    "packaging/windows/FioriVoce.iss",
+    "packaging/windows/build-installer.ps1",
+    "src/update_native/eligibility.cpp",
+    "src/update_native/transaction.cpp",
+    "src/update_native/updater_log.cpp",
+    "src/update/apply.cpp",
+    "src/ui_controller/code_change_restart.cpp"
+   ],
+   "tests": [
+    "tools/release/tests/test_windows_installer.py",
+    "tests/update_native/test_eligibility.cpp",
+    "tests/update_native/test_transaction.cpp",
+    "tests/update_native/test_transaction_runner.cpp",
+    "tests/update_native/test_updater_log.cpp",
+    "tests/update/test_apply.cpp",
+    "tests/ui_controller/test_code_change_restart.cpp"
+   ],
+   "note": "The update archive is a Zip64 (FioriVoce-<ver>-win64.zip), not win64.tar.xz. Read in FioriVoce.iss (not run): PrivilegesRequired=lowest, Start Menu group, desktop and sign-in (userstartup) tasks, Add/Remove Programs entry, data under {localappdata}\\FioriVoce outside {app}. The native helper (swap, health check, rollback, updater.log), the setup-only fallback for elevated / Program Files installs and the Restart now prompt that waits for idle are pinned by the C++ tests named; tools/release/tests passed here (131 passed, 6 skipped). fiorivoce-updater is a console-subsystem exe started with CREATE_NO_WINDOW (src/process/win/start_detached.cpp, read, not compiled here). Related recorded differences: a16-parent-exit, a16-helper-command-line, a16-installer-recovery, a16-code-identity-installed."
+  },
+  "UP-05": {
+   "status": "other-platform",
+   "reason": "macOS DMG, notarization, in-place DMG update and macOS permissions [MAC]; FioriVoce ships for Windows (A16-24 other-platform)."
+  },
+  "UP-06": {
+   "status": "other-platform",
+   "reason": "Linux .deb / .pkg.tar.zst packages, ow/openwhisper commands, desktop entry and dependency checks [LINUX]; FioriVoce ships for Windows (A16-42, A34 Linux packaging other-platform)."
+  },
+  "UP-07": {
+   "status": "dropped",
+   "reason": "The ow / openwhisper source launchers and install.cmd / install.sh PATH installers are Python venv plumbing (A34-18, A34-19 dropped; docs/port/packages/M10.md a32 table: dropped UP-07). The terminal answers themselves live in fiorivoce-cli: --help, --version, --diagnostics, --api, --channel, --self-test and --workflow-smoke (src/cli/usage.cpp, src/cli/commands.cpp; tests/cli/test_cli.cpp, tests/cli/test_api_command.cpp, tests/cli/test_workflow_smoke.cpp)."
+  },
+  "UP-08": {
+   "status": "verified",
+   "cpp": [
+    "tools/release/windows_signing.py",
+    "tools/release/build_metadata.py",
+    "tools/release/check_release_qualification.py",
+    "src/update/release_feed.cpp"
+   ],
+   "tests": [
+    "tools/release/tests/test_windows_signing.py",
+    "tools/release/tests/test_build_metadata.py",
+    "tools/release/tests/test_release_qualification.py",
+    "tests/update/test_rate_limit.cpp"
+   ],
+   "note": "Trusted Signing (dlib + metadata) or PFX or a certificate thumbprint, unsigned as a visible no-op, windows_signed in BUILD-METADATA.json and SHA256SUMS.txt checked by the qualification script; the updater reads SHA256SUMS.txt on the rate-limit path. Run here: python3 -m pytest tools/release/tests, 131 passed, 6 skipped. signtool itself was not run."
+  },
+  "UP-09": {
+   "status": "verified",
+   "cpp": [
+    "tools/release/check_release_health.py",
+    "src/cli/workflow_smoke.cpp",
+    "src/cli/commands.cpp"
+   ],
+   "tests": [
+    "tools/release/tests/test_release_health.py",
+    "tests/cli/test_workflow_smoke.cpp",
+    "tests/cli/test_cli.cpp"
+   ],
+   "note": "The gate checks fiorivoce-cli --workflow-smoke's synthetic lifecycle report (limits, required data-safety checks, baseline regressions); --self-test is fiorivoce-cli's (A16-44: the frozen import audit is dropped)."
+  },
+  "GS-05": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_setup/guided_setup_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_setup/test_audit_a32_setup.cpp",
+    "tests/ui_setup/test_guided_setup.cpp",
+    "tests/ui_setup/test_guided_setup_screenshots.cpp"
+   ],
+   "note": "Auto-paste and live transcript write-through were pinned, the clipboard switch only by the reference tree: added 'the Output step's clipboard switch saves through Settings and restores a failed save' (tests/ui_setup/test_audit_a32_setup.cpp). Passes here. The Hyprland and macOS Accessibility caveats are other-platform (Windows shows the plain paste detail, guided_setup_dialog.cpp _refresh_output comment)."
+  },
+  "GS-02": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_setup/guided_setup_dialog.cpp",
+    "src/ui_setup/guided_setup_offer.cpp"
+   ],
+   "tests": [
+    "tests/ui_setup/test_audit_a32_setup.cpp",
+    "tests/ui_setup/test_guided_setup.cpp",
+    "tests/ui_setup/test_guided_setup_offer.cpp"
+   ],
+   "note": "Welcome only on the offer, the three clickable step buttons in any order and Enter continuing were pinned; that every page opens with focus on Continue (GuidedSetupDialog::focusPage) was checked only for the first page. Added tests/ui_setup/test_audit_a32_setup.cpp ('every step opens with focus on Continue, the Ready page on its try-it box') over Record, Clean up and Output after focus had moved away. Passes here."
+  },
+  "AG-01": {
+   "status": "verified",
+   "cpp": [
+    "src/cli/api_command.cpp",
+    "src/agentapi/history_server.cpp",
+    "src/agentapi/history_routes.cpp",
+    "src/agentapi/history_store.cpp",
+    "src/agentapi/history_cursor.cpp",
+    "src/agentapi/api_errors.cpp"
+   ],
+   "tests": [
+    "tests/cli/test_api_command.cpp",
+    "tests/agentapi/test_history_api.cpp",
+    "tests/agentapi/test_transcript.cpp",
+    "tests/fixtures/transcripts/agent_api.json"
+   ],
+   "note": "fiorivoce-cli --api with --port / --database, FIORIVOCE_API_TOKEN (32-512 printable ASCII), every endpoint, cursor paging (limit 1-100, default 20), literal case-insensitive q (1-500), since/before with a zone, kind, include_remote, 320-char excerpts with resource links, the error envelope and its codes, Host/Origin refusal, no-store, mode=ro + query_only: a20's A20-01 to A20-15, A20-46, A20-47, replayed by the 334-exchange transcript."
+  },
+  "AG-02": {
+   "status": "difference",
+   "difference": "a20-local-mcp-saved-content",
+   "cpp": [
+    "src/agentapi/mcp_tools.cpp",
+    "src/agentapi/mcp_server.cpp",
+    "src/agentapi/agent_controls.cpp",
+    "src/ui_automation/session_mcp.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_mcp_protocol.cpp",
+    "tests/agentapi/test_mcp_tools.cpp",
+    "tests/agentapi/test_agent_controls.cpp",
+    "tests/fixtures/transcripts/agent_mcp.json"
+   ],
+   "note": "The desktop session does not list get_live_state, list_actions, recent_events, run_action, notify_user or start/stop/cancel_dictation (they exist and are tested in test_mcp_tools.cpp). Verified for the rest: /mcp Streamable HTTP with a bearer token, the history tools, get_capabilities, get_settings, update_settings (atomic, restore object, ui_theme null resets), retitle_transcription / retitle_meeting (1-200 characters, finished local meetings only: test_unfinished_meetings_cannot_be_retitled)."
+  },
+  "AG-03": {
+   "status": "verified",
+   "cpp": [
+    "src/agentapi/agent_controls.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_agent_controls.cpp",
+    "tests/golden/services.agent_mcp.controls.json"
+   ],
+   "note": "SETTING_CONTROLS replayed from OpenWhisper's vectors (keys, groups, choices, per-key writable grants), no credential or internal key among them, and test_agents_can_neither_read_nor_change_the_custom_cleanup_prompt."
+  },
+  "AG-04": {
+   "status": "difference",
+   "difference": "a19-live-api-not-served",
+   "cpp": [
+    "src/agentapi/live_api.cpp",
+    "src/agentapi/sse_stream.cpp",
+    "src/agentapi/app_control.cpp",
+    "src/automation/filters.cpp",
+    "src/ui_automation/session_mcp.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_live_api.cpp",
+    "tests/agentapi/test_live_golden.cpp",
+    "tests/agentapi/test_app_control.cpp",
+    "tests/automation/test_filters.cpp"
+   ],
+   "note": "Nothing of the line is served in the running app (mount_live_api is never called). LiveApi, SseStream (ids, Last-Event-ID, pings, events.gap reasons, replay), UiAppControl and FilterLeases (60 s lease, loopback URLs) are complete and tested on their own (a19 A19-44 to A19-47)."
+  },
+  "AG-05": {
+   "status": "difference",
+   "difference": "a19-live-api-not-served",
+   "cpp": [
+    "src/automation/event_bus.cpp",
+    "src/automation/catalog.cpp",
+    "src/history/manager.cpp",
+    "src/meeting/detail/runtime_past.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_event_bus.cpp",
+    "tests/automation/test_golden.cpp",
+    "tests/golden/services.automation.catalog.json",
+    "tests/ui_controller/test_action_cancel.cpp"
+   ],
+   "note": "No program can read the events in the running app (no /v1/events, no recent_events tool, no hooks started: a19-hooks-not-started). The bus itself is verified: the 15 public types plus events.gap, the id/seq/type/time/v/data wire shape, payload builders that carry no selected or caret text, window titles, paths or audio (catalog vectors), a seq base that grows across runs, and deleting history clearing the replay (test_deleting_history_drops_the_replay_buffer in tests/ui_controller/test_action_cancel.cpp; meetings through MeetingDeps::forget_replayable_events)."
+  },
+  "AG-06": {
+   "status": "difference",
+   "difference": "a19-hooks-not-started",
+   "cpp": [
+    "src/automation/signing.cpp",
+    "src/automation/webhooks.cpp",
+    "src/automation/action_runtime.cpp",
+    "src/agentapi/mcp_events_delivery.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_signing.cpp",
+    "tests/golden/services.automation.signing.json",
+    "tests/automation/test_webhooks.cpp",
+    "tests/automation/test_action_runtime.cpp"
+   ],
+   "note": "Saved webhooks receive no app events and MCP Events deliveries are not built (a20-local-mcp-saved-content). The signing itself (whsec_ secrets, webhook-id / webhook-timestamp / webhook-signature v1,<base64 HMAC-SHA256 of id.timestamp.body>) is verified and is used by the webhook test send and by confirmed webhook actions (per-action secret, A19-18)."
+  },
+  "AG-07": {
+   "status": "difference",
+   "difference": "a19-live-api-not-served",
+   "cpp": [
+    "src/automation/channel_bridge.cpp",
+    "src/cli/channel_command.cpp",
+    "src/agentapi/setup.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_channel_bridge.cpp",
+    "tests/automation/test_channel_golden.cpp",
+    "tests/cli/test_channel_e2e.cpp",
+    "tests/cli/test_channel_setup.cpp",
+    "tests/agentapi/test_setup.cpp"
+   ],
+   "note": "The bridge (fiorivoce-cli --channel, also through fiorivoce.exe --channel) is ported and tested: experimental claude/channel, channel.message forwarded as notifications/claude/channel with origin, the reply tool posting to /v1/notify, reconnect and the gap notice (A19-50, A19-51, A19-63, A19-64). In the running app it has nothing to connect to: /v1/events and /v1/notify are not mounted."
+  },
+  "AG-08": {
+   "status": "other-platform",
+   "reason": "Omarchy/Hyprland D-Bus controls (org.openwhisper.Control) and the Omarchy bar widget [OMARCHY]; FioriVoce ships for Windows (docs/port/packages/M10.md a32 table: other-platform AG-08)."
+  },
+  "AG-09": {
+   "status": "verified",
+   "cpp": [
+    "src/log/diagnostics_report.cpp",
+    "src/log/failure_journal.cpp",
+    "src/log/metrics_capture.cpp",
+    "src/cli/commands.cpp"
+   ],
+   "tests": [
+    "tests/log/test_diagnostics.cpp",
+    "tests/cli/test_cli.cpp"
+   ],
+   "note": "fiorivoce-cli --diagnostics OUTPUT.json refuses an existing file, writes schema 1 (versions, system/release/machine/cpu_count/nvidia_gpu, allowlisted settings), the last kMaxFailures 50 sanitized failures and the last kMaxMetricSamples 100 samples per metric; the report code makes no network call."
+  },
+  "AG-10": {
+   "status": "verified",
+   "cpp": [
+    "src/process/process_env.cpp",
+    "src/process/win/explorer_open.cpp",
+    "src/process/launch.cpp"
+   ],
+   "tests": [
+    "tests/process/test_process_env.cpp",
+    "tests/process/test_explorer_open.cpp",
+    "tests/process/test_launch.cpp",
+    "tests/ui_shell/test_bootstrap.cpp"
+   ],
+   "note": "external_env / child_env vectors (dotenv keys and app-prepended PATH entries removed), links through Explorer with Explorer's environment, terminal words as one argv element with .cmd/.bat/.ps1 refused (A19-29, A19-31, A19-52, A20-44). The Windows halves are read, not compiled here; their logic runs through the fakes in these tests."
+  },
+  "AG-11": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/agent_actions.cpp",
+    "src/agents/drivers.cpp",
+    "src/agents/acp.cpp",
+    "src/agents/agent_tasks.cpp"
+   ],
+   "tests": [
+    "tests/agents/test_handoff.cpp",
+    "tests/agents/test_ask.cpp",
+    "tests/agents/test_acp.cpp",
+    "tests/agents/test_agent_actions_golden.cpp",
+    "tests/golden/services.actions.agents.json"
+   ],
+   "note": "app_links vectors (claude-cli:// and codex://new?prompt=...&path= for the folder Codex adds as a local project, only for a registered handler), terminal fallback, Claude with no tools, Codex --ignore-user-config with tools off, OpenCode over ACP with deny-all permissions (A19-24 to A19-28). In FioriVoce every action run is confirmed first (a19-confirmed-actions)."
+  },
+  "SE-01": {
+   "status": "verified",
+   "cpp": [
+    "src/engine/nemo_api.cpp",
+    "src/engine/runtime.cpp",
+    "src/speech/parakeet_backend.cpp",
+    "src/models/catalog.cpp",
+    "src/models/component_details.cpp",
+    "src/settings/keys.inc"
+   ],
+   "tests": [
+    "tests/engine/test_runtime.cpp",
+    "tests/engine/test_recognizer.cpp",
+    "tests/speech/test_parakeet_backend.cpp",
+    "tests/models/test_golden.cpp",
+    "tests/models/test_component_details.cpp",
+    "tests/settings/test_install.cpp"
+   ],
+   "note": "Parakeet TDT 0.6B v3 (parakeet-v3) is the selected_model default and dropped engines read as it (test_install.cpp); the runtime is found and loaded by path (NemoApi::get, never linked); CPU, CUDA (Turing or newer) and Vulkan runtimes and the nvidia_gpu_runtime choice replay OpenWhisper's vectors; decode tests run against the real CPU runtime here. The Metal runtime is macOS (other platform: catalog row kept, not offered on Windows)."
+  },
+  "SE-02": {
+   "status": "verified",
+   "cpp": [
+    "src/models/data/speech_catalog.json",
+    "src/models/speech_catalog.cpp",
+    "src/models/model_details.cpp",
+    "src/models/consent_text.cpp"
+   ],
+   "tests": [
+    "tests/models/test_model_details.cpp",
+    "tests/models/test_downloads_model.cpp",
+    "tests/ui_downloads/test_downloads_page.cpp"
+   ],
+   "note": "orukeet-v0.1: the pinned Q8 gguf (714 MB) on the same NVIDIA Speech runtime, '25 European languages, including Russian and English' on the Downloads page, CC-BY-SA-4.0 with the Oruk AI / NVIDIA maintainer line and the licence URL in the consent text (test_orukeet_metadata_and_notice_identify_actual_weight_terms)."
+  },
+  "SE-03": {
+   "status": "dropped",
+   "reason": "Nemotron 3.5 ASR Streaming is dropped (docs/port/ARCHITECTURE.md decision 43; difference a14-local-engine); a saved nemotron choice reads as Parakeet (src/settings/keys.inc selected_model comment, architecture 7.2)."
+  },
+  "SE-04": {
+   "status": "dropped",
+   "reason": "Local Whisper (faster-whisper / CTranslate2) is another speech engine than Parakeet [DROP]."
+  },
+  "SE-05": {
+   "status": "dropped",
+   "reason": "Parakeet Unified on transcribe.cpp is another runtime and engine [DROP]."
+  },
+  "SE-06": {
+   "status": "dropped",
+   "reason": "Parakeet MLX (Apple Silicon) is another engine [DROP]."
+  },
+  "SE-07": {
+   "status": "dropped",
+   "reason": "Qwen3-ASR (torch runtime) is another speech engine [DROP]."
+  },
+  "SE-08": {
+   "status": "dropped",
+   "reason": "Moonshine Streaming is another speech engine [DROP]."
+  },
+  "SE-09": {
+   "status": "verified",
+   "cpp": [
+    "src/speech/cloud_backend.cpp",
+    "src/speech/endpoints.cpp",
+    "src/speech/api_models.cpp",
+    "src/speech/upload_splitter.cpp",
+    "src/speech/endpoint_key_check.cpp"
+   ],
+   "tests": [
+    "tests/speech/test_cloud_backend.cpp",
+    "tests/speech/test_endpoints.cpp",
+    "tests/speech/test_api_models.cpp",
+    "tests/speech/test_upload_splitter.cpp",
+    "tests/speech/test_cloud_warmup.cpp",
+    "tests/speech/test_endpoint_key_check.cpp"
+   ],
+   "note": "Cloud transcription is kept (ARCHITECTURE.md 'CloudSpeechBackend (fv_speech; OpenAI, Groq, own OpenAI-compatible server)', M2 cloud backend): gpt-transcribe and the retiring-model retry, Groq through its OpenAI-compatible route, own servers with their presets, keys and model lists, 23 MB silence-aware splitting with 3 concurrent uploads, cancel without retry."
+  },
+  "SE-10": {
+   "status": "verified",
+   "cpp": [
+    "src/remote/remote_backend.cpp",
+    "src/remote/client.cpp",
+    "src/remote/connection.cpp"
+   ],
+   "tests": [
+    "tests/remote/test_remote_backend.cpp",
+    "tests/remote_host/test_remote_backend.cpp",
+    "tests/remote/test_client.cpp",
+    "tests/speech/test_remote_host_languages.cpp"
+   ],
+   "note": "The remote engine is kept and ported (RemoteSpeechBackend: same 16 kHz windows over the OpenWhisper wire, busy retry, reconnect, cancel keeps the connection; the host's language choices). Its details are section 20's RE lines; open area handoffs on it: A17-28 (a client cannot send configure_runtime from the engine card, A14-75) and A17-33 (the public-network note), both already with the lead."
+  },
+  "SE-11": {
+   "status": "dropped",
+   "reason": "isolated_worker, optional backends, the speech worker's kill-on-stall and bundle sidecars are Python process plumbing [DROP] (docs/port/packages/M10.md a32 table: dropped SE-11). The user-visible rule it carried (cancel stops stalled decoding and downloads, no late text or paste) is audited as QA-01."
+  },
+  "SE-13": {
+   "status": "verified",
+   "cpp": [
+    "src/speech/languages.cpp",
+    "src/speech/dictation_language.cpp",
+    "src/models/speech_catalog.cpp"
+   ],
+   "tests": [
+    "tests/speech/test_languages.cpp",
+    "tests/speech/test_dictation_language.cpp",
+    "tests/speech/test_remote_host_languages.cpp",
+    "tests/ui_downloads/test_downloads_page.cpp"
+   ],
+   "note": "Parakeet offers en, ru, es, fr, pt and Auto (no Mandarin; a saved zh reads as Auto without a write), the API engine offers none, a paired computer shows the host engine's choices; the model rows say '25 European languages'. Golden vectors from services.local_asr.languages."
+  },
+  "TX-01": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/profiles.cpp",
+    "src/llm/credentials.cpp",
+    "src/llm/cleanup_settings.cpp",
+    "src/ui_widgets/text_model_picker.cpp",
+    "src/ui_widgets/searchable_combo.cpp",
+    "src/uimath/fuzzy_match.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_profiles.cpp",
+    "tests/llm/test_credentials.cpp",
+    "tests/llm/test_cleanup_settings.cpp",
+    "tests/llm/test_meeting_llm_settings.cpp",
+    "tests/golden/services.text_llm.json",
+    "tests/ui_widgets/test_text_model_picker.cpp",
+    "tests/uimath/test_fuzzy_match.cpp"
+   ],
+   "note": "The ten built-ins in order, named custom endpoints (Chat Completions or Responses, key by variable name, blank for none, up to 50), OpenRouter's X-Title carrying identity().product, openrouter/free as the default model, independent cleanup and meeting pairs, the Active badge (_update_active_badge vectors), fuzzy model search (fuzzy_score vectors), and an unknown or deleted custom provider resolving to openrouter + openrouter/free for cleanup and to the default endpoint for meetings (A12-01 to A12-04, A12-12)."
+  },
+  "TX-02": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/profiles.cpp",
+    "src/llm/local_servers.cpp",
+    "src/llm/generation.cpp",
+    "src/ui_personalize/cleanup_model_section.cpp",
+    "src/ui_widgets/text_model_picker.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_profiles.cpp",
+    "tests/llm/test_local_servers.cpp",
+    "tests/llm/test_generation.cpp",
+    "tests/golden/services.local_text_servers.json",
+    "tests/ui_personalize/test_cleanup_model_section.cpp",
+    "tests/ui_widgets/test_text_model_picker.cpp"
+   ],
+   "note": "The five preset addresses, Edit changing the address and key variable (test_editing_a_local_preset_updates_its_server_and_key_variable), one loopback probe per Settings window marking 'Running' and naming 'Answering at <url> - choose Edit to use it' for llama.cpp on 8080 (test_running_local_servers_are_marked_and_offered_instead_of_a_missing_key), models and context/tools/thinking from each server's own routes with embedding/speech/rerank dropped, and Off sending reasoning_effort none (test_generation.cpp)."
+  },
+  "TX-03": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/native_core.cpp",
+    "src/llm/profiles.cpp",
+    "src/meeting_intel/detail/report_pass.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_native_requests.cpp",
+    "tests/meeting_intel/test_custom_report.cpp"
+   ],
+   "note": "Every endpoint but OpenAI and OpenRouter (refuses_unsupported_tools) must call the noop test tool within 10 s, else 'Model did not call the test tool. Choose a tool-capable model for <product>.' ('an endpoint that might ignore tools must call the test tool'); a custom report on a model without tools gets one round without tools. The changelog's 'standard engine falls back to JSON answers' is DirectOpenRouterAgent's JSON mode, which OpenWhisper at the reference commit never constructs (base.py migrates direct to Pi): dropped with it (a26 A26-09, A26-44); the native loop is a24-native-agent-cores / a26-native-agent-loop."
+  },
+  "TX-04": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/profiles.cpp",
+    "src/ui_setup/cleanup_provider_row.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_profiles.cpp",
+    "tests/golden/services.text_llm.json",
+    "tests/ui_setup/test_guided_setup_cleanup.cpp"
+   ],
+   "note": "destination_is_remote vectors: localhost, 127.0.0.1 and [::1] are on this computer, 192.168.1.9 and hosted addresses are remote; the guided setup privacy line follows the same rule (test_privacy_follows_actual_endpoint_and_never_claims_connected)."
+  },
+  "SE-12": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_controller/application_controller.cpp",
+    "src/appcore/engine_reload.cpp",
+    "src/speech/speech_service.cpp",
+    "src/speech/messages.cpp",
+    "src/engine/nemo_api.cpp"
+   ],
+   "tests": [
+    "tests/engine/test_audit_a32_engine.cpp",
+    "tests/ui_controller/test_application_controller.cpp",
+    "tests/appcore/test_engine_reload.cpp",
+    "tests/speech/test_speech_service.cpp",
+    "tests/speech/test_parakeet_backend.cpp"
+   ],
+   "note": "Initial load after first paint (test_notify_main_ui_ready_loads_deferred_local_backend), 'Reloading speech engine...', release while Meeting Mode runs ('Released while Meeting Mode runs') and the restore, and 'The speech engine stopped unexpectedly. Details are in fiorivoce.log.' were pinned. That a loaded runtime is never released (NemoApi::get keeps a leaked table; FreeLibrary is only in SharedLibrary::close, which the table never reaches) had no test: added tests/engine/test_audit_a32_engine.cpp ('a loaded runtime is loaded once and never released', [decode]), which loads the real CPU runtime twice by two spellings and gets the same bound table. Passes here (engine: 26 of 26)."
+  },
+  "NP-01": {
+   "status": "difference",
+   "difference": "a32-no-update-source",
+   "cpp": [
+    "src/settings/keys.inc",
+    "src/update/schedule.cpp",
+    "src/log/diagnostics_report.cpp"
+   ],
+   "tests": [
+    "tests/settings/test_defaults.cpp",
+    "tests/update/test_schedule.cpp",
+    "tests/update/test_runtime.cpp",
+    "tests/log/test_diagnostics.cpp"
+   ],
+   "note": "With no update source nothing connects by default at all. Every other network feature defaults off or asks (mcp_enabled, host_mode, remote_host_enabled, transcript_cleanup_enabled, typesafe_enabled false; hf_access_policy ask), as the settings defaults golden pins; there is no telemetry, analytics or crash upload code, and --diagnostics writes a local file only."
+  },
+  "NP-02": {
+   "status": "difference",
+   "difference": "a20-listener-interface",
+   "cpp": [
+    "src/remote/wire.h",
+    "src/remote_host/service.h",
+    "src/remote_host/discovery_responder.cpp",
+    "src/agentapi/mcp_runtime.cpp",
+    "src/cli/api_command.cpp",
+    "src/meeting_web/server.cpp"
+   ],
+   "tests": [
+    "tests/remote_host/test_discovery_responder.cpp",
+    "tests/remote/test_discovery_codec.cpp",
+    "tests/remote_host/test_speech_host.cpp",
+    "tests/agentapi/test_mcp_runtime.cpp",
+    "tests/cli/test_api_command.cpp",
+    "tests/meeting_web/test_server.cpp"
+   ],
+   "note": "The desktop MCP listener is loopback only (no Tailscale bind). Verified: host TCP 47821 (DEFAULT_PORT) and UDP discovery on 47821 answering only allowed private/link-local/loopback/Tailscale senders while sharing runs (A17-34, A17-55), MCP on 127.0.0.1:8767, the History API on 127.0.0.1:8766, the meeting dashboard on loopback unless bound to lan. Binding every interface (the host's default bind 0.0.0.0 in RemoteEngineServiceDeps, the dashboard's lan bind) is pinned only by [interactive] tests written for the owner (amendment 14: it can open a firewall prompt), never run here."
+  },
+  "NP-03": {
+   "status": "verified",
+   "cpp": [
+    "src/models/hf_access.cpp",
+    "src/models/hf_access_policy.cpp",
+    "src/models/speech_model_cache.cpp",
+    "src/models/speaker_model.cpp"
+   ],
+   "tests": [
+    "tests/models/test_hf_access.cpp",
+    "tests/models/test_hf_access_policy.cpp",
+    "tests/models/test_speech_model_cache.cpp",
+    "tests/golden/services.hf_access.json"
+   ],
+   "note": "A cached model always loads locally with no network check (test_cached_model_always_loads_locally; the native loader reads the local gguf), Ask (default) / Always / Never, legacy offline migration, and HF_HUB_OFFLINE=1 blocking even a granted download and every model host (test_env_override_blocks_even_with_grant, test_hard_offline_blocks_all_model_hosts)."
+  },
+  "NP-04": {
+   "status": "difference",
+   "difference": "a31-speaker-pass-explicit",
+   "cpp": [
+    "src/models/consent_text.cpp",
+    "src/ui_meeting/ai_insights_copy.cpp",
+    "src/ui_settings/fast_judgments_page.cpp"
+   ],
+   "tests": [
+    "tests/models/test_consent_text.cpp",
+    "tests/ui_meeting/test_ai_insights_copy.cpp",
+    "tests/ui_settings/test_fast_judgments_page.cpp",
+    "tests/ui_downloads/test_downloads_page.cpp"
+   ],
+   "note": "Speaker audio upload has no Settings-time consent: the explicit Past Meetings action asks each time and names what is sent. Verified: model download and runtime consents name huggingface.co and sizes (hf_consent_dialog vectors), the AI insights consent names the meeting's destination per meeting (a31-ai-insights-consent-per-meeting), the Fast judgments page names api.typesafe.ai, and links open only when clicked (the Downloads page's licence link)."
+  },
+  "NP-05": {
+   "status": "verified",
+   "cpp": [
+    "src/log/setup.cpp",
+    "src/log/crash_handler.cpp",
+    "src/log/failure_journal.cpp",
+    "src/automation/webhooks.cpp",
+    "src/credentials/store.cpp"
+   ],
+   "tests": [
+    "tests/log/test_setup.cpp",
+    "tests/log/test_crash_handler.cpp",
+    "tests/log/test_diagnostics.cpp",
+    "tests/automation/test_webhooks.cpp",
+    "tests/credentials/test_store.cpp"
+   ],
+   "note": "fiorivoce.log (identity().log_file) and fiorivoce.crash.log (with_suffix .crash.log) pinned; the failure journal never formats the message or exception, hook/program/filter logs never carry text, URLs or secrets (A19-53), a credential never reaches the log. The 'kind of error only' rule for every other failure site (type_display_name(typeid(...)) in place of what()) was read at the sites seen in this audit, not pinned everywhere; no lint enforces it."
+  },
+  "NP-06": {
+   "status": "verified",
+   "cpp": [
+    "src/credentials/store.cpp",
+    "src/credentials/win/wincred_backend.cpp",
+    "src/backup/create.cpp",
+    "src/backup/sanitize.cpp",
+    "src/agentapi/mcp_runtime.cpp",
+    "src/automation/secrets.cpp"
+   ],
+   "tests": [
+    "tests/credentials/test_store.cpp",
+    "tests/credentials/test_wincred.cpp",
+    "tests/backup/test_create_inspect.cpp",
+    "tests/backup/test_restore.cpp",
+    "tests/agentapi/test_mcp_runtime.cpp",
+    "tests/automation/test_secrets_and_control.cpp"
+   ],
+   "note": "Keys the app saves go to the Windows Credential Manager under identity().credential_service (MCP token, webhook and action secrets included); a backup has no .env member and strips secret-bearing settings, and a restore imports none (A10-27, A10-28, A19-18, A20-19). Keys the user sets in the environment or .env are read as OpenWhisper reads them."
+  },
+  "PL-01": {
+   "status": "other-platform",
+   "reason": "Omarchy/Hyprland mode (compact chrome, desktop palette, compositor shortcuts, OPENWHISPER_UI) [OMARCHY]; FioriVoce ships for Windows."
+  },
+  "PL-02": {
+   "status": "other-platform",
+   "reason": "Linux system-audio capture diagnostics and remediation (PulseAudio/PipeWire keys and commands) [LINUX]; A16-43 other-platform. FioriVoce captures system audio with WASAPI loopback (a25-native-wasapi-loopback)."
+  },
+  "PL-03": {
+   "status": "other-platform",
+   "reason": "macOS DMG, permissions checklist, Dock icon and in-place updates [MAC]; A16-24 other-platform."
+  },
+  "PL-04": {
+   "status": "other-platform",
+   "reason": "Wayland limits (no global hook, in-app overlay, no walkthrough column) [LINUX]."
+  },
+  "PL-05": {
+   "status": "other-platform",
+   "reason": "X11 hotkeys, keyboard hook and Qt grab for screenshots [LINUX]; the Windows hook and capture are audited in a06 and a22."
+  },
+  "QA-01": {
+   "status": "verified",
+   "cpp": [
+    "src/appcore/cancel_router.cpp",
+    "src/dictation/transcription_runtime.cpp",
+    "src/cli/workflow_smoke.cpp",
+    "src/llm/transcript_cleanup.cpp",
+    "src/models/component_runtime.cpp"
+   ],
+   "tests": [
+    "tests/appcore/test_cancel_router.cpp",
+    "tests/ui_controller/test_cancel_routing.cpp",
+    "tests/dictation/test_automation_cancel.cpp",
+    "tests/cli/test_workflow_smoke.cpp",
+    "tests/llm/test_cleanup_deadline.cpp",
+    "tests/models/test_component_runtime.cpp",
+    "tests/models/test_model_runtime.cpp"
+   ],
+   "note": "Cancel routing in order with 'Nothing to cancel' when idle, second cancels quiet while recording, after the stop and while transcribing, the workflow smoke's cancel during a blocked decode failing if canceled text escapes ('Canceled text escaped through the queued delivery'), cleanup cancel ending the wait at once, canceled model/runtime installs reloading nothing."
+  },
+  "QA-02": {
+   "status": "verified",
+   "cpp": [
+    "src/recorder/journal.cpp",
+    "src/dictation/transcription_runtime.cpp",
+    "src/dictation/hotkey_runtime.cpp"
+   ],
+   "tests": [
+    "tests/recorder/test_failure_strings.cpp",
+    "tests/recorder/test_journal.cpp",
+    "tests/dictation/test_runtime_flow.cpp",
+    "tests/dictation/test_cleanup_runtime.cpp",
+    "tests/dictation/test_hotkey_runtime.cpp",
+    "tests/dictation/test_cancel.cpp"
+   ],
+   "note": "Storage that does not finish is reported and nothing is saved as a success; a lost microphone keeps the audio as a failed recording with nothing pasted; a killed recording's journal is recovered at startup and only an explicit cancel removes it; a failed stop drops the job, a stop after cancel claims no job, a lost release lets the next press stop the recording."
+  },
+  "QA-03": {
+   "status": "verified",
+   "cpp": [
+    "src/clipboard/temporary_clipboard.cpp"
+   ],
+   "tests": [
+    "tests/clipboard/test_temporary_clipboard.cpp",
+    "tests/clipboard/test_rich_text.cpp",
+    "tests/clipboard/test_golden.cpp",
+    "tests/golden/ui_qt.clipboard.json",
+    "tests/clipboard/test_files.cpp"
+   ],
+   "note": "Text, rich and custom formats restored, a user's own copy after the stage never overwritten, consecutive stages restore the original, cleanup restores a pending clipboard, a failed stage write prevents the paste, the product-named ownership marker (application/x-fiorivoce-auto-paste) beside staged text (A06-31 to A06-37). The Windows sequence-number half is read, not run here."
+  },
+  "QA-04": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_shell/bootstrap.cpp",
+    "src/ui_controller/application_controller.cpp",
+    "src/appcore/engine_reload.cpp",
+    "tools/perf/run_perf.py",
+    "tools/perf/check_budgets.py"
+   ],
+   "tests": [
+    "tests/ui_controller/test_application_controller.cpp",
+    "tests/appcore/test_engine_reload.cpp",
+    "tests/perf/test_startup.cpp",
+    "tests/perf/test_key_to_text.cpp",
+    "tools/perf/tests/test_budgets.py"
+   ],
+   "note": "Ordering verified: the window shows before the engine loads (A03-10, test_notify_main_ui_ready_loads_deferred_local_backend in tests/ui_controller/test_application_controller.cpp) and the engine is warmed after it loads ('reload warms after load...' in tests/appcore/test_engine_reload.cpp); the converter-preload half is Python lazy-import plumbing with no C++ counterpart. Pinned: tools/perf/budgets.json holds startup_to_window_s (max 0.4 s, p50, cold) and idle_rss_mb (max 150 MB) measured by 'perf.startup to the main window and idle footprint' (tests/perf/test_startup.cpp, real Bootstrap offscreen over fakes), key_to_text_p95_ms (max 300 ms) by 'perf.key to text with the fake engine' and key_to_text_decode_p95_ms (info) by 'perf.key to text with Parakeet' (tests/perf/test_key_to_text.cpp); check_budgets.py fails a miss and names its owner (tools/perf/tests/test_budgets.py). The startup case executes: a Debug smoke on a shared 4-core Linux container gave startup_to_window_s 0.243 s and idle_rss_mb 94.9 (not the product's numbers). Not pinned: the judged measurement is the owner's Windows run described in tools/perf/README.md ('The owner's Windows run': run_perf.py --preset windows-release --report-to docs/port/performance-report.md, then check_budgets.py), which has not been made, so no number in the committed tree (no docs/port/performance-report.md) shows these budgets are met."
+  },
+  "QA-05": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_shell/bootstrap.cpp",
+    "src/appcore/shutdown_plan.cpp",
+    "src/ui_controller/application_controller.cpp",
+    "src/ui_controller/controller_feature.cpp",
+    "src/ui_controller/quit_confirm.cpp",
+    "src/ui_controller/update_handoff.cpp",
+    "src/log/metrics_capture.cpp"
+   ],
+   "tests": [
+    "tests/perf/test_shutdown.cpp",
+    "tests/ui_controller/test_quit_install.cpp",
+    "tests/ui_shell/test_quit_jobs.cpp",
+    "tests/appcore/test_shutdown_plan.cpp",
+    "tests/ui_controller/test_update_handoff.cpp",
+    "tests/ui_controller/test_audit_a32_controller.cpp",
+    "tests/log/test_diagnostics.cpp"
+   ],
+   "note": "Still verified: busy-quit asks first ('a user quit mid task asks first' in test_update_handoff.cpp, 'a32 MW-15: the quit question names the work it would stop' in test_audit_a32_controller.cpp), the quit steps run once in A03-29 order and record shutdown_s (test_shutdown_plan.cpp), running jobs and io tasks are waited for before the database closes (test_quit_jobs.cpp), logging closes with a bounded wait (test_diagnostics.cpp), the update hand-off forces a stalled exit (HandoffWatchdog). Fixed: Quit did not ask while a component installed, because nothing set ActivityState's component_installing; controller_feature.cpp now sets it from ComponentCoordinator::is_any_installing() when an install starts and finishes, as OpenWhisper's get_component_installing reads it ('quit asks first while a component installs' in tests/ui_controller/test_quit_install.cpp). Measured: OpenWhisper's release-health row 'Quit while workers are busy | Measure process exit time, including pending history writes and component installation' is the case 'perf.quit while workers are busy' (tests/perf/test_shutdown.cpp): the real Bootstrap offscreen over fakes, Quit confirmed through the busy question during the stop's decode of a 120 s dictation (a windowed backend that, like ParakeetBackend, checks cancel before each 30 s window and cannot interrupt one; window modelled at 1.5 s) and during the CUDA runtime's download by the real curl client from 127.0.0.1; it records quit_transcribing_ms, quit_transcribing_exit_ms, quit_installing_ms, quit_installing_exit_ms and shutdown_s, all in tools/perf/budgets.json as compare 'info' (no budget) because OpenWhisper documents no bound ('There is no application-wide hard shutdown deadline', docs/release-health.md Shutdown limits; check_release_health.py's 45 s deadline and cleanup_s 2 s cover the CLI workflow smoke, not Quit), and listed as unavailable in baseline-openwhisper.json. A Debug smoke on a shared 4-core Linux container gave 1507-1845 ms for the transcription quit (one uninterruptible window) and 19 ms for the install quit, each at most 17 ms more to Bootstrap::run returning. Not pinned: the time to process exit after main() returns (C runtime and Qt teardown), a quit during a pending history write, and the judged numbers: the owner's Windows run in tools/perf/README.md ('The owner's Windows run') has not been made, so no committed number shows these times on the product's machine."
+  },
+  "QA-06": {
+   "status": "difference",
+   "difference": "a10-fvbackup-format",
+   "cpp": [
+    "src/base/identity.cpp",
+    "src/base/paths.cpp",
+    "src/history/manager.cpp",
+    "src/walkthrough/storage.cpp",
+    "src/ui_record/record_feature.cpp",
+    "src/log/failure_journal.cpp",
+    "src/log/metrics_capture.cpp",
+    "src/backup/restore.cpp"
+   ],
+   "tests": [
+    "tests/base/test_paths.cpp",
+    "tests/settings/test_install.cpp",
+    "tests/cli/test_cli.cpp",
+    "tests/backup/test_golden.cpp",
+    "tests/golden/services.backup.json",
+    "tests/log/test_diagnostics.cpp",
+    "tests/backup/test_restore.cpp"
+   ],
+   "note": "The files carry identity() names (fiorivoce_settings.json, fiorivoce.db, fiorivoce.log, .fiorivoce-restore); the data root has no checkout rule (a01-no-checkout-data-root). Otherwise the same set: recordings, meetings, captures (walkthrough captures_root), scratchpad.txt, diagnostic-failures.json and diagnostic-metrics.json (kJournalName, kMetricsName), with the backup member and restore rules replayed from services.backup."
+  }
+ }
+}

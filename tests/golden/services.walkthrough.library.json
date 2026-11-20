@@ -1,0 +1,1319 @@
+{
+ "module": "services.walkthrough.library",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time"
+ },
+ "functions": {
+  "write_up_parts": [
+   {
+    "args": [
+     "# Two slow spots\n\n1. Billing stalls.\n\n   ![Billing](shot-1.png)\n\n2. Invoices hang.\n\n![Invoices](shot-2.png)\n\nBoth happen after sign-in."
+    ],
+    "result": [
+     [
+      "# Two slow spots\n\n1. Billing stalls.",
+      "   ![Billing](shot-1.png)"
+     ],
+     [
+      "2. Invoices hang.",
+      "![Invoices](shot-2.png)"
+     ],
+     [
+      "Both happen after sign-in.",
+      ""
+     ]
+    ]
+   },
+   {
+    "args": [
+     ""
+    ],
+    "result": [
+     [
+      "",
+      ""
+     ]
+    ]
+   },
+   {
+    "args": [
+     "Just words.\n\nNo pictures."
+    ],
+    "result": [
+     [
+      "Just words.\n\nNo pictures.",
+      ""
+     ]
+    ]
+   },
+   {
+    "args": [
+     "![only](shot-1.png)"
+    ],
+    "result": [
+     [
+      "",
+      "![only](shot-1.png)"
+     ]
+    ]
+   },
+   {
+    "args": [
+     "![a](shot-1.png)\n![b](shot-2.png)\n"
+    ],
+    "result": [
+     [
+      "",
+      "![a](shot-1.png)"
+     ],
+     [
+      "",
+      "![b](shot-2.png)"
+     ]
+    ]
+   },
+   {
+    "args": [
+     "Before\r\n![a](shot-1.png)\r\nAfter"
+    ],
+    "result": [
+     [
+      "Before",
+      "![a](shot-1.png)"
+     ],
+     [
+      "After",
+      ""
+     ]
+    ]
+   },
+   {
+    "args": [
+     "Words\n\n\n![a](<shot 1.png> \"Title\")\n\n\n"
+    ],
+    "result": [
+     [
+      "Words",
+      "![a](<shot 1.png> \"Title\")"
+     ]
+    ]
+   },
+   {
+    "args": [
+     "Text with ![inline](shot-1.png) image\n\nMore"
+    ],
+    "result": [
+     [
+      "Text with ![inline](shot-1.png) image\n\nMore",
+      ""
+     ]
+    ]
+   },
+   {
+    "args": [
+     "\n\n  \n![a](shot-1.png)\n  \n"
+    ],
+    "result": [
+     [
+      "  ",
+      "![a](shot-1.png)"
+     ]
+    ]
+   },
+   {
+    "args": [
+     "One Two\n![a](shot-1.png)\fThree"
+    ],
+    "result": [
+     [
+      "One\nTwo",
+      "![a](shot-1.png)"
+     ],
+     [
+      "Three",
+      ""
+     ]
+    ]
+   },
+   {
+    "args": [
+     "- item\n  ![a](shot-1.png)\n- next"
+    ],
+    "result": [
+     [
+      "- item",
+      "  ![a](shot-1.png)"
+     ],
+     [
+      "- next",
+      ""
+     ]
+    ]
+   }
+  ],
+  "join_write_up": [
+   {
+    "args": [
+     [
+      [
+       "# Two slow spots\n\n1. Billing stalls.",
+       "   ![Billing](shot-1.png)"
+      ],
+      [
+       "2. Invoices hang.",
+       "![Invoices](shot-2.png)"
+      ],
+      [
+       "Both happen after sign-in.",
+       ""
+      ]
+     ]
+    ],
+    "result": "# Two slow spots\n\n1. Billing stalls.\n\n   ![Billing](shot-1.png)\n\n2. Invoices hang.\n\n![Invoices](shot-2.png)\n\nBoth happen after sign-in."
+   },
+   {
+    "args": [
+     [
+      [
+       "2. Invoices hang.",
+       "![Invoices](shot-2.png)"
+      ],
+      [
+       "# Two slow spots\n\n1. Billing stalls.",
+       "   ![Billing](shot-1.png)"
+      ],
+      [
+       "Both happen after sign-in.",
+       ""
+      ]
+     ]
+    ],
+    "result": "2. Invoices hang.\n\n![Invoices](shot-2.png)\n\n# Two slow spots\n\n1. Billing stalls.\n\n   ![Billing](shot-1.png)\n\nBoth happen after sign-in."
+   },
+   {
+    "args": [
+     []
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     [
+      [
+       "",
+       ""
+      ]
+     ]
+    ],
+    "result": ""
+   },
+   {
+    "args": [
+     [
+      [
+       "  \n",
+       "![a](shot-1.png)"
+      ],
+      [
+       "\n\nwords\n\n",
+       ""
+      ]
+     ]
+    ],
+    "result": "![a](shot-1.png)\n\nwords"
+   },
+   {
+    "args": [
+     [
+      [
+       "",
+       "![a](shot-1.png)"
+      ],
+      [
+       "",
+       "![b](shot-2.png)"
+      ]
+     ]
+    ],
+    "result": "![a](shot-1.png)\n\n![b](shot-2.png)"
+   }
+  ],
+  "_write_up_shot": [
+   {
+    "args": [
+     [
+      "shot-1.png",
+      "shot-2.png",
+      "shot-10.png"
+     ],
+     "![x](shot-2.png)"
+    ],
+    "result": "shot-2.png"
+   },
+   {
+    "args": [
+     [
+      "shot-1.png",
+      "shot-2.png",
+      "shot-10.png"
+     ],
+     "  ![x](shot-2.png)  "
+    ],
+    "result": "shot-2.png"
+   },
+   {
+    "args": [
+     [
+      "shot-1.png",
+      "shot-2.png",
+      "shot-10.png"
+     ],
+     "![x](<shot-10.png>)"
+    ],
+    "result": "shot-10.png"
+   },
+   {
+    "args": [
+     [
+      "shot-1.png",
+      "shot-2.png",
+      "shot-10.png"
+     ],
+     "![x](shot-2.png \"Two\")"
+    ],
+    "result": "shot-2.png"
+   },
+   {
+    "args": [
+     [
+      "shot-1.png",
+      "shot-2.png",
+      "shot-10.png"
+     ],
+     "![x](elsewhere.png)"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     [
+      "shot-1.png",
+      "shot-2.png",
+      "shot-10.png"
+     ],
+     "![x](shot-9.png)"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     [
+      "shot-1.png",
+      "shot-2.png",
+      "shot-10.png"
+     ],
+     "![x](./shot-1.png)"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     [
+      "shot-1.png",
+      "shot-2.png",
+      "shot-10.png"
+     ],
+     "![x](shot-01.png)"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     [
+      "shot-1.png",
+      "shot-2.png",
+      "shot-10.png"
+     ],
+     "words ![x](shot-1.png)"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     [
+      "shot-1.png",
+      "shot-2.png",
+      "shot-10.png"
+     ],
+     "![x](shot-1.png) words"
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     [
+      "shot-1.png",
+      "shot-2.png",
+      "shot-10.png"
+     ],
+     ""
+    ],
+    "result": null
+   },
+   {
+    "args": [
+     [
+      "shot-1.png/"
+     ],
+     "![x](shot-1.png)"
+    ],
+    "result": null
+   }
+  ],
+  "_earlier_write_ups": [
+   {
+    "args": [
+     []
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     [
+      "write-up-1.md",
+      "write-up-1.pdf"
+     ]
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     [
+      "write-up.md",
+      "write-up.pdf"
+     ]
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     [
+      "write-up.md",
+      "write-up.pdf",
+      "write-up-1.md",
+      "write-up-1.pdf",
+      "write-up-3.md",
+      "write-up-3.pdf",
+      "write-up-2.md"
+     ]
+    ],
+    "result": [
+     1,
+     3
+    ]
+   },
+   {
+    "args": [
+     [
+      "write-up.md",
+      "write-up.pdf",
+      "write-up-10.md",
+      "write-up-10.pdf",
+      "write-up-9.md",
+      "write-up-9.pdf"
+     ]
+    ],
+    "result": [
+     9,
+     10
+    ]
+   },
+   {
+    "args": [
+     [
+      "write-up.md",
+      "write-up.pdf",
+      "write-up-0.md",
+      "write-up-0.pdf",
+      "write-up-01.md",
+      "write-up-01.pdf",
+      "write-up-2.docx",
+      "write-up-2.pdf"
+     ]
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     [
+      "write-up.md",
+      "write-up.pdf",
+      "write-up-4.md/",
+      "write-up-4.pdf"
+     ]
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     [
+      "write-up.md",
+      "write-up-1.md",
+      "write-up-1.pdf"
+     ]
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     [
+      "write-up.pdf/",
+      "write-up.md",
+      "write-up-1.md",
+      "write-up-1.pdf"
+     ]
+    ],
+    "result": []
+   }
+  ],
+  "_load_document": [
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"text\": \"first\", \"shot\": \"shot-1.png\", \"kept_at_s\": 1.0}, {\"text\": \"last\", \"shot\": null, \"kept_at_s\": null}]}",
+     [
+      "shot-1.png"
+     ]
+    ],
+    "result": {
+     "sections": [
+      [
+       "first",
+       "shot-1.png",
+       1.0,
+       null,
+       []
+      ],
+      [
+       "last",
+       null,
+       null,
+       null,
+       []
+      ]
+     ],
+     "duration_s": 3.0,
+     "started_utc": "2026-10-21T21:32:05+00:00"
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"text\": \"a\", \"shot\": \"shot-2.png\", \"kept_at_s\": 2, \"notes\": [\"n1\", \"n2\"]}, {\"text\": \"\", \"shot\": null, \"kept_at_s\": 2.5, \"omitted_shot\": \"shot-1.png\"}]}",
+     [
+      "shot-1.png",
+      "shot-2.png"
+     ]
+    ],
+    "result": {
+     "sections": [
+      [
+       "a",
+       "shot-2.png",
+       2.0,
+       null,
+       [
+        "n1",
+        "n2"
+       ]
+      ],
+      [
+       "",
+       null,
+       2.5,
+       "shot-1.png",
+       []
+      ]
+     ],
+     "duration_s": 3.0,
+     "started_utc": "2026-10-21T21:32:05+00:00"
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"text\": \"\", \"shot\": null, \"kept_at_s\": null, \"omitted_shot\": \"shot-3.png\"}]}",
+     []
+    ],
+    "result": {
+     "sections": [
+      [
+       "",
+       null,
+       null,
+       null,
+       []
+      ]
+     ],
+     "duration_s": 3.0,
+     "started_utc": "2026-10-21T21:32:05+00:00"
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"text\": \"both\", \"shot\": \"shot-1.png\", \"kept_at_s\": 1.0, \"omitted_shot\": \"shot-2.png\"}]}",
+     [
+      "shot-1.png",
+      "shot-2.png"
+     ]
+    ],
+    "result": {
+     "sections": [
+      [
+       "both",
+       "shot-1.png",
+       1.0,
+       null,
+       []
+      ]
+     ],
+     "duration_s": 3.0,
+     "started_utc": "2026-10-21T21:32:05+00:00"
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"text\": 7, \"shot\": null, \"kept_at_s\": null}]}",
+     []
+    ],
+    "result": {
+     "sections": [
+      [
+       "7",
+       null,
+       null,
+       null,
+       []
+      ]
+     ],
+     "duration_s": 3.0,
+     "started_utc": "2026-10-21T21:32:05+00:00"
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"text\": null, \"shot\": null, \"kept_at_s\": null}]}",
+     []
+    ],
+    "result": {
+     "sections": [
+      [
+       "None",
+       null,
+       null,
+       null,
+       []
+      ]
+     ],
+     "duration_s": 3.0,
+     "started_utc": "2026-10-21T21:32:05+00:00"
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"text\": true, \"shot\": null, \"kept_at_s\": null}]}",
+     []
+    ],
+    "result": {
+     "sections": [
+      [
+       "True",
+       null,
+       null,
+       null,
+       []
+      ]
+     ],
+     "duration_s": 3.0,
+     "started_utc": "2026-10-21T21:32:05+00:00"
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"text\": 1.5, \"shot\": null, \"kept_at_s\": null}]}",
+     []
+    ],
+    "result": {
+     "sections": [
+      [
+       "1.5",
+       null,
+       null,
+       null,
+       []
+      ]
+     ],
+     "duration_s": 3.0,
+     "started_utc": "2026-10-21T21:32:05+00:00"
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05\", \"duration_s\": 3.0, \"sections\": []}",
+     []
+    ],
+    "result": {
+     "sections": [],
+     "duration_s": 3.0,
+     "started_utc": null
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T21:32:05Z\", \"duration_s\": \"12.5\", \"sections\": []}",
+     []
+    ],
+    "result": {
+     "sections": [],
+     "duration_s": 12.5,
+     "started_utc": "2026-10-21T21:32:05+00:00"
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05.250000+05:30\", \"duration_s\": true, \"sections\": []}",
+     []
+    ],
+    "result": {
+     "sections": [],
+     "duration_s": 1.0,
+     "started_utc": "2026-10-21T09:02:05.250000+00:00"
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 2, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": []}",
+     []
+    ],
+    "result": {
+     "error": [
+      "ValueError",
+      "Unsupported walkthrough version"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"version\": true, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": []}",
+     []
+    ],
+    "result": {
+     "sections": [],
+     "duration_s": 3.0,
+     "started_utc": "2026-10-21T21:32:05+00:00"
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1.0, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": []}",
+     []
+    ],
+    "result": {
+     "sections": [],
+     "duration_s": 3.0,
+     "started_utc": "2026-10-21T21:32:05+00:00"
+    }
+   },
+   {
+    "args": [
+     "{\"version\": \"1\", \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": []}",
+     []
+    ],
+    "result": {
+     "error": [
+      "ValueError",
+      "Unsupported walkthrough version"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 1.0, \"sections\": []}",
+     []
+    ],
+    "result": {
+     "error": [
+      "ValueError",
+      "Unsupported walkthrough version"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"text\": \"x\", \"shot\": \"../outside.png\", \"kept_at_s\": 1.0}]}",
+     []
+    ],
+    "result": {
+     "error": [
+      "ValueError",
+      "Invalid screenshot name"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"text\": \"x\", \"shot\": \"C:\\\\outside.png\", \"kept_at_s\": 1.0}]}",
+     []
+    ],
+    "result": {
+     "error": [
+      "ValueError",
+      "Invalid screenshot name"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"text\": \"x\", \"shot\": \"walkthrough.pdf\", \"kept_at_s\": 1.0}]}",
+     [
+      "walkthrough.pdf"
+     ]
+    ],
+    "result": {
+     "error": [
+      "ValueError",
+      "Invalid screenshot name"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"text\": \"x\", \"shot\": \"shot-0.png\", \"kept_at_s\": 1.0}]}",
+     [
+      "shot-0.png"
+     ]
+    ],
+    "result": {
+     "error": [
+      "ValueError",
+      "Invalid screenshot name"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"text\": \"x\", \"shot\": 5, \"kept_at_s\": 1.0}]}",
+     []
+    ],
+    "result": {
+     "error": [
+      "ValueError",
+      "Invalid screenshot name"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"text\": \"x\", \"shot\": \"\", \"kept_at_s\": 1.0}]}",
+     []
+    ],
+    "result": {
+     "error": [
+      "ValueError",
+      "Invalid screenshot name"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"text\": \"x\", \"shot\": \"shot-1.png\", \"kept_at_s\": 1.0}]}",
+     []
+    ],
+    "result": {
+     "error": [
+      "ValueError",
+      "Missing or unsafe walkthrough file: shot-1.png"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"text\": \"x\", \"shot\": \"shot-1.png\", \"kept_at_s\": 1.0}]}",
+     [
+      "shot-1.png/"
+     ]
+    ],
+    "result": {
+     "error": [
+      "ValueError",
+      "Missing or unsafe walkthrough file: shot-1.png"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"text\": \"x\", \"shot\": null, \"kept_at_s\": null, \"omitted_shot\": \"notes.txt\"}]}",
+     [
+      "notes.txt"
+     ]
+    ],
+    "result": {
+     "error": [
+      "ValueError",
+      "Invalid screenshot name"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"text\": \"x\", \"shot\": null, \"kept_at_s\": null, \"notes\": \"purple\"}]}",
+     []
+    ],
+    "result": {
+     "error": [
+      "ValueError",
+      "Invalid walkthrough notes"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"text\": \"x\", \"shot\": null, \"kept_at_s\": null, \"notes\": [\"a\", 7]}]}",
+     []
+    ],
+    "result": {
+     "error": [
+      "ValueError",
+      "Invalid walkthrough notes"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"text\": \"x\", \"shot\": null, \"kept_at_s\": null, \"notes\": null}]}",
+     []
+    ],
+    "result": {
+     "error": [
+      "ValueError",
+      "Invalid walkthrough notes"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"text\": \"x\", \"shot\": null, \"kept_at_s\": -1}]}",
+     []
+    ],
+    "result": {
+     "error": [
+      "ValueError",
+      "Invalid walkthrough time"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"text\": \"x\", \"shot\": null, \"kept_at_s\": \"NaN\"}]}",
+     []
+    ],
+    "result": {
+     "error": [
+      "ValueError",
+      "Invalid walkthrough time"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"text\": \"x\", \"shot\": null, \"kept_at_s\": \"soon\"}]}",
+     []
+    ],
+    "result": {
+     "error": [
+      "ValueError",
+      "could not convert string to float: 'soon'"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"text\": \"x\", \"shot\": null, \"kept_at_s\": [1]}]}",
+     []
+    ],
+    "result": {
+     "error": [
+      "TypeError",
+      "float() argument must be a string or a real number, not 'list'"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": -0.5, \"sections\": []}",
+     []
+    ],
+    "result": {
+     "error": [
+      "ValueError",
+      "Invalid walkthrough time"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": null, \"sections\": []}",
+     []
+    ],
+    "result": {
+     "error": [
+      "TypeError",
+      "float() argument must be a string or a real number, not 'NoneType'"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"yesterday\", \"duration_s\": 3.0, \"sections\": []}",
+     []
+    ],
+    "result": {
+     "error": [
+      "ValueError",
+      "Invalid isoformat string: 'yesterday'"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": 20261021, \"duration_s\": 3.0, \"sections\": []}",
+     []
+    ],
+    "result": {
+     "error": [
+      "TypeError",
+      "fromisoformat: argument must be str"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [{\"shot\": null, \"kept_at_s\": null}]}",
+     []
+    ],
+    "result": {
+     "error": [
+      "KeyError",
+      "'text'"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 3.0, \"sections\": [\"not a section\"]}",
+     []
+    ],
+    "result": {
+     "error": [
+      "AttributeError",
+      "'str' object has no attribute 'get'"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{\"version\": 1, \"started_at\": \"2026-10-21T14:32:05-07:00\", \"duration_s\": 1.0}",
+     []
+    ],
+    "result": {
+     "error": [
+      "KeyError",
+      "'sections'"
+     ]
+    }
+   },
+   {
+    "args": [
+     "[1, 2]",
+     []
+    ],
+    "result": {
+     "error": [
+      "ValueError",
+      "Walkthrough metadata must be an object"
+     ]
+    }
+   },
+   {
+    "args": [
+     "{not json",
+     []
+    ],
+    "result": {
+     "error": [
+      "JSONDecodeError",
+      "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+     ]
+    }
+   }
+  ],
+  "_retention_days": [
+   {
+    "args": [
+     null
+    ],
+    "result": 0
+   },
+   {
+    "args": [
+     "{\"days\": 30}"
+    ],
+    "result": 30
+   },
+   {
+    "args": [
+     "{\"days\": 0}"
+    ],
+    "result": 0
+   },
+   {
+    "args": [
+     "{\"days\": 3650}"
+    ],
+    "result": 3650
+   },
+   {
+    "args": [
+     "{\"days\": 3651}"
+    ],
+    "result": 0
+   },
+   {
+    "args": [
+     "{\"days\": -1}"
+    ],
+    "result": 0
+   },
+   {
+    "args": [
+     "{\"days\": true}"
+    ],
+    "result": 0
+   },
+   {
+    "args": [
+     "{\"days\": \"30\"}"
+    ],
+    "result": 0
+   },
+   {
+    "args": [
+     "{\"days\": 30.0}"
+    ],
+    "result": 0
+   },
+   {
+    "args": [
+     "{\"weeks\": 3}"
+    ],
+    "result": 0
+   },
+   {
+    "args": [
+     "[30]"
+    ],
+    "result": 0
+   },
+   {
+    "args": [
+     "not json"
+    ],
+    "result": 0
+   },
+   {
+    "args": [
+     "{\"days\": null}"
+    ],
+    "result": 0
+   },
+   {
+    "args": [
+     "{\"days\": 18446744073709551616}"
+    ],
+    "result": 0
+   }
+  ],
+  "_expired_entries": [
+   {
+    "args": [
+     30,
+     [
+      [
+       "2026-10-21_14-32-05",
+       8640000,
+       false
+      ]
+     ]
+    ],
+    "result": [
+     "2026-10-21_14-32-05"
+    ]
+   },
+   {
+    "args": [
+     30,
+     [
+      [
+       "2026-10-21_14-32-05",
+       2505600,
+       false
+      ]
+     ]
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     30,
+     [
+      [
+       "2026-10-21_14-32-05",
+       2592000,
+       false
+      ]
+     ]
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     30,
+     [
+      [
+       "2026-10-21_14-32-05",
+       2592001,
+       false
+      ]
+     ]
+    ],
+    "result": [
+     "2026-10-21_14-32-05"
+    ]
+   },
+   {
+    "args": [
+     0,
+     [
+      [
+       "2026-10-21_14-32-05",
+       8640000,
+       false
+      ]
+     ]
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     30,
+     [
+      [
+       "2026-10-21_14-32-05",
+       8640000,
+       true
+      ]
+     ]
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     30,
+     [
+      [
+       "2026-10-21_14-32-05",
+       null,
+       true
+      ]
+     ]
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     30,
+     [
+      [
+       "2026-10-21_14-32-05",
+       null,
+       false
+      ]
+     ]
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     1,
+     [
+      [
+       "2026-10-21_14-32-05",
+       172800,
+       false
+      ],
+      [
+       "2026-10-22_08-00-00",
+       259200,
+       false
+      ],
+      [
+       "2026-10-22_08-00-00-2",
+       0,
+       false
+      ],
+      [
+       "notes",
+       777600,
+       false
+      ],
+      [
+       "2026-10-23_08-00-00",
+       432000,
+       true
+      ]
+     ]
+    ],
+    "result": [
+     "2026-10-22_08-00-00",
+     "2026-10-21_14-32-05"
+    ]
+   },
+   {
+    "args": [
+     true,
+     [
+      [
+       "2026-10-21_14-32-05",
+       8640000,
+       false
+      ]
+     ]
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     3651,
+     [
+      [
+       "2026-10-21_14-32-05",
+       8640000,
+       false
+      ]
+     ]
+    ],
+    "result": []
+   }
+  ]
+ }
+}

@@ -1,0 +1,235 @@
+{
+  "package": "M7.13, M7.16",
+  "files": {
+    "tests/test_meeting_archive_dashboard.py": {
+      "test_archive_adapter_normalizes_persisted_lifecycle_and_transcript": {"status": "ported", "cpp": "tests/meeting_web/test_archive.cpp"},
+      "test_archive_adapter_normalizes_interrupted_finalization": {"status": "ported", "cpp": "tests/meeting_web/test_archive.cpp"},
+      "test_archive_adapter_rotates_links_and_stops_server": {"status": "ported", "cpp": "tests/meeting_web/test_archive.cpp", "note": "a real loopback server in place of FakeServer: the open host socket closes 4401"},
+      "test_archive_adapter_serves_an_authenticated_session": {"status": "ported", "cpp": "tests/meeting_web/test_archive.cpp"},
+      "test_runtime_reuses_dashboard_and_opens_selected_history": {"status": "ported", "cpp": "tests/meeting/test_runtime_dashboards.cpp", "note": "(ported in tests/meeting/PARITY.json)"},
+      "test_history_target_preserves_existing_query_and_capability_path": {"status": "ported", "cpp": "tests/meeting/test_runtime_dashboards.cpp", "note": "(ported in tests/meeting/PARITY.json)"},
+      "test_history_target_can_focus_report_view": {"status": "ported", "cpp": "tests/meeting/test_runtime_dashboards.cpp", "note": "(ported in tests/meeting/PARITY.json)"},
+      "test_runtime_opens_report_view_on_history_url": {"status": "ported", "cpp": "tests/meeting/test_runtime_dashboards.cpp", "note": "(ported in tests/meeting/PARITY.json)"}
+    },
+    "tests/test_meeting_export_features.py": {
+      "test_web_downloads_preserve_current_features_and_match_bulk_content": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"}
+    },
+    "tests/test_meeting_title_consistency.py": {
+      "test_refresh_of_current_dashboard_reconnects_without_writing_state": {"status": "ported", "cpp": "tests/meeting_web/test_titles.cpp", "note": "the invalidation shows as the open host socket's 4409 close, once"},
+      "test_cached_report_delete_after_mcp_rename_does_not_restore_old_title": {"status": "ported", "cpp": "tests/meeting_web/test_titles.cpp", "note": "the MCP rename is the runtime's retitle: the first dashboard's retitle_saved_meeting, then the other's refresh_saved_meeting_title"},
+      "test_refreshed_dashboard_socket_resyncs_without_expiring_the_host_token": {"status": "ported", "cpp": "tests/meeting_web/test_titles.cpp"}
+    },
+    "tests/test_meeting_web_history.py": {
+      "test_history_uses_bounded_aggregate_reads_and_stable_keyset_ties": {"status": "ported", "cpp": "tests/meeting_web/test_history_routes.cpp", "note": "the five SELECTs are the token check's row read and the four the SQL repository counts (last_summary_query_count); the History route reads only PastMeetingPages, so the forbidden list_meetings, get_segments and get_audio_chunks are out of its reach"},
+      "test_filtered_empty_window_keeps_a_continuation_and_query_is_literal": {"status": "ported", "cpp": "tests/meeting_web/test_history_routes.cpp"},
+      "test_preview_and_poll_do_not_query_transcript_pages": {"status": "ported", "cpp": "tests/meeting_web/test_history_routes.cpp", "note": "the SQL repository cannot be monkeypatched; the outcomes are checked, and the content summary comes from its aggregate reads"},
+      "test_history_paging_and_state_preserve_auth_and_bad_cursor_errors": {"status": "ported", "cpp": "tests/meeting_web/test_history_routes.cpp"},
+      "test_malformed_history_cursors_are_client_errors": {"status": "ported", "cpp": "tests/meeting_web/test_history_routes.cpp", "note": "through the route; the decoder itself is in tests/golden/meeting.web.api.json"},
+      "test_malformed_transcript_cursors_are_client_errors": {"status": "ported", "cpp": "tests/meeting_web/test_history_routes.cpp", "note": "through the route; the decoder itself is in tests/golden/meeting.web.api.json"}
+    },
+    "tests/test_webui_accessibility.py": {
+      "test_keyboard_focus_is_visible_and_motion_can_be_reduced": {"status": "ported", "cpp": "tests/meeting_web/test_webui_bundle.cpp"},
+      "test_history_uses_native_buttons_and_report_uses_accessible_timeline": {"status": "ported", "cpp": "tests/meeting_web/test_webui_bundle.cpp"},
+      "test_errors_dialogs_and_loading_states_are_announced": {"status": "ported", "cpp": "tests/meeting_web/test_webui_bundle.cpp"}
+    },
+    "tests/test_meeting_custom_report.py": {
+      "TestApi::test_an_interrupted_run_is_shown_as_failed_not_still_running": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestApi::test_delete_removes_a_report_and_reports_unknown_ids": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp", "note": "the report is requested through a test DashboardExtensions standing in for the fake start_custom_report"},
+      "TestApi::test_download_serves_the_markdown_as_a_file": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestGuestScoping::test_the_session_endpoint_hides_reports_from_guests": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestGuestScoping::test_the_meeting_detail_endpoint_is_host_only": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestConcurrency::test_a_rerun_waits_for_a_report_in_flight": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestConcurrency::test_a_finished_report_does_not_block_a_rerun": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestGuestScoping::test_the_fan_out_splits_host_only_effects_onto_their_own_patch": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestGuestScoping::test_a_batch_of_only_shared_effects_sends_one_patch": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestGuestScoping::test_a_batch_of_only_reports_never_reaches_guests": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestApi::test_a_host_request_writes_a_report_and_returns_the_state": {"status": "ported", "cpp": "tests/meeting_web/test_report_route.cpp", "note": "case: test_a_host_request_writes_a_report_and_returns_the_state (the route over PostMeetingPasses::report standing in for start_custom_report)"},
+      "TestApi::test_only_the_host_may_ask": {"status": "ported", "cpp": "tests/meeting_web/test_report_route.cpp", "note": "case: test_only_the_host_may_ask (the route over PostMeetingPasses::report standing in for start_custom_report)"},
+      "TestApi::test_bad_requests_are_refused_before_any_work": {"status": "ported", "cpp": "tests/meeting_web/test_report_route.cpp", "note": "case: test_bad_requests_are_refused_before_any_work (the route over PostMeetingPasses::report standing in for start_custom_report)"},
+      "TestApi::test_an_unknown_meeting_is_a_404": {"status": "ported", "cpp": "tests/meeting_web/test_report_route.cpp", "note": "case: test_an_unknown_meeting_is_a_404 (the route over PostMeetingPasses::report standing in for start_custom_report)"},
+      "TestApi::test_a_second_request_while_one_runs_is_refused_in_plain_words": {"status": "ported", "cpp": "tests/meeting_web/test_report_route.cpp", "note": "case: test_a_second_request_while_one_runs_is_refused_in_plain_words (the route over PostMeetingPasses::report standing in for start_custom_report)"}
+    },
+    "tests/test_meeting_web_auth.py": {
+      "TestResolveRole::test_host_and_guest_match": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_auth.cpp"
+      },
+      "TestResolveRole::test_wrong_token_rejected": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_auth.cpp"
+      },
+      "TestResolveRole::test_host_preferred_when_tokens_collide": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_auth.cpp"
+      },
+      "TestResolveRole::test_generate_tokens_are_distinct": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_auth.cpp"
+      },
+      "TestCloudConsent::test_enable_without_desktop_consent_is_refused": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp", "note": "The route returns 403 when no native consent bridge can approve the request. The host-only bridge is tested separately with an asynchronously cancelled and renewed approval."},
+      "TestCloudConsent::test_enable_with_consent_and_disable_always_allowed": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp", "note": "case: test_enable_with_consent_and_disable_always_allowed (enabling waits for a fresh desktop approval, a30-dashboard-fresh-approval, whose desktop side turns the engine on; disabling needs none and reaches the engine; both are remembered as the next meeting's default; a declined approval remembers nothing)"},
+      "TestDashboardPage::test_serves_the_built_bundle": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestDashboardPage::test_missing_bundle_says_how_to_build_it": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestHostOnlyAuthz::test_guest_cannot_list_meetings": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestHostOnlyAuthz::test_host_can_list_meetings": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestHostOnlyAuthz::test_meeting_list_uses_topic_when_no_title_was_set": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestHostOnlyAuthz::test_meeting_list_exposes_compact_finalization_fields": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestHostOnlyAuthz::test_meeting_list_exposes_duration_and_digest": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestHostOnlyAuthz::test_meeting_list_survives_corrupt_snapshot": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestHostOnlyAuthz::test_guest_cannot_end_meeting": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestHostOnlyAuthz::test_host_can_end_meeting": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestHostOnlyAuthz::test_slow_end_is_logged_with_where_the_time_went": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp", "note": "engine.end() takes two seconds of a FakeClock in place of a lowered threshold"},
+      "TestHostOnlyAuthz::test_quick_end_is_not_logged": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestHostOnlyAuthz::test_guest_cannot_search_or_export": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestHostOnlyAuthz::test_host_can_search": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestHostOnlyAuthz::test_invalid_token_is_401": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestHostOnlyAuthz::test_guest_can_read_session": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestHostOnlyAuthz::test_transcript_keyset_pagination_has_no_gaps": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestHostOnlyAuthz::test_guest_segment_access_is_scoped_to_current_meeting": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestHostOnlyAuthz::test_historical_state_is_upgraded_to_current_wire_shape": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestHostOnlyAuthz::test_activity_and_token_rotation_are_host_only": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestHostOnlyAuthz::test_audio_allows_current_guest_but_not_other_meetings": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp", "note": "a real one-chunk spool rendered by build_playback in place of the monkeypatched one"},
+      "test_rerun_endpoints_share_their_guards": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestRerunSpeakers::test_non_openai_backend_is_400": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp", "note": "the gate is injected (PostMeetingPasses::speaker_gate_refusal); the route answers its reason"},
+      "TestRerunSpeakers::test_missing_audio_consent_is_400": {"status": "dropped", "reason": "the OpenAI speaker upload (lead decision 4); the gate is M7.19's and M7.21's"},
+      "TestRerunSpeakers::test_missing_openai_key_is_400": {"status": "dropped", "reason": "the OpenAI speaker upload (lead decision 4); the gate is M7.19's and M7.21's"},
+      "TestRerunSpeakers::test_meeting_without_system_audio_is_400": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestRerunSpeakers::test_host_rerun_calls_respeakers": {"status": "dropped", "reason": "the OpenAI speaker upload (lead decision 4)"},
+      "TestRerunSpeakers::test_rerun_waits_for_other_post_meeting_steps": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp", "note": "the injected pass reports the claim refinalize holds (PostMeetingPassBusy)"},
+      "TestRerunInsights::test_host_rerun_returns_result": {"status": "dropped", "reason": "lead decision 4 (M7.md); the route's result passing is covered by the transcript and test_rerun_uses_shared_options_and_the_host_lease"},
+      "TestRerunInsights::test_rerun_uses_shared_options_and_the_host_lease": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp", "note": "the options and the lease are the injected pass's (M7.19); the route asks for the failed steps off the request thread and adopts the result's state"},
+      "TestRerunInsights::test_retry_already_running_elsewhere_is_409": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestRerunInsights::test_live_end_still_finalizing_is_409": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestRerunInsights::test_missing_transcript_is_400": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp", "note": "case: test_missing_transcript_is_400 (a pass raising py::ValueError answers 400 with its message, run_post_meeting_pass). The recorded m_novalue request in test_api_transcript.cpp checks the same response byte for byte. The real re-run raises only for an unknown meeting and records 'meeting has no transcript' on its consolidation step, as OpenWhisper's _retry_consolidation does."},
+      "TestRerunInsights::test_second_rerun_while_running_is_409": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestExportTokenStripping::test_export_never_carries_capability_tokens": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"},
+      "TestExportTokenStripping::test_unknown_export_format_is_404": {"status": "ported", "cpp": "tests/meeting_web/test_dashboard_api.cpp"}
+    },
+    "tests/test_meeting_web_server_address.py": {
+      "test_lan_display_host_falls_back_only_when_no_interface_is_usable": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_server.cpp"
+      }
+    },
+    "tests/test_meeting_web_server_stop.py": {
+      "test_stop_does_not_wait_for_an_open_response": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_server.cpp"
+      }
+    },
+    "tests/test_meeting_ws.py": {
+      "TestWsHello::test_hello_snapshot_shape": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestWsHello::test_hello_leaks_no_tokens_beyond_the_guest_link": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestWsHello::test_patch_during_hello_window_is_delivered": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestAgentActivityWs::test_host_receives_agent_activity_guest_does_not": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestAgentActivityWs::test_host_hello_carries_recent_ticks": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestAgentActivityWs::test_guest_hello_omits_agent_activity_key": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestAgentActivityWs::test_host_only_tick_skips_not_ready_host": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestWsActionRoundTrip::test_action_echoes_client_action_id": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestWsActionRoundTrip::test_ping_pong": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestWsActionRoundTrip::test_guest_requires_name": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestWsActionRoundTrip::test_guest_with_name_gets_hello": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestGuestIdentity::test_reconnect_with_guest_id_reuses_participant": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestGuestIdentity::test_reconnect_without_guest_id_still_joins": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestGuestIdentity::test_changed_name_gets_a_new_participant": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestGuestWsAuthorization::test_guest_cannot_set_title": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestGuestWsAuthorization::test_guest_cannot_toggle_cloud": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestGuestWsAuthorization::test_guest_cannot_undo": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestGuestWsAuthorization::test_guest_can_still_add_a_note": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestGuestWsAuthorization::test_host_may_set_title": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestHostileInput::test_binary_frame_is_rejected_and_socket_survives": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestHostileInput::test_deeply_nested_json_is_rejected": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestHostileInput::test_oversize_payload_is_rejected_before_parsing": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestHostileInput::test_absurd_undo_seq_is_rejected": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      },
+      "TestHostileInput::test_non_object_and_malformed_op_are_rejected": {
+        "status": "ported",
+        "cpp": "tests/meeting_web/test_ws_hub.cpp"
+      }
+    },
+    "tests/test_meeting_insight_review.py": {
+      "test_archive_api_host_action_survives_restart": {"status": "ported", "cpp": "tests/meeting_web/test_review_route.cpp", "note": "case: test_archive_api_host_action_survives_restart (archive dashboard over the SQL repository; the question is the worker's review_finish; passes.review set because FioriVoce serves the route only with a device-local judge, a30-dashboard-local-judgments)"}
+    },
+    "tests/test_meeting_web_server_logging.py": {
+      "test_dashboard_config_does_not_need_a_stdout": {"status": "dropped", "reason": "uvicorn's LOGGING_CONFIG probing sys.stdout in a PyInstaller console=False build: Python and PyInstaller plumbing. FioriVoce's dashboard is its own HTTP server (meeting_web/server.cpp over net::HttpServer), which configures no logging and writes no stdout"},
+      "test_dashboard_leaves_host_logging_alone": {"status": "dropped", "reason": "uvicorn's LOGGING_CONFIG probing sys.stdout in a PyInstaller console=False build: Python and PyInstaller plumbing. FioriVoce's dashboard is its own HTTP server (meeting_web/server.cpp over net::HttpServer), which configures no logging and writes no stdout"}
+    }
+  }
+}

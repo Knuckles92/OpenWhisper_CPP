@@ -1,0 +1,36 @@
+{
+ "source": "Hand-written. The tool turn of sidecar-opencode/src/adapter.test.ts:38-47 (a tool_use block started with input {} and grown by input_json_delta fragments that join into one JSON object, stop_reason tool_use) after a signed thinking block; the reply equals tests/fixtures/llm/generation/replies.json 'anthropic_tool'.",
+ "protocol": "anthropic",
+ "equivalent": "anthropic_tool",
+ "named": true,
+ "frames": [
+  {"type": "message_start", "message": {"id": "msg_test", "type": "message", "role": "assistant", "content": [], "model": "synthetic", "stop_reason": null, "stop_sequence": null}},
+  {"type": "content_block_start", "index": 0, "content_block": {"type": "thinking", "thinking": "", "signature": ""}},
+  {"type": "content_block_delta", "index": 0, "delta": {"type": "thinking_delta", "thinking": "private reasoning"}},
+  {"type": "content_block_delta", "index": 0, "delta": {"type": "signature_delta", "signature": "signed-reasoning"}},
+  {"type": "content_block_stop", "index": 0},
+  {"type": "content_block_start", "index": 1, "content_block": {"type": "tool_use", "id": "call_1", "name": "search_context_files", "input": {}}},
+  {"type": "content_block_delta", "index": 1, "delta": {"type": "input_json_delta", "partial_json": ""}},
+  {"type": "content_block_delta", "index": 1, "delta": {"type": "input_json_delta", "partial_json": "{\"query\":"}},
+  {"type": "content_block_delta", "index": 1, "delta": {"type": "input_json_delta", "partial_json": " \"budget\"}"}},
+  {"type": "content_block_stop", "index": 1},
+  {"type": "message_delta", "delta": {"stop_reason": "tool_use", "stop_sequence": null}},
+  {"type": "message_stop"}
+ ],
+ "events": [
+  ["thinking_start"],
+  ["thinking_delta", "private reasoning"],
+  ["thinking_end"],
+  ["toolcall_start", "", "call_1", "search_context_files"],
+  ["toolcall_delta", "{\"query\":", "call_1", "search_context_files"],
+  ["toolcall_delta", " \"budget\"}", "call_1", "search_context_files"],
+  ["toolcall_end", "", "call_1", "search_context_files"]
+ ],
+ "result": {
+  "text": "",
+  "tool_calls": [{"id": "call_1", "name": "search_context_files", "arguments": "{\"query\": \"budget\"}"}],
+  "assistant_message": {"role": "assistant", "content": "", "tool_calls": [{"id": "call_1", "type": "function", "function": {"name": "search_context_files", "arguments": "{\"query\": \"budget\"}"}}], "_anthropic": [{"type": "thinking", "thinking": "private reasoning", "signature": "signed-reasoning"}, {"type": "tool_use", "id": "call_1", "name": "search_context_files", "input": {"query": "budget"}}]},
+  "usage": null,
+  "finish_reason": "tool_use"
+ }
+}

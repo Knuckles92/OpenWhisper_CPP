@@ -1,0 +1,4512 @@
+{
+ "module": "services.diagnostics",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "pins": {
+  "python": "3.12.10",
+  "platform": "win32",
+  "local_timezone": "Pacific Standard Time",
+  "failure_capture_note": "FailureCapture cases return the appended event without its utc; the record's line is 44"
+ },
+ "traced_from": [
+  "tests/test_diagnostics.py"
+ ],
+ "functions": {
+  "_failure_events": [
+   {
+    "args": [
+     null
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     "not a list"
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     {}
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     []
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     [
+      1,
+      "x",
+      null,
+      []
+     ]
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 12
+      }
+     ]
+    ],
+    "result": [
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 12
+     }
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "2026-11-14T10:00:00Z",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 12
+      }
+     ]
+    ],
+    "result": [
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 12
+     }
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "2026-11-14T10:00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 12
+      }
+     ]
+    ],
+    "result": [
+     {
+      "utc": "2026-11-14T10:00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 12
+     }
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "2026-11-14T10:00:00.250000+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 12
+      }
+     ]
+    ],
+    "result": [
+     {
+      "utc": "2026-11-14T10:00:00.250000+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 12
+     }
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "2026-11-14T10:00:00.000000+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 12
+      }
+     ]
+    ],
+    "result": [
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 12
+     }
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "2026-11-14 10:00:00+01:30",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 12
+      }
+     ]
+    ],
+    "result": [
+     {
+      "utc": "2026-11-14T10:00:00+01:30",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 12
+     }
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "2026-11-14",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 12
+      }
+     ]
+    ],
+    "result": [
+     {
+      "utc": "2026-11-14T00:00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 12
+     }
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "bad",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 12
+      }
+     ]
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 12
+      }
+     ]
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": null,
+       "component": "recorder",
+       "category": "OSError",
+       "line": 12
+      }
+     ]
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": 12,
+       "component": "recorder",
+       "category": "OSError",
+       "line": 12
+      }
+     ]
+    ],
+    "result": []
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 0
+      }
+     ]
+    ],
+    "result": [
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": null
+     }
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 1
+      }
+     ]
+    ],
+    "result": [
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 1
+     }
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 99999
+      }
+     ]
+    ],
+    "result": [
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 99999
+     }
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 100000
+      }
+     ]
+    ],
+    "result": [
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": null
+     }
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": -5
+      }
+     ]
+    ],
+    "result": [
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": null
+     }
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": true
+      }
+     ]
+    ],
+    "result": [
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": null
+     }
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": "3"
+      }
+     ]
+    ],
+    "result": [
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": null
+     }
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 3.0
+      }
+     ]
+    ],
+    "result": [
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": null
+     }
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": null
+      }
+     ]
+    ],
+    "result": [
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": null
+     }
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError"
+      }
+     ]
+    ],
+    "result": [
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": null
+     }
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "audio_processor",
+       "category": "OSError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "application_controller",
+       "category": "OSError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "database",
+       "category": "OSError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "history_manager",
+       "category": "OSError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "runtime.transcription",
+       "category": "OSError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "components",
+       "category": "OSError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "local_asr",
+       "category": "OSError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "streaming_transcriber",
+       "category": "OSError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "app_update",
+       "category": "OSError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "remote_engine",
+       "category": "OSError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "transcriber",
+       "category": "OSError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "ui",
+       "category": "OSError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "meeting",
+       "category": "OSError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "application",
+       "category": "OSError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "services.recorder",
+       "category": "OSError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "Recorder",
+       "category": "OSError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "",
+       "category": "OSError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": null,
+       "category": "OSError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": 3,
+       "category": "OSError",
+       "line": 12
+      }
+     ]
+    ],
+    "result": [
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "audio_processor",
+      "category": "OSError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "application_controller",
+      "category": "OSError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "database",
+      "category": "OSError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "history_manager",
+      "category": "OSError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "runtime.transcription",
+      "category": "OSError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "components",
+      "category": "OSError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "local_asr",
+      "category": "OSError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "streaming_transcriber",
+      "category": "OSError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "app_update",
+      "category": "OSError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "remote_engine",
+      "category": "OSError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "transcriber",
+      "category": "OSError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "ui",
+      "category": "OSError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "meeting",
+      "category": "OSError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "application",
+      "category": "OSError",
+      "line": 12
+     }
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "TimeoutError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "PermissionError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "FileNotFoundError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "MemoryError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "ConnectionError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "ValueError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "RuntimeError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "Error",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "LoggedError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "KeyError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "ConnectionResetError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "oserror",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": null,
+       "line": 12
+      }
+     ]
+    ],
+    "result": [
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "TimeoutError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "PermissionError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "FileNotFoundError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "MemoryError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "ConnectionError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "ValueError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "RuntimeError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "Error",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "LoggedError",
+      "line": 12
+     }
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 12,
+       "message": "private text",
+       "traceback": "private"
+      }
+     ]
+    ],
+    "result": [
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 12
+     }
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 1
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 2
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 3
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 4
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 5
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 6
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 7
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 8
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 9
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 10
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 11
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 13
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 14
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 15
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 16
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 17
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 18
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 19
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 20
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 21
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 22
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 23
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 24
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 25
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 26
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 27
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 28
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 29
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 30
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 31
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 32
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 33
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 34
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 35
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 36
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 37
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 38
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 39
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 40
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 41
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 42
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 43
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 44
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 45
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 46
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 47
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 48
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 49
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 50
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 51
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 52
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 53
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 54
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 55
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 56
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 57
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 58
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 59
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 60
+      }
+     ]
+    ],
+    "result": [
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 11
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 13
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 14
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 15
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 16
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 17
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 18
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 19
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 20
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 21
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 22
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 23
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 24
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 25
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 26
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 27
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 28
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 29
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 30
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 31
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 32
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 33
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 34
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 35
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 36
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 37
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 38
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 39
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 40
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 41
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 42
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 43
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 44
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 45
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 46
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 47
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 48
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 49
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 50
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 51
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 52
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 53
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 54
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 55
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 56
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 57
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 58
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 59
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 60
+     }
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 1
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 2
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 3
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 4
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 5
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 6
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 7
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 8
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 9
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 10
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 11
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 13
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 14
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 15
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 16
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 17
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 18
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 19
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 20
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 21
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 22
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 23
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 24
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 25
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 26
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 27
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 28
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 29
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 30
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 31
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 32
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 33
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 34
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 35
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 36
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 37
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 38
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 39
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 40
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 41
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 42
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 43
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 44
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 45
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 46
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 47
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 48
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 49
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 50
+      },
+      "junk",
+      "junk",
+      "junk",
+      "junk",
+      "junk"
+     ]
+    ],
+    "result": [
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 6
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 7
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 8
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 9
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 10
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 11
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 13
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 14
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 15
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 16
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 17
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 18
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 19
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 20
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 21
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 22
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 23
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 24
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 25
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 26
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 27
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 28
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 29
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 30
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 31
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 32
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 33
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 34
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 35
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 36
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 37
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 38
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 39
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 40
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 41
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 42
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 43
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 44
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 45
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 46
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 47
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 48
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 49
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 50
+     }
+    ]
+   },
+   {
+    "args": [
+     [
+      "junk",
+      "junk",
+      "junk",
+      "junk",
+      "junk",
+      "junk",
+      "junk",
+      "junk",
+      "junk",
+      "junk",
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 1
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 2
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 3
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 4
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 5
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 6
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 7
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 8
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 9
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 10
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 11
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 12
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 13
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 14
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 15
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 16
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 17
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 18
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 19
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 20
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 21
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 22
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 23
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 24
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 25
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 26
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 27
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 28
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 29
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 30
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 31
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 32
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 33
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 34
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 35
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 36
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 37
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 38
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 39
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 40
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 41
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 42
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 43
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 44
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 45
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 46
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 47
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 48
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 49
+      },
+      {
+       "utc": "2026-11-14T10:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 50
+      }
+     ]
+    ],
+    "result": [
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 1
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 2
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 3
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 4
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 5
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 6
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 7
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 8
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 9
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 10
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 11
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 12
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 13
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 14
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 15
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 16
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 17
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 18
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 19
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 20
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 21
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 22
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 23
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 24
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 25
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 26
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 27
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 28
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 29
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 30
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 31
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 32
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 33
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 34
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 35
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 36
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 37
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 38
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 39
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 40
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 41
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 42
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 43
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 44
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 45
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 46
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 47
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 48
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 49
+     },
+     {
+      "utc": "2026-11-14T10:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 50
+     }
+    ]
+   },
+   {
+    "args": [
+     [
+      {
+       "utc": "2026-01-01T00:00:00+00:00",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 123,
+       "message": "secret transcript sk-private-key user@example.com C:/Private/recording.wav",
+       "traceback": "secret transcript sk-private-key user@example.com C:/Private/recording.wav"
+      },
+      {
+       "utc": "secret transcript sk-private-key user@example.com C:/Private/recording.wav",
+       "component": "recorder",
+       "category": "OSError",
+       "line": 123
+      },
+      {
+       "utc": "2026-01-01",
+       "component": "secret transcript sk-private-key user@example.com C:/Private/recording.wav",
+       "category": "Error",
+       "line": 123
+      }
+     ]
+    ],
+    "result": [
+     {
+      "utc": "2026-01-01T00:00:00+00:00",
+      "component": "recorder",
+      "category": "OSError",
+      "line": 123
+     }
+    ],
+    "traced": true
+   }
+  ],
+  "_metric_samples": [
+   {
+    "args": [
+     null
+    ],
+    "result": {}
+   },
+   {
+    "args": [
+     []
+    ],
+    "result": {}
+   },
+   {
+    "args": [
+     "x"
+    ],
+    "result": {}
+   },
+   {
+    "args": [
+     {}
+    ],
+    "result": {}
+   },
+   {
+    "args": [
+     {
+      "stop_to_result_s": [
+       1,
+       2.5
+      ]
+     }
+    ],
+    "result": {
+     "stop_to_result_s": [
+      1,
+      2.5
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "secret": [
+       1
+      ],
+      "stop_to_result_s": [
+       1
+      ]
+     }
+    ],
+    "result": {
+     "stop_to_result_s": [
+      1
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "stop_to_result_s": "1"
+     }
+    ],
+    "result": {}
+   },
+   {
+    "args": [
+     {
+      "stop_to_result_s": null
+     }
+    ],
+    "result": {}
+   },
+   {
+    "args": [
+     {
+      "stop_to_result_s": {}
+     }
+    ],
+    "result": {}
+   },
+   {
+    "args": [
+     {
+      "stop_to_result_s": [
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "inf"
+       },
+       {
+        "$float": "-inf"
+       },
+       3
+      ]
+     }
+    ],
+    "result": {
+     "stop_to_result_s": [
+      3
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "stop_to_result_s": [
+       1000000000000.0,
+       1000000000001.0,
+       10000000000000.0,
+       1000000000000,
+       1000000000001,
+       10000000000000
+      ]
+     }
+    ],
+    "result": {
+     "stop_to_result_s": [
+      1000000000000.0,
+      1000000000000
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "stop_to_result_s": [
+       0,
+       -0.0,
+       -1,
+       -1e-09,
+       0.0
+      ]
+     }
+    ],
+    "result": {
+     "stop_to_result_s": [
+      0,
+      -0.0,
+      0.0
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "captured_frames": [
+       true,
+       false,
+       1,
+       0
+      ]
+     }
+    ],
+    "result": {
+     "captured_frames": [
+      1,
+      0
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "cancel_s": [
+       "1",
+       null,
+       [],
+       {},
+       2
+      ]
+     }
+    ],
+    "result": {
+     "cancel_s": [
+      2
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "shutdown_s": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11,
+       12,
+       13,
+       14,
+       15,
+       16,
+       17,
+       18,
+       19,
+       20,
+       21,
+       22,
+       23,
+       24,
+       25,
+       26,
+       27,
+       28,
+       29,
+       30,
+       31,
+       32,
+       33,
+       34,
+       35,
+       36,
+       37,
+       38,
+       39,
+       40,
+       41,
+       42,
+       43,
+       44,
+       45,
+       46,
+       47,
+       48,
+       49,
+       50,
+       51,
+       52,
+       53,
+       54,
+       55,
+       56,
+       57,
+       58,
+       59,
+       60,
+       61,
+       62,
+       63,
+       64,
+       65,
+       66,
+       67,
+       68,
+       69,
+       70,
+       71,
+       72,
+       73,
+       74,
+       75,
+       76,
+       77,
+       78,
+       79,
+       80,
+       81,
+       82,
+       83,
+       84,
+       85,
+       86,
+       87,
+       88,
+       89,
+       90,
+       91,
+       92,
+       93,
+       94,
+       95,
+       96,
+       97,
+       98,
+       99,
+       100,
+       101,
+       102,
+       103,
+       104,
+       105,
+       106,
+       107,
+       108,
+       109,
+       110,
+       111,
+       112,
+       113,
+       114,
+       115,
+       116,
+       117,
+       118,
+       119,
+       120,
+       121,
+       122,
+       123,
+       124,
+       125,
+       126,
+       127,
+       128,
+       129,
+       130,
+       131,
+       132,
+       133,
+       134,
+       135,
+       136,
+       137,
+       138,
+       139,
+       140,
+       141,
+       142,
+       143,
+       144,
+       145,
+       146,
+       147,
+       148,
+       149
+      ]
+     }
+    ],
+    "result": {
+     "shutdown_s": [
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      141,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147,
+      148,
+      149
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "shutdown_s": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11,
+       12,
+       13,
+       14,
+       15,
+       16,
+       17,
+       18,
+       19,
+       20,
+       21,
+       22,
+       23,
+       24,
+       25,
+       26,
+       27,
+       28,
+       29,
+       30,
+       31,
+       32,
+       33,
+       34,
+       35,
+       36,
+       37,
+       38,
+       39,
+       40,
+       41,
+       42,
+       43,
+       44,
+       45,
+       46,
+       47,
+       48,
+       49,
+       50,
+       51,
+       52,
+       53,
+       54,
+       55,
+       56,
+       57,
+       58,
+       59,
+       60,
+       61,
+       62,
+       63,
+       64,
+       65,
+       66,
+       67,
+       68,
+       69,
+       70,
+       71,
+       72,
+       73,
+       74,
+       75,
+       76,
+       77,
+       78,
+       79,
+       80,
+       81,
+       82,
+       83,
+       84,
+       85,
+       86,
+       87,
+       88,
+       89,
+       90,
+       91,
+       92,
+       93,
+       94,
+       95,
+       96,
+       97,
+       98,
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       },
+       {
+        "$float": "nan"
+       }
+      ]
+     }
+    ],
+    "result": {
+     "shutdown_s": [
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "startup_to_window_s": [
+       1
+      ],
+      "stop_to_result_s": [
+       1
+      ],
+      "cancel_s": [
+       1
+      ],
+      "shutdown_s": [
+       1
+      ],
+      "captured_frames": [
+       1
+      ],
+      "dropped_frames": [
+       1
+      ],
+      "device_switches": [
+       1
+      ],
+      "input_overflows": [
+       1
+      ],
+      "peak_rss_mb": [
+       1
+      ],
+      "context_capture_ms": [
+       1
+      ],
+      "context_capture_timeouts": [
+       1
+      ],
+      "mouse_hook_callback_ms": [
+       1
+      ],
+      "unknown_metric": [
+       1
+      ]
+     }
+    ],
+    "result": {
+     "startup_to_window_s": [
+      1
+     ],
+     "stop_to_result_s": [
+      1
+     ],
+     "cancel_s": [
+      1
+     ],
+     "shutdown_s": [
+      1
+     ],
+     "captured_frames": [
+      1
+     ],
+     "dropped_frames": [
+      1
+     ],
+     "device_switches": [
+      1
+     ],
+     "input_overflows": [
+      1
+     ],
+     "peak_rss_mb": [
+      1
+     ],
+     "context_capture_ms": [
+      1
+     ],
+     "context_capture_timeouts": [
+      1
+     ],
+     "mouse_hook_callback_ms": [
+      1
+     ]
+    }
+   },
+   {
+    "args": [
+     {
+      "dropped_frames": [],
+      "peak_rss_mb": [
+       512.25
+      ]
+     }
+    ],
+    "result": {
+     "dropped_frames": [],
+     "peak_rss_mb": [
+      512.25
+     ]
+    }
+   }
+  ],
+  "_metric_summary": [
+   {
+    "args": [
+     null
+    ],
+    "result": {}
+   },
+   {
+    "args": [
+     {}
+    ],
+    "result": {}
+   },
+   {
+    "args": [
+     {
+      "stop_to_result_s": []
+     }
+    ],
+    "result": {}
+   },
+   {
+    "args": [
+     {
+      "stop_to_result_s": [
+       {
+        "$float": "nan"
+       }
+      ]
+     }
+    ],
+    "result": {}
+   },
+   {
+    "args": [
+     {
+      "stop_to_result_s": [
+       5
+      ]
+     }
+    ],
+    "result": {
+     "stop_to_result_s": {
+      "count": 1,
+      "p50": 5.0,
+      "p95": 5.0,
+      "maximum": 5,
+      "latest": 5
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "stop_to_result_s": [
+       5.5
+      ]
+     }
+    ],
+    "result": {
+     "stop_to_result_s": {
+      "count": 1,
+      "p50": 5.5,
+      "p95": 5.5,
+      "maximum": 5.5,
+      "latest": 5.5
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "stop_to_result_s": [
+       3,
+       1
+      ]
+     }
+    ],
+    "result": {
+     "stop_to_result_s": {
+      "count": 2,
+      "p50": 2.0,
+      "p95": 2.9,
+      "maximum": 3,
+      "latest": 1
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "stop_to_result_s": [
+       3,
+       1,
+       2
+      ]
+     }
+    ],
+    "result": {
+     "stop_to_result_s": {
+      "count": 3,
+      "p50": 2.0,
+      "p95": 2.9,
+      "maximum": 3,
+      "latest": 2
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "stop_to_result_s": [
+       2,
+       2.0,
+       1
+      ]
+     }
+    ],
+    "result": {
+     "stop_to_result_s": {
+      "count": 3,
+      "p50": 2.0,
+      "p95": 2.0,
+      "maximum": 2.0,
+      "latest": 1
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "stop_to_result_s": [
+       7,
+       3,
+       9,
+       1,
+       12,
+       5,
+       8,
+       2,
+       20,
+       4,
+       6,
+       11,
+       10,
+       15,
+       13,
+       14,
+       19,
+       17,
+       16,
+       18
+      ]
+     }
+    ],
+    "result": {
+     "stop_to_result_s": {
+      "count": 20,
+      "p50": 10.5,
+      "p95": 19.05,
+      "maximum": 20,
+      "latest": 18
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "stop_to_result_s": [
+       0.0,
+       0.1,
+       0.2,
+       0.30000000000000004,
+       0.4,
+       0.5,
+       0.6000000000000001,
+       0.7000000000000001,
+       0.8,
+       0.9,
+       1.0,
+       1.1,
+       1.2000000000000002,
+       1.3,
+       1.4000000000000001,
+       1.5,
+       1.6,
+       1.7000000000000002,
+       1.8,
+       1.9000000000000001
+      ]
+     }
+    ],
+    "result": {
+     "stop_to_result_s": {
+      "count": 20,
+      "p50": 0.95,
+      "p95": 1.8050000000000002,
+      "maximum": 1.9000000000000001,
+      "latest": 1.9000000000000001
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "stop_to_result_s": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11,
+       12,
+       13,
+       14,
+       15,
+       16,
+       17,
+       18,
+       19,
+       20,
+       21,
+       22,
+       23,
+       24,
+       25,
+       26,
+       27,
+       28,
+       29,
+       30,
+       31,
+       32,
+       33,
+       34,
+       35,
+       36,
+       37,
+       38,
+       39,
+       40,
+       41,
+       42,
+       43,
+       44,
+       45,
+       46,
+       47,
+       48,
+       49,
+       50,
+       51,
+       52,
+       53,
+       54,
+       55,
+       56,
+       57,
+       58,
+       59,
+       60,
+       61,
+       62,
+       63,
+       64,
+       65,
+       66,
+       67,
+       68,
+       69,
+       70,
+       71,
+       72,
+       73,
+       74,
+       75,
+       76,
+       77,
+       78,
+       79,
+       80,
+       81,
+       82,
+       83,
+       84,
+       85,
+       86,
+       87,
+       88,
+       89,
+       90,
+       91,
+       92,
+       93,
+       94,
+       95,
+       96,
+       97,
+       98,
+       99,
+       100,
+       101,
+       102,
+       103,
+       104,
+       105,
+       106,
+       107,
+       108,
+       109
+      ]
+     }
+    ],
+    "result": {
+     "stop_to_result_s": {
+      "count": 100,
+      "p50": 59.5,
+      "p95": 104.05,
+      "maximum": 109,
+      "latest": 109
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "captured_frames": [
+       1000,
+       2000
+      ],
+      "secret": [
+       1
+      ],
+      "cancel_s": [
+       0.25,
+       {
+        "$float": "nan"
+       }
+      ]
+     }
+    ],
+    "result": {
+     "captured_frames": {
+      "count": 2,
+      "p50": 1500.0,
+      "p95": 1950.0,
+      "maximum": 2000,
+      "latest": 2000
+     },
+     "cancel_s": {
+      "count": 1,
+      "p50": 0.25,
+      "p95": 0.25,
+      "maximum": 0.25,
+      "latest": 0.25
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "shutdown_s": [
+       1000000000000.0,
+       0
+      ]
+     }
+    ],
+    "result": {
+     "shutdown_s": {
+      "count": 2,
+      "p50": 500000000000.0,
+      "p95": 950000000000.0,
+      "maximum": 1000000000000.0,
+      "latest": 0
+     }
+    }
+   },
+   {
+    "args": [
+     {
+      "stop_to_result_s": [
+       10,
+       11,
+       12,
+       13,
+       14,
+       15,
+       16,
+       17,
+       18,
+       19,
+       20,
+       21,
+       22,
+       23,
+       24,
+       25,
+       26,
+       27,
+       28,
+       29,
+       30,
+       31,
+       32,
+       33,
+       34,
+       35,
+       36,
+       37,
+       38,
+       39,
+       40,
+       41,
+       42,
+       43,
+       44,
+       45,
+       46,
+       47,
+       48,
+       49,
+       50,
+       51,
+       52,
+       53,
+       54,
+       55,
+       56,
+       57,
+       58,
+       59,
+       60,
+       61,
+       62,
+       63,
+       64,
+       65,
+       66,
+       67,
+       68,
+       69,
+       70,
+       71,
+       72,
+       73,
+       74,
+       75,
+       76,
+       77,
+       78,
+       79,
+       80,
+       81,
+       82,
+       83,
+       84,
+       85,
+       86,
+       87,
+       88,
+       89,
+       90,
+       91,
+       92,
+       93,
+       94,
+       95,
+       96,
+       97,
+       98,
+       99,
+       100,
+       101,
+       102,
+       103,
+       104,
+       105,
+       106,
+       107,
+       108,
+       109
+      ]
+     }
+    ],
+    "result": {
+     "stop_to_result_s": {
+      "count": 100,
+      "p50": 59.5,
+      "p95": 104.05,
+      "maximum": 109,
+      "latest": 109
+     }
+    },
+    "traced": true
+   }
+  ],
+  "FailureCapture": [
+   {
+    "args": [
+     "services.recorder",
+     null
+    ],
+    "result": {
+     "component": "recorder",
+     "category": "LoggedError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.recorder.x",
+     null
+    ],
+    "result": {
+     "component": "recorder",
+     "category": "LoggedError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.recorderx",
+     null
+    ],
+    "result": {
+     "component": "application",
+     "category": "LoggedError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.runtime.transcription",
+     null
+    ],
+    "result": {
+     "component": "runtime.transcription",
+     "category": "LoggedError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.runtime.transcription.job",
+     null
+    ],
+    "result": {
+     "component": "runtime.transcription",
+     "category": "LoggedError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.runtime",
+     null
+    ],
+    "result": {
+     "component": "application",
+     "category": "LoggedError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.remote_engine",
+     null
+    ],
+    "result": {
+     "component": "remote_engine",
+     "category": "LoggedError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services",
+     null
+    ],
+    "result": {
+     "component": "application",
+     "category": "LoggedError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "transcriber.y",
+     null
+    ],
+    "result": {
+     "component": "transcriber",
+     "category": "LoggedError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "transcriber",
+     null
+    ],
+    "result": {
+     "component": "application",
+     "category": "LoggedError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "ui_qt.z",
+     null
+    ],
+    "result": {
+     "component": "ui",
+     "category": "LoggedError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "ui_qt",
+     null
+    ],
+    "result": {
+     "component": "application",
+     "category": "LoggedError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "meeting.a",
+     null
+    ],
+    "result": {
+     "component": "meeting",
+     "category": "LoggedError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "meeting",
+     null
+    ],
+    "result": {
+     "component": "application",
+     "category": "LoggedError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "other",
+     null
+    ],
+    "result": {
+     "component": "application",
+     "category": "LoggedError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "root",
+     null
+    ],
+    "result": {
+     "component": "application",
+     "category": "LoggedError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "qt",
+     null
+    ],
+    "result": {
+     "component": "application",
+     "category": "LoggedError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "",
+     null
+    ],
+    "result": {
+     "component": "application",
+     "category": "LoggedError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.recorder",
+     "TimeoutError"
+    ],
+    "result": {
+     "component": "recorder",
+     "category": "TimeoutError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.recorder",
+     "FileNotFoundError"
+    ],
+    "result": {
+     "component": "recorder",
+     "category": "FileNotFoundError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.recorder",
+     "PermissionError"
+    ],
+    "result": {
+     "component": "recorder",
+     "category": "PermissionError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.recorder",
+     "ConnectionResetError"
+    ],
+    "result": {
+     "component": "recorder",
+     "category": "ConnectionError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.recorder",
+     "ConnectionRefusedError"
+    ],
+    "result": {
+     "component": "recorder",
+     "category": "ConnectionError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.recorder",
+     "BrokenPipeError"
+    ],
+    "result": {
+     "component": "recorder",
+     "category": "ConnectionError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.recorder",
+     "ConnectionError"
+    ],
+    "result": {
+     "component": "recorder",
+     "category": "ConnectionError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.recorder",
+     "OSError"
+    ],
+    "result": {
+     "component": "recorder",
+     "category": "OSError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.recorder",
+     "MemoryError"
+    ],
+    "result": {
+     "component": "recorder",
+     "category": "MemoryError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.recorder",
+     "ValueError"
+    ],
+    "result": {
+     "component": "recorder",
+     "category": "ValueError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.recorder",
+     "UnicodeDecodeError"
+    ],
+    "result": {
+     "component": "recorder",
+     "category": "ValueError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.recorder",
+     "RuntimeError"
+    ],
+    "result": {
+     "component": "recorder",
+     "category": "RuntimeError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.recorder",
+     "NotImplementedError"
+    ],
+    "result": {
+     "component": "recorder",
+     "category": "RuntimeError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.recorder",
+     "RecursionError"
+    ],
+    "result": {
+     "component": "recorder",
+     "category": "RuntimeError",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.recorder",
+     "KeyError"
+    ],
+    "result": {
+     "component": "recorder",
+     "category": "Error",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.recorder",
+     "IndexError"
+    ],
+    "result": {
+     "component": "recorder",
+     "category": "Error",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.recorder",
+     "TypeError"
+    ],
+    "result": {
+     "component": "recorder",
+     "category": "Error",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.recorder",
+     "Exception"
+    ],
+    "result": {
+     "component": "recorder",
+     "category": "Error",
+     "line": 44
+    }
+   },
+   {
+    "args": [
+     "services.recorder",
+     null
+    ],
+    "result": {
+     "component": "recorder",
+     "category": "LoggedError",
+     "line": 44
+    }
+   }
+  ]
+ }
+}

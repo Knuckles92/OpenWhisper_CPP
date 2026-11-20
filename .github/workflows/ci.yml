@@ -1,0 +1,182 @@
+# Build and test FioriVoce: the full Windows merge gate, the Qt-free core on Linux, and the
+# lints and formatting. Nothing here uploads anything outside this run, pushes, tags or
+# publishes.
+#
+# Started by hand (or by release-build.yml through workflow_call) only. Running it on every push
+# to main and on pull requests, as OpenWhisper's ci.yml does, is the owner's decision.
+name: Continuous integration
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: Commit, branch or tag to test (default the selected branch)
+        required: false
+        type: string
+  workflow_call:
+    inputs:
+      source_ref:
+        description: Exact source commit being qualified for a release build
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ inputs.source_ref || github.ref }}
+  cancel-in-progress: false
+
+env:
+  # vcpkg.json's builtin-baseline: the ports every build resolves against.
+  VCPKG_COMMIT: 4702e381dbbd9b54d3f7e1eb565cd8981c1814cd
+  QT_VERSION: "6.10.3"
+  AQTINSTALL_VERSION: "3.1.21"
+
+jobs:
+  windows:
+    # The merge gate's own configuration: RelWithDebInfo, warnings as errors, the lints and
+    # every test but the interactive ones (the windows-ci test preset excludes that label).
+    # The decode tests skip: the runner has no speech runtime or model.
+    name: Windows (windows-ci)
+    runs-on: windows-2022
+    timeout-minutes: 300
+    env:
+      VCPKG_ROOT: ${{ github.workspace }}\..\vcpkg
+      VCPKG_BINARY_SOURCES: clear;files,${{ github.workspace }}\..\vcpkg-archives,readwrite
+      CMAKE_BUILD_PARALLEL_LEVEL: "4"
+      CTEST_PARALLEL_LEVEL: "4"
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ inputs.source_ref || github.sha }}
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.12"
+      - name: Restore the Qt kit
+        id: qt-cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}\Qt
+          key: qt-${{ env.QT_VERSION }}-win64_msvc2022_64-aqt-${{ env.AQTINSTALL_VERSION }}
+      - name: Install the Qt kit
+        if: steps.qt-cache.outputs.cache-hit != 'true'
+        shell: pwsh
+        run: |
+          python -m pip install "aqtinstall==$env:AQTINSTALL_VERSION"
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          python -m aqt install-qt windows desktop $env:QT_VERSION win64_msvc2022_64 -O "$env:RUNNER_TEMP\Qt"
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+      - name: Point CMake at the Qt kit
+        shell: pwsh
+        run: |
+          $kit = Join-Path $env:RUNNER_TEMP "Qt\$env:QT_VERSION\msvc2022_64"
+          if (-not (Test-Path "$kit\lib\cmake\Qt6")) { throw "No Qt kit at $kit" }
+          "Qt6_ROOT=$kit" >> $env:GITHUB_ENV
+      - name: Restore the vcpkg binary cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}\..\vcpkg-archives
+          key: vcpkg-x64-windows-${{ env.VCPKG_COMMIT }}-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json') }}
+          restore-keys: |
+            vcpkg-x64-windows-${{ env.VCPKG_COMMIT }}-
+      - name: Install vcpkg at the manifest's baseline
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path "${{ github.workspace }}\..\vcpkg-archives" | Out-Null
+          git clone https://github.com/microsoft/vcpkg.git $env:VCPKG_ROOT
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          git -C $env:VCPKG_ROOT checkout $env:VCPKG_COMMIT
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          & "$env:VCPKG_ROOT\bootstrap-vcpkg.bat" -disableMetrics
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+      - name: Configure, build and test (windows-ci workflow preset)
+        shell: pwsh
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: |
+          $vcpkg = $env:VCPKG_ROOT
+          . .\scripts\vsenv.ps1
+          # The Visual Studio developer shell points VCPKG_ROOT at its bundled copy.
+          $env:VCPKG_ROOT = $vcpkg
+          cmake --workflow --preset windows-ci
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+      - name: Keep the test log
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: windows-ci-test-log
+          path: out/build/windows-ci/Testing/Temporary/LastTest.log
+          if-no-files-found: ignore
+          retention-days: 14
+
+  linux-core:
+    # Every Qt-free module and its tests with GCC: Windows code stays behind win/ with a posix/
+    # stub that has to compile.
+    name: Linux core (linux-core)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    env:
+      VCPKG_ROOT: ${{ github.workspace }}/../vcpkg
+      VCPKG_BINARY_SOURCES: clear;files,${{ github.workspace }}/../vcpkg-archives,readwrite
+      CMAKE_BUILD_PARALLEL_LEVEL: "4"
+      CTEST_PARALLEL_LEVEL: "4"
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ inputs.source_ref || github.sha }}
+      - name: Install the build tools
+        run: |
+          sudo apt-get update
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+            build-essential cmake ninja-build git pkg-config curl zip unzip tar \
+            nasm libasound2-dev linux-libc-dev python3
+      - name: Restore the vcpkg binary cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}/../vcpkg-archives
+          key: vcpkg-x64-linux-${{ env.VCPKG_COMMIT }}-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json') }}
+          restore-keys: |
+            vcpkg-x64-linux-${{ env.VCPKG_COMMIT }}-
+      - name: Install vcpkg at the manifest's baseline
+        run: |
+          mkdir -p "$GITHUB_WORKSPACE/../vcpkg-archives"
+          git clone https://github.com/microsoft/vcpkg.git "$VCPKG_ROOT"
+          git -C "$VCPKG_ROOT" checkout "$VCPKG_COMMIT"
+          "$VCPKG_ROOT/bootstrap-vcpkg.sh" -disableMetrics
+      - name: Configure, build and test (linux-core workflow preset)
+        run: cmake --workflow --preset linux-core
+
+  lint:
+    # The lints of architecture 9.5, the parity ledger, the release tools' tests and the C++
+    # format. They need no build.
+    name: Lints and format
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ inputs.source_ref || github.sha }}
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.12"
+      - name: Install clang-format 18
+        run: |
+          sudo apt-get update
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends clang-format-18
+      - name: Source lints
+        run: |
+          set -e
+          for check in layering ownership qss_names brand style_props; do
+            python -I -B "tools/lint/check_${check}.py" --root .
+          done
+          python -I -B -m unittest discover -s tools/lint/tests -p "test_*.py"
+      - name: Parity ledger
+        run: python -I -B tools/parity/parity_report.py --check
+      - name: Release tools
+        run: python -I -B -m unittest discover -s tools/release/tests -p "test_*.py"
+      - name: C++ format
+        # The vendored headers under third_party keep their upstream format.
+        run: |
+          git ls-files -z -- '*.h' '*.hpp' '*.cpp' '*.cc' '*.inc' ':!:third_party/**' \
+            | xargs -0 clang-format-18 --dry-run -Werror

@@ -1,0 +1,790 @@
+{
+ "scenario": "remote_pair_approval",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "python": "3.12.10",
+ "setup": {
+  "host_name": "studio",
+  "device_name": "laptop",
+  "addresses": [
+   "192.168.1.20",
+   "100.101.102.103"
+  ],
+  "pairing_code": "246810",
+  "fingerprint": "<fingerprint#1>",
+  "patches": [
+   "tailscale.status reports not_installed and tailscale.whois finds nobody (tests/fakes/remote.py no_real_tailscale)",
+   "discovery.find_host and discovery.search find nothing (no UDP leaves the process)",
+   "SpeechHost.start serves on 127.0.0.1 only, without discovery",
+   {
+    "step": "broken_reveal",
+    "patch": "this host's pair_reveal carries another nonce than the one it committed to"
+   },
+   {
+    "step": "refused",
+    "patch": "services.remote_asr.discovery.allowed_sender refuses every address"
+   },
+   {
+    "step": "limited",
+    "patch": "this host's request log holds four requests from 127.0.0.1 made just now"
+   }
+  ],
+  "steps": [
+   {
+    "name": "allowed",
+    "client": "request_pairing",
+    "outcomes": [
+     {
+      "call": "same_digits_on_both_screens",
+      "returned": true
+     },
+     {
+      "call": "host_shows",
+      "returned": {
+       "name": "laptop",
+       "address": "127.0.0.1"
+      }
+     },
+     {
+      "call": "request_pairing",
+      "returned": {
+       "token": "<token#1>",
+       "device_id": "<device_id#1>",
+       "host_name": "studio",
+       "fingerprint": "<fingerprint#1>",
+       "alternates": [
+        "192.168.1.20",
+        "100.101.102.103"
+       ],
+       "via": "approval"
+      }
+     }
+    ]
+   },
+   {
+    "name": "denied",
+    "client": "request_pairing",
+    "outcomes": [
+     {
+      "call": "same_digits_on_both_screens",
+      "returned": true
+     },
+     {
+      "call": "host_shows",
+      "returned": {
+       "name": "laptop",
+       "address": "127.0.0.1"
+      }
+     },
+     {
+      "call": "request_pairing",
+      "raised": {
+       "type": "RemoteEngineError",
+       "message": "studio declined the request."
+      }
+     }
+    ]
+   },
+   {
+    "name": "timeout",
+    "client": "request_pairing",
+    "outcomes": [
+     {
+      "call": "same_digits_on_both_screens",
+      "returned": true
+     },
+     {
+      "call": "host_shows",
+      "returned": {
+       "name": "laptop",
+       "address": "127.0.0.1"
+      }
+     },
+     {
+      "call": "request_pairing",
+      "raised": {
+       "type": "RemoteEngineError",
+       "message": "Nobody answered on studio. Try again while someone is at it, or pair with a code."
+      }
+     }
+    ],
+    "notes": [
+     "the waiting request's expires_at is set to now (the host waits 120 s)"
+    ]
+   },
+   {
+    "name": "canceled",
+    "client": "request_pairing",
+    "outcomes": [
+     {
+      "call": "same_digits_on_both_screens",
+      "returned": true
+     },
+     {
+      "call": "host_shows",
+      "returned": {
+       "name": "laptop",
+       "address": "127.0.0.1"
+      }
+     },
+     {
+      "call": "request_pairing",
+      "raised": {
+       "type": "PairingCanceled",
+       "message": "Pairing canceled."
+      }
+     }
+    ]
+   },
+   {
+    "name": "broken_reveal",
+    "client": "request_pairing",
+    "outcomes": [
+     {
+      "call": "request_pairing",
+      "raised": {
+       "type": "RemoteEngineError",
+       "message": "The host's pairing answer didn't check out. Pairing was stopped; try again on a network you trust."
+      }
+     }
+    ]
+   },
+   {
+    "name": "refused",
+    "client": "request_pairing",
+    "outcomes": [
+     {
+      "call": "request_pairing",
+      "raised": {
+       "type": "RemoteEngineError",
+       "message": "This host only takes pairing requests from its own network. Enter the pairing code shown there instead."
+      }
+     }
+    ]
+   },
+   {
+    "name": "limited",
+    "client": "request_pairing",
+    "outcomes": [
+     {
+      "call": "request_pairing",
+      "raised": {
+       "type": "RemoteEngineError",
+       "message": "Too many pairing requests from this computer. Wait a few minutes, or enter the pairing code shown on the host."
+      }
+     }
+    ]
+   },
+   {
+    "name": "busy",
+    "client": "request_pairing",
+    "outcomes": [
+     {
+      "call": "same_digits_on_both_screens",
+      "returned": true
+     },
+     {
+      "call": "host_shows",
+      "returned": {
+       "name": "laptop",
+       "address": "127.0.0.1"
+      }
+     },
+     {
+      "call": "request_pairing (second)",
+      "raised": {
+       "type": "RemoteEngineError",
+       "message": "studio is already asking about another computer. Try again in a minute."
+      }
+     },
+     {
+      "call": "request_pairing (first)",
+      "raised": {
+       "type": "RemoteEngineError",
+       "message": "studio declined the request."
+      }
+     }
+    ]
+   },
+   {
+    "name": "stopped",
+    "client": "request_pairing",
+    "outcomes": [
+     {
+      "call": "same_digits_on_both_screens",
+      "returned": true
+     },
+     {
+      "call": "host_shows",
+      "returned": {
+       "name": "laptop",
+       "address": "127.0.0.1"
+      }
+     },
+     {
+      "call": "request_pairing",
+      "raised": {
+       "type": "RemoteEngineError",
+       "message": "studio stopped sharing its engine."
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "frames": [
+  {
+   "step": "allowed",
+   "conn": 0,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair_request\", \"protocol\": 1, \"device_name\": \"laptop\"}"
+  },
+  {
+   "step": "allowed",
+   "conn": 0,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"pair_commit\",\"commit\":\"<commit#1>\",\"timeout_s\":120}"
+  },
+  {
+   "step": "allowed",
+   "conn": 0,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair_nonce\", \"nonce\": \"<nonce#1>\"}"
+  },
+  {
+   "step": "allowed",
+   "conn": 0,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"pair_reveal\",\"nonce\":\"<nonce#2>\"}"
+  },
+  {
+   "step": "allowed",
+   "conn": 0,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"paired\",\"token\":\"<token#1>\",\"device_id\":\"<device_id#1>\",\"host\":{\"name\":\"studio\",\"fingerprint\":\"<fingerprint#1>\",\"addresses\":[\"192.168.1.20\",\"100.101.102.103\"]}}"
+  },
+  {
+   "step": "allowed",
+   "conn": 0,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 1000,
+   "reason": ""
+  },
+  {
+   "step": "allowed",
+   "conn": 0,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 1000,
+   "reason": "",
+   "echo": true
+  },
+  {
+   "step": "denied",
+   "conn": 1,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair_request\", \"protocol\": 1, \"device_name\": \"laptop\"}"
+  },
+  {
+   "step": "denied",
+   "conn": 1,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"pair_commit\",\"commit\":\"<commit#2>\",\"timeout_s\":120}"
+  },
+  {
+   "step": "denied",
+   "conn": 1,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair_nonce\", \"nonce\": \"<nonce#3>\"}"
+  },
+  {
+   "step": "denied",
+   "conn": 1,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"pair_reveal\",\"nonce\":\"<nonce#4>\"}"
+  },
+  {
+   "step": "denied",
+   "conn": 1,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"error\",\"code\":\"pair_denied\",\"message\":\"studio declined the request.\"}"
+  },
+  {
+   "step": "denied",
+   "conn": 1,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4401,
+   "reason": "pair_denied"
+  },
+  {
+   "step": "denied",
+   "conn": 1,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4401,
+   "reason": "pair_denied",
+   "echo": true
+  },
+  {
+   "step": "timeout",
+   "conn": 2,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair_request\", \"protocol\": 1, \"device_name\": \"laptop\"}"
+  },
+  {
+   "step": "timeout",
+   "conn": 2,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"pair_commit\",\"commit\":\"<commit#3>\",\"timeout_s\":120}"
+  },
+  {
+   "step": "timeout",
+   "conn": 2,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair_nonce\", \"nonce\": \"<nonce#5>\"}"
+  },
+  {
+   "step": "timeout",
+   "conn": 2,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"pair_reveal\",\"nonce\":\"<nonce#6>\"}"
+  },
+  {
+   "step": "timeout",
+   "conn": 2,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"error\",\"code\":\"pair_timeout\",\"message\":\"Nobody answered on studio. Try again while someone is at it, or pair with a code.\"}"
+  },
+  {
+   "step": "timeout",
+   "conn": 2,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4401,
+   "reason": "pair_timeout"
+  },
+  {
+   "step": "timeout",
+   "conn": 2,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4401,
+   "reason": "pair_timeout",
+   "echo": true
+  },
+  {
+   "step": "canceled",
+   "conn": 3,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair_request\", \"protocol\": 1, \"device_name\": \"laptop\"}"
+  },
+  {
+   "step": "canceled",
+   "conn": 3,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"pair_commit\",\"commit\":\"<commit#4>\",\"timeout_s\":120}"
+  },
+  {
+   "step": "canceled",
+   "conn": 3,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair_nonce\", \"nonce\": \"<nonce#7>\"}"
+  },
+  {
+   "step": "canceled",
+   "conn": 3,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"pair_reveal\",\"nonce\":\"<nonce#8>\"}"
+  },
+  {
+   "step": "canceled",
+   "conn": 3,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair_cancel\"}"
+  },
+  {
+   "step": "canceled",
+   "conn": 3,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 1000,
+   "reason": ""
+  },
+  {
+   "step": "canceled",
+   "conn": 3,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 1000,
+   "reason": "",
+   "echo": true
+  },
+  {
+   "step": "broken_reveal",
+   "conn": 4,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair_request\", \"protocol\": 1, \"device_name\": \"laptop\"}"
+  },
+  {
+   "step": "broken_reveal",
+   "conn": 4,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"pair_commit\",\"commit\":\"<commit#5>\",\"timeout_s\":120}"
+  },
+  {
+   "step": "broken_reveal",
+   "conn": 4,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair_nonce\", \"nonce\": \"<nonce#9>\"}"
+  },
+  {
+   "step": "broken_reveal",
+   "conn": 4,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"pair_reveal\",\"nonce\":\"<nonce#10>\"}"
+  },
+  {
+   "step": "broken_reveal",
+   "conn": 4,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 1000,
+   "reason": ""
+  },
+  {
+   "step": "broken_reveal",
+   "conn": 4,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 1000,
+   "reason": "",
+   "echo": true
+  },
+  {
+   "step": "refused",
+   "conn": 5,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair_request\", \"protocol\": 1, \"device_name\": \"laptop\"}"
+  },
+  {
+   "step": "refused",
+   "conn": 5,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"error\",\"code\":\"approval_refused\",\"message\":\"This host only takes pairing requests from its own network. Enter the pairing code shown there instead.\"}"
+  },
+  {
+   "step": "refused",
+   "conn": 5,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4401,
+   "reason": "approval_refused"
+  },
+  {
+   "step": "refused",
+   "conn": 5,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4401,
+   "reason": "approval_refused",
+   "echo": true
+  },
+  {
+   "step": "limited",
+   "conn": 6,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair_request\", \"protocol\": 1, \"device_name\": \"laptop\"}"
+  },
+  {
+   "step": "limited",
+   "conn": 6,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"error\",\"code\":\"approval_limited\",\"message\":\"Too many pairing requests from this computer. Wait a few minutes, or enter the pairing code shown on the host.\"}"
+  },
+  {
+   "step": "limited",
+   "conn": 6,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4401,
+   "reason": "approval_limited"
+  },
+  {
+   "step": "limited",
+   "conn": 6,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4401,
+   "reason": "approval_limited",
+   "echo": true
+  },
+  {
+   "step": "busy",
+   "conn": 7,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair_request\", \"protocol\": 1, \"device_name\": \"laptop\"}"
+  },
+  {
+   "step": "busy",
+   "conn": 7,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"pair_commit\",\"commit\":\"<commit#6>\",\"timeout_s\":120}"
+  },
+  {
+   "step": "busy",
+   "conn": 7,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair_nonce\", \"nonce\": \"<nonce#11>\"}"
+  },
+  {
+   "step": "busy",
+   "conn": 7,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"pair_reveal\",\"nonce\":\"<nonce#12>\"}"
+  },
+  {
+   "step": "busy",
+   "conn": 7,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"error\",\"code\":\"pair_denied\",\"message\":\"studio declined the request.\"}"
+  },
+  {
+   "step": "busy",
+   "conn": 7,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4401,
+   "reason": "pair_denied"
+  },
+  {
+   "step": "busy",
+   "conn": 7,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4401,
+   "reason": "pair_denied",
+   "echo": true
+  },
+  {
+   "step": "busy",
+   "conn": 8,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair_request\", \"protocol\": 1, \"device_name\": \"laptop\"}"
+  },
+  {
+   "step": "busy",
+   "conn": 8,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"error\",\"code\":\"approval_busy\",\"message\":\"studio is already asking about another computer. Try again in a minute.\"}"
+  },
+  {
+   "step": "busy",
+   "conn": 8,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4401,
+   "reason": "approval_busy"
+  },
+  {
+   "step": "busy",
+   "conn": 8,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4401,
+   "reason": "approval_busy",
+   "echo": true
+  },
+  {
+   "step": "stopped",
+   "conn": 9,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair_request\", \"protocol\": 1, \"device_name\": \"laptop\"}"
+  },
+  {
+   "step": "stopped",
+   "conn": 9,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"pair_commit\",\"commit\":\"<commit#7>\",\"timeout_s\":120}"
+  },
+  {
+   "step": "stopped",
+   "conn": 9,
+   "dir": "c2s",
+   "kind": "text",
+   "text": "{\"type\": \"pair_nonce\", \"nonce\": \"<nonce#13>\"}"
+  },
+  {
+   "step": "stopped",
+   "conn": 9,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"pair_reveal\",\"nonce\":\"<nonce#14>\"}"
+  },
+  {
+   "step": "stopped",
+   "conn": 9,
+   "dir": "s2c",
+   "kind": "text",
+   "text": "{\"type\":\"error\",\"code\":\"pair_closed\",\"message\":\"studio stopped sharing its engine.\"}"
+  },
+  {
+   "step": "stopped",
+   "conn": 9,
+   "dir": "s2c",
+   "kind": "close",
+   "code": 4401,
+   "reason": "pair_closed"
+  },
+  {
+   "step": "stopped",
+   "conn": 9,
+   "dir": "c2s",
+   "kind": "close",
+   "code": 4401,
+   "reason": "pair_closed",
+   "echo": true
+  }
+ ],
+ "normalize": [
+  {
+   "path": "1/commit",
+   "as": "commit",
+   "of": "<nonce#2>"
+  },
+  {
+   "path": "2/nonce",
+   "as": "nonce"
+  },
+  {
+   "path": "3/nonce",
+   "as": "nonce"
+  },
+  {
+   "path": "4/token",
+   "as": "token"
+  },
+  {
+   "path": "4/device_id",
+   "as": "device_id"
+  },
+  {
+   "path": "4/host/fingerprint",
+   "as": "fingerprint"
+  },
+  {
+   "path": "8/commit",
+   "as": "commit",
+   "of": "<nonce#4>"
+  },
+  {
+   "path": "9/nonce",
+   "as": "nonce"
+  },
+  {
+   "path": "10/nonce",
+   "as": "nonce"
+  },
+  {
+   "path": "15/commit",
+   "as": "commit",
+   "of": "<nonce#6>"
+  },
+  {
+   "path": "16/nonce",
+   "as": "nonce"
+  },
+  {
+   "path": "17/nonce",
+   "as": "nonce"
+  },
+  {
+   "path": "22/commit",
+   "as": "commit",
+   "of": "<nonce#8>"
+  },
+  {
+   "path": "23/nonce",
+   "as": "nonce"
+  },
+  {
+   "path": "24/nonce",
+   "as": "nonce"
+  },
+  {
+   "path": "29/commit",
+   "as": "commit"
+  },
+  {
+   "path": "30/nonce",
+   "as": "nonce"
+  },
+  {
+   "path": "31/nonce",
+   "as": "nonce"
+  },
+  {
+   "path": "43/commit",
+   "as": "commit",
+   "of": "<nonce#12>"
+  },
+  {
+   "path": "44/nonce",
+   "as": "nonce"
+  },
+  {
+   "path": "45/nonce",
+   "as": "nonce"
+  },
+  {
+   "path": "54/commit",
+   "as": "commit",
+   "of": "<nonce#14>"
+  },
+  {
+   "path": "55/nonce",
+   "as": "nonce"
+  },
+  {
+   "path": "56/nonce",
+   "as": "nonce"
+  }
+ ]
+}

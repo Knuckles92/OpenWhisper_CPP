@@ -1,0 +1,733 @@
+{
+  "package": "M3.2, M3.5",
+  "files": {
+    "tests/test_app_update.py": {
+      "TestDetectChannel::test_frozen_is_installer": {
+        "status": "ported",
+        "cpp": "tests/update/test_version_channel.cpp",
+        "note": "a registered install whose folder is the running executable's is the installer channel"
+      },
+      "TestDetectChannel::test_git_dir_is_git": {
+        "status": "dropped",
+        "reason": "FioriVoce never runs from a Python git checkout; the git channel is dropped"
+      },
+      "TestDetectChannel::test_loose_tree_is_source": {
+        "status": "ported",
+        "cpp": "tests/update/test_version_channel.cpp"
+      },
+      "TestDetectChannel::test_frozen_channel_label_is_platform_aware": {
+        "status": "ported",
+        "cpp": "tests/update/test_version_channel.cpp"
+      },
+      "TestCompareVersions::test_padded_patch_release_preserves_update_asset_names": {
+        "status": "ported",
+        "cpp": "tests/update/test_version_channel.cpp"
+      },
+      "TestCompareVersions::test_equal_behind_and_ahead": {
+        "status": "ported",
+        "cpp": "tests/update/test_version_channel.cpp"
+      },
+      "TestCompareVersions::test_prerelease_suffix_is_ignored_for_ordering": {
+        "status": "ported",
+        "cpp": "tests/update/test_version_channel.cpp"
+      },
+      "TestCompareVersions::test_normalize_strips_v": {
+        "status": "ported",
+        "cpp": "tests/update/test_version_channel.cpp"
+      },
+      "TestSecondsUntilAutoCheck::test_disabled_never_checks": {
+        "status": "ported",
+        "cpp": "tests/update/test_schedule.cpp"
+      },
+      "TestSecondsUntilAutoCheck::test_git_checkout_never_checks": {
+        "status": "ported",
+        "cpp": "tests/update/test_schedule.cpp",
+        "note": "adapted: a build without an update source never checks (no build is a git checkout)"
+      },
+      "TestSecondsUntilAutoCheck::test_source_copy_checks": {
+        "status": "ported",
+        "cpp": "tests/update/test_schedule.cpp"
+      },
+      "TestSecondsUntilAutoCheck::test_missing_timestamp_is_due": {
+        "status": "ported",
+        "cpp": "tests/update/test_schedule.cpp"
+      },
+      "TestSecondsUntilAutoCheck::test_waits_out_the_interval_from_the_last_success": {
+        "status": "ported",
+        "cpp": "tests/update/test_schedule.cpp"
+      },
+      "TestSecondsUntilAutoCheck::test_stale_check_is_due": {
+        "status": "ported",
+        "cpp": "tests/update/test_schedule.cpp"
+      },
+      "TestSecondsUntilAutoCheck::test_recent_failure_waits_an_hour_even_when_success_is_stale": {
+        "status": "ported",
+        "cpp": "tests/update/test_schedule.cpp"
+      },
+      "TestSecondsUntilAutoCheck::test_launch_does_not_wait_out_a_recent_success": {
+        "status": "ported",
+        "cpp": "tests/update/test_schedule.cpp"
+      },
+      "TestSecondsUntilAutoCheck::test_launch_still_waits_an_hour_after_a_failure": {
+        "status": "ported",
+        "cpp": "tests/update/test_schedule.cpp"
+      },
+      "TestSecondsUntilAutoCheck::test_future_times_from_a_moved_clock_are_ignored": {
+        "status": "ported",
+        "cpp": "tests/update/test_schedule.cpp"
+      },
+      "TestSecondsUntilAutoCheck::test_invalid_timestamp_is_treated_as_missing": {
+        "status": "ported",
+        "cpp": "tests/update/test_schedule.cpp"
+      },
+      "TestShowsUpdateNotice::test_update_available_shows_by_default": {
+        "status": "ported",
+        "cpp": "tests/update/test_schedule.cpp"
+      },
+      "TestShowsUpdateNotice::test_nothing_new_or_an_opt_out_shows_nothing": {
+        "status": "ported",
+        "cpp": "tests/update/test_schedule.cpp"
+      },
+      "TestParseReleasePayload::test_real_latest_shape": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_feed.cpp"
+      },
+      "TestParseReleasePayload::test_sidecar_zip_asset_is_ignored": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_feed.cpp"
+      },
+      "TestParseReleasePayload::test_missing_digest_allows_notify_but_not_apply": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_feed.cpp"
+      },
+      "TestParseReleasePayload::test_missing_tag_raises": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_feed.cpp"
+      },
+      "TestParseReleasePayload::test_an_asset_hosted_off_github_is_ignored": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_feed.cpp"
+      },
+      "TestParseReleasePayload::test_feed_override_accepts_assets_from_its_own_origin": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_feed.cpp"
+      },
+      "TestParseReleasePayload::test_feed_override_still_rejects_other_origins": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_feed.cpp"
+      },
+      "TestFetchLatestRelease::test_requests_github_latest_not_the_website": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_feed.cpp",
+        "note": "against a configured fake repository; FioriVoce has no update source by default"
+      },
+      "TestFetchLatestRelease::test_feed_override_replaces_github": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_feed.cpp"
+      },
+      "TestFetchLatestRelease::test_blank_feed_override_is_ignored": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_feed.cpp"
+      },
+      "TestNetworkErrorCopy::test_http_403_is_rate_limit": {
+        "status": "ported",
+        "cpp": "tests/update/test_check.cpp"
+      },
+      "TestNetworkErrorCopy::test_other_http_403_is_not_mislabeled_as_rate_limit": {
+        "status": "ported",
+        "cpp": "tests/update/test_check.cpp"
+      },
+      "TestNetworkErrorCopy::test_http_429_is_rate_limit": {
+        "status": "ported",
+        "cpp": "tests/update/test_check.cpp"
+      },
+      "TestNetworkErrorCopy::test_other_http_error_keeps_status_code": {
+        "status": "ported",
+        "cpp": "tests/update/test_check.cpp"
+      },
+      "TestNetworkErrorCopy::test_wrapped_certificate_failure_gives_guidance": {
+        "status": "ported",
+        "cpp": "tests/update/test_check.cpp"
+      },
+      "TestNetworkErrorCopy::test_certificate_failure_during_download_gives_guidance": {
+        "status": "ported",
+        "cpp": "tests/update/test_download.cpp"
+      },
+      "TestNetworkErrorCopy::test_failure_status_distinguishes_rate_limit": {
+        "status": "ported",
+        "cpp": "tests/update/test_check.cpp"
+      },
+      "TestCheckForUpdate::test_builds_result_and_persists_timestamp": {
+        "status": "ported",
+        "cpp": "tests/update/test_check.cpp",
+        "note": "on a development build; the git summary is dropped with the git channel"
+      },
+      "TestCheckForUpdate::test_behind_latest_is_update_available": {
+        "status": "ported",
+        "cpp": "tests/update/test_check.cpp"
+      },
+      "TestPersistPromptChoices::test_writes_independent_prefs": {
+        "status": "ported",
+        "cpp": "tests/update/test_check.cpp"
+      },
+      "TestDownloadInstaller::test_refuses_source_channel": {
+        "status": "ported",
+        "cpp": "tests/update/test_download.cpp"
+      },
+      "TestDownloadInstaller::test_hash_mismatch_discards_file": {
+        "status": "ported",
+        "cpp": "tests/update/test_download.cpp"
+      },
+      "TestDownloadInstaller::test_matching_hash_keeps_existing_file": {
+        "status": "ported",
+        "cpp": "tests/update/test_download.cpp"
+      },
+      "TestPruneStaleDownloads::test_a_finished_download_is_collected": {
+        "status": "ported",
+        "cpp": "tests/update/test_leftovers.cpp"
+      },
+      "TestPruneStaleDownloads::test_the_transaction_directory_is_left_to_its_owner": {
+        "status": "ported",
+        "cpp": "tests/update/test_leftovers.cpp"
+      },
+      "TestPruneStaleDownloads::test_a_download_in_progress_is_spared": {
+        "status": "ported",
+        "cpp": "tests/update/test_leftovers.cpp"
+      },
+      "TestPruneStaleDownloads::test_a_locked_file_does_not_stop_the_others": {
+        "status": "ported",
+        "cpp": "tests/update/test_leftovers.cpp"
+      },
+      "TestCanApplyAndHints::test_installer_windows_with_digest": {
+        "status": "ported",
+        "cpp": "tests/update/test_version_channel.cpp"
+      },
+      "TestCanApplyAndHints::test_git_never_applies": {
+        "status": "ported",
+        "cpp": "tests/update/test_version_channel.cpp",
+        "note": "adapted to the development build (InstallChannel::Source)"
+      },
+      "TestCanApplyAndHints::test_macos_installer_does_not_apply": {
+        "status": "ported",
+        "cpp": "tests/update/test_version_channel.cpp"
+      },
+      "TestCanApplyAndHints::test_git_hint_is_copy_paste": {
+        "status": "dropped",
+        "reason": "the git-checkout update hint has no FioriVoce counterpart"
+      },
+      "TestDualAssetsAndApplyMode::test_prefers_exact_archive_name": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_feed.cpp"
+      },
+      "TestDualAssetsAndApplyMode::test_duplicate_archive_is_rejected": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_feed.cpp"
+      },
+      "TestDualAssetsAndApplyMode::test_wrong_download_url_is_rejected": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_feed.cpp"
+      },
+      "TestDualAssetsAndApplyMode::test_draft_release_has_no_apply_assets": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_feed.cpp"
+      },
+      "TestDualAssetsAndApplyMode::test_native_mode_requires_hkcu_registration": {"status": "ported", "cpp": "tests/update/test_check.cpp", "note": "case: native mode requires hkcu registration"},
+      "TestDualAssetsAndApplyMode::test_hklm_registration_uses_setup": {
+        "status": "ported",
+        "cpp": "tests/update/test_version_channel.cpp"
+      },
+      "TestDualAssetsAndApplyMode::test_setup_only_release_is_setup_mode": {
+        "status": "ported",
+        "cpp": "tests/update/test_version_channel.cpp"
+      },
+      "TestDualAssetsAndApplyMode::test_missing_both_digests_is_notify_only": {
+        "status": "ported",
+        "cpp": "tests/update/test_version_channel.cpp"
+      },
+      "test_mac_update_check_selects_verified_dmg": {
+        "status": "dropped",
+        "reason": "other-platform: the macOS disk-image update has no Windows counterpart"
+      }
+    },
+    "tests/test_app_update_rate_limit.py": {
+      "test_rate_limited_check_keeps_verified_mac_install_available": {
+        "status": "dropped",
+        "reason": "other-platform: the macOS disk-image update has no Windows counterpart"
+      },
+      "test_fallback_retains_verified_windows_assets": {
+        "status": "ported",
+        "cpp": "tests/update/test_rate_limit.cpp"
+      },
+      "test_primary_api_cooldown_survives_reloading_settings": {
+        "status": "ported",
+        "cpp": "tests/update/test_rate_limit.cpp"
+      },
+      "test_secondary_rate_limit_sets_cooldown_and_uses_fallback": {
+        "status": "ported",
+        "cpp": "tests/update/test_rate_limit.cpp"
+      },
+      "test_expired_api_cooldown_allows_api_retry": {
+        "status": "ported",
+        "cpp": "tests/update/test_rate_limit.cpp"
+      },
+      "test_other_api_errors_do_not_start_rate_limit_fallback": {
+        "status": "ported",
+        "cpp": "tests/update/test_rate_limit.cpp"
+      },
+      "test_missing_or_untrusted_checksums_allow_notification_only": {
+        "status": "ported",
+        "cpp": "tests/update/test_rate_limit.cpp"
+      },
+      "test_unknown_or_invalid_asset_sizes_never_enable_install": {
+        "status": "ported",
+        "cpp": "tests/update/test_rate_limit.cpp"
+      },
+      "test_fallback_requires_exact_repository_stable_tag": {
+        "status": "ported",
+        "cpp": "tests/update/test_rate_limit.cpp",
+        "note": "the fake answers with real redirects, which the check follows itself: a hop off github.com is refused as an unsafe redirect before the tag is read"
+      },
+      "test_failed_checks_throttle_auto_retry_without_claiming_success": {
+        "status": "ported",
+        "cpp": "tests/update/test_rate_limit.cpp"
+      },
+      "test_loopback_feed_bypasses_production_cooldown": {
+        "status": "ported",
+        "cpp": "tests/update/test_rate_limit.cpp"
+      },
+      "test_head_redirect_preserves_method_and_trust_checks": {
+        "status": "ported",
+        "cpp": "tests/update/test_rate_limit.cpp"
+      }
+    },
+    "tests/test_app_update_release_track.py": {
+      "TestReleaseTrackSetting::test_default_is_stable": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp"
+      },
+      "TestReleaseTrackSetting::test_opt_in_selects_beta": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp"
+      },
+      "TestReleaseTrackSetting::test_non_bool_value_is_stable": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp"
+      },
+      "TestReleaseTrackSetting::test_unreadable_settings_are_stable": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp"
+      },
+      "TestStableTrackNeverSeesPrereleases::test_stable_reads_only_latest_endpoint": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp"
+      },
+      "TestStableTrackNeverSeesPrereleases::test_stable_ignores_a_newer_prerelease": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp"
+      },
+      "TestStableTrackNeverSeesPrereleases::test_prerelease_payload_is_not_installable_off_the_beta_track": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp"
+      },
+      "TestStableTrackNeverSeesPrereleases::test_drafts_are_never_installable": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp"
+      },
+      "TestBetaTrackSelection::test_newer_prerelease_wins": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp"
+      },
+      "TestBetaTrackSelection::test_newer_stable_wins_whatever_the_list_order": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp"
+      },
+      "TestBetaTrackSelection::test_drafts_and_suffixed_tags_are_skipped": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp"
+      },
+      "TestBetaTrackSelection::test_stable_wins_a_version_tie": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp"
+      },
+      "TestBetaTrackSelection::test_no_usable_release_is_an_error": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp"
+      },
+      "TestBetaTrackSelection::test_prerelease_assets_keep_url_allow_listing": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp"
+      },
+      "TestBetaTrackSelection::test_prerelease_without_digest_is_notify_only": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp"
+      },
+      "TestBetaTrackSelection::test_verified_prerelease_can_be_applied": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp"
+      },
+      "TestBetaTrackSelection::test_beta_reads_the_release_list": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp"
+      },
+      "TestBetaRateLimitFallback::test_rate_limited_beta_check_falls_back_to_stable": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp"
+      },
+      "TestBetaRateLimitFallback::test_cooldown_skips_the_api_until_it_expires": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp"
+      },
+      "TestBetaRateLimitFallback::test_other_http_errors_are_not_masked": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp"
+      },
+      "TestSwitchingTracks::test_join_then_leave": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp"
+      },
+      "TestSwitchingTracks::test_former_beta_user_rejoins_stable_on_promotion": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp"
+      },
+      "TestSwitchingTracks::test_switch_makes_the_next_automatic_check_due": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp"
+      },
+      "TestLoopbackFeed::test_feed_prerelease_installable_only_on_beta": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp"
+      },
+      "test_soak_feed_can_serve_a_prerelease": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_track.cpp",
+        "note": "split: M3.3's tools/release/tests/test_serve_update_feed.py checks the served prerelease flag (tests/release/PARITY.json); \"a soak feed's prerelease is never installable on the stable track\" checks that parse_release_payload of build_payload's prerelease document has no setup asset on the stable track, with the feed configured so that its asset URL is trusted"
+      }
+    },
+    "tests/test_app_update_download_fallback.py": {
+      "test_release_metadata_retains_asset_id_for_each_installer": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_feed.cpp",
+        "note": "setup and native archive; the macOS disk image is other-platform"
+      },
+      "test_invalid_asset_ids_do_not_enable_fallback": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_feed.cpp"
+      },
+      "test_loopback_feed_never_enables_production_fallback": {
+        "status": "ported",
+        "cpp": "tests/update/test_release_feed.cpp"
+      },
+      "test_gateway_error_downloads_and_verifies_via_api": {
+        "status": "ported",
+        "cpp": "tests/update/test_download_fallback.cpp"
+      },
+      "test_successful_primary_download_does_not_call_api": {
+        "status": "ported",
+        "cpp": "tests/update/test_download_fallback.cpp"
+      },
+      "test_other_failures_do_not_switch_routes": {
+        "status": "ported",
+        "cpp": "tests/update/test_download_fallback.cpp"
+      },
+      "test_failures_are_bounded": {
+        "status": "ported",
+        "cpp": "tests/update/test_download_fallback.cpp"
+      },
+      "test_fallback_preserves_validated_range_resume": {
+        "status": "ported",
+        "cpp": "tests/update/test_download_fallback.cpp"
+      },
+      "test_range_restart_stays_on_api": {
+        "status": "ported",
+        "cpp": "tests/update/test_download_fallback.cpp"
+      },
+      "test_cancel_after_gateway_error_stops_before_api": {
+        "status": "ported",
+        "cpp": "tests/update/test_download_fallback.cpp"
+      },
+      "test_fallback_cannot_bypass_digest_or_size": {
+        "status": "ported",
+        "cpp": "tests/update/test_download_fallback.cpp"
+      },
+      "test_asset_api_redirect_uses_existing_trust_checks": {
+        "status": "ported",
+        "cpp": "tests/update/test_download_fallback.cpp"
+      },
+      "test_asset_api_does_not_broaden_other_redirects": {
+        "status": "ported",
+        "cpp": "tests/update/test_download_fallback.cpp"
+      },
+      "test_final_response_url_is_also_checked": {
+        "status": "ported",
+        "cpp": "tests/update/test_download_fallback.cpp"
+      }
+    },
+    "tests/test_app_update_apply.py": {
+      "TestStrictVersion::test_rejects_prerelease": {
+        "status": "golden",
+        "vectors": "tests/golden/services.update_contract.json",
+        "cpp": "tests/update/test_version_channel.cpp"
+      },
+      "TestStrictVersion::test_accepts_plain": {
+        "status": "golden",
+        "vectors": "tests/golden/services.update_contract.json",
+        "cpp": "tests/update/test_version_channel.cpp"
+      },
+      "TestArchiveMemberNames::test_rejects_unsafe_names": {"status": "ported", "cpp": "tests/update_native/test_archive.cpp", "note": "case: only literal relative Windows names can appear in a release"},
+      "TestArchiveMemberNames::test_accepts_internal_file": {"status": "ported", "cpp": "tests/update_native/test_archive.cpp", "note": "case: only literal relative Windows names can appear in a release (platforms/qwindows.dll is FioriVoce's _internal/payload.txt)"},
+      "TestSafeExtract::test_round_trip_bundle": {"status": "ported", "cpp": "tests/update_native/test_archive.cpp", "note": "case: a FioriVoce release round-trips through its native archive manifest"},
+      "TestSafeExtract::test_rejects_symlink": {"status": "ported", "cpp": "tests/update_native/test_archive.cpp", "note": "case: the archive is independently checked against every declared hash, section \"a declared file is a symbolic link\""},
+      "TestSafeExtract::test_rejects_hardlink": {"status": "dropped", "reason": "FioriVoce's update archive is a Zip64 file, which has no hard links (docs/port/differences.md a34-archive; docs/port/packages/M10.md change 2). The link a zip can carry is refused: tests/update_native/test_archive.cpp, section \"a declared file is a symbolic link\"."},
+      "TestSafeExtract::test_rejects_duplicate_case": {"status": "ported", "cpp": "tests/update_native/test_archive.cpp", "note": "case: the archive is independently checked against every declared hash, section \"a second entry aliases the first\""},
+      "TestSafeExtract::test_rejects_parent_member": {"status": "ported", "cpp": "tests/update_native/test_archive.cpp", "note": "case: the archive is independently checked against every declared hash, section \"a member climbs out of the candidate\""},
+      "TestManifest::test_missing_exe_fails": {"status": "ported", "cpp": "tests/update_native/test_archive.cpp", "note": "case: manifest validation rejects incompatible releases or modified trees, section \"missing executable\""},
+      "TestManifest::test_mismatch_detected": {"status": "ported", "cpp": "tests/update_native/test_archive.cpp", "note": "case: manifest validation rejects incompatible releases or modified trees, section \"changed bytes of the same length\""},
+      "TestManifest::test_unmanaged_top_level_file_forces_setup": {"status": "ported", "cpp": "tests/update_native/test_archive.cpp", "note": "case: manifest validation rejects incompatible releases or modified trees, section \"unmanaged root\""},
+      "TestManifest::test_transaction_id_cannot_escape_root": {"status": "ported", "cpp": "tests/update_native/test_journal.cpp", "note": "case: journal paths come only from the trusted roots and transaction id"},
+      "TestPreserveAndEligibility::test_preserves_uninstaller_and_nvidia": {"status": "ported", "cpp": "tests/update_native/test_prepare.cpp", "note": "case: native preparation preserves Inno metadata and stages the installed helper. The uninstaller half only: the legacy NVIDIA tree is engine-specific and has no counterpart (M10.md change 5)"},
+      "TestPreserveAndEligibility::test_hklm_is_not_native_eligible": {"status": "ported", "cpp": "tests/update_native/test_eligibility.cpp", "note": "case: an all-users registration is not native eligible; also test_prepare.cpp \"an all-users registration is sent to the setup before anything is staged\" and tests/update/test_apply.cpp \"an all-users install is never prepared natively\""},
+      "TestPreserveAndEligibility::test_missing_registered_uninstaller_is_not_native_eligible": {"status": "ported", "cpp": "tests/update_native/test_prepare.cpp", "note": "case: native preparation refuses changed inputs before any handoff, section \"unregistered uninstaller\""},
+      "TestPreserveAndEligibility::test_elevated_process_is_not_native_eligible": {"status": "ported", "cpp": "tests/update_native/test_eligibility.cpp", "note": "case: an elevated process is not native eligible. The rule; reading the process token (standard_user_process in win/installed_transaction.cpp) is Windows glue no test fakes"},
+      "TestCommitAndRecover::test_swap_and_cleanup": {"status": "ported", "cpp": "tests/update_native/test_native_platform.cpp", "note": "case: a prepared update is swapped in, confirmed by the new version and cleaned up (off Windows, with a script standing in for the new version); the swap alone is test_transaction.cpp \"native transaction persists intent before each rename and confirms health\""},
+      "TestCommitAndRecover::test_injected_failure_after_old_moved_rolls_back": {"status": "ported", "cpp": "tests/update_native/test_transaction.cpp", "note": "case: faults before health restore a verified old installation; the message left for the next launch is test_transaction_runner.cpp \"a failed commit is reported and the old version returns to restored data\""},
+      "TestCommitAndRecover::test_recover_prepared_abandons_candidate": {"status": "ported", "cpp": "tests/update_native/test_transaction.cpp", "note": "case: recovering a prepared transaction retires it without touching the installation (FioriVoce's final state is superseded: nothing was moved); the candidate goes in test_startup_recovery.cpp \"a finished transaction is collected by the next start\""},
+      "TestCommitAndRecover::test_recover_prepared_after_old_rename_restores_rollback": {"status": "ported", "cpp": "tests/update_native/test_transaction.cpp", "note": "case: recovery returns an old tree that was moved before the journal said so"},
+      "TestCommitAndRecover::test_recover_old_moved_after_candidate_rename_rolls_back": {"status": "ported", "cpp": "tests/update_native/test_transaction.cpp", "note": "case: recovery after both renames puts the old tree back"},
+      "TestCommitAndRecover::test_empty_health_file_is_not_success": {"status": "ported", "cpp": "tests/update_native/test_native_platform.cpp", "note": "case: native platform recovers an interrupted temporary installation, section \"an empty acknowledgement file is not a confirmation\""},
+      "TestCommitAndRecover::test_tampered_candidate_is_rejected_before_swap": {"status": "ported", "cpp": "tests/update_native/test_native_platform.cpp", "note": "case: a candidate changed after its preparation is rejected before the swap; the algorithm alone is test_transaction.cpp \"a candidate that no longer verifies is refused before anything moves\""},
+      "TestCommitAndRecover::test_existing_rollback_tree_is_never_activated": {"status": "ported", "cpp": "tests/update_native/test_transaction.cpp", "note": "case: native recovery never overwrites a foreign or existing rollback tree, section \"existing rollback prevents apply\""},
+      "TestCommitAndRecover::test_damaged_healthy_tree_is_rolled_back": {"status": "ported", "cpp": "tests/update_native/test_native_platform.cpp", "note": "case: native platform recovers an interrupted temporary installation, section \"acknowledged activation with a damaged library or helper\""},
+      "TestCommitAndRecover::test_unconfirmed_new_tree_without_rollback_keeps_recovery": {"status": "ported", "cpp": "tests/update_native/test_transaction.cpp", "note": "case: an unconfirmed new tree without a rollback keeps its recovery entry"},
+      "TestLiveParent::test_running_parent_is_not_reported_as_a_failed_rollback": {"status": "ported", "cpp": "tests/update_native/test_transaction.cpp", "note": "case: invalid journal or a live parent cannot start a native swap, section \"the independently matched parent is still running\""},
+      "TestLiveParent::test_parent_that_never_exits_is_closed_and_the_update_lands": {"status": "dropped", "reason": "Deliberate difference a16-parent-exit (docs/port/differences.md): FioriVoce never ends a parent that outlasts the wait; the update stops and the application is left open. Its own rule: tests/update_native/test_transaction.cpp \"invalid journal or a live parent cannot start a native swap\" and test_transaction_runner.cpp \"a commit refused because the application is still open moves and starts nothing\"."},
+      "TestLiveParent::test_this_process_is_never_its_own_victim": {"status": "dropped", "reason": "Deliberate difference a16-parent-exit (docs/port/differences.md): FioriVoce never ends a parent that outlasts the wait; the update stops and the application is left open. The test pins _force_close_pid, which has no counterpart: no process is ever ended by its number; the only one the helper stops is the health-check child it created itself (src/update_native/detail/health_child.h)."},
+      "TestLiveParent::test_an_unidentified_parent_is_never_terminated": {"status": "dropped", "reason": "Deliberate difference a16-parent-exit (docs/port/differences.md): FioriVoce never ends a parent that outlasts the wait; the update stops and the application is left open. The test pins _force_close_pid, which has no counterpart. An unidentified parent is not even waited for: tests/update_native/test_parent_process.cpp \"parent process wait verifies current image and creation time\" and test_journal.cpp \"journal parent identity is bound to an independently trusted executable\"."},
+      "TestLiveParent::test_a_recycled_pid_is_not_the_victim": {"status": "ported", "cpp": "tests/update_native/test_parent_process.cpp", "note": "case: parent process wait verifies current image and creation time (adapted to a16-parent-exit: a recycled PID is never waited for, and nothing is ever terminated)"},
+      "TestPrepareCandidate::test_stale_registered_version_is_repaired_by_native_update": {"status": "ported", "cpp": "tests/update_native/test_prepare.cpp", "note": "case: a stale registered version does not stop a native update; the commit's registry write is counted in test_native_platform.cpp \"a prepared update is swapped in, confirmed by the new version and cleaned up\" (the real DisplayVersion write is test_private_registry.cpp, Windows only, not run here)"},
+      "TestPrepareCancel::test_cancel_after_extraction_still_cancels": {"status": "ported", "cpp": "tests/update_native/test_prepare.cpp", "note": "case: a cancel after the extraction still cancels and leaves nothing behind"},
+      "TestLockedFiles::test_a_move_that_is_blocked_for_a_moment_still_happens": {"status": "ported", "cpp": "tests/update_native/test_transaction_storage.cpp", "note": "case: a directory move that is blocked for a moment still happens"},
+      "TestLockedFiles::test_a_lock_that_never_clears_still_fails": {"status": "ported", "cpp": "tests/update_native/test_transaction_storage.cpp", "note": "case: a lock that never clears still fails the move"},
+      "TestLockedFiles::test_an_ordinary_error_is_not_retried": {"status": "ported", "cpp": "tests/update_native/test_transaction_storage.cpp", "note": "case: an ordinary error is not retried"},
+      "TestLockedFiles::test_hashing_the_app_it_just_closed_waits_for_the_handle": {"status": "ported", "cpp": "tests/update_native/test_native_platform.cpp", "note": "case: authenticating the installation waits out a lock on the application that just closed (off Windows the lock is simulated; the Windows branch, which holds the image without sharing, was not run here)"},
+      "TestLockedFiles::test_cleanup_waits_out_the_updater_that_asked_for_it": {"status": "dropped", "reason": "FioriVoce has no cleanup copy of the updater and no --cleanup-transaction mode: a finished transaction is collected in the helper's own run and by the application's next start, once the updater has released its gates (docs/port/differences.md a16-cleanup). tests/update_native/test_startup_recovery.cpp \"a finished transaction waits for the updater that still holds the update gate\"."},
+      "TestAbandonedTransactions::test_a_transaction_without_a_journal_is_collected": {"status": "dropped", "reason": "Deliberate difference a16-cleanup (docs/port/differences.md): FioriVoce never collects by age; a transaction folder without a journal is left for inspection. tests/update_native/test_startup_recovery.cpp \"a transaction folder that cannot be read or has no journal is left alone\"."},
+      "TestAbandonedTransactions::test_a_missing_transactions_directory_is_not_an_error": {"status": "ported", "cpp": "tests/update_native/test_startup_recovery.cpp", "note": "case: a start without any transaction has nothing to recover"},
+      "TestAbandonedTransactions::test_a_finished_transaction_is_collected": {"status": "ported", "cpp": "tests/update_native/test_startup_recovery.cpp", "note": "case: a finished transaction is collected by the next start"},
+      "TestAbandonedTransactions::test_a_transaction_recovery_may_still_need_is_kept": {"status": "ported", "cpp": "tests/update_native/test_startup_recovery.cpp", "note": "case: a transaction recovery may still need is kept"},
+      "TestAbandonedTransactions::test_an_unreadable_journal_is_left_for_recovery": {"status": "ported", "cpp": "tests/update_native/test_startup_recovery.cpp", "note": "case: a transaction folder that cannot be read or has no journal is left alone"},
+      "TestLaunchDirectory::test_a_source_run_changes_directory": {"status": "ported", "cpp": "tests/update_native/test_transaction_runner.cpp", "note": "case: a helper started in the install folder leaves it for the updates root"},
+      "TestLaunchDirectory::test_a_frozen_helper_restarts_itself_from_the_updates_root": {"status": "dropped", "reason": "PyInstaller onefile plumbing: the bootloader parent keeps the launch directory, so the frozen helper restarts itself from the updates root. A native program is one process and only changes directory (docs/port/packages/M10.md change 7)."},
+      "TestLaunchDirectory::test_the_restarted_copy_does_not_restart_again": {"status": "dropped", "reason": "PyInstaller onefile plumbing: the bootloader parent keeps the launch directory, so the frozen helper restarts itself from the updates root. A native program is one process and only changes directory (docs/port/packages/M10.md change 7)."},
+      "TestLaunchDirectory::test_a_helper_already_under_the_updates_root_is_left_alone": {"status": "ported", "cpp": "tests/update_native/test_transaction_runner.cpp", "note": "case: a helper already under the updates root is left alone"}
+    },
+    "tests/test_update_resilience.py": {
+      "test_complete_partial_is_verified_without_range_request": {
+        "status": "ported",
+        "cpp": "tests/update/test_resilience.cpp"
+      },
+      "test_wrong_complete_partial_restarts": {
+        "status": "ported",
+        "cpp": "tests/update/test_resilience.cpp"
+      },
+      "test_range_416_restarts_once": {
+        "status": "ported",
+        "cpp": "tests/update/test_resilience.cpp"
+      },
+      "test_short_response_keeps_prefix_and_resumes": {
+        "status": "ported",
+        "cpp": "tests/update/test_resilience.cpp"
+      },
+      "test_integrity_failure_does_not_automatically_install_something_else": {
+        "status": "ported",
+        "cpp": "tests/update/test_resilience.cpp"
+      },
+      "test_queued_success_after_cancel_cannot_launch": {
+        "status": "ported",
+        "cpp": "tests/update/test_resilience.cpp"
+      },
+      "test_stale_attempt_cannot_change_current_dialog": {
+        "status": "ported",
+        "cpp": "tests/update/test_resilience.cpp"
+      },
+      "test_ui_cancel_after_success_is_queued_keeps_app_open": {
+        "status": "ported",
+        "cpp": "tests/ui_controller/test_update_handoff.cpp"
+      },
+      "test_new_work_at_download_completion_can_decline_restart": {
+        "status": "ported",
+        "cpp": "tests/ui_controller/test_update_handoff.cpp"
+      },
+      "test_frozen_child_environment_drops_parent_runtime": {
+        "status": "dropped",
+        "reason": "PyInstaller's bootstrap environment has no counterpart in a native executable"
+      },
+      "test_locked_cleanup_retains_journal_and_retries": {"status": "ported", "cpp": "tests/update_native/test_startup_recovery.cpp", "note": "case: a cleanup that cannot finish keeps its journal and is retried"},
+      "test_recovery_never_overwrites_independent_setup_repair": {"status": "ported", "cpp": "tests/update_native/test_native_platform.cpp", "note": "case: recovery never overwrites an installation a later setup repaired; the algorithm alone is test_transaction.cpp \"native recovery never overwrites a foreign or existing rollback tree\""},
+      "test_setup_removes_stale_runtime_and_preserves_data_and_gpu": {"status": "ported", "cpp": "tests/update_native/test_setup_backup.cpp", "note": "case: installer backup survives partial install, retry and failed verification, section \"healthy install commits\". Adapted to a16-installer-recovery: the helper backs up and verifies, Inno's [InstallDelete] removes the retired files (tools/release/tests/test_windows_installer.py checks that list against the stage); user data lives outside the install folder; the legacy NVIDIA tree has no counterpart"},
+      "test_setup_failure_restores_complete_previous_runtime": {"status": "ported", "cpp": "tests/update_native/test_setup_backup.cpp", "note": "case: installer backup survives partial install, retry and failed verification, section \"setup refusal restores every original after an incomplete installation\""},
+      "test_setup_retry_recovers_interrupted_previous_attempt": {"status": "ported", "cpp": "tests/update_native/test_setup_backup.cpp", "note": "case: installer backup survives partial install, retry and failed verification, section \"starting setup again restores an interrupted preparation before taking a fresh copy\""},
+      "test_retired_transaction_cannot_run_after_setup": {"status": "ported", "cpp": "tests/update_native/test_retire.cpp", "note": "case: a transaction retired for setup can no longer run"},
+      "test_data_snapshot_includes_committed_wal_and_restores_migration": {"status": "ported", "cpp": "tests/update_native/test_data_snapshot.cpp", "note": "case: native rollback restores settings and committed SQLite WAL pages"},
+      "test_absent_data_is_restored_as_absent": {"status": "ported", "cpp": "tests/update_native/test_data_snapshot.cpp", "note": "case: rollback preserves absence and verifies every snapshot before changing data, section \"an absent preference file stays absent after rollback\""},
+      "test_modified_snapshot_is_rejected_before_data_changes": {"status": "ported", "cpp": "tests/update_native/test_data_snapshot.cpp", "note": "case: rollback preserves absence and verifies every snapshot before changing data, section \"tampered snapshot leaves the current data intact\""},
+      "test_preparing_journal_is_collected_after_parent_dies": {"status": "ported", "cpp": "tests/update_native/test_startup_recovery.cpp", "note": "case: a preparation whose application died is abandoned and collected"},
+      "test_startup_dispatches_recovery_before_acquiring_app_lock": {"status": "ported", "cpp": "tests/update_native/test_prepare.cpp", "note": "case: normal installed startup recovers an interrupted update using the original helper, section \"the new tree is already active\". That main() calls it before LaunchGate::enter (src/app/main.cpp) is read, not tested"},
+      "test_health_process_exit_fails_without_waiting_for_timeout": {"status": "ported", "cpp": "tests/update_native/test_health_process.cpp", "note": "case: a health process that exits fails without waiting for the timeout (the shared wait over the POSIX child; the same case over the Windows child is [platform] and was not run here)"},
+      "test_old_updater_floor_requires_setup": {"status": "ported", "cpp": "tests/update_native/test_archive.cpp", "note": "case: manifest validation rejects incompatible releases or modified trees, section \"newer updater required\""},
+      "test_incompatible_native_payload_automatically_uses_verified_setup": {"status": "ported", "cpp": "tests/update/test_apply.cpp", "note": "case: incompatible native payload automatically uses verified setup"},
+      "test_failed_commit_restores_settings_before_old_app_returns": {"status": "ported", "cpp": "tests/update_native/test_native_platform.cpp", "note": "case: a commit that fails after activation puts the user's settings back; that the old version starts only afterwards is test_transaction_runner.cpp \"a failed commit is reported and the old version returns to restored data\""},
+      "test_completed_rollback_never_rewinds_later_user_work": {"status": "ported", "cpp": "tests/update_native/test_transaction.cpp", "note": "case: a finished rollback is never replayed over later work"},
+      "test_bridge_policy_is_enforced_at_the_minimum_version": {"status": "ported", "cpp": "tests/update/test_version_channel.cpp", "note": "case: bridge policy is enforced at the minimum version"},
+      "test_recovery_collects_failed_tree_from_legacy_journal": {"status": "dropped", "reason": "FioriVoce has no legacy journals: cleanup_rollback is a required field (docs/port/packages/M10.md change 6). The tree a rollback moves aside is collected all the same: tests/update_native/test_native_platform.cpp \"a new version that exits fails its health check and the old one returns\"."},
+      "test_valid_old_install_is_relaunched_even_when_cleanup_is_locked": {"status": "ported", "cpp": "tests/update_native/test_transaction_runner.cpp", "note": "case: a valid old installation is started again even when cleanup is locked"}
+    },
+    "tests/test_update_startup_gate.py": {
+      "test_non_frozen_launch_is_not_gated": {
+        "status": "ported",
+        "cpp": "tests/update/test_gates.cpp"
+      },
+      "test_the_launch_that_follows_setup_waits_instead_of_vanishing": {
+        "status": "ported",
+        "cpp": "tests/update/test_gates.cpp"
+      },
+      "test_a_setup_that_never_ends_refuses_the_launch": {
+        "status": "ported",
+        "cpp": "tests/update/test_gates.cpp"
+      },
+      "test_update_mutex_without_token_exits": {"status": "ported", "cpp": "tests/update/test_gates.cpp", "note": "case: a native update admits only the verified health launch (the gate's answer; main() shows the refusal in the native box and leaves with 0, and verifies the token with update_native::check_health before it enters the gate)"},
+      "test_health_token_may_launch_during_update": {"status": "ported", "cpp": "tests/update/test_gates.cpp", "note": "case: a native update admits only the verified health launch (the gate's answer; main() shows the refusal in the native box and leaves with 0, and verifies the token with update_native::check_health before it enters the gate)"}
+    },
+    "tests/test_code_identity.py": {
+      "test_an_installed_build_notices_its_program_file_replaced": {
+        "status": "ported",
+        "cpp": "tests/update/test_code_identity.cpp"
+      },
+      "test_nothing_is_reported_without_a_launch_version_or_a_readable_head": {
+        "status": "ported",
+        "cpp": "tests/update/test_code_identity.cpp"
+      },
+      "test_a_new_commit_on_the_branch_is_a_change": {
+        "status": "dropped",
+        "reason": "FioriVoce never runs from a git checkout; only the installed executable's identity is ported"
+      },
+      "test_packed_and_detached_heads_are_read": {
+        "status": "dropped",
+        "reason": "FioriVoce never runs from a git checkout; only the installed executable's identity is ported"
+      },
+      "test_a_real_commit_counts_and_an_uncommitted_edit_does_not": {
+        "status": "dropped",
+        "reason": "FioriVoce never runs from a git checkout; only the installed executable's identity is ported"
+      }
+    },
+    "tests/test_application_controller.py": {
+      "TestApplicationController::test_finished_check_arms_the_next_one_from_the_saved_times": {
+        "status": "ported",
+        "cpp": "tests/update/test_runtime.cpp"
+      },
+      "TestApplicationController::test_unsaved_check_times_never_mean_checking_again_at_once": {
+        "status": "ported",
+        "cpp": "tests/update/test_runtime.cpp"
+      },
+      "TestApplicationController::test_update_tick_checks_when_due_and_otherwise_waits": {
+        "status": "ported",
+        "cpp": "tests/update/test_runtime.cpp"
+      },
+      "TestApplicationController::test_launch_check_skips_the_interval_once": {
+        "status": "ported",
+        "cpp": "tests/update/test_runtime.cpp"
+      }
+    },
+    "tests/test_settings_binder.py": {
+      "test_beta_track_toggle_makes_the_next_update_check_due": {
+        "status": "ported",
+        "cpp": "tests/update/test_runtime.cpp"
+      }
+    },
+    "tests/test_app_update_macos.py": {
+      "test_result_round_trip_rejects_paths": {
+        "status": "dropped",
+        "reason": "other-platform: the macOS in-place update has no Windows counterpart"
+      },
+      "test_running_bundle_finds_the_app_around_its_executable": {
+        "status": "dropped",
+        "reason": "other-platform: the macOS in-place update has no Windows counterpart"
+      },
+      "test_blockers_send_unreplaceable_copies_to_a_manual_install": {
+        "status": "dropped",
+        "reason": "other-platform: the macOS in-place update has no Windows counterpart"
+      },
+      "test_candidate_must_be_this_app_at_the_release_version": {
+        "status": "dropped",
+        "reason": "other-platform: the macOS in-place update has no Windows counterpart"
+      },
+      "test_prepare_stages_a_verified_copy_beside_the_app": {
+        "status": "dropped",
+        "reason": "other-platform: the macOS in-place update has no Windows counterpart"
+      },
+      "test_prepare_returns_the_image_when_the_app_cannot_replace_itself": {
+        "status": "dropped",
+        "reason": "other-platform: the macOS in-place update has no Windows counterpart"
+      },
+      "test_prepare_leaves_nothing_behind_when_verification_fails": {
+        "status": "dropped",
+        "reason": "other-platform: the macOS in-place update has no Windows counterpart"
+      },
+      "test_prepare_stops_when_canceled": {
+        "status": "dropped",
+        "reason": "other-platform: the macOS in-place update has no Windows counterpart"
+      },
+      "test_helper_swaps_in_the_new_version_and_drops_the_old_one_once_healthy": {
+        "status": "dropped",
+        "reason": "other-platform: the macOS in-place update has no Windows counterpart"
+      },
+      "test_helper_rolls_back_when_the_new_version_does_not_start": {
+        "status": "dropped",
+        "reason": "other-platform: the macOS in-place update has no Windows counterpart"
+      },
+      "test_helper_stops_a_new_version_that_never_reports_healthy": {
+        "status": "dropped",
+        "reason": "other-platform: the macOS in-place update has no Windows counterpart"
+      },
+      "test_versions_start_through_launch_services": {
+        "status": "dropped",
+        "reason": "other-platform: the macOS in-place update has no Windows counterpart"
+      },
+      "test_stopping_a_watched_version_signals_the_app_not_open": {
+        "status": "dropped",
+        "reason": "other-platform: the macOS in-place update has no Windows counterpart"
+      },
+      "test_stopping_a_version_that_never_started_stops_open": {
+        "status": "dropped",
+        "reason": "other-platform: the macOS in-place update has no Windows counterpart"
+      },
+      "test_helper_installs_nothing_while_the_app_is_still_running": {
+        "status": "dropped",
+        "reason": "other-platform: the macOS in-place update has no Windows counterpart"
+      },
+      "test_helper_refuses_a_transaction_for_another_parent": {
+        "status": "dropped",
+        "reason": "other-platform: the macOS in-place update has no Windows counterpart"
+      },
+      "test_health_acknowledgement_requires_the_matching_swapped_install": {
+        "status": "dropped",
+        "reason": "other-platform: the macOS in-place update has no Windows counterpart"
+      },
+      "test_startup_prune_finishes_interrupted_and_finished_transactions": {
+        "status": "dropped",
+        "reason": "other-platform: the macOS in-place update has no Windows counterpart"
+      },
+      "test_real_swap_exchanges_two_bundles_atomically": {
+        "status": "dropped",
+        "reason": "other-platform: the macOS in-place update has no Windows counterpart"
+      },
+      "test_ui_starts_the_helper_and_quits_once_it_is_ready": {
+        "status": "dropped",
+        "reason": "other-platform: the macOS in-place update has no Windows counterpart"
+      },
+      "test_ui_abandons_the_update_when_the_helper_dies": {
+        "status": "dropped",
+        "reason": "other-platform: the macOS in-place update has no Windows counterpart"
+      }
+    }
+  }
+}

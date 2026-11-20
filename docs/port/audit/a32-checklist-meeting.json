@@ -1,0 +1,389 @@
+{
+ "area": "a32-user-facing-features",
+ "package": "M10 sweep",
+ "features": {},
+ "differences": [],
+ "checklist": {
+  "MM-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_mode_tab.cpp",
+    "src/ui_meeting/finalization_card.cpp",
+    "src/ui_meeting/recent_meeting_row.cpp",
+    "src/ui_widgets/studio.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp",
+    "tests/ui_meeting/test_meeting_tab_signals.cpp",
+    "tests/ui_meeting/test_reference_screenshots.cpp"
+   ],
+   "note": "Area A31-01..A31-24. Column with Start Meeting, speech line, AI insights switch and model line, brief (test_launch_controls_are_named_and_keyboard_reachable, test_ai_details_show_only_while_setting_up); it keeps setting up the next meeting beside a result (test_incomplete_result_groups_actions_by_context: \"AI insights for next meeting\"); empty stage with how it works and the three newest meetings (test_recent_meetings_open_from_the_empty_stage, read_recent_meetings gives the three newest finished meetings); on-air card tone live / paused / starting drives OpenWhisper's QSS (red End, amber paused card and pill: theme.qss meetingOnAir[tone], meetingEndButton) (test_stage_follows_the_meeting); Open dashboard and Copy guest link in Start's slot (test_active_payload_switches_layout); wrap-up steps (test_multi_step_progress_rendering); one window size through every stage (test_stage_changes_never_resize_the_window); column stacks above the stage when narrow (test_narrow_window_stacks_the_column_above_the_stage)."
+  },
+  "MM-02": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_mode_tab.cpp",
+    "src/meeting/detail/runtime_bridge.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp",
+    "tests/meeting/test_runtime_bridge.cpp"
+   ],
+   "note": "Area A31-18. Pause freezes the clock and Resume continues from it (test_an_elapsed_update_does_not_restart_a_paused_clock, test_retained_state_keeps_the_clock_through_pause_and_resume); a tab shown after a tray or shortcut start counts from the retained elapsed_s/elapsed_at (test_state_replayed_into_a_new_tab_counts_from_when_it_was_read); dashboard pause and resume carry the engine clock (test_engine_pause_status_mirrors_onto_the_tab)."
+  },
+  "MM-03": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_mode_tab.cpp",
+    "src/ui_meeting/finalization_card.cpp",
+    "src/meeting/detail/runtime_start.cpp",
+    "src/meeting/detail/runtime_card.cpp",
+    "src/ui_meeting/past_meeting_item.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp",
+    "tests/meeting/test_runtime_start.cpp",
+    "tests/ui_meeting/test_past_meetings_panel.cpp"
+   ],
+   "note": "Area A31-03, A31-06, A31-24. Start dimmed while the wrap-up runs (test_running_finalization_holds_start_and_shows_indeterminate_bar), enabled with the background line once it can continue there, and pressing it sends the wrap-up to the background before the start (test_continue_in_background_appears_after_local_pass_and_emits: order background, start); an incomplete card keeps Start and Keep for later is a button (test_incomplete_card_keeps_start_and_emits_keep_later); starting files the leftover card as deferred (test_begin_start_files_leftover_card); the Saved for later pill (test_past_meetings_panel.cpp)."
+  },
+  "MM-04": {
+   "status": "difference",
+   "difference": "a31-meeting-judge-stays-local",
+   "cpp": [
+    "src/ui_meeting/meeting_mode_tab.cpp",
+    "src/ui_meeting/ai_insights_copy.cpp",
+    "src/ui_meeting/meeting_consent_dialog.cpp",
+    "src/ui_meeting/meeting_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_ai_insights_copy.cpp",
+    "tests/ui_meeting/test_meeting_mode_tab.cpp",
+    "tests/ui_meeting/test_meeting_readiness.cpp"
+   ],
+   "note": "No hosted fast-judgments judge is named in the consent: meetings use only a judge on this computer (a31-meeting-judge-stays-local); the consent is also asked for every meeting (a04-meeting-insights-per-meeting / a31-ai-insights-consent-per-meeting). Verified: the switch is named AI insights; the line under it names provider and model with sends transcript text, never audio or transcript text stays on this computer for a local model (test_ai_insights_copy.cpp); Change… emits aiSettingsRequested (test_change_link_requests_intelligence_settings) and the presenter opens destinations::meeting_intelligence (test_meeting_readiness.cpp); the consent names the destination (A31-40); the brief is hidden while the switch is off and back when on (test_brief_is_hidden_while_ai_insights_are_off, test_brief_follows_switch_changes_made_without_signals)."
+  },
+  "MM-05": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/brief_edit.cpp",
+    "src/meeting_state/patches.cpp",
+    "src/meeting_agent/prompts.cpp",
+    "src/meeting_state/export_markdown.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp",
+    "tests/meeting_state/test_intent.cpp",
+    "tests/meeting_agent/test_prompts.cpp",
+    "tests/meeting/test_engine_startup.cpp",
+    "tests/meeting_state/test_export.cpp"
+   ],
+   "note": "Optional brief in the column, Tab moves focus (test_brief_field_behaves_like_a_form_control, test_start_emits_typed_meeting_brief); set_meeting_intent is the host's, guests and the agent cannot write it (TestIntentOp::*); the brief is live before the first word (test_pre_meeting_brief_is_live_before_the_first_word) and both agent personas and the final report receive it (test_both_agent_personas_receive_the_brief, test_the_final_report_pass_still_works_to_the_brief); it heads the Markdown export (TestIntentExport::test_the_brief_heads_the_exported_document)."
+  },
+  "MM-06": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_intro_dialog.cpp",
+    "src/ui_meeting/meeting_presenter.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_intro_dialog.cpp",
+    "tests/ui_meeting/test_meeting_feature.cpp"
+   ],
+   "note": "Ported (A31-33, A31-53): Skip and Got it both persist meeting_mode_intro_seen (test_skip_and_got_it_both_persist_seen), a dialog closed without a button (Esc or the close box reject it) still counts as seen, and the presenter shows it on the first visit only (test_first_visit_shows_intro_after_tab_opens, test_seen_intro_does_not_show_again, test_active_meeting_does_not_block_on_intro). The first-visit scheduling is A01-59, which worker R8 is finishing in src/ui_meeting now."
+  },
+  "MM-07": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_setup_dialog.cpp",
+    "src/meeting/setup_check.cpp",
+    "src/ui_meeting/meeting_mode_tab.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_setup_dialog.cpp",
+    "tests/meeting/test_setup_check.cpp",
+    "tests/ui_meeting/test_meeting_mode_tab.cpp"
+   ],
+   "note": "Area A31-12, A31-35..A31-37, A31-52. Model status names what is missing and Download missing files fetches only on a click (Download missing files shows its progress..., test_prepare_installs_only_missing_files_and_releases_claims) and honours the offline policy (test_prepare_honors_offline_policy); the audio check opens and closes both devices and its copy says the test audio is discarded; Start anyway is allowed with setup incomplete once an audio check ran (Start anyway waits for an audio check...); Meeting setup… link reopens it (A31-12). The macOS denied-system-audio offer is other-platform (A31-38)."
+  },
+  "MM-08": {
+   "status": "difference",
+   "difference": "a10-meeting-speech-stays-local",
+   "cpp": [
+    "src/ui_downloads/meeting_voice_page.cpp",
+    "src/models/meeting_speech.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_meeting_voice_page.cpp",
+    "tests/models/test_meeting_speech.cpp"
+   ],
+   "note": "Meetings following a dictation engine on the paired computer stay on this computer (a10-meeting-speech-stays-local); a meeting's own paired computer is chosen through a confirmation naming the host (a25-remote-meeting-consent; test_use_for_meetings_gives_meetings_the_paired_computer), so Runs on appears only with a saved remote source, not on A different engine alone. Verified: meetings follow the dictation engine and name it (test_following_shows_one_choice_and_names_the_engine, test_a_following_meeting_tracks_a_change_of_dictation_engine); A different engine reveals and saves the meeting speech model (test_choosing_a_different_engine_reveals_and_saves_it); an engine that cannot run meetings says what meetings use (test_an_engine_that_cannot_run_meetings_says_what_meetings_use). Qwen and Parakeet Unified are not engines here."
+  },
+  "MM-09": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/capture_session.cpp",
+    "src/meeting_capture/devices.cpp",
+    "src/meeting_capture/spool.cpp",
+    "src/meeting_capture/session_audio.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_capture_session.cpp",
+    "tests/meeting_capture/test_devices.cpp",
+    "tests/meeting_capture/test_spool.cpp",
+    "tests/meeting_capture/test_audit_a25.cpp",
+    "tests/meeting/test_engine_capture.cpp"
+   ],
+   "note": "Area A25-01, A25-04..A25-08, A25-19..A25-21. Microphone labelled Me and system audio from the diarizer (live chunks label the microphone Me and system audio from the diarizer); chunked spool with the recovery sidecar registered before the WAV is used; 1 s watchdog restarting inactive or stalled streams and following default device changes (a ranked microphone stays while the system default changes); capture status and System audio restored. written on change; the ranked mic list is the dictation mic_priority. M4 is working on microphone failover now; nothing here waits on it."
+  },
+  "MM-10": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/devices.cpp",
+    "src/meeting_capture/sources.cpp",
+    "src/ui_meeting/meeting_mode_tab.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_devices.cpp",
+    "tests/audio/test_loopback.cpp",
+    "tests/ui_meeting/test_meeting_mode_tab.cpp"
+   ],
+   "note": "Windows half: system audio is WASAPI loopback of the default render endpoint (native stream rather than PortAudio, a25-native-wasapi-loopback; same user-visible capture), and the platform hint marks an unsupported system warning-toned (test_platform_copy_does_not_promise_unavailable_system_audio, test_platform_copy_marks_pre_screencapturekit_macos_unsupported). ScreenCaptureKit on macOS 13+ and the Linux PulseAudio/PipeWire monitor with its preview acknowledgement are other-platform (A25-16..A25-18, A31-34)."
+  },
+  "MM-11": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/asr_engine.cpp",
+    "src/meeting_capture/offline.cpp"
+   ],
+   "tests": [
+    "tests/meeting_capture/test_asr_engine.cpp",
+    "tests/meeting_capture/test_offline.cpp",
+    "tests/golden/meeting.asr.offline.json"
+   ],
+   "note": "Area A25-26, A25-27, A25-36, A25-37. 64-chunk memory queue refilled from SQLite with Live transcription is behind; audio is saved and captions will catch up.; 3 attempts with 0.5 and 2.0 s backoff, a remote outage refunds the attempt; the end re-transcription drops mic lines echoed from system audio (mic copy of system audio is dropped, the meeting pass merges channels by time and drops mic echo). The 50-word context prompt and the Whisper hallucination filter read Whisper features Parakeet does not have and are dropped (A25-31, A25-33, M7.md change 3)."
+  },
+  "MM-12": {
+   "status": "difference",
+   "difference": "a25-openai-speakers-desktop-only",
+   "cpp": [
+    "src/models/speaker_model.h",
+    "src/meeting/detail/runtime_start.cpp",
+    "src/ui_downloads/meeting_voice_page.cpp",
+    "src/diarize/clustering.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_start.cpp",
+    "tests/meeting/test_engine_startup.cpp",
+    "tests/ui_downloads/test_meeting_voice_page.cpp"
+   ],
+   "note": "The optional OpenAI pass runs only from the Past Meetings action with a fresh confirmation (a25-openai-speakers-desktop-only, a31-speaker-pass-explicit). Verified: WeSpeaker ResNet34-LM fetched from Hugging Face when a meeting starts, in the background, with transcription not waiting (test_asr_and_intelligence_run_while_speaker_model_initializes), skipped for Off (test_off_backend_skips_speaker_model_download); Off keeps Me/Others (test_off_backend_omits_speaker_step_and_diarizer); Settings shows ready, not downloaded, blocked and failed-with-reason with Download now off the Qt thread (test_speaker_id_status_*)."
+  },
+  "MM-13": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/engine_start.cpp",
+    "src/meeting_capture/asr_engine.cpp",
+    "src/ui_downloads/meeting_voice_page.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_engine_startup.cpp",
+    "tests/meeting_capture/test_asr_engine.cpp",
+    "tests/ui_downloads/test_meeting_voice_page.cpp"
+   ],
+   "note": "Automatic or pinned language saved on Voice & speakers (test_meeting_language_and_core_persist) and passed to every decode (test_asr_receives_pinned_meeting_language, configured language always wins, no meeting decode carries an empty language). Auto picking the clearly detected language at re-transcription is Whisper language voting, dropped because Parakeet reports no language probabilities (A25-32, M7.md change 3); Parakeet detects per decode."
+  },
+  "MM-14": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_web/detail/routes_control.cpp",
+    "src/meeting/detail/runtime_bridge.cpp",
+    "src/ui_meeting/meeting_mode_tab.cpp",
+    "src/meeting/detail/engine_end.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_dashboard_api.cpp",
+    "tests/meeting/test_runtime_bridge.cpp",
+    "tests/meeting/test_audit_a24.cpp",
+    "tests/meeting/test_runtime_status_texts.cpp",
+    "tests/ui_meeting/test_meeting_tab_signals.cpp"
+   ],
+   "note": "Dashboard pause/resume reach the engine and its status mirrors onto the tab with the engine clock (test_engine_pause_status_mirrors_onto_the_tab); the tab's controls emit pause, resume and end; End saves and shows ending before capture stops (a24 audit: End shows ending before capture stops...) and the status line says Ending meeting — finishing transcription... (test_runtime_status_texts.cpp)."
+  },
+  "MM-15": {
+   "status": "difference",
+   "difference": "a04-meeting-speaker-pass-desktop-only",
+   "cpp": [
+    "src/ui_meeting/finalization_card.cpp",
+    "src/meeting/finalization_view.cpp",
+    "src/meeting/refinalize.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_mode_tab.cpp",
+    "tests/meeting/test_finalization_view.cpp",
+    "tests/meeting/test_refinalize.cpp"
+   ],
+   "note": "The card never offers a speaker re-run that would upload from saved settings; the OpenAI pass is the Past Meetings action (a04-meeting-speaker-pass-desktop-only); on-device labels hide Re-run speakers (test_on_device_labels_hide_speaker_rerun). Verified (A31-20..A31-25): checklist rows with Retry on failed or skipped and Run again on completed optional steps (test_failed_redecode_under_completed_shows_retry_controls, test_multi_step_progress_rendering); Retry failed steps, Open dashboard / Open report links, Done and Keep for later grouped by context (test_incomplete_result_groups_actions_by_context, test_completed_card_keeps_idle_start_and_emits_done); Continue in the background after the local pass (test_continue_in_background_appears_after_local_pass_and_emits); the persisted status titles running / completed / disabled / unavailable / failed (test_finalization_view.cpp, test_unavailable_and_failed_use_warning_tone)."
+  },
+  "MM-16": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/recovery.cpp",
+    "src/ui_meeting/meeting_recovery_dialog.cpp",
+    "src/ui_meeting/meeting_presenter.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_recovery.cpp",
+    "tests/ui_meeting/test_meeting_recovery_dialog.cpp",
+    "tests/ui_meeting/test_meeting_presenter_flow.cpp",
+    "tests/meeting/test_audit_a24.cpp"
+   ],
+   "note": "Area A24-36..A24-41, A31-42, A31-54. Interrupted meetings are offered in Recover Interrupted Meetings with Finalize / Discard; finalize resets unfinished chunks for a fresh attempt budget and marks needs_recovery or failed when audio stayed incomplete (test_finalize_meeting_unfinished_chunks_mark_needs_recovery); a failed scan offers Retry scan / Later (test_meeting_presenter_flow.cpp); a recovered meeting continues into the post-meeting steps (A24-41). When the scan starts relative to the splash is MW-12, which worker R8 is on now."
+  },
+  "MM-17": {
+   "status": "difference",
+   "difference": "a30-dashboard-local-judgments",
+   "cpp": [
+    "src/ui_meeting/past_meetings_panel.cpp",
+    "src/ui_meeting/past_meeting_item.cpp",
+    "src/ui_meeting/meeting_delete_dialog.cpp",
+    "src/meeting/detail/runtime_past.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_past_meetings_panel.cpp",
+    "tests/ui_meeting/test_past_meetings_delete.cpp",
+    "tests/ui_meeting/test_meeting_delete_dialog.cpp",
+    "tests/meeting/test_runtime_past.cpp"
+   ],
+   "note": "The Meaning / Keywords toggle is the dashboard history pane's (webui HistoryPane.tsx, carried unchanged); Meaning ranks only with a judge on this computer, otherwise keyword results with the settings message (a30-dashboard-local-judgments). Verified (A31-26..A31-30): cards with transcript or topic preview and the Saved for later pill; context menu Copy transcript / Show in Folder / Delete; Delete Meeting dialog with Permanently delete saved recordings too and its own Don't ask me again (confirm_meeting_delete); header Clear history (keep recordings), Clear history + recordings, Open meetings folder, Export; a meeting whose steps are still running cannot be deleted (a meeting still re-running its steps cannot be deleted: Wait for this meeting's post-meeting steps to finish.). Host-kept cards are A31-31 / A31-56, which worker R8 is on now."
+  },
+  "MM-18": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_export_dialog.cpp",
+    "src/meeting_state/export_markdown.cpp",
+    "src/meeting_state/export_json.cpp",
+    "src/meeting_state/export_txt.cpp",
+    "src/meeting_state/export_bulk.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_export_dialog.cpp",
+    "tests/meeting_state/test_export.cpp",
+    "tests/meeting_state/test_export_bulk.cpp",
+    "tests/meeting_state/test_golden_extras.cpp",
+    "tests/golden/meeting.export.markdown.json",
+    "tests/golden/meeting.export.json_export.json"
+   ],
+   "note": "Area A31-32, A28-42..A28-45, A28-63, A28-64: the dialog's selection, date range, formats, includes and combined or per-meeting files; Markdown with optional transcript and intelligence, cards, owners/deadlines, notes, clarifications, advisories, pulses and questions (21 golden documents); TXT transcript only; JSON with original_text and evidence ids, the volatile and token fields stripped."
+  },
+  "MM-19": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/meeting_presenter.cpp",
+    "src/meeting/detail/runtime_past.cpp",
+    "src/ui_shell/shell_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_meeting_readiness.cpp",
+    "tests/ui_shell/test_main_window.cpp",
+    "tests/ui_shell/test_system_tray.cpp"
+   ],
+   "note": "On meeting_server_started the presenter enables the dashboard controls and opens the dashboard (test_meeting_readiness.cpp: the server-started emit is followed by one open_dashboard call); Open Meeting Dashboard is in the View menu and the tray, disabled until a meeting runs (test_main_window.cpp, test_system_tray.cpp)."
+  },
+  "MM-20": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting/detail/runtime_bridge.cpp"
+   ],
+   "tests": [
+    "tests/meeting/test_runtime_bridge.cpp",
+    "tests/meeting/test_fast_features.cpp"
+   ],
+   "note": "voice_feedback and segments are dashboard-only events the runtime drops (test_voice_feedback_reaches_no_desktop_surface); the acknowledgements reach the dashboard socket (test_fast_features.cpp messages_of(voice_feedback))."
+  },
+  "MM-21": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_capture/playback.cpp",
+    "src/meeting_web/detail/routes_files.cpp"
+   ],
+   "tests": [
+    "tests/meeting_web/test_webui_bundle.cpp",
+    "tests/meeting_web/test_dashboard_api.cpp",
+    "tests/meeting_capture/test_asr_golden.cpp"
+   ],
+   "note": "The replay UI (Pulse anchors, 10 s skip, seekable timeline, pop-out panel, retry) is the dashboard bundle, OpenWhisper's webui with only the product name replaced and pinned byte for byte (test_webui_bundle.cpp); the audio route serves the mixed playback WAV with its guest rule and errors (test_audio_allows_current_guest_but_not_other_meetings, a meeting without audio answers the playback error) and the mono render replays OpenWhisper's (meeting.audio_playback _render_mono replays)."
+  },
+  "MM-22": {
+   "status": "verified",
+   "cpp": [
+    "src/history/retention_settings.cpp",
+    "src/history/manager.cpp",
+    "src/ui_settings/recording_page.cpp"
+   ],
+   "tests": [
+    "tests/history/test_retention.cpp",
+    "tests/ui_settings/test_retention.cpp"
+   ],
+   "note": "Settings → Recording Keep all / By count / By folder size (MB): resolvers, newest always kept, size limit keeps the newest that fit (TestResolveMaxSavedRecordings*, TestRecordingRotation::*), the controls and their shrink confirmation (test_retention.cpp in ui_settings), the tile with count and space used (as HI-09 and SR-05)."
+  },
+  "SMV-01": {
+   "status": "difference",
+   "difference": "a10-openai-speakers-read-local",
+   "cpp": [
+    "src/ui_downloads/meeting_voice_page.cpp",
+    "src/models/meeting_speech.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_meeting_voice_page.cpp",
+    "tests/models/test_meeting_speech.cpp"
+   ],
+   "note": "A saved OpenAI speaker backend reads as on-device and the OpenAI pass runs only from Past Meetings (a10-openai-speakers-read-local; a stored OpenAI speaker pass shows as on-device); Runs on and the remote computer appear only for a confirmed paired host (a10-meeting-speech-stays-local, a25-remote-meeting-consent; test_use_for_meetings_gives_meetings_the_paired_computer, the remote rows stay hidden whatever is saved). Custom Whisper models are dropped (Parakeet only). Verified (A15-48): Same as dictation / A different engine with the meeting speech model, meeting language, speaker identification On-device / Off with model status and Download now (test_speaker_id_combo_includes_off_and_persists, test_speaker_id_status_*, test_download_now_fetches_the_speaker_model_off_the_qt_thread)."
+  },
+  "SMV-02": {
+   "status": "difference",
+   "difference": "a26-native-agent-loop",
+   "cpp": [
+    "src/ui_meeting/intelligence_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_meeting/test_intelligence_page.cpp",
+    "tests/ui_meeting/test_audit_a32_thinking.cpp",
+    "tests/ui_meeting/test_meeting_intelligence_settings.cpp"
+   ],
+   "note": "Pi and the OpenCode SDK are the in-process native agent loop shown under the product name, not packaged sidecars (a26-native-agent-loop; as MR-02). Verified: installed Claude Code / Codex / OpenCode tiles from the cached scan with their sign-in (test_opening_intelligence_uses_the_cached_scan, test_overview_names_the_agent_and_its_sign_in, test_saved_agent_that_is_missing_stays_selected_with_a_notice); the Insights model tile for the built-in core (test_built_in_core_shows_the_insights_model_tile); Live and Final thinking (test_agent_thinking_levels_load_and_save, test_packaged_sdk_thinks_at_medium); Backup agent off until chosen (test_backup_agent_is_off_until_chosen). Fast judgments is its own page (SMV-03). F3 is editing intelligence_page now."
+  },
+  "SMV-03": {
+   "status": "difference",
+   "difference": "a31-meeting-judge-stays-local",
+   "cpp": [
+    "src/ui_settings/fast_judgments_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_fast_judgments_page.cpp",
+    "tests/ui_settings/test_meeting_pages.cpp"
+   ],
+   "note": "The page is MR-07's: meetings use only a judge on this computer (a31-meeting-judge-stays-local). Verified: the rail reads No key when the chosen route's key is missing, appends · OpenRouter on that route (On · 1 · OpenRouter) and shows the feature count otherwise (test_fast_judgments_page.cpp)."
+  },
+  "SMV-04": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/after_end_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_meeting_pages.cpp"
+   ],
+   "note": "Area A31-43, A31-46..A31-48 (as MR-08): After End switches for the final report, polish and re-decode with the Parakeet wording, Review uncertain insights at the end with Normal / Thorough and its confirmation, the Ribbon / Brief / Signal report-view tiles following the report switch, and the rail Report / Polish / Re-decode / Off."
+  },
+  "SMV-05": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_meeting/dashboard_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_meeting_pages.cpp"
+   ],
+   "note": "Area A11-54, A11-97: Localhost only / Share on local network with the warning shown only for the LAN, port 0..65535 with 0 shown as Automatic, keyboard tracking off and the spin box at least 120 wide as OpenWhisper sizes it so Automatic is not clipped (the Dashboard page shows the port as Automatic and warns only for the LAN, a saved LAN dashboard loads with its warning and port)."
+  }
+ }
+}

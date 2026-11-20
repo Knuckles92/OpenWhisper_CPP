@@ -1,0 +1,29 @@
+{
+ "source": "Hand-written. The reasoning-then-tool-call stream of sidecar-opencode/src/adapter.test.ts:218-222 and sidecar/src/pi-integration.test.ts:63-67, with the call's arguments split across chunks that carry only its index (id and function.name come in the first chunk alone); the reply equals tests/fixtures/llm/generation/replies.json 'chat_tool'.",
+ "protocol": "chat",
+ "equivalent": "chat_tool",
+ "frames": [
+  {"id": "chatcmpl-test", "object": "chat.completion.chunk", "choices": [{"index": 0, "delta": {"reasoning_content": "private reasoning"}, "finish_reason": null}]},
+  {"id": "chatcmpl-test", "object": "chat.completion.chunk", "choices": [{"index": 0, "delta": {"tool_calls": [{"index": 0, "id": "call_1", "type": "function", "function": {"name": "search_context_files", "arguments": ""}}]}, "finish_reason": null}]},
+  {"id": "chatcmpl-test", "object": "chat.completion.chunk", "choices": [{"index": 0, "delta": {"tool_calls": [{"index": 0, "function": {"arguments": "{\"query\":"}}]}, "finish_reason": null}]},
+  {"id": "chatcmpl-test", "object": "chat.completion.chunk", "choices": [{"index": 0, "delta": {"tool_calls": [{"index": 0, "function": {"arguments": "\"budget\"}"}}]}, "finish_reason": null}]},
+  {"id": "chatcmpl-test", "object": "chat.completion.chunk", "choices": [{"index": 0, "delta": {}, "finish_reason": "tool_calls"}]},
+  "data: [DONE]\n\n"
+ ],
+ "events": [
+  ["thinking_start"],
+  ["thinking_delta", "private reasoning"],
+  ["thinking_end"],
+  ["toolcall_start", "", "call_1", "search_context_files"],
+  ["toolcall_delta", "{\"query\":", "call_1", "search_context_files"],
+  ["toolcall_delta", "\"budget\"}", "call_1", "search_context_files"],
+  ["toolcall_end", "", "call_1", "search_context_files"]
+ ],
+ "result": {
+  "text": "",
+  "tool_calls": [{"id": "call_1", "name": "search_context_files", "arguments": "{\"query\":\"budget\"}"}],
+  "assistant_message": {"role": "assistant", "content": "", "tool_calls": [{"id": "call_1", "type": "function", "function": {"name": "search_context_files", "arguments": "{\"query\":\"budget\"}"}}], "reasoning_content": "private reasoning"},
+  "usage": null,
+  "finish_reason": "tool_calls"
+ }
+}

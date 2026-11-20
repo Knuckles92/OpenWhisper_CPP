@@ -1,0 +1,59 @@
+{
+  "package": "M1.3, M2.3, M7.2",
+  "files": {
+    "tests/test_meeting_soundcard_stream.py": {
+      "test_loopback_imports_soundcard_before_initializing_com": {"status": "dropped", "reason": "Pins the SoundCard library's import order against its own COM initialization; FioriVoce captures system audio through native WASAPI loopback on its own fv-loopback thread, which initializes COM itself (tests/audio/test_loopback.cpp)"}
+    },
+    "tests/test_wav_metadata.py": {
+      "test_tags_round_trip": {"status": "ported", "cpp": "tests/audio/test_wav_metadata.cpp"},
+      "test_tagging_preserves_pcm_and_even_alignment": {"status": "ported", "cpp": "tests/audio/test_wav_metadata.cpp"},
+      "test_odd_length_pcm_gets_padding_before_the_tags": {"status": "ported", "cpp": "tests/audio/test_wav_metadata.cpp"},
+      "test_tags_follow_audio_still_in_the_writer_buffer": {"status": "ported", "cpp": "tests/audio/test_wav_metadata.cpp"},
+      "test_a_failed_tag_leaves_the_untagged_wav": {"status": "ported", "cpp": "tests/audio/test_wav_metadata.cpp"},
+      "test_a_recording_too_large_for_riff_is_left_untagged": {"status": "ported", "cpp": "tests/audio/test_wav_metadata.cpp"},
+      "test_only_mono_16_bit_pcm_is_recognized": {"status": "ported", "cpp": "tests/audio/test_wav_metadata.cpp"},
+      "test_a_recording_is_recognized_and_a_missing_file_is_not": {"status": "ported", "cpp": "tests/audio/test_wav_metadata.cpp"}
+    },
+    "tests/test_personalize_s9_audio_player.py": {
+      "test_only_the_recorders_own_wavs_play": {"status": "ported", "cpp": "tests/audio/test_player.cpp"},
+      "test_play_streams_the_samples_and_stop_ends_it_once": {"status": "ported", "cpp": "tests/audio/test_player.cpp"},
+      "test_a_recording_played_to_the_end_finishes_and_closes": {"status": "ported", "cpp": "tests/audio/test_player.cpp"},
+      "test_playing_another_recording_replaces_the_first": {"status": "ported", "cpp": "tests/audio/test_player.cpp"},
+      "test_a_device_that_wont_open_ends_the_playback": {"status": "ported", "cpp": "tests/audio/test_player.cpp"},
+      "test_a_device_that_wont_start_is_closed": {"status": "ported", "cpp": "tests/audio/test_player.cpp"},
+      "test_stopping_while_the_file_loads_opens_no_device": {"status": "ported", "cpp": "tests/audio/test_player.cpp"},
+      "test_a_raising_finished_callback_is_contained": {"status": "ported", "cpp": "tests/audio/test_player.cpp"},
+      "test_stop_playback_never_creates_a_player": {"status": "ported", "cpp": "tests/audio/test_player.cpp"}
+    },
+    "tests/test_personalize_s7_audio_devices.py": {
+      "test_listing_skips_loopback_and_restores_names_mme_cut": {"status": "ported", "cpp": "tests/audio/test_devices.cpp"},
+      "test_matching_ladder": {"status": "ported", "cpp": "tests/audio/test_devices.cpp"},
+      "test_matching_strips_alsa_hardware_numbers": {"status": "ported", "cpp": "tests/audio/test_devices.cpp"},
+      "test_matching_is_conservative": {"status": "ported", "cpp": "tests/audio/test_devices.cpp"},
+      "test_candidates_follow_the_order_then_default_then_sound_mapper": {"status": "ported", "cpp": "tests/audio/test_devices.cpp"},
+      "test_candidates_skip_devices_that_refuse_the_format_and_excluded_keys": {"status": "ported", "cpp": "tests/audio/test_devices.cpp"},
+      "test_sound_mapper_is_windows_only": {"status": "ported", "cpp": "tests/audio/test_devices.cpp"},
+      "test_meeting_lookup_skips_the_format_check_and_excluded_devices": {"status": "ported", "cpp": "tests/audio/test_devices.cpp"},
+      "test_legacy_index_migrates_once_and_keeps_the_old_key": {"status": "ported", "cpp": "tests/audio/test_devices.cpp"},
+      "test_a_stale_legacy_index_uses_the_system_default_without_saving_it": {"status": "ported", "cpp": "tests/audio/test_devices.cpp"},
+      "test_migration_waits_when_portaudio_is_unavailable": {"status": "ported", "cpp": "tests/audio/test_devices.cpp"},
+      "test_saved_order_is_cleaned_without_writing": {"status": "ported", "cpp": "tests/audio/test_devices.cpp"},
+      "test_refresh_waits_for_every_stream_to_close": {"status": "ported", "cpp": "tests/audio/test_devices.cpp"},
+      "test_names_read_well": {"status": "ported", "cpp": "tests/audio/test_devices.cpp"},
+      "test_input_device_key_is_name_and_host_api_name": {"status": "ported", "cpp": "tests/audio/test_devices.cpp"},
+      "TestMeetingFailover::test_a_dead_microphone_is_excluded_before_reprobing": {"status": "ported", "cpp": "tests/meeting/test_engine_capture.cpp", "note": "case: TestMeetingFailover::test_a_dead_microphone_is_excluded_before_reprobing (a real MeetingEngine over the fake backend: the saved order picks the USB mic over the default input, a killed source is replaced by the laptop mic through the watchdog and mic_excluded() is [USB mic, MME]; the real find_mic_device runs, so its arguments are shown by the device chosen rather than recorded)"},
+      "TestMeetingFailover::test_a_microphone_that_will_not_open_falls_to_the_next": {"status": "ported", "cpp": "tests/meeting/test_engine_capture.cpp", "note": "case: TestMeetingFailover::test_a_microphone_that_will_not_open_falls_to_the_next (the USB source's start throws 'Device unavailable'; the meeting records from the laptop mic)"}
+    },
+    "tests/test_audio_processor.py": {
+      "TestPreviewCost::test_small_file_is_previewed_from_the_header_only": {"status": "ported", "cpp": "tests/audio/test_file_preview.cpp", "note": "no decode is read from the absence of the decoding fallback's log line, where Python replaces _load_audio_metadata"},
+      "TestPreviewCost::test_stereo_channel_count_comes_from_the_header": {"status": "ported", "cpp": "tests/audio/test_file_preview.cpp"},
+      "TestPreviewCost::test_large_file_is_estimated_from_header_and_reports_chunks": {"status": "ported", "cpp": "tests/audio/test_file_preview.cpp", "note": "a 25 MB WAV written at run time over the constant 23 MiB limit, where Python shrinks MAX_FILE_SIZE_MB; a stand-in ChunkEstimator gives the splitter's estimate"},
+      "TestPreviewCost::test_large_file_for_a_one_pass_engine_is_read_from_the_header": {"status": "ported", "cpp": "tests/audio/test_file_preview.cpp", "note": "a 25 MB WAV written at run time over the constant 23 MiB limit, where Python shrinks MAX_FILE_SIZE_MB"},
+      "TestPreviewCost::test_header_without_duration_falls_back_to_decoding": {"status": "ported", "cpp": "tests/audio/test_file_preview.cpp", "note": "tests/fixtures/upload/no-duration.flac (STREAMINFO sample count unknown), where Python fakes av.open"},
+      "TestPreviewErrors::test_missing_file_raises_file_not_found": {"status": "ported", "cpp": "tests/audio/test_file_preview.cpp"},
+      "TestPreviewErrors::test_unreadable_file_raises_value_error": {"status": "ported", "cpp": "tests/audio/test_file_preview.cpp"},
+      "TestPreviewErrors::test_unreadable_file_says_why_in_plain_words": {"status": "ported", "cpp": "tests/audio/test_file_preview.cpp"},
+      "TestPreviewShape::test_preview_keeps_its_documented_constructor": {"status": "ported", "cpp": "tests/audio/test_file_preview.cpp"}
+    }
+  }
+}

@@ -1,0 +1,206 @@
+{
+  "package": "M0.12, M5.20",
+  "files": {
+    "tests/test_main_entrypoint.py": {
+      "test_help_prints_usage_and_exits_without_opening_the_app": {
+        "status": "ported",
+        "cpp": "tests/cli/test_cli.cpp",
+        "note": "fiorivoce-cli; the GUI executable's half is tested in M0.11 (ui_shell early_cli)"
+      },
+      "test_help_loads_neither_qt_nor_the_speech_runtimes": {
+        "status": "ported",
+        "cpp": "tests/cli/test_cli.cpp",
+        "note": "a decoy runtime library leaves a marker when loaded; the executable's bytes name no Qt library"
+      },
+      "test_startup_profiler_records_elapsed_times": {
+        "status": "ported",
+        "cpp": "tests/log/test_startup_profiler.cpp"
+      },
+      "test_startup_profiler_logs_totals_and_deltas": {
+        "status": "ported",
+        "cpp": "tests/log/test_startup_profiler.cpp"
+      },
+      "test_source_startup_activates_components_before_backend_imports": {
+        "status": "ported",
+        "cpp": "tests/ui_controller/test_engine_setup.cpp",
+        "note": "adapted: component startup recovery runs, and its failure is logged, before the first runtime load; gpu-accel activation is dropped"
+      },
+      "test_ui_import_in_fresh_process": {
+        "status": "dropped",
+        "reason": "Python import cost; a C++ executable has no lazy imports"
+      },
+      "test_main_import_does_not_eagerly_import_application_controller": {
+        "status": "dropped",
+        "reason": "Python import order; a C++ executable has no lazy imports"
+      },
+      "test_windowed_missing_stdio_becomes_writable": {
+        "status": "dropped",
+        "reason": "PyInstaller's windowed build has sys.stdout None; the C++ executables write to no stream they lack"
+      },
+      "test_writable_stdio_guard_leaves_real_streams_untouched": {
+        "status": "dropped",
+        "reason": "the null-stdio guard is Python-only (A01-20 dropped)"
+      },
+      "test_stdio_guard_is_placed_after_every_cli_dispatch": {
+        "status": "dropped",
+        "reason": "the null-stdio guard is Python-only (A01-20 dropped)"
+      }
+    },
+    "tests/test_release_health.py": {
+      "test_diagnostics_entrypoint_does_not_initialize_gui_or_history": {
+        "status": "ported",
+        "cpp": "tests/cli/test_cli.cpp"
+      },
+      "test_source_self_test_does_not_recursively_spawn": {
+        "status": "ported",
+        "cpp": "tests/cli/test_cli.cpp",
+        "note": "the child runs in a job object and must be the only process it counts"
+      },
+      "test_missing_or_failed_recovery_proof_cannot_pass_gate": {
+        "status": "ported",
+        "cpp": "tools/release/tests/test_release_health.py",
+        "note": "M3.8; the gate is tools/release/check_release_health.py, run by CTest release.tools"
+      },
+      "test_missing_or_invalid_metrics_fail_closed": {
+        "status": "ported",
+        "cpp": "tools/release/tests/test_release_health.py",
+        "note": "M3.8"
+      },
+      "test_regression_and_absolute_deadline_are_enforced": {
+        "status": "ported",
+        "cpp": "tools/release/tests/test_release_health.py",
+        "note": "M3.8"
+      },
+      "test_real_model_report_cannot_pass_synthetic_gate": {
+        "status": "ported",
+        "cpp": "tools/release/tests/test_release_health.py",
+        "note": "M3.8"
+      },
+      "test_fresh_process_workflow_exits_and_preserves_user_history": {
+        "status": "ported",
+        "cpp": "tests/cli/test_workflow_smoke.cpp",
+        "note": "M3.8: runs fiorivoce-cli --workflow-smoke in a temporary data root with a legacy history file, and checks the report against the gate's rules in C++; the CTest test 'cli.release health gate passes the workflow smoke' (tests/cli/CMakeLists.txt) runs tools/release/check_release_health.py --executable on fiorivoce-cli, as the Python test runs scripts/check_release_health.py"
+      }
+    },
+    "tests/test_automation_channel_protocol.py": {
+      "test_no_update_check_outside_the_frozen_windows_app": {
+        "status": "ported",
+        "cpp": "tests/cli/test_channel_setup.cpp",
+        "note": "fiorivoce-cli's update_in_progress: a build tree's executable is not the registered install"
+      },
+      "test_help_and_unexpected_arguments": {
+        "status": "ported",
+        "cpp": "tests/cli/test_channel_setup.cpp",
+        "note": "fiorivoce-cli --channel as a child"
+      },
+      "test_source_runs_start_this_interpreter_with_main_py": {
+        "status": "dropped",
+        "reason": "a C++ build has no interpreter and main.py: the channel is always started as the executable by absolute path (test_frozen_builds_start_their_own_executable)"
+      },
+      "test_frozen_builds_start_their_own_executable": {
+        "status": "ported",
+        "cpp": "tests/cli/test_channel_setup.cpp"
+      },
+      "test_mcp_json_entry_names_the_data_folder_only_when_it_is_unusual": {
+        "status": "ported",
+        "cpp": "tests/cli/test_channel_setup.cpp"
+      },
+      "test_snippets_carry_no_token": {
+        "status": "ported",
+        "cpp": "tests/cli/test_channel_setup.cpp",
+        "note": "the C++ snippets take paths only and never read the credential store, so no token is stored first"
+      }
+    },
+    "tests/test_automation_channel_e2e.py": {
+      "test_channel_end_to_end": {
+        "status": "ported",
+        "cpp": "tests/cli/test_channel_e2e.cpp",
+        "note": "fiorivoce-cli --channel on pipes against the live API's own routes (agentapi::LiveApi in an McpApp on a loopback port, FakeAppControl); the restart replays from the bus"
+      },
+      "test_reply_needs_the_run_actions_permission": {
+        "status": "ported",
+        "cpp": "tests/cli/test_channel_e2e.cpp",
+        "note": "against the live API's own routes with running actions off"
+      },
+      "test_reply_says_when_openwhisper_is_not_running": {
+        "status": "ported",
+        "cpp": "tests/cli/test_channel_e2e.cpp"
+      },
+      "test_channel_reads_the_saved_port_and_never_loads_qt": {
+        "status": "ported",
+        "cpp": "tests/cli/test_channel_e2e.cpp",
+        "note": "the saved port from the data folder's settings file; the executable's import table names no Qt library"
+      },
+      "test_windowed_interpreter_speaks_over_inherited_pipes": {
+        "status": "ported",
+        "cpp": "tests/cli/test_channel_e2e.cpp",
+        "note": "fiorivoce --channel (the windowed executable) forwards to fiorivoce-cli with its pipes"
+      },
+      "test_an_empty_stdin_ends_the_channel_at_once": {
+        "status": "ported",
+        "cpp": "tests/cli/test_channel_e2e.cpp"
+      },
+      "test_a_windowed_start_without_pipes_exits_quietly": {
+        "status": "ported",
+        "cpp": "tests/cli/test_channel_e2e.cpp",
+        "note": "fiorivoce --channel started detached without standard handles exits 2"
+      },
+      "test_stream_rereads_a_rejected_token": {
+        "status": "ported",
+        "cpp": "tests/cli/test_channel_e2e.cpp"
+      },
+      "test_stream_waits_quietly_while_live_events_are_refused": {
+        "status": "ported",
+        "cpp": "tests/cli/test_channel_e2e.cpp"
+      },
+      "test_stream_steps_aside_for_an_update_once_the_app_is_gone": {
+        "status": "ported",
+        "cpp": "tests/cli/test_channel_e2e.cpp"
+      },
+      "test_stream_ignores_an_update_while_the_app_answers": {
+        "status": "ported",
+        "cpp": "tests/cli/test_channel_e2e.cpp"
+      },
+      "test_stop_ends_a_quiet_stream_promptly": {
+        "status": "ported",
+        "cpp": "tests/cli/test_channel_e2e.cpp"
+      },
+      "test_a_gap_is_announced_and_keeps_the_resume_point": {
+        "status": "ported",
+        "cpp": "tests/cli/test_channel_e2e.cpp"
+      },
+      "test_stream_skips_events_without_text": {
+        "status": "ported",
+        "cpp": "tests/cli/test_channel_e2e.cpp"
+      },
+      "test_notify_rereads_a_rejected_token_once": {
+        "status": "ported",
+        "cpp": "tests/cli/test_channel_e2e.cpp"
+      },
+      "test_notify_refusals_tell_claude_what_to_do": {
+        "status": "ported",
+        "cpp": "tests/cli/test_channel_e2e.cpp"
+      },
+      "test_notify_sends_no_title_when_none_is_given": {
+        "status": "ported",
+        "cpp": "tests/cli/test_channel_e2e.cpp"
+      },
+      "test_the_bridge_module_stays_light": {
+        "status": "dropped",
+        "reason": "Python import cost; a C++ executable has no lazy imports"
+      }
+    },
+    "tests/test_agent_api.py": {
+      "test_cli_is_headless_and_requires_opt_in": {
+        "status": "ported",
+        "cpp": "tests/cli/test_api_command.cpp",
+        "note": "fiorivoce-cli --api: --help answers, no token exits 2 naming FIORIVOCE_API_TOKEN and creates no database; the legacy-prefixed variable is accepted"
+      },
+      "test_cli_launch_uses_read_only_service_without_desktop_imports": {
+        "status": "ported",
+        "cpp": "tests/cli/test_api_command.cpp",
+        "note": "the child serves /v1/status and /openapi.json (with /v1/search) on the given port of 127.0.0.1 from a fixture database, with no Qt module and no speech runtime loaded"
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+ "source": "Hand-written. A Chat Completions stream cut by its output limit (finish_reason 'length'), in sidecar/src/pi-integration.test.ts:26-29's frame shape; the reply equals tests/fixtures/llm/generation/replies.json 'chat_length'.",
+ "protocol": "chat",
+ "equivalent": "chat_length",
+ "frames": [
+  {"id": "chat-test", "object": "chat.completion.chunk", "choices": [{"index": 0, "delta": {"role": "assistant", "content": "Clean te"}, "finish_reason": null}]},
+  {"id": "chat-test", "object": "chat.completion.chunk", "choices": [{"index": 0, "delta": {}, "finish_reason": "length"}]},
+  "data: [DONE]\n\n"
+ ],
+ "events": [
+  ["text_delta", "Clean te"]
+ ],
+ "raises": {"raises": "TextGenerationError", "message": "Model output was incomplete (length)."}
+}

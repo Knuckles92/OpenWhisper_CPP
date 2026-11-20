@@ -1,0 +1,98 @@
+{
+  "package": "M3.3, M3.11",
+  "files": {
+    "tests/test_windows_signing.py": {
+      "TestSigningMode::test_nothing_configured_is_unsigned": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"},
+      "TestSigningMode::test_each_method": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"},
+      "TestSigningMode::test_partial_configuration_fails": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"},
+      "TestSigningMode::test_trusted_signing_needs_both_files": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"},
+      "TestSigningMode::test_two_methods_fail": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"},
+      "TestArguments::test_every_method_hashes_and_timestamps_with_sha256": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"},
+      "TestArguments::test_timestamp_server_can_be_overridden": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"},
+      "TestArguments::test_unsigned_build_has_no_sign_arguments": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"},
+      "TestArguments::test_inno_command_quotes_and_escapes": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"},
+      "test_find_signtool_prefers_the_newest_sdk": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"},
+      "TestReport::test_signed_build": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"},
+      "TestReport::test_trusted_signing_method": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"},
+      "TestReport::test_any_bad_file_fails_a_signed_build": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"},
+      "TestReport::test_signtool_must_agree": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"},
+      "TestReport::test_signature_must_come_from_the_configured_certificate": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"},
+      "TestReport::test_unsigned_build": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"},
+      "TestReport::test_unsigned_build_with_a_stray_signature_fails": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"},
+      "TestReport::test_verify_files_hashes_each_file": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"},
+      "TestReleaseMetadata::test_signed_release": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"},
+      "TestReleaseMetadata::test_unsigned_release": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"},
+      "TestReleaseMetadata::test_report_must_describe_this_setup_exe": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"},
+      "TestReleaseMetadata::test_malformed_reports_fail": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"},
+      "TestReleaseMetadata::test_inconsistent_statuses_fail": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"},
+      "TestReleaseMetadata::test_cli": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"},
+      "test_unsigned_sign_command_is_a_visible_no_op": {"status": "ported", "cpp": "tools/release/tests/test_windows_signing.py"}
+    },
+    "tests/test_release_qualification.py": {
+      "test_tampered_or_extra_candidate_file_fails": {"status": "ported", "cpp": "tools/release/tests/test_release_qualification.py"},
+      "test_cli_verifies_candidate_without_manual_report": {"status": "ported", "cpp": "tools/release/tests/test_release_qualification.py"},
+      "test_draft_rejects_unrelated_and_duplicate_assets": {"status": "ported", "cpp": "tools/release/tests/test_release_qualification.py"},
+      "test_uploaded_draft_requires_exact_inventory_and_all_digests": {"status": "ported", "cpp": "tools/release/tests/test_release_qualification.py"},
+      "test_setup_only_draft_allows_removing_only_its_current_native_archive": {"status": "ported", "cpp": "tools/release/tests/test_release_qualification.py"},
+      "test_candidate_must_record_windows_signing": {"status": "ported", "cpp": "tools/release/tests/test_release_qualification.py"},
+      "test_cli_reports_and_can_require_windows_signing": {"status": "ported", "cpp": "tools/release/tests/test_release_qualification.py"},
+      "test_windows_signing_is_optional_verified_and_recorded": {"status": "ported", "cpp": "tools/release/tests/test_release_qualification.py"},
+      "test_release_workflows_require_ci_and_checksums_without_manual_report": {"status": "ported", "cpp": "tools/release/tests/test_workflows.py", "note": "adapted: release-build.yml calls ci.yml on one resolved commit, builds the setup and checks the candidate with check_release_qualification.py before keeping it as a workflow artifact; no draft upload (qualify-release.yml is M10's)"}
+    },
+    "tests/test_app_update_release_track.py": {
+      "test_soak_feed_can_serve_a_prerelease": {"status": "ported", "cpp": "tools/release/tests/test_serve_update_feed.py"}
+    },
+    "tests/test_windows_installer.py": {
+      "test_existing_install_uses_condensed_in_place_upgrade": {"status": "ported", "cpp": "tools/release/tests/test_windows_installer.py"},
+      "test_upgrade_keeps_user_data_outside_the_replaced_install_tree": {"status": "ported", "cpp": "tools/release/tests/test_windows_installer.py", "note": "adapted: [InstallDelete] lists the managed set of the install tree in place of PyInstaller's _internal folder"}
+    },
+    "tests/test_linux_deps.py": {
+      "TestLinuxDeps::test_detect_package_family": {"status": "dropped", "reason": "other-platform: the Linux system-library preflight and its remediation text (A16-42, A16-43); FioriVoce packages Windows only"},
+      "TestLinuxDeps::test_meeting_audio_libpulse_mapping": {"status": "dropped", "reason": "other-platform: the Linux system-library preflight and its remediation text (A16-42, A16-43); FioriVoce packages Windows only"},
+      "TestLinuxDeps::test_meeting_audio_remediation_by_family": {"status": "dropped", "reason": "other-platform: the Linux system-library preflight and its remediation text (A16-42, A16-43); FioriVoce packages Windows only"},
+      "TestLinuxDeps::test_pactl_missing_remediation_by_family": {"status": "dropped", "reason": "other-platform: the Linux system-library preflight and its remediation text (A16-42, A16-43); FioriVoce packages Windows only"},
+      "TestLinuxDeps::test_remediation_never_pushes_pipewire_onto_pulse_for_transient_errors": {"status": "dropped", "reason": "other-platform: the Linux system-library preflight and its remediation text (A16-42, A16-43); FioriVoce packages Windows only"},
+      "TestLinuxDeps::test_remediation_pipewire_install_only_for_missing_stack_cases": {"status": "dropped", "reason": "other-platform: the Linux system-library preflight and its remediation text (A16-42, A16-43); FioriVoce packages Windows only"},
+      "TestLinuxDeps::test_audio_server_unavailable_is_stack_neutral": {"status": "dropped", "reason": "other-platform: the Linux system-library preflight and its remediation text (A16-42, A16-43); FioriVoce packages Windows only"},
+      "TestLinuxDeps::test_source_install_missing_soundcard_keeps_pip_advice": {"status": "dropped", "reason": "other-platform: the Linux system-library preflight and its remediation text (A16-42, A16-43); FioriVoce packages Windows only"},
+      "TestLinuxDeps::test_packaged_missing_soundcard_says_reinstall_not_pip": {"status": "dropped", "reason": "other-platform: the Linux system-library preflight and its remediation text (A16-42, A16-43); FioriVoce packages Windows only"},
+      "TestLinuxDeps::test_packaged_is_detected_from_frozen_build": {"status": "dropped", "reason": "other-platform: the Linux system-library preflight and its remediation text (A16-42, A16-43); FioriVoce packages Windows only"},
+      "TestLinuxDeps::test_packaged_libpulse_check_needs_no_python": {"status": "dropped", "reason": "other-platform: the Linux system-library preflight and its remediation text (A16-42, A16-43); FioriVoce packages Windows only"},
+      "TestLinuxDeps::test_reinstall_commands_match_release_asset_names": {"status": "dropped", "reason": "other-platform: the Linux system-library preflight and its remediation text (A16-42, A16-43); FioriVoce packages Windows only"},
+      "TestLinuxDeps::test_install_command_matches_family": {"status": "dropped", "reason": "other-platform: the Linux system-library preflight and its remediation text (A16-42, A16-43); FioriVoce packages Windows only"},
+      "TestLinuxDeps::test_missing_libraries_reports_unloadable_sonames": {"status": "dropped", "reason": "other-platform: the Linux system-library preflight and its remediation text (A16-42, A16-43); FioriVoce packages Windows only"},
+      "TestLinuxDeps::test_check_skips_non_linux": {"status": "dropped", "reason": "other-platform: the Linux system-library preflight and its remediation text (A16-42, A16-43); FioriVoce packages Windows only"},
+      "TestLinuxDeps::test_check_prints_install_line_on_linux": {"status": "dropped", "reason": "other-platform: the Linux system-library preflight and its remediation text (A16-42, A16-43); FioriVoce packages Windows only"}
+    },
+    "tests/test_linux_installer.py": {
+      "test_build_script_is_executable_and_valid_bash": {"status": "dropped", "reason": "other-platform: the Linux .deb and Arch packages (A16-46 Linux part) are not scheduled; FioriVoce packages Windows only"},
+      "test_pkginfo_template_has_native_runtime_dependencies": {"status": "dropped", "reason": "other-platform: the Linux .deb and Arch packages (A16-46 Linux part) are not scheduled; FioriVoce packages Windows only"},
+      "test_control_template_has_native_runtime_dependencies": {"status": "dropped", "reason": "other-platform: the Linux .deb and Arch packages (A16-46 Linux part) are not scheduled; FioriVoce packages Windows only"},
+      "test_desktop_entry_and_launcher_match_installed_layout": {"status": "dropped", "reason": "other-platform: the Linux .deb and Arch packages (A16-46 Linux part) are not scheduled; FioriVoce packages Windows only"},
+      "test_linux_icon_is_committed_png_at_expected_size": {"status": "dropped", "reason": "other-platform: the Linux .deb and Arch packages (A16-46 Linux part) are not scheduled; FioriVoce packages Windows only"},
+      "test_frozen_install_channel_uses_linux_copy_and_is_notify_only": {"status": "dropped", "reason": "other-platform: the Linux .deb and Arch packages (A16-46 Linux part) are not scheduled; FioriVoce packages Windows only"},
+      "test_release_bundle_and_package_retain_required_license_notices": {"status": "dropped", "reason": "other-platform: the Linux .deb and Arch packages (A16-46 Linux part) are not scheduled; FioriVoce packages Windows only"},
+      "test_linux_audio_guide_is_bundled_and_installed_as_documentation": {"status": "dropped", "reason": "other-platform: the Linux .deb and Arch packages (A16-46 Linux part) are not scheduled; FioriVoce packages Windows only"},
+      "test_release_workflow_smokes_advertised_linux_baselines": {"status": "dropped", "reason": "other-platform: the Linux .deb and Arch packages (A16-46 Linux part) are not scheduled; FioriVoce packages Windows only"},
+      "test_release_artifact_name_is_versioned_and_arch_specific": {"status": "dropped", "reason": "other-platform: the Linux .deb and Arch packages (A16-46 Linux part) are not scheduled; FioriVoce packages Windows only"},
+      "test_spec_leaves_system_cxx_runtime_on_linux": {"status": "dropped", "reason": "other-platform: the Linux .deb and Arch packages (A16-46 Linux part) are not scheduled; FioriVoce packages Windows only"}
+    },
+    "tests/test_macos_installer.py": {
+      "test_macos_build_script_is_executable_and_valid_bash": {"status": "dropped", "reason": "other-platform: the macOS app bundle and DMG (A34-05, A34-10) are not scheduled; FioriVoce packages Windows only"},
+      "test_create_dmg_retries_only_a_busy_volume": {"status": "dropped", "reason": "other-platform: the macOS app bundle and DMG (A34-05, A34-10) are not scheduled; FioriVoce packages Windows only"},
+      "test_deployment_target_audit_reads_the_arm64_minimum": {"status": "dropped", "reason": "other-platform: the macOS app bundle and DMG (A34-05, A34-10) are not scheduled; FioriVoce packages Windows only"},
+      "test_version_newer_compares_dotted_releases": {"status": "dropped", "reason": "other-platform: the macOS app bundle and DMG (A34-05, A34-10) are not scheduled; FioriVoce packages Windows only"},
+      "test_spec_builds_macos_app_bundle_with_stable_identity": {"status": "dropped", "reason": "other-platform: the macOS app bundle and DMG (A34-05, A34-10) are not scheduled; FioriVoce packages Windows only"},
+      "test_hardened_runtime_entitlements_are_minimal_and_valid": {"status": "dropped", "reason": "other-platform: the macOS app bundle and DMG (A34-05, A34-10) are not scheduled; FioriVoce packages Windows only"},
+      "test_spec_retains_lazy_macos_framework_imports": {"status": "dropped", "reason": "other-platform: the macOS app bundle and DMG (A34-05, A34-10) are not scheduled; FioriVoce packages Windows only"},
+      "test_package_self_test_imports_macos_capture_stack": {"status": "dropped", "reason": "other-platform: the macOS app bundle and DMG (A34-05, A34-10) are not scheduled; FioriVoce packages Windows only"},
+      "test_release_constraints_pin_darwin_pyobjc": {"status": "dropped", "reason": "other-platform: the macOS app bundle and DMG (A34-05, A34-10) are not scheduled; FioriVoce packages Windows only"},
+      "test_generate_icon_builds_icns_under_build_on_darwin": {"status": "dropped", "reason": "other-platform: the macOS app bundle and DMG (A34-05, A34-10) are not scheduled; FioriVoce packages Windows only"},
+      "test_macos_build_script_enforces_host_and_artifact_contract": {"status": "dropped", "reason": "other-platform: the macOS app bundle and DMG (A34-05, A34-10) are not scheduled; FioriVoce packages Windows only"},
+      "test_release_workflow_includes_macos_arm64_dmg": {"status": "dropped", "reason": "other-platform: the macOS app bundle and DMG (A34-05, A34-10) are not scheduled; FioriVoce packages Windows only"},
+      "test_macos_build_notarizes_only_with_credentials_and_identity": {"status": "dropped", "reason": "other-platform: the macOS app bundle and DMG (A34-05, A34-10) are not scheduled; FioriVoce packages Windows only"},
+      "test_frozen_macos_install_channel_is_notify_only": {"status": "dropped", "reason": "other-platform: the macOS app bundle and DMG (A34-05, A34-10) are not scheduled; FioriVoce packages Windows only"},
+      "test_release_workflow_supports_documented_setup_only_recovery": {"status": "dropped", "reason": "other-platform: the macOS app bundle and DMG (A34-05, A34-10) are not scheduled; FioriVoce packages Windows only"}
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+ "scenario": "remote_wrong_path",
+ "source_commit": "768b559edd932d40806c96eed05ef5a20e57e415",
+ "python": "3.12.10",
+ "setup": {
+  "host_name": "studio",
+  "device_name": "laptop",
+  "addresses": [
+   "192.168.1.20",
+   "100.101.102.103"
+  ],
+  "pairing_code": "246810",
+  "fingerprint": "<fingerprint#1>",
+  "path": "/x",
+  "patches": [
+   "tailscale.status reports not_installed and tailscale.whois finds nobody (tests/fakes/remote.py no_real_tailscale)",
+   "discovery.find_host and discovery.search find nothing (no UDP leaves the process)",
+   "SpeechHost.start serves on 127.0.0.1 only, without discovery",
+   {
+    "step": "wrong_path",
+    "patch": "services.remote_asr.client._uri asks for /x instead of the engine path"
+   }
+  ],
+  "steps": [
+   {
+    "name": "wrong_path",
+    "client": "probe_host",
+    "outcomes": [
+     {
+      "call": "probe_host",
+      "raised": {
+       "type": "RemoteEngineError",
+       "message": "127.0.0.1:<port> answered, but it isn't an OpenWhisper remote engine (HTTP 404)."
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "frames": [
+  {
+   "step": "wrong_path",
+   "conn": 0,
+   "dir": "c2s",
+   "kind": "http",
+   "text": "/x"
+  },
+  {
+   "step": "wrong_path",
+   "conn": 0,
+   "dir": "s2c",
+   "kind": "http",
+   "status": 404,
+   "body": "Not an OpenWhisper remote engine endpoint\n"
+  }
+ ],
+ "normalize": []
+}

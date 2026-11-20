@@ -1,0 +1,31 @@
+{
+ "source": "Hand-written. A reasoning model's summary streamed as response.reasoning_summary_text.delta before its message, in sidecar/src/pi-integration.test.ts:43-61's event shapes; replies.json has no such reply, so the equivalent non-streamed reply is given here.",
+ "protocol": "responses",
+ "equivalent_reply": {"id": "resp_3", "status": "completed", "output": [{"type": "reasoning", "id": "rs_3", "summary": [{"type": "summary_text", "text": "Checking the budget."}], "encrypted_content": "signed-reasoning"}, {"type": "message", "id": "msg_3", "role": "assistant", "status": "completed", "content": [{"type": "output_text", "text": "Clean text.", "annotations": []}]}]},
+ "frames": [
+  {"type": "response.created", "response": {"id": "resp_3", "status": "in_progress", "output": []}},
+  {"type": "response.output_item.added", "output_index": 0, "item": {"type": "reasoning", "id": "rs_3", "summary": []}},
+  {"type": "response.reasoning_summary_part.added", "output_index": 0, "item_id": "rs_3", "summary_index": 0, "part": {"type": "summary_text", "text": ""}},
+  {"type": "response.reasoning_summary_text.delta", "output_index": 0, "item_id": "rs_3", "summary_index": 0, "delta": "Checking "},
+  {"type": "response.reasoning_summary_text.delta", "output_index": 0, "item_id": "rs_3", "summary_index": 0, "delta": "the budget."},
+  {"type": "response.output_item.done", "output_index": 0, "item": {"type": "reasoning", "id": "rs_3", "summary": [{"type": "summary_text", "text": "Checking the budget."}], "encrypted_content": "signed-reasoning"}},
+  {"type": "response.output_item.added", "output_index": 1, "item": {"type": "message", "id": "msg_3", "role": "assistant", "status": "in_progress", "content": []}},
+  {"type": "response.output_text.delta", "output_index": 1, "item_id": "msg_3", "content_index": 0, "delta": "Clean text."},
+  {"type": "response.output_item.done", "output_index": 1, "item": {"type": "message", "id": "msg_3", "role": "assistant", "status": "completed", "content": [{"type": "output_text", "text": "Clean text.", "annotations": []}]}},
+  {"type": "response.completed", "response": {"id": "resp_3", "status": "completed", "output": [{"type": "reasoning", "id": "rs_3", "summary": [{"type": "summary_text", "text": "Checking the budget."}], "encrypted_content": "signed-reasoning"}, {"type": "message", "id": "msg_3", "role": "assistant", "status": "completed", "content": [{"type": "output_text", "text": "Clean text.", "annotations": []}]}]}}
+ ],
+ "events": [
+  ["thinking_start"],
+  ["thinking_delta", "Checking "],
+  ["thinking_delta", "the budget."],
+  ["thinking_end"],
+  ["text_delta", "Clean text."]
+ ],
+ "result": {
+  "text": "Clean text.",
+  "tool_calls": [],
+  "assistant_message": {"role": "assistant", "content": "Clean text.", "_responses": [{"type": "reasoning", "id": "rs_3", "summary": [{"type": "summary_text", "text": "Checking the budget."}], "encrypted_content": "signed-reasoning"}, {"type": "message", "id": "msg_3", "role": "assistant", "status": "completed", "content": [{"type": "output_text", "text": "Clean text.", "annotations": []}]}]},
+  "usage": null,
+  "finish_reason": "completed"
+ }
+}

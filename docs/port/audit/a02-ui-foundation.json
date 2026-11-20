@@ -1,0 +1,708 @@
+{
+ "area": "a02-ui-foundation",
+ "package": "M10 sweep (AU5)",
+ "features": {
+  "A02-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_theme/palette.cpp",
+    "src/ui_theme/palette.h"
+   ],
+   "tests": [
+    "tests/ui_theme/test_palette_golden.cpp",
+    "tests/ui_theme/test_theme.cpp",
+    "tests/golden/ui_qt.utils.palette.json"
+   ],
+   "note": "palette_for, resolve, css and color vectors; 'both themes define the same tokens', 'palette for unknown name is dark'."
+  },
+  "A02-02": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_theme/palette.cpp"
+   ],
+   "tests": [
+    "tests/ui_theme/test_theme.cpp",
+    "tests/ui_theme/test_palette_golden.cpp",
+    "tests/golden/ui_qt.utils.palette.json"
+   ],
+   "note": "resolve vectors; 'unknown token is an error not silent text'."
+  },
+  "A02-03": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_theme/palette.cpp"
+   ],
+   "tests": [
+    "tests/ui_theme/test_palette_golden.cpp",
+    "tests/ui_theme/test_theme.cpp",
+    "tests/golden/ui_qt.utils.palette.json"
+   ],
+   "note": "color vectors (220) over hex, rgba and triples with alpha overrides."
+  },
+  "A02-04": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_theme/palette.cpp",
+    "src/ui_theme/theme.cpp",
+    "src/ui_theme/theme_manager.cpp"
+   ],
+   "tests": [
+    "tests/ui_theme/test_theme_pieces.cpp"
+   ],
+   "note": "'currentTheme follows the current palette', 'constructing a ThemeManager makes its palette current'."
+  },
+  "A02-05": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_theme/resources/theme.qss",
+    "src/ui_theme/theme_manager.cpp"
+   ],
+   "tests": [
+    "tests/ui_theme/test_theme_pieces.cpp",
+    "tests/ui_theme/test_stylesheet_reference.cpp",
+    "tests/ui_theme/test_theme.cpp"
+   ],
+   "note": "theme.qss is byte-identical to OpenWhisper's (diff empty); urls are rewritten into the Qt resource tree ('relative asset urls point into the resource tree', 'every url of the theme names a bundled asset'). The sheet is a compiled-in resource, so the missing-file branch cannot occur."
+  },
+  "A02-06": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_theme/theme_manager.cpp",
+    "src/ui_theme/theme_manager.h"
+   ],
+   "tests": [
+    "tests/ui_theme/test_theme.cpp",
+    "tests/ui_theme/test_stylesheet_reference.cpp"
+   ],
+   "note": "'theme manager announces changes once', 'switching restyles the app and widget stylesheets', scaled sheet reference dump (light-s130). The Omarchy rewrite step is dropped with A02-15."
+  },
+  "A02-07": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_theme/theme_manager.cpp"
+   ],
+   "tests": [
+    "tests/ui_theme/test_theme_pieces.cpp",
+    "tests/ui_theme/test_stylesheet_reference.cpp"
+   ],
+   "note": "'the QPalette maps roles and greys disabled text' and the application palette reference dump."
+  },
+  "A02-08": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_theme/font_scale.cpp",
+    "src/ui_theme/theme_manager.cpp"
+   ],
+   "tests": [
+    "tests/ui_theme/test_theme.cpp"
+   ],
+   "note": "'system preference reads the platform scheme', 'match system follows a platform scheme change', 'fresh classic install is dark', 'invalid saved value falls back to default'; system calls unsetColorScheme, an explicit choice pins it."
+  },
+  "A02-09": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_theme/font_scale.cpp"
+   ],
+   "tests": [
+    "tests/ui_theme/test_font_scale.cpp",
+    "tests/golden/ui_qt.utils.font_scale.json"
+   ],
+   "note": "scale_qss_fonts vectors (65) incl. half-to-even rounding and decimals; 'identity scale returns the same string'."
+  },
+  "A02-09b": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_theme/font_scale.cpp"
+   ],
+   "tests": [
+    "tests/ui_theme/test_font_scale.cpp"
+   ],
+   "note": "'the app font follows the scale with half-to-even rounding' (Segoe UI, max(6, round(10*scale))). The Noto Sans branch belongs to Omarchy (Linux) and is not ported (M0 Scope A02-09b)."
+  },
+  "A02-10": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_theme/local_style.cpp",
+    "src/ui_theme/local_style.h"
+   ],
+   "tests": [
+    "tests/ui_theme/test_font_scale.cpp",
+    "tests/ui_theme/test_theme.cpp"
+   ],
+   "note": "setLocalStyleSheet keeps unscaledStyleSheet/scaledStyleSheet and re-resolves from the source ('rewrites widget stylesheet from the original', 'a sheet set directly over a local sheet becomes its source'). No re-entrancy flag is needed without the StyleChange filter (A02-11)."
+  },
+  "A02-11": {
+   "status": "difference",
+   "difference": "a02-local-stylesheet-helper"
+  },
+  "A02-12": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_theme/font_scale.cpp",
+    "src/ui_theme/theme_manager.cpp"
+   ],
+   "tests": [
+    "tests/ui_theme/test_theme.cpp"
+   ],
+   "note": "'match system follows a platform scheme change'."
+  },
+  "A02-13": {
+   "status": "other-platform",
+   "reason": "Omarchy palette loader reads Linux XDG theme files (M0 Scope: dropped, Linux); FioriVoce is a Windows product."
+  },
+  "A02-14": {
+   "status": "other-platform",
+   "reason": "Omarchy colour mixing exists only for the Linux Omarchy desktop (M0 Scope: dropped, Linux); FioriVoce is a Windows product."
+  },
+  "A02-15": {
+   "status": "other-platform",
+   "reason": "Omarchy QSS rewrite applies only when the Linux Omarchy UI is active (M0 Scope: dropped, Linux); FioriVoce is a Windows product."
+  },
+  "A02-16": {
+   "status": "other-platform",
+   "reason": "Omarchy theme poll watches Linux theme files (M0 Scope: dropped, Linux); FioriVoce is a Windows product."
+  },
+  "A02-17": {
+   "status": "verified",
+   "cpp": [
+    "src/base/desktop_session.cpp",
+    "src/base/desktop_session.h"
+   ],
+   "tests": [
+    "tests/base/test_desktop_session.cpp"
+   ],
+   "note": "Ported by M0.2: the override variable is <env_prefix>UI (FIORIVOCE_UI by the identity rule) with omarchy/classic forcing on any platform, auto detecting only on Linux via OMARCHY_PATH, the XDG theme files or os-release ID=omarchy, cached like lru_cache(4). The Omarchy UI it enables is other-platform (A02-13 to A02-16)."
+  },
+  "A02-18": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_theme/tooltip_style.cpp",
+    "src/ui_theme/tooltip_style.h"
+   ],
+   "tests": [
+    "tests/ui_theme/test_theme_pieces.cpp"
+   ],
+   "note": "'the tooltip style shortens the wake-up delay' (200 ms over the wrapped windows11 or platform style)."
+  },
+  "A02-19": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_theme/tooltip_style.cpp"
+   ],
+   "tests": [
+    "tests/ui_theme/test_theme_pieces.cpp"
+   ],
+   "note": "RoundedTooltipFilter matched tooltip_filter.py but nothing tested it. Added 'the tooltip filter makes the tip window translucent and shadowless': a real QToolTip's QTipLabel gets WA_TranslucentBackground and NoDropShadowWindowHint on Polish (the Wayland branch's square-corner sheet is asserted only under a Wayland platform), and an ordinary label is left alone."
+  },
+  "A02-20": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_theme/app_icon.cpp",
+    "src/ui_theme/app_icon.h"
+   ],
+   "tests": [
+    "tests/ui_theme/test_theme_pieces.cpp"
+   ],
+   "note": "'the app icon is drawn at every size' (16..256, rounded corners, filled centre). The bundled .ico is the product's own icon by the identity rule."
+  },
+  "A02-21": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_theme/icons.cpp",
+    "src/ui_theme/icons.h"
+   ],
+   "tests": [
+    "tests/ui_theme/test_theme_pieces.cpp",
+    "tests/ui_theme/test_theme.cpp"
+   ],
+   "note": "58 SVGs, as in OpenWhisper's tabler folder (its 59th file is LICENSE.txt); 'Tabler icons load from the resources' incl. designIcon's disabled pixmap, 'light icon variants exist'."
+  },
+  "A02-22": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/collapse_animation.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_collapse_animation.cpp",
+    "tests/ui_widgets/test_cards.cpp"
+   ],
+   "note": "'the collapse animation is 300 ms InOutCubic on maximumHeight', 'running the animation starts at the start height and calls back once'."
+  },
+  "A02-23": {
+   "status": "verified",
+   "cpp": [
+    "src/uimath/overlay_position.cpp"
+   ],
+   "tests": [
+    "tests/uimath/test_overlay_position.cpp",
+    "tests/golden/ui_qt.utils.overlay_position.json"
+   ],
+   "note": "clamp_rect_to_available, preferred_overlay_position and max_height_for_anchor vectors."
+  },
+  "A02-24": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/drag_move.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_drag_move.cpp"
+   ],
+   "note": "Open hand, left button only, clamp to the screen under the pointer with margin 8, moved until reset."
+  },
+  "A02-25": {
+   "status": "verified",
+   "cpp": [
+    "src/uimath/fuzzy_match.cpp"
+   ],
+   "tests": [
+    "tests/uimath/test_fuzzy_match.cpp",
+    "tests/golden/ui_qt.utils.fuzzy_match.json"
+   ],
+   "note": "fuzzy_score (95) and fuzzy_match (34) vectors."
+  },
+  "A02-26": {
+   "status": "verified",
+   "cpp": [
+    "src/uimath/list_reconcile.cpp",
+    "src/ui_widgets/list_reconcile.cpp"
+   ],
+   "tests": [
+    "tests/uimath/test_list_reconcile.cpp",
+    "tests/ui_widgets/test_list_reconcile.cpp",
+    "tests/golden/ui_qt.utils.list_reconcile.json"
+   ],
+   "note": "reconcile_cards vectors and the widget applier tests. HistoryDelivery/MeetingDelivery are replaced by the TokenGate posting (M0 Scope A02-26)."
+  },
+  "A02-27": {
+   "status": "verified",
+   "cpp": [
+    "src/uimath/loudness.cpp"
+   ],
+   "tests": [
+    "tests/uimath/test_loudness.cpp",
+    "tests/golden/ui_qt.utils.loudness.json"
+   ],
+   "note": "level_to_height vectors (21)."
+  },
+  "A02-28": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_theme/markdown_render.cpp",
+    "src/ui_theme/markdown_render.h"
+   ],
+   "tests": [
+    "tests/ui_theme/test_markdown_render.cpp",
+    "tests/golden/ui_qt.utils.markdown_render.json"
+   ],
+   "note": "heading_pt, code_pt and scaled vectors; slab code blocks, quotes, tables, first-block margin tests."
+  },
+  "A02-29": {
+   "status": "verified",
+   "cpp": [
+    "src/uimath/release_notes.cpp"
+   ],
+   "tests": [
+    "tests/uimath/test_release_notes.cpp",
+    "tests/golden/ui_qt.utils.release_notes.json"
+   ],
+   "note": "render_release_notes_html vectors (51)."
+  },
+  "A02-30": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_theme/style_props.cpp"
+   ],
+   "tests": [
+    "tests/ui_theme/test_theme_pieces.cpp"
+   ],
+   "note": "'setStyleProperty changes and repolishes only on a new value', 'setStyleProperty makes a property selector match'."
+  },
+  "A02-31": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/file_reveal.cpp",
+    "src/ui_widgets/file_reveal.h"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_file_reveal.cpp"
+   ],
+   "note": "Launches are recorded through FileRevealHooks: explorer /select,\"<path>\" as a raw command line with the exit code ignored, folder fallback, False for a missing folder. The macOS open -R branch is other-platform."
+  },
+  "A02-32": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/engine_selection.cpp",
+    "src/ui_record/engine_selection.h"
+   ],
+   "tests": [
+    "tests/ui_record/test_engine_selection_sync.cpp"
+   ],
+   "note": "One SettingsStore watch on engineKeys() delivered on the GUI thread ('a save from a worker thread reaches the tabs'); the four Whisper keys are dropped with the engine (M1 Scope A02-32)."
+  },
+  "A02-33": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/agent_lookup.cpp",
+    "src/ui_widgets/agent_lookup.h"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_agent_picker.cpp"
+   ],
+   "note": "'the lookup relay brings lookups to the gui thread', 'the session lookup relay follows the set installed agents'."
+  },
+  "A02-34": {
+   "status": "verified",
+   "cpp": [
+    "src/uimath/overlay_position.cpp"
+   ],
+   "tests": [
+    "tests/uimath/test_overlay_position.cpp",
+    "tests/golden/ui_qt.utils.overlay_position.json"
+   ],
+   "note": "on_screen_position vectors (17), used by the Settings dialog. fit_desktop_dialog, DesktopWindowFilter and without_window_buttons run only under the Linux Omarchy UI and are not ported (M0 Scope A02-34)."
+  },
+  "A02-35": {
+   "status": "other-platform",
+   "reason": "macOS Dock icon policy; FioriVoce is a Windows product (M0 Scope: dropped, macOS)."
+  },
+  "A02-36": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/buttons.cpp",
+    "src/ui_widgets/buttons.h"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_buttons.cpp",
+    "tests/ui_widgets/test_reference_screenshots.cpp"
+   ],
+   "note": "Object names, 44/48 px floors, label+40 width, setActive swallowing input with the inactive property, compact helpers, fitStartWidth (340). The reference test compares the widget tree; its pixel half skips on this Linux machine."
+  },
+  "A02-37": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/buttons.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_buttons.cpp",
+    "tests/ui_widgets/test_reference_screenshots.cpp"
+   ],
+   "note": "Hint shown only with a hotkey on an enabled button, hidden 80 ms after Leave; hotkey_hover_hint reference. The compositor-desktop tooltip branch is Linux-only and not ported (M0 Scope A02-37). The reference test compares the widget tree; its pixel half skips on this Linux machine."
+  },
+  "A02-38": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/cards.cpp",
+    "src/ui_widgets/cards.h"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_cards.cpp",
+    "tests/ui_widgets/test_reference_screenshots.cpp"
+   ],
+   "note": "Margins/spacing/floor, header title, collapse with and without emit (300 ms), 'Show/Hide transcription output' tooltips; header_card reference. Its reference test did not run to completion here: the pixel half skips and the tree half fails on Linux font metrics (1 px geometry differences)."
+  },
+  "A02-39": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/collapsible_header.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_cards.cpp",
+    "tests/ui_widgets/test_reference_screenshots.cpp"
+   ],
+   "note": "'the section toggle shows its state as an arrow and a tooltip'; collapsible_toggle references. The reference test compares the widget tree; its pixel half skips on this Linux machine."
+  },
+  "A02-40": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/animated_progress_bar.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_settings_switch.cpp",
+    "tests/ui_widgets/test_reference_screenshots.cpp"
+   ],
+   "note": "AnimatedProgressBar tests (8 px, 18 % easing per tick only while shown, accent gradient fill); animated_progress_bar reference. The reference test compares the widget tree; its pixel half skips on this Linux machine."
+  },
+  "A02-41": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/decode_label.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_labels.cpp",
+    "tests/ui_widgets/test_reference_screenshots.cpp"
+   ],
+   "note": "DecodeLabel tests (reveal on show, round-half-even locking, escaping and &nbsp;, settle on hide); decode_label reference. The reference test compares the widget tree; its pixel half skips on this Linux machine."
+  },
+  "A02-42": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/eliding_label.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_eliding_label.cpp",
+    "tests/ui_widgets/test_reference_screenshots.cpp"
+   ],
+   "note": "Size hint with stylesheet chrome, elision mode, full text and tooltip. The reference test compares the widget tree; its pixel half skips on this Linux machine."
+  },
+  "A02-43": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/downloads_label.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_labels.cpp",
+    "tests/ui_widgets/test_reference_screenshots.cpp"
+   ],
+   "note": "DownloadsLabel tests: link kept when elided, downloadsRequested only from the link, minimum width. The reference test compares the widget tree; its pixel half skips on this Linux machine."
+  },
+  "A02-44": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/wrapped_label.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_labels.cpp",
+    "tests/golden/ui_qt.widgets.wrapped_label.json",
+    "tests/ui_widgets/test_reference_screenshots.cpp"
+   ],
+   "note": "_with_break_points vectors (54); selection and copy return the original text; height for its own width. The reference test compares the widget tree; its pixel half skips on this Linux machine."
+  },
+  "A02-45": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/empty_state.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_labels.cpp",
+    "tests/ui_widgets/test_reference_screenshots.cpp"
+   ],
+   "note": "'EmptyState shows a title, an optional hint and a centred action'; empty_state reference. Its reference test did not run to completion here: the pixel half skips and the tree half fails on Linux font metrics (1 px geometry differences)."
+  },
+  "A02-46": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/feature_badge.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_feature_badge.cpp",
+    "tests/ui_widgets/test_reference_screenshots.cpp"
+   ],
+   "note": "New/? badges, star-only compaction, inactive tint, rich-text explanation. Its reference test did not run to completion here: the pixel half skips and the tree half fails on Linux font metrics (1 px geometry differences)."
+  },
+  "A02-47": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/field_help.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_field_help.cpp",
+    "tests/ui_widgets/test_reference_screenshots.cpp"
+   ],
+   "note": "450 ms hover, Space, 360 px at 100 %, pointer-leave close, Escape, link destinations; field_help_card reference. The Wayland embedded card is other-platform. Its reference test did not run to completion here: the pixel half skips and the tree half fails on Linux font metrics (1 px geometry differences)."
+  },
+  "A02-48": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/flow_layout.cpp",
+    "src/ui_widgets/layout_math.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_layout_math.cpp",
+    "tests/ui_widgets/test_composite_widgets.cpp",
+    "tests/golden/ui_qt.widgets.flow_layout.json"
+   ],
+   "note": "FlowLayout._arrange vectors (26)."
+  },
+  "A02-49": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/button_row.cpp",
+    "src/ui_widgets/layout_math.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_layout_math.cpp",
+    "tests/ui_widgets/test_composite_widgets.cpp",
+    "tests/golden/ui_qt.widgets.button_row.json"
+   ],
+   "note": "ButtonRow._row_sizes vectors (44); 'three buttons wrap one over two', chip rows."
+  },
+  "A02-50": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/reflow.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_composite_widgets.cpp",
+    "tests/ui_widgets/test_composite_references.cpp"
+   ],
+   "note": "'a reflow stacks its actions below lead plus 8 plus the actions', 'a reflow with a lead width measures it at the font scale'; reflow/stacked reference. Its reference test did not run to completion here: the pixel half skips and the tree half fails on Linux font metrics (1 px geometry differences)."
+  },
+  "A02-51": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/studio.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_composite_widgets.cpp"
+   ],
+   "note": "'a studio split stacks under column plus 16 plus the stage minimum', 'a stage shows one pane at a time'."
+  },
+  "A02-52": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/scrolling_body.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_composite_widgets.cpp"
+   ],
+   "note": "'fitDialog grows the copy to its height, capped at 420 or the screen less 160' (matches scrolling_body.py line for line). Its last check fails on this Linux machine: 80 lines in the offscreen font need 600 px, under the 640 px screen cap the test expects from Windows metrics."
+  },
+  "A02-53": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/no_wheel.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_no_wheel.cpp",
+    "tests/ui_widgets/test_reference_screenshots.cpp"
+   ],
+   "note": "Wheel only with focus for spin, combo and date; chevron rail with 400/80 ms repeat and range-end disabling; eliding combo popup width. The reference test compares the widget tree; its pixel half skips on this Linux machine."
+  },
+  "A02-54": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/searchable_combo.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_searchable_combo.cpp",
+    "tests/ui_widgets/test_composite_references.cpp"
+   ],
+   "note": "Filtering by fuzzy_score, replace-on-first-key, wrap, Enter activation, Escape, badge; searchable_combo/badge reference. Its reference test did not run to completion here: the pixel half skips and the tree half fails on Linux font metrics (1 px geometry differences)."
+  },
+  "A02-55": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/segmented_bar.cpp",
+    "src/ui_widgets/layout_math.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_layout_math.cpp",
+    "tests/ui_widgets/test_composite_widgets.cpp",
+    "tests/golden/ui_qt.widgets.segmented_bar.json"
+   ],
+   "note": "SegmentedBar._reflow vectors (203); 4 -> 2+2, one wrapped column, activated only on a click."
+  },
+  "A02-56": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/setting_tile.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_composite_widgets.cpp"
+   ],
+   "note": "'a setting tile toggles its switch on a click and mirrors checked', 'tiles lay out the icon, the text, the trailing slot and an indented body'."
+  },
+  "A02-57": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/settings_switch.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_settings_switch.cpp",
+    "tests/ui_widgets/test_reference_screenshots.cpp"
+   ],
+   "note": "46x28 scaled, accent track when on, theme name and hand cursor. The reference test compares the widget tree; its pixel half skips on this Linux machine."
+  },
+  "A02-58": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/nav_rail.cpp",
+    "src/ui_widgets/nav_rail.h"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_nav_rail.cpp"
+   ],
+   "note": "kRailWidth 258, minimum 220; chapter folding, pill, arrow/page/Home/End walking, destination signal."
+  },
+  "A02-59": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/tabbed_content.cpp",
+    "src/ui_widgets/tabbed_content.h"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_tabbed_content.cpp",
+    "tests/ui_widgets/test_reference_screenshots.cpp"
+   ],
+   "note": "Legacy saved ids, 250 ms save, locked Meeting Mode tab, setRecordingState disabling the other tabs (tab_bar_recording reference). The reference test compares the widget tree; its pixel half skips on this Linux machine."
+  },
+  "A02-60": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/context_menu.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_feature_badge.cpp"
+   ],
+   "note": "'the list context menu is owned by its parent and carries the roomy style'."
+  },
+  "A02-61": {
+   "status": "other-platform",
+   "reason": "The desktop header is chrome for compositor-owned windows under the Linux Omarchy UI (M0 Scope: dropped, Linux)."
+  },
+  "A02-62": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/update_notice.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_update_notice.cpp",
+    "tests/ui_widgets/test_reference_screenshots.cpp"
+   ],
+   "note": "FioriVoce self-updates (M3), so the notice is kept; tooltip names identity().product. Hidden until a version, compact label, click. The reference test compares the widget tree; its pixel half skips on this Linux machine."
+  },
+  "A02-63": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_theme/resources/theme.qss"
+   ],
+   "tests": [
+    "tests/ui_theme/test_stylesheet_reference.cpp",
+    "tests/ui_theme/test_theme.cpp"
+   ],
+   "note": "Global rules are in the verbatim theme.qss; 'the application stylesheet matches the reference dump', 'theme stylesheet has no unresolved tokens in either theme'."
+  },
+  "A02-64": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_theme/resources/theme.qss"
+   ],
+   "tests": [
+    "tests/ui_theme/test_stylesheet_reference.cpp"
+   ],
+   "note": "Slate rules are in the verbatim sheet and the resolved-sheet reference dump; the pages that use them are other areas'."
+  },
+  "A02-65": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_theme/resources/theme.qss"
+   ],
+   "tests": [
+    "tests/ui_theme/test_stylesheet_reference.cpp"
+   ],
+   "note": "Feature sections are in the verbatim sheet; whether each feature's widgets use them is that feature's area (tools/lint/check_qss_names.py tracks unused names)."
+  }
+ },
+ "differences": [
+  {
+   "id": "a02-local-stylesheet-helper",
+   "features": [
+    "A02-11"
+   ],
+   "openwhisper": "An application-wide event filter adopts any stylesheet set on a widget at its StyleChange event as the designed source and resolves its tokens and font sizes at once.",
+   "fiorivoce": "Widgets set token sheets through setLocalStyleSheet, which stores the source and resolves it; a lint forbids raw setStyleSheet in ui_* code, and a sheet set directly anyway is adopted as source at the next theme or scale change.",
+   "reason": "One resolution pass per theme change and no filter on every widget's StyleChange.",
+   "source": "docs/port/ARCHITECTURE.md section 13 decision 39 'Widget-local stylesheets'; docs/port/packages/M0.md Scope row A02-11"
+  }
+ ]
+}

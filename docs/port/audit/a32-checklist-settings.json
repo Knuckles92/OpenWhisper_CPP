@@ -1,0 +1,1163 @@
+{
+ "area": "a32-user-facing-features",
+ "package": "M10 sweep",
+ "features": {},
+ "differences": [],
+ "checklist": {
+  "SS-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp",
+    "src/ui_settings/settings_search_palette.cpp",
+    "src/appcore/settings_search.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_shell.cpp",
+    "tests/ui_settings/test_search_palette.cpp",
+    "tests/appcore/test_settings_search.cpp",
+    "tests/golden/ui_qt.dialogs.settings_search.json"
+   ],
+   "note": "Opens on Home (test_window_opens_on_home); Ctrl+K and QKeySequence::Find window shortcuts (Ctrl+K and Find open the search); results carry their place as detail (Dictation > Voice model, Downloads > Components; test_index_covers_tiles_fields_help_models_and_components); Enter opens and flashes the tile (test_enter_opens_the_setting_and_marks_its_tile); a model result opens Downloads on it (test_a_model_result_opens_downloads_on_that_model); the ß/Straße/GRÖSSE folding cases replay in the settings_search golden; deep links by deep links reach the page they name."
+  },
+  "SS-02": {
+   "status": "difference",
+   "difference": "a14-local-engine",
+   "cpp": [
+    "src/appkit/destinations.h",
+    "src/ui_settings/settings_dialog.cpp",
+    "src/ui_widgets/nav_rail.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_shell.cpp",
+    "tests/ui_widgets/test_nav_rail.cpp",
+    "tests/ui_downloads/test_downloads_window.cpp"
+   ],
+   "note": "The Models & storage chapter has no Runtime page: it set Local Whisper device and quantization only (A15-41 dropped, M2 Changes to the cut item 12), so the destination is in destinations.h but no feature registers it. Verified the rest: Home then six chapters in _CHAPTERS order with OpenWhisper page names (destinations.h, test_every_page_is_in_exactly_one_place, test_the_page_menu_lists_every_page_by_chapter), rail values per page (rail values are drawn once per batch; appcore test_rail_values), chapters opening independently and the current chapter carrying its pill (opening a chapter leaves the others open, the current pages chapter carries the pill), the narrow page menu (a narrow window folds the rail into the page menu) and live Downloads progress in the rail (downloads rail reports totals then live progress)."
+  },
+  "SS-03": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/home_page.cpp",
+    "src/ui_settings/whats_new_tile.cpp",
+    "src/appcore/whats_new.cpp",
+    "src/ui_personalize/dictionary_page.cpp",
+    "src/ui_personalize/snippets_page.cpp",
+    "src/ui_personalize/styles_page.cpp",
+    "src/ui_personalize/commands_page.cpp",
+    "src/ui_personalize/cleanup_page.cpp",
+    "src/ui_meeting/meeting_home_rows.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_home.cpp",
+    "tests/ui_settings/test_meeting_pages.cpp",
+    "tests/ui_personalize/test_styles_commands_feature.cpp",
+    "tests/ui_personalize/test_dictionary_page.cpp",
+    "tests/ui_personalize/test_snippets_page.cpp",
+    "tests/ui_personalize/test_styles_page.cpp",
+    "tests/ui_personalize/test_cleanup_page.cpp",
+    "tests/appcore/test_whats_new.cpp"
+   ],
+   "note": "Where strip (two halves, dots, items; the where strip lists where dictation runs and the recordings and the cleanup-provider cases; test_home_privacy_strip fails on this Linux tree only because reading text near the cursor is Windows-only, MACHINE.md); Dictation card controls (microphone read only when its menu opens, shortcut Change, voice model, cleanup and level via test_rail_and_home_name_the_level, paste, live transcript); Personalize card rows in order Dictionary (Add word) < Snippets (count, test_home_counts_snippets_and_adds_one) < Match tone to each app < Command Mode shortcut; Meetings card cleanup/report switches; App card theme, font size, updates; Storage card; the What is new note dismissed and shown again when rewritten. The note is titled New in identity().product and its text is FioriVoce own (A11-23)."
+  },
+  "SS-04": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/setting_tile.cpp",
+    "src/ui_settings/settings_page.cpp",
+    "src/ui_settings/general_page.cpp",
+    "src/ui_widgets/no_wheel.cpp",
+    "src/ui_settings/settings_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_app_pages.cpp",
+    "tests/ui_widgets/test_no_wheel.cpp",
+    "tests/ui_widgets/test_settings_polish_widgets.cpp",
+    "tests/ui_settings/test_shell.cpp",
+    "tests/ui_personalize/test_unsaved_drafts.cpp"
+   ],
+   "note": "A click anywhere on a tile toggles it and dependent tiles dim with their switch (test_general_tiles_toggle_and_gate_update_notify); tiles reflow to one column and back (test_cards_reflow_when_the_window_narrows); titles and descriptions re-fit after font and width changes (test_tile_titles_and_descriptions_fit_after_font_and_width_changes); chevron stepper rails (test_no_wheel hides native arrows and loads chevrons, chevron buttons step the value); drafts saved on leaving a page (a draft that cannot be saved yet keeps Settings open on its page, test_going_home_saves_a_draft)."
+  },
+  "SS-05": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp",
+    "src/ui_personalize/personalize_host.cpp",
+    "src/ui_automation/hooks_page.cpp",
+    "src/ui_automation/settings_page_host.cpp",
+    "src/ui_controller/application_controller.cpp",
+    "src/ui_downloads/voice_model_page.cpp",
+    "src/ui_settings/home_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_shell.cpp",
+    "tests/ui_automation/test_hooks_page.cpp",
+    "tests/ui_personalize/test_personalize_page.cpp",
+    "tests/ui_settings/test_app_pages.cpp",
+    "tests/ui_downloads/test_voice_model_page.cpp",
+    "tests/ui_settings/test_home.cpp",
+    "tests/ui_automation/test_live_section.cpp"
+   ],
+   "note": "Each edit saves at once through SettingsDialog::persist (persist saves, skips an equal stored value and reports a failure) and notifyChanged broadcasts the same kinds as OpenWhisper notify_changed (transforms, actions, updates, styles, snippets, dictionary, webhooks/programs/filters from Hooks, mcp_events); microphones, hotkeys and languages reach the app through their callbacks as in OpenWhisper. The Voice model page follows an engine saved from Quick Record (the page follows an engine saved from Quick Record); opening Settings asks for no microphones (test_home_opens_without_building_pages_or_asking_for_microphones, test_microphone_reads_devices_once_its_menu_opens)."
+  },
+  "SS-06": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp",
+    "src/credentials/store.cpp",
+    "src/ui_downloads/downloads_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_search_palette.cpp",
+    "tests/ui_settings/test_shell.cpp",
+    "tests/credentials/test_store.cpp",
+    "tests/models/test_hf_access.cpp"
+   ],
+   "note": "Pages build on first visit and search does not build them (test_settings_first_show_and_search_do_not_build_hidden_destinations, test_pages_are_searchable_before_they_are_built); one settings read per refresh shared by every reader (test_settings_read_cache_isolated_nested_values_and_external_changes); credential lookups cached until refresh (refresh forgets cached lookups); the model inventory is a cached snapshot peeked without a disk walk (test_peek_does_not_wait_for_a_cold_directory_walk). The staged idle build is not ported (a11-no-staged-settings-build) and is not part of this line."
+  },
+  "SS-07": {
+   "status": "verified",
+   "cpp": [
+    "src/settings/setting.cpp",
+    "src/settings/keys.cpp"
+   ],
+   "tests": [
+    "tests/settings/test_kinds.cpp",
+    "tests/settings/test_typed.cpp",
+    "tests/settings/test_defaults.cpp"
+   ],
+   "note": "non bool falls back to default (yes, 0), resolve bool setting refuses a key that is not on off, an integer setting saved as infinity reads as its default; every reader goes through the generated keys:: readers."
+  },
+  "SS-08": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/settings_dialog.cpp",
+    "src/uimath/dialog_fit.cpp",
+    "src/ui_widgets/button_row.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_fit.cpp",
+    "tests/ui_settings/test_app_pages.cpp",
+    "tests/ui_settings/test_home.cpp",
+    "tests/ui_widgets/test_settings_polish_widgets.cpp"
+   ],
+   "note": "test_a_laptop_panel_at_150_percent_shrinks_the_window (1280x720), the screen-smaller-than-minimum and on-screen cases; every page at 100-130 % and the narrowest width keeps its controls unclipped (test_tile_titles_and_descriptions_fit_after_font_and_width_changes); Home rows stack (test_home_rows_fit_narrow_windows_and_large_fonts); button rows wrap (test_button_row_wraps_instead_of_letting_buttons_overlap)."
+  },
+  "SS-09": {
+   "status": "difference",
+   "difference": "a01-no-checkout-data-root",
+   "cpp": [
+    "src/base/paths.cpp",
+    "src/settings/keys.cpp",
+    "src/credentials/store.cpp",
+    "src/ui_settings/api_keys_section.cpp"
+   ],
+   "tests": [
+    "tests/base/test_paths.cpp",
+    "tests/ui_settings/test_api_keys.cpp",
+    "tests/credentials/test_store.cpp"
+   ],
+   "note": "A git checkout is never the data root (a git checkout as the working directory is not the data root). Verified the rest with the identity names (the settings file is identity().settings_file, fiorivoce_settings.json; identity names every FioriVoce file and OpenWhisper for import): installed = %LOCALAPPDATA% product folder (frozen builds use the per user directory), FIORIVOCE_DATA_DIR wins (the environment variable wins); keys are kept outside settings (test_save_stores_key_outside_settings_and_masks_it) and never logged."
+  },
+  "SR-02": {
+   "status": "verified",
+   "cpp": [
+    "src/recorder/recorder.cpp"
+   ],
+   "tests": [
+    "tests/recorder/test_device_fallback.cpp",
+    "tests/recorder/test_failure_strings.cpp"
+   ],
+   "note": "A lone input overflow keeps the block and the recording; three within 5 s stop it with OpenWhisper text (A05-10, verified in a05-recording-audio.json and read here)."
+  },
+  "SR-03": {
+   "status": "verified",
+   "cpp": [
+    "src/recorder/journal.cpp",
+    "src/recorder/recorder.cpp",
+    "src/dictation/recovery.cpp"
+   ],
+   "tests": [
+    "tests/recorder/test_journal.cpp",
+    "tests/recorder/test_golden.cpp",
+    "tests/dictation/test_runtime_flow.cpp",
+    "tests/recorder/test_post_roll.cpp"
+   ],
+   "note": "Per-recording journal with lock, session.json and PCM (A05-14), recovery to WAV at the next launch (A05-15), cancel writes the discarded marker and the journal is deleted (A05-13)."
+  },
+  "SR-04": {
+   "status": "difference",
+   "difference": "a14-local-engine",
+   "cpp": [
+    "src/speech/window_preview.cpp",
+    "src/dictation/streaming_runtime.cpp",
+    "src/ui_settings/recording_page.cpp"
+   ],
+   "tests": [
+    "tests/speech/test_window_preview.cpp",
+    "tests/dictation/test_streaming_runtime.cpp",
+    "tests/ui_settings/test_app_pages.cpp"
+   ],
+   "note": "Nemotron native streaming is not ported (Nemotron dropped, ARCHITECTURE.md decision 43). Verified the rest: the Real-time transcription preview switch (the live preview switch drops the legacy streaming keys); Parakeet window re-decode every 3 s with a 0.75 s overlap and bounded seam de-duplication (test_overlap_join_is_bounded..., append_preview_text golden); buffer of max(10, 3 s) blocks, dropped when full (blocks past the buffer are dropped while a window decodes); stop returns without decoding and the kept tail is decoded only when the final transcript is empty (test_fast_stop_returns_without_decoding_and_wakes_the_worker, empty dictation shows the lazily completed preview, non empty dictation never decodes the kept tail); cancel suppresses late output (test_cancel_discards_the_kept_tail_and_late_output_without_waiting)."
+  },
+  "SR-05": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/recording_page.cpp",
+    "src/ui_settings/appearance_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_retention.cpp",
+    "tests/ui_settings/test_app_pages.cpp"
+   ],
+   "note": "Keep recordings combo Keep all / By count / By folder size with its spins and shrink confirmation (A11-44, A11-45). The overlay section (look, switches, live preview layout Header/Footer, preview text size) is on Appearance, as in OpenWhisper (settings_dialog.py; CHANGELOG 2.8.01 says Settings > Appearance > Overlay); see SG-02 for those controls."
+  },
+  "SR-06": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_hotkeys/hotkeys_page.cpp",
+    "src/ui_hotkeys/standard_hotkeys.cpp"
+   ],
+   "tests": [
+    "tests/ui_hotkeys/test_hotkeys_page.cpp",
+    "tests/ui_hotkeys/test_capture_fields.cpp"
+   ],
+   "note": "Card How the record hotkey activates with Toggle / Push and hold, the Double-tap to keep recording switch shown for push and hold and saved as recording_hands_free_latch (A11-93: recording trigger mode loads and applies, double tap switch shows for push and hold and saves, saved latch state loads with the page). As in OpenWhisper both live on the Hotkeys page."
+  },
+  "SV-01": {
+   "status": "difference",
+   "difference": "a14-local-engine",
+   "cpp": [
+    "src/settings/keys.inc",
+    "src/settings/keys.cpp",
+    "src/models/speech_catalog.cpp",
+    "src/ui_downloads/downloads_page.cpp"
+   ],
+   "tests": [
+    "tests/settings/test_typed.cpp",
+    "tests/settings/test_kinds.cpp",
+    "tests/ui_downloads/test_downloads_page.cpp",
+    "tests/ui_downloads/test_a15_audit.cpp"
+   ],
+   "note": "Local Whisper (the default off Windows x64 / Linux x86_64) is not ported; Parakeet is the default everywhere and a saved dropped engine reads as Parakeet (selected model reads a dropped engine as the default). Verified the rest: selected_model default parakeet (config is where the defaults come from); Downloads backend filter and By backend sort (A15-07, A15-08: backend sort keeps each family contiguous), with a single Parakeet backend."
+  },
+  "SV-02": {
+   "status": "verified",
+   "cpp": [
+    "src/models/speech_catalog.cpp",
+    "src/models/data/speech_catalog.json",
+    "src/models/model_details.cpp",
+    "src/models/runtime_offer.cpp",
+    "src/ui_downloads/required_runtime_dialog.cpp",
+    "src/ui_widgets/engine_field.cpp"
+   ],
+   "tests": [
+    "tests/models/test_model_details.cpp",
+    "tests/models/test_runtime_offer.cpp",
+    "tests/ui_downloads/test_consent_dialogs.cpp",
+    "tests/ui_widgets/test_engine_field.cpp",
+    "tests/golden/services.model_catalog.json"
+   ],
+   "note": "Parakeet TDT 0.6B v3 and Orukeet TDT 0.6B (25 European languages, CC-BY-SA-4.0 with its NOTICE link and ShareAlike limitation, pinned q8 GGUF of 714456704 bytes) on the same NVIDIA runtime; first-use GPU runtime offer (test_first_use_offers_the_gpu_runtime_auto_would_pick, test_windows_offers_cuda_only_to_a_known_turing_or_newer_card, test_linux_offers_vulkan_to_an_older_card_with_the_loader), CPU alternative and Later (gpu runtime offer cpu and later answers), Auto/GPU/CPU device labels (A15-47)."
+  },
+  "SV-03": {
+   "status": "verified",
+   "cpp": [
+    "src/speech/dictation_language.cpp",
+    "src/speech/languages.cpp",
+    "src/ui_widgets/dictation_languages_field.cpp",
+    "src/ui_widgets/remote_engine_controls.cpp",
+    "src/dictation/recognition.cpp"
+   ],
+   "tests": [
+    "tests/speech/test_dictation_language.cpp",
+    "tests/speech/test_languages.cpp",
+    "tests/ui_widgets/test_dictation_languages.cpp",
+    "tests/ui_widgets/test_remote_engine_mandarin.cpp",
+    "tests/dictation/test_cleanup_runtime.cpp"
+   ],
+   "note": "Language choices and the Languages I dictate in list merged with the engine (dictation_language goldens, A15-38); Mandarin is not a Parakeet choice (switching mandarin to parakeet selects auto without saving); paired host choices (Remote language choices belong to the currently paired fingerprint, test_remote_mandarin_uses_label_and_transmits_code); switching never touches the engine language (no reload, no local_asr_language write); the job language is taken for the final pass (final pass gets recognition only for a job). Never translating is structural: the NeMo C ABI has no translate task."
+  },
+  "SV-04": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/hf_consent_dialog.cpp",
+    "src/models/consent_text.cpp",
+    "src/models/hf_access.cpp",
+    "src/ui_downloads/hf_policy_field.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_consent_dialogs.cpp",
+    "tests/models/test_consent_text.cpp",
+    "tests/models/test_hf_access.cpp",
+    "tests/models/test_hf_access_policy.cpp",
+    "tests/ui_downloads/test_downloads_window.cpp"
+   ],
+   "note": "Download once / Always allow / Cancel with Cancel the default (ask policy buttons, each button gives its result), title Download \"parakeet-v3\" (about 714 MB)? (test_consent_text), policy Ask / Always / Never connect on Downloads (A15-05, A11-55), HF_HUB_OFFLINE=1 overrides every policy (env blocked offers no download actions, test_hf_access_policy)."
+  },
+  "SV-06": {
+   "status": "dropped",
+   "reason": "Custom Whisper models are CTranslate2 / faster-whisper folders; FioriVoce has one local engine, Parakeet on NeMo-Speech.cpp (A15-16 and A15-34 dropped, difference a14-local-engine)."
+  },
+  "SV-07": {
+   "status": "verified",
+   "cpp": [
+    "src/speech/endpoints.cpp",
+    "src/speech/cloud_backend.cpp",
+    "src/speech/transcription_hints.cpp",
+    "src/speech/api_models.cpp",
+    "src/speech/upload_splitter.cpp",
+    "src/ui_widgets/speech_server_controls.cpp",
+    "src/settings/keys.inc"
+   ],
+   "tests": [
+    "tests/speech/test_endpoints.cpp",
+    "tests/speech/test_cloud_backend.cpp",
+    "tests/speech/test_transcription_hints.cpp",
+    "tests/speech/test_api_models.cpp",
+    "tests/speech/test_upload_splitter.cpp",
+    "tests/ui_widgets/test_speech_server_controls.cpp"
+   ],
+   "note": "The cloud engine is kept (ARCHITECTURE.md 5.1 CloudSpeechBackend: OpenAI, Groq, own OpenAI-compatible server). Servers OpenAI, Groq, Speaches, LocalAI, vLLM, whisper.cpp, Custom server with Edit server (endpoints.cpp, speech_server_controls); long timeout for servers the user runs (test_servers_the_user_runs_get_the_long_timeout); 23 MB split; hints with one retry without hints on 400/422 (A14-56); whisper.cpp asked for language auto (test_whisper_cpp_is_asked_to_detect_an_unknown_language); retirement 2027-02-26 (A14-58); api_transcription_model default gpt-transcribe."
+  },
+  "SV-08": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_record/transcription_tab_base.cpp",
+    "src/appcore/engine_reload.cpp",
+    "src/appcore/readiness.cpp"
+   ],
+   "tests": [
+    "tests/ui_record/test_engine_status.cpp",
+    "tests/ui_record/test_quick_record_tab.cpp",
+    "tests/ui_record/test_upload_file_tab.cpp",
+    "tests/appcore/test_engine_reload.cpp",
+    "tests/appcore/test_readiness.cpp"
+   ],
+   "note": "Status dot per engine state (ready engine reads green, device info tells the dot what the engine is, cloud processing has an indicator without claiming local readiness); Reloading speech engine... in the reload sequence (test_engine_reload) and readiness."
+  },
+  "SV-05": {
+   "status": "verified",
+   "cpp": [
+    "src/text/personalize_copy.cpp",
+    "src/ui_personalize/dictionary_page.cpp",
+    "src/dictation/text_preparer.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_dictionary_page.cpp",
+    "tests/dictation/test_pipeline_text.cpp"
+   ],
+   "note": "The page line per engine (test_engine_line: Parakeet cannot be steered and fixes spellings after recognition; API servers steer; remote), replacements on every transcript (A05-32). Nemotron is not ported (a14-local-engine), which removes only its half of the sentence."
+  },
+  "SC-01": {
+   "status": "verified",
+   "cpp": [
+    "src/settings/keys.inc",
+    "src/ui_personalize/cleanup_page.cpp",
+    "src/text/cleanup_levels.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_cleanup_page.cpp",
+    "tests/settings/test_defaults.cpp",
+    "tests/golden/services.settings.json"
+   ],
+   "note": "transcript_cleanup_enabled default false, provider openrouter with model openrouter/free, level default medium (keys.inc, defaults golden); Light/Medium/High bar with the level note (test_the_bar_shows_the_saved_level_and_saves_only_clicks), a saved custom prompt shows Custom (test_a_saved_custom_prompt_shows_as_custom), choosing a level asks before discarding it (test_declining_keeps_the_custom_prompt, test_accepting_removes_the_custom_prompt_and_saves_the_level), Reset asks and removes the key (test_reset_asks_then_removes_the_key)."
+  },
+  "SC-02": {
+   "status": "difference",
+   "difference": "a04-agent-cleanup-scope",
+   "cpp": [
+    "src/ui_personalize/cleanup_model_section.cpp",
+    "src/ui_widgets/agent_picker.cpp",
+    "src/llm/cleanup_agent_offer.cpp",
+    "src/agents/agent_actions.cpp",
+    "src/dictation/cleanup_stage.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_cleanup_agent_choice.cpp",
+    "tests/ui_personalize/test_cleanup_model_section.cpp",
+    "tests/llm/test_cleanup_agent_offer.cpp",
+    "tests/agents/test_ask.cpp",
+    "tests/dictation/test_agent_cleanup_scope.cpp"
+   ],
+   "note": "Who runs cleanup is OpenWhisper's 'Who runs AI cleanup' picker: Claude Code, Codex and OpenCode tiles with what the scan found (installed, signed in, version), 'API / local model' for the text model, and the chosen agent's own model catalog with its default and its thinking levels in the Cleanup model card (test_cleanup_agent_persists_default_and_model_and_restores_api, test_cleanup_agent_loads_saved_selection_without_api_key_warning). Different: the picker shows behind 'Installed agent…' in the provider list, a tile is staged until 'Apply runner', and an installed agent cleans only live dictation after an explicit consent question naming it (AI cleanup asks before sending transcripts through a named agent); the first-time offer selects the agent only after that consent (A12-80). Verified the rest: provider and model picker with the Thinking level (test_thinking_level_loads_saves_and_refreshes), tools off and the user config ignored (claude command line has no tools..., codex command line ignores user config and switches tools off), cancel ends the agent, the offer is asked once to a signed-in Claude Code or Codex, Claude first, and a decline is remembered (test_cleanup_agent_offer)."
+  },
+  "SC-03": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/transcript_cleanup.cpp",
+    "src/llm/credentials.cpp",
+    "src/llm/generation.cpp",
+    "src/dictation/cleanup_stage.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_cleanup_deadline.cpp",
+    "tests/llm/test_transcript_cleanup.cpp",
+    "tests/llm/test_generation.cpp",
+    "tests/golden/services.transcript_cleanup.json",
+    "tests/golden/services.text_generation.json"
+   ],
+   "note": "8 s per attempt, one retry, 17 s wall clock (a hosted cleanup whose server never answers gives up at seventeen seconds, the attempt budget golden); servers the user runs get 120 s (servers the user runs get time to load a model); temperature 0 with thinking off (reasoning off sends temperature zero); cancel ends the wait at once; api error, empty reply and the truncation/refusal errors of generate fall back to the raw text (A12-11, A12-15)."
+  },
+  "SC-04": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/cleanup_page.cpp",
+    "src/ui_personalize/cleanup_gates.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_cleanup_page.cpp",
+    "tests/ui_personalize/test_dictionary_page.cpp"
+   ],
+   "note": "Custom prompt tile with Reset (test_reset_asks_then_removes_the_key, test_the_editor_starts_from_the_levels_instructions), cleanup off disables the prompt and rule tiles (test_cleanup_toggle_gates_the_prompt_and_rule_tiles), the Learned rules gate notice turns cleanup on at the saved level (test_learned_rules_gate_button_turns_cleanup_on, the cleanup gates follow the level...)."
+  },
+  "SC-05": {
+   "status": "verified",
+   "cpp": [
+    "src/llm/cleanup_settings.cpp",
+    "src/llm/generation.cpp",
+    "src/llm/credentials.cpp"
+   ],
+   "tests": [
+    "tests/llm/test_cleanup_settings.cpp",
+    "tests/llm/test_generation.cpp",
+    "tests/llm/test_transcript_cleanup.cpp",
+    "tests/golden/services.text_generation.json"
+   ],
+   "note": "gpt-6-luna suggested for OpenAI and a saved gpt-4o-mini resolves to it without a write (legacy openai cleanup default resolves to luna without mutating settings); Off maps to effort none (test_generation off/none table, custom responses luna off keeps existing endpoint behavior); Responses for OpenAI reasoning models (reasoning openai sends responses reasoning effort) and per custom endpoint (custom responses cleanup and saved meeting tools)."
+  },
+  "SC-06": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/dictionary_learning.cpp",
+    "src/text/dictionary.cpp",
+    "src/ui_personalize/dictionary_page.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_dictionary_learning.cpp",
+    "tests/text/test_dictionary.cpp",
+    "tests/ui_personalize/test_dictionary_page.cpp"
+   ],
+   "note": "Corrections learned after a paste (second sighting adds a learned word and notifies, through the pipeline after a paste); one revert of an AI change learns a protected word (one revert learns a protected word); the Kept as said badge (test_a_protected_word_shows_its_badge, its text in the settings_dictionary reference tree)."
+  },
+  "SW-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/walkthroughs_page.cpp",
+    "src/ui_hotkeys/standard_hotkeys.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_walkthroughs_page.cpp",
+    "tests/ui_settings/test_walkthroughs_screenshots.cpp",
+    "tests/ui_hotkeys/test_shortcut_rows.cpp"
+   ],
+   "note": "Shortcuts (Paste latest walkthrough, Walkthrough, Screenshot; the page three shortcut rows are the Hotkeys page), Copy (Default copy, five formats, default pdf), Document (Title, Date/length line, How to read it, Screenshot captions, Paper size), AI write-up (switch, Agent with (not installed) marks, Instructions, Follow notes gated on the write-up): the page lists its groups and tiles as OpenWhisper does, every setting of the page loads its saved value; leaving Instructions saves the typed text and the default words as empty (the instructions editor saves \"\" for the default words). In OpenWhisper too, Auto Mode, the capture delay, Minimize to tray and library retention live on the Walkthrough tab and Saved Walkthroughs (walkthrough_tab.py, docs/walkthrough.md), not on this page; they belong to section 5 lines."
+  },
+  "SD-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/dictionary_page.cpp",
+    "src/text/dictionary.cpp",
+    "src/text/personalize_copy.cpp",
+    "src/dictation/text_preparer.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_dictionary_page.cpp",
+    "tests/text/test_dictionary.cpp",
+    "tests/dictation/test_pipeline_text.cpp"
+   ],
+   "note": "Star, variants, Learned/New badges and Undo, Keep all (test_rows_show_stars_badges_and_variants, test_star_remove_and_undo, test_keep_all_clears_the_new_badges), Kept as said badge (test_a_protected_word_shows_its_badge), rail 4 words · 1 new, Home Add word opening the composer (test_basic_shows_the_count_and_opens_the_composer); starred first where space is limited (test_starred_first_then_saved_order, test_budget_keeps_the_starred_terms, test_lists_starred_first); Sounds like replaced with cleanup off (test_a_spelling_rule_with_a_variant_still_works_without_cleanup, A05-32)."
+  },
+  "SD-02": {
+   "status": "verified",
+   "cpp": [
+    "src/text/dictionary.cpp",
+    "src/dictation/recognition.cpp",
+    "src/dictation/cleanup_prompt.cpp",
+    "src/speech/cloud_backend.cpp"
+   ],
+   "tests": [
+    "tests/text/test_dictionary.cpp",
+    "tests/dictation/test_recognition.cpp",
+    "tests/dictation/test_cleanup_prompt.cpp",
+    "tests/speech/test_cloud_backend.cpp",
+    "tests/ui_personalize/test_dictionary_page.cpp"
+   ],
+   "note": "Hints to engines that take them, retried once without hints on 400/422 (A14-56); deterministic replacements (TestReplacements); the cleanup prompt block, starred first and budgeted (TestPromptBlock); the Steer switch disabled where the engine ignores hints (test_steering_switch, test_the_steer_switch_says_why_it_does_nothing)."
+  },
+  "SD-03": {
+   "status": "verified",
+   "cpp": [
+    "src/dictation/dictionary_learning.cpp",
+    "src/text/dictionary_learning.cpp",
+    "src/text/dictionary.cpp",
+    "src/ui_personalize/dictionary_page.cpp",
+    "src/settings/keys.inc"
+   ],
+   "tests": [
+    "tests/dictation/test_dictionary_learning.cpp",
+    "tests/text/test_dictionary_learning.cpp",
+    "tests/ui_personalize/test_dictionary_page.cpp"
+   ],
+   "note": "dictionary_learn_enabled default true; off unless learning and text reading are on and the page gate (test_learning_waits_for_text_reading); the re-read after the paste delay, a second sighting adds a Learned word, the COMMON_WORDS stoplist (the learning stoplist is the generated COMMON_WORDS), one revert of an AI change learns a protected word; spelling-only rules moved in one click (moving spelling rules says how many moved)."
+  },
+  "SN-01": {
+   "status": "verified",
+   "cpp": [
+    "src/text/snippets.cpp",
+    "src/text/snippet_markdown.cpp",
+    "src/dictation/pipeline.cpp",
+    "src/dictation/text_preparer.cpp",
+    "src/ui_personalize/snippets_page.cpp"
+   ],
+   "tests": [
+    "tests/text/test_snippets.cpp",
+    "tests/text/test_snippet_markdown.cpp",
+    "tests/dictation/test_pipeline_text.cpp",
+    "tests/dictation/test_cleanup_runtime.cpp",
+    "tests/ui_personalize/test_snippets_page.cpp"
+   ],
+   "note": "Trigger and text editor (A13-15..18), Keep formatting as rich text with a plain alternative (test_a_formatted_whole_snippet_has_rich_text_and_a_readable_plain_text, snippet_markdown), triggers ignore case and punctuation (test_normalize..., test_a_whole_utterance_trigger_ignores_case_and_punctuation), a whole snippet skips cleanup (a whole snippet skips cleanup and pastes its exact text), a placeholder inside a sentence round-trips cleanup and a lost one falls back to the uncleaned expansion with ok=false (a lost placeholder falls back to the uncleaned expansion), snippets only for dictation jobs (dictionary applies to every job and snippets only to dictation)."
+  },
+  "SA-01": {
+   "status": "verified",
+   "cpp": [
+    "src/focus/catalog.cpp",
+    "src/focus/capture_service.cpp",
+    "src/focus/foreground.cpp",
+    "src/focus/win/foreground.cpp",
+    "src/ui_personalize/styles_page.cpp",
+    "src/settings/keys.inc"
+   ],
+   "tests": [
+    "tests/focus/test_catalog.cpp",
+    "tests/focus/test_capture_service.cpp",
+    "tests/focus/test_windows_identity.cpp",
+    "tests/ui_personalize/test_styles_page.cpp",
+    "tests/dictation/test_pipeline.cpp"
+   ],
+   "note": "app_context_enabled default true (test_defaults_show_awareness_on_and_reading_off); Windows identity (test_windows_identity; its [platform] cases need Windows); browser sites from titles (sites from browser titles, golden site_from_title); used for styles, terminal safety and history context fields (A05-36); Never read from list (test_excluded_apps_add_and_remove, excluded apps are never read). The macOS, Hyprland and X11 identity readers are other platforms (a06 other-platform rows)."
+  },
+  "SA-02": {
+   "status": "verified",
+   "cpp": [
+    "src/focus/snapshot.h",
+    "src/focus/capture_service.cpp",
+    "src/focus/win/uia_text_reader.cpp",
+    "src/focus/prompt_block.cpp",
+    "src/ui_personalize/styles_page.cpp"
+   ],
+   "tests": [
+    "tests/focus/test_capture_service.cpp",
+    "tests/focus/test_windows_identity.cpp",
+    "tests/focus/test_join.cpp",
+    "tests/ui_personalize/test_styles_page.cpp",
+    "tests/dictation/test_automation_pipeline.cpp"
+   ],
+   "note": "app_context_read_text default false and Windows-only wording off Windows (test_other_platforms_say_reading_text_is_windows_only); CONTEXT_BEFORE_CHARS 1000 / CONTEXT_AFTER_CHARS 200; no text for unknown, own or terminal apps (no text is read for unknown self or terminal apps), excluded apps (excluded apps are never read), password edits refused (ui automation marks a password edit as refused, Windows [platform]); the privacy caption names where the text goes (test_privacy_note_names_where_the_text_goes); only jobs the user started read it (test_only_a_job_the_user_started_reads_the_text_near_the_cursor). The UI Automation reader itself compiles and runs on Windows only."
+  },
+  "SA-03": {
+   "status": "verified",
+   "cpp": [
+    "src/text/app_styles.cpp",
+    "src/ui_personalize/styles_page.cpp",
+    "src/dictation/cleanup_prompt.cpp"
+   ],
+   "tests": [
+    "tests/text/test_app_styles.cpp",
+    "tests/ui_personalize/test_styles_page.cpp",
+    "tests/dictation/test_cleanup_prompt.cpp",
+    "tests/golden/services.app_styles.json"
+   ],
+   "note": "Four tone cards with Formal / Casual / Very casual and live examples (test_picking_a_tone_saves_every_category_and_shows_an_example), Choose apps for each style (test_overrides_add_replace_and_remove), new-install tones and existing installs all Formal (test_style_for_new_install_tones, test_existing_installs_read_as_formal_everywhere, test_an_upgraded_install_is_told_every_app_is_formal), terminal and editor surface rules whatever the tone (test_surfaces_add_their_rule_whatever_the_tone), a profile always wins over a style, the cleanup gate with Turn on (Medium) (test_cleanup_off_shows_the_gate_and_locks_styles, the cleanup gates follow the level)."
+  },
+  "SL-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/rules_page.cpp",
+    "src/ui_personalize/cleanup_page.cpp",
+    "src/ui_personalize/cleanup_gates.cpp",
+    "src/text/dictionary.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_rules_page.cpp",
+    "tests/ui_personalize/test_cleanup_page.cpp",
+    "tests/ui_personalize/test_dictionary_page.cpp"
+   ],
+   "note": "Teach a new rule (typed or dictated, polished, reviewed; test_rules_page), the composer and library locked while cleanup is off with the gate and its Turn on button (test_cleanup_toggle_gates_the_prompt_and_rule_tiles, test_learned_rules_gate_button_turns_cleanup_on), spelling-only rules moved to the dictionary (test_moving_spelling_rules_updates_the_rules_page, moving spelling rules says how many moved)."
+  },
+  "SP2-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/cleanup_profiles_panel.cpp",
+    "src/text/cleanup_profiles.cpp",
+    "src/dictation/transcription_runtime.cpp",
+    "src/dictation/hotkey_runtime.cpp",
+    "src/ui_record/cleanup_profile_card.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_profiles_page.cpp",
+    "tests/text/test_cleanup_profiles.cpp",
+    "tests/dictation/test_cleanup_runtime.cpp",
+    "tests/dictation/test_hotkey_runtime_families.cpp",
+    "tests/dictation/test_cleanup_prompt.cpp",
+    "tests/ui_record/test_cleanup_profile_card.cpp",
+    "tests/golden/services.cleanup_profiles.json"
+   ],
+   "note": "Starters Support ticket and Email (golden STARTER_PROFILES), New/Save/Duplicate without a shortcut/Delete (test_editor_save_duplicate_and_delete_update_library), conflicts refused (test_editor_reports_conflict_and_keeps_draft), deleting the selected profile returns Quick Record to standard (deleting the selected profile refreshes quick record to standard), shortcuts toggle once per press (test_windows_profile_shortcuts_toggle_once_per_press_and_unregister), a running recording keeps its start snapshot and the profile runs cleanup with cleanup off, History gets Quick Record · Email with the raw text (profile recording formats with start snapshot and copies result), failure keeps raw and says so (unavailable profile cleanup reports raw fallback), profile beats style and formatting blocks (a profile always wins over a style), uploads keep standard cleanup (cancel profile then standard recording and upload use standard cleanup). Capture field Esc/Clear: ui_hotkeys ProfileHotkeyInput (A06-47, A06-49)."
+  },
+  "SK-01": {
+   "status": "difference",
+   "difference": "a04-agent-cleanup-scope",
+   "cpp": [
+    "src/dictation/command_runtime.cpp",
+    "src/llm/rewrite.cpp",
+    "src/focus/synthetic_keys.cpp",
+    "src/focus/capture_service.cpp",
+    "src/settings/keys.inc"
+   ],
+   "tests": [
+    "tests/dictation/test_command_runtime.cpp",
+    "tests/dictation/test_command_delivery.cpp",
+    "tests/dictation/test_command_notices.cpp",
+    "tests/llm/test_rewrite.cpp",
+    "tests/focus/test_synthetic_keys.cpp",
+    "tests/golden/services.text_rewrite.json"
+   ],
+   "note": "When the AI cleanup provider is an installed agent, Command Mode uses the text-model endpoint, not the agent (A12-28). Verified the rest: hold/toggle following the record mode (test_hold_records_an_instruction_and_release_stops_it, test_toggle_mode_presses_start_and_stop_and_ignores_releases); the rewrite replaces the selection in the same app and is copied when focus moved (test_a_command_pastes_its_rewrite_and_keeps_the_selection_as_raw_text, test_a_command_never_pastes_into_an_app_that_took_focus); terminals never get a synthetic copy (terminals never get a copy); command_mode_insert_without_selection default true and the generate/NEEDS_SELECTION prompts, 30 s / 60 s budgets and messages (A12-27, services.text_rewrite golden); History names Command Mode (test_command_recordings_are_named_command_mode_in_history); refusals say why and drop the audio (test_a_refused_command_says_why_after_the_overlay_hides, test_a_command_refusal_still_drops_its_instruction_audio)."
+  },
+  "SK-02": {
+   "status": "verified",
+   "cpp": [
+    "src/text/transforms.cpp",
+    "src/text/data/cleanup_prompts.json",
+    "src/ui_personalize/transforms_panel.cpp",
+    "src/dictation/hotkey_runtime.cpp",
+    "src/ui_record/scratchpad_transforms.cpp"
+   ],
+   "tests": [
+    "tests/text/test_transforms.cpp",
+    "tests/golden/services.text_transforms.json",
+    "tests/dictation/test_hotkey_runtime_families.cpp",
+    "tests/dictation/test_command_delivery.cpp",
+    "tests/ui_record/test_scratchpad_transforms.cpp"
+   ],
+   "note": "Starters Polish, Make concise, Fix grammar, Prompt engineer (golden STARTER_TRANSFORMS) and own transforms with validate/save/delete and shortcut conflicts (A12-26); transform shortcuts register beside profiles and rewrite the selection to paste and history (test_transform_shortcuts_register_beside_profiles_and_skip_conflicts, test_a_transform_runs_through_the_job_slot_to_paste_and_history); the Scratchpad menu lists them and rewrites off the Qt thread (test_scratchpad_transforms). As for SK-01, transforms use the text-model endpoint when cleanup runs through an installed agent (a04-agent-cleanup-scope)."
+  },
+  "SX-01": {
+   "status": "difference",
+   "difference": "a19-confirmed-actions",
+   "cpp": [
+    "src/ui_automation/actions_page.cpp",
+    "src/ui_automation/action_panel.cpp",
+    "src/ui_automation/action_editor.cpp",
+    "src/ui_automation/action_agent_card.cpp",
+    "src/ui_automation/action_gallery.cpp",
+    "src/automation/action_model.cpp",
+    "src/agents/installed_agents.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_actions_page.cpp",
+    "tests/ui_automation/test_a21_audit.cpp",
+    "tests/ui_automation/test_action_gallery.cpp",
+    "tests/ui_automation/test_shaping_field.cpp",
+    "tests/automation/test_golden.cpp",
+    "tests/automation/test_confirmed_automation.cpp"
+   ],
+   "note": "Try it asks Run this action and send the following text? before a run other than Copy only, and the running app sends action shaping raw. Verified the rest: presets gallery and New action (A21-17, A21-18), MAX_ACTIONS 50 with Add disabled at the limit (A21-14, golden constants), name/kind/params/shortcut/shaping/spoken names/description/enabled switch (A21-19..A21-32), Try it not saved to History (A19-16), the Agent hotkey card creating action agent with agents in AGENT_ORDER Claude Code, Codex, OpenCode (A21-03..A21-09)."
+  },
+  "SX-02": {
+   "status": "difference",
+   "difference": "a19-confirmed-actions",
+   "cpp": [
+    "src/automation/action_model.cpp",
+    "src/automation/action_runtime.cpp",
+    "src/agents/agent_actions.cpp",
+    "src/ui_automation/action_editor.cpp",
+    "src/ui_automation/action_fields.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_models.cpp",
+    "tests/automation/test_action_runtime.cpp",
+    "tests/golden/services.actions.model.json",
+    "tests/golden/services.actions.runtime.json",
+    "tests/ui_automation/test_agent_fields.cpp",
+    "tests/ui_automation/test_a21_audit.cpp"
+   ],
+   "note": "Send to my scripts is refused in the running app and every kind but Copy only runs after the user confirms its destination and material; Tell my Claude Code session also needs the live API, which is not mounted (a19-live-api-not-served). Verified the rest in ActionRuntime and the model: the three link presets, {text} percent-encoding and the file/javascript/data/vbscript refusals (test_models, actions.model golden), Agent session / quick answer with context, working folder and the ~/<product> Agent Tasks folder (identity rule), webhook signed POST with a {\"text\"} reply (test_a_webhook_reply_goes_to_the_output), program stdin with <prefix>ACTION_ID/NAME/JOB_ID (test_program_gets_the_words_on_stdin_and_its_output_is_routed), Copy only (test_clipboard_copies_the_words_with_their_formatting)."
+  },
+  "SX-03": {
+   "status": "difference",
+   "difference": "a19-confirmed-actions",
+   "cpp": [
+    "src/automation/action_runtime.cpp",
+    "src/automation/action_copy.cpp",
+    "src/automation/confirmed_automation.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_action_runtime.cpp",
+    "tests/automation/test_action_copy.cpp",
+    "tests/automation/test_confirmed_automation.cpp"
+   ],
+   "note": "The running app sends action shaping raw, so a failed transform shaping does not arise there; programs cannot start actions (live API not mounted). Verified the outputs in ActionRuntime: paste only into the app the job started in else copy (test_paste_lands_only_in_the_app_the_job_started_in, test_paste_into_another_app_is_copied_instead), Scratchpad (test_agent_ask_routes_the_answer_to_the_scratchpad_by_default), notice with a shortened answer copied whole (test_a_shortened_answer_is_copied_whole_and_the_notice_says_so), clipboard, failures copy the words (test_a_failed_program_copies_the_words), program-started runs leave the clipboard alone (test_a_failed_run_from_a_program_leaves_the_clipboard_alone, test_a_programs_answer_goes_to_the_scratchpad)."
+  },
+  "SX-04": {
+   "status": "difference",
+   "difference": "a19-live-api-not-served",
+   "cpp": [
+    "src/automation/action_runtime.cpp",
+    "src/appcore/cancel_router.cpp",
+    "src/ui_controller/action_wiring.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_action_runtime.cpp",
+    "tests/automation/test_action_cancel.cpp",
+    "tests/ui_controller/test_action_cancel.cpp",
+    "tests/appcore/test_cancel_router.cpp"
+   ],
+   "note": "The 409 busy answer belongs to the live API, which is not mounted. Verified the rest: 4 workers and 4 pending with later runs refused (test_runs_beyond_the_pending_cap_are_refused, A19-12); Cancel cancels the recording or job first, else running actions (test_cancel_stops_running_actions_only_with_no_job_to_cancel); queued runs never start (test_runs_still_waiting_never_start_and_say_canceled); programs and quick answers stopped, links/webhooks too late (a cancel kills a running program and is too late for a link already opening, test_a_cancel_too_late_to_stop_a_run_says_so); Nothing to cancel (test_cancel_router, test_cancel_with_nothing_at_all_says_so)."
+  },
+  "SX-05": {
+   "status": "difference",
+   "difference": "a19-explicit-routing",
+   "cpp": [
+    "src/automation/routing.cpp",
+    "src/automation/confirmed_automation.cpp",
+    "src/dictation/transcription_runtime.cpp",
+    "src/ui_automation/actions_page.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_routing_gate.cpp",
+    "tests/automation/test_routing_decide.cpp",
+    "tests/automation/test_routing_status.cpp",
+    "tests/dictation/test_automation_pipeline.cpp",
+    "tests/ui_automation/test_actions_page.cpp",
+    "tests/golden/services.actions.routing.json"
+   ],
+   "note": "Only the Route by voice shortcut routes (Also listen to normal dictations does not), and the user confirms the route and request before the judge is asked. Verified the rest: switches off by default and gated on Fast judgments (test_routing_switches_save_and_gate_each_other, routing status), the code gate (772 gate vectors), ROUTE_TIMEOUT_S 1.5 and TEXT_MODEL_ROUTE_TIMEOUT_S 4.0, No action matched — pasted instead and the Fast judgments failure notice (test_automation_pipeline), the privacy line (test_the_privacy_line_says_what_each_way_of_routing_sends), History Action · <name>. The shared JudgeProvider being ported now by F2 is not part of what this entry verifies."
+  },
+  "SX-06": {
+   "status": "difference",
+   "difference": "a19-live-api-not-served",
+   "cpp": [
+    "src/dictation/transcription_runtime.cpp",
+    "src/agentapi/agent_controls.cpp"
+   ],
+   "tests": [
+    "tests/dictation/test_automation_pipeline.cpp"
+   ],
+   "note": "Programs cannot start dictations or actions in the running app (no live API). The permission rule itself is kept and tested: test_a_dictation_a_program_started_is_not_routed_to_claude_without_the_permission, test_a_lease_cannot_rewrite_the_users_channel_action_without_the_permission."
+  },
+  "SH-01": {
+   "status": "difference",
+   "difference": "a19-hooks-not-started",
+   "cpp": [
+    "src/automation/webhooks.cpp",
+    "src/automation/hooks_model.h",
+    "src/ui_automation/hooks_page.cpp",
+    "src/ui_automation/hooks_panel.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_webhooks.cpp",
+    "tests/automation/test_hooks_golden.cpp",
+    "tests/automation/test_models.cpp",
+    "tests/ui_automation/test_hooks_page.cpp",
+    "tests/ui_automation/test_manual_controls.cpp"
+   ],
+   "note": "No saved webhook receives app events in the running app; only Send test sends. Verified the rest: MAX_WEBHOOKS 20, URL/events/enabled editor (A21-42, A21-43), Standard Webhooks signed headers (golden _signed_headers), 1/5/25 s retries on network errors, 408, 429 and 5xx with Retry-After, no retry on other 4xx, redirects refused, one ordered lane per webhook (A19-38, test_webhooks), Send test posts webhook.test, MAX_RECORDS 50 deliveries listed (A21-40)."
+  },
+  "SH-02": {
+   "status": "difference",
+   "difference": "a19-hooks-not-started",
+   "cpp": [
+    "src/automation/programs.cpp",
+    "src/automation/hooks_model.h",
+    "src/ui_automation/hooks_panel.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_programs.cpp",
+    "tests/automation/test_models.cpp",
+    "tests/ui_automation/test_hooks_page.cpp",
+    "tests/ui_automation/test_manual_controls.cpp"
+   ],
+   "note": "No saved program hook receives app events; Run test is the only start. Verified the rest in ProgramEngine: MAX_PROGRAMS 20, event JSON and newline on stdin with <prefix>EVENT_TYPE/ID/SEQ, one event at a time with MAX_QUEUED 20 (test_a_program_runs_one_event_at_a_time_in_order, test_a_full_queue_drops_the_oldest_event), time limit with tree kill (test_a_hook_that_hangs_is_stopped_at_its_time_limit), MAX_RECORDS 20 runs listed (A19-41: the cases that start a real program skip on this Linux machine)."
+  },
+  "SH-03": {
+   "status": "difference",
+   "difference": "a19-hooks-not-started",
+   "cpp": [
+    "src/automation/filters.cpp",
+    "src/automation/hooks_model.h",
+    "src/automation/confirmed_automation.cpp",
+    "src/ui_automation/hooks_panel.cpp"
+   ],
+   "tests": [
+    "tests/automation/test_filters.cpp",
+    "tests/automation/test_dictation_bridge.cpp",
+    "tests/automation/test_hooks_golden.cpp",
+    "tests/ui_automation/test_hooks_page.cpp"
+   ],
+   "note": "ConfirmedAutomation::filter_stage is empty, so no saved filter runs on dictation, and leases come only from the unmounted live API. Verified in automation::filters: MAX_FILTERS 10, stages, http/program, per-filter timeout and the 3 s stage budget (test_the_stage_budget_holds_and_skips_what_is_left), reply rules and cancel (A19-43, 39 interpret vectors), a stalled filter keeps the text (test_a_stalled_filter_costs_its_time_limit_and_keeps_the_text)."
+  },
+  "SH-04": {
+   "status": "verified",
+   "cpp": [
+    "src/backup/sanitize.cpp",
+    "src/agentapi/agent_controls.cpp",
+    "src/ui_automation/hooks_page.cpp"
+   ],
+   "tests": [
+    "tests/backup/test_sanitize.cpp",
+    "tests/backup/test_golden.cpp",
+    "tests/agentapi/test_agent_controls.cpp"
+   ],
+   "note": "Restored webhooks, programs, filters and running actions come back off (webhook program and agent actions come back off, _sanitize_settings golden); the agent API writable settings exclude hooks, filters and actions (writable_settings, capabilities, get_settings and update_settings match OpenWhisper)."
+  },
+  "SM-01": {
+   "status": "difference",
+   "difference": "a20-listener",
+   "cpp": [
+    "src/ui_automation/mcp_page.cpp",
+    "src/ui_automation/session_mcp.cpp",
+    "src/agentapi/setup.cpp",
+    "src/agentapi/mcp_runtime.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_mcp_page.cpp",
+    "tests/ui_automation/test_a21_mcp_audit.cpp",
+    "tests/ui_automation/test_mcp_extras.cpp",
+    "tests/agentapi/test_setup.cpp",
+    "tests/agentapi/test_mcp_runtime.cpp"
+   ],
+   "note": "The listener does not start with the app from a saved switch: starting asks for confirmation and the switch shows whether this session runs; Another computer is hidden over the local session (a20-listener-interface). Verified the rest: status words with Retry for an error (test_enable_status_setup_copy_and_stop, test_failed_start_can_retry_and_failed_save_rolls_back), default off, http://127.0.0.1:8767/mcp and the port editable while off (the port and Tailscale wait for a stopped listener), token stored in the credential store and never in settings, the missing-store error (test_token_store_error_names_a_missing_store_not_an_unlock), setup prompt, Claude Code command, Cursor JSON and Codex config.toml copies embedding the token with dots on screen and <PASTE_TOKEN> without one (test_setup_falls_back_to_the_placeholder_without_a_token, test_tailscale_setup_uses_host_url_and_masks_token_on_screen, test_disclosures_keep_connection_formats_and_copy_actions_available)."
+  },
+  "SM-02": {
+   "status": "difference",
+   "difference": "a21-live-cards-hidden",
+   "cpp": [
+    "src/ui_automation/mcp_page.cpp",
+    "src/agentapi/agent_controls.cpp",
+    "src/agentapi/mcp_tools.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_mcp_page.cpp",
+    "tests/agentapi/test_agent_controls.cpp",
+    "tests/agentapi/test_mcp_tools.cpp"
+   ],
+   "note": "The live permissions (Follow live events, Run actions, Start recordings, Change dictated text, Send words to my coding agents) sit on the Live API card, hidden over the local session, which serves saved content only (a20-local-mcp-saved-content). Verified the rest: Rename dictations, Rename finished meetings, Read app preferences with Choose individual preferences listing SETTING_CONTROLS (golden-checked against OpenWhisper), all off, saved while MCP is off (test_permissions_are_individual_persistent_and_configurable_while_off), rollback on a failed save, rechecked on every call (test_run_action_is_refused_until_allowed_and_rechecked_each_call)."
+  },
+  "SM-03": {
+   "status": "difference",
+   "difference": "a21-history-tile",
+   "cpp": [
+    "src/ui_automation/mcp_page.cpp",
+    "src/ui_remote/client_history_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_search_history_session.cpp",
+    "tests/ui_remote/test_history_publication.cpp"
+   ],
+   "note": "There is no standing Share this computer history tile: history is shared only in an explicitly opened, time-limited session from Remote engine; and a host grants a paired peer a read-only 15-minute local session instead of Allow paired computers to manage MCP (a20-host-mcp-read-only, a21-paired-host-frame)."
+  },
+  "SM-04": {
+   "status": "difference",
+   "difference": "a20-local-mcp-saved-content",
+   "cpp": [
+    "src/agentapi/mcp_events.cpp",
+    "src/agentapi/mcp_events_delivery.cpp",
+    "src/ui_automation/live_automation_section.cpp"
+   ],
+   "tests": [
+    "tests/agentapi/test_mcp_events.cpp",
+    "tests/agentapi/test_mcp_events_registry.cpp",
+    "tests/ui_automation/test_live_section.cpp"
+   ],
+   "note": "No McpEvents is built in the running app, so the MCP Events card is hidden (a21-live-cards-hidden). The component keeps the rules and is tested on its own: https or loopback http callbacks, challenge verification, signed deliveries with 2/10/60 s retries, the subscription count and Clear (A20-32..A20-36, test_live_section)."
+  },
+  "SM-05": {
+   "status": "difference",
+   "difference": "a21-live-cards-hidden",
+   "cpp": [
+    "src/ui_automation/live_automation_section.cpp",
+    "src/automation/channel_bridge.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_live_section.cpp",
+    "tests/automation/test_channel_bridge.cpp"
+   ],
+   "note": "The Claude Code channel card is hidden and the live API it needs is not mounted (a19-live-api-not-served); the card (the .mcp.json entry, the claude --dangerously-load-development-channels command, the listener count) and the bridge are tested against a full listener."
+  },
+  "SM-06": {
+   "status": "difference",
+   "difference": "a20-listener-interface",
+   "cpp": [
+    "src/ui_automation/mcp_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_automation/test_mcp_page.cpp",
+    "tests/ui_automation/test_mcp_extras.cpp",
+    "tests/ui_automation/test_mcp_screenshots.cpp"
+   ],
+   "note": "The desktop session listens on loopback only, so the Tailscale URL is not offered over it, and the host token is shown on the host only (a20-host-mcp-read-only). Verified the rest: Connection and Permissions side by side from 740 x scale and stacked below (test_page_is_two_columns_at_settings_width..., the columns arrange again only when the width crosses 740 px, test_split_layout_and_individual_grants_survive_narrow_windows), the status header with Running / Could not start (test_status_bar_state_drives_styling_and_escapes_messages), dark and light reference trees."
+  },
+  "SD2-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/downloads_page.cpp",
+    "src/ui_downloads/model_row_widget.cpp",
+    "src/ui_downloads/batch_download_dialog.cpp",
+    "src/models/downloads_model.cpp",
+    "src/download/verified_download.cpp",
+    "src/models/hf_access.cpp",
+    "src/uimath/fuzzy_match.cpp",
+    "src/ui_widgets/searchable_combo.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_page.cpp",
+    "tests/ui_downloads/test_a15_audit.cpp",
+    "tests/ui_downloads/test_model_row.cpp",
+    "tests/ui_downloads/test_batch_and_details.cpp",
+    "tests/ui_downloads/test_downloads_window.cpp",
+    "tests/download/test_verified_download.cpp",
+    "tests/models/test_hf_access.cpp",
+    "tests/uimath/test_fuzzy_match.cpp",
+    "tests/ui_widgets/test_searchable_combo.cpp"
+   ],
+   "note": "Speech models / Components tabs with counts (A15-01, A15-27), rows with size, publisher, license and checks (A15-09, A15-10), fuzzy filter (filter matches name and repo, fuzzy_match golden) and in searchable model dropdowns the best match activated on Enter (fuzzy search best match activated on enter), backend filter and By backend sort, Select all / Clear and the N selected summary (A15-12), the batch confirmation with sizes, total and destination (A15-13), one at a time with Stop after current, Queued badges and Downloading model 2 of 2 (A15-14), live rail progress (A15-04), resume with Range and exact Content-Range and SHA-256 (A14-09), cached models load without asking the network (A14-32 evaluate_access load_cached)."
+  },
+  "SD2-02": {
+   "status": "difference",
+   "difference": "a14-local-engine",
+   "cpp": [
+    "src/ui_downloads/downloads_page.cpp",
+    "src/models/model_details.cpp",
+    "src/ui_downloads/component_details_dialog.cpp",
+    "src/models/component_details.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_downloads_page.cpp",
+    "tests/models/test_model_details.cpp",
+    "tests/ui_downloads/test_batch_and_details.cpp",
+    "tests/models/test_component_details.cpp"
+   ],
+   "note": "The per-GPU memory estimates (CHANGELOG 2.6.09 Memory guidance for this computer GPU) are for faster-whisper models only, which are not ported; Parakeet rows carry their profile memory guidance. Verified the rest: the inspector docks when wide and floats when narrow (A15-17), profile fields and Hugging Face / Original / License buttons with wrapping values (A15-18: representative profiles render expected facts, repository links open the bundled urls, profile text fits the scroll area), component profile popups (A15-29)."
+  },
+  "SD2-03": {
+   "status": "difference",
+   "difference": "a14-local-engine",
+   "cpp": [
+    "src/models/catalog.h",
+    "src/models/component_store.cpp",
+    "src/models/component_details.cpp",
+    "src/ui_downloads/component_row_widget.cpp",
+    "src/models/component_runtime.cpp"
+   ],
+   "tests": [
+    "tests/models/test_component_details.cpp",
+    "tests/models/test_component_rules.cpp",
+    "tests/models/test_runtime_resolver.cpp",
+    "tests/ui_downloads/test_component_row.cpp",
+    "tests/models/test_component_runtime.cpp"
+   ],
+   "note": "GPU Acceleration (CUDA libraries for faster-whisper) is not ported; the Pi agent core and OpenCode SDK components are replaced by the native agent loop (A14-60, A14-61 dropped; a24-native-agent-cores); the Metal runtime is macOS-only. Verified the rest: NVIDIA Speech CPU / CUDA / Vulkan runtimes pinned by size and SHA-256 (test_every_optional_artifact_is_pinned_and_has_integrity_metadata), Remove following the state and held 600 ms after an install (A15-23, A15-25), failures worded as OpenWhisper (A14-11, A14-12, A14-33: the free-space check counts the download and the install with 15 percent spare, disk errors are worded for the user)."
+  },
+  "SD2-04": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_downloads/required_runtime_dialog.cpp",
+    "src/models/consent_text.cpp",
+    "src/models/component_runtime.cpp"
+   ],
+   "tests": [
+    "tests/ui_downloads/test_consent_dialogs.cpp",
+    "tests/models/test_component_runtime.cpp",
+    "tests/ui_downloads/test_downloads_window.cpp"
+   ],
+   "note": "The prompt names the runtime and its size and defaults to Later (runtime prompt has explicit install and later actions, the runtime prompt says how big the runtime download is); an install activates and reloads without a restart (test_component_install_activates_and_reloads_without_...)."
+  },
+  "SD2-05": {
+   "status": "difference",
+   "difference": "a14-local-engine",
+   "cpp": [
+    "src/ui_widgets/local_engine_controls.cpp",
+    "src/appcore/engine_reload.cpp",
+    "src/models/gpu_probe.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_local_engine_controls.cpp",
+    "tests/appcore/test_engine_reload.cpp",
+    "tests/models/test_gpu_probe.cpp"
+   ],
+   "note": "The Runtime page set Local Whisper device and quantization and is not registered (A15-41, M2 Changes to the cut item 12). Its device idea survives on Voice model: Auto / GPU / CPU (A15-37), reloads debounced (the debounce fires 400 ms after the newest request), the GPU probe (test_gpu_probe). Quantization is Whisper-only."
+  },
+  "SD2-06": {
+   "status": "verified",
+   "cpp": [
+    "src/models/speech_model_cache.cpp",
+    "src/models/model_runtime.cpp"
+   ],
+   "tests": [
+    "tests/models/test_speech_model_cache.cpp",
+    "tests/models/test_model_runtime.cpp"
+   ],
+   "note": "remove deletes the model with its partial and previous folders (and frees a hard-linked copy), so a leftover cannot bring it back; delete refused while loaded or downloading (test_manager_delete_refuses_loaded_model, a delete is refused during a meeting and while the model downloads)."
+  },
+  "SB-01": {
+   "status": "difference",
+   "difference": "a10-fvbackup-format",
+   "cpp": [
+    "src/backup/create.cpp",
+    "src/backup/members.cpp",
+    "src/backup/coordinator.cpp",
+    "src/ui_settings/settings_backup.cpp"
+   ],
+   "tests": [
+    "tests/backup/test_create_inspect.cpp",
+    "tests/backup/test_coordinator.cpp",
+    "tests/backup/test_validation.cpp",
+    "tests/ui_settings/test_settings_backup.cpp"
+   ],
+   "note": "The archive is an .fvbackup with identity() member names; OpenWhisper .owbackup files still inspect and restore. Verified the rest: SQLite snapshot, settings, optional recordings and captures (captures round trip with backup and are optional assets, text only archive clears audio references), Include saved recordings and captures on, last backup / location / size and Backup files are not encrypted (test_manual_backup_uses_selected_path_and_reports_progress), checksums (checksums cannot hide missing database audio), refused during a live meeting and reserved against recording (live meeting is refused..., a refused reservation reaches manual callers only), models, runtimes, keys and pairing secrets not members (A10-36 member list)."
+  },
+  "SB-02": {
+   "status": "difference",
+   "difference": "a10-fvbackup-format",
+   "cpp": [
+    "src/backup/restore.cpp",
+    "src/backup/sanitize.cpp",
+    "src/backup/startup_gate.cpp",
+    "src/ui_settings/settings_backup.cpp"
+   ],
+   "tests": [
+    "tests/backup/test_restore.cpp",
+    "tests/backup/test_startup_gate.cpp",
+    "tests/backup/test_sanitize.cpp",
+    "tests/backup/test_golden_restore.cpp",
+    "tests/ui_settings/test_settings_backup.cpp"
+   ],
+   "note": "Previous data goes under identity().restore_dir (.fiorivoce-restore/previous-...). Verified the rest: inspection preview and Restore and restart only after inspection and a confirmation (test_restore_requires_inspection_and_explicit_confirmation), stage applied by the startup gate before the shared lease (the gate applies a staged restore before handing out the shared lease), previous data kept and its path shown and selectable (backup restores to a different root and keeps previous data, test_previous_restore_data_path_is_visible_and_selectable), interrupted moves rolled back from the journal (a crash between two moves rolls back...), pending while another process uses the data (pending restore never runs while another process uses data), restored settings switch off hosting, MCP, hooks, filters, running actions and live permissions, set remote_records_location local and drop the client pairing (sanitize_settings, _sanitize_settings golden)."
+  },
+  "SB-03": {
+   "status": "verified",
+   "cpp": [
+    "src/backup/coordinator.cpp",
+    "src/ui_settings/settings_backup.cpp",
+    "src/ui_settings/backup_calendar.cpp"
+   ],
+   "tests": [
+    "tests/backup/test_coordinator.cpp",
+    "tests/ui_settings/test_settings_backup.cpp",
+    "tests/ui_settings/test_backup_screenshots.cpp"
+   ],
+   "note": "Off / Daily / Weekly, destination, Keep latest and Save schedule, off until saved (test_automatic_backup_is_off_until_explicitly_saved, schedule is off by default and persists explicit choice); calendar latest and planned marks, title picker, month keys and Esc (test_calendar_shows_saved_schedule_and_latest_backup_only, test_calendar_title_opens_picker_and_keys_move_the_month, the calendar texts and month tint); ticks every 60 s while running and only when the reservation is free (the schedule ticks every 60 seconds once started, a refused reservation reaches manual callers only); retention removes only registered archives; destinations inside recordings, meetings or captures refused (test_schedule_rejects_missing_and_recording_destinations); a missing destination does not run and no fallback is used (missing or malformed schedule destination does not run)."
+  },
+  "SB-04": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_remote/remote_engine_page.cpp",
+    "src/ui_remote/record_recovery_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_remote/test_remote_page_records.cpp"
+   ],
+   "note": "The remote engine was kept. Recover stored records… picks the old record group and the new pairing, Recover is not the default and nothing moves without the choice (host record recovery requires explicit assignment, nothing to recover says so)."
+  },
+  "SG-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/general_page.cpp",
+    "src/ui_controller/code_change_restart.cpp",
+    "src/ui_history/history_sidebar.cpp",
+    "src/ui_settings/settings_search_palette.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_app_pages.cpp",
+    "tests/ui_controller/test_code_change_restart.cpp",
+    "tests/ui_shell/test_audit_a32_shell.cpp",
+    "tests/ui_shell/test_main_window.cpp",
+    "tests/ui_settings/test_search_palette.cpp"
+   ],
+   "note": "General holds Output (Paste into the active window, Restore the clipboard after pasting, Copy to the clipboard), Window (Minimize to the system tray on close) and Updates (Check for updates automatically, Notify me about updates, Ask me to restart after an update, Get beta updates), as OpenWhisper _build_general_page does: test_general_tiles_toggle_and_gate_update_notify, the update switches save and tell the app, without a system tray the tray tile is off and says why; Dont show this again mutes the restart offer and the General switch turns it back on (dont show again mutes the unprompted offer). The other items are not General tiles in OpenWhisper either: Walkthrough output moved to Dictation > Walkthroughs (search alias moved from General, SW-01), quitting during work asks first from the Quit button and File > Exit (a32 MW-15), delete confirmations are the History/meeting Dont ask again preferences (confirm_history_entry_delete), dictation languages are on Voice model (SV-03)."
+  },
+  "SG-02": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/appearance_page.cpp",
+    "src/ui_overlay/recording_look_preview.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_app_pages.cpp",
+    "tests/ui_settings/test_page_screenshots.cpp"
+   ],
+   "note": "Theme Dark / Light / Match system / Omarchy desktop and Font size 90/100/115/130 (test_combo_lists_every_theme_and_persists_the_choice, test_combo_persists_the_chosen_percent), recording overlay look and label switches with the live preview (test_settings_loads_saves_and_pushes_the_look, test_settings_loads_the_label_switches), live preview layout Header / Footer and text size 10-48 pt from 16 (A11-49). Omarchy desktop is the Linux-only theme."
+  },
+  "SG-03": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/api_keys_section.cpp",
+    "src/appcore/api_keys_model.cpp",
+    "src/ui_settings/typesafe_credential.cpp",
+    "src/credentials/store.cpp",
+    "src/credentials/resolve.cpp",
+    "src/credentials/win/wincred_backend.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_api_keys.cpp",
+    "tests/appcore/test_api_keys_model.cpp",
+    "tests/ui_settings/test_typesafe_credential.cpp",
+    "tests/ui_settings/test_text_model_keys.cpp",
+    "tests/credentials/test_store.cpp",
+    "tests/credentials/test_resolve.cpp",
+    "tests/golden/services.credentials.json"
+   ],
+   "note": "One row per credential variable from the text-LLM profiles (OpenAI, OpenRouter, Groq, OpenCode Go/Zen, custom endpoints) and speech endpoints plus TypeSafe (A11-69); masked to four characters (mask shows at most four characters); password echo with Show (A11-72); Test sends one verification, TypeSafe through its own verifier (A11-76, test_typesafe_credential); Remove saved key only for a stored key (A11-73, A11-75); saved keys before the environment and .env (test_environment_value_is_reported_and_shadowed_by_saved_key, dotenv is the last resort); no store disables saving and says why (test_unavailable_store_disables_saving_and_explains); a hung read gives up and a failed read is not retried until a key is saved (hung read gives up..., failed read is not retried until the key is saved). The Secret Service 4 s / 120 s prompt timeouts, the Keychain Always Allow advice and the no-keyring-creation rule are Linux and macOS backends."
+  },
+  "SG-04": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_settings/developer_page.cpp",
+    "src/ui_downloads/hf_policy_field.cpp"
+   ],
+   "tests": [
+    "tests/ui_settings/test_app_pages.cpp",
+    "tests/ui_settings/test_meeting_pages.cpp",
+    "tests/ui_downloads/test_downloads_window.cpp"
+   ],
+   "note": "Developer options holds the re-transcription guard and Developer mode with their explanations (Developer mode saves and tells the app, Developer options holds the guard above Developer mode). The Hugging Face download policy is on Downloads in the pinned OpenWhisper too (settings_dialog.py hf_policy_combo, When a model is missing from this computer): the policy field is captioned, sized and explained as OpenWhisper (A11-89)."
+  },
+  "SG-05": {
+   "status": "verified",
+   "cpp": [
+    "src/credentials/dotenv.cpp",
+    "src/credentials/resolve.cpp",
+    "src/process/process_env.cpp"
+   ],
+   "tests": [
+    "tests/credentials/test_dotenv.cpp",
+    "tests/credentials/test_resolve.cpp",
+    "tests/process/test_process_env.cpp"
+   ],
+   "note": "Environment then .env for credentials (dotenv is the last resort, golden dotenv values); keys that came from .env never reach a child (a key rotated in dotenv never reaches a child, a key deleted from dotenv never reaches a child, a variable already holding the file value came from the file)."
+  },
+  "SR-01": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_settings/microphone_section.cpp",
+    "src/appcore/mic_priority.cpp",
+    "src/audio/devices.cpp",
+    "src/recorder/recorder.cpp",
+    "src/ui_controller/ui_controller.cpp",
+    "src/meeting_capture/devices.cpp"
+   ],
+   "tests": [
+    "tests/ui_controller/test_audit_a32_settings.cpp",
+    "tests/ui_settings/test_microphones.cpp",
+    "tests/audio/test_devices.cpp",
+    "tests/recorder/test_device_fallback.cpp",
+    "tests/meeting_capture/test_devices.cpp",
+    "tests/meeting_capture/test_capture_session.cpp",
+    "tests/ui_controller/test_wiring.cpp"
+   ],
+   "note": "Added tests/ui_controller/test_audit_a32_settings.cpp (a32 SR-01: a microphone switch names the new microphone on the showing overlay): nothing asserted the Switched to <mic> caption the controller puts on the overlay (test_wiring pins only the status line, with the overlay hidden); the new case pins it for a named device and for the system default. Verified the rest: preferred combo, ordered backups with Up/Down/Remove and System default last (test_microphones), {name, hostapi} matching ladder with the MME 31-char rung, WASAPI auto-convert and Sound Mapper last (A05-02..A05-08), Refresh refused while anything records (test_refresh_rereads_devices_only_while_nothing_records), mid-recording switch on stream loss or a 1 s stall within the same recording and journal, never on overflow (A05-09, A05-10), Meeting Mode skipping the lost device in the same order (an excluded microphone is skipped and the ranked order comes first, a lost microphone is excluded before the channel reopens), the legacy index migration (A05-06)."
+  }
+ }
+}

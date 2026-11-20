@@ -1,0 +1,644 @@
+{
+ "area": "a26-meeting-agent",
+ "package": "M10.22 sweep (auditor AU18)",
+ "features": {
+  "A26-01": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/prompts.cpp",
+    "src/meeting_agent/detail/prompt_text.h"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_golden.cpp",
+    "tests/meeting_agent/test_prompts.cpp",
+    "tests/golden/meeting.agent.prompts.json"
+   ],
+   "note": "build_system_prompt is compared with OpenWhisper's text rebranded ('prompts: the two system prompts match OpenWhisper's'); the numbers 20, 7, 0.8, 0.4 are substituted from meeting_state; 'the prompts name the product, never OpenWhisper's name' pins the rename to identity().product. The engine hands this charter to every core (AgentConfig::system_prompt in src/meeting/meeting_intelligence.cpp)."
+  },
+  "A26-02": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/prompts.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_golden.cpp",
+    "tests/meeting_agent/test_prompts.cpp",
+    "tests/meeting_agent/test_guidance.cpp",
+    "tests/golden/meeting.agent.prompts.json"
+   ],
+   "note": "16 build_checkpoint_user_prompt vectors (cards, polish, consolidation, brief, recent context, empty segments) replayed byte for byte."
+  },
+  "A26-03": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/prompts.cpp",
+    "src/meeting_agent/detail/prompt_text.h"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_golden.cpp",
+    "tests/meeting_agent/test_prompts.cpp",
+    "tests/golden/meeting.agent.prompts.json"
+   ],
+   "note": "12 build_consolidation_instructions vectors over view subsets, plus test_brief_only_omits_ribbon_steps and test_empty_views_keep_all_steps."
+  },
+  "A26-04": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/prompts.cpp",
+    "src/meeting_agent/detail/prompt_text.h"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_golden.cpp",
+    "tests/meeting_agent/test_prompts.cpp",
+    "tests/golden/meeting.agent.prompts.json"
+   ],
+   "note": "Note-taker system prompt and 11 build_notes_user_prompt / 7 render_notes_page vectors; the adjustment request and empty-page hint also by test_adjustment_replaces_automatic_append_instructions and test_notes_user_prompt_empty_page_hint."
+  },
+  "A26-05": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/prompts.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_golden.cpp",
+    "tests/meeting_agent/test_prompts.cpp",
+    "tests/golden/meeting.agent.prompts.json"
+   ],
+   "note": "12 intent_prompt vectors including the unset brief (empty string)."
+  },
+  "A26-06": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/prompts.cpp",
+    "src/meeting_agent/spotlight.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_golden.cpp",
+    "tests/meeting_agent/test_prompts.cpp",
+    "tests/meeting_agent/test_spotlight.cpp",
+    "tests/golden/meeting.agent.prompts.json"
+   ],
+   "note": "12 render_state_compact vectors (truncation, extras, questions block, participants)."
+  },
+  "A26-07": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/spotlight.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_golden.cpp",
+    "tests/meeting_agent/test_spotlight.cpp",
+    "tests/golden/meeting.agent.prompts.json"
+   ],
+   "note": "22 select_spotlight_items vectors and the four ported test_meeting_spotlight_context cases."
+  },
+  "A26-08": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/prompts.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_golden.cpp",
+    "tests/golden/meeting.agent.prompts.json"
+   ],
+   "note": "10 format_segment_line vectors."
+  },
+  "A26-09": {
+   "status": "dropped",
+   "reason": "JSON_FALLBACK_INSTRUCTIONS served only the retired DirectOpenRouterAgent, which OpenWhisper never constructs; M8.md's a26 coverage table drops it and test_meeting_agent_rejection_repair.py with it. The native loop always calls tools (models without tools are refused at initialize)."
+  },
+  "A26-10": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/scheduler.cpp",
+    "src/meeting_agent/scheduler.h",
+    "src/meeting_agent/detail/scheduler_passes.cpp",
+    "src/meeting_agent/detail/scheduler_topic.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_scheduler.cpp",
+    "tests/meeting_agent/test_scheduler_golden.cpp",
+    "tests/golden/meeting.agent.scheduler.json"
+   ],
+   "note": "Tick 1 s, 15/5/20 s with pressure 8/3, 120 s warm-up on the meeting clock: _interval_for vectors, 18 run_due traces, test_pinned_intervals, test_waits_until_two_minutes..., test_paused_time_does_not_complete_warmup, test_pending_while_in_flight_coalesce_into_next_fire."
+  },
+  "A26-11": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/scheduler.h",
+    "src/meeting_agent/installed_core.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_installed_core.cpp"
+   ],
+   "note": "INSTALLED_AGENT_CADENCE{45, 30, 90, 4, 180, 2, 120}; test_installed_agents_get_their_own_cadence and test_a_mock_core_is_not_mistaken_for_a_cadence."
+  },
+  "A26-12": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/detail/scheduler_topic.cpp",
+    "src/meeting_agent/scheduler.h"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_topic_shift.cpp",
+    "tests/meeting_agent/test_scheduler.cpp",
+    "tests/meeting_agent/test_scheduler_golden.cpp",
+    "tests/golden/meeting.agent.scheduler.json"
+   ],
+   "note": "_content_words and jaccard_shift vectors, the 7 semantic-judge tests (threshold 0.5, None and exception fall back to Jaccard), 'the shift check keeps its spacing and needs the meeting clock'."
+  },
+  "A26-13": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/detail/scheduler_delivery.cpp",
+    "src/meeting_agent/scheduler.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_scheduler_ledger.cpp",
+    "tests/meeting_agent/test_scheduler.cpp"
+   ],
+   "note": "Ledger pages of 300 + 1, start-order presentation and commit-order ack, failed-backlog start, notes backlog resume (test_meeting_delivery_cursor ports); the 180 s refetch fallback by test_sent_id_set_is_pruned_outside_the_refetch_window."
+  },
+  "A26-14": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/detail/scheduler_passes.cpp",
+    "src/meeting_agent/scheduler.h"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_scheduler.cpp"
+   ],
+   "note": "'backoff grows 30, 60, 120 and 300 s and guidance clears it once', test_timeout_failures_retain_work_and_three_mark_offline, test_offline_scheduler_recovers_after_a_successful_retry."
+  },
+  "A26-15": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/detail/scheduler_passes.cpp",
+    "src/meeting_agent/detail/scheduler_support.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_scheduler.cpp",
+    "tests/meeting_agent/test_live_workflow.cpp"
+   ],
+   "note": "Every 6 / 45 s / first after 15 s, newest 80 rows: test_rolling_polish_is_bounded_and_keeps_the_newest_speech, test_first_cleanup_runs_during_silence, test_polish_changes_trigger_dashboard_and_notes_review."
+  },
+  "A26-16": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/detail/scheduler_passes.cpp",
+    "src/meeting_agent/detail/scheduler_delivery.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_scheduler.cpp",
+    "tests/meeting_agent/test_live_workflow.cpp"
+   ],
+   "note": "test_notes_* cases in test_scheduler.cpp, test_failed_notes_retry_in_silence_and_do_not_spin, test_notes_backlog_keeps_earliest_unprocessed_segments, test_guidance_review_does_not_skip_unprocessed_note_backlog."
+  },
+  "A26-17": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/scheduler.cpp",
+    "src/meeting_agent/detail/scheduler_passes.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_scheduler.cpp",
+    "tests/meeting_agent/test_live_workflow.cpp"
+   ],
+   "note": "test_guidance_fires_without_new_speech_and_resends_recent_transcript, test_failed_guidance_pass_is_retried, test_new_human_guidance_gets_an_attempt_despite_earlier_failure_backoff, test_guidance_revisits_consumed_notes_without_new_speech."
+  },
+  "A26-18": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/scheduler.cpp",
+    "src/meeting_agent/scheduler.h"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_note_requests.cpp",
+    "tests/meeting_agent/test_live_workflow.cpp"
+   ],
+   "note": "All six messages asserted verbatim in test_note_requests.cpp ('note requests are bounded and need a running worker', 'a note request says why it could not run'); precedence by test_user_request_precedes_follow_on_background_passes."
+  },
+  "A26-19": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/detail/scheduler_end.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_scheduler.cpp",
+    "tests/meeting_agent/test_scheduler_golden.cpp",
+    "tests/golden/meeting.agent.scheduler.json"
+   ],
+   "note": "Join 10 s, cancel, join 10 s; progress sentence; timeout mutes progress and revokes before cancel; repair always: test_consolidation_* cases, 'a consolidation that never returns times out on the scheduler's clock', 'consolidation repairs the state even when the agent fails'."
+  },
+  "A26-20": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/detail/scheduler_end.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_scheduler.cpp",
+    "tests/meeting_agent/test_scheduler_final_polish.cpp"
+   ],
+   "note": "Messages match scheduler.py:1264-1334 ('the final polish says why it could not run'); writes are not revoked; the 180 s per block reaches polish_transcript (test_scheduler_final_polish.cpp)."
+  },
+  "A26-21": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/scheduler.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_scheduler.cpp"
+   ],
+   "note": "test_prepare_for_end_never_blocks_on_agent_cancel and 'prepare_for_end returns at once while a pass blocks'."
+  },
+  "A26-22": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/scheduler.cpp",
+    "src/meeting_agent/detail/scheduler_delivery.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_scheduler.cpp"
+   ],
+   "note": "test_seed_marks_card_and_notes_cursors."
+  },
+  "A26-23": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/tool_policy.cpp",
+    "src/meeting_agent/tool_policy.h"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_tool_policy.cpp",
+    "tests/meeting_agent/test_tool_policy_golden.cpp",
+    "tests/golden/meeting.agent.tool_policy.json"
+   ],
+   "note": "pass_rejection (44), apply_patch_ops (12, realignment), run_tool (22) vectors; read tools never tallied ('read tools run on every pass and are never tallied')."
+  },
+  "A26-24": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/evidence.cpp",
+    "src/meeting_agent/tool_policy.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_evidence.cpp",
+    "tests/meeting_agent/test_golden.cpp",
+    "tests/golden/meeting.agent.evidence.json"
+   ],
+   "note": "19 repair_evidence_ids and 12 _repair_one vectors over pyport's difflib; the 'Repaired N mistyped evidence id(s)' log line is in tool_policy.cpp (log text not asserted)."
+  },
+  "A26-25": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/tool_specs.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_golden.cpp",
+    "tests/golden/meeting.agent.tool_specs.json"
+   ],
+   "note": "MEETING_TOOLS, NOOP_TOOL and mcp_tool_definitions replayed as data (rebranded). Which schemas the built-in loop sends (these, not tools.ts's) is A27-10's handoff."
+  },
+  "A26-26": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/tool_policy.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_tool_policy.cpp",
+    "tests/meeting_agent/test_tool_policy_golden.cpp",
+    "tests/golden/meeting.agent.tool_policy.json"
+   ],
+   "note": "run_read_tool (14) and tool_result_text (9) vectors; test_missing_read_tool_says_so_in_plain_text."
+  },
+  "A26-27": {
+   "status": "difference",
+   "difference": "a26-native-agent-loop",
+   "cpp": [
+    "src/meeting_agent/factory.cpp",
+    "src/meeting_agent/agent_settings.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_native_core.cpp",
+    "tests/meeting_agent/test_agent_settings.cpp"
+   ],
+   "note": "'meeting agent factory routes built-in and installed kinds explicitly': pi, opencode and direct build NativeAgentCore, the installed ids InstalledAgentCore, anything else std::invalid_argument(\"Unsupported meeting agent core: '<kind>'\") as base.py's ValueError. No fallback."
+  },
+  "A26-28": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/route.cpp",
+    "src/meeting_agent/route.h"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_route.cpp",
+    "tests/meeting_agent/test_scheduler_golden.cpp",
+    "tests/golden/services.meeting_agent_route.json"
+   ],
+   "note": "19 resolve_meeting_agent_route vectors and the route cases of test_installed_agent_core.py; MeetingAgentRoute has no payload_dir (M8.md change 2)."
+  },
+  "A26-29": {
+   "status": "difference",
+   "difference": "a26-native-agent-loop",
+   "cpp": [
+    "src/meeting_agent/native_core.cpp",
+    "src/meeting_agent/detail/native_pass.cpp",
+    "src/meeting_agent/agent_loop.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_native_core_budgets.cpp",
+    "tests/meeting_agent/test_native_core_authority.cpp",
+    "tests/meeting_agent/test_native_core_passes.cpp",
+    "tests/meeting_agent/test_native_core.cpp"
+   ],
+   "note": "Kept and tested: key resolution ('a meeting without an API key cannot start the built-in agent'), live 60 s wall / 45 s stall, polish 180 s, consolidation 900 s / 300 s ('each pass kind runs on its own wall and stall budget', both pi and opencode kinds), stall reset only by the pass's own events and tool calls ('progress keeps alive only the pass it belongs to', 'a slow tool call is progress, not a stall'), cancel, request-scoped authority and the stale generation (test_native_core_authority.cpp). Dropped with the process: spawn, hello, ping every 10 s, restart backoff and budget, Node selection."
+  },
+  "A26-30": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/detail/native_pass.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_native_core_passes.cpp"
+   ],
+   "note": "Polish only, case-insensitive 'corrupted thought signature', nothing applied, generation unchanged, within the remaining wall; fresh history; at most once: 'a corrupted thought signature retries a clean polish once', 'signature recovery is bounded'. The healthy check of sidecar.py is implied (shutdown cancels the generation)."
+  },
+  "A26-31": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_agent/native_core.cpp",
+    "src/meeting_agent/native_tools.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_native_requests.cpp",
+    "tests/meeting_agent/test_native_core_passes.cpp",
+    "tests/meeting_agent/test_audit_a27_loop.cpp",
+    "tests/fixtures/meeting_agent/native/tools.json"
+   ],
+   "note": "The probe's failure now reads M8.md change 6's sentence, \"Model did not call the test tool. Choose a tool-capable model for \" + identity().product + \".\" (Python: '... for Pi.'), asserted whole in 'an endpoint that might ignore tools must call the test tool'; its tool is native_probe_tool(), sidecar.py's noop described \"Verify tool support.\", asserted whole in the same test and in tests/fixtures/meeting_agent/native/tools.json. tool_specs.py's NOOP_TOOL (noop_tool(), \"No-op capability probe. ...\") stays for its golden. Request, 10 s wall deadline, max_tokens 512 and the refuses_unsupported_tools skip unchanged and tested as before."
+  },
+  "A26-32": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/progress_labels.cpp",
+    "src/meeting_agent/detail/native_pass.cpp",
+    "src/meeting_agent/installed_core.cpp",
+    "src/meeting_agent/interfaces.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_golden.cpp",
+    "tests/meeting_agent/test_native_core_progress.cpp",
+    "tests/meeting_agent/test_interfaces.cpp",
+    "tests/golden/meeting.agent.sidecar.json"
+   ],
+   "note": "234 _progress_detail, 41 _activity_kind and AgentActivity vectors; emission by the native core and the installed core tested in test_native_core_progress.cpp and test_installed_core.cpp."
+  },
+  "A26-33": {
+   "status": "dropped",
+   "reason": "The OpenCode SDK sidecar is a Bun process with a component, lease, isolation root and platform gate; FioriVoce has no sidecar (M8.md 'The native agent loop', change 2; ARCHITECTURE 'One agent loop (M8)'). A stored 'opencode' runs the built-in loop (test_native_core.cpp 'meeting agent factory routes built-in and installed kinds explicitly'; test_native_core_passes.cpp 'the OpenCode core runs every meeting pass with fresh history')."
+  },
+  "A26-34": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/installed_core.cpp",
+    "src/meeting_agent/installed_core.h"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_installed_core.cpp"
+   ],
+   "note": "Personas build/plan, live 120 s / 75 s at the live effort, polish max(180,120), consolidation 900 s / 300 s at the final effort, cancel ends authority with 'This meeting pass was canceled.', progress de-duplicated: 'live, polish and consolidation passes get their own budgets', test_the_final_pass_thinks_harder_and_waits_longer, test_streamed_progress_reaches_the_card_only_when_it_changes, 'a cancel ends a pass's authority and keeps what it applied'. Tested over the fake driver (agents/testing/fake_driver.h). The drivers are tested against tests/agents/fake_agent only; no real Claude Code, Codex or OpenCode pass has run (docs/port/open-items.md, 'Real agent passes')."
+  },
+  "A26-35": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/agent_tasks.cpp"
+   ],
+   "tests": [
+    "tests/agents/test_agent_tasks.cpp",
+    "tests/agents/test_drivers_golden.cpp",
+    "tests/golden/meeting.agent.installed.core.json"
+   ],
+   "note": "11 installed_agent vectors ('installed_agent replays OpenWhisper's vectors') and 'an unusable agent says why'."
+  },
+  "A26-36": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/agent_tasks.cpp",
+    "src/agents/agent_tasks.h"
+   ],
+   "tests": [
+    "tests/agents/test_agent_tasks.cpp"
+   ],
+   "note": "The three refusals asserted verbatim; reading task gets the long path; viewing task sends pictures with no tools. The drivers are tested against tests/agents/fake_agent only; no real Claude Code, Codex or OpenCode pass has run (docs/port/open-items.md, 'Real agent passes'). Those of its cases tagged [platform] that start processes skip off Windows (FV_PASS_PROCESSES, FV_WINDOWS_PATHS) and were not run on this Linux tree."
+  },
+  "A26-37": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/drivers.cpp",
+    "src/agents/drivers.h"
+   ],
+   "tests": [
+    "tests/agents/test_drivers.cpp",
+    "tests/agents/test_drivers_golden.cpp",
+    "tests/agents/test_tool_free_contract.cpp",
+    "tests/golden/meeting.agent.installed.drivers.json"
+   ],
+   "note": "8 tool_contract vectors including the tool-free variant."
+  },
+  "A26-38": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/detail/claude_driver.cpp",
+    "src/agents/detail/headless.cpp"
+   ],
+   "tests": [
+    "tests/agents/test_drivers.cpp",
+    "tests/agents/test_drivers_golden.cpp",
+    "tests/golden/meeting.agent.installed.drivers.json"
+   ],
+   "note": "claude_command (8), claude_events (18), claude_finish (6), _claude_error (9) vectors; 'claude command line', 'old claude code is refused', 'claude fails fast when our tools did not connect'. The drivers are tested against tests/agents/fake_agent only; no real Claude Code, Codex or OpenCode pass has run (docs/port/open-items.md, 'Real agent passes'). 'the Claude Code command line replays OpenWhisper's vectors' skips off Windows (recorded Windows paths) and did not run here."
+  },
+  "A26-39": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/detail/codex_driver.cpp"
+   ],
+   "tests": [
+    "tests/agents/test_drivers.cpp",
+    "tests/agents/test_drivers_golden.cpp",
+    "tests/golden/meeting.agent.installed.drivers.json"
+   ],
+   "note": "codex_command, codex_features, codex_servers, codex_events, codex_finish, _codex_error vectors; 'codex refreshes mcp inventory before each pass', 'codex refuses a pass when server isolation cannot be verified'. The drivers are tested against tests/agents/fake_agent only; no real Claude Code, Codex or OpenCode pass has run (docs/port/open-items.md, 'Real agent passes'). 'the Codex command line replays OpenWhisper's vectors' skips off Windows and did not run here."
+  },
+  "A26-40": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/detail/opencode_driver.cpp",
+    "src/agents/acp.cpp"
+   ],
+   "tests": [
+    "tests/agents/test_drivers.cpp",
+    "tests/agents/test_drivers_golden.cpp",
+    "tests/golden/meeting.agent.installed.drivers.json"
+   ],
+   "note": "opencode_overlay, opencode_request, opencode_pass_model, opencode_failed, opencode_outcome vectors and 'opencode overlay locks down both agents', 'opencode refuses every other permission' ran here; the end-to-end cases ('opencode pass end to end', model refusal, pictures, respawn) are [platform] and skip off Windows. The drivers are tested against tests/agents/fake_agent only; no real Claude Code, Codex or OpenCode pass has run (docs/port/open-items.md, 'Real agent passes')."
+  },
+  "A26-41": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/loopback_mcp.cpp",
+    "src/agents/loopback_mcp.h"
+   ],
+   "tests": [
+    "tests/agents/test_loopback_mcp.cpp"
+   ],
+   "note": "Round trip, 401/403, closed endpoint ('ended'), unknown tool, the OpenWhisper transcript replay (tests/fixtures/transcripts/loopback_mcp.json), close waiting for a running call; these ran on this tree. The 4 MiB cap and GET/DELETE answers come from the replayed transcript."
+  },
+  "A26-42": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/acp.cpp",
+    "src/agents/acp.h"
+   ],
+   "tests": [
+    "tests/agents/test_acp.cpp"
+   ],
+   "note": "Timeout/stall/cancel waits, refused agent requests, 40-line stderr tail, model_choices and list_opencode_models over a scripted ACP peer."
+  },
+  "A26-43": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/typesafe_signals.cpp",
+    "src/meeting_agent/typesafe_signals.h"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_scheduler_golden.cpp",
+    "tests/meeting_agent/test_topic_shift.cpp",
+    "tests/golden/meeting.agent.typesafe_signals.json"
+   ],
+   "note": "constants (instructions, criteria, 0.6, 5 s, 6000 chars), 8 topic_shift_probability and 6 voice_command_choice vectors over a recording judge; 'test_topic_shift_caps_a_slow_model'. The judge's backend is a29's (A29-local-meeting-judgments)."
+  },
+  "A26-44": {
+   "status": "dropped",
+   "reason": "DirectOpenRouterAgent is never constructed by OpenWhisper (base.py migrates 'direct' to Pi); its JSON mode and rejection-repair rounds have no counterpart. M8.md drops it (a26 coverage table, test_meeting_agent_rejection_repair.py 0 of 4); a stored 'direct' runs the native loop, and the deadline behaviours of test_meeting_direct_deadline.py are ported against that loop (change 10: 'a trickling response ends at the pass budget...', 'the capability probe has a wall deadline', 'a cancel during a model request drops the reply's writes at once')."
+  },
+  "A26-45": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/usage.cpp",
+    "src/agents/detail/claude_driver.cpp",
+    "src/agents/detail/codex_driver.cpp",
+    "src/agents/detail/opencode_driver.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_golden.cpp",
+    "tests/meeting_agent/test_interfaces.cpp",
+    "tests/agents/test_drivers_golden.cpp",
+    "tests/golden/meeting.agent.base.json",
+    "tests/golden/meeting.agent.installed.drivers.json"
+   ],
+   "note": "11 merge_usage vectors; Claude, Codex and OpenCode usage through claude_finish, codex_finish and opencode_outcome vectors."
+  },
+  "A26-46": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/progress_labels.cpp",
+    "src/meeting_agent/installed_core.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_golden.cpp",
+    "tests/meeting_agent/test_interfaces.cpp",
+    "tests/golden/meeting.agent.sidecar.json"
+   ],
+   "note": "Every table entry and the lookup order through 234 _progress_detail vectors; installed kinds through _PI_EVENTS by 'installed agents' event kinds map to the shared progress copy'."
+  },
+  "A26-47": {
+   "status": "fixed",
+   "cpp": [
+    "src/meeting_agent/detail/scheduler_end.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_audit_a26_scheduler.cpp",
+    "tests/meeting_agent/test_scheduler.cpp",
+    "tests/meeting_agent/test_scheduler_golden.cpp",
+    "tests/golden/meeting.agent.scheduler.json"
+   ],
+   "note": "All twelve messages and statuses are in scheduler_end.cpp verbatim (read against scheduler.py:1154-1334) and the others were asserted (ConsolidationOutcome and _consolidation_outcome vectors, test_consolidation_* cases, 'the final polish says why it could not run'); the two 'skipped because a previous checkpoint was still running' sentences were checked only by the substring 'still running' (consolidation) or not at all (final polish). Added tests/meeting_agent/test_audit_a26_scheduler.cpp 'the final passes say so when a rolling pass will not stop': both sentences and statuses verbatim, the consolidation revokes writes, the final polish does not and never calls the polish."
+  },
+  "A26-48": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/detail/claude_driver.cpp"
+   ],
+   "tests": [
+    "tests/agents/test_drivers.cpp",
+    "tests/agents/test_drivers_golden.cpp",
+    "tests/golden/meeting.agent.installed.drivers.json"
+   ],
+   "note": "'claude reading a folder gets read fenced to it', 'claude without restricted cannot read a folder', 'a meeting pass reads no files', the _claude_error vectors. The drivers are tested against tests/agents/fake_agent only; no real Claude Code, Codex or OpenCode pass has run (docs/port/open-items.md, 'Real agent passes')."
+  },
+  "A26-49": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/detail/codex_driver.cpp"
+   ],
+   "tests": [
+    "tests/agents/test_drivers.cpp",
+    "tests/agents/test_drivers_golden.cpp",
+    "tests/golden/meeting.agent.installed.drivers.json"
+   ],
+   "note": "The disable list, overrides, --ephemeral detection and image order by codex_command/codex_features vectors and 'codex command line', 'codex gets pictures with the prompt and still no shell'. The drivers are tested against tests/agents/fake_agent only; no real Claude Code, Codex or OpenCode pass has run (docs/port/open-items.md, 'Real agent passes')."
+  },
+  "A26-50": {
+   "status": "verified",
+   "cpp": [
+    "src/agents/detail/opencode_driver.cpp"
+   ],
+   "tests": [
+    "tests/agents/test_drivers.cpp",
+    "tests/agents/test_drivers_golden.cpp",
+    "tests/golden/meeting.agent.installed.drivers.json"
+   ],
+   "note": "Permission choice, -32601 refusal, overlay (MCP entry, both agents), refusal and auth texts, usage by vectors. Not asserted anywhere: \"OpenCode did not open a session\", \"Could not read a picture for OpenCode: <err>\" and the refused-permission warning (present in opencode_driver.cpp, read against drivers.py). The drivers are tested against tests/agents/fake_agent only; no real Claude Code, Codex or OpenCode pass has run (docs/port/open-items.md, 'Real agent passes'). Those of its cases tagged [platform] that start processes skip off Windows (FV_PASS_PROCESSES, FV_WINDOWS_PATHS) and were not run on this Linux tree."
+  },
+  "A26-51": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/installed_core.cpp",
+    "src/agents/agent_tasks.cpp"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_installed_core.cpp",
+    "tests/agents/test_agent_tasks.cpp"
+   ],
+   "note": "agent_unavailable, the driver's error text, canceled with the applied results kept, usage passed through, persona by is_notes, progress throttle and callback failures: test_a_failed_run_reports_its_reason, 'a driver that throws anything fails the pass and ends its authority', 'a cancel ends a pass's authority and keeps what it applied', test_a_notes_pass_is_the_note_taker_and_keeps_to_notes; one-off tasks in test_agent_tasks.cpp. The drivers are tested against tests/agents/fake_agent only; no real Claude Code, Codex or OpenCode pass has run (docs/port/open-items.md, 'Real agent passes')."
+  },
+  "A26-52": {
+   "status": "verified",
+   "cpp": [
+    "src/meeting_agent/typesafe_signals.cpp",
+    "src/meeting_agent/typesafe_signals.h"
+   ],
+   "tests": [
+    "tests/meeting_agent/test_scheduler_golden.cpp",
+    "tests/golden/meeting.agent.typesafe_signals.json"
+   ],
+   "note": "Question strings, state keys and the empty-input short cut through the constants, topic_shift_probability and voice_command_choice vectors."
+  }
+ },
+ "differences": [
+  {
+   "id": "a26-native-agent-loop",
+   "features": [
+    "A26-27",
+    "A26-29",
+    "MR-02",
+    "SMV-02"
+   ],
+   "openwhisper": "The packaged Pi (Node) and OpenCode SDK (Bun) agents run as sidecar processes supervised from Python: payload checks with their own install messages, hello handshake, ping, restarts within a budget, and timeouts that read \"RPC 'checkpoint' timed out after Ns\" or \"... stalled after Ns without agent progress\"; a missing key reads \"... meeting sidecar agent offline\".",
+   "fiorivoce": "pi, opencode and the legacy direct all build the in-process NativeAgentCore, which keeps the key resolution, pass budgets, stall clock, cancel and request-scoped authority; there is no process to supervise or install, a pass that fails fails only itself, and the messages read \"Agent pass timed out after Ns\", \"Agent pass stalled after Ns without agent progress\" and \"No {provider} API key found; meeting agent offline\".",
+   "reason": "The owner chose a native agent loop (amendment 1); everything that only supervised a sidecar process goes with the process.",
+   "source": "docs/port/packages/M8.md 'The native agent loop (owner decision, amendment 1)' and changes 2 and 6; docs/port/ARCHITECTURE.md 'One agent loop (M8)'; tests/meeting_agent/test_native_core.cpp, test_native_core_budgets.cpp, test_native_core_passes.cpp"
+  }
+ ]
+}

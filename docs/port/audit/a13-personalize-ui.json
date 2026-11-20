@@ -1,0 +1,800 @@
+{
+ "area": "a13-personalize-ui",
+ "package": "M10 sweep",
+ "features": {
+  "A13-01": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/dictionary_page.cpp",
+    "src/ui_personalize/dictionary_library.cpp",
+    "src/text/dictionary.h"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_dictionary_page.cpp",
+    "tests/ui_personalize/test_dictionary_focus.cpp"
+   ],
+   "note": "Labels, 64-char limit, the Sounds like tooltip, Enter in either field, Added/Saved messages and the 'Without a Sounds like spelling…' suffix read and tested (test_enter_adds_a_word_with_its_variants, test_enter_in_sounds_like_adds_the_word, test_adding_a_word_without_sounds_like_says_it_wont_be_fixed)."
+  },
+  "A13-02": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/dictionary_page.cpp",
+    "src/ui_personalize/dictionary_library.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_dictionary_page.cpp",
+    "tests/ui_personalize/test_dictionary_focus.cpp"
+   ],
+   "note": "test_editing_a_word, test_cancelling_an_edit and 'an edited word that vanished on reload ends the edit, and removing it does too'."
+  },
+  "A13-03": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/dictionary_page.cpp",
+    "src/ui_personalize/dictionary_library.cpp",
+    "src/text/personalize_copy.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_dictionary_page.cpp",
+    "tests/ui_personalize/test_dictionary_focus.cpp",
+    "tests/ui_personalize/test_page_screenshots.cpp"
+   ],
+   "note": "kMaxRows 100, kSearchFrom 9, casefolded term/heard search, empty and no-match copy, 'Showing N of M. Search to find the rest.', 'N / 500' pill (test_a_long_dictionary_is_capped_and_searchable, test_empty_dictionary). Its reference-screenshot pixel half skips here and the widget-tree half fails only on Segoe UI label widths (geometry messages only, checked)."
+  },
+  "A13-04": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/dictionary_page.cpp",
+    "src/ui_personalize/dictionary_library.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_dictionary_page.cpp",
+    "tests/ui_personalize/test_dictionary_focus.cpp"
+   ],
+   "note": "Star/Edit/Remove-or-Undo, badges with their tooltips, accessible names and Removed/Forgot messages (test_rows_show_stars_badges_and_variants, test_star_remove_and_undo, test_a_protected_word_shows_its_badge)."
+  },
+  "A13-05": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/dictionary_page.cpp",
+    "src/ui_personalize/dictionary_library.cpp",
+    "src/ui_personalize/removable_rows.cpp",
+    "src/ui_personalize/styles_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_dictionary_page.cpp",
+    "tests/ui_personalize/test_dictionary_focus.cpp",
+    "tests/ui_personalize/test_styles_page.cpp"
+   ],
+   "note": "Eight dictionary focus cases and the Styles list focus cases are ported."
+  },
+  "A13-06": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/dictionary_page.cpp",
+    "src/ui_personalize/dictionary_library.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_dictionary_page.cpp",
+    "tests/ui_personalize/test_dictionary_focus.cpp"
+   ],
+   "note": "test_keep_all_clears_the_new_badges."
+  },
+  "A13-07": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/dictionary_page.cpp",
+    "src/ui_personalize/dictionary_library.cpp",
+    "src/ui_personalize/rules_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_dictionary_page.cpp",
+    "tests/ui_personalize/test_dictionary_focus.cpp",
+    "tests/ui_personalize/test_rules_page.cpp"
+   ],
+   "note": "'moving spelling rules says how many moved' and test_moving_spelling_rules_updates_the_rules_page."
+  },
+  "A13-08": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/dictionary_page.cpp",
+    "src/ui_personalize/dictionary_library.cpp",
+    "src/text/personalize_copy.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_dictionary_page.cpp",
+    "tests/ui_personalize/test_dictionary_focus.cpp",
+    "tests/text/test_personalize_copy.cpp"
+   ],
+   "note": "engine_line and cannot_steer replay the settings_dictionary golden; test_steering_switch, test_the_steer_switch_says_why_it_does_nothing, test_engines_that_take_hints_keep_the_switch. The engine table covers FioriVoce's Parakeet/API/remote engines."
+  },
+  "A13-09": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/dictionary_page.cpp",
+    "src/ui_personalize/dictionary_library.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_dictionary_page.cpp",
+    "tests/ui_personalize/test_dictionary_focus.cpp"
+   ],
+   "note": "test_learning_waits_for_text_reading and test_dictionary_learning_gate_says_where_it_goes (gate text, 'Apps && styles…' button jumping to Styles). Text reading itself is Windows-only."
+  },
+  "A13-10": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/dictionary_page.cpp",
+    "src/ui_personalize/dictionary_library.cpp",
+    "src/ui_personalize/cleanup_gates.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_dictionary_page.cpp",
+    "tests/ui_personalize/test_dictionary_focus.cpp"
+   ],
+   "note": "Shown only for cleanup off (by level) and an engine that cannot be steered: 'the cleanup gates follow the level…', test_the_page_says_what_happens_and_offers_cleanup, test_one_click_turns_cleanup_on_and_the_page_updates."
+  },
+  "A13-11": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/dictionary_page.cpp",
+    "src/ui_personalize/dictionary_library.cpp",
+    "src/text/personalize_copy.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_dictionary_page.cpp",
+    "tests/ui_personalize/test_dictionary_focus.cpp",
+    "tests/text/test_personalize_copy.cpp"
+   ],
+   "note": "home_detail replays the golden; test_basic_shows_the_count_and_opens_the_composer, test_basic_row_without_words, test_add_word_is_named_after_its_label."
+  },
+  "A13-12": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/dictionary_page.cpp",
+    "src/ui_personalize/dictionary_library.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_dictionary_page.cpp",
+    "tests/ui_personalize/test_dictionary_focus.cpp"
+   ],
+   "note": "test_the_page_reads_the_live_backend and test_an_unknown_remote_engine_claims_nothing (the remote branch answers nothing until the host says)."
+  },
+  "A13-13": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/snippets_page.cpp",
+    "src/ui_personalize/snippets_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_snippets_page.cpp",
+    "tests/ui_personalize/test_cleanup_golden.cpp"
+   ],
+   "note": "test_the_switch_saves_and_tells_the_app, test_a_failed_switch_save_shows_what_is_still_saved, test_rail_value_counts_snippets_and_says_when_off; settings_snippets rail_value/_count goldens."
+  },
+  "A13-14": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/snippets_page.cpp",
+    "src/ui_personalize/snippets_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_snippets_page.cpp",
+    "tests/ui_personalize/test_page_screenshots.cpp"
+   ],
+   "note": "Delegate padding 10x8, gap 2; 'N / 200' pill; empty state with the three suggested triggers (test_an_empty_library_offers_starters). Its reference-screenshot pixel half skips here and the widget-tree half fails only on Segoe UI label widths (geometry messages only, checked)."
+  },
+  "A13-15": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/snippets_page.cpp",
+    "src/ui_personalize/snippets_panel.cpp",
+    "src/text/snippets.h"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_snippets_page.cpp",
+    "tests/ui_personalize/test_page_screenshots.cpp"
+   ],
+   "note": "Trigger max 60, placeholders, Keep formatting copy, draft stripped of CR/LF only; test_the_page_has_its_tiles_and_shows_the_first_snippet, test_trigger_notes_flag_duplicates_and_near_misses."
+  },
+  "A13-16": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/snippets_page.cpp",
+    "src/ui_personalize/snippets_panel.cpp",
+    "src/text/personalize_copy.cpp"
+   ],
+   "tests": [
+    "tests/text/test_personalize_copy.cpp",
+    "tests/ui_personalize/test_snippets_page.cpp"
+   ],
+   "note": "The snippets_panel _update_hints golden is replayed (U+2192, singular/plural, 'with formatting', plain_text count)."
+  },
+  "A13-17": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/snippets_page.cpp",
+    "src/ui_personalize/snippets_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_snippets_page.cpp",
+    "tests/ui_personalize/test_unsaved_drafts.cpp"
+   ],
+   "note": "test_switching_away_from_unsaved_edits_asks_first, test_refreshing_settings_keeps_an_unsaved_draft, 'leaving the page saves a valid draft and offers to discard one that is not' and the unsaved-draft cases."
+  },
+  "A13-18": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/snippets_page.cpp",
+    "src/ui_personalize/snippets_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_snippets_page.cpp"
+   ],
+   "note": "test_a_new_snippet_is_saved_and_reported, test_save_explains_what_is_missing_and_writes_nothing, test_duplicate_starts_an_unsaved_copy_with_a_free_trigger (base[:57].rstrip() + ' N'), test_delete_asks_then_removes_and_shows_the_next_snippet."
+  },
+  "A13-19": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/snippets_page.cpp",
+    "src/ui_personalize/snippets_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_snippets_page.cpp"
+   ],
+   "note": "test_home_counts_snippets_and_adds_one, test_the_home_row_fits_narrow_windows_at_large_fonts."
+  },
+  "A13-20": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/snippets_page.cpp",
+    "src/ui_personalize/snippets_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_snippets_page.cpp"
+   ],
+   "note": "Library 220 x scale, editor minimum 300; 'the panel stacks its editor under the library when narrow', test_the_page_fits_narrow_windows_at_large_fonts."
+  },
+  "A13-21": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/styles_page.cpp",
+    "src/text/personalize_copy.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_styles_page.cpp",
+    "tests/text/test_personalize_copy.cpp"
+   ],
+   "note": "privacy_note, cleanup_on and reads_text_near_cursor replay the settings_styles golden with the product rebranded; test_defaults_show_awareness_on_and_reading_off, test_privacy_note_names_where_the_text_goes, test_other_platforms_say_reading_text_is_windows_only (the not-Windows line is what this Linux tree shows)."
+  },
+  "A13-22": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/styles_page.cpp",
+    "src/text/personalize_copy.cpp",
+    "src/ui_personalize/removable_rows.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_styles_page.cpp",
+    "tests/text/test_personalize_copy.cpp"
+   ],
+   "note": "kMaxExcluded 100; test_exclusions_need_app_awareness, test_excluded_apps_add_and_remove, test_enter_adds_an_app_to_never_read_from; _excluded golden."
+  },
+  "A13-23": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/styles_page.cpp",
+    "src/text/personalize_copy.cpp",
+    "src/ui_personalize/cleanup_gates.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_styles_page.cpp",
+    "tests/text/test_personalize_copy.cpp"
+   ],
+   "note": "styles_blocker golden; test_cleanup_off_shows_the_gate_and_locks_styles, test_awareness_off_gate_turns_it_back_on, test_awareness_gate_shows_only_once_cleanup_is_on, test_the_style_switch_has_one_name."
+  },
+  "A13-24": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/styles_page.cpp",
+    "src/text/personalize_copy.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_styles_page.cpp",
+    "tests/text/test_personalize_copy.cpp"
+   ],
+   "note": "apps_summary golden; test_picking_a_tone_saves_every_category_and_shows_an_example, test_loading_tones_never_saves, test_styles_off_dims_the_cards."
+  },
+  "A13-25": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/styles_page.cpp",
+    "src/text/personalize_copy.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_styles_page.cpp",
+    "tests/text/test_personalize_copy.cpp"
+   ],
+   "note": "test_overrides_add_replace_and_remove, test_enter_moves_an_app_to_a_style, test_removing_a_style_override_focuses_the_next_then_the_picker."
+  },
+  "A13-26": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/styles_page.cpp",
+    "src/text/personalize_copy.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_styles_page.cpp",
+    "tests/text/test_personalize_copy.cpp"
+   ],
+   "note": "test_pickers_offer_this_sessions_apps_first."
+  },
+  "A13-27": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/styles_page.cpp",
+    "src/text/personalize_copy.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_styles_page.cpp",
+    "tests/text/test_personalize_copy.cpp"
+   ],
+   "note": "home_copy and rail_value goldens; test_home_row_matches_tone_and_explains_when_it_cannot, test_a_blocker_still_replaces_the_tones."
+  },
+  "A13-28": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/rules_page.cpp",
+    "src/ui_personalize/cleanup_rules_section.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_rules_page.cpp",
+    "tests/ui_personalize/test_cleanup_screenshots.cpp"
+   ],
+   "note": "Composer tile copy, placeholder, Dictate/Stop with its tooltips and the recording property; test_dictating_shows_a_live_strip_and_a_red_stop, test_enter_adds_a_learned_rule. Its reference-screenshot pixel half skips here and the widget-tree half fails only on Segoe UI label widths (geometry messages only, checked)."
+  },
+  "A13-29": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/rules_page.cpp",
+    "src/ui_personalize/cleanup_rules_section.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_rules_page.cpp"
+   ],
+   "note": "Duplicate notice and 50-rule limit start no work (test_duplicate_rule_is_a_notice_and_starts_no_work, 'the 51st rule is a notice and starts no work'); polish on a worker with a token; failure keeps the words."
+  },
+  "A13-30": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/rules_page.cpp",
+    "src/ui_personalize/cleanup_rules_section.cpp",
+    "src/ui_personalize/cleanup_rule_dialog.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_rules_page.cpp",
+    "tests/ui_personalize/test_cleanup_rule_dialog.cpp"
+   ],
+   "note": "Both 'AI polish unavailable' notices, trimming, duplicate after review, save + glow (test_saved_rule_joins_the_library_and_glows, test_typed_rule_notice_says_written_when_polish_fails) and 16 dialog cases."
+  },
+  "A13-31": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/rules_page.cpp",
+    "src/ui_personalize/cleanup_rules_section.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_rules_page.cpp",
+    "tests/ui_personalize/test_cleanup_golden.cpp",
+    "tests/ui_personalize/test_cleanup_screenshots.cpp"
+   ],
+   "note": "rule_count_label golden ('N / 50'); library copy, empty state, Edit/Delete enabling, every change persisted at once. Its reference-screenshot pixel half skips here and the widget-tree half fails only on Segoe UI label widths (geometry messages only, checked)."
+  },
+  "A13-32": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/rules_page.cpp",
+    "src/ui_personalize/cleanup_rules_section.cpp",
+    "src/ui_personalize/rule_dictation.cpp",
+    "src/ui_personalize/rule_dictation.h"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_rules_page.cpp"
+   ],
+   "note": "Unavailable/meeting/start-failure messages, 60 s cap, Esc discards, temp WAV named <product>_rule_dictation.wav and deleted, words appended to the input then polished as dictated; cases for each. 'a rule dictated on the real microphone…' is [interactive] and was not run."
+  },
+  "A13-33": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/rule_activity.cpp",
+    "src/ui_personalize/rule_activity.h",
+    "src/ui_personalize/detail/activity_glyph.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_rule_activity.cpp",
+    "tests/ui_personalize/test_rule_activity_golden.cpp",
+    "tests/ui_personalize/test_screenshots.cpp"
+   ],
+   "note": "Listening opens at once, work reveals after 150 ms, 300 ms InOutCubic slide, amber at 10 s left, titles and details; 18 cases. Its reference-screenshot pixel half skips here and the widget-tree half fails only on Segoe UI label widths (geometry messages only, checked)."
+  },
+  "A13-34": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/rule_activity.cpp",
+    "src/ui_personalize/rule_activity.h"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_rule_activity.cpp",
+    "tests/ui_personalize/test_rule_activity_golden.cpp"
+   ],
+   "note": "Step 60 ms, bars 3 px pitch 5, ease 0.35 per 16 ms tick, 480-bar ring, 1300 ms sweep; the _mix golden replays the gradient."
+  },
+  "A13-35": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/rule_activity.cpp",
+    "src/ui_personalize/rule_activity.h"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_rule_activity.cpp",
+    "tests/ui_personalize/test_rules_page.cpp"
+   ],
+   "note": "ItemGlow 1600 ms, radius 9; test_saved_rule_joins_the_library_and_glows."
+  },
+  "A13-36": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/cleanup_rules_section.cpp",
+    "src/ui_personalize/personalize_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_personalize_page.cpp",
+    "tests/ui_personalize/test_rules_page.cpp"
+   ],
+   "note": "The CONTROLS names are registered with their widgets ('an exposed control is found by name')."
+  },
+  "A13-37": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/cleanup_profiles_panel.cpp",
+    "src/ui_personalize/profiles_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_profiles_page.cpp",
+    "tests/ui_personalize/test_styles_commands_screenshots.cpp"
+   ],
+   "note": "Library 210, name max 80, starters, 'Also apply my learned rules', shortcut hint, 'Choose cleanup model…' and Save profile; 'the profiles page counts profiles, says they changed and opens the cleanup model'. Its reference-screenshot pixel half skips here and the widget-tree half fails only on Segoe UI label widths (geometry messages only, checked)."
+  },
+  "A13-38": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/cleanup_profiles_panel.cpp",
+    "src/ui_personalize/profiles_page.cpp",
+    "src/text/cleanup_profiles.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_profiles_page.cpp",
+    "tests/ui_personalize/test_unsaved_drafts.cpp"
+   ],
+   "note": "Seven ported test_cleanup_profiles editor cases (save/duplicate/delete, conflict keeps draft, switch prompts, refresh keeps unsaved work, leaving Settings saves or asks); duplicate name name[:65] + ' copy', ' copy N' read against the Python."
+  },
+  "A13-39": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_personalize/cleanup_profiles_panel.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_profiles_page.cpp"
+   ],
+   "note": "resizeEvent matched the Python, but only the page-fits-narrow test touched it indirectly. Added 'the profile editor goes under a 160 px list when the panel is narrow' (direction, library 210 or unbounded, list max 160)."
+  },
+  "A13-40": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/command_shortcut_field.cpp",
+    "src/ui_personalize/command_shortcut_field.h",
+    "src/ui_personalize/commands_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_commands_page.cpp",
+    "tests/ui_personalize/test_styles_page.cpp",
+    "tests/text/test_personalize_copy.cpp"
+   ],
+   "note": "Input 160..240 x scale, Clear 64x34, saves through the standard hotkey path, inline refusal, stacking; command_mode_hint golden; test_the_shortcut_saves_through_the_hotkey_path, test_a_taken_shortcut_is_refused_inline, test_stacks_when_a_button_floor_exceeds_its_hint."
+  },
+  "A13-41": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/commands_page.cpp",
+    "src/ui_personalize/transforms_panel.cpp",
+    "src/ui_personalize/command_shortcut_field.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_commands_page.cpp"
+   ],
+   "note": "test_writing_without_a_selection_is_a_saved_switch, test_the_page_says_rewrites_are_kept_in_history."
+  },
+  "A13-42": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/commands_page.cpp",
+    "src/ui_personalize/transforms_panel.cpp",
+    "src/ui_personalize/command_shortcut_field.cpp",
+    "src/ui_personalize/personalize_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_commands_page.cpp",
+    "tests/ui_personalize/test_styles_commands_feature.cpp"
+   ],
+   "note": "test_the_ai_cleanup_notice_shows_only_without_a_provider; readiness checked off-thread, latest ask wins."
+  },
+  "A13-43": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/commands_page.cpp",
+    "src/ui_personalize/transforms_panel.cpp",
+    "src/ui_personalize/command_shortcut_field.cpp",
+    "src/text/transforms.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_commands_page.cpp",
+    "tests/ui_personalize/test_unsaved_drafts.cpp",
+    "tests/ui_personalize/test_styles_commands_screenshots.cpp"
+   ],
+   "note": "Save/register, capture conflict refused and reverted, invalid transforms, starters, unsaved draft prompts, duplicates stay drafts (name[:72] + ' copy'), delete asks; transforms goldens in tests/text. Its reference-screenshot pixel half skips here and the widget-tree half fails only on Segoe UI label widths (geometry messages only, checked)."
+  },
+  "A13-44": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/commands_page.cpp",
+    "src/ui_personalize/transforms_panel.cpp",
+    "src/ui_personalize/command_shortcut_field.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_commands_page.cpp"
+   ],
+   "note": "test_profile_shortcuts_are_listed_and_link_to_profiles."
+  },
+  "A13-45": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/commands_page.cpp",
+    "src/ui_personalize/transforms_panel.cpp",
+    "src/ui_personalize/command_shortcut_field.cpp",
+    "src/text/personalize_copy.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_commands_page.cpp",
+    "tests/ui_personalize/test_cleanup_golden.cpp"
+   ],
+   "note": "settings_commands rail_value golden; test_basic_has_a_command_mode_shortcut_row, test_basic_says_command_mode_needs_an_ai_model."
+  },
+  "A13-46": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/show_watcher.cpp",
+    "src/ui_personalize/show_watcher.h",
+    "src/ui_personalize/personalize_page.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_personalize_page.cpp"
+   ],
+   "note": "'ShowWatcher calls back on every show and survives a callback that throws'; 'PersonalizePage re-syncs on every show and never writes while loading'."
+  },
+  "A13-47": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/cleanup_prompt_dialog.cpp",
+    "src/ui_personalize/cleanup_prompt_dialog.h"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_cleanup_rule_dialog.cpp",
+    "tests/ui_personalize/test_screenshots.cpp"
+   ],
+   "note": "Title, 520x420 minimum, 560x480, untrimmed prompt_text, Cancel rejects. Its reference-screenshot pixel half skips here and the widget-tree half fails only on Segoe UI label widths (geometry messages only, checked)."
+  },
+  "A13-48": {
+   "status": "verified",
+   "cpp": [
+    "src/text/cleanup_levels.cpp",
+    "src/text/cleanup_levels.h"
+   ],
+   "tests": [
+    "tests/text/test_cleanup_prompts.cpp"
+   ],
+   "note": "SEGMENTS and segment_index (unknown -> Medium) replay the ui_qt.dialogs.cleanup_levels golden."
+  },
+  "A13-49": {
+   "status": "fixed",
+   "cpp": [
+    "src/ui_personalize/cleanup_agent_offer.cpp",
+    "src/llm/cleanup_agent_offer.cpp",
+    "src/ui_controller/personalize_wiring.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_cleanup_agent_offer.cpp",
+    "tests/llm/test_cleanup_agent_offer.cpp"
+   ],
+   "note": "Ported in ui_personalize/cleanup_agent_offer.{h,cpp}: after cleanup is turned on, maybeOffer is queued (never inside the toggle), the signed-in Claude Code / Codex are taken from the cached scan or looked for off the GUI thread, and the 'AI cleanup' question offers 'Use <Agent>' / 'Keep <provider>' (Escape keeps). Accepting switches the provider and remembered model only after the same consent question the AI cleanup settings ask (FioriVoce's step, difference a04-agent-cleanup-scope); declining either question sets cleanup_agent_offer_answered. Pinned by tests/ui_personalize/test_cleanup_agent_offer.cpp 'test_yes_switches_and_refreshes', 'test_no_declines', 'declining the consent question declines the offer', 'test_nothing_is_asked_without_an_agent_or_when_not_due', 'without a cached scan the agents are looked for off the GUI thread'. The tests answer the box through a seam, so its button texts are read in code."
+  },
+  "A13-50": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_walkthrough/new_style_dialog.cpp",
+    "src/ui_walkthrough/new_style_dialog.h"
+   ],
+   "tests": [
+    "tests/ui_walkthrough/test_tab_styles.cpp",
+    "tests/ui_walkthrough/test_tab_screenshots.cpp"
+   ],
+   "note": "Copy, accessible names, Save style inside a settings mutation, ValueError shown inline with the dialog left open: 'your own words can be saved as a style', 'a new style that cant be saved says why', 'cancelling a new style…' (run here, passed)."
+  },
+  "A13-51": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/text_endpoint_dialog.cpp",
+    "src/ui_widgets/text_endpoint_dialog.h"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_text_endpoint_dialog.cpp",
+    "tests/ui_widgets/test_reference_screenshots.cpp"
+   ],
+   "note": "Add, edit and local-preset modes with their titles, placeholders, protocol combo and payload; the hidden preset name is still validated. Its reference-screenshot pixel half skips here and the widget-tree half fails only on Segoe UI label widths (geometry messages only, checked)."
+  },
+  "A13-52": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/speech_server_dialog.cpp",
+    "src/ui_widgets/speech_server_dialog.h"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_speech_server_controls.cpp"
+   ],
+   "note": "'the editor shows the server and saves its fields', 'dialog reports a bad address'. FioriVoce keeps the API speech backend, so the dialog is ported."
+  },
+  "A13-53": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/speech_server_controls.cpp",
+    "src/ui_widgets/speech_server_controls.h"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_speech_server_controls.cpp"
+   ],
+   "note": "Server list, Custom without an address opens the editor and restores the selection, off-thread catalog per (endpoint, address), late catalogs kept but not shown, unreachable tooltip; 9 cases."
+  },
+  "A13-54": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/speech_backend_picker.cpp",
+    "src/ui_widgets/speech_backend_picker.h"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_speech_backend_picker.cpp"
+   ],
+   "note": "backend_display_name and populate_backend_combo for FioriVoce's engines (API, Parakeet, Remote computer): alphabetical by casefold, id as data, unknown -> default. The Apple-silicon labels ('Parakeet MLX (recommended)', 'Parakeet (CPU)', the MLX tooltips, speech_model_picker_label's suffixes) are macOS-only and their engines are dropped, as the row and M2.15 say."
+  },
+  "A13-55": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/text_model_picker.cpp",
+    "src/ui_widgets/text_model_picker.h"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_text_model_picker.cpp",
+    "tests/ui_widgets/test_text_model_references.cpp"
+   ],
+   "note": "_DESCRIPTIONS, _description and _reload_provider_combo goldens; Custom restores the selection and asks to add."
+  },
+  "A13-56": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/text_model_picker.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_text_model_picker.cpp"
+   ],
+   "note": "_update_credential_status golden; URL elided in the middle at 220 px with the full URL as tooltip; the missing-key sentences."
+  },
+  "A13-57": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/text_model_picker.cpp",
+    "src/ui_personalize/cleanup_model_section.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_text_model_picker.cpp",
+    "tests/ui_personalize/test_cleanup_model_section.cpp"
+   ],
+   "note": "Edit for custom and local servers, Delete for custom only; the host's in-use refusal and 'Delete endpoint' confirmation (No default) are asserted verbatim."
+  },
+  "A13-58": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/text_model_picker.cpp",
+    "src/ui_widgets/searchable_combo.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_text_model_picker.cpp",
+    "tests/ui_widgets/test_searchable_combo.cpp"
+   ],
+   "note": "Activation on Enter or a list pick only for another model, typed fragments revert on focus-out, invalid models disabled with the reason, the Active badge (golden), per-endpoint staged models."
+  },
+  "A13-59": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/text_model_picker.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_text_model_picker.cpp"
+   ],
+   "note": "_SORT_OPTIONS golden; sort combo only for OpenRouter, alphabetical elsewhere, Refresh and the loading status."
+  },
+  "A13-60": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_widgets/text_model_picker.cpp"
+   ],
+   "tests": [
+    "tests/ui_widgets/test_text_model_picker.cpp"
+   ],
+   "note": "'running local servers are marked and described', 'the first address of a kind found names where it answers'."
+  },
+  "A13-61": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/dictionary_page.cpp",
+    "src/ui_personalize/snippets_page.cpp",
+    "src/ui_personalize/styles_page.cpp",
+    "src/ui_personalize/commands_page.cpp",
+    "src/text/personalize_copy.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_dictionary_page.cpp",
+    "tests/ui_personalize/test_snippets_page.cpp",
+    "tests/ui_personalize/test_styles_page.cpp",
+    "tests/ui_personalize/test_commands_page.cpp",
+    "tests/ui_personalize/test_styles_commands_feature.cpp",
+    "tests/text/test_personalize_copy.cpp"
+   ],
+   "note": "Each page's rail value and home rows are covered under A13-11, 19, 27 and 45; 'the feature registers Apps & styles, Profiles and Commands with their rail values'."
+  },
+  "A13-62": {
+   "status": "verified",
+   "cpp": [
+    "src/ui_personalize/personalize_page.cpp",
+    "src/ui_personalize/personalize_page.h",
+    "src/ui_personalize/personalize_host.cpp",
+    "src/ui_personalize/personalize_feature.cpp"
+   ],
+   "tests": [
+    "tests/ui_personalize/test_personalize_page.cpp",
+    "tests/ui_personalize/test_personalize_feature.cpp",
+    "tests/ui_personalize/test_dictionary_page.cpp"
+   ],
+   "note": "PersonalizePage carries title, subtitle, search fields, controls, load/sync/rail/save_drafts/cancel_capture/home rows through registerPersonalizePage; 17 page cases and 'the page's own copy: subtitle, search fields and controls'."
+  }
+ },
+ "differences": [
+  {
+   "id": "a13-cleanup-agent-apply-and-consent",
+   "features": [
+    "A15-49",
+    "A11-51"
+   ],
+   "openwhisper": "In Settings > AI cleanup the agent tiles are always shown above the Cleanup model tile, and clicking a tile saves that agent, or the built-in model, at once.",
+   "fiorivoce": "The tiles appear after choosing Installed agent… in the provider dropdown, or while an agent is saved. A click only stages a tile; Apply runner commits it, and an agent is saved only after a confirmation that names it as the destination. Applying the built-in API / local model tile clears the approval, and a model picked for a staged agent is saved with Apply.",
+   "reason": "An installed agent receives the dictated words, so choosing one is confirmed for the named agent before anything is saved or sent.",
+   "source": "README.md, AI cleanup for dictation (the flow of commit 139a97b); src/ui_personalize/cleanup_model_section.cpp; tests/ui_personalize/test_cleanup_agent_choice.cpp and tests/ui_controller/test_agent_cleanup_consent.cpp"
+  },
+  {
+   "id": "a13-rule-dictation-no-journal",
+   "features": [
+    "A13-32"
+   ],
+   "openwhisper": "Rule dictation ends each take with clear_recording_data(), which leaves one recording journal folder per rule dictation under the temporary folder.",
+   "fiorivoce": "Rule dictation ends each take with clear_recording_data(true), which discards the take's journal, so no folder is left behind.",
+   "reason": "A rule's spoken words are not a dictation to recover.",
+   "source": "The final sweep of 2026-11-19 (open item ui_personalize/cleanup_page.cpp addCleanupHomeRows); src/ui_personalize/rule_dictation.cpp; tests/ui_personalize/test_sweep_rule_journal.cpp ('sweep: a rule dictation leaves no recording journal behind')"
+  }
+ ]
+}

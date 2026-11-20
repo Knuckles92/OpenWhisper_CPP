@@ -1,0 +1,293 @@
+{
+  "package": "M7.10, M7.15, M7.18, M7.20, M8.7 (partial)",
+  "files": {
+    "tests/test_meeting_settings_dialog.py": {
+      "TestKnowledgeFolderSettings::test_load_save_and_clear_round_trip": {
+        "status": "ported",
+        "cpp": "tests/ui_meeting/test_meeting_intelligence_settings.cpp",
+        "note": "Uses meeting language as the unrelated setting because FioriVoce only supports Parakeet."
+      },
+      "TestKnowledgeFolderSettings::test_browse_sets_path_and_enables_search": {
+        "status": "ported",
+        "cpp": "tests/ui_meeting/test_meeting_intelligence_settings.cpp",
+        "note": "Fakes the directory chooser and exercises the native Browse button."
+      }
+    },
+    "tests/test_meeting_linux_audio_dialog.py": {
+      "TestMeetingLinuxAudioDialog::test_copy_command_and_guide": {
+        "status": "other-platform",
+        "reason": "Linux PulseAudio/PipeWire readiness and remediation dialog; Windows uses its own system-audio path."
+      },
+      "TestMeetingLinuxAudioDialog::test_frozen_guide_url_resolves_beneath_bundle_root": {
+        "status": "other-platform",
+        "reason": "Linux PulseAudio/PipeWire readiness and remediation dialog; Windows uses its own system-audio path."
+      },
+      "TestMeetingLinuxAudioDialog::test_retry_ready_finishes": {
+        "status": "other-platform",
+        "reason": "Linux PulseAudio/PipeWire readiness and remediation dialog; Windows uses its own system-audio path."
+      },
+      "TestMeetingLinuxAudioDialog::test_mic_only_and_cancel": {
+        "status": "other-platform",
+        "reason": "Linux PulseAudio/PipeWire readiness and remediation dialog; Windows uses its own system-audio path."
+      },
+      "TestMeetingLinuxAudioDialog::test_buttons_keep_their_label_width_at_any_dialog_width": {
+        "status": "other-platform",
+        "reason": "Linux PulseAudio/PipeWire readiness and remediation dialog; Windows uses its own system-audio path."
+      },
+      "TestMeetingLinuxAudioDialog::test_continue_microphone_only_is_the_primary_default": {
+        "status": "other-platform",
+        "reason": "Linux PulseAudio/PipeWire readiness and remediation dialog; Windows uses its own system-audio path."
+      },
+      "TestMeetingLinuxAudioDialog::test_diagnostic_only_commands_start_folded": {
+        "status": "other-platform",
+        "reason": "Linux PulseAudio/PipeWire readiness and remediation dialog; Windows uses its own system-audio path."
+      },
+      "TestMeetingLinuxAudioDialog::test_short_screen_scrolls_the_explanation_not_the_buttons": {
+        "status": "other-platform",
+        "reason": "Linux PulseAudio/PipeWire readiness and remediation dialog; Windows uses its own system-audio path."
+      },
+      "TestMeetingLinuxAudioDialog::test_fits_its_explanation_when_the_screen_has_room": {
+        "status": "other-platform",
+        "reason": "Linux PulseAudio/PipeWire readiness and remediation dialog; Windows uses its own system-audio path."
+      },
+      "TestMeetingLinuxAudioDialog::test_ensure_helper_ready_path": {
+        "status": "other-platform",
+        "reason": "Linux PulseAudio/PipeWire readiness and remediation dialog; Windows uses its own system-audio path."
+      },
+      "TestMeetingLinuxAudioDialog::test_ensure_helper_non_linux": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_readiness.cpp", "note": "case: test_first_start_runs_shared_setup (Windows rows): on win32 the start goes from setup straight to start_meeting with the setup's policy, never through Linux remediation (the bypass)"},
+      "TestMeetingLinuxAudioDialog::test_unknown_family_has_no_apt_command": {
+        "status": "other-platform",
+        "reason": "Linux PulseAudio/PipeWire readiness and remediation dialog; Windows uses its own system-audio path."
+      },
+      "TestMeetingLinuxAudioDialog::test_remediation_varies_by_package_family": {
+        "status": "other-platform",
+        "reason": "Linux PulseAudio/PipeWire readiness and remediation dialog; Windows uses its own system-audio path."
+      },
+      "TestMeetingLinuxAudioDialog::test_retry_failed_updates_dialog": {
+        "status": "other-platform",
+        "reason": "Linux PulseAudio/PipeWire readiness and remediation dialog; Windows uses its own system-audio path."
+      },
+      "TestMeetingLinuxAudioDialog::test_blocking_retry_marshals_ready_result_to_gui_thread": {
+        "status": "other-platform",
+        "reason": "Linux PulseAudio/PipeWire readiness and remediation dialog; Windows uses its own system-audio path."
+      },
+      "TestMeetingLinuxAudioDialog::test_ensure_helper_bounds_probe_timeout": {
+        "status": "other-platform",
+        "reason": "Linux PulseAudio/PipeWire readiness and remediation dialog; Windows uses its own system-audio path."
+      },
+      "TestMeetingLinuxAudioDialog::test_late_ready_after_timeout_does_not_auto_accept": {
+        "status": "other-platform",
+        "reason": "Linux PulseAudio/PipeWire readiness and remediation dialog; Windows uses its own system-audio path."
+      },
+      "TestMeetingLinuxAudioDialog::test_retry_after_hung_probe_uses_fresh_daemon_worker": {
+        "status": "other-platform",
+        "reason": "Linux PulseAudio/PipeWire readiness and remediation dialog; Windows uses its own system-audio path."
+      },
+      "TestMeetingLinuxAudioDialog::test_a_dialog_closed_mid_probe_is_not_held_by_the_worker": {
+        "status": "other-platform",
+        "reason": "Linux PulseAudio/PipeWire readiness and remediation dialog; Windows uses its own system-audio path."
+      }
+    },
+    "tests/test_meeting_audio_consent_dialog.py": {
+      "TestCloudConsentCopy::test_cloud_consent_names_local_endpoint": {"status":"ported","cpp":"tests/ui_meeting/test_meeting_intelligence_settings.cpp","note":"Checks the resolved loopback name and dialog grant."},
+      "TestCloudConsentCopy::test_cloud_consent_names_remote_endpoint": {"status":"ported","cpp":"tests/ui_meeting/test_meeting_intelligence_settings.cpp","note":"Checks destination classification and that a different endpoint has no grant."},
+      "TestCloudConsentCopy::test_cloud_consent_names_a_fast_judgments_judge_elsewhere": {"status": "dropped", "reason": "Meeting Fast Judgments use a device-local judge. Hosted judge destinations are unavailable in this flow."},
+      "TestCloudConsentCopy::test_cloud_consent_does_not_claim_audio_never_leaves": {"status": "ported", "cpp": "tests/ui_meeting/test_ai_insights_copy.cpp", "note": "case: TestCloudConsentCopy::test_cloud_consent_does_not_claim_audio_never_leaves"},
+      "TestAudioConsentDialog::test_buttons_and_default_result": {"status": "dropped", "reason": "No setting-time OpenAI audio-upload consent exists in FioriVoce: the optional OpenAI speaker pass runs only from Past Meetings' explicit action, which asks each time and names what is sent (tests/meeting/test_cloud_speakers.cpp; the presenter's box in tests/ui_meeting/test_meeting_readiness.cpp 'the explicit speaker pass names what is sent to OpenAI and defaults to Cancel'; audit difference a31-speaker-pass-explicit)"},
+      "TestAudioConsentDialog::test_enable_records_result": {"status": "dropped", "reason": "No setting-time OpenAI audio-upload consent exists in FioriVoce: the optional OpenAI speaker pass runs only from Past Meetings' explicit action, which asks each time and names what is sent (tests/meeting/test_cloud_speakers.cpp; the presenter's box in tests/ui_meeting/test_meeting_readiness.cpp 'the explicit speaker pass names what is sent to OpenAI and defaults to Cancel'; audit difference a31-speaker-pass-explicit)"},
+      "TestAudioConsentDialog::test_copy_mentions_system_audio_and_openai": {"status": "dropped", "reason": "No setting-time OpenAI audio-upload consent exists in FioriVoce: the optional OpenAI speaker pass runs only from Past Meetings' explicit action, which asks each time and names what is sent (tests/meeting/test_cloud_speakers.cpp; the presenter's box in tests/ui_meeting/test_meeting_readiness.cpp 'the explicit speaker pass names what is sent to OpenAI and defaults to Cancel'; audit difference a31-speaker-pass-explicit)"}
+    },
+    "tests/test_meeting_recovery_ui.py": {
+      "test_recovery_scan_failure_has_modeless_retry_at_narrow_width": {"status":"ported","cpp":"tests/ui_meeting/test_meeting_presenter.cpp","note":"The narrow desktop window exposes one modeless scan warning, refreshes the status and closes it on Retry."}
+    },
+    "tests/test_meeting_mode_tab.py": {
+      "TestMeetingModeTabRegistration::test_meeting_mode_is_the_last_tab": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_presenter.cpp"},
+      "TestMeetingModeTabRegistration::test_launch_controls_are_named_and_keyboard_reachable": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp", "note": "the tab only; the title bar close button's name is the main window's (M7.20)"},
+      "TestMeetingModeTabRegistration::test_sidebar_switches_to_past_meetings_for_meeting_mode": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_feature.cpp", "note": "case: test_sidebar_switches_to_past_meetings_for_meeting_mode, over the presenter's registered tab and History's sidebar"},
+      "TestMeetingModeTabRegistration::test_compact_mode_does_not_require_footer_meeting_strip": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_feature.cpp", "note": "case: test_compact_mode_does_not_require_footer_meeting_strip"},
+      "TestMeetingModeTabRegistration::test_expanded_past_meetings_keeps_primary_controls_visible": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_feature.cpp", "note": "case: test_expanded_past_meetings_keeps_primary_controls_visible (985x800 window, sidebar at its expanded width)"},
+      "TestMeetingModeWindowHeight::test_stage_changes_never_resize_the_window": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp", "note": "in a plain top-level widget: the page content's size hint, which PageFit measures, holds through every stage; the same check inside MainWindow with PageFit is M7.20's"},
+      "TestMeetingModeWindowHeight::test_narrow_window_stacks_the_column_above_the_stage": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeWindowHeight::test_switch_to_and_from_meeting_mode_adjusts_height": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_feature.cpp", "note": "case: test_switch_to_and_from_meeting_mode_adjusts_height; Quick Record is a short scroll-area stand-in page"},
+      "TestMeetingModeTabState::test_unchanged_finalization_steps_keep_their_rows": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_an_elapsed_update_does_not_restart_a_paused_clock": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_retained_state_keeps_the_clock_through_pause_and_resume": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_state_replayed_into_a_new_tab_counts_from_when_it_was_read": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_idle_shows_start_controls": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_platform_copy_does_not_promise_unavailable_system_audio": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_platform_copy_marks_pre_screencapturekit_macos_unsupported": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_developer_mode_shows_demo_meeting_control": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_active_payload_switches_layout": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_starting_is_non_active_and_does_not_run_timer": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_startup_status_does_not_flash_idle_before_active_confirmation": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_startup_failure_returns_to_idle_after_early_active_status": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_start_emits_cloud_choice": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_start_emits_typed_meeting_brief": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_brief_is_hidden_while_ai_insights_are_off": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_brief_follows_switch_changes_made_without_signals": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_meeting_brief_is_capped_at_the_validation_limit": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_meeting_brief_field_is_hidden_during_a_meeting": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_stage_follows_the_meeting": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_recent_meetings_open_from_the_empty_stage": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_cloud_checkbox_presents_compact_tooltip": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_ai_insights_switch_names_the_feature_not_the_location": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_remote_speech_status_names_actual_host_and_connection": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp", "note": "the spec gave it to M9; the remote line of set_meeting_state is ported here. the idle remote line of refresh_ai_destination is setRemoteSpeechHost, which M9's presenter calls"},
+      "TestMeetingModeTabState::test_beta_tag_marks_the_title_not_the_speech_note": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_ai_details_show_only_while_setting_up": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_change_link_requests_intelligence_settings": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_ai_destination_holds_still_during_a_meeting": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_brief_field_behaves_like_a_form_control": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_running_finalization_holds_start_and_shows_indeterminate_bar": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_completed_and_disabled_restore_start": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_empty_meeting_stays_visible_and_disables_speaker_rerun": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_unavailable_and_failed_use_warning_tone": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_continue_in_background_appears_after_local_pass_and_emits": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_incomplete_result_groups_actions_by_context": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_starting_clears_previous_finalization": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_finalization_open_report_remains_wired_after_ended": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_failed_finalization_shows_retry_button_and_emits_signal": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_on_device_labels_hide_speaker_rerun": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_missing_consent_disables_speaker_rerun_with_reason": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_eligible_speaker_rerun_is_enabled": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_refused_speaker_step_rerun_is_disabled_with_reason": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_multi_step_progress_rendering": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_running_step_without_detail_reads_in_progress": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_completed_hides_recap_and_keeps_checklist": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_failed_redecode_under_completed_shows_retry_controls": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_incomplete_card_keeps_start_and_emits_keep_later": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_recording_elsewhere_holds_start_in_every_idle_state": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_completed_card_keeps_idle_start_and_emits_done": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_disabled_card_emits_done": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_leftover_card_shows_identity_and_report_button": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestMeetingModeTabState::test_empty_meeting_disables_open_report": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_mode_tab.cpp"},
+      "TestAiInsightsDestination::test_remote_provider_sends_text_but_never_audio": {"status": "ported", "cpp": "tests/ui_meeting/test_ai_insights_copy.cpp", "note": "case: test_remote_provider_sends_text_but_never_audio; the presenter's line is pinned by 'the tab's AI line is the destination and what leaves this computer' (test_meeting_readiness.cpp)"},
+      "TestAiInsightsDestination::test_local_provider_runs_on_this_pc": {"status": "ported", "cpp": "tests/ui_meeting/test_ai_insights_copy.cpp", "note": "case: test_local_provider_runs_on_this_pc"},
+      "TestAiInsightsDestination::test_local_provider_makes_no_privacy_claim_while_typesafe_is_on": {"status": "dropped", "reason": "FioriVoce's meetings use only a Fast judgments judge on this computer (live topic judge, review and search take local_fast_judge only; docs/port/differences.md, the a30 review/search record), so a hosted judge receives no meeting excerpts and the local claim is not withdrawn; test_ai_insights_copy.cpp 'test_local_fast_judgments_keep_the_privacy_claim' pins the kept claim (audit difference a31-meeting-judge-stays-local)"},
+      "TestAiInsightsDestination::test_local_fast_judgments_keep_the_privacy_claim": {"status": "ported", "cpp": "tests/ui_meeting/test_ai_insights_copy.cpp", "note": "case: test_local_fast_judgments_keep_the_privacy_claim; the hosted-judge half reads 'transcript text stays on this computer' because FioriVoce's meetings judge only on this computer (difference a31-meeting-judge-stays-local)"},
+      "TestAiInsightsDestination::test_unresolvable_profile_points_to_settings": {"status": "ported", "cpp": "tests/ui_meeting/test_ai_insights_copy.cpp", "note": "case: test_unresolvable_profile_points_to_settings (the profile resolver injected through AiCopyDeps)"}
+    },
+    "tests/test_past_meetings_panel.py": {
+      "test_panel_filters_live_sessions_and_emits_selected_meeting": {"status": "ported", "cpp": "tests/ui_meeting/test_past_meetings_panel.cpp"},
+      "test_panel_shows_empty_state": {"status": "ported", "cpp": "tests/ui_meeting/test_past_meetings_panel.cpp"},
+      "test_panel_shows_insights_pills": {"status": "ported", "cpp": "tests/ui_meeting/test_past_meetings_panel.cpp"},
+      "test_failed_and_empty_meetings_are_labeled_honestly": {"status": "ported", "cpp": "tests/ui_meeting/test_past_meetings_panel.cpp"},
+      "test_untitled_row_shows_topic_as_title": {"status": "ported", "cpp": "tests/ui_meeting/test_past_meetings_panel.cpp"},
+      "test_panel_search_filters_and_empty_copy": {"status": "ported", "cpp": "tests/ui_meeting/test_past_meetings_panel.cpp"},
+      "test_repository_refresh_runs_off_ui_thread_and_requests_one_page": {"status": "ported", "cpp": "tests/ui_meeting/test_past_meetings_panel.cpp"},
+      "test_subminute_duration_uses_seconds_instead_of_zero_minutes": {"status": "ported", "cpp": "tests/ui_meeting/test_past_meetings_panel.cpp"}
+    },
+    "tests/test_past_meetings_delete.py": {
+      "TestPastMeetingsDelete::test_delete_follows_the_confirmation": {"status": "ported", "cpp": "tests/ui_meeting/test_past_meetings_delete.cpp"},
+      "TestPastMeetingsDelete::test_dont_ask_again_preference_is_saved": {"status": "ported", "cpp": "tests/ui_meeting/test_past_meetings_delete.cpp"},
+      "TestPastMeetingsDelete::test_saved_opt_out_skips_confirmation_and_keeps_recordings": {"status": "ported", "cpp": "tests/ui_meeting/test_past_meetings_delete.cpp"},
+      "TestPastMeetingsDelete::test_clear_history_emits_keep_recordings": {"status": "ported", "cpp": "tests/ui_meeting/test_past_meetings_delete.cpp"},
+      "TestPastMeetingsDelete::test_clear_history_and_recordings_emits_delete_spools": {"status": "ported", "cpp": "tests/ui_meeting/test_past_meetings_delete.cpp"},
+      "TestPastMeetingsDelete::test_clear_actions_are_disabled_when_empty": {"status": "ported", "cpp": "tests/ui_meeting/test_past_meetings_delete.cpp"},
+      "TestPastMeetingsDelete::test_clear_actions_are_enabled_when_meetings_exist": {"status": "ported", "cpp": "tests/ui_meeting/test_past_meetings_delete.cpp"}
+    },
+    "tests/test_past_meetings_show_in_folder.py": {
+      "TestShowInFolderAction::test_action_is_enabled_when_the_spool_folder_exists": {"status": "ported", "cpp": "tests/ui_meeting/test_past_meetings_panel.cpp", "note": "the launched command is recorded through file_reveal's hooks (M0.10)"},
+      "TestShowInFolderAction::test_action_is_listed_but_disabled_without_a_spool_dir": {"status": "ported", "cpp": "tests/ui_meeting/test_past_meetings_panel.cpp", "note": "the launched command is recorded through file_reveal's hooks (M0.10)"},
+      "TestShowInFolderAction::test_action_is_disabled_once_the_recordings_are_cleared": {"status": "ported", "cpp": "tests/ui_meeting/test_past_meetings_panel.cpp", "note": "the launched command is recorded through file_reveal's hooks (M0.10)"},
+      "TestShowInFolderAction::test_a_relative_spool_dir_resolves_against_the_working_directory": {"status": "ported", "cpp": "tests/ui_meeting/test_past_meetings_panel.cpp", "note": "the launched command is recorded through file_reveal's hooks (M0.10)"},
+      "TestShowInFolderAction::test_triggering_opens_the_meeting_folder": {"status": "ported", "cpp": "tests/ui_meeting/test_past_meetings_panel.cpp", "note": "the launched command is recorded through file_reveal's hooks (M0.10)"},
+      "TestShowInFolderAction::test_nothing_is_opened_when_the_card_has_no_folder": {"status": "ported", "cpp": "tests/ui_meeting/test_past_meetings_panel.cpp", "note": "the launched command is recorded through file_reveal's hooks (M0.10)"}
+    },
+    "tests/test_meeting_delete_dialog.py": {
+      "test_options_stay_in_layout_after_show_and_resize": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_delete_dialog.cpp"},
+      "test_cancel_comes_first_and_delete_is_the_danger_action": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_delete_dialog.cpp"},
+      "test_confirmation_actions": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_delete_dialog.cpp"}
+    },
+    "tests/test_meeting_export_dialog.py": {
+      "TestMeetingExportDialog::test_empty_state_has_no_export_button": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_export_dialog.cpp"},
+      "TestMeetingExportDialog::test_resolve_targets_filters_date_range": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_export_dialog.cpp"},
+      "TestMeetingExportDialog::test_selected_scope_uses_checked_meetings": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_export_dialog.cpp"},
+      "TestMeetingExportDialog::test_markdown_toggles_disable_for_json": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_export_dialog.cpp"},
+      "TestMeetingExportDialog::test_default_path_is_absolute_and_follows_format": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_export_dialog.cpp"},
+      "TestMeetingExportDialog::test_export_without_matches_does_not_start_worker": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_export_dialog.cpp"}
+    },
+    "tests/test_meeting_intro_dialog.py": {
+      "TestMeetingIntroDialog::test_copy_covers_mode_features_and_settings": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_intro_dialog.cpp"},
+      "TestMeetingIntroDialog::test_skip_keeps_skip_result": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_intro_dialog.cpp"},
+      "TestMeetingIntroDialog::test_got_it_records_result": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_intro_dialog.cpp"},
+      "TestMaybeShowMeetingIntro::test_skips_dialog_after_it_has_been_seen": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_intro_dialog.cpp"},
+      "TestMaybeShowMeetingIntro::test_skip_and_got_it_both_persist_seen": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_intro_dialog.cpp"},
+      "TestMeetingIntroAppearsOnFirstVisit::test_first_visit_shows_intro_after_tab_opens": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_feature.cpp", "note": "case: test_first_visit_shows_intro_after_tab_opens (the presenter schedules the intro; its run injected through MeetingPresenter::Hooks)"},
+      "TestMeetingIntroAppearsOnFirstVisit::test_seen_intro_does_not_show_again": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_feature.cpp", "note": "case: test_seen_intro_does_not_show_again (the presenter schedules the intro; its run injected through MeetingPresenter::Hooks)"},
+      "TestMeetingIntroAppearsOnFirstVisit::test_active_meeting_does_not_block_on_intro": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_feature.cpp", "note": "case: test_active_meeting_does_not_block_on_intro (the presenter schedules the intro; its run injected through MeetingPresenter::Hooks)"},
+      "TestMeetingIntroAppearsOnFirstVisit::test_restored_meeting_tab_shows_intro_on_first_show": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_feature.cpp", "note": "case: test_restored_meeting_tab_shows_intro_on_first_show (the presenter schedules the intro; its run injected through MeetingPresenter::Hooks)"},
+      "TestMeetingIntroAppearsOnFirstVisit::test_locked_tab_waits_for_platform_ack": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_feature.cpp", "note": "case: test_locked_tab_waits_for_platform_ack (the presenter schedules the intro; its run injected through MeetingPresenter::Hooks)"}
+    },
+    "tests/test_desktop_performance.py": {
+      "test_meeting_refresh_reuses_cards_and_preserves_selected_card": {"status": "ported", "cpp": "tests/ui_meeting/test_past_meetings_panel.cpp"}
+    },
+    "tests/test_meeting_setup.py": {
+      "test_setup_completion": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_setup_dialog.cpp", "note": "setup_complete over a settings snapshot (the store's load_all_settings is the caller's)"},
+      "test_dialog_persists_only_completed_setup": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_setup_dialog.cpp", "note": "the inspection and the audio check answer through the dialog's hooks in place of the monkeypatched functions; FioriVoce has one UI, so the classic and omarchy parameters are one case"},
+      "test_closing_waits_for_audio_devices_to_be_released": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_setup_dialog.cpp", "note": "the real check_audio over audio::FakeBackend: the dialog finishes only after the fake devices report closed"},
+      "test_setup_fits_narrow_windows": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_setup_dialog.cpp", "note": "100 and 130 % in the dark theme; the omarchy parameter has no FioriVoce counterpart"},
+      "test_first_start_runs_shared_setup": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_readiness.cpp", "note": "case: test_first_start_runs_shared_setup (Windows rows): the three win32 rows; the darwin and linux rows are other-platform"},
+      "test_inspect_remote_does_not_require_local_speech_models": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_readiness.cpp", "note": "case: test_inspect_remote_does_not_require_local_speech_models (meeting::inspect_models over SetupDeps)"}
+    },
+    "tests/test_application_controller.py": {
+      "TestApplicationController::test_recovery_scan_failure_routes_retry_to_runtime": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_presenter_flow.cpp", "note": "case: test_recovery_scan_failure_routes_retry_to_runtime (the presenter's non-modal 'Meeting Recovery' warning keeps the error, Later retries nothing, Retry scan calls MeetingRuntime::retry_recovery_scan)"}
+    },
+    "tests/test_ai_insights_agent_copy.py": {
+      "TestAiInsightsDestination::test_installed_agent_names_agent_and_model": {"status": "ported", "cpp": "tests/ui_meeting/test_ai_insights_copy.cpp", "note": "case: TestAiInsightsDestination::test_installed_agent_names_agent_and_model (the cached scan injected through AiCopyDeps; no agent configuration read)"},
+      "TestAiInsightsDestination::test_before_any_scan_it_names_the_choice": {"status": "ported", "cpp": "tests/ui_meeting/test_ai_insights_copy.cpp", "note": "case: TestAiInsightsDestination::test_before_any_scan_it_names_the_choice (the cached scan injected through AiCopyDeps; no agent configuration read)"},
+      "TestAiInsightsDestination::test_missing_agent_points_to_settings": {"status": "ported", "cpp": "tests/ui_meeting/test_ai_insights_copy.cpp", "note": "case: TestAiInsightsDestination::test_missing_agent_points_to_settings (the cached scan injected through AiCopyDeps; no agent configuration read)"},
+      "TestAiInsightsDestination::test_unusable_agent_says_what_to_fix": {"status": "ported", "cpp": "tests/ui_meeting/test_ai_insights_copy.cpp", "note": "case: TestAiInsightsDestination::test_unusable_agent_says_what_to_fix (the cached scan injected through AiCopyDeps; no agent configuration read)"},
+      "TestAiInsightsDestination::test_built_in_engine_is_unchanged": {"status": "ported", "cpp": "tests/ui_meeting/test_ai_insights_copy.cpp", "note": "case: TestAiInsightsDestination::test_built_in_engine_is_unchanged (the cached scan injected through AiCopyDeps; no agent configuration read)"},
+      "TestConsentForAnAgent::test_agent_copy_names_the_agent_not_the_endpoint": {"status": "ported", "cpp": "tests/ui_meeting/test_ai_insights_copy.cpp", "note": "case: TestConsentForAnAgent::test_agent_copy_names_the_agent_not_the_endpoint (the copy comes from the route resolved from the saved settings, meetingConsentCopy(route, settings))"},
+      "TestConsentForAnAgent::test_saved_agent_is_read_from_settings": {"status": "ported", "cpp": "tests/ui_meeting/test_ai_insights_copy.cpp", "note": "case: TestConsentForAnAgent::test_saved_agent_is_read_from_settings (the copy comes from the route resolved from the saved settings, meetingConsentCopy(route, settings))"},
+      "TestConsentForAnAgent::test_chosen_backup_is_named_in_the_consent": {"status": "ported", "cpp": "tests/ui_meeting/test_ai_insights_copy.cpp", "note": "case: TestConsentForAnAgent::test_chosen_backup_is_named_in_the_consent (the copy comes from the route resolved from the saved settings, meetingConsentCopy(route, settings))"},
+      "TestConsentForAnAgent::test_built_in_engine_keeps_the_endpoint_copy": {"status": "ported", "cpp": "tests/ui_meeting/test_ai_insights_copy.cpp", "note": "case: TestConsentForAnAgent::test_built_in_engine_keeps_the_endpoint_copy (the copy comes from the route resolved from the saved settings, meetingConsentCopy(route, settings))"}
+    },
+    "tests/test_meeting_start_readiness_seams.py": {
+      "test_start_seams_forward_ready_policy_once": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_readiness.cpp", "note": "case: test_start_seams_forward_ready_policy_once (tab and tray sections; the setup dialog's answer injected through MeetingPresenter::Hooks, the runtime a recording MeetingControls)"},
+      "test_start_seams_cancel_starts_nothing": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_readiness.cpp", "note": "case: test_start_seams_cancel_starts_nothing (tab and tray sections; the setup dialog's answer injected through MeetingPresenter::Hooks, the runtime a recording MeetingControls)"},
+      "test_start_seams_forward_mic_only_disabled": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_readiness.cpp", "note": "case: test_start_seams_forward_mic_only_disabled (tab and tray sections; the setup dialog's answer injected through MeetingPresenter::Hooks, the runtime a recording MeetingControls)"},
+      "test_demo_uses_platform_ack_without_audio_readiness": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_readiness.cpp", "note": "case: test_demo_uses_platform_ack_without_audio_readiness (Windows needs no acknowledgement; an injected unsupported platform asks once)"},
+      "test_demo_cancelled_by_platform_ack_starts_nothing": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_readiness.cpp", "note": "case: test_demo_cancelled_by_platform_ack_starts_nothing"},
+      "test_active_tray_end_requires_confirmation": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_readiness.cpp", "note": "case: test_active_tray_end_requires_confirmation (Yes and No; title, text and the No default checked)"},
+      "test_hotkey_controller_uses_readiness_once": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_readiness.cpp", "note": "case: test_hotkey_controller_uses_readiness_once (meeting_platform_ack_requested runs the presenter's start once)"},
+      "test_ensure_meeting_start_readiness_linux_after_setup": {"status": "other-platform", "reason": "Linux system-audio remediation (ensure_meeting_linux_system_audio after setup); Linux meeting capture is not part of the Windows product. The Windows path that skips it is pinned by test_meeting_readiness.cpp 'test_first_start_runs_shared_setup (Windows rows)'."}
+    },
+    "tests/test_meeting_unsupported_platform.py": {
+      "TestMeetingTabUnsupportedLock::test_windows_tab_is_not_muted_or_locked": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_feature.cpp", "note": "case: test_windows_tab_is_not_muted_or_locked (presenter on an injected win32 platform, acknowledgement unsaved)"}
+    },
+    "tests/test_startup_visibility.py": {
+      "test_startup_only_shows_the_requested_main_window": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_feature.cpp", "note": "case: test_startup_only_shows_the_requested_main_window: every saved tab, developer mode on and off; the switch always starts off (consent per meeting) and the platform hint is hidden on Windows, so those two parameters have one value each"}
+    },
+    "tests/test_typed_settings.py": {
+      "test_the_topic_shift_switch_shows_what_the_meeting_uses": {"status": "ported", "cpp": "tests/ui_meeting/test_topic_shift_setting.cpp", "note": "case: test_the_topic_shift_switch_shows_what_the_meeting_uses"}
+    },
+    "tests/test_code_change_restart.py": {
+      "test_a_meeting_error_after_the_change_offers_a_restart_with_the_error": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_readiness.cpp", "note": "case: 'a meeting error after a code change offers a restart with the error' (the presenter hands the error to ShellLifecycle::offerRestartForFailure, which ui_controller's CodeChangeRestart::offer fills; unchanged code shows 'Meeting Error')"}
+    },
+    "tests/test_history_calendar_wiring.py": {
+      "test_past_meetings_header_opens_the_calendar_too": {"status": "ported", "cpp": "tests/ui_meeting/test_meeting_feature.cpp", "note": "case: test_past_meetings_header_opens_the_calendar_too"}
+    },
+    "tests/test_settings_models.py": {
+      "TestMeetingDestinations::test_meeting_llm_activation_persists_provider_and_model": {"status": "ported", "cpp": "tests/ui_meeting/test_intelligence_page.cpp", "note": "case of the same name; the rail value is meeting_text_summary, the Intelligence page's railValue"},
+      "TestMeetingDestinations::test_meeting_custom_endpoint_activation_persists": {"status": "ported", "cpp": "tests/ui_meeting/test_intelligence_page.cpp", "note": "case of the same name; the rail value is meeting_text_summary, the Intelligence page's railValue"},
+      "TestMeetingAgentChoice::test_saved_agent_is_chosen_and_hides_the_built_in_insights_model": {"status": "ported", "cpp": "tests/ui_meeting/test_intelligence_page.cpp", "note": "case of the same name; the rail value is meeting_text_summary, the Intelligence page's railValue"},
+      "TestMeetingAgentChoice::test_backup_agent_is_off_until_chosen": {"status": "ported", "cpp": "tests/ui_meeting/test_intelligence_page.cpp", "note": "case of the same name; the rail value is meeting_text_summary, the Intelligence page's railValue"},
+      "TestMeetingAgentChoice::test_model_choice_merges_into_the_saved_models": {"status": "ported", "cpp": "tests/ui_meeting/test_intelligence_page.cpp", "note": "case of the same name; the rail value is meeting_text_summary, the Intelligence page's railValue"},
+      "TestMeetingAgentChoice::test_saved_agent_that_is_missing_stays_selected_with_a_notice": {"status": "ported", "cpp": "tests/ui_meeting/test_intelligence_page.cpp", "note": "case of the same name; the rail value is meeting_text_summary, the Intelligence page's railValue"},
+      "TestMeetingAgentChoice::test_opening_intelligence_uses_the_cached_scan": {"status": "ported", "cpp": "tests/ui_meeting/test_intelligence_page.cpp", "note": "case of the same name; the rail value is meeting_text_summary, the Intelligence page's railValue"},
+      "TestMeetingAgentChoice::test_openwhisper_restores_pi_when_it_was_the_last_built_in_core": {"status": "ported", "cpp": "tests/ui_meeting/test_intelligence_page.cpp", "note": "case of the same name; the rail value is meeting_text_summary, the Intelligence page's railValue"},
+      "TestMeetingAgentChoice::test_built_in_core_shows_the_insights_model_tile": {"status": "ported", "cpp": "tests/ui_meeting/test_intelligence_page.cpp", "note": "case of the same name; the built-in tile is named after the product (M8 lead decision 1); the Agent core combo and its notice are not built (M8 change 3)"},
+      "TestMeetingAgentChoice::test_choosing_an_agent_saves_it_and_openwhisper_restores_pi_even_if_missing": {"status": "ported", "cpp": "tests/ui_meeting/test_intelligence_page.cpp", "note": "case of the same name; the built-in tile is named after the product (M8 lead decision 1); the Agent core combo and its notice are not built (M8 change 3)"},
+      "TestMeetingAgentChoice::test_switching_to_an_installed_agent_restores_packaged_sdk_choice": {"status": "ported", "cpp": "tests/ui_meeting/test_intelligence_page.cpp", "note": "case of the same name; the built-in tile is named after the product (M8 lead decision 1); the Agent core combo and its notice are not built (M8 change 3)"},
+      "TestMeetingAgentChoice::test_legacy_direct_selection_shows_pi_without_an_api_option": {"status": "ported", "cpp": "tests/ui_meeting/test_intelligence_page.cpp", "note": "case of the same name; the built-in tile is named after the product (M8 lead decision 1); the Agent core combo and its notice are not built (M8 change 3)"},
+      "TestMeetingAgentChoice::test_agent_thinking_levels_load_and_save": {"status": "ported", "cpp": "tests/ui_meeting/test_intelligence_page.cpp", "note": "case of the same name; the tile description and the thinking note were missing and are ported (IntelligencePage::refreshRunner); the built-in agent's name is the product (M8 lead decision 1)"},
+      "TestMeetingAgentChoice::test_packaged_sdk_thinks_at_medium": {"status": "ported", "cpp": "tests/ui_meeting/test_intelligence_page.cpp", "note": "case of the same name; the tile description and the thinking note were missing and are ported (IntelligencePage::refreshRunner); the built-in agent's name is the product (M8 lead decision 1)"},
+      "TestMeetingAgentChoice::test_overview_names_the_agent_and_its_sign_in": {"status": "ported", "cpp": "tests/ui_meeting/test_intelligence_page.cpp", "note": "case: test_overview_names_the_agent_and_its_sign_in (meeting_intelligence_overview, meeting_intelligence_is_remote and agent_core_label); the where strip's item that reads it: tests/ui_settings/test_meeting_pages.cpp 'the where strip says where meeting audio goes'"}
+    },
+    "tests/test_remote_records_ui.py": {
+      "test_past_meetings_closed_mid_host_request_are_not_held_by_their_workers": {"status": "ported", "cpp": "tests/ui_meeting/test_past_meetings_host.cpp", "note": "case: test_past_meetings_closed_mid_host_request_are_not_held_by_their_workers (the panel's load with the host's listing); the presenter's fetch worker: tests/ui_meeting/test_past_meetings_presenter_host.cpp 'test_past_meetings_closed_mid_host_request_are_not_held_by_their_workers (the presenter's fetch)' (the panel deleted while check_out_from runs; its progress and done reach no panel and open nothing)"},
+      "test_opening_a_host_meeting_downloads_it_first": {"status": "ported", "cpp": "tests/ui_meeting/test_past_meetings_presenter_host.cpp", "note": "case: test_opening_a_host_meeting_downloads_it_first (through the presenter): a click on the host-kept card runs RecordSyncControl::check_out_from with the row's host pin, shows 'Getting it from devbox… 25%', then opens it (show_past_meeting); the panel half: tests/ui_meeting/test_past_meetings_panel.cpp 'opening a host-kept meeting asks the owner to fetch it, then selects it'"}
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+ "source": "Hand-written. Gemini chunks as sidecar-opencode/src/adapter.test.ts:49-53 serves them (candidates[0].content.parts, finishReason on the last), with a thought part split over two chunks whose second carries the thoughtSignature, then the answer in two chunks; the reply equals tests/fixtures/llm/generation/replies.json 'google'.",
+ "protocol": "google",
+ "equivalent": "google",
+ "frames": [
+  {"candidates": [{"content": {"role": "model", "parts": [{"text": "private ", "thought": true}]}}], "modelVersion": "synthetic"},
+  {"candidates": [{"content": {"role": "model", "parts": [{"text": "reasoning", "thought": true, "thoughtSignature": "signed-reasoning"}]}}], "modelVersion": "synthetic"},
+  {"candidates": [{"content": {"role": "model", "parts": [{"text": "Clean "}]}}], "modelVersion": "synthetic"},
+  {"candidates": [{"content": {"role": "model", "parts": [{"text": "text."}]}, "finishReason": "STOP"}], "modelVersion": "synthetic"}
+ ],
+ "events": [
+  ["thinking_start"],
+  ["thinking_delta", "private "],
+  ["thinking_delta", "reasoning"],
+  ["thinking_end"],
+  ["text_delta", "Clean "],
+  ["text_delta", "text."]
+ ],
+ "result": {
+  "text": "Clean text.",
+  "tool_calls": [],
+  "assistant_message": {"role": "assistant", "content": "Clean text.", "_google": [{"text": "private reasoning", "thought": true, "thoughtSignature": "signed-reasoning"}, {"text": "Clean text."}]},
+  "usage": null,
+  "finish_reason": "STOP"
+ }
+}
